@@ -1,0 +1,29 @@
+POST http://localhost:3000/api/hairextraction
+
+### 1. 上传图片
+POST http://localhost:3000/api/photoupload
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryABC123
+
+------WebKitFormBoundaryABC123
+Content-Disposition: form-data; name="image"; filename="test-portrait.jpg"
+Content-Type: image/jpeg
+
+< ./images/test-portrait.jpg
+------WebKitFormBoundaryABC123--
+
+### 2. 获取已上传的图片
+# @name uploadResponse
+GET http://localhost:3000/api/photoupload?fileName={{uploadResponse.response.body.fileName}}
+
+### 3. 测试发型处理
+POST http://localhost:3000/api/submit
+Content-Type: application/json
+
+{
+    "imageUrl": "/debug/images/shoulderlength.jpeg",
+    "hairStyle": "SlickBack",
+    "hairColor": "black"
+}
+
+### 4. 测试页面访问
+GET http://localhost:3000/selectstyle
