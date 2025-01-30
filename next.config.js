@@ -34,7 +34,9 @@ const nextConfig = {
             config.resolve.alias['http'] = 'http-browserify';
         }
         return config;
-    }
+    },
+    // 添加静态资源配置
+    assetPrefix: '',
 }
 
 module.exports = nextConfig 
