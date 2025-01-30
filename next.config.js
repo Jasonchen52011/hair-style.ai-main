@@ -4,6 +4,7 @@ const nextConfig = {
         domains: [
             'ailab-result-rapidapi.oss-accelerate.aliyuncs.com'
         ],
+        unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
@@ -14,15 +15,6 @@ const nextConfig = {
     eslint: {
         // 暂时关闭一些规则以允许构建
         ignoreDuringBuilds: true,
-    },
-    // 添加静态文件服务配置
-    async rewrites() {
-        return [
-            {
-                source: '/debug/images/:path*',
-                destination: '/debug/images/:path*',
-            },
-        ];
     },
     // 添加实验性配置
     experimental: {

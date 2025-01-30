@@ -186,11 +186,12 @@ export default function Hero() {
 
                     {/* 右侧图片 */}
                     <div className="hidden lg:block">
-                        {/* <img
+                        <img
                             src="/images/hero/hero4.jpg"
                             alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
                             className="w-full h-auto max-w-2xl mx-auto"
-                        /> */}
+                            loading="eager"
+                        />
                     </div>
                 </div>
             </div>
@@ -387,11 +388,11 @@ export default function Hero() {
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                {/* <img 
+                                <img 
                                     src="/images/hero/ba3.jpg" 
                                     alt="Before and after comparison of AI hairstyle transformation showing dramatic style change"
                                     className="w-[440px] h-[450px] object-cover rounded-xl"
-                                /> */}
+                                />
                             </div>
                         </div>
                     </div>
@@ -405,11 +406,11 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                {/* <img 
+                                <img 
                                     src="/images/hero/change.jpg" 
                                     alt="Multiple hairstyle options showcasing different looks on the same person using AI technology"
                                     className="w-[430px] h-[470px] object-cover rounded-xl"
-                                /> */}
+                                />
                             </div>
                             {/* 右侧内容 */}
                             <div>
@@ -467,11 +468,11 @@ export default function Hero() {
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                {/* <img 
+                                <img 
                                     src="/images/hero/ba5.jpg" 
                                     alt="Side-by-side comparison demonstrating the power of AI hairstyle transformation technology"
                                     className="w-[600px] h-[290px] object-cover rounded-xl"
-                                /> */}
+                                />
                             </div>
                         </div>
                     </div>

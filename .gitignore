@@ -28,8 +28,6 @@ pnpm-debug.log*
 .env.development
 .env.development.local
 .env.test.local
-.env.production
-.env.production.local
 
 # vercel
 .vercel
@@ -45,6 +43,5 @@ next-env.d.ts
 # npmrc
 .npmrc
 
-# env.production
-.env.production
+
 
