@@ -48,7 +48,7 @@ function SelectStylePageContent() {
         setUploadedImageUrl(imageUrl);
     };
 
-    // 添加下载处理函数
+    // 修改下载处理函数
     const handleDownload = async (imageUrl: string) => {
         try {
             const response = await fetch(imageUrl);
@@ -57,24 +57,45 @@ function SelectStylePageContent() {
             // 获取样式名称
             const styleMatch = imageUrl.match(/style=([^&]+)/);
             const styleName = styleMatch ? decodeURIComponent(styleMatch[1]).toLowerCase().replace(/\s+/g, '-') : 'hairstyle';
+            const fileName = `${styleName}-${new Date().getTime()}.jpg`;
+
+            // 检测是否是 iOS 设备
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${styleName}-${new Date().getTime()}.jpg`;
-            
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            
-            toast.success('Download started!', {
-                duration: 3000,
-                style: {
-                    background: '#1F2937',
-                    color: '#fff',
-                },
-            });
+            if (isIOS) {
+                // iOS 设备：在新标签页中打开图片
+                const imageUrl = URL.createObjectURL(blob);
+                window.open(imageUrl, '_blank');
+                // 延迟释放 URL
+                setTimeout(() => URL.revokeObjectURL(imageUrl), 1000);
+                
+                toast.success('Image opened in new tab. Long press to save.', {
+                    duration: 5000,
+                    style: {
+                        background: '#1F2937',
+                        color: '#fff',
+                    },
+                });
+            } else {
+                // 其他设备：正常下载
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                toast.success('Download started!', {
+                    duration: 3000,
+                    style: {
+                        background: '#1F2937',
+                        color: '#fff',
+                    },
+                });
+            }
         } catch (error) {
             console.error('Download failed:', error);
             toast.error('Failed to download image');
@@ -96,8 +117,6 @@ function SelectStylePageContent() {
                 return;
             }
 
-            const loadingToast = toast.loading('Uploading image...');
-            
             // 创建 FormData
             const formData = new FormData();
             formData.append('image', file);
@@ -106,12 +125,9 @@ function SelectStylePageContent() {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setUploadedImageUrl(reader.result as string);
-                toast.dismiss(loadingToast);
-                toast.success('Image uploaded successfully!');
             };
 
             reader.onerror = () => {
-                toast.dismiss(loadingToast);
                 toast.error('Failed to read file');
             };
 
@@ -282,11 +298,11 @@ function SelectStylePageContent() {
 
                     {/* 右侧区域 - 移除外框 */}
                     <div className="lg:col-span-3">
-                        <div className="w-[340px]">
-                        <SelectStyle 
-                            uploadedImageUrl={uploadedImageUrl}
+                        <div className="w-full lg:w-[340px] mx-auto">
+                            <SelectStyle 
+                                uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
-                        />
+                            />
                         </div>
                     </div>
                 </div>
