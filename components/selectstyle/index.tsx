@@ -177,31 +177,35 @@ export default function SelectStyle({
         const result = await pollTaskStatus(data.taskId);
         if (result.data.images) {
           const firstStyle = Object.keys(result.data.images)[0];
-          setResultImage(result.data.images[firstStyle][0]);
+          const imageUrl = result.data.images[firstStyle][0];
+          
+          // 获取当前选中的发型对象
+          const currentStyle = currentStyles.find(style => style.style === selectedStyle);
+          const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
+          
+          // 更新结果图片
+          setResultImage(imageUrlWithStyle);
+          onStyleSelect?.(imageUrlWithStyle);
+          
+          toast.success('Generate Success!', {
+            duration: 3000,
+            position: 'top-center',
+            style: {
+              background: '#1F2937',
+              color: '#fff',
+              padding: '16px',
+              borderRadius: '8px',
+              marginTop: '100px',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            },
+            icon: '✨',
+          });
+        } else {
+          throw new Error('Failed to get result image');
         }
       } else if (!data.success) {
         throw new Error(data.error || 'Failed to process image');
       }
-
-      // 获取当前选中的发型对象
-      const currentStyle = currentStyles.find(style => style.style === selectedStyle);
-      const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
-      
-      onStyleSelect?.(imageUrlWithStyle);
-      
-      toast.success('Generate Success!', {
-        duration: 3000,
-        position: 'top-center',
-        style: {
-          background: '#1F2937',
-          color: '#fff',
-          padding: '16px',
-          borderRadius: '8px',
-          marginTop: '100px',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        },
-        icon: '✨',
-      });
 
     } catch (error) {
       console.error('Style selection error:', error);
