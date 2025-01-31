@@ -1,19 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
-import path from "path";
 import FormData from "form-data";
-import fs from "fs";
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
-const MAX_RETRIES = 3;
-const TIMEOUT = 60000; // 60 seconds
-
-// 定义具体的 API 端点
-const API_ENDPOINTS = {
-  HAIRSTYLE: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-  QUERY_TASK: `${API_BASE_URL}/common/query-async-task-result`
-} as const;
+const QUERY_URL = `${API_BASE_URL}/common/query-async-task-result`;
 
 interface ApiResponse {
   request_id: string;
@@ -43,7 +34,6 @@ interface ApiResponse {
   };
 }
 
-
 // 添加延迟函数
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -61,7 +51,7 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
       const config = {
         method: "GET",
         maxBodyLength: Infinity,
-        url: `${API_BASE_URL}/common/query-async-task-result?task_id=${encodedTaskId}`,
+        url: `${QUERY_URL}?task_id=${encodedTaskId}`,
         headers: {
           "Content-Type": "application/json",
           "ailabapi-api-key": API_KEY
@@ -77,24 +67,11 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
       console.log(`Attempt ${i + 1}: Processing not complete, waiting 5 seconds...`);
     } catch (error) {
-      console.error(`Attempt ${i + 1} failed:`, error)
+      console.error(`Attempt ${i + 1} failed:`, error);
       if (i === maxAttempts - 1) throw error;
     }
   }
   return null;
-}
-
-// 添加重试逻辑的辅助函数
-async function retryRequest(fn: () => Promise<any>, retries = MAX_RETRIES): Promise<any> {
-  try {
-    return await fn();
-  } catch (error) {
-    if (retries > 0 && axios.isAxiosError(error) && (error.code === 'ECONNABORTED' || error.response?.status === 504)) {
-      console.log(`Retrying... ${MAX_RETRIES - retries + 1} attempt`);
-      return retryRequest(fn, retries - 1);
-    }
-    throw error;
-  }
 }
 
 export async function POST(req: NextRequest) {
@@ -111,78 +88,80 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
+    // 准备 FormData
     const form = new FormData();
-    
-    try {
-      const arrayBuffer = await image.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
+    form.append("task_type", "async");
 
-      form.append('task_type', 'async');
-      form.append('image', buffer, {
-        filename: image.name,
-        contentType: image.type
-      });
-      form.append('hair_data', JSON.stringify([{
-        style: hairStyle,
-        color: hairColor,
-        num: 1
-      }]));
+    // 处理图片数据
+    const arrayBuffer = await image.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    form.append("image", buffer, {
+      filename: image.name,
+      contentType: image.type
+    });
 
-      // 使用重试逻辑发送请求
-      const response = await retryRequest(async () => {
-        return axios({
-          url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-          method: 'post',
-          data: form,
-          headers: {
-            'ailabapi-api-key': API_KEY,
-            ...form.getHeaders()
-          },
-          maxBodyLength: Infinity,
-          timeout: TIMEOUT,
-          validateStatus: (status) => status < 500 // 只对 500 错误重试
-        });
-      });
+    // 添加发型数据
+    form.append("hair_data", JSON.stringify([{
+      style: hairStyle,
+      color: hairColor,
+      num: 1
+    }]));
 
-      if (response.data.error_code !== 0) {
-        throw new Error(response.data.error_msg || 'API request failed');
-      }
+    // 调用 AI API
+    const response = await axios({
+      method: 'POST',
+      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      headers: {
+        "ailabapi-api-key": API_KEY,
+        "Accept": "application/json",
+        ...form.getHeaders()
+      },
+      data: form,
+      maxBodyLength: Infinity,
+      validateStatus: (status) => status < 500
+    });
 
-      // 等待任务完成
-      if (response.data.task_id) {
-        // 使用重试逻辑获取结果
-        const processResult = await retryRequest(async () => {
-          return getProcessResult(response.data.task_id);
-        });
+    // 检查是否上传成功并开始处理
+    if (response.data.error_code === 0 && response.data.task_id) {
+      try {
+        // 等待 AI 处理完成并获取结果
+        const processResult = await getProcessResult(response.data.task_id);
 
-        if (processResult?.data?.images) {
-          const images = processResult.data.images;
-          const firstKey = Object.keys(images)[0];
-          if (images[firstKey]?.[0]) {
-            return NextResponse.json({ 
-              success: true,
-              imageUrl: images[firstKey][0]
-            });
-          }
+        // 如果处理成功，返回处理后的图片地址
+        if (processResult && processResult.data.images) {
+          const firstStyle = Object.keys(processResult.data.images)[0];
+          const imageUrl = processResult.data.images[firstStyle][0];
+          
+          return NextResponse.json({ 
+            success: true,
+            imageUrl: imageUrl,
+            styleName: hairStyle
+          });
         }
+        
+        // 如果处理超时
+        return NextResponse.json({ 
+          success: false,
+          error: '处理超时，请稍后重试'
+        });
+      } catch (processError) {
+        console.error('Process Error:', processError);
+        return NextResponse.json({ 
+          success: false,
+          error: '处理失败，请重试'
+        });
       }
-
-      throw new Error('Failed to get processing result');
-
-    } catch (apiError) {
-      console.error('API Error:', apiError);
-      const errorMessage = axios.isAxiosError(apiError) && apiError.code === 'ECONNABORTED'
-        ? 'Request timeout - please try again'
-        : apiError instanceof Error ? apiError.message : 'API request failed';
-
-      return NextResponse.json({ 
-        success: false,
-        error: errorMessage
-      }, { status: apiError.response?.status || 500 });
     }
+    
+    // 如果上传失败
+    return NextResponse.json({ 
+      success: false,
+      error: response.data.error_msg || '请求失败',
+      error_detail: response.data.error_detail
+    }, { status: response.data.error_detail?.status_code || 400 });
 
   } catch (error) {
-    console.error('Request Error:', error);
+    console.error('Error:', error);
     return NextResponse.json({ 
       success: false,
       error: error instanceof Error ? error.message : "Unknown error occurred"
