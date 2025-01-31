@@ -168,19 +168,24 @@ export default function SelectStyle({
         ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
         : selectedColor;
 
-      const response = await fetch("/api/submit", {
+      // 获取图片文件
+      const response = await fetch(uploadedImageUrl);
+      const blob = await response.blob();
+      
+      // 创建 FormData
+      const formData = new FormData();
+      formData.append('image', blob, 'image.jpg');
+      formData.append('hairStyle', selectedStyle);
+      formData.append('hairColor', finalColor);
+
+      // 使用 FormData 发送请求
+      const submitResponse = await fetch("/api/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          imageUrl: uploadedImageUrl,
-          hairStyle: selectedStyle,
-          hairColor: finalColor,
-        }),
+        body: formData
+        // 不设置 headers，让浏览器自动处理 Content-Type
       });
 
-      const data = await response.json();
+      const data = await submitResponse.json();
 
       if (!data.success) {
         throw new Error(data.error);
@@ -209,7 +214,7 @@ export default function SelectStyle({
       
     } catch (error) {
       console.error('Style selection error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to process image');
+      toast.error(error instanceof Error ? error.message : 'Failed to process image');
     } finally {
       setIsLoading(false);
     }
