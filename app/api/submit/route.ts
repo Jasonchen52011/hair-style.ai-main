@@ -98,25 +98,26 @@ export async function POST(req: NextRequest) {
 
     const form = new FormData();
     
-    // 处理图片数据
-    const arrayBuffer = await image.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    
     try {
+      // 处理图片数据
+      const arrayBuffer = await image.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
       // 添加数据到 FormData
       form.append('task_type', 'async');
-      form.append('image', new Blob([buffer]), 'image.jpg');
+      form.append('image', new Blob([buffer], { type: image.type }), image.name);
       form.append('hair_data', JSON.stringify([{
         style: hairStyle,
         color: hairColor,
         num: 1
       }]));
 
-      console.log('Sending request to:', `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`);
-      console.log('Request data:', {
+      console.log('Sending request with:', {
         hairStyle,
         hairColor,
-        imageSize: buffer.length
+        imageSize: buffer.length,
+        imageName: image.name,
+        imageType: image.type
       });
 
       // 发送请求
@@ -127,13 +128,15 @@ export async function POST(req: NextRequest) {
         headers: {
           'ailabapi-api-key': API_KEY
         },
-        maxBodyLength: Infinity
+        maxBodyLength: Infinity,
+        timeout: 30000 // 30 seconds timeout
       });
 
       console.log('API Response:', response.data);
 
       // 检查响应
       if (response.data.error_code !== 0) {
+        console.error('API Error:', response.data);
         throw new Error(response.data.error_msg || 'API request failed');
       }
 
@@ -141,10 +144,14 @@ export async function POST(req: NextRequest) {
       if (response.data.task_id) {
         const processResult = await getProcessResult(response.data.task_id);
         if (processResult && processResult.data.images) {
-          return NextResponse.json({ 
-            success: true,
-            imageUrl: processResult.data.images[Object.keys(processResult.data.images)[0]][0]
-          });
+          const images = processResult.data.images;
+          const firstKey = Object.keys(images)[0];
+          if (images[firstKey] && images[firstKey][0]) {
+            return NextResponse.json({ 
+              success: true,
+              imageUrl: images[firstKey][0]
+            });
+          }
         }
       }
 
@@ -154,15 +161,17 @@ export async function POST(req: NextRequest) {
       console.error('API Error:', apiError);
       return NextResponse.json({ 
         success: false,
-        error: apiError instanceof Error ? apiError.message : 'API request failed'
+        error: apiError instanceof Error ? apiError.message : 'API request failed',
+        details: apiError
       }, { status: 500 });
     }
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Request Error:', error);
     return NextResponse.json({ 
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred"
+      error: error instanceof Error ? error.message : "Unknown error occurred",
+      details: error
     }, { status: 500 });
   }
 }
