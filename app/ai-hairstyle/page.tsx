@@ -41,11 +41,56 @@ function SelectStylePageContent() {
     }, [searchParams]);
 
     // 修改 handleStyleSelect 函数
-    const handleStyleSelect = (imageUrl: string) => {
-        // 更新结果图片
-        setResultImageUrl(imageUrl);
-        // 将结果图片设置为当前显示的图片
-        setUploadedImageUrl(imageUrl);
+    const handleStyleSelect = async (imageUrl: string) => {
+        try {
+            // 立即显示加载提示
+            const loadingToast = toast.loading('Generating your hairstyle...', {
+                position: 'top-center',
+                style: {
+                    marginTop: '100px',
+                    background: '#1F2937',
+                    color: '#fff',
+                }
+            });
+
+            // 预加载图片
+            const img = new Image();
+            img.src = imageUrl;
+            
+            await new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+
+            // 图片加载完成后再更新状态和显示成功提示
+            setResultImageUrl(imageUrl);
+            setUploadedImageUrl(imageUrl);
+            
+            // 关闭加载提示
+            toast.dismiss(loadingToast);
+            
+            // 显示成功提示
+            toast.success('Hairstyle generated!', {
+                duration: 3000,
+                position: 'top-center',
+                style: {
+                    marginTop: '100px',
+                    background: '#1F2937',
+                    color: '#fff',
+                }
+            });
+        } catch (error) {
+            // 处理错误
+            console.error('Image loading error:', error);
+            toast.error('Failed to load image. Please try again.', {
+                position: 'top-center',
+                style: {
+                    marginTop: '100px',
+                    background: '#1F2937',
+                    color: '#fff',
+                }
+            });
+        }
     };
 
     // 修改下载处理函数
@@ -219,6 +264,15 @@ function SelectStylePageContent() {
                     style: {
                         marginTop: '100px',
                     },
+                    loading: {
+                        duration: Infinity, // 加载提示不会自动消失
+                    },
+                    success: {
+                        duration: 3000,
+                    },
+                    error: {
+                        duration: 4000,
+                    }
                 }}
             />
             
