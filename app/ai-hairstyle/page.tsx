@@ -41,56 +41,11 @@ function SelectStylePageContent() {
     }, [searchParams]);
 
     // 修改 handleStyleSelect 函数
-    const handleStyleSelect = async (imageUrl: string) => {
-        try {
-            // 立即显示加载提示
-            const loadingToast = toast.loading('Generating your hairstyle...', {
-                position: 'top-center',
-                style: {
-                    marginTop: '100px',
-                    background: '#1F2937',
-                    color: '#fff',
-                }
-            });
-
-            // 预加载图片
-            const img = new Image();
-            img.src = imageUrl;
-            
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-            });
-
-            // 图片加载完成后再更新状态和显示成功提示
-            setResultImageUrl(imageUrl);
-            setUploadedImageUrl(imageUrl);
-            
-            // 关闭加载提示
-            toast.dismiss(loadingToast);
-            
-            // 显示成功提示
-            toast.success('Hairstyle generated!', {
-                duration: 3000,
-                position: 'top-center',
-                style: {
-                    marginTop: '100px',
-                    background: '#1F2937',
-                    color: '#fff',
-                }
-            });
-        } catch (error) {
-            // 处理错误
-            console.error('Image loading error:', error);
-            toast.error('Failed to load image. Please try again.', {
-                position: 'top-center',
-                style: {
-                    marginTop: '100px',
-                    background: '#1F2937',
-                    color: '#fff',
-                }
-            });
-        }
+    const handleStyleSelect = (imageUrl: string) => {
+        // 更新结果图片
+        setResultImageUrl(imageUrl);
+        // 将结果图片设置为当前显示的图片
+        setUploadedImageUrl(imageUrl);
     };
 
     // 修改下载处理函数
@@ -264,15 +219,6 @@ function SelectStylePageContent() {
                     style: {
                         marginTop: '100px',
                     },
-                    loading: {
-                        duration: Infinity, // 加载提示不会自动消失
-                    },
-                    success: {
-                        duration: 3000,
-                    },
-                    error: {
-                        duration: 4000,
-                    }
                 }}
             />
             
@@ -296,14 +242,14 @@ function SelectStylePageContent() {
                     <div className="lg:col-span-9 h-fit">
                         {!uploadedImageUrl ? (
                             // 上传区域 - 减小高度和内边距
-                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[500px] sm:h-[680px] flex flex-col items-center justify-center">
+                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[600px] sm:h-[680px] flex flex-col items-center justify-center">
                                 <div className="w-full max-w-md mx-auto px-4"> {/* 添加水平内边距 */}
                                     <UploadArea />
                                 </div>
                             </div>
                         ) : (
                             // 预览区域 - 减小高度和间距
-                            <div className="bg-gray-200 p-2 sm:p-4 rounded-lg shadow-sm border border-gray-200 relative h-[500px] sm:h-[680px] flex flex-col items-center">
+                            <div className="bg-gray-200 p-2 sm:p-4 rounded-lg shadow-sm border border-gray-200 relative h-[600px] sm:h-[680px] flex flex-col items-center">
                                 {/* 顶部按钮区域 - 减小间距 */}
                                 <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (
