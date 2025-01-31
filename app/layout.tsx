@@ -23,16 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <link rel="alternate" href="https://hair-style.ai" hrefLang="x-default" />
         <link rel="alternate" href="https://hair-style.ai/en" hrefLang="en" />
         <link rel="alternate" href="https://hair-style.ai/zh" hrefLang="zh" />
       </head>
-      <body className="min-h-screen bg-white">
-        <main className="min-h-screen">
-          {children}
-        </main>
-      </body>
+      <body>{children}</body>
     </html>
-  );
+  )
 }
