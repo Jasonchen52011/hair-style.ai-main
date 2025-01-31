@@ -76,30 +76,25 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
-    const formData = await req.formData();
-    const image = formData.get('image');
-    const hairStyle = formData.get('hairStyle') || 'default';
-    const hairColor = formData.get('hairColor') || 'default';
+    const { image, hairStyle, hairColor } = await req.json();
     
-    if (!image || !(image instanceof Blob)) {
+    if (!image || !hairStyle || !hairColor) {
       return NextResponse.json({
         success: false,
-        error: "Invalid or missing image file"
+        error: "Missing required fields"
       }, { status: 400 });
     }
+
+    // 从 base64 转换为 buffer
+    const base64Data = image.split(',')[1];
+    const buffer = Buffer.from(base64Data, 'base64');
 
     // 准备 FormData
     const form = new FormData();
     form.append("task_type", "async");
-
-    // 处理图片数据
-    const arrayBuffer = await image.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    
-    // 添加数据到 FormData
     form.append("image", buffer, {
       filename: 'image.jpg',
-      contentType: image.type || 'image/jpeg'
+      contentType: 'image/jpeg'
     });
     form.append("hair_data", JSON.stringify([{
       style: hairStyle,
@@ -118,7 +113,7 @@ export async function POST(req: NextRequest) {
       },
       data: form,
       maxBodyLength: Infinity,
-      timeout: 60000 // 60 seconds
+      timeout: 60000
     });
 
     if (response.data.error_code === 0 && response.data.task_id) {

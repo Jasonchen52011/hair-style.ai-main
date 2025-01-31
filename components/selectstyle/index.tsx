@@ -138,27 +138,29 @@ export default function SelectStyle({
         ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
         : selectedColor;
 
-      // 获取图片文件并转换为 base64
+      // 获取图片并转换为 base64
       const response = await fetch(uploadedImageUrl);
       const blob = await response.blob();
+      const reader = new FileReader();
       
-      // 创建 FormData
-      const formData = new FormData();
-      
-      // 使用 File 对象而不是 Blob
-      const file = new File([blob], 'image.jpg', { type: blob.type });
-      formData.append('image', file);
-      formData.append('hairStyle', selectedStyle);
-      formData.append('hairColor', finalColor);
+      const base64Data = await new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
 
-      // 发送请求，添加 keepalive 选项
+      // 发送 JSON 请求
       const submitResponse = await fetch("/api/submit", {
         method: "POST",
-        body: formData,
-        keepalive: true,
         headers: {
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
-        }
+        },
+        body: JSON.stringify({
+          image: base64Data,
+          hairStyle: selectedStyle,
+          hairColor: finalColor
+        })
       });
 
       if (!submitResponse.ok) {
