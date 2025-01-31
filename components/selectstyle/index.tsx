@@ -119,44 +119,14 @@ export default function SelectStyle({
 
   const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
-  const handleStyleClick = async (style: string) => {
-    try {
-      if (!uploadedImageUrl) {
-        toast.error('Please upload an image first');
-        return;
-      }
-
-      // 获取图片文件
-      const response = await fetch(uploadedImageUrl);
-      const blob = await response.blob();
-      
-      // 创建 FormData
-      const formData = new FormData();
-      formData.append('image', blob, 'image.jpg');
-      formData.append('hairStyle', style);
-      formData.append('hairColor', 'default');
-
-      // 使用 FormData 发送请求
-      const submitResponse = await fetch('/api/submit', {
-        method: 'POST',
-        body: formData
-        // 不设置 headers，让浏览器自动处理 Content-Type
-      });
-
-      if (!submitResponse.ok) {
-        const errorData = await submitResponse.json();
-        throw new Error(errorData.error || 'Failed to process image');
-      }
-
-      onStyleSelect(style);
-    } catch (error) {
-      console.error('Style selection error:', error);
-      toast.error('Failed to apply hairstyle');
-    }
+  const handleStyleClick = (style: string) => {
+    // 只设置选中的发型，不直接发送请求
+    setSelectedStyle(style);
   };
 
   const handleGenerate = async () => {
     if (!uploadedImageUrl || !selectedStyle) {
+      toast.error('Please select a hairstyle first');
       return;
     }
 
@@ -188,7 +158,7 @@ export default function SelectStyle({
       const data = await submitResponse.json();
 
       if (!data.success) {
-        throw new Error(data.error);
+        throw new Error(data.error || 'Failed to process image');
       }
 
       // 获取当前选中的发型对象
@@ -196,7 +166,8 @@ export default function SelectStyle({
       // 将发型名称添加到 URL 中
       const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
       
-      onStyleSelect?.(imageUrlWithStyle);
+      setResultImage(imageUrlWithStyle);  // 设置结果图片
+      onStyleSelect(imageUrlWithStyle);   // 通知父组件
       
       toast.success('Generate Success!', {
         duration: 3000,
