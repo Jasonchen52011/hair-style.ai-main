@@ -84,7 +84,6 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
-    // 移除 Content-Type 检查，因为 NextRequest 可能不会正确显示 multipart/form-data
     const formData = await req.formData();
     const image = formData.get('image');
     const hairStyle = formData.get('hairStyle') || 'default';
@@ -97,18 +96,20 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 创建新的 FormData 对象
+    // 使用 form-data 包创建表单
     const form = new FormData();
     
     // 处理图片数据
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // 使用 form-data 包来处理文件上传
-    const formDataNode = new FormData();
-    formDataNode.append('task_type', 'async');
-    formDataNode.append('image', new Blob([buffer], { type: image.type }), image.name);
-    formDataNode.append('hair_data', JSON.stringify([{
+    // 添加数据到表单
+    form.append('task_type', 'async');
+    form.append('image', buffer, {
+      filename: image.name,
+      contentType: image.type
+    });
+    form.append('hair_data', JSON.stringify([{
       style: hairStyle,
       color: hairColor,
       num: 1
@@ -118,9 +119,10 @@ export async function POST(req: NextRequest) {
     const response = await axios({
       method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      data: formDataNode,
+      data: form,
       headers: {
-        'ailabapi-api-key': API_KEY
+        'ailabapi-api-key': API_KEY,
+        ...form.getHeaders()  // 获取正确的 headers，包括 Content-Type
       }
     });
 
