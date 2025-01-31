@@ -96,14 +96,14 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 使用 form-data 包创建表单
+    // 创建新的 FormData 对象
     const form = new FormData();
     
     // 处理图片数据
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // 添加数据到表单
+    // 正确设置文件数据
     form.append('task_type', 'async');
     form.append('image', buffer, {
       filename: image.name,
@@ -115,14 +115,14 @@ export async function POST(req: NextRequest) {
       num: 1
     }]));
 
-    // 发送到 AI API
+    // 发送到 AI API，让 axios 自动处理 Content-Type
     const response = await axios({
       method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
       data: form,
       headers: {
         'ailabapi-api-key': API_KEY,
-        ...form.getHeaders()  // 获取正确的 headers，包括 Content-Type
+        ...form.getHeaders()  // 使用 form-data 生成的 headers
       }
     });
 
