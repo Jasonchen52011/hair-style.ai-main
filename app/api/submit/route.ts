@@ -104,42 +104,44 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 准备 FormData
-    const apiFormData = new FormData();
-    apiFormData.append("task_type", "async");
-    
-    // 处理图片
+    // 创建新的 FormData
+    const form = new FormData();
+    form.append('task_type', 'async');
+
+    // 处理图片数据
     if (image instanceof File) {
-      const buffer = Buffer.from(await image.arrayBuffer());
-      apiFormData.append("image", buffer, {
+      const arrayBuffer = await image.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      form.append('image', buffer, {
         filename: image.name,
         contentType: image.type
       });
     } else {
-      apiFormData.append("image", image);
+      form.append('image', image);
     }
 
     // 添加发型数据
-    apiFormData.append("hair_data", JSON.stringify([
-      {
-        style: hairStyle,
-        color: hairColor,
-        num: 1
-      }
-    ]));
+    form.append('hair_data', JSON.stringify([{
+      style: hairStyle,
+      color: hairColor,
+      num: 1
+    }]));
 
-    // 调用 AI API
+    // 发送请求
     const response = await axios({
       method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
       headers: {
-        "ailabapi-api-key": API_KEY,
-        "Accept": "application/json",
-        ...apiFormData.getHeaders()
+        'ailabapi-api-key': API_KEY,
+        'Content-Type': 'multipart/form-data',  // 明确设置 Content-Type
+        ...form.getHeaders()  // 获取 form 生成的 headers
       },
-      data: apiFormData,
+      data: form,
       maxBodyLength: Infinity,
-      validateStatus: (status) => status < 500
+      transformRequest: [(data, headers) => {
+        // 保持 FormData 不变
+        return data;
+      }]
     });
 
     // 检查是否上传成功并开始处理
