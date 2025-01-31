@@ -286,40 +286,6 @@ export default function SelectStyle({
         onChange={handleFileChange}
       />
       
-      {/* 主图片区域 */}
-      <div className="relative w-full aspect-square mb-6">
-        {uploadedImageUrl ? (
-          <div className="relative">
-            {/* 结果图片 */}
-            <img
-              src={resultImage || uploadedImageUrl}
-              alt={resultImage ? "Generated hairstyle" : "Uploaded"}
-              className="w-full rounded-lg shadow-lg"
-            />
-            
-            {/* 下载按钮 - 仅在有结果图片时显示 */}
-            {resultImage && (
-              <button
-                onClick={() => handleDownload(resultImage)}
-                className="absolute top-4 right-4 z-10 flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download
-              </button>
-            )}
-
-            {/* 上传新图片按钮 */}
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="absolute top-4 left-4 z-10 flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors border border-gray-300"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
-              Upload new
-            </button>
           </div>
         ) : (
           <div className="w-full aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
