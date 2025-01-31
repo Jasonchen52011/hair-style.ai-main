@@ -238,16 +238,18 @@ function SelectStylePageContent() {
                 
                 {/* 使用响应式网格布局 - 调整左右比例 */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3">
-                    {/* 左侧区域增加宽度 */}
+                    {/* 左侧区域 */}
                     <div className="lg:col-span-9 h-fit">
                         {!uploadedImageUrl ? (
-                            // 上传区域 - 调整边框样式和背景
-                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col items-center justify-center">
-                                <UploadArea />
+                            // 上传区域 - 增加居中样式
+                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[680px] flex flex-col items-center justify-center">
+                                <div className="w-full max-w-md mx-auto"> {/* 添加最大宽度和水平居中 */}
+                                    <UploadArea />
+                                </div>
                             </div>
                         ) : (
-                            // 预览区域 - 调整边框样式和宽度
-                            <div className="bg-gray-200 p-4 rounded-lg shadow-sm border border-gray-200 relative h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col">
+                            // 预览区域 - 增加居中样式
+                            <div className="bg-gray-200 p-4 rounded-lg shadow-sm border border-gray-200 relative h-[680px] flex flex-col items-center">
                                 {/* 顶部按钮区域 */}
                                 <div className="h-[50px] flex justify-center items-center gap-4 mb-4">
                                     {resultImageUrl && (
@@ -264,16 +266,18 @@ function SelectStylePageContent() {
                                 </div>
 
                                 {/* 图片显示区域 */}
-                                <div className="flex-grow overflow-hidden mb-4">
+                                <div className="flex-grow overflow-hidden mb-4 w-full flex items-center justify-center">
                                     {uploadedImageUrl && (
-                                        <Image 
-                                            src={uploadedImageUrl} 
-                                            alt="Original" 
-                                            width={1024}
-                                            height={1024}
-                                            className="w-full h-full object-contain rounded-lg"
-                                            unoptimized
-                                        />
+                                        <div className="max-w-md mx-auto"> {/* 添加容器限制宽度 */}
+                                            <Image 
+                                                src={uploadedImageUrl} 
+                                                alt="Original" 
+                                                width={1024}
+                                                height={1024}
+                                                className="w-full h-full object-contain rounded-lg"
+                                                unoptimized
+                                            />
+                                        </div>
                                     )}
                                 </div>
 
