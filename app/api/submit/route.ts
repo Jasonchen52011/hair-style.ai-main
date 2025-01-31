@@ -89,16 +89,38 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No image provided' }, { status: 400 });
     }
 
-    // 创建新的 FormData
+    // 创建新的 FormData 并正确设置
     const apiFormData = new FormData();
     apiFormData.append('image', image);
 
-    const response = await axios.post(`${API_URL}/submit`, apiFormData, {
+    const response = await axios.post(`${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`, apiFormData, {
       headers: {
-        ...apiFormData.getHeaders(),
-        'Authorization': `Bearer ${API_KEY}`
-      }
+        'Content-Type': 'multipart/form-data',  // 明确设置 Content-Type
+        'ailabapi-api-key': API_KEY,
+        ...apiFormData.getHeaders()
+      },
+      maxBodyLength: Infinity
     });
+
+    // 检查响应
+    if (response.data.error_code === 0 && response.data.task_id) {
+      try {
+        // 等待处理完成
+        const processResult = await getProcessResult(response.data.task_id);
+        if (processResult && processResult.data.images) {
+          return NextResponse.json({ 
+            success: true,
+            imageUrl: processResult.data.images[0]
+          });
+        }
+      } catch (processError) {
+        console.error('Process Error:', processError);
+        return NextResponse.json({ 
+          success: false,
+          error: '处理失败，请重试'
+        });
+      }
+    }
 
     return NextResponse.json(response.data);
   } catch (error) {
