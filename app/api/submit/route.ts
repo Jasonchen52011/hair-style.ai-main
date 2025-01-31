@@ -8,25 +8,21 @@ const API_BASE_URL = 'https://www.ailabapi.com/api';
 
 // 创建统一的 axios 实例
 const client = axios.create({
-    timeout: 15000, // 设置统一的超时时间为 15 秒
-    validateStatus: (status) => status < 500,
-    maxBodyLength: Infinity
+    timeout: 10000, // 设置统一的超时时间为 10 秒
+    validateStatus: (status) => status < 500 // 只有状态码 >= 500 才会被视为错误
 });
 
 // 配置重试机制
 axiosRetry(client, { 
-    retries: 3, // 3次重试机会
+    retries: 3,
     retryDelay: (retryCount) => {
-        return retryCount * 5000; // 每5秒重试一次
+        return retryCount * 500; // 重试间隔缩短到 500ms
     },
     retryCondition: (error) => {
         return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
                error.response?.status >= 500;
     }
 });
-
-// 添加延迟函数
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export async function POST(req: NextRequest) {
     try {
@@ -46,7 +42,7 @@ export async function POST(req: NextRequest) {
             formData.append("image_url", imageUrl);
         } else {
             const imageResponse = await fetch(imageUrl, { 
-                timeout: 10000 // 图片获取超时时间 10 秒
+                timeout: 5000 // 缩短图片获取超时时间
             });
             if (!imageResponse.ok) {
                 throw new Error('Failed to fetch image');
@@ -72,34 +68,16 @@ export async function POST(req: NextRequest) {
                 "Accept": "application/json",
                 ...formData.getHeaders()
             },
-            data: formData
+            data: formData,
+            timeout: 10000 // 保持与 client 配置一致
         });
 
         if (response.data.error_code === 0 && response.data.task_id) {
-            // 等待处理完成
-            for (let i = 0; i < 12; i++) { // 最多等待 60 秒
-                if (i > 0) {
-                    await delay(5000); // 每 5 秒查询一次
-                }
-                
-                const result = await client.get(
-                    `${API_BASE_URL}/common/query-async-task-result?task_id=${response.data.task_id}`,
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            "ailabapi-api-key": API_KEY
-                        }
-                    }
-                );
-
-                if (result.data.task_status === 2) { // 处理成功
-                    return NextResponse.json({ 
-                        success: true,
-                        imageUrl: result.data.data.images[hairStyle][0],
-                        styleName: hairStyle
-                    });
-                }
-            }
+            return NextResponse.json({ 
+                success: true,
+                taskId: response.data.task_id,
+                status: 'processing'
+            });
         }
         
         return NextResponse.json({ 
