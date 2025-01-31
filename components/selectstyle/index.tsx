@@ -138,54 +138,78 @@ export default function SelectStyle({
         ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
         : selectedColor;
 
-      // 发送请求
-      const submitResponse = await fetch("/api/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          imageUrl: uploadedImageUrl,
-          hairStyle: selectedStyle,
-          hairColor: finalColor,
-        }),
-      });
+      // 添加重试逻辑
+      const maxRetries = 5;
+      let lastError;
 
-      if (!submitResponse.ok) {
-        const errorText = await submitResponse.text();
-        console.error('Response error:', {
-          status: submitResponse.status,
-          text: errorText
-        });
-        throw new Error(`Request failed: ${submitResponse.status}`);
+      for (let i = 0; i < maxRetries; i++) {
+        try {
+          const submitResponse = await fetch("/api/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              imageUrl: uploadedImageUrl,
+              hairStyle: selectedStyle,
+              hairColor: finalColor,
+            }),
+          });
+
+          if (!submitResponse.ok) {
+            const errorText = await submitResponse.text();
+            console.error(`Attempt ${i + 1} failed:`, {
+              status: submitResponse.status,
+              text: errorText
+            });
+            
+            if (submitResponse.status === 504) {
+              // 如果是超时错误，等待后重试
+              await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1))); // 递增等待时间
+              continue;
+            }
+            
+            throw new Error(`Request failed: ${submitResponse.status}`);
+          }
+
+          const data = await submitResponse.json();
+          
+          if (!data.success) {
+            throw new Error(data.error || 'Failed to process image');
+          }
+
+          // 获取当前选中的发型对象
+          const currentStyle = currentStyles.find(style => style.style === selectedStyle);
+          const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
+          
+          setResultImage(imageUrlWithStyle);
+          onStyleSelect?.(imageUrlWithStyle);
+          
+          toast.success('Generate Success!', {
+            duration: 3000,
+            position: 'top-center',
+            style: {
+              background: '#1F2937',
+              color: '#fff',
+              padding: '16px',
+              borderRadius: '8px',
+              marginTop: '100px',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            },
+            icon: '✨',
+          });
+
+          return; // 成功后退出
+        } catch (error) {
+          lastError = error;
+          if (i === maxRetries - 1) {
+            throw error; // 最后一次重试失败时抛出错误
+          }
+          await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1))); // 递增等待时间
+        }
       }
 
-      const data = await submitResponse.json();
-      
-      if (!data.success) {
-        throw new Error(data.error || 'Failed to process image');
-      }
-
-      // 获取当前选中的发型对象
-      const currentStyle = currentStyles.find(style => style.style === selectedStyle);
-      const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
-      
-      setResultImage(imageUrlWithStyle);
-      onStyleSelect?.(imageUrlWithStyle);
-      
-      toast.success('Generate Success!', {
-        duration: 3000,
-        position: 'top-center',
-        style: {
-          background: '#1F2937',
-          color: '#fff',
-          padding: '16px',
-          borderRadius: '8px',
-          marginTop: '100px',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        },
-        icon: '✨',
-      });
+      throw lastError; // 所有重试都失败时抛出最后一个错误
       
     } catch (error) {
       console.error('Style selection error:', error);
