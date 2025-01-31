@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
+import { fetch } from 'undici';
 import FormData from "form-data";
 import { Readable } from 'stream';
 
@@ -59,11 +59,17 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
         }
       };
 
-      const response = await axios(config);
-      console.log(`Attempt ${i + 1} response:`, response.data);
+      const response = await fetch(config.url, {
+        method: config.method,
+        headers: config.headers
+      });
+      console.log(`Attempt ${i + 1} response:`, await response.json());
 
-      if (response.data.task_status === 2) {
-        return response.data;
+      if (response.ok) {
+        const data = await response.json();
+        if (data.task_status === 2) {
+          return data;
+        }
       }
 
       console.log(`Attempt ${i + 1}: Processing not complete, waiting 5 seconds...`);
@@ -107,22 +113,25 @@ export async function POST(req: NextRequest) {
     }]));
 
     // 发送请求到 AI API
-    const response = await axios.post(
-      `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      form,
-      {
-        headers: {
-          'ailabapi-api-key': API_KEY,
-          ...form.getHeaders()
-        }
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`, {
+      method: 'POST',
+      headers: {
+        'ailabapi-api-key': API_KEY,
+        ...form.getHeaders()
+      },
+      body: form
+    });
 
-    if (!response.data || response.data.error_code !== 0) {
-      throw new Error(response.data?.error_msg || 'API request failed');
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
     }
 
-    const taskId = response.data.task_id;
+    const responseData = await response.json();
+    if (responseData.error_code !== 0) {
+      throw new Error(responseData.error_msg || 'API request failed');
+    }
+
+    const taskId = responseData.task_id;
     if (!taskId) {
       throw new Error('No task ID returned');
     }
@@ -134,20 +143,22 @@ export async function POST(req: NextRequest) {
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
 
-      const statusResponse = await axios.get(
-        `${API_BASE_URL}/common/query-async-task-result`,
+      const statusResponse = await fetch(
+        `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
         {
           headers: {
             'ailabapi-api-key': API_KEY
-          },
-          params: {
-            task_id: taskId
           }
         }
       );
 
-      if (statusResponse.data.task_status === 2) {
-        result = statusResponse.data;
+      if (!statusResponse.ok) {
+        throw new Error(`Status check failed with status ${statusResponse.status}`);
+      }
+
+      const statusData = await statusResponse.json();
+      if (statusData.task_status === 2) {
+        result = statusData;
         break;
       }
     }
@@ -189,17 +200,22 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'taskId is required' }, { status: 400 });
     }
     // 查询处理结果
-    const response = await axios({
-      method: "get",
-      url: `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
-      headers: {
-        "Content-Type": "application/json",  // GET 请求用 application/json
-        "ailabapi-api-key": apiKey
-      },
-      params: { task_id: taskId }
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",  // GET 请求用 application/json
+          "ailabapi-api-key": apiKey
+        }
+      }
+    );
 
-    return NextResponse.json(response.data);
+    if (!response.ok) {
+      throw new Error(`Status check failed with status ${response.status}`);
+    }
+
+    const statusData = await response.json();
+    return NextResponse.json(statusData);
   } catch (error) {
     console.error('Query Error:', error);
     return NextResponse.json({ 
