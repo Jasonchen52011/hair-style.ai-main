@@ -47,7 +47,6 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
   for (let i = 0; i < maxAttempts; i++) {
     try {
-      // 每 5 秒查询一次
       if (i > 0) {
         await delay(5000);
       }
@@ -66,8 +65,7 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
       const response = await axios(config);
       console.log(`Attempt ${i + 1} response:`, response.data);
 
-      // 检查任务状态
-      if (response.data.task_status === 2) { // 处理成功
+      if (response.data.task_status === 2) {
         return response.data;
       }
 
@@ -84,59 +82,73 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
     const image = formData.get('image');
+    const hairStyle = formData.get('hairStyle') || 'default';
+    const hairColor = formData.get('hairColor') || 'default';
     
     if (!image) {
-      return NextResponse.json({ error: 'No image provided' }, { status: 400 });
+      return NextResponse.json({
+        success: false,
+        error: "Missing required fields",
+      }, { status: 400 });
     }
 
-    // 创建新的 FormData 并正确设置
-    const form = new FormData();
-    form.append('task_type', 'async');
+    // 准备 FormData
+    const apiFormData = new FormData();
+    apiFormData.append("task_type", "async");
     
-    // 如果是 File 对象，需要转换为 Buffer
+    // 处理图片
     if (image instanceof File) {
       const buffer = Buffer.from(await image.arrayBuffer());
-      form.append('image', buffer, {
+      apiFormData.append("image", buffer, {
         filename: image.name,
-        contentType: image.type,
+        contentType: image.type
       });
     } else {
-      form.append('image', image);
+      apiFormData.append("image", image);
     }
 
     // 添加发型数据
-    form.append('hair_data', JSON.stringify([
+    apiFormData.append("hair_data", JSON.stringify([
       {
-        style: 'default',
-        color: 'default',
+        style: hairStyle,
+        color: hairColor,
         num: 1
       }
     ]));
 
-    const response = await axios.post(
-      `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      form,
-      {
-        headers: {
-          ...form.getHeaders(),
-          'ailabapi-api-key': API_KEY,
-        },
-        maxBodyLength: Infinity
-      }
-    );
+    // 调用 AI API
+    const response = await axios({
+      method: 'POST',
+      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      headers: {
+        "ailabapi-api-key": API_KEY,
+        "Accept": "application/json",
+        ...apiFormData.getHeaders()
+      },
+      data: apiFormData,
+      maxBodyLength: Infinity,
+      validateStatus: (status) => status < 500
+    });
 
-    // 检查响应
+    // 检查是否上传成功并开始处理
     if (response.data.error_code === 0 && response.data.task_id) {
       try {
-        // 等待处理完成
         const processResult = await getProcessResult(response.data.task_id);
         if (processResult && processResult.data.images) {
           const firstStyle = Object.keys(processResult.data.images)[0];
+          const imageUrl = processResult.data.images[firstStyle][0];
+          
           return NextResponse.json({ 
             success: true,
-            imageUrl: processResult.data.images[firstStyle][0]
+            imageUrl: imageUrl,
+            styleName: hairStyle
           });
         }
+        
+        return NextResponse.json({ 
+          success: false,
+          error: '处理超时，请稍后重试'
+        });
       } catch (processError) {
         console.error('Process Error:', processError);
         return NextResponse.json({ 
@@ -145,17 +157,18 @@ export async function POST(req: NextRequest) {
         });
       }
     }
-
+    
     return NextResponse.json({ 
       success: false,
-      error: response.data.error_msg || '请求失败'
-    });
-
+      error: response.data.error_msg || '请求失败',
+      error_detail: response.data.error_detail
+    }, { status: response.data.error_detail?.status_code || 400 });
+    
   } catch (error) {
-    console.error('Submit error:', error);
+    console.error('Error:', error);
     return NextResponse.json({ 
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error' 
+      error: error instanceof Error ? error.message : "Unknown error occurred"
     }, { status: 500 });
   }
 }
