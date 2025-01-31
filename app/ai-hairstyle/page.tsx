@@ -232,9 +232,9 @@ function SelectStylePageContent() {
                         ) : (
                             // 预览区域 - 调整边框样式和宽度
                             <div className="bg-gray-200 p-4 rounded-lg shadow-sm border border-gray-200 relative h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col">
-                                {/* 顶部下载按钮 */}
-                                {resultImageUrl && (
-                                    <div className="absolute top-6 left-0 right-0 flex justify-center z-10">
+                                {/* 顶部按钮区域 */}
+                                <div className="h-[50px] flex justify-center items-center gap-4 mb-4">
+                                    {resultImageUrl && (
                                         <button 
                                             onClick={() => handleDownload(resultImageUrl)}
                                             className="h-10 bg-purple-700 text-white hover:bg-purple-800 px-6 rounded-lg text-sm flex items-center justify-center gap-2 shadow-lg"
@@ -244,8 +244,8 @@ function SelectStylePageContent() {
                                             </svg>
                                             Download
                                         </button>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
 
                                 {/* 图片显示区域 */}
                                 <div className="flex-grow overflow-hidden mb-4">
