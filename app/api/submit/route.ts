@@ -115,22 +115,21 @@ export async function POST(req: NextRequest) {
       num: 1
     }]));
 
-    // 使用 axios 配置对象方式发送请求
+    // 获取 form 生成的 boundary
+    const boundary = Math.random().toString().substr(2);
+    
+    // 发送请求
     const response = await axios({
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
       method: 'post',
       data: form,
       headers: {
         'ailabapi-api-key': API_KEY,
-        // 不要手动设置 Content-Type，让 axios 自动处理
-        ...form.getHeaders()  // 使用 form-data 生成的 headers
+        'Content-Type': `multipart/form-data; boundary=${boundary}`,
+        'Accept': 'application/json'
       },
-      // 添加这些配置来确保正确处理 FormData
-      transformRequest: [function (data, headers) {
-        // 让 FormData 保持原样
-        return data;
-      }],
-      maxBodyLength: Infinity
+      maxBodyLength: Infinity,
+      // 移除 transformRequest
     });
 
     // 6. 检查是否上传成功并开始处理

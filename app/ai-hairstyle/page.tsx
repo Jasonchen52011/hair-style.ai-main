@@ -54,20 +54,14 @@ function SelectStylePageContent() {
                 formData.append('image', blob, 'image.jpg');
             }
 
-            // 明确设置 Content-Type
             const submitResponse = await fetch('/api/submit', {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    // 注意：当使用 FormData 时，不要设置 Content-Type
-                    // 浏览器会自动添加正确的 Content-Type 和 boundary
-                    'Accept': 'application/json'
-                }
+                // 不要手动设置 Content-Type，让浏览器自动处理
             });
 
             if (!submitResponse.ok) {
-                const errorData = await submitResponse.json();
-                throw new Error(errorData.error || 'Failed to process image');
+                throw new Error('Failed to process image');
             }
 
             const result = await submitResponse.json();
