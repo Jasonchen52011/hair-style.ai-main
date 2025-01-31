@@ -90,17 +90,40 @@ export async function POST(req: NextRequest) {
     }
 
     // 创建新的 FormData 并正确设置
-    const apiFormData = new FormData();
-    apiFormData.append('image', image);
+    const form = new FormData();
+    form.append('task_type', 'async');
+    
+    // 如果是 File 对象，需要转换为 Buffer
+    if (image instanceof File) {
+      const buffer = Buffer.from(await image.arrayBuffer());
+      form.append('image', buffer, {
+        filename: image.name,
+        contentType: image.type,
+      });
+    } else {
+      form.append('image', image);
+    }
 
-    const response = await axios.post(`${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`, apiFormData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',  // 明确设置 Content-Type
-        'ailabapi-api-key': API_KEY,
-        ...apiFormData.getHeaders()
-      },
-      maxBodyLength: Infinity
-    });
+    // 添加发型数据
+    form.append('hair_data', JSON.stringify([
+      {
+        style: 'default',
+        color: 'default',
+        num: 1
+      }
+    ]));
+
+    const response = await axios.post(
+      `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      form,
+      {
+        headers: {
+          ...form.getHeaders(),
+          'ailabapi-api-key': API_KEY,
+        },
+        maxBodyLength: Infinity
+      }
+    );
 
     // 检查响应
     if (response.data.error_code === 0 && response.data.task_id) {
@@ -108,9 +131,10 @@ export async function POST(req: NextRequest) {
         // 等待处理完成
         const processResult = await getProcessResult(response.data.task_id);
         if (processResult && processResult.data.images) {
+          const firstStyle = Object.keys(processResult.data.images)[0];
           return NextResponse.json({ 
             success: true,
-            imageUrl: processResult.data.images[0]
+            imageUrl: processResult.data.images[firstStyle][0]
           });
         }
       } catch (processError) {
@@ -122,10 +146,15 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json(response.data);
+    return NextResponse.json({ 
+      success: false,
+      error: response.data.error_msg || '请求失败'
+    });
+
   } catch (error) {
     console.error('Submit error:', error);
     return NextResponse.json({ 
+      success: false,
       error: error instanceof Error ? error.message : 'Unknown error' 
     }, { status: 500 });
   }
