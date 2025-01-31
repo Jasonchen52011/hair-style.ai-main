@@ -6,14 +6,18 @@ import axiosRetry from 'axios-retry';
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
 
-// 设置 axios 默认超时时间
-axios.defaults.timeout = 8000; // 8秒，留出2秒缓冲时间
+// 创建统一的 axios 实例
+const client = axios.create({
+    timeout: 15000, // 设置统一的超时时间为 15 秒
+    validateStatus: (status) => status < 500,
+    maxBodyLength: Infinity
+});
 
-const client = axios.create();
+// 配置重试机制
 axiosRetry(client, { 
-    retries: 3,
+    retries: 3, // 3次重试机会
     retryDelay: (retryCount) => {
-        return retryCount * 1000;
+        return retryCount * 5000; // 每5秒重试一次
     },
     retryCondition: (error) => {
         return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
@@ -21,79 +25,97 @@ axiosRetry(client, {
     }
 });
 
+// 添加延迟函数
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 export async function POST(req: NextRequest) {
-  try {
-    const { imageUrl, hairStyle, hairColor } = await req.json();
-    
-    if (!imageUrl || !hairStyle || !hairColor) {
-      return NextResponse.json({
-        success: false,
-        error: "Missing required fields"
-      }, { status: 400 });
+    try {
+        const { imageUrl, hairStyle, hairColor } = await req.json();
+        
+        if (!imageUrl || !hairStyle || !hairColor) {
+            return NextResponse.json({
+                success: false,
+                error: "Missing required fields"
+            }, { status: 400 });
+        }
+
+        const formData = new FormData();
+        formData.append("task_type", "async");
+        
+        if (imageUrl.startsWith('http')) {
+            formData.append("image_url", imageUrl);
+        } else {
+            const imageResponse = await fetch(imageUrl, { 
+                timeout: 10000 // 图片获取超时时间 10 秒
+            });
+            if (!imageResponse.ok) {
+                throw new Error('Failed to fetch image');
+            }
+            const buffer = Buffer.from(await imageResponse.arrayBuffer());
+            formData.append("image", buffer, {
+                filename: 'image.jpg',
+                contentType: 'image/jpeg'
+            });
+        }
+
+        formData.append("hair_data", JSON.stringify([{
+            style: hairStyle,
+            color: hairColor,
+            num: 1
+        }]));
+
+        const response = await client({
+            method: 'POST',
+            url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+            headers: {
+                "ailabapi-api-key": API_KEY,
+                "Accept": "application/json",
+                ...formData.getHeaders()
+            },
+            data: formData
+        });
+
+        if (response.data.error_code === 0 && response.data.task_id) {
+            // 等待处理完成
+            for (let i = 0; i < 12; i++) { // 最多等待 60 秒
+                if (i > 0) {
+                    await delay(5000); // 每 5 秒查询一次
+                }
+                
+                const result = await client.get(
+                    `${API_BASE_URL}/common/query-async-task-result?task_id=${response.data.task_id}`,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "ailabapi-api-key": API_KEY
+                        }
+                    }
+                );
+
+                if (result.data.task_status === 2) { // 处理成功
+                    return NextResponse.json({ 
+                        success: true,
+                        imageUrl: result.data.data.images[hairStyle][0],
+                        styleName: hairStyle
+                    });
+                }
+            }
+        }
+        
+        return NextResponse.json({ 
+            success: false,
+            error: response.data.error_msg || '请求失败',
+            error_detail: response.data.error_detail
+        }, { status: response.data.error_detail?.status_code || 400 });
+
+    } catch (error) {
+        console.error('Submit error:', error);
+        return NextResponse.json({ 
+            success: false, 
+            error: error instanceof Error ? error.message : 'Unknown error',
+            details: error
+        }, { status: 500 });
     }
-
-    // 准备 FormData
-    const formData = new FormData();
-    formData.append("task_type", "async");
-    
-    // 判断是本地文件还是远程URL
-    if (imageUrl.startsWith('http')) {
-      formData.append("image_url", imageUrl);
-    } else {
-      // 如果是远程URL，获取图片数据
-      const imageResponse = await fetch(imageUrl, { timeout: 5000 });
-      if (!imageResponse.ok) {
-        throw new Error('Failed to fetch image');
-      }
-      const buffer = Buffer.from(await imageResponse.arrayBuffer());
-      formData.append("image", buffer, {
-        filename: 'image.jpg',
-        contentType: 'image/jpeg'
-      });
-    }
-
-    formData.append("hair_data", JSON.stringify([{
-      style: hairStyle,
-      color: hairColor,
-      num: 1
-    }]));
-
-    // 使用重试客户端
-    const response = await client({
-      method: 'POST',
-      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      headers: {
-        "ailabapi-api-key": API_KEY,
-        "Accept": "application/json",
-        ...formData.getHeaders()
-      },
-      data: formData,
-      timeout: 15000, // 增加超时时间
-    });
-
-    // 如果获取到了任务ID，立即返回
-    if (response.data.error_code === 0 && response.data.task_id) {
-      return NextResponse.json({ 
-        success: true,
-        taskId: response.data.task_id,
-        status: 'processing'
-      });
-    }
-    
-    return NextResponse.json({ 
-      success: false,
-      error: response.data.error_msg || '请求失败',
-      error_detail: response.data.error_detail
-    }, { status: response.data.error_detail?.status_code || 400 });
-
-  } catch (error) {
-    console.error('Submit error:', error);
-    return NextResponse.json({ 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Unknown error',
-      details: error
-    }, { status: 500 });
-  }
 }
 
 export async function GET(req: NextRequest) {
