@@ -43,25 +43,31 @@ function SelectStylePageContent() {
     // 处理结果图片的回调函数
     const handleStyleSelect = async (style: string) => {
         try {
-            const formData = new FormData();
-            formData.append('hairStyle', style);
-            formData.append('hairColor', 'default');
-            
-            if (uploadedImageUrl) {
-                // 获取图片文件
-                const response = await fetch(uploadedImageUrl);
-                const blob = await response.blob();
-                formData.append('image', blob, 'image.jpg');
+            if (!uploadedImageUrl) {
+                toast.error('Please upload an image first');
+                return;
             }
 
+            // 获取图片文件
+            const response = await fetch(uploadedImageUrl);
+            const blob = await response.blob();
+            
+            // 创建 FormData
+            const formData = new FormData();
+            formData.append('image', blob, 'image.jpg');
+            formData.append('hairStyle', style);
+            formData.append('hairColor', 'default');
+
+            // 发送请求，不要设置 Content-Type
             const submitResponse = await fetch('/api/submit', {
                 method: 'POST',
                 body: formData,
-                // 不要手动设置 Content-Type，让浏览器自动处理
+                // 移除 headers 配置，让浏览器自动处理 Content-Type
             });
 
             if (!submitResponse.ok) {
-                throw new Error('Failed to process image');
+                const errorData = await submitResponse.json();
+                throw new Error(errorData.error || 'Failed to process image');
             }
 
             const result = await submitResponse.json();
