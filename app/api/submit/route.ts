@@ -84,6 +84,7 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
+    // 1. 获取上传的文件和参数
     const formData = await req.formData();
     const image = formData.get('image');
     const hairStyle = formData.get('hairStyle') || 'default';
@@ -96,48 +97,64 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 创建新的 FormData 对象
+    // 2. 准备 FormData
     const form = new FormData();
+    form.append("task_type", "async");
     
-    // 处理图片数据
+    // 3. 处理图片数据
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // 正确设置文件数据
-    form.append('task_type', 'async');
-    form.append('image', buffer, {
+    // 添加文件到 FormData
+    form.append("image", buffer, {
       filename: image.name,
       contentType: image.type
     });
-    form.append('hair_data', JSON.stringify([{
+
+    // 4. 添加发型数据
+    form.append("hair_data", JSON.stringify([{
       style: hairStyle,
       color: hairColor,
       num: 1
     }]));
 
-    // 发送到 AI API，让 axios 自动处理 Content-Type
+    // 5. 调用 AI API
     const response = await axios({
       method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      data: form,
       headers: {
-        'ailabapi-api-key': API_KEY,
-        ...form.getHeaders()  // 使用 form-data 生成的 headers
-      }
+        "ailabapi-api-key": API_KEY,
+        "Accept": "application/json",
+        ...form.getHeaders()
+      },
+      data: form,
+      maxBodyLength: Infinity,
+      validateStatus: (status) => status < 500
     });
 
-    // 检查响应
+    // 6. 检查是否上传成功并开始处理
     if (response.data.error_code === 0 && response.data.task_id) {
       try {
+        // 7. 等待 AI 处理完成并获取结果
         const processResult = await getProcessResult(response.data.task_id);
-        if (processResult?.data.images) {
+
+        // 8. 如果处理成功，返回处理后的图片地址
+        if (processResult && processResult.data.images) {
           const firstStyle = Object.keys(processResult.data.images)[0];
+          const imageUrl = processResult.data.images[firstStyle][0];
+          
           return NextResponse.json({ 
             success: true,
-            imageUrl: processResult.data.images[firstStyle][0],
+            imageUrl: imageUrl,
             styleName: hairStyle
           });
         }
+        
+        // 如果处理超时
+        return NextResponse.json({ 
+          success: false,
+          error: '处理超时，请稍后重试'
+        });
       } catch (processError) {
         console.error('Process Error:', processError);
         return NextResponse.json({ 
@@ -147,10 +164,12 @@ export async function POST(req: NextRequest) {
       }
     }
     
+    // 如果上传失败
     return NextResponse.json({ 
       success: false,
-      error: response.data.error_msg || '请求失败'
-    }, { status: response.data.error_code !== 0 ? 400 : 500 });
+      error: response.data.error_msg || '请求失败',
+      error_detail: response.data.error_detail
+    }, { status: response.data.error_detail?.status_code || 400 });
 
   } catch (error) {
     console.error('Error:', error);
