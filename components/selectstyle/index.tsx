@@ -124,6 +124,28 @@ export default function SelectStyle({
     setSelectedStyle(style);
   };
 
+  // 添加轮询函数
+  const pollTaskStatus = async (taskId: string, maxAttempts = 12) => {
+    for (let i = 0; i < maxAttempts; i++) {
+      try {
+        const response = await fetch(`/api/submit?taskId=${taskId}`);
+        if (!response.ok) continue;
+        
+        const data = await response.json();
+        if (data.task_status === 2 && data.data?.images) {
+          return data;
+        }
+        
+        // 等待5秒后重试
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      } catch (error) {
+        console.error('Poll error:', error);
+        // 继续轮询
+      }
+    }
+    throw new Error('Processing timeout');
+  };
+
   const handleGenerate = async () => {
     if (!uploadedImageUrl || !selectedStyle) {
       toast.error('Please select a hairstyle first');
@@ -138,79 +160,49 @@ export default function SelectStyle({
         ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
         : selectedColor;
 
-      // 添加重试逻辑
-      const maxRetries = 5;
-      let lastError;
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageUrl: uploadedImageUrl,
+          hairStyle: selectedStyle,
+          hairColor: finalColor,
+        }),
+      });
 
-      for (let i = 0; i < maxRetries; i++) {
-        try {
-          const submitResponse = await fetch("/api/submit", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              imageUrl: uploadedImageUrl,
-              hairStyle: selectedStyle,
-              hairColor: finalColor,
-            }),
-          });
-
-          if (!submitResponse.ok) {
-            const errorText = await submitResponse.text();
-            console.error(`Attempt ${i + 1} failed:`, {
-              status: submitResponse.status,
-              text: errorText
-            });
-            
-            if (submitResponse.status === 504) {
-              // 如果是超时错误，等待后重试
-              await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1))); // 递增等待时间
-              continue;
-            }
-            
-            throw new Error(`Request failed: ${submitResponse.status}`);
-          }
-
-          const data = await submitResponse.json();
-          
-          if (!data.success) {
-            throw new Error(data.error || 'Failed to process image');
-          }
-
-          // 获取当前选中的发型对象
-          const currentStyle = currentStyles.find(style => style.style === selectedStyle);
-          const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
-          
-          setResultImage(imageUrlWithStyle);
-          onStyleSelect?.(imageUrlWithStyle);
-          
-          toast.success('Generate Success!', {
-            duration: 3000,
-            position: 'top-center',
-            style: {
-              background: '#1F2937',
-              color: '#fff',
-              padding: '16px',
-              borderRadius: '8px',
-              marginTop: '100px',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-            },
-            icon: '✨',
-          });
-
-          return; // 成功后退出
-        } catch (error) {
-          lastError = error;
-          if (i === maxRetries - 1) {
-            throw error; // 最后一次重试失败时抛出错误
-          }
-          await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1))); // 递增等待时间
+      const data = await response.json();
+      
+      if (data.status === 'processing' && data.taskId) {
+        // 开始轮询任务状态
+        const result = await pollTaskStatus(data.taskId);
+        if (result.data.images) {
+          const firstStyle = Object.keys(result.data.images)[0];
+          setResultImage(result.data.images[firstStyle][0]);
         }
+      } else if (!data.success) {
+        throw new Error(data.error || 'Failed to process image');
       }
 
-      throw lastError; // 所有重试都失败时抛出最后一个错误
+      // 获取当前选中的发型对象
+      const currentStyle = currentStyles.find(style => style.style === selectedStyle);
+      const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
       
+      onStyleSelect?.(imageUrlWithStyle);
+      
+      toast.success('Generate Success!', {
+        duration: 3000,
+        position: 'top-center',
+        style: {
+          background: '#1F2937',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '8px',
+          marginTop: '100px',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+        },
+        icon: '✨',
+      });
+
     } catch (error) {
       console.error('Style selection error:', error);
       toast.error(error instanceof Error ? error.message : 'Failed to process image');

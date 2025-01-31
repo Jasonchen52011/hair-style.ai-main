@@ -5,6 +5,9 @@ import FormData from "form-data";
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
 
+// 设置 axios 默认超时时间
+axios.defaults.timeout = 8000; // 8秒，留出2秒缓冲时间
+
 export async function POST(req: NextRequest) {
   try {
     const { imageUrl, hairStyle, hairColor } = await req.json();
@@ -22,11 +25,10 @@ export async function POST(req: NextRequest) {
     
     // 判断是本地文件还是远程URL
     if (imageUrl.startsWith('http')) {
-      // 如果是远程URL，直接使用URL
       formData.append("image_url", imageUrl);
     } else {
       // 如果是远程URL，获取图片数据
-      const imageResponse = await fetch(imageUrl);
+      const imageResponse = await fetch(imageUrl, { timeout: 5000 });
       if (!imageResponse.ok) {
         throw new Error('Failed to fetch image');
       }
@@ -43,7 +45,7 @@ export async function POST(req: NextRequest) {
       num: 1
     }]));
 
-    // 调用 AI API
+    // 调用 AI API，使用较短的超时时间
     const response = await axios({
       method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
@@ -53,58 +55,18 @@ export async function POST(req: NextRequest) {
         ...formData.getHeaders()
       },
       data: formData,
+      timeout: 8000, // 8秒超时
       maxBodyLength: Infinity,
       validateStatus: (status) => status < 500
     });
 
-    // 检查是否上传成功并开始处理
+    // 如果获取到了任务ID，立即返回
     if (response.data.error_code === 0 && response.data.task_id) {
-      try {
-        // 等待 AI 处理完成并获取结果
-        let result = null;
-        for (let i = 0; i < 12; i++) {
-          if (i > 0) {
-            await new Promise(resolve => setTimeout(resolve, 5000));
-          }
-
-          const statusResponse = await axios({
-            method: 'get',
-            url: `${API_BASE_URL}/common/query-async-task-result`,
-            headers: {
-              'ailabapi-api-key': API_KEY,
-              'Accept': 'application/json'
-            },
-            params: {
-              task_id: response.data.task_id
-            }
-          });
-
-          if (statusResponse.data.task_status === 2) {
-            result = statusResponse.data;
-            break;
-          }
-        }
-
-        if (result && result.data.images) {
-          const firstStyle = Object.keys(result.data.images)[0];
-          return NextResponse.json({
-            success: true,
-            imageUrl: result.data.images[firstStyle][0],
-            styleName: hairStyle
-          });
-        }
-        
-        return NextResponse.json({ 
-          success: false,
-          error: '处理超时，请稍后重试'
-        });
-      } catch (processError) {
-        console.error('Process Error:', processError);
-        return NextResponse.json({ 
-          success: false,
-          error: '处理失败，请重试'
-        });
-      }
+      return NextResponse.json({ 
+        success: true,
+        taskId: response.data.task_id,
+        status: 'processing'
+      });
     }
     
     return NextResponse.json({ 
@@ -115,9 +77,15 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error('Error:', error);
+    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+      return NextResponse.json({
+        success: false,
+        error: "Request timeout, please try again"
+      }, { status: 504 });
+    }
     return NextResponse.json({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
+      error: error instanceof Error ? error.message : "Unknown error occurred"
     }, { status: 500 });
   }
 }
