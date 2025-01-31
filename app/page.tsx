@@ -46,12 +46,6 @@ export default function Home() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <Hero />
-            <Image
-                src="/salon-interior.jpg"
-                alt="Modern and luxurious hair salon interior with elegant styling stations and ambient lighting"
-                width={800}
-                height={400}
-            />
             <Footer />
         </div>
     );

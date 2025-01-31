@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { femaleStyles, maleStyles, hairColors } from '@/components/selectstyle';
+import Image from 'next/image';
 
 type TabType = 'Female' | 'Male' | 'Color';
 
@@ -81,6 +82,12 @@ const colorImages = {
     lightBlue: "/images/colors/light-blue-hair.jpg",
     blonde: "/images/colors/blonde-hair.jpg",
     lightPurple: "/images/colors/light-purple-hair.jpg"
+};
+
+const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    target.onerror = null; // 防止无限循环
+    target.src = '/fallback-image.jpg'; // 设置一个默认的占位图片
 };
 
 export default function Hero() {
@@ -186,11 +193,13 @@ export default function Hero() {
 
                     {/* 右侧图片 */}
                     <div className="hidden lg:block">
-                        <img
+                        <Image
                             src="/images/hero/hero4.jpg"
                             alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
                             className="w-full h-auto max-w-2xl mx-auto"
-                            loading="eager"
+                            width={1024}
+                            height={768}
+                            onError={handleImageError}
                         />
                     </div>
                 </div>
@@ -237,10 +246,13 @@ export default function Hero() {
                                 <div key={index} className="group">
                                     <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
                                         {colorImages[color.id as keyof typeof colorImages] ? (
-                                            <img
+                                            <Image
                                                 src={colorImages[color.id as keyof typeof colorImages]}
                                                 alt={color.label}
                                                 className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                                width={200}
+                                                height={200}
+                                                onError={handleImageError}
                                             />
                                         ) : (
                                             // 如果没有对应的图片，显示颜色块
@@ -263,10 +275,21 @@ export default function Hero() {
                             displayStyles.map((style, index) => (
                                 <div key={index} className="group">
                                     <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3 relative">
-                                        <img
+                                        <Image
                                             src={style.imageUrl}
                                             alt={style.description}
                                             className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                            width={200}
+                                            height={200}
+                                            onError={(e) => {
+                                                const target = e.target as HTMLImageElement;
+                                                target.onerror = null; // 防止无限循环
+                                                target.src = '/images/fallback/hairstyle-placeholder.jpg'; // 使用占位图
+                                                console.error(`Failed to load image: ${style.imageUrl}`);
+                                            }}
+                                            loading="lazy"
+                                            placeholder="blur"
+                                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkLzYvLy0vLi44QjQ4OEQ4LjE1REVHS1NTW1xfXkVnaWVsbW1u/2wBDARVFx4eIB4gHR0gIjglOCU4NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Njb/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                                         />
                                     </div>
                                     <p className="text-center text-gray-800 font-medium">
@@ -308,10 +331,13 @@ export default function Hero() {
                         {/* Step 1 */}
                         <div className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
-                                <img 
+                                <Image 
                                     src="/images/steps/upload.jpg" 
                                     alt="Simple illustration showing how to upload your photo for AI hairstyle transformation"
                                     className="w-full h-full object-cover"
+                                    width={400}
+                                    height={300}
+                                    onError={handleImageError}
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step1: Upload Image</h3>
@@ -323,10 +349,13 @@ export default function Hero() {
                         {/* Step 2 */}
                         <div className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
-                                <img 
+                                <Image 
                                     src="/images/steps/choose.jpg" 
                                     alt="Interactive interface demonstrating hairstyle and color selection process"
                                     className="w-full h-full object-cover"
+                                    width={400}
+                                    height={300}
+                                    onError={handleImageError}
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step2: Choose Hairstyle and Color</h3>
@@ -338,10 +367,13 @@ export default function Hero() {
                         {/* Step 3 */}
                         <div className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
-                                <img 
+                                <Image 
                                     src="/images/steps/download.jpg" 
                                     alt="Example of downloading your transformed hairstyle result"
                                     className="w-full h-full object-cover"
+                                    width={400}
+                                    height={300}
+                                    onError={handleImageError}
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step3: Download Photo!</h3>
@@ -388,10 +420,13 @@ export default function Hero() {
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                <img 
+                                <Image 
                                     src="/images/hero/ba3.jpg" 
                                     alt="Before and after comparison of AI hairstyle transformation showing dramatic style change"
                                     className="w-[440px] h-[450px] object-cover rounded-xl"
+                                    width={440}
+                                    height={450}
+                                    onError={handleImageError}
                                 />
                             </div>
                         </div>
@@ -406,10 +441,13 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                <img 
+                                <Image 
                                     src="/images/hero/change.jpg" 
                                     alt="Multiple hairstyle options showcasing different looks on the same person using AI technology"
                                     className="w-[430px] h-[470px] object-cover rounded-xl"
+                                    width={430}
+                                    height={470}
+                                    onError={handleImageError}
                                 />
                             </div>
                             {/* 右侧内容 */}
@@ -468,10 +506,13 @@ export default function Hero() {
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                <img 
+                                <Image 
                                     src="/images/hero/ba5.jpg" 
                                     alt="Side-by-side comparison demonstrating the power of AI hairstyle transformation technology"
                                     className="w-[600px] h-[290px] object-cover rounded-xl"
+                                    width={600}
+                                    height={290}
+                                    onError={handleImageError}
                                 />
                             </div>
                         </div>
@@ -503,10 +544,13 @@ export default function Hero() {
 
                                 {/* 用户信息 */}
                                 <div className="flex items-center gap-4">
-                                    <img
+                                    <Image
                                         src={`/images/reviewer/${testimonials[currentTestimonial].name.toLowerCase()}.jpg`}
                                         alt={`Profile photo of ${testimonials[currentTestimonial].name}, ${testimonials[currentTestimonial].title}`}
                                         className="w-16 h-16 rounded-full object-cover"
+                                        width={64}
+                                        height={64}
+                                        onError={handleImageError}
                                     />
                                     <div>
                                         <h4 className="text-xl font-semibold">

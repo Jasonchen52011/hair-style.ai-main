@@ -4,7 +4,6 @@ import path from "path";
 import FormData from "form-data";
 import fs from "fs";
 
-
 const API_KEY = process.env.AILABAPI_API_KEY;
 const QUERY_URL = "https://www.ailabapi.com/api/common/query-async-task-result";
 const API_BASE_URL = 'https://www.ailabapi.com/api';
@@ -60,9 +59,8 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
         headers: {
           "Content-Type": "application/json",
           "ailabapi-api-key": API_KEY
-        },
-
-      }
+        }
+      };
 
       const response = await axios(config);
       console.log(`Attempt ${i + 1} response:`, response.data);

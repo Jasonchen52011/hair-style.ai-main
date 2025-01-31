@@ -2,13 +2,16 @@
 const nextConfig = {
     images: {
         domains: [
-            'ailab-result-rapidapi.oss-accelerate.aliyuncs.com'
+            'ailab-result-rapidapi.oss-accelerate.aliyuncs.com',
+            'hair-style.ai',
+            'www.hair-style.ai'
         ],
         unoptimized: true,
         remotePatterns: [
             {
                 protocol: 'https',
                 hostname: '**',
+                pathname: '**',
             },
         ],
     },
