@@ -84,92 +84,81 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
+    // 检查请求的 Content-Type
+    const contentType = req.headers.get('content-type') || '';
+    if (!contentType.includes('multipart/form-data')) {
+      return NextResponse.json({
+        success: false,
+        error: "Content-Type must be multipart/form-data"
+      }, { status: 400 });
+    }
+
     const formData = await req.formData();
     const image = formData.get('image');
     const hairStyle = formData.get('hairStyle') || 'default';
     const hairColor = formData.get('hairColor') || 'default';
     
-    if (!image) {
+    if (!image || !(image instanceof File)) {
       return NextResponse.json({
         success: false,
-        error: "Missing required fields",
+        error: "Invalid or missing image file"
       }, { status: 400 });
     }
 
-    // 创建新的 FormData
+    // 创建新的 FormData 对象
     const form = new FormData();
     
     // 处理图片数据
-    if (image instanceof File) {
-      const arrayBuffer = await image.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      
-      // 添加文件到 FormData
-      form.append('image', buffer, {
-        filename: image.name,
-        contentType: image.type
-      });
-      form.append('task_type', 'async');
-      form.append('hair_data', JSON.stringify([{
-        style: hairStyle,
-        color: hairColor,
-        num: 1
-      }]));
+    const arrayBuffer = await image.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    
+    // 正确设置文件数据
+    form.append('image', new Blob([buffer], { type: image.type }), image.name);
+    form.append('task_type', 'async');
+    form.append('hair_data', JSON.stringify([{
+      style: hairStyle,
+      color: hairColor,
+      num: 1
+    }]));
 
-      // 使用 axios 的配置对象方式，而不是 axios.post
-      const response = await axios({
-        method: 'POST',
-        url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-        data: form,
-        headers: {
-          'ailabapi-api-key': API_KEY,
-          // 不要手动设置 Content-Type，让 axios 自动处理
-          ...form.getHeaders() // 使用 form-data 生成的 headers
-        },
-        maxBodyLength: Infinity,
-        // 添加 transformRequest 来保持 FormData 不变
-        transformRequest: [(data) => data]
-      });
+    // 发送到 AI API
+    const response = await axios({
+      method: 'POST',
+      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      data: form,
+      headers: {
+        'ailabapi-api-key': API_KEY,
+        'Content-Type': `multipart/form-data; boundary=${(form as any)._boundary}`,
+      },
+      transformRequest: (data) => data, // 防止 axios 修改 FormData
+    });
 
-      // 检查是否上传成功并开始处理
-      if (response.data.error_code === 0 && response.data.task_id) {
-        try {
-          const processResult = await getProcessResult(response.data.task_id);
-          if (processResult && processResult.data.images) {
-            const firstStyle = Object.keys(processResult.data.images)[0];
-            const imageUrl = processResult.data.images[firstStyle][0];
-            
-            return NextResponse.json({ 
-              success: true,
-              imageUrl: imageUrl,
-              styleName: hairStyle
-            });
-          }
-          
+    // 检查响应
+    if (response.data.error_code === 0 && response.data.task_id) {
+      try {
+        const processResult = await getProcessResult(response.data.task_id);
+        if (processResult?.data.images) {
+          const firstStyle = Object.keys(processResult.data.images)[0];
           return NextResponse.json({ 
-            success: false,
-            error: '处理超时，请稍后重试'
-          });
-        } catch (processError) {
-          console.error('Process Error:', processError);
-          return NextResponse.json({ 
-            success: false,
-            error: '处理失败，请重试'
+            success: true,
+            imageUrl: processResult.data.images[firstStyle][0],
+            styleName: hairStyle
           });
         }
+      } catch (processError) {
+        console.error('Process Error:', processError);
+        return NextResponse.json({ 
+          success: false,
+          error: '处理失败，请重试'
+        });
       }
-      
-      return NextResponse.json({ 
-        success: false,
-        error: response.data.error_msg || '请求失败',
-        error_detail: response.data.error_detail
-      }, { status: response.data.error_detail?.status_code || 400 });
-    } else {
-      return NextResponse.json({
-        success: false,
-        error: "Invalid file format"
-      }, { status: 400 });
     }
+    
+    return NextResponse.json({ 
+      success: false,
+      error: response.data.error_msg || '请求失败'
+    }, { status: response.data.error_code !== 0 ? 400 : 500 });
+
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ 
