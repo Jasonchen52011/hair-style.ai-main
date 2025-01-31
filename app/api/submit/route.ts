@@ -96,6 +96,7 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
+    // 使用 form-data 包创建表单
     const form = new FormData();
     
     try {
@@ -105,7 +106,10 @@ export async function POST(req: NextRequest) {
 
       // 添加数据到 FormData
       form.append('task_type', 'async');
-      form.append('image', new Blob([buffer], { type: image.type }), image.name);
+      form.append('image', buffer, {
+        filename: image.name,
+        contentType: image.type
+      });
       form.append('hair_data', JSON.stringify([{
         style: hairStyle,
         color: hairColor,
@@ -126,15 +130,15 @@ export async function POST(req: NextRequest) {
         method: 'post',
         data: form,
         headers: {
-          'ailabapi-api-key': API_KEY
+          'ailabapi-api-key': API_KEY,
+          ...form.getHeaders()  // 获取正确的 headers
         },
         maxBodyLength: Infinity,
-        timeout: 30000 // 30 seconds timeout
+        timeout: 30000
       });
 
       console.log('API Response:', response.data);
 
-      // 检查响应
       if (response.data.error_code !== 0) {
         console.error('API Error:', response.data);
         throw new Error(response.data.error_msg || 'API request failed');
