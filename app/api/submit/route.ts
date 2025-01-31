@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
+import { Readable } from 'stream';
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
@@ -90,70 +91,84 @@ export async function POST(req: NextRequest) {
     if (!imageResponse.ok) {
       throw new Error('Failed to fetch image');
     }
-    const imageBuffer = await imageResponse.arrayBuffer();
+    const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
 
-    // 准备 FormData
+    // 创建 FormData
     const form = new FormData();
-    form.append("task_type", "async");
-    form.append("image", new Blob([imageBuffer], { type: 'image/jpeg' }), 'image.jpg');
-    form.append("hair_data", JSON.stringify([{
+    
+    // 添加图片数据
+    form.append('task_type', 'async');
+    form.append('image', imageBuffer, {
+      filename: 'image.jpg',
+      contentType: 'image/jpeg'
+    });
+    
+    // 添加发型数据
+    form.append('hair_data', JSON.stringify([{
       style: hairStyle,
       color: hairColor,
       num: 1
     }]));
 
-    // 调用 AI API
-    const response = await axios({
-      method: 'POST',
-      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      headers: {
-        "ailabapi-api-key": API_KEY,
-        "Accept": "application/json",
-        ...form.getHeaders()
-      },
-      data: form,
-      maxBodyLength: Infinity,
-      timeout: 60000
-    });
+    // 发送请求到 AI API
+    const response = await axios.post(
+      `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      form,
+      {
+        headers: {
+          'ailabapi-api-key': API_KEY,
+          ...form.getHeaders()
+        },
+        maxBodyLength: Infinity,
+        timeout: 60000
+      }
+    );
 
+    // 检查响应
     if (response.data.error_code === 0 && response.data.task_id) {
       try {
-        const processResult = await getProcessResult(response.data.task_id);
+        // 等待处理完成
+        for (let i = 0; i < 12; i++) {
+          if (i > 0) {
+            await new Promise(resolve => setTimeout(resolve, 5000));
+          }
 
-        if (processResult && processResult.data.images) {
-          const firstStyle = Object.keys(processResult.data.images)[0];
-          const resultImageUrl = processResult.data.images[firstStyle][0];
-          
-          return NextResponse.json({ 
-            success: true,
-            imageUrl: resultImageUrl,
-            styleName: hairStyle
-          });
+          const queryResponse = await axios.get(
+            `${QUERY_URL}?task_id=${response.data.task_id}`,
+            {
+              headers: {
+                'ailabapi-api-key': API_KEY
+              }
+            }
+          );
+
+          if (queryResponse.data.task_status === 2) {
+            const images = queryResponse.data.data.images;
+            if (images) {
+              const firstStyle = Object.keys(images)[0];
+              return NextResponse.json({
+                success: true,
+                imageUrl: images[firstStyle][0],
+                styleName: hairStyle
+              });
+            }
+          }
         }
         
-        return NextResponse.json({ 
-          success: false,
-          error: '处理超时，请稍后重试'
-        });
-      } catch (processError) {
-        console.error('Process Error:', processError);
-        return NextResponse.json({ 
-          success: false,
-          error: '处理失败，请重试'
-        });
+        throw new Error('Processing timeout');
+      } catch (error) {
+        console.error('Processing error:', error);
+        throw new Error('Failed to process image');
       }
     }
-    
-    return NextResponse.json({ 
-      success: false,
-      error: response.data.error_msg || '请求失败'
-    }, { status: 400 });
+
+    throw new Error(response.data.error_msg || 'API request failed');
 
   } catch (error) {
     console.error('Error:', error);
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred"
+      error: error instanceof Error ? error.message : 'Unknown error occurred'
     }, { status: 500 });
   }
 }
