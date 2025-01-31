@@ -144,17 +144,16 @@ export default function SelectStyle({
       
       // 创建 FormData
       const formData = new FormData();
-      formData.append('image', blob, 'image.jpg');
+      formData.append('image', new Blob([await blob.arrayBuffer()], { type: blob.type }), 'image.jpg');
       formData.append('hairStyle', selectedStyle);
       formData.append('hairColor', finalColor);
 
-      // 使用 FormData 发送请求
+      // 发送请求
       const submitResponse = await fetch("/api/submit", {
         method: "POST",
         body: formData
       });
 
-      // 检查响应状态
       if (!submitResponse.ok) {
         const errorText = await submitResponse.text();
         console.error('Response error:', {
@@ -170,7 +169,6 @@ export default function SelectStyle({
         throw new Error(data.error || 'Failed to process image');
       }
 
-      // 获取当前选中的发型对象
       const currentStyle = currentStyles.find(style => style.style === selectedStyle);
       const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
       
