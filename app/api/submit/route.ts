@@ -5,9 +5,13 @@ import FormData from "form-data";
 import fs from "fs";
 
 const API_KEY = process.env.AILABAPI_API_KEY;
-const QUERY_URL = "https://www.ailabapi.com/api/common/query-async-task-result";
 const API_BASE_URL = 'https://www.ailabapi.com/api';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.hair-style.ai';
+
+// 定义具体的 API 端点
+const API_ENDPOINTS = {
+  HAIRSTYLE: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+  QUERY_TASK: `${API_BASE_URL}/common/query-async-task-result`
+} as const;
 
 interface ApiResponse {
   request_id: string;
@@ -85,6 +89,14 @@ export async function POST(req: NextRequest) {
     const hairStyle = formData.get('hairStyle') || 'default';
     const hairColor = formData.get('hairColor') || 'default';
     
+    // 添加调试日志
+    console.log('Received request:', {
+      hasImage: !!image,
+      hairStyle,
+      hairColor,
+      imageType: image instanceof File ? 'File' : typeof image
+    });
+
     if (!image) {
       return NextResponse.json({
         success: false,
