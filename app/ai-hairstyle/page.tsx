@@ -46,7 +46,8 @@ function SelectStylePageContent() {
     };
 
     // 添加下载函数
-    const handleDownload = async (imageUrl: string) => {
+    const handleDownload = async (i
+        mageUrl: string) => {
         try {
             // 获取图片
             const response = await fetch(imageUrl);
@@ -113,13 +114,50 @@ function SelectStylePageContent() {
                 
                 {/* 使用响应式网格布局 - 调整左右比例 */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3">
-                    {/* 左侧区域增加宽度 */}
                     <div className="lg:col-span-9 h-fit">
                         {!uploadedImageUrl ? (
                             // 上传区域 - 调整边框样式和背景
                             <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col items-center justify-center">
                                 {/* 虚线框区域 - 可点击和可拖拽区域 */}
-                                <div className="w-full max-w-md border-2 border-dashed border-purple-700 rounded-xl p-4 md:p-6 cursor-pointer hover:bg-purple-100 transition-colors flex flex-col items-center bg-white group">
+                                <div 
+                                    className="w-full max-w-md border-2 border-dashed border-purple-700 rounded-xl p-4 md:p-6 cursor-pointer hover:bg-purple-100 transition-colors flex flex-col items-center bg-white group"
+                                    onClick={(e) => {
+                                        if (!(e.target as HTMLElement).closest('button')) {
+                                            document.querySelector('input[type="file"]')?.click();
+                                        }
+                                    }}
+                                    onDragOver={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        e.currentTarget.classList.add('bg-purple-50');
+                                    }}
+                                    onDragLeave={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        e.currentTarget.classList.remove('bg-purple-50');
+                                    }}
+                                    onDrop={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        e.currentTarget.classList.remove('bg-purple-50');
+                                        
+                                        const files = e.dataTransfer.files;
+                                        if (files && files.length > 0) {
+                                            const file = files[0];
+                                            if (file.type.startsWith('image/')) {
+                                                const input = document.querySelector('input[type="file"]') as HTMLInputElement;
+                                                if (input) {
+                                                    const dataTransfer = new DataTransfer();
+                                                    dataTransfer.items.add(file);
+                                                    input.files = dataTransfer.files;
+                                                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                                                }
+                                            } else {
+                                                toast.error('Please upload an image file');
+                                            }
+                                        }
+                                    }}
+                                >
                                     <div className="mb-6 text-purple-700">
                                         <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
