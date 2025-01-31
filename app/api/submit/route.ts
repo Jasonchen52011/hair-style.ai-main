@@ -91,78 +91,78 @@ export async function POST(req: NextRequest) {
     if (!imageResponse.ok) {
       throw new Error('Failed to fetch image');
     }
-    const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+    const imageArrayBuffer = await imageResponse.arrayBuffer();
 
-    // 创建 FormData
-    const form = new FormData();
+    // 创建 FormData 实例
+    const formData = new FormData();
+    formData.append('task_type', 'async');
     
     // 添加图片数据
-    form.append('task_type', 'async');
-    form.append('image', imageBuffer, {
-      filename: 'image.jpg',
-      contentType: 'image/jpeg'
-    });
+    const blob = new Blob([imageArrayBuffer], { type: 'image/jpeg' });
+    formData.append('image', blob, 'image.jpg');
     
     // 添加发型数据
-    form.append('hair_data', JSON.stringify([{
+    formData.append('hair_data', JSON.stringify([{
       style: hairStyle,
       color: hairColor,
       num: 1
     }]));
 
     // 发送请求到 AI API
-    const response = await axios.post(
-      `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      form,
-      {
-        headers: {
-          'ailabapi-api-key': API_KEY,
-          ...form.getHeaders()
-        },
-        maxBodyLength: Infinity,
-        timeout: 60000
+    const response = await axios({
+      method: 'post',
+      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      data: formData,
+      headers: {
+        'ailabapi-api-key': API_KEY,
+        ...formData.getHeaders(),
+        'Content-Type': 'multipart/form-data'
+      },
+      maxBodyLength: Infinity,
+      timeout: 60000
+    });
+
+    if (!response.data || response.data.error_code !== 0) {
+      throw new Error(response.data?.error_msg || 'API request failed');
+    }
+
+    const taskId = response.data.task_id;
+    if (!taskId) {
+      throw new Error('No task ID returned');
+    }
+
+    // 轮询获取结果
+    let result = null;
+    for (let i = 0; i < 12; i++) {
+      if (i > 0) {
+        await new Promise(resolve => setTimeout(resolve, 5000));
       }
-    );
 
-    // 检查响应
-    if (response.data.error_code === 0 && response.data.task_id) {
-      try {
-        // 等待处理完成
-        for (let i = 0; i < 12; i++) {
-          if (i > 0) {
-            await new Promise(resolve => setTimeout(resolve, 5000));
-          }
-
-          const queryResponse = await axios.get(
-            `${QUERY_URL}?task_id=${response.data.task_id}`,
-            {
-              headers: {
-                'ailabapi-api-key': API_KEY
-              }
-            }
-          );
-
-          if (queryResponse.data.task_status === 2) {
-            const images = queryResponse.data.data.images;
-            if (images) {
-              const firstStyle = Object.keys(images)[0];
-              return NextResponse.json({
-                success: true,
-                imageUrl: images[firstStyle][0],
-                styleName: hairStyle
-              });
-            }
-          }
+      const statusResponse = await axios({
+        method: 'get',
+        url: `${API_BASE_URL}/common/query-async-task-result`,
+        params: { task_id: taskId },
+        headers: {
+          'ailabapi-api-key': API_KEY
         }
-        
-        throw new Error('Processing timeout');
-      } catch (error) {
-        console.error('Processing error:', error);
-        throw new Error('Failed to process image');
+      });
+
+      if (statusResponse.data.task_status === 2) {
+        result = statusResponse.data;
+        break;
       }
     }
 
-    throw new Error(response.data.error_msg || 'API request failed');
+    if (!result || !result.data.images) {
+      throw new Error('Processing failed or timed out');
+    }
+
+    const firstStyle = Object.keys(result.data.images)[0];
+    return NextResponse.json({
+      success: true,
+      imageUrl: result.data.images[firstStyle][0],
+      styleName: hairStyle
+    });
 
   } catch (error) {
     console.error('Error:', error);
