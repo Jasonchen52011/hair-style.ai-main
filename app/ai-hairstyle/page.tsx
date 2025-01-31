@@ -41,10 +41,43 @@ function SelectStylePageContent() {
     }, [searchParams]);
 
     // 处理结果图片的回调函数
-    const handleStyleSelect = (imageUrl: string) => {
-        setResultImageUrl(imageUrl);
-        // 将结果图片设置为新的上传图片
-        setUploadedImageUrl(imageUrl);
+    const handleStyleSelect = async (style: string) => {
+        try {
+            const formData = new FormData();
+            formData.append('hairStyle', style);
+            formData.append('hairColor', 'default');
+            
+            if (uploadedImageUrl) {
+                // 获取图片文件
+                const response = await fetch(uploadedImageUrl);
+                const blob = await response.blob();
+                formData.append('image', blob, 'image.jpg');
+            }
+
+            // 明确设置 Content-Type
+            const submitResponse = await fetch('/api/submit', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    // 注意：当使用 FormData 时，不要设置 Content-Type
+                    // 浏览器会自动添加正确的 Content-Type 和 boundary
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!submitResponse.ok) {
+                const errorData = await submitResponse.json();
+                throw new Error(errorData.error || 'Failed to process image');
+            }
+
+            const result = await submitResponse.json();
+            if (result.success && result.imageUrl) {
+                setUploadedImageUrl(result.imageUrl);
+            }
+        } catch (error) {
+            console.error('Style selection error:', error);
+            toast.error('Failed to apply hairstyle');
+        }
     };
 
     // 添加下载函数

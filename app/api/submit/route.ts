@@ -103,9 +103,12 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // 添加数据到 FormData，使用 multipart/form-data
+    // 添加数据到 FormData
     form.append('task_type', 'async');
-    form.append('image', new Blob([buffer], { type: image.type }), image.name);
+    form.append('image', buffer, {
+      filename: image.name,
+      contentType: image.type
+    });
     form.append('hair_data', JSON.stringify([{
       style: hairStyle,
       color: hairColor,
@@ -118,11 +121,16 @@ export async function POST(req: NextRequest) {
       method: 'post',
       data: form,
       headers: {
-        'Content-Type': 'multipart/form-data',  // 文件上传用 multipart/form-data
-        'ailabapi-api-key': API_KEY
+        'ailabapi-api-key': API_KEY,
+        // 不要手动设置 Content-Type，让 axios 自动处理
+        ...form.getHeaders()  // 使用 form-data 生成的 headers
       },
-      maxBodyLength: Infinity,
-      transformRequest: [(data) => data]  // 防止 axios 修改 FormData
+      // 添加这些配置来确保正确处理 FormData
+      transformRequest: [function (data, headers) {
+        // 让 FormData 保持原样
+        return data;
+      }],
+      maxBodyLength: Infinity
     });
 
     // 6. 检查是否上传成功并开始处理
