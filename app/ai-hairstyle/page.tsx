@@ -41,44 +41,10 @@ function SelectStylePageContent() {
     }, [searchParams]);
 
     // 处理结果图片的回调函数
-    const handleStyleSelect = async (style: string, color: string) => {
-        try {
-            const formData = new FormData();
-            
-            // 如果有上传的图片URL，需要先获取图片文件
-            if (uploadedImageUrl) {
-                const response = await fetch(uploadedImageUrl);
-                const blob = await response.blob();
-                formData.append('image', blob, 'image.jpg');
-            }
-            
-            // 添加发型和颜色选择
-            formData.append('hairStyle', style);
-            formData.append('hairColor', color);
-
-            // 发送到服务器，明确设置 Content-Type
-            const submitResponse = await fetch('/api/submit', {
-                method: 'POST',
-                body: formData,
-                // 不要手动设置 Content-Type，让浏览器自动处理
-                // 浏览器会自动添加正确的 boundary
-            });
-
-            if (!submitResponse.ok) {
-                const errorData = await submitResponse.json();
-                throw new Error(errorData.error || 'Failed to process image');
-            }
-
-            const result = await submitResponse.json();
-            if (result.success && result.imageUrl) {
-                setUploadedImageUrl(result.imageUrl);
-            } else {
-                throw new Error(result.error || 'Failed to process image');
-            }
-        } catch (error) {
-            console.error('Style selection error:', error);
-            toast.error('Failed to apply hairstyle');
-        }
+    const handleStyleSelect = (imageUrl: string) => {
+        setResultImageUrl(imageUrl);
+        // 将结果图片设置为新的上传图片
+        setUploadedImageUrl(imageUrl);
     };
 
     // 添加下载函数
@@ -122,39 +88,33 @@ function SelectStylePageContent() {
         }
     };
 
-    // 处理图片上传
+    // 添加文件上传处理函数
     const handleImageUpload = async (file: File) => {
         try {
-            const formData = new FormData();
-            formData.append('image', file);
+            // 检查文件类型
+            if (!file.type.startsWith('image/')) {
+                toast.error('Please upload an image file');
+                return;
+            }
+
+            // 检查文件大小 (例如限制为 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                toast.error('Image size should be less than 5MB');
+                return;
+            }
 
             const loadingToast = toast.loading('Uploading image...');
             
+            // 创建 FormData
+            const formData = new FormData();
+            formData.append('image', file);
+
             // 读取文件并显示预览
             const reader = new FileReader();
-            reader.onloadend = async () => {
+            reader.onloadend = () => {
                 setUploadedImageUrl(reader.result as string);
-                
-                try {
-                    // 上传图片到服务器
-                    const response = await fetch('/api/submit', {
-                        method: 'POST',
-                        body: formData,
-                        // 不要手动设置 Content-Type，让浏览器自动处理
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error);
-                    }
-
-                    toast.dismiss(loadingToast);
-                    toast.success('Image uploaded successfully!');
-                } catch (uploadError) {
-                    toast.dismiss(loadingToast);
-                    toast.error('Failed to upload image');
-                    console.error('Upload error:', uploadError);
-                }
+                toast.dismiss(loadingToast);
+                toast.success('Image uploaded successfully!');
             };
 
             reader.onerror = () => {
