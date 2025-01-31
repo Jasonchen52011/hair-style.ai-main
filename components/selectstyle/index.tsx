@@ -171,7 +171,7 @@ export default function SelectStyle({
       const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
       
       setResultImage(imageUrlWithStyle);
-      onStyleSelect(imageUrlWithStyle);
+      onStyleSelect?.(imageUrlWithStyle);
       
       toast.success('Generate Success!', {
         duration: 3000,
