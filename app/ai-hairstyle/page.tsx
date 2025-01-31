@@ -221,71 +221,71 @@ function SelectStylePageContent() {
                 </div>
                 
                 {/* 使用响应式网格布局 - 调整左右比例 */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                    {/* 左侧图片区域 */}
-                    <div className="lg:col-span-9 h-fit order-2 lg:order-1">
-                        <div className="bg-gray-200 p-4 rounded-lg shadow-sm border border-gray-200 relative">
-                            {/* 顶部下载按钮 */}
-                            {resultImageUrl && (
-                                <div className="absolute top-6 left-0 right-0 flex justify-center z-10">
-                                    <button 
-                                        onClick={() => handleDownload(resultImageUrl)}
-                                        className="h-10 bg-purple-700 text-white hover:bg-purple-800 px-6 rounded-lg text-sm flex items-center justify-center gap-2 shadow-lg"
-                                    >
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                        </svg>
-                                        Download
-                                    </button>
-                                </div>
-                            )}
-
-                            {/* 图片显示区域 */}
-                            <div className="aspect-square w-full overflow-hidden rounded-lg">
-                                {uploadedImageUrl ? (
-                                    <Image 
-                                        src={uploadedImageUrl} 
-                                        alt="Original" 
-                                        width={1024}
-                                        height={1024}
-                                        className="w-full h-full object-contain"
-                                        unoptimized
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3">
+                    {/* 左侧区域增加宽度 */}
+                    <div className="lg:col-span-9 h-fit">
+                        {!uploadedImageUrl ? (
+                            // 上传区域 - 调整边框样式和背景
+                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col items-center justify-center">
+                                <UploadArea />
+                            </div>
+                        ) : (
+                            // 预览区域 - 调整边框样式和宽度
+                            <div className="bg-gray-200 p-4 rounded-lg shadow-sm border border-gray-200 relative h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col">
+                                {/* 顶部按钮区域 */}
+                                <div className="h-[50px] flex justify-between items-center gap-4 mb-4">
+                                    <PhotoUpload 
+                                        onUploadSuccess={setUploadedImageUrl}
+                                        buttonClassName="w-32 h-9 bg-white text-gray-800 hover:bg-gray-50 px-4 rounded-lg text-sm border border-gray-800 flex items-center justify-center gap-2"
+                                        buttonContent={
+                                            <>
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                                </svg>
+                                                Upload new
+                                            </>
+                                        }
                                     />
-                                ) : (
-                                    <div className="w-full h-full bg-gray-100 rounded-lg flex flex-col items-center justify-center">
-                                        <svg className="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                        </svg>
-                                        <span className="text-gray-500">Upload an image to start</span>
-                                    </div>
-                                )}
-                            </div>
+                                    
+                                    {resultImageUrl && (
+                                        <div className="absolute top-6 left-0 right-0 flex justify-center z-10">
+                                            <button 
+                                                onClick={() => handleDownload(resultImageUrl)}
+                                                className="h-10 bg-purple-700 text-white hover:bg-purple-800 px-6 rounded-lg text-sm flex items-center justify-center gap-2 shadow-lg"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                                </svg>
+                                                Download
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
 
-                            {/* 底部上传按钮 */}
-                            <div className="mt-4 flex justify-center">
-                                <PhotoUpload 
-                                    onUploadSuccess={setUploadedImageUrl}
-                                    buttonClassName="flex justify-center h-10 bg-white text-gray-800 hover:bg-gray-50 px-6 rounded-lg text-sm border border-gray-300 flex items-center justify-center gap-2 shadow-sm"
-                                    buttonContent={
-                                        <>
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                            </svg>
-                                            Upload new
-                                        </>
-                                    }
-                                />
+                                {/* 图片显示区域 */}
+                                <div className="relative flex-grow overflow-hidden">
+                                    {uploadedImageUrl && (
+                                        <Image 
+                                            src={uploadedImageUrl} 
+                                            alt="Original" 
+                                            width={1024}
+                                            height={1024}
+                                            className="w-full h-full object-contain rounded-lg"
+                                            unoptimized
+                                        />
+                                    )}
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
-                    {/* 右侧样式选择区域 */}
-                    <div className="lg:col-span-3 order-1 lg:order-2">
-                        <div className="w-full lg:w-[340px] mx-auto">
-                            <SelectStyle 
-                                uploadedImageUrl={uploadedImageUrl}
+                    {/* 右侧区域 - 移除外框 */}
+                    <div className="lg:col-span-3">
+                        <div className="w-[340px]">
+                        <SelectStyle 
+                            uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
-                            />
+                        />
                         </div>
                     </div>
                 </div>
