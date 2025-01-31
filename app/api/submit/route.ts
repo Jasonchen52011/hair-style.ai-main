@@ -96,74 +96,55 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
+    // 创建新的 FormData
     const form = new FormData();
     
     // 处理图片数据
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // 添加数据到 FormData
-    form.append('task_type', 'async');
-    form.append('image', buffer, {
-      filename: image.name,
-      contentType: image.type
-    });
-    form.append('hair_data', JSON.stringify([{
-      style: hairStyle,
-      color: hairColor,
-      num: 1
-    }]));
+    try {
+      // 添加数据到 FormData
+      form.append('task_type', 'async');
+      form.append('image', buffer, {
+        filename: image.name,
+        contentType: image.type
+      });
+      form.append('hair_data', JSON.stringify([{
+        style: hairStyle,
+        color: hairColor,
+        num: 1
+      }]));
 
-    // 发送请求
-    const response = await axios({
-      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      method: 'post',
-      data: form,
-      headers: {
-        'ailabapi-api-key': API_KEY,
-        // 不要手动设置 Content-Type，让 axios 自动处理
-      },
-      maxBodyLength: Infinity
-    });
+      // 发送请求
+      const response = await axios({
+        url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+        method: 'post',
+        data: form,
+        headers: {
+          'ailabapi-api-key': API_KEY,
+        },
+        maxBodyLength: Infinity
+      });
 
-    // 6. 检查是否上传成功并开始处理
-    if (response.data.error_code === 0 && response.data.task_id) {
-      try {
-        // 7. 等待 AI 处理完成并获取结果
-        const processResult = await getProcessResult(response.data.task_id);
-
-        // 8. 如果处理成功，返回处理后的图片地址
-        if (processResult && processResult.data.images) {
-          const firstStyle = Object.keys(processResult.data.images)[0];
-          const imageUrl = processResult.data.images[firstStyle][0];
-          
-          return NextResponse.json({ 
-            success: true,
-            imageUrl: imageUrl,
-            styleName: hairStyle
-          });
-        }
-        
-        // 如果处理超时
-        return NextResponse.json({ 
-          success: false,
-          error: '处理超时，请稍后重试'
-        });
-      } catch (processError) {
-        console.error('Process Error:', processError);
-        return NextResponse.json({ 
-          success: false,
-          error: '处理失败，请重试'
-        });
+      // 检查响应
+      if (response.data.error_code !== 0) {
+        throw new Error(response.data.error_msg || 'API request failed');
       }
+
+      return NextResponse.json({ 
+        success: true,
+        taskId: response.data.task_id,
+        imageUrl: response.data.data?.images?.[hairStyle]?.[0] || null
+      });
+
+    } catch (apiError) {
+      console.error('API Error:', apiError);
+      return NextResponse.json({ 
+        success: false,
+        error: apiError instanceof Error ? apiError.message : 'API request failed'
+      }, { status: 500 });
     }
-    
-    // 如果上传失败
-    return NextResponse.json({ 
-      success: false,
-      error: response.data.error_msg || '请求失败',
-      error_detail: response.data.error_detail
-    }, { status: response.data.error_detail?.status_code || 400 });
 
   } catch (error) {
     console.error('Error:', error);

@@ -152,10 +152,23 @@ export default function SelectStyle({
       const submitResponse = await fetch("/api/submit", {
         method: "POST",
         body: formData
-        // 不设置 headers，让浏览器自动处理 Content-Type
       });
 
-      const data = await submitResponse.json();
+      // 检查响应状态
+      if (!submitResponse.ok) {
+        const errorText = await submitResponse.text();
+        console.error('Response:', errorText);
+        throw new Error(`HTTP error! status: ${submitResponse.status}`);
+      }
+
+      // 尝试解析 JSON
+      let data;
+      try {
+        data = await submitResponse.json();
+      } catch (e) {
+        console.error('JSON parse error:', e);
+        throw new Error('Invalid response format');
+      }
 
       if (!data.success) {
         throw new Error(data.error || 'Failed to process image');
