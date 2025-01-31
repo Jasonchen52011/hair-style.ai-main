@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
       method: 'post',
       data: form,
       headers: {
-        'Content-Type': 'multipart/form-data',  // 明确指定 Content-Type
+        'Content-Type': 'multipart/form-data',  // 文件上传用 multipart/form-data
         'ailabapi-api-key': API_KEY
       },
       maxBodyLength: Infinity,
@@ -192,9 +192,9 @@ export async function GET(req: NextRequest) {
     // 查询处理结果
     const response = await axios({
       method: "get",
-      url: QUERY_URL,
+      url: `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json",  // GET 请求用 application/json
         "ailabapi-api-key": apiKey
       },
       params: { task_id: taskId }
