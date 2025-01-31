@@ -96,28 +96,28 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 创建新的 FormData
+    // 创建新的 FormData，使用 form-data 包
     const form = new FormData();
-
+    
     // 处理图片数据
     if (image instanceof File) {
-      // 读取文件内容
       const arrayBuffer = await image.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       
-      // 创建 Blob 对象
-      const blob = new Blob([buffer], { type: image.type });
-      
       // 添加文件到 FormData
-      form.append('image', blob, image.name);
+      form.append('image', buffer, {
+        filename: image.name,
+        contentType: image.type
+      });
       form.append('task_type', 'async');
-      
-      // 添加发型数据
       form.append('hair_data', JSON.stringify([{
         style: hairStyle,
         color: hairColor,
         num: 1
       }]));
+
+      // 获取 form 生成的 headers，包含正确的 boundary
+      const formHeaders = form.getHeaders();
 
       // 发送请求
       const response = await axios({
@@ -126,9 +126,9 @@ export async function POST(req: NextRequest) {
         data: form,
         headers: {
           'ailabapi-api-key': API_KEY,
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json'
-        }
+          ...formHeaders  // 使用 form-data 生成的 headers，包含正确的 Content-Type 和 boundary
+        },
+        maxBodyLength: Infinity
       });
 
       // 检查是否上传成功并开始处理
