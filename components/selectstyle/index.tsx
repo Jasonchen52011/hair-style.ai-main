@@ -258,74 +258,24 @@ export default function SelectStyle({
       const formData = new FormData();
       formData.append('file', file);
 
-      // 添加重试逻辑
-      const maxRetries = 5;
-      let lastError;
+      const response = await fetch('/api/uploadimage', {
+        method: 'POST',
+        body: formData,
+      });
 
-      for (let i = 0; i < maxRetries; i++) {
-        try {
-          const response = await fetch('/api/uploadimage', {
-            method: 'POST',
-            body: formData,
-          });
-
-          if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`Upload attempt ${i + 1} failed:`, {
-              status: response.status,
-              text: errorText
-            });
-            
-            if (response.status === 504) {
-              // 如果是超时错误，等待后重试
-              await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1))); // 递增等待时间
-              continue;
-            }
-            
-            throw new Error(`Upload failed: ${response.status}`);
-          }
-
-          const data = await response.json();
-          
-          if (!data.success) {
-            throw new Error(data.error || 'Upload failed');
-          }
-
-          // 更新状态
-          setResultImage(data.imageUrl);
-          onStyleSelect?.(data.imageUrl);
-          setSelectedStyle('');
-
-          // 显示成功提示
-          toast.success('Upload Success!', {
-            duration: 3000,
-            position: 'top-center',
-            style: {
-              background: '#1F2937',
-              color: '#fff',
-              padding: '16px',
-              borderRadius: '8px',
-              marginTop: '100px',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-            },
-            icon: '📤',
-          });
-
-          return; // 成功后退出
-        } catch (error) {
-          lastError = error;
-          if (i === maxRetries - 1) {
-            throw error; // 最后一次重试失败时抛出错误
-          }
-          await new Promise(resolve => setTimeout(resolve, 2000 * (i + 1))); // 递增等待时间
-        }
+      const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error(data.error || 'Upload failed');
       }
 
-      throw lastError; // 所有重试都失败时抛出最后一个错误
+      onStyleSelect?.(data.imageUrl);
+      setSelectedStyle('');
+      setResultImage(null);
 
     } catch (error) {
       console.error('Upload error:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to upload image');
+      alert('Failed to upload image');
     }
   };
 
