@@ -7,6 +7,7 @@ import fs from "fs";
 const API_KEY = process.env.AILABAPI_API_KEY;
 const QUERY_URL = "https://www.ailabapi.com/api/common/query-async-task-result";
 const API_BASE_URL = 'https://www.ailabapi.com/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.hair-style.ai';
 
 interface ApiResponse {
   request_id: string;
@@ -81,115 +82,32 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. 获取上传的文件和参数
-    const reqJson = await req.json();
-    const imageFileUrl = reqJson["imageUrl"];
-    const hairStyle = reqJson["hairStyle"];
-    const hairColor = reqJson["hairColor"];
-
-    if (!imageFileUrl || !hairStyle || !hairColor) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Missing required fields",
-        },
-        { status: 400 }
-      );
-    }
-
-    // 准备 FormData
-    const formData = new FormData();
-    formData.append("task_type", "async");
+    const formData = await req.formData();
+    const image = formData.get('image');
     
-    // 判断是本地文件还是远程URL
-    if (imageFileUrl.startsWith('http')) {
-      // 如果是远程URL，直接使用URL
-      formData.append("image_url", imageFileUrl);
-    } else {
-      // 如果是本地文件路径，读取文件流
-      const filePath = path.join(process.cwd(), "public", imageFileUrl);
-      
-      // 检查文件是否存在
-      if (!fs.existsSync(filePath)) {
-        return NextResponse.json({
-          success: false,
-          error: "Image file not found"
-        }, { status: 404 });
-      }
-      
-      formData.append("image", fs.createReadStream(filePath));
+    if (!image) {
+      return NextResponse.json({ error: 'No image provided' }, { status: 400 });
     }
 
-    formData.append("hair_data", JSON.stringify([
-      {
-        style: hairStyle,
-        color: hairColor,
-        num: 1
-      }
-    ]));
+    // 创建新的 FormData
+    const apiFormData = new FormData();
+    apiFormData.append('image', image);
 
-    // 调用 AI API
-    const response = await axios({
-      method: 'POST',
-      url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+    const response = await axios.post(`${API_URL}/submit`, apiFormData, {
       headers: {
-        "ailabapi-api-key": API_KEY,
-        "Accept": "application/json",
-        ...formData.getHeaders()
-      },
-      data: formData,
-      maxBodyLength: Infinity,
-      validateStatus: (status) => status < 500
+        ...apiFormData.getHeaders(),
+        'Authorization': `Bearer ${API_KEY}`
+      }
     });
 
-    // 5. 检查是否上传成功并开始处理
-    if (response.data.error_code === 0 && response.data.task_id) {
-      try {
-        // 6. 等待 AI 处理完成并获取结果
-        const processResult = await getProcessResult(response.data.task_id);
-
-        // 9. 如果处理成功，返回处理后的图片地址
-        if (processResult && processResult.data.images) {
-          const firstStyle = Object.keys(processResult.data.images)[0];
-          const imageUrl = processResult.data.images[firstStyle][0];
-          
-          return NextResponse.json({ 
-            success: true,
-            imageUrl: imageUrl,
-            styleName: hairStyle  // 添加发型名称到响应中
-          });
-        }
-        
-        // 如果处理超时
-        return NextResponse.json({ 
-          success: false,
-          error: '处理超时，请稍后重试'
-        });
-      } catch (processError) {
-        console.error('Process Error:', processError);
-        return NextResponse.json({ 
-          success: false,
-          error: '处理失败，请重试'
-        });
-      }
-    }
-    
-    // 如果上传失败
-    return NextResponse.json({ 
-      success: false,
-      error: response.data.error_msg || '请求失败',
-      error_detail: response.data.error_detail
-    }, { status: response.data.error_detail.status_code || 400 });
-    
+    return NextResponse.json(response.data);
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Submit error:', error);
     return NextResponse.json({ 
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred"
+      error: error instanceof Error ? error.message : 'Unknown error' 
     }, { status: 500 });
   }
 }
-
 
 export async function GET(req: NextRequest) {
   try {

@@ -91,19 +91,28 @@ function SelectStylePageContent() {
     // 添加文件上传处理函数
     const handleImageUpload = async (file: File) => {
         try {
-            // 显示加载提示
+            // 检查文件类型
+            if (!file.type.startsWith('image/')) {
+                toast.error('Please upload an image file');
+                return;
+            }
+
+            // 检查文件大小 (例如限制为 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                toast.error('Image size should be less than 5MB');
+                return;
+            }
+
             const loadingToast = toast.loading('Uploading image...');
             
             // 创建 FormData
             const formData = new FormData();
             formData.append('image', file);
 
-            // 上传到临时存储
+            // 读取文件并显示预览
             const reader = new FileReader();
             reader.onloadend = () => {
-                // 设置预览图片
                 setUploadedImageUrl(reader.result as string);
-                // 关闭加载提示
                 toast.dismiss(loadingToast);
                 toast.success('Image uploaded successfully!');
             };
@@ -113,7 +122,6 @@ function SelectStylePageContent() {
                 toast.error('Failed to read file');
             };
 
-            // 开始读取文件
             reader.readAsDataURL(file);
 
         } catch (error) {
@@ -187,7 +195,7 @@ function SelectStylePageContent() {
                             fileInputRef.current?.click();
                         }}
                     >
-                        Select File
+                        Upload Image
                     </button>
                 </div>
             </div>
