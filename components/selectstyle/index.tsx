@@ -114,13 +114,10 @@ export default function SelectStyle({
   const [selectedStyle, setSelectedStyle] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("brown");
   const [isLoading, setIsLoading] = useState(false);
-  const [resultImage, setResultImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
   const handleStyleClick = (style: string) => {
-    // 只设置选中的发型，不直接发送请求
     setSelectedStyle(style);
   };
 
@@ -154,7 +151,6 @@ export default function SelectStyle({
 
     try {
       setIsLoading(true);
-      setResultImage(null);
 
       const finalColor = selectedColor === 'random' 
         ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
@@ -183,8 +179,7 @@ export default function SelectStyle({
           const currentStyle = currentStyles.find(style => style.style === selectedStyle);
           const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
           
-          // 更新结果图片
-          setResultImage(imageUrlWithStyle);
+          // 将结果传回父组件
           onStyleSelect?.(imageUrlWithStyle);
           
           toast.success('Generate Success!', {
@@ -215,103 +210,8 @@ export default function SelectStyle({
     }
   };
 
-  const handleDownload = async (imageUrl: string) => {
-    try {
-        // 获取当前选中的发型对象
-        const currentStyle = currentStyles.find(style => style.style === selectedStyle);
-        // 处理发型名称：将空格替换为连字符，移除特殊字符
-        const styleNameFormatted = currentStyle?.description.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') || 'hairstyle';
-        
-      // 获取图片
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-      
-        // 创建下载链接，使用格式化后的发型名称
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-        a.download = `${styleNameFormatted}-${new Date().getTime()}.jpg`;
-      
-      // 触发下载
-      document.body.appendChild(a);
-      a.click();
-      
-      // 清理
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Download failed:', error);
-      alert('Failed to download image');
-    }
-  };
-
-  // 修改文件上传处理函数
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/uploadimage', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-      
-      if (!data.success) {
-        throw new Error(data.error || 'Upload failed');
-      }
-
-      onStyleSelect?.(data.imageUrl);
-      setSelectedStyle('');
-      setResultImage(null);
-
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('Failed to upload image');
-    }
-  };
-
   return (
     <div className="w-full">
-      {/* 添加隐藏的文件输入框 */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        className="hidden"
-        accept="image/*"
-        onChange={handleFileChange}
-      />
-      
-      {/* 主图片区域 */}
-      <div className="relative w-full aspect-square mb-6">
-        {uploadedImageUrl ? (
-          <div className="relative">
-            <img
-              src={uploadedImageUrl}
-              alt="Uploaded"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
-        ) : (
-          <div className="w-full aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="flex flex-col items-center gap-2 text-gray-500 hover:text-gray-700"
-            >
-              <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              <span>Upload Image</span>
-            </button>
-          </div>
-        )}
-      </div>
-
       {/* Gender Selection */}
       <div className="mb-4 bg-gray-100 p-2 rounded-lg">
         <div className="flex space-x-2">
