@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import PhotoUpload from '@/components/photoupload';
 import SelectStyle from '@/components/selectstyle';
 import Image from 'next/image';
+import Upload from '@/components/upload';
 
 
 // 创建一个包装组件来处理搜索参数
@@ -29,6 +30,7 @@ function SelectStylePageContent() {
     const [uploadedImageUrl, setUploadedImageUrl] = useState<string>();
     const [resultImageUrl, setResultImageUrl] = useState<string>();
     const searchParams = useSearchParams();
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // 从 URL 参数中获取图片 URL
     useEffect(() => {
@@ -46,8 +48,7 @@ function SelectStylePageContent() {
     };
 
     // 添加下载函数
-    const handleDownload = async (i
-        mageUrl: string) => {
+    const handleDownload = async (imageUrl: string) => {
         try {
             // 获取图片
             const response = await fetch(imageUrl);
@@ -87,6 +88,96 @@ function SelectStylePageContent() {
         }
     };
 
+    // 上传区域组件
+    const UploadArea = () => {
+        const [isDragging, setIsDragging] = useState(false);
+
+        // 处理点击上传
+        const handleClick = () => {
+            console.log("Click upload area");  // 添加日志
+            fileInputRef.current?.click();
+        };
+
+        // 处理文件选择
+        const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            console.log("File selected");  // 添加日志
+            const file = e.target.files?.[0];
+            if (file) {
+                handleImageUpload(file);
+            }
+        };
+
+        // 处理拖放
+        const handleDragOver = (e: React.DragEvent) => {
+            e.preventDefault();
+            console.log("Dragging over");  // 添加日志
+            setIsDragging(true);
+        };
+
+        const handleDragLeave = () => {
+            console.log("Drag leave");  // 添加日志
+            setIsDragging(false);
+        };
+
+        const handleDrop = (e: React.DragEvent) => {
+            e.preventDefault();
+            console.log("File dropped");  // 添加日志
+            setIsDragging(false);
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                handleImageUpload(file);
+            }
+        };
+
+        return (
+            <div 
+                className={`upload-area ${isDragging ? 'dragging' : ''}`}
+                onClick={handleClick}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                style={{
+                    border: '2px dashed #9333ea',
+                    borderRadius: '8px',
+                    padding: '40px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    backgroundColor: isDragging ? 'rgba(147, 51, 234, 0.1)' : 'rgba(147, 51, 234, 0.05)',
+                    transition: 'all 0.3s ease'
+                }}
+            >
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                />
+                <div className="flex flex-col items-center justify-center">
+                    <svg 
+                        className="w-12 h-12 text-purple-600 mb-4" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                    >
+                        <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" 
+                        />
+                    </svg>
+                    <p className="text-lg font-medium text-gray-900">
+                        Click or drag image here to upload
+                    </p>
+                    <p className="text-sm text-gray-500 mt-2">
+                        JPG, JPEG, PNG, BMP, WEBP
+                    </p>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="container mx-auto px-4 py-2 min-h-screen">
             <Toaster
@@ -114,84 +205,12 @@ function SelectStylePageContent() {
                 
                 {/* 使用响应式网格布局 - 调整左右比例 */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3">
+                    {/* 左侧区域增加宽度 */}
                     <div className="lg:col-span-9 h-fit">
                         {!uploadedImageUrl ? (
                             // 上传区域 - 调整边框样式和背景
                             <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[680px] w-[calc(100%+30px)] -ml-[30px] flex flex-col items-center justify-center">
-                                {/* 虚线框区域 - 可点击和可拖拽区域 */}
-                                <div 
-                                    className="w-full max-w-md border-2 border-dashed border-purple-700 rounded-xl p-4 md:p-6 cursor-pointer hover:bg-purple-100 transition-colors flex flex-col items-center bg-white group"
-                                    onClick={(e) => {
-                                        if (!(e.target as HTMLElement).closest('button')) {
-                                            document.querySelector('input[type="file"]')?.click();
-                                        }
-                                    }}
-                                    onDragOver={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        e.currentTarget.classList.add('bg-purple-50');
-                                    }}
-                                    onDragLeave={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        e.currentTarget.classList.remove('bg-purple-50');
-                                    }}
-                                    onDrop={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        e.currentTarget.classList.remove('bg-purple-50');
-                                        
-                                        const files = e.dataTransfer.files;
-                                        if (files && files.length > 0) {
-                                            const file = files[0];
-                                            if (file.type.startsWith('image/')) {
-                                                const input = document.querySelector('input[type="file"]') as HTMLInputElement;
-                                                if (input) {
-                                                    const dataTransfer = new DataTransfer();
-                                                    dataTransfer.items.add(file);
-                                                    input.files = dataTransfer.files;
-                                                    input.dispatchEvent(new Event('change', { bubbles: true }));
-                                                }
-                                            } else {
-                                                toast.error('Please upload an image file');
-                                            }
-                                        }
-                                    }}
-                                >
-                                    <div className="mb-6 text-purple-700">
-                                        <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                        </svg>
-                                    </div>
-                                    
-                                    <h2 className="text-2xl font-semibold mb-2">Click or drag image here to upload</h2>
-                                    
-                                    <PhotoUpload 
-                                        onUploadSuccess={setUploadedImageUrl} 
-                                        buttonClassName="bg-purple-700 text-white hover:bg-purple-800 px-8 py-3 rounded-lg text-lg font-medium flex items-center gap-2 mt-6"
-                                        buttonContent={
-                                            <>
-                                                <svg 
-                                                    className="w-6 h-6" 
-                                                    fill="none" 
-                                                    stroke="currentColor" 
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path 
-                                                        strokeLinecap="round" 
-                                                        strokeLinejoin="round" 
-                                                        strokeWidth={2} 
-                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                                    />
-                                                </svg>
-                                                Upload
-                                            </>
-                                        }
-                                    />
-                                    <p className="text-gray-400 mt-1">
-                                        JPG, JPEG, PNG, BMP, WEBP
-                                    </p>
-                                </div>
+                                <UploadArea />
                             </div>
                         ) : (
                             // 预览区域 - 调整边框样式和宽度
