@@ -157,30 +157,25 @@ export default function SelectStyle({
       // 检查响应状态
       if (!submitResponse.ok) {
         const errorText = await submitResponse.text();
-        console.error('Response:', errorText);
-        throw new Error(`HTTP error! status: ${submitResponse.status}`);
+        console.error('Response error:', {
+          status: submitResponse.status,
+          text: errorText
+        });
+        throw new Error(`Request failed: ${submitResponse.status}`);
       }
 
-      // 尝试解析 JSON
-      let data;
-      try {
-        data = await submitResponse.json();
-      } catch (e) {
-        console.error('JSON parse error:', e);
-        throw new Error('Invalid response format');
-      }
-
+      const data = await submitResponse.json();
+      
       if (!data.success) {
         throw new Error(data.error || 'Failed to process image');
       }
 
       // 获取当前选中的发型对象
       const currentStyle = currentStyles.find(style => style.style === selectedStyle);
-      // 将发型名称添加到 URL 中
       const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
       
-      setResultImage(imageUrlWithStyle);  // 设置结果图片
-      onStyleSelect(imageUrlWithStyle);   // 通知父组件
+      setResultImage(imageUrlWithStyle);
+      onStyleSelect(imageUrlWithStyle);
       
       toast.success('Generate Success!', {
         duration: 3000,

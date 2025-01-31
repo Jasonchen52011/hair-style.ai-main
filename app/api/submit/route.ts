@@ -96,7 +96,6 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 创建新的 FormData
     const form = new FormData();
     
     // 处理图片数据
@@ -106,15 +105,19 @@ export async function POST(req: NextRequest) {
     try {
       // 添加数据到 FormData
       form.append('task_type', 'async');
-      form.append('image', buffer, {
-        filename: image.name,
-        contentType: image.type
-      });
+      form.append('image', new Blob([buffer]), 'image.jpg');
       form.append('hair_data', JSON.stringify([{
         style: hairStyle,
         color: hairColor,
         num: 1
       }]));
+
+      console.log('Sending request to:', `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`);
+      console.log('Request data:', {
+        hairStyle,
+        hairColor,
+        imageSize: buffer.length
+      });
 
       // 发送请求
       const response = await axios({
@@ -122,21 +125,30 @@ export async function POST(req: NextRequest) {
         method: 'post',
         data: form,
         headers: {
-          'ailabapi-api-key': API_KEY,
+          'ailabapi-api-key': API_KEY
         },
         maxBodyLength: Infinity
       });
+
+      console.log('API Response:', response.data);
 
       // 检查响应
       if (response.data.error_code !== 0) {
         throw new Error(response.data.error_msg || 'API request failed');
       }
 
-      return NextResponse.json({ 
-        success: true,
-        taskId: response.data.task_id,
-        imageUrl: response.data.data?.images?.[hairStyle]?.[0] || null
-      });
+      // 等待任务完成
+      if (response.data.task_id) {
+        const processResult = await getProcessResult(response.data.task_id);
+        if (processResult && processResult.data.images) {
+          return NextResponse.json({ 
+            success: true,
+            imageUrl: processResult.data.images[Object.keys(processResult.data.images)[0]][0]
+          });
+        }
+      }
+
+      throw new Error('Failed to get processing result');
 
     } catch (apiError) {
       console.error('API Error:', apiError);
