@@ -138,29 +138,17 @@ export default function SelectStyle({
         ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
         : selectedColor;
 
-      // 获取图片并转换为 base64
-      const response = await fetch(uploadedImageUrl);
-      const blob = await response.blob();
-      const reader = new FileReader();
-      
-      const base64Data = await new Promise<string>((resolve, reject) => {
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-
-      // 发送 JSON 请求
+      // 发送请求
       const submitResponse = await fetch("/api/submit", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          image: base64Data,
+          imageUrl: uploadedImageUrl,
           hairStyle: selectedStyle,
-          hairColor: finalColor
-        })
+          hairColor: finalColor,
+        }),
       });
 
       if (!submitResponse.ok) {
@@ -178,6 +166,7 @@ export default function SelectStyle({
         throw new Error(data.error || 'Failed to process image');
       }
 
+      // 获取当前选中的发型对象
       const currentStyle = currentStyles.find(style => style.style === selectedStyle);
       const imageUrlWithStyle = `${data.imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
       
