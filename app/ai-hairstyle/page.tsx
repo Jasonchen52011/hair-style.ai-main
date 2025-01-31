@@ -241,23 +241,23 @@ function SelectStylePageContent() {
                     {/* 左侧区域 */}
                     <div className="lg:col-span-9 h-fit">
                         {!uploadedImageUrl ? (
-                            // 上传区域 - 增加居中样式
-                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[680px] flex flex-col items-center justify-center">
-                                <div className="w-full max-w-md mx-auto"> {/* 添加最大宽度和水平居中 */}
+                            // 上传区域 - 减小高度和内边距
+                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[500px] sm:h-[680px] flex flex-col items-center justify-center">
+                                <div className="w-full max-w-md mx-auto px-4"> {/* 添加水平内边距 */}
                                     <UploadArea />
                                 </div>
                             </div>
                         ) : (
-                            // 预览区域 - 增加居中样式
-                            <div className="bg-gray-200 p-4 rounded-lg shadow-sm border border-gray-200 relative h-[680px] flex flex-col items-center">
-                                {/* 顶部按钮区域 */}
-                                <div className="h-[50px] flex justify-center items-center gap-4 mb-4">
+                            // 预览区域 - 减小高度和间距
+                            <div className="bg-gray-200 p-2 sm:p-4 rounded-lg shadow-sm border border-gray-200 relative h-[500px] sm:h-[680px] flex flex-col items-center">
+                                {/* 顶部按钮区域 - 减小间距 */}
+                                <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (
                                         <button 
                                             onClick={() => handleDownload(resultImageUrl)}
-                                            className="h-10 bg-purple-700 text-white hover:bg-purple-800 px-6 rounded-lg text-sm flex items-center justify-center gap-2 shadow-lg"
+                                            className="h-8 sm:h-10 bg-purple-700 text-white hover:bg-purple-800 px-4 sm:px-6 rounded-lg text-sm flex items-center justify-center gap-1 sm:gap-2 shadow-lg"
                                         >
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                             </svg>
                                             Download
@@ -265,10 +265,10 @@ function SelectStylePageContent() {
                                     )}
                                 </div>
 
-                                {/* 图片显示区域 */}
-                                <div className="flex-grow overflow-hidden mb-4 w-full flex items-center justify-center">
+                                {/* 图片显示区域 - 减小间距 */}
+                                <div className="flex-grow overflow-hidden mb-2 sm:mb-4 w-full flex items-center justify-center px-2 sm:px-4">
                                     {uploadedImageUrl && (
-                                        <div className="max-w-md mx-auto"> {/* 添加容器限制宽度 */}
+                                        <div className="max-w-md mx-auto w-full">
                                             <Image 
                                                 src={uploadedImageUrl} 
                                                 alt="Original" 
@@ -281,14 +281,14 @@ function SelectStylePageContent() {
                                     )}
                                 </div>
 
-                                {/* 底部上传按钮 */}
-                                <div className="flex justify-center">
+                                {/* 底部上传按钮 - 减小尺寸 */}
+                                <div className="flex justify-center mb-2 sm:mb-4">
                                     <PhotoUpload 
                                         onUploadSuccess={setUploadedImageUrl}
-                                        buttonClassName="h-10 bg-white text-gray-800 hover:bg-gray-50 px-6 rounded-lg text-sm border border-gray-300 flex items-center justify-center gap-2 shadow-sm"
+                                        buttonClassName="h-8 sm:h-10 bg-white text-gray-800 hover:bg-gray-50 px-4 sm:px-6 rounded-lg text-sm border border-gray-300 flex items-center justify-center gap-1 sm:gap-2 shadow-sm"
                                         buttonContent={
                                             <>
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                                                 </svg>
                                                 Upload new
