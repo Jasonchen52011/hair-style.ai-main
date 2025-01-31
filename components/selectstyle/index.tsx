@@ -286,7 +286,17 @@ export default function SelectStyle({
         onChange={handleFileChange}
       />
       
+      {/* 主图片区域 */}
+      <div className="relative w-full aspect-square mb-6">
+        {uploadedImageUrl ? (
+          <div className="relative">
+            <img
+              src={uploadedImageUrl}
+              alt="Uploaded"
+              className="w-full h-full object-cover"
+            />
           </div>
+          
         ) : (
           <div className="w-full aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
             <button
