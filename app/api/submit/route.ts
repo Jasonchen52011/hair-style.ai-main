@@ -91,36 +91,37 @@ export async function POST(req: NextRequest) {
     if (!imageResponse.ok) {
       throw new Error('Failed to fetch image');
     }
-    const imageArrayBuffer = await imageResponse.arrayBuffer();
+    const buffer = Buffer.from(await imageResponse.arrayBuffer());
 
-    // 创建 FormData 实例
-    const formData = new FormData();
-    formData.append('task_type', 'async');
+    // 创建 form-data 实例
+    const form = new FormData();
     
-    // 添加图片数据
-    const blob = new Blob([imageArrayBuffer], { type: 'image/jpeg' });
-    formData.append('image', blob, 'image.jpg');
-    
-    // 添加发型数据
-    formData.append('hair_data', JSON.stringify([{
+    // 添加数据
+    form.append('task_type', 'async');
+    form.append('image', buffer, {
+      filename: 'image.jpg',
+      contentType: 'image/jpeg'
+    });
+    form.append('hair_data', JSON.stringify([{
       style: hairStyle,
       color: hairColor,
       num: 1
     }]));
 
     // 发送请求到 AI API
-    const response = await axios({
+    const config = {
       method: 'post',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      data: formData,
       headers: {
         'ailabapi-api-key': API_KEY,
-        ...formData.getHeaders(),
-        'Content-Type': 'multipart/form-data'
+        ...form.getHeaders()
       },
+      data: form,
       maxBodyLength: Infinity,
       timeout: 60000
-    });
+    };
+
+    const response = await axios(config);
 
     if (!response.data || response.data.error_code !== 0) {
       throw new Error(response.data?.error_msg || 'API request failed');
