@@ -76,26 +76,26 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
-    const { image, hairStyle, hairColor } = await req.json();
+    const { imageUrl, hairStyle, hairColor } = await req.json();
     
-    if (!image || !hairStyle || !hairColor) {
+    if (!imageUrl || !hairStyle || !hairColor) {
       return NextResponse.json({
         success: false,
         error: "Missing required fields"
       }, { status: 400 });
     }
 
-    // 从 base64 转换为 buffer
-    const base64Data = image.split(',')[1];
-    const buffer = Buffer.from(base64Data, 'base64');
+    // 获取图片数据
+    const imageResponse = await fetch(imageUrl);
+    if (!imageResponse.ok) {
+      throw new Error('Failed to fetch image');
+    }
+    const imageBuffer = await imageResponse.arrayBuffer();
 
     // 准备 FormData
     const form = new FormData();
     form.append("task_type", "async");
-    form.append("image", buffer, {
-      filename: 'image.jpg',
-      contentType: 'image/jpeg'
-    });
+    form.append("image", new Blob([imageBuffer], { type: 'image/jpeg' }), 'image.jpg');
     form.append("hair_data", JSON.stringify([{
       style: hairStyle,
       color: hairColor,
