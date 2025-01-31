@@ -27,9 +27,6 @@ const nextConfig = {
     },
     // 添加静态导出配置
     output: 'standalone',
-    // 确保正确的基础路径
-    basePath: '',
-    trailingSlash: false,
     // 添加证书配置
     webpack: (config, { isServer }) => {
         if (isServer) {
