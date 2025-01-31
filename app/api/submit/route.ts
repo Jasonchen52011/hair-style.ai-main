@@ -84,7 +84,6 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. 获取上传的文件和参数
     const formData = await req.formData();
     const image = formData.get('image');
     const hairStyle = formData.get('hairStyle') || 'default';
@@ -97,39 +96,36 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 2. 准备 FormData
+    // 创建新的 FormData
     const form = new FormData();
-    form.append("task_type", "async");
     
-    // 3. 处理图片数据
+    // 处理图片数据
     const arrayBuffer = await image.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    // 添加文件到 FormData
-    form.append("image", buffer, {
+    // 添加数据到 FormData
+    form.append('task_type', 'async');
+    form.append('image', buffer, {
       filename: image.name,
       contentType: image.type
     });
-
-    // 4. 添加发型数据
-    form.append("hair_data", JSON.stringify([{
+    form.append('hair_data', JSON.stringify([{
       style: hairStyle,
       color: hairColor,
       num: 1
     }]));
 
-    // 5. 调用 AI API
+    // 使用 axios 配置对象方式发送请求
     const response = await axios({
-      method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-      headers: {
-        "ailabapi-api-key": API_KEY,
-        "Accept": "application/json",
-        ...form.getHeaders()
-      },
+      method: 'post',
       data: form,
-      maxBodyLength: Infinity,
-      validateStatus: (status) => status < 500
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'ailabapi-api-key': API_KEY,
+        'Accept': 'application/json'
+      },
+      maxBodyLength: Infinity
     });
 
     // 6. 检查是否上传成功并开始处理
