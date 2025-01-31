@@ -115,9 +115,6 @@ export async function POST(req: NextRequest) {
       num: 1
     }]));
 
-    // 获取 form 生成的 boundary
-    const boundary = Math.random().toString().substr(2);
-    
     // 发送请求
     const response = await axios({
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
@@ -125,11 +122,9 @@ export async function POST(req: NextRequest) {
       data: form,
       headers: {
         'ailabapi-api-key': API_KEY,
-        'Content-Type': `multipart/form-data; boundary=${boundary}`,
-        'Accept': 'application/json'
+        // 不要手动设置 Content-Type，让 axios 自动处理
       },
-      maxBodyLength: Infinity,
-      // 移除 transformRequest
+      maxBodyLength: Infinity
     });
 
     // 6. 检查是否上传成功并开始处理
