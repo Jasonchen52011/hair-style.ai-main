@@ -93,13 +93,12 @@ export async function POST(req: NextRequest) {
     }
     const buffer = Buffer.from(await imageResponse.arrayBuffer());
 
-    // 创建 form-data 实例
+    // 创建 FormData
     const form = new FormData();
     form.append('task_type', 'async');
     form.append('image', buffer, {
       filename: 'image.jpg',
-      contentType: 'image/jpeg',
-      knownLength: buffer.length
+      contentType: 'image/jpeg'
     });
     form.append('hair_data', JSON.stringify([{
       style: hairStyle,
@@ -108,25 +107,22 @@ export async function POST(req: NextRequest) {
     }]));
 
     // 发送请求到 AI API
-    const response = await fetch(`${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`, {
-      method: 'POST',
-      headers: {
-        'ailabapi-api-key': API_KEY,
-        ...form.getHeaders()
-      },
-      body: form
-    });
+    const response = await axios.post(
+      `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+      form,
+      {
+        headers: {
+          'ailabapi-api-key': API_KEY,
+          ...form.getHeaders()
+        }
+      }
+    );
 
-    if (!response.ok) {
-      throw new Error(`API request failed with status ${response.status}`);
+    if (!response.data || response.data.error_code !== 0) {
+      throw new Error(response.data?.error_msg || 'API request failed');
     }
 
-    const responseData = await response.json();
-    if (responseData.error_code !== 0) {
-      throw new Error(responseData.error_msg || 'API request failed');
-    }
-
-    const taskId = responseData.task_id;
+    const taskId = response.data.task_id;
     if (!taskId) {
       throw new Error('No task ID returned');
     }
@@ -138,22 +134,20 @@ export async function POST(req: NextRequest) {
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
 
-      const statusResponse = await fetch(
-        `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
+      const statusResponse = await axios.get(
+        `${API_BASE_URL}/common/query-async-task-result`,
         {
           headers: {
             'ailabapi-api-key': API_KEY
+          },
+          params: {
+            task_id: taskId
           }
         }
       );
 
-      if (!statusResponse.ok) {
-        throw new Error(`Status check failed with status ${statusResponse.status}`);
-      }
-
-      const statusData = await statusResponse.json();
-      if (statusData.task_status === 2) {
-        result = statusData;
+      if (statusResponse.data.task_status === 2) {
+        result = statusResponse.data;
         break;
       }
     }
