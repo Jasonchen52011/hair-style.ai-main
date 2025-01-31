@@ -96,7 +96,6 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 创建新的 FormData
     const form = new FormData();
     
     // 处理图片数据
