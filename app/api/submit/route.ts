@@ -1,12 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
+import axiosRetry from 'axios-retry';
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
 
 // 设置 axios 默认超时时间
 axios.defaults.timeout = 8000; // 8秒，留出2秒缓冲时间
+
+const client = axios.create();
+axiosRetry(client, { 
+    retries: 3,
+    retryDelay: (retryCount) => {
+        return retryCount * 1000;
+    },
+    retryCondition: (error) => {
+        return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
+               error.response?.status >= 500;
+    }
+});
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,8 +58,8 @@ export async function POST(req: NextRequest) {
       num: 1
     }]));
 
-    // 调用 AI API，使用较短的超时时间
-    const response = await axios({
+    // 使用重试客户端
+    const response = await client({
       method: 'POST',
       url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
       headers: {
@@ -55,9 +68,7 @@ export async function POST(req: NextRequest) {
         ...formData.getHeaders()
       },
       data: formData,
-      timeout: 8000, // 8秒超时
-      maxBodyLength: Infinity,
-      validateStatus: (status) => status < 500
+      timeout: 15000, // 增加超时时间
     });
 
     // 如果获取到了任务ID，立即返回
@@ -76,16 +87,11 @@ export async function POST(req: NextRequest) {
     }, { status: response.data.error_detail?.status_code || 400 });
 
   } catch (error) {
-    console.error('Error:', error);
-    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
-      return NextResponse.json({
-        success: false,
-        error: "Request timeout, please try again"
-      }, { status: 504 });
-    }
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred"
+    console.error('Submit error:', error);
+    return NextResponse.json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error',
+      details: error
     }, { status: 500 });
   }
 }
