@@ -6,6 +6,8 @@ import fs from "fs";
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
+const MAX_RETRIES = 3;
+const TIMEOUT = 60000; // 60 seconds
 
 // 定义具体的 API 端点
 const API_ENDPOINTS = {
@@ -82,6 +84,19 @@ async function getProcessResult(taskId: string, maxAttempts = 12): Promise<ApiRe
   return null;
 }
 
+// 添加重试逻辑的辅助函数
+async function retryRequest(fn: () => Promise<any>, retries = MAX_RETRIES): Promise<any> {
+  try {
+    return await fn();
+  } catch (error) {
+    if (retries > 0 && axios.isAxiosError(error) && (error.code === 'ECONNABORTED' || error.response?.status === 504)) {
+      console.log(`Retrying... ${MAX_RETRIES - retries + 1} attempt`);
+      return retryRequest(fn, retries - 1);
+    }
+    throw error;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -96,15 +111,12 @@ export async function POST(req: NextRequest) {
       }, { status: 400 });
     }
 
-    // 使用 form-data 包创建表单
     const form = new FormData();
     
     try {
-      // 处理图片数据
       const arrayBuffer = await image.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
 
-      // 添加数据到 FormData
       form.append('task_type', 'async');
       form.append('image', buffer, {
         filename: image.name,
@@ -116,41 +128,37 @@ export async function POST(req: NextRequest) {
         num: 1
       }]));
 
-      console.log('Sending request with:', {
-        hairStyle,
-        hairColor,
-        imageSize: buffer.length,
-        imageName: image.name,
-        imageType: image.type
+      // 使用重试逻辑发送请求
+      const response = await retryRequest(async () => {
+        return axios({
+          url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+          method: 'post',
+          data: form,
+          headers: {
+            'ailabapi-api-key': API_KEY,
+            ...form.getHeaders()
+          },
+          maxBodyLength: Infinity,
+          timeout: TIMEOUT,
+          validateStatus: (status) => status < 500 // 只对 500 错误重试
+        });
       });
-
-      // 发送请求
-      const response = await axios({
-        url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-        method: 'post',
-        data: form,
-        headers: {
-          'ailabapi-api-key': API_KEY,
-          ...form.getHeaders()  // 获取正确的 headers
-        },
-        maxBodyLength: Infinity,
-        timeout: 30000
-      });
-
-      console.log('API Response:', response.data);
 
       if (response.data.error_code !== 0) {
-        console.error('API Error:', response.data);
         throw new Error(response.data.error_msg || 'API request failed');
       }
 
       // 等待任务完成
       if (response.data.task_id) {
-        const processResult = await getProcessResult(response.data.task_id);
-        if (processResult && processResult.data.images) {
+        // 使用重试逻辑获取结果
+        const processResult = await retryRequest(async () => {
+          return getProcessResult(response.data.task_id);
+        });
+
+        if (processResult?.data?.images) {
           const images = processResult.data.images;
           const firstKey = Object.keys(images)[0];
-          if (images[firstKey] && images[firstKey][0]) {
+          if (images[firstKey]?.[0]) {
             return NextResponse.json({ 
               success: true,
               imageUrl: images[firstKey][0]
@@ -163,19 +171,21 @@ export async function POST(req: NextRequest) {
 
     } catch (apiError) {
       console.error('API Error:', apiError);
+      const errorMessage = axios.isAxiosError(apiError) && apiError.code === 'ECONNABORTED'
+        ? 'Request timeout - please try again'
+        : apiError instanceof Error ? apiError.message : 'API request failed';
+
       return NextResponse.json({ 
         success: false,
-        error: apiError instanceof Error ? apiError.message : 'API request failed',
-        details: apiError
-      }, { status: 500 });
+        error: errorMessage
+      }, { status: apiError.response?.status || 500 });
     }
 
   } catch (error) {
     console.error('Request Error:', error);
     return NextResponse.json({ 
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred",
-      details: error
+      error: error instanceof Error ? error.message : "Unknown error occurred"
     }, { status: 500 });
   }
 }
