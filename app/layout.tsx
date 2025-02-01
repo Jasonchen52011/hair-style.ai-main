@@ -21,6 +21,9 @@ export const metadata: Metadata = {
       sizes: '192x192',
       type: 'image/png',
     },
+    shortcut: [
+      { url: '/images/logo/favicon.ico' }
+    ],
     other: [
       {
         rel: 'icon',
@@ -33,6 +36,16 @@ export const metadata: Metadata = {
         type: 'image/png',
         sizes: '512x512',
         url: '/images/logo/logo-512x512.png',
+      }
+    ]
+  },
+  openGraph: {
+    images: [
+      {
+        url: '/images/logo/logo-512x512.png',
+        width: 512,
+        height: 512,
+        alt: 'Hair-style.ai Logo'
       }
     ]
   }
