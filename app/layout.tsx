@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://hair-style.ai'),
   title: 'Hair-style.ai - AI Hairstyle Changer',
   description: 'Try different hairstyles instantly with AI. Change your look virtually before making a real change.',
+  robots: 'index,follow',
   alternates: {
     canonical: '/',
     languages: {
@@ -41,6 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="google-site-verification" content="[你的验证码]" />
         <link rel="alternate" href="https://hair-style.ai" hrefLang="x-default" />
         <link rel="alternate" href="https://hair-style.ai/en" hrefLang="en" />
         <link rel="alternate" href="https://hair-style.ai/zh" hrefLang="zh" />
