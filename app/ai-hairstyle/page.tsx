@@ -225,7 +225,7 @@ function SelectStylePageContent() {
             <div className="max-w-7xl mx-auto">
                 <div className="flex items-center gap-2 mb-2">
                     <Image
-                        src="/images/hero/logo.png"
+                        src="/images/logo/logo.png"
                         alt="Hair-style.ai Logo"
                         width={32}
                         height={32}

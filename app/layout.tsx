@@ -12,6 +12,24 @@ export const metadata: Metadata = {
       'en': 'https://hair-style.ai/en',
       'zh': 'https://hair-style.ai/zh',
     }
+  },
+  icons: {
+    icon: '/images/logo/favicon.ico',
+    apple: '/images/logo/logo-192x192.png',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '192x192',
+        url: '/images/logo/logo-192x192.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '512x512',
+        url: '/images/logo/logo-512x512.png',
+      }
+    ]
   }
 }
 

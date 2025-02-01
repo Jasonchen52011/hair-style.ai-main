@@ -36,7 +36,7 @@ export default function Navbar() {
                 <div className="flex items-center h-22">
                     <Link href="/" className="flex items-center">
                         <Image
-                            src="/images/hero/logo.png"
+                            src="/images/logo/logo.png"
                             alt="Hair-style.ai Logo"
                             width={32}
                             height={32}
