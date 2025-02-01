@@ -48,10 +48,6 @@ module.exports = {
                 loc: '/privacy-policy',
                 priority: 0.6
             },
-            {
-                loc: '/ai-hairstyle',
-                priority: 1.0
-            },
         ]
         
         staticPages.forEach(page => {
