@@ -16,7 +16,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/images/logo/favicon.ico',
-    apple: '/images/logo/logo-192x192.png',
+    apple: {
+      url: '/images/logo/logo-192x192.png',
+      sizes: '192x192',
+      type: 'image/png',
+    },
     other: [
       {
         rel: 'icon',
@@ -39,10 +43,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    'url': 'https://hair-style.ai',
+    'logo': 'https://hair-style.ai/images/logo/logo-512x512.png',
+    'name': 'Hair-style.ai',
+    'image': 'https://hair-style.ai/images/logo/logo-512x512.png',
+    'description': 'AI Hairstyle Changer - Try different hairstyles instantly with AI',
+    'sameAs': [
+      'https://facebook.com/hairstyleai',
+      'https://twitter.com/hairstyleai',
+      'https://instagram.com/hairstyleai'
+    ]
+  };
+
   return (
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="[你的验证码]" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
         <link rel="alternate" href="https://hair-style.ai" hrefLang="x-default" />
         <link rel="alternate" href="https://hair-style.ai/en" hrefLang="en" />
         <link rel="alternate" href="https://hair-style.ai/zh" hrefLang="zh" />
