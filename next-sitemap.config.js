@@ -74,14 +74,4 @@ module.exports = {
             }
         ]
     },
-    transform: async (config, path) => {
-        // 自定义转换逻辑
-        return {
-            loc: path,
-            changefreq: path === '/ai-hairstyle' ? 'daily' : 'weekly',
-            priority: path === '/ai-hairstyle' ? 1.0 : 0.7,
-            lastmod: new Date().toISOString(),
-            alternateRefs: config.alternateRefs ?? []
-        }
-    }
 } 
