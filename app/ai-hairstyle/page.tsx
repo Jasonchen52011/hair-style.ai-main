@@ -78,23 +78,23 @@ function SelectStylePageContent() {
                 });
             } else {
                 // 其他设备：正常下载
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
                 a.download = fileName;
-                
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                
-                toast.success('Download started!', {
-                    duration: 3000,
-                    style: {
-                        background: '#1F2937',
-                        color: '#fff',
-                    },
-                });
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            toast.success('Download started!', {
+                duration: 3000,
+                style: {
+                    background: '#1F2937',
+                    color: '#fff',
+                },
+            });
             }
         } catch (error) {
             console.error('Download failed:', error);
@@ -269,32 +269,32 @@ function SelectStylePageContent() {
                                 <div className="flex-grow overflow-hidden mb-2 sm:mb-4 w-full flex items-center justify-center px-2 sm:px-4">
                                     {uploadedImageUrl && (
                                         <div className="max-w-md mx-auto w-full">
-                                            <Image 
-                                                src={uploadedImageUrl} 
-                                                alt="Original" 
-                                                width={1024}
-                                                height={1024}
-                                                className="w-full h-full object-contain rounded-lg"
-                                                unoptimized
-                                            />
+                                    <Image 
+                                        src={uploadedImageUrl} 
+                                        alt="Original" 
+                                        width={1024}
+                                        height={1024}
+                                        className="w-full h-full object-contain rounded-lg"
+                                        unoptimized
+                                    />
                                         </div>
                                     )}
-                                </div>
+                            </div>
 
                                 {/* 底部上传按钮 - 减小尺寸 */}
                                 <div className="flex justify-center mb-2 sm:mb-4">
-                                    <PhotoUpload 
-                                        onUploadSuccess={setUploadedImageUrl}
+                                        <PhotoUpload 
+                                            onUploadSuccess={setUploadedImageUrl} 
                                         buttonClassName="h-8 sm:h-10 bg-white text-gray-800 hover:bg-gray-50 px-4 sm:px-6 rounded-lg text-sm border border-gray-300 flex items-center justify-center gap-1 sm:gap-2 shadow-sm"
-                                        buttonContent={
-                                            <>
+                                            buttonContent={
+                                                <>
                                                 <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                                </svg>
-                                                Upload new
-                                            </>
-                                        }
-                                    />
+                                                    </svg>
+                                                    Upload new
+                                                </>
+                                            }
+                                        />
                                 </div>
                             </div>
                         )}
@@ -303,10 +303,10 @@ function SelectStylePageContent() {
                     {/* 右侧区域 - 移除外框 */}
                     <div className="lg:col-span-3">
                         <div className="w-full lg:w-[340px] mx-auto">
-                            <SelectStyle 
-                                uploadedImageUrl={uploadedImageUrl}
+                        <SelectStyle 
+                            uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
-                            />
+                        />
                         </div>
                     </div>
                 </div>

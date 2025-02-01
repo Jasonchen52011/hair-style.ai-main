@@ -166,6 +166,17 @@ export default function SelectStyle({
         }),
       });
 
+      if (response.status === 429) {
+        toast.error('You have reached your daily limit of 5 free generations. Please try again tomorrow.', {
+          duration: 5000,
+          style: {
+            background: '#1F2937',
+            color: '#fff',
+          },
+        });
+        return;
+      }
+
       const data = await response.json();
       
       if (data.status === 'processing' && data.taskId) {
