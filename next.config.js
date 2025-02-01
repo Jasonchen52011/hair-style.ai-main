@@ -16,8 +16,8 @@ const nextConfig = {
         ],
     },
     eslint: {
-        // 暂时关闭一些规则以允许构建
-        ignoreDuringBuilds: true,
+        // 暂时忽略 ESLint 错误
+        ignoreDuringBuilds: true
     },
     // 添加实验性配置
     experimental: {
@@ -26,7 +26,8 @@ const nextConfig = {
         },
     },
     typescript: {
-        ignoreBuildErrors: true, // 仅在开发时使用，生产环境应该修复这些错误
+        // 暂时忽略类型错误，让构建能够继续
+        ignoreBuildErrors: true
     },
     // 添加静态导出配置
     output: 'standalone',
