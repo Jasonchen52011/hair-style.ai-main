@@ -14,6 +14,11 @@ export const metadata: Metadata = {
       'zh': 'https://hair-style.ai/zh',
     }
   },
+  verification: {
+    other: {
+      'msvalidate.01': '518A1A066EA7B7ED31AA7B89CDC8BC86',
+    },
+  },
   icons: {
     icon: '/images/logo/favicon.ico',
     apple: {
