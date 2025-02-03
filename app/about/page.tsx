@@ -44,23 +44,23 @@ const jsonLd = {
     founders: [
         {
             '@type': 'Person',
-            name: 'David Chen',
-            jobTitle: 'Founder & CEO',
+            name: 'Span Chen',
+            jobTitle: 'Founder',
             description: 'With 10 years of experience in AI and computer vision'
         }
     ],
     employees: [
         {
             '@type': 'Person',
-            name: 'Sarah Zhang',
-            jobTitle: 'Tech Lead',
+            name: 'Jason Chen',
+            jobTitle: 'Tech & Writer',
             description: 'Expert in deep learning and image processing'
         },
         {
             '@type': 'Person',
-            name: 'Michael Lee',
-            jobTitle: 'Design Lead',
-            description: 'Specialist in UX design and user experience'
+            name: 'Taylor Lei',
+            jobTitle: 'Marketing',
+            description: 'Marketing Lead at Hair-style.ai, link to more people with beautiful hair pursuits'
         }
     ]
 }
@@ -111,25 +111,25 @@ export default function AboutUs() {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {[
                                 {
-                                    name: 'David',
-                                    title: 'Founder & CEO',
-                                    image: '/team/david.png',
-                                    description: 'With 10 years of experience in AI and computer vision, David created Hair-style.ai to revolutionize how people visualize their potential hairstyles.',
-                                    alt: 'Professional headshot of David Chen, Founder and CEO of Hair-style.ai, against a modern office background'
+                                    name: 'Span Chen',
+                                    title: 'Founder',
+                                    image: '/team/Span Chen.jpeg',
+                                    description: 'With 10 years of experience in product management and marketing, I\'ve created Hair-style.ai to revolutionize Helping people explore better hairstyles and find the best version of themselves.',
+                                    alt: 'Professional headshot of Span Chen, Founder of Hair-style.ai, against a modern office background,Helping people explore better hairstyles and find the best version of themselves.'
                                 },
                                 {
-                                    name: 'Sarah Zhang',
-                                    title: 'Tech Lead',
-                                    image: '/team/sarah-zhang.png',
-                                    description: 'Leading our technical development, Sarah brings extensive experience in deep learning and image processing.',
-                                    alt: 'Professional portrait of Sarah Zhang, Tech Lead at Hair-style.ai, in a modern tech workspace'
+                                    name: 'Jason Chen',
+                                    title: 'Tech & Writer',
+                                    image: '/team/Jason Chen.jpeg',
+                                    description: 'As the Tech & Writer for Hair-style.ai, I\'m passionate about creating a user-friendly and innovative experience. I focus on simplifying the technology behind AI hairstyle changes, making it accessible and fun,for everyone.',
+                                    alt: 'Professional portrait of Jason Chen, Tech Lead at Hair-style.ai, in a modern tech workspace'
                                 },
                                 {
-                                    name: 'Michael',
-                                    title: 'Design Lead',
-                                    image: '/team/michael-lee.png',
-                                    description: 'As our design lead, Michael focuses on creating an intuitive and enjoyable user experience.',
-                                    alt: 'Professional headshot of Michael Lee, Design Lead at Hair-style.ai, in a creative studio environment'
+                                    name: 'Taylor Lei',
+                                    title: 'Marketing',
+                                    image: '/team/Taylor Lei.jpeg',
+                                    description: 'As the Marketing for Hair-style.ai, Taylor Lei is passionate about crafting a delightful and user-friendly experience for individuals looking to explore new hairstyles. Makes it easy for users to experiment with different looks, fostering creativity and self-expression.',
+                                    alt: 'Professional headshot of Taylor Lei, Marketing Lead at Hair-style.ai, link to more people with beautiful hair pursuits'
                                 }
                             ].map((member, index) => (
                                 <div key={index} className="bg-white rounded-3xl shadow-lg border border-purple-100 p-8 transform hover:scale-[1.02] transition-all duration-300">

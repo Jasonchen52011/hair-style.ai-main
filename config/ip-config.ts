@@ -4,7 +4,7 @@ export const IP_CONFIG = {
   
   // 白名单 IP 列表
   WHITELIST_IPS: [
-    '你的IP地址'  // 替换成你的实际 IP
+    '127.0.0.1'  // 替换成你的实际 IP
   ],
   
   // Redis 键前缀
