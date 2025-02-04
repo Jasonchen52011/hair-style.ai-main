@@ -4,44 +4,44 @@ import { existsSync } from 'fs';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
-// 修改上传目录为 public/images
+// Upload directory set to public/images
 const uploadDir = join(process.cwd(), 'public', 'images');
 
 export async function POST(req: NextRequest) {
     try {
-        // 1. 确保上传目录存在
+        // 1. Ensure upload directory exists
         if (!existsSync(uploadDir)) {
             await mkdir(uploadDir, { recursive: true });
         }
 
-        // 2. 获取上传的文件
+        // 2. Get uploaded file
         const formData = await req.formData();
         const file = formData.get('image') as File;
 
         if (!file) {
             return NextResponse.json({ 
                 success: false, 
-                error: '没有找到图片文件' 
+                error: 'No image file found' 
             }, { status: 400 });
         }
 
-        // 3. 验证文件类型
+        // 3. Validate file type
         if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
             return NextResponse.json({ 
                 success: false, 
-                error: '只支持 JPG、PNG 和 WebP 格式的图片' 
+                error: 'Only JPG, PNG and WebP images are supported' 
             }, { status: 400 });
         }
 
-        // 4. 验证文件大小 (3MB)
+        // 4. Validate file size (3MB)
         if (file.size > 3 * 1024 * 1024) {
             return NextResponse.json({ 
                 success: false, 
-                error: '图片大小不能超过 3MB' 
+                error: 'Image size cannot exceed 3MB' 
             }, { status: 400 });
         }
 
-        // 5. 生成唯一文件名
+        // 5. Generate unique filename
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
         const uniqueId = uuidv4();
@@ -49,10 +49,10 @@ export async function POST(req: NextRequest) {
         const fileName = `${uniqueId}.${extension}`;
         const filePath = join(uploadDir, fileName);
 
-        // 6. 保存文件
+        // 6. Save file
         await writeFile(filePath, buffer);
 
-        // 7. 返回文件 URL
+        // 7. Return file URL
         const fileUrl = `/images/${fileName}`;
         
         return NextResponse.json({ 
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         console.error('Upload error:', error);
         return NextResponse.json({ 
             success: false, 
-            error: '上传失败',
+            error: 'Upload failed',
             details: (error as Error).message
         }, { status: 500 });
     }

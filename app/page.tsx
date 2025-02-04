@@ -41,7 +41,6 @@ export default function Home() {
         <div className="min-h-screen bg-white flex flex-col">
             <Navbar />
             <Header />
-            <meta name="_foundr" content="915c77b16c71933cb4b42c6eec4601b2" />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
