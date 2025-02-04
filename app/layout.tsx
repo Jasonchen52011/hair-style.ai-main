@@ -79,7 +79,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="_foundr" content="915c77b16c71933cb4b42c6eec4601b2" />
+
         
         <script
           type="application/ld+json"
