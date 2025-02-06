@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
 import axiosRetry from 'axios-retry';
+import { headers } from 'next/headers';
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
@@ -24,8 +25,37 @@ axiosRetry(client, {
     }
 });
 
+// 使用 Map 在内存中存储请求计数
+const requestCounts = new Map<string, { count: number; date: string }>();
+const DAILY_LIMIT = 5;
+
 export async function POST(req: NextRequest) {
     try {
+        // 获取客户端 IP
+        const headersList = headers();
+        const forwardedFor = headersList.get('x-forwarded-for');
+        const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
+
+        // IP 限制检查
+        const today = new Date().toISOString().split('T')[0];
+        const currentCount = requestCounts.get(ip);
+
+        // 如果是新的一天，重置计数
+        if (!currentCount || currentCount.date !== today) {
+            requestCounts.set(ip, { count: 1, date: today });
+        } else if (currentCount.count >= DAILY_LIMIT) {
+            return NextResponse.json({
+                success: false,
+                error: 'You have reached your daily limit of 5 free generations. Please try again tomorrow.'
+            }, { status: 429 });
+        } else {
+            // 增加计数
+            requestCounts.set(ip, {
+                count: currentCount.count + 1,
+                date: today
+            });
+        }
+
         const { imageUrl, hairStyle, hairColor } = await req.json();
         
         if (!imageUrl || !hairStyle || !hairColor) {
