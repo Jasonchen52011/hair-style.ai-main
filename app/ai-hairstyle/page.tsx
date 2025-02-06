@@ -7,8 +7,6 @@ import PhotoUpload from '@/components/photoupload';
 import SelectStyle from '@/components/selectstyle';
 import Image from 'next/image';
 
-
-
 // 创建一个包装组件来处理搜索参数
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
     const searchParams = useSearchParams();

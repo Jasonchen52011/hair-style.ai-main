@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Try different hairstyles instantly with AI. Change your look virtually before making a real change.',
   robots: 'index,follow',
   alternates: {
-    canonical: '/',
+    canonical: 'https://hair-style.ai',
     languages: {
       'x-default': 'https://hair-style.ai',
       'en': 'https://hair-style.ai/en',

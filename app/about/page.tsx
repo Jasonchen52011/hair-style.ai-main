@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 // 添加元数据
 export const metadata: Metadata = {
+    metadataBase: new URL('https://hair-style.ai'),
     title: 'About Hair-style.ai | AI Powered Hairstyle Transformation',
     description: 'Learn about Hair-style.ai, the leading AI-powered platform for virtual hairstyle try-ons. Meet our team and discover how we\'re revolutionizing hairstyle visualization.',
     keywords: 'Hair-style.ai, AI hairstyle, virtual hairstyle, hairstyle transformation, about us, hairstyle technology',
@@ -20,6 +21,9 @@ export const metadata: Metadata = {
             }
         ],
         type: 'website',
+    },
+    alternates: {
+        canonical: 'https://hair-style.ai/about'
     },
 }
 
