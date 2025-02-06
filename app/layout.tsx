@@ -79,8 +79,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-
-        
+        {/* Google Analytics 跟踪代码 */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-SQ0ZZ6EFP6');
+            `,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
