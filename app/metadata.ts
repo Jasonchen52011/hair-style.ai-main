@@ -31,9 +31,10 @@ export const defaultMetadata = {
         type: 'website',
         siteName: 'Hair-style.ai',
         images: [{
-            url: '/default-og-image.jpg',
+            url: 'https://hair-style.ai/images/logo/og-logo.png',
             width: 1200,
             height: 630,
+            alt: 'Hair-style.ai Logo',
         }],
     },
 }
@@ -51,7 +52,7 @@ const baseMetadata: Metadata = {
         siteName: 'Hair-style.ai',
         images: [
             {
-                url: '/og-image.jpg',
+                url: 'https://hair-style.ai/images/logo/og-logo.png',
                 width: 1200,
                 height: 630,
                 alt: 'Hair-style.ai - AI Hairstyle Transformation',
