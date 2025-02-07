@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <ul className="list-disc pl-6 text-gray-600 space-y-2">
                     <li>Website: <a href="https://hair-style.ai" className="text-blue-600 hover:underline">hair-style.ai</a></li>
-                    <li>Email: support@hair-style.ai</li>
+                    <li>Email: hello@hair-style.ai</li>
                 </ul>
             </section>
 
