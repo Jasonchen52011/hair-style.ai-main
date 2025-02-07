@@ -20,6 +20,10 @@ axiosRetry(client, {
         return retryCount * 500; // 重试间隔缩短到 500ms
     },
     retryCondition: (error) => {
+        // 如果是网络错误或服务器错误则重试
+        if (error.message === 'Processing timeout') {
+            error.message = 'We tried multiple times but still failed. Please try with a different photo.';
+        }
         return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
                error.response?.status >= 500;
     }
@@ -61,7 +65,7 @@ export async function POST(req: NextRequest) {
         if (!imageUrl || !hairStyle || !hairColor) {
             return NextResponse.json({
                 success: false,
-                error: "Missing required fields"
+                error: "Please make sure you've selected both a hairstyle and hair color before proceeding."
             }, { status: 400 });
         }
 
@@ -112,7 +116,7 @@ export async function POST(req: NextRequest) {
         
         return NextResponse.json({ 
             success: false,
-            error: response.data.error_msg || '请求失败',
+            error: 'This image might not work for hairstyle changes. Please try another photo.',
             error_detail: response.data.error_detail
         }, { status: response.data.error_detail?.status_code || 400 });
 

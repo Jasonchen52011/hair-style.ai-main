@@ -1,5 +1,7 @@
 import './globals.css'
 import { Metadata } from 'next'
+import { headers } from 'next/headers'
+import { siteMetadata } from './metadata'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hair-style.ai'),
