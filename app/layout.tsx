@@ -22,14 +22,23 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/images/logo/favicon.ico',
+    icon: [
+      {
+        url: '/images/logo/favicon.ico',
+        type: 'image/x-icon',
+        sizes: 'any'
+      }
+    ],
     apple: {
       url: '/images/logo/logo-192x192.png',
       sizes: '192x192',
       type: 'image/png',
     },
     shortcut: [
-      { url: '/images/logo/favicon.ico' }
+      { 
+        url: '/images/logo/favicon.ico',
+        type: 'image/x-icon'
+      }
     ],
     other: [
       {
