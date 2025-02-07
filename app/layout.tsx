@@ -72,9 +72,7 @@ export default function RootLayout({
     'image': 'https://hair-style.ai/images/logo/logo-512x512.png',
     'description': 'AI Hairstyle Changer - Try different hairstyles instantly with AI',
     'sameAs': [
-      'https://facebook.com/hairstyleai',
-      'https://twitter.com/hairstyleai',
-      'https://instagram.com/hairstyleai'
+      'https://x.com/hair_styleai'
     ]
   };
 
