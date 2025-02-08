@@ -17,27 +17,6 @@ module.exports = {
             lastmod: new Date().toISOString()
         })
         
-        // 添加多语言页面
-        const languages = ['en', 'zh']
-        languages.forEach(lang => {
-            result.push({
-                loc: `/${lang}/ai-hairstyle`,
-                changefreq: 'daily',
-                priority: 0.9,
-                lastmod: new Date().toISOString(),
-                alternateRefs: [
-                    {
-                        href: `https://hair-style.ai/ai-hairstyle`,
-                        hreflang: 'x-default'
-                    },
-                    {
-                        href: `https://hair-style.ai/${lang}/ai-hairstyle`,
-                        hreflang: lang
-                    }
-                ]
-            })
-        })
-
         // 添加静态页面
         const staticPages = [
             {

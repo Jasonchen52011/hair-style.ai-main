@@ -1,7 +1,5 @@
 import './globals.css'
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
-import { siteMetadata } from './metadata'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hair-style.ai'),
@@ -10,11 +8,6 @@ export const metadata: Metadata = {
   robots: 'index,follow',
   alternates: {
     canonical: 'https://hair-style.ai',
-    languages: {
-      'x-default': 'https://hair-style.ai',
-      'en': 'https://hair-style.ai/en',
-      'zh': 'https://hair-style.ai/zh',
-    }
   },
   verification: {
     other: {
@@ -88,6 +81,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Google Analytics 跟踪代码 */}
         <script
           async
@@ -107,10 +102,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-
-        <link rel="alternate" href="https://hair-style.ai" hrefLang="x-default" />
-        <link rel="alternate" href="https://hair-style.ai/en" hrefLang="en" />
-        <link rel="alternate" href="https://hair-style.ai/zh" hrefLang="zh" />
       </head>
       <body>{children}</body>
     </html>
