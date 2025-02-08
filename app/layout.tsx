@@ -50,15 +50,27 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
+    type: 'website',
+    url: 'https://hair-style.ai',
+    title: 'Hair-style.ai - AI Hairstyle Changer',
+    description: 'Try different hairstyles instantly with AI. Change your look virtually before making a real change.',
+    siteName: 'Hair-style.ai',
     images: [
       {
         url: '/images/logo/logo-512x512.png',
         width: 512,
         height: 512,
-        alt: 'Hair-style.ai Logo'
+        alt: 'Hair-style.ai Logo',
+        type: 'image/png',
       }
-    ]
-  }
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Hair-style.ai - AI Hairstyle Changer',
+    description: 'Try different hairstyles instantly with AI. Change your look virtually before making a real change.',
+    images: ['/images/logo/logo-512x512.png'],
+  },
 }
 
 export default function RootLayout({
@@ -76,7 +88,12 @@ export default function RootLayout({
     'description': 'AI Hairstyle Changer - Try different hairstyles instantly with AI',
     'sameAs': [
       'https://x.com/hair_styleai'
-    ]
+    ],
+    'brand': {
+      '@type': 'Brand',
+      'name': 'Hair-style.ai',
+      'logo': 'https://hair-style.ai/images/logo/logo-512x512.png'
+    }
   };
 
   return (
@@ -103,6 +120,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script async src="https://www.google.com/..."></script>
+        <script async src="https://cse.google.com/..."></script>
       </head>
       <body>{children}</body>
     </html>
