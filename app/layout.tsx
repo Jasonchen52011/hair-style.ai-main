@@ -1,5 +1,6 @@
 import './globals.css'
 import { Metadata } from 'next'
+import Link from 'next/link'  
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hair-style.ai'),

@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import PhotoUpload from '@/components/photoupload';
 import SelectStyle from '@/components/selectstyle';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // 创建一个包装组件来处理搜索参数
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
@@ -221,17 +222,19 @@ function SelectStylePageContent() {
             />
             
             <div className="max-w-7xl mx-auto">
-                <div className="flex items-center gap-2 mb-2">
-                    <Image
-                        src="/images/logo/logo.png"
-                        alt="Hair-style.ai Logo"
-                        width={32}
-                        height={32}
-                        priority
-                    />
-                    <h1 className="text-2xl  font-semibold">
-                        Hair-style.ai
-                    </h1>
+                <div className="flex items-center gap-3 mb-2 h-[52px]">
+                    <Link href="/" className="flex items-center gap-2">
+                        <Image
+                            src="/images/logo/logo.png"
+                            alt="Hair-style.ai Logo"
+                            width={32}
+                            height={32}
+                            priority
+                        />
+                        <h1 className="text-2xl font-semibold hover:text-purple-700 transition-colors">
+                            Hair-style.ai
+                        </h1>
+                    </Link>
                 </div>
                 
                 {/* 使用响应式网格布局 - 调整左右比例 */}
