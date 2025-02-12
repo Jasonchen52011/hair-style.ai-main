@@ -37,6 +37,14 @@ module.exports = {
             })
         })
 
+        // 添加 Terms & Conditions 页面
+        result.push({
+            loc: '/terms-and-conditions',
+            changefreq: 'monthly',
+            priority: 0.6,
+            lastmod: new Date().toISOString()
+        })
+
         return result
     },
     robotsTxtOptions: {

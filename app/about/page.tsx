@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Navbar from '@/components/navbar'
 
 // 添加元数据
 export const metadata: Metadata = {
@@ -69,9 +70,10 @@ const jsonLd = {
     ]
 }
 
-export default function AboutUs() {
+export default function About() {
     return (
-        <>
+        <div className="min-h-screen">
+            <Navbar />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -295,6 +297,6 @@ export default function AboutUs() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 } 

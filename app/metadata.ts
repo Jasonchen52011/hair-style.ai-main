@@ -123,4 +123,14 @@ export const privacyPolicyMetadata: Metadata = {
     },
     title: 'Privacy Policy - Hair-style.ai',
     description: 'Read our privacy policy to understand how we protect your data and respect your privacy.',
+}
+
+// Terms & Conditions 页面 metadata
+export const termsAndConditionsMetadata: Metadata = {
+    ...baseMetadata,
+    alternates: {
+        canonical: 'https://hair-style.ai/terms-and-conditions',
+    },
+    title: 'Terms & Conditions - Hair-style.ai',
+    description: 'Read our terms and conditions to understand the rules and guidelines for using Hair-style.ai services.',
 } 
