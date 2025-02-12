@@ -5,7 +5,7 @@ import Link from 'next/link'
 export const metadata: Metadata = {
   metadataBase: new URL('https://hair-style.ai'),
   title: 'Hair-style.ai - AI Hairstyle Changer',
-  description: 'Try different hairstyles instantly with AI. Change your look virtually before making a real change.',
+  description: 'Transform your look with Hair-style.ai\'s free AI hairstyle changer. Try different hairstyles instantly, visualize your new look, and make confident style decisions before visiting the salon.',
   robots: 'index,follow',
   alternates: {
     canonical: 'https://hair-style.ai',
