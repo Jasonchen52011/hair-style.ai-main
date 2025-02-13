@@ -1,0 +1,21 @@
+{
+  "name": "Hair-style.ai",
+  "short_name": "Hairstyle",
+  "description": "AI Powered Hairstyle Transformation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7e22ce",
+  "icons": [
+    {
+      "src": "/images/logo/logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo/logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+} 
