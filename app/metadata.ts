@@ -168,14 +168,12 @@ export const privacyPolicyMetadata: Metadata = {
         canonical: 'https://hair-style.ai/privacy-policy',
     },
     title: 'Privacy Policy - Hair-style.ai',
-    description: 'Learn how Hair-style.ai protects your privacy and personal data. Our comprehensive privacy policy explains our data collection, usage, security measures, and your rights.',
+    description: 'Learn how Hair-style.ai protects your privacy and personal data. Our comprehensive privacy policy explains our data collection, usage, security measures.',
     keywords: [
         'privacy policy',
         'data protection',
         'user privacy',
-        'personal data',
         'data security',
-        'privacy terms',
         'hair-style.ai privacy'
     ],
     openGraph: {
