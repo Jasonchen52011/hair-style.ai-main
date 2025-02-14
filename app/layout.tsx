@@ -2,8 +2,27 @@ import './globals.css'
 import Script from 'next/script'
 import { baseMetadata } from './metadata'
 
-// 导出 metadata 配置
-export const metadata = baseMetadata
+// 扩展 metadata 配置
+export const metadata = {
+  ...baseMetadata,
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  // 添加其他 robots 指令
+  other: {
+    'X-Robots-Tag': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+  }
+}
 
 export default function RootLayout({
   children,
@@ -14,7 +33,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     'url': 'https://hair-style.ai',
-    'logo': 'https://hair-style.ai/images/logo/logo-512x512.png',
+    'logo': 'https://hair-style.ai/images/logo/logo.png',
     'name': 'Hair-style.ai',
     'image': 'https://hair-style.ai/images/hero/ba3.jpg',
     'description': 'AI Hairstyle Changer - Try different hairstyles instantly with AI',
@@ -24,7 +43,7 @@ export default function RootLayout({
     'brand': {
       '@type': 'Brand',
       'name': 'Hair-style.ai',
-      'logo': 'https://hair-style.ai/images/logo/logo-512x512.png'
+      'logo': 'https://hair-style.ai/images/logo/logo.png'
     }
   };
 
