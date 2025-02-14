@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { femaleStyles, maleStyles, hairColors } from '@/components/selectstyle';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type TabType = 'Female' | 'Male' | 'Color';
 
@@ -87,7 +88,7 @@ const colorImages = {
 const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.target as HTMLImageElement;
     target.onerror = null; // 防止无限循环
-    target.src = '/fallback-image.jpg'; // 设置一个默认的占位图片
+    target.src = '/images/fallback.jpg'; // 确保这个路径存在
 };
 
 export default function Hero() {
@@ -98,6 +99,8 @@ export default function Hero() {
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
     // 添加新的状态
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(0);
+    // 添加错误边界
+    const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
         // 根据选中的标签获取对应的数据
@@ -128,6 +131,20 @@ export default function Hero() {
         setCurrentTestimonial(prev => (prev === testimonials.length - 1 ? 0 : prev + 1));
     };
 
+    if (error) {
+        return (
+            <div className="text-center py-10">
+                <h2>Something went wrong</h2>
+                <button
+                    onClick={() => setError(null)}
+                    className="mt-4 px-4 py-2 bg-purple-600 text-white rounded"
+                >
+                    Try again
+                </button>
+            </div>
+        );
+    }
+
     return (
         <section className="relative overflow-hidden">
             <div className="container mx-auto px-4 py-20">
@@ -151,7 +168,7 @@ export default function Hero() {
                         {/* 按钮和评分区域 */}
                         <div className="flex flex-col lg:flex-row items-center gap-8">
                             {/* 按钮 */}
-                            <a 
+                            <Link 
                                 href="/ai-hairstyle" 
                                 className="inline-flex items-center bg-purple-700 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-800 transition-colors"
                             >
@@ -169,7 +186,7 @@ export default function Hero() {
                                         d="M17 8l4 4m0 0l-4 4m4-4H3" 
                                     />
                                 </svg>
-                            </a>
+                            </Link>
 
                             {/* 评分 */}
                             <div className="flex items-center gap-2">
@@ -301,12 +318,12 @@ export default function Hero() {
 
                     {/* More Style 按钮 */}
                     <div className="text-center relative">
-                        <a 
+                        <Link 
                             href="/ai-hairstyle"
                             className="inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-lg font-medium"
                         >
                             More style
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -384,12 +401,12 @@ export default function Hero() {
 
                     {/* 添加底部按钮 */}
                     <div className="text-center mt-12">
-                        <a 
+                        <Link 
                             href="/ai-hairstyle"
                             className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                         >
                             Try Free Hairstyle Changer Now
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -410,12 +427,12 @@ export default function Hero() {
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
                                     Want to know how to try on hairstyles on your face? Just upload your image and start exploring!
                                 </p>
-                                <a 
+                                <Link 
                                     href="/ai-hairstyle"
                                     className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                                 >
-                                    Try Free Hairtyle Changer Now
-                                </a>
+                                    Try Free Hairstyle Changer Now
+                                </Link>
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
@@ -426,6 +443,7 @@ export default function Hero() {
                                     width={440}
                                     height={450}
                                     onError={handleImageError}
+                                    priority
                                 />
                             </div>
                         </div>
@@ -447,6 +465,7 @@ export default function Hero() {
                                     width={430}
                                     height={470}
                                     onError={handleImageError}
+                                    priority
                                 />
                             </div>
                             {/* 右侧内容 */}
@@ -496,12 +515,12 @@ export default function Hero() {
                                     various styles and colors to find the perfect match for your face and personality. 
                                     Try it today and discover your ideal hairstyle in just a few clicks!
                                 </p>
-                                <a 
+                                <Link 
                                     href="/images/hero/ba.jpg"
                                     className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                                 >
-                                    Try Free Hairtyle Changer Now
-                                </a>
+                                    Try Free Hairstyle Changer Now
+                                </Link>
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
@@ -512,6 +531,7 @@ export default function Hero() {
                                     width={600}
                                     height={290}
                                     onError={handleImageError}
+                                    priority
                                 />
                             </div>
                         </div>
