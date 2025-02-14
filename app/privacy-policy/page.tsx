@@ -1,15 +1,8 @@
-import { Metadata } from 'next'
+import { privacyPolicyMetadata } from '@/app/metadata'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://hair-style.ai'),
-  alternates: {
-    canonical: 'https://hair-style.ai/privacy-policy',
-  },
-  title: 'Privacy Policy | Hair-style.ai',
-  description: 'Read our privacy policy to understand how we protect your data and respect your privacy at Hair-style.ai.'
-}
+export const metadata = privacyPolicyMetadata
 
 export default function PrivacyPolicy() {
     return (
