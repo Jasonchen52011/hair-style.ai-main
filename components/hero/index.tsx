@@ -134,7 +134,7 @@ export default function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
-                        {/* 标题 */}
+                        {/* 标题 - 改回 h1，因为这是页面的主要标题 */}
                         <h1 className="text-5xl font-bold mb-6 mt-10">
                             Hair-style.ai
                         </h1>

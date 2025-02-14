@@ -1,6 +1,7 @@
 import './globals.css'
 import { Metadata } from 'next'
 import Link from 'next/link'  
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hair-style.ai'),
@@ -116,9 +117,12 @@ export default function RootLayout({
             `,
           }}
         />
-        <script
+        <Script
+          id="schema-org"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd)
+          }}
         />
         <script async src="https://www.google.com/..."></script>
         <script async src="https://cse.google.com/..."></script>
