@@ -93,7 +93,7 @@ export const homeMetadata: Metadata = {
         canonical: 'https://hair-style.ai',
     },
     title: 'Hair-style.ai - AI Hairstyle Changer',
-    description: 'The #1 hair changer app. Change Your Hairstyle With AI. 512,762+ hairstyles already changed. Upload photo. Style. Afro, Bob cut, Bowl cut, Braid, Caesar cut...',
+    description: 'Transform your look with our AI hairstyle changer. Try 60+ trendy styles including bob cuts, waves, braids, and more. Free instant preview, no registration required.',
     openGraph: {
         title: 'Hair-style.ai - AI Hairstyle Changer',
         description: 'One-click free AI hairstyle change! Choose from over 60 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.',
@@ -114,13 +114,9 @@ export const homeMetadata: Metadata = {
     keywords: [
         'ai hairstyle online free',
         'online hairstyle changer free',
-        'hairstyle changer online',
         'free ai hairstyle male',
         'ai hairstyle changer',
-        'online hairstyle changer free',
-        'test hairstyles on my face',
         'hairstyle ai',
-        'hairstyle changer',
         'hairstyle change online',
         'hairstyle change men'
     ]
