@@ -132,7 +132,7 @@ export const aiHairstyleMetadata: Metadata = {
         canonical: 'https://hair-style.ai/ai-hairstyle',
     },
     title: 'AI Hairstyle Changer - Try New Hairstyles',
-    description: 'Transform your look with our AI hairstyle changer. Upload your photo and instantly see yourself with different hairstyles.',
+    description: 'Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use, and no registration required.',
     keywords: [
         'ai hairstyle generator',
         'virtual hairstyle try on',
@@ -145,7 +145,7 @@ export const aiHairstyleMetadata: Metadata = {
     ],
     openGraph: {
         title: 'AI Hairstyle Changer - Try New Hairstyles',
-        description: 'Transform your look instantly with our AI hairstyle changer. Upload your photo and see yourself with different hairstyles.',
+        description: 'Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use, and no registration required.',
         url: 'https://hair-style.ai/ai-hairstyle',
         siteName: 'Hair-style.ai',
         images: [
@@ -168,7 +168,7 @@ export const aboutUsMetadata: Metadata = {
         canonical: 'https://hair-style.ai/about',
     },
     title: 'About Hair-style.ai | AI Powered Hairstyle Transformation',
-    description: ' Meet our team and discover how we\'re revolutionizing hairstyle visualization.',
+    description: 'Discover how Hair-style.ai is revolutionizing hairstyle visualization with cutting-edge AI technology. Meet our passionate team dedicated to helping you find your perfect look.',
     keywords: 'Hair-style.ai, AI hairstyle, virtual hairstyle, hairstyle transformation, about us',
 }
 
@@ -179,7 +179,7 @@ export const privacyPolicyMetadata: Metadata = {
         canonical: 'https://hair-style.ai/privacy-policy',
     },
     title: 'Privacy Policy - Hair-style.ai',
-    description: 'Read our privacy policy to understand how we protect your data and respect your privacy.',
+    description: 'Learn how Hair-style.ai protects your privacy and personal data. Our comprehensive privacy policy explains our data collection, usage, security measures, and your rights.',
     keywords: [
         'privacy policy',
         'data protection',
@@ -191,7 +191,7 @@ export const privacyPolicyMetadata: Metadata = {
     ],
     openGraph: {
         title: 'Privacy Policy - Hair-style.ai',
-        description: 'Learn how we protect your privacy and secure your data at Hair-style.ai',
+        description: 'Learn how Hair-style.ai protects your privacy and personal data. Our comprehensive privacy policy explains our data collection, usage, security measures, and your rights.',
         url: 'https://hair-style.ai/privacy-policy',
         siteName: 'Hair-style.ai',
         type: 'website'
@@ -205,7 +205,7 @@ export const termsAndConditionsMetadata: Metadata = {
         canonical: 'https://hair-style.ai/terms-and-conditions',
     },
     title: 'Terms & Conditions - Hair-style.ai',
-    description: 'Read our terms and conditions to understand the rules and guidelines for using Hair-style.ai services.',
+    description: 'Read our detailed terms and conditions to understand your rights and responsibilities when using Hair-style.ai. Learn about our service guidelines and user agreements.',
     keywords: [
         'terms and conditions',
         'user agreement',
@@ -217,7 +217,7 @@ export const termsAndConditionsMetadata: Metadata = {
     ],
     openGraph: {
         title: 'Terms & Conditions - Hair-style.ai',
-        description: 'Understand our terms of service and user guidelines at Hair-style.ai',
+        description: 'Read our detailed terms and conditions to understand your rights and responsibilities when using Hair-style.ai. Learn about our service guidelines and user agreements.',
         url: 'https://hair-style.ai/terms-and-conditions',
         siteName: 'Hair-style.ai',
         type: 'website'
