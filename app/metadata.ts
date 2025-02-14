@@ -39,8 +39,8 @@ export const defaultMetadata = {
     },
 }
 
-// 基础 metadata 配置
-const baseMetadata: Metadata = {
+// 首先定义基础 metadata
+export const baseMetadata: Metadata = {
     metadataBase: new URL('https://hair-style.ai'),
     title: 'Hair-style.ai | AI Powered Hairstyle Transformation',
     description: 'Transform your look with AI-powered hairstyle visualization. Try different hairstyles instantly and find your perfect style with Hair-style.ai',
@@ -63,9 +63,10 @@ const baseMetadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
+        site: '@hair_styleai',
         title: 'Hair-style.ai | AI Powered Hairstyle Transformation',
         description: 'Transform your look with AI-powered hairstyle visualization. Try different hairstyles instantly!',
-        images: ['/twitter-image.jpg'],
+        images: ['/images/hero/ba3.jpg'],
     },
     robots: {
         index: true,
@@ -192,7 +193,16 @@ export const privacyPolicyMetadata: Metadata = {
         title: 'Privacy Policy - Hair-style.ai',
         url: 'https://hair-style.ai/privacy-policy',
         siteName: 'Hair-style.ai',
-        type: 'website'
+        type: 'website',
+        images: [
+            {
+                url: '/images/hero/ba3.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Hair-style.ai transformation example',
+                type: 'image/jpeg',
+            }
+        ],
     }
 }
 
@@ -216,6 +226,15 @@ export const termsAndConditionsMetadata: Metadata = {
         title: 'Terms & Conditions - Hair-style.ai',
         url: 'https://hair-style.ai/terms-and-conditions',
         siteName: 'Hair-style.ai',
-        type: 'website'
+        type: 'website',
+        images: [
+            {
+                url: '/images/hero/ba3.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Hair-style.ai transformation example',
+                type: 'image/jpeg',
+            }
+        ],
     }
 } 
