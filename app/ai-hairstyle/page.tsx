@@ -224,7 +224,11 @@ function SelectStylePageContent() {
             <div className="max-w-7xl mx-auto">
                 {/* Logo 区域作为 h1 标题 */}
                 <h1 className="flex items-center gap-3 mb-2 h-[52px]">
-                    <Link href="/" className="flex items-center gap-2">
+                    <Link 
+                        href="/" 
+                        className="flex items-center gap-2"
+                        title="Return to Hair-style.ai Homepage"
+                    >
                         <Image
                             src="/images/logo/logo.png"
                             alt="Hair-style.ai Logo"
