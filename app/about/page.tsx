@@ -2,32 +2,9 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import { aboutUsMetadata } from '@/app/metadata'
 
-// 添加元数据
-export const metadata: Metadata = {
-    metadataBase: new URL('https://hair-style.ai'),
-    title: 'About Hair-style.ai | AI Powered Hairstyle Transformation',
-    description: 'Learn about Hair-style.ai, the leading AI-powered platform for virtual hairstyle try-ons. Meet our team and discover how we\'re revolutionizing hairstyle visualization.',
-    keywords: 'Hair-style.ai, AI hairstyle, virtual hairstyle, hairstyle transformation, about us, hairstyle technology',
-    openGraph: {
-        title: 'About Hair-style.ai | AI Powered Hairstyle Transformation',
-        description: 'Discover how Hair-style.ai is revolutionizing hairstyle visualization with AI technology. Try different hairstyles risk-free before making a change.',
-        url: 'https://hair-style.ai/about',
-        siteName: 'Hair-style.ai',
-        images: [
-            {
-                url: '/og-image.jpg', // 需要添加实际的 Open Graph 图片
-                width: 1200,
-                height: 630,
-                alt: 'Hair-style.ai Team and Technology',
-            }
-        ],
-        type: 'website',
-    },
-    alternates: {
-        canonical: 'https://hair-style.ai/about'
-    },
-}
+export const metadata = aboutUsMetadata
 
 // 添加 JSON-LD 结构化数据
 const jsonLd = {
