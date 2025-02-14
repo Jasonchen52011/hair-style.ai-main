@@ -222,7 +222,8 @@ function SelectStylePageContent() {
             />
             
             <div className="max-w-7xl mx-auto">
-                <div className="flex items-center gap-3 mb-2 h-[52px]">
+                {/* Logo 区域作为 h1 标题 */}
+                <h1 className="flex items-center gap-3 mb-2 h-[52px]">
                     <Link href="/" className="flex items-center gap-2">
                         <Image
                             src="/images/logo/logo.png"
@@ -235,12 +236,13 @@ function SelectStylePageContent() {
                             Hair-style.ai
                         </span>
                     </Link>
-                </div>
+                </h1>
                 
                 {/* 使用响应式网格布局 - 调整左右比例 */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 md:gap-3">
                     {/* 左侧区域 */}
-                    <div className="lg:col-span-9 h-fit">
+                    <section className="lg:col-span-9 h-fit" aria-label="Photo Upload Area">
+                        <h2 className="sr-only">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
                             // 上传区域 - 减小高度和内边距
                             <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[600px] sm:h-[680px] flex flex-col items-center justify-center">
@@ -299,17 +301,18 @@ function SelectStylePageContent() {
                                 </div>
                             </div>
                         )}
-                    </div>
+                    </section>
 
-                    {/* 右侧区域 - 移除外框 */}
-                    <div className="lg:col-span-3">
+                    {/* 右侧区域 */}
+                    <section className="lg:col-span-3" aria-label="Style Selection">
+                        <h2 className="sr-only">Select Hairstyle</h2>
                         <div className="w-full lg:w-[340px] mx-auto">
-                        <SelectStyle 
-                            uploadedImageUrl={uploadedImageUrl}
+                            <SelectStyle 
+                                uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
-                        />
+                            />
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         </div>
