@@ -129,16 +129,13 @@ export const aiHairstyleMetadata: Metadata = {
         canonical: 'https://hair-style.ai/ai-hairstyle',
     },
     title: 'AI Hairstyle Changer - Try New Hairstyles',
-    description: 'Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use, and no registration required.',
+    description: 'Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use.',
     keywords: [
         'ai hairstyle generator',
-        'virtual hairstyle try on',
-        'hairstyle simulator',
         'hair makeover app',
         'virtual hair color changer',
         'hairstyle preview tool',
         'ai hair transformation',
-        'virtual haircut app'
     ],
     openGraph: {
         title: 'AI Hairstyle Changer - Try New Hairstyles',
