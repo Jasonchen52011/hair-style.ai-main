@@ -115,7 +115,6 @@ export const homeMetadata: Metadata = {
         'ai hairstyle online free',
         'free ai hairstyle male',
         'ai hairstyle changer',
-        'hairstyle ai',
         'hairstyle change online',
     ]
 }
