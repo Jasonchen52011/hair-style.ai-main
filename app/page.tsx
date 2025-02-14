@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Hero from "@/components/hero";
 import Footer from "@/components/footer";
 import Navbar from '@/components/navbar';
-import Image from 'next/image';
+import Image from 'next/image'; 
 
 // JSON-LD 结构化数据
 
