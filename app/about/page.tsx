@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { aboutUsMetadata } from '@/app/metadata'
+import { aboutUsMetadata } from '../metadata'
 
 export const metadata = aboutUsMetadata
 

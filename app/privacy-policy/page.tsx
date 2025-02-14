@@ -1,6 +1,6 @@
-import { privacyPolicyMetadata } from '@/app/metadata'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import { privacyPolicyMetadata } from '../metadata'
 
 export const metadata = privacyPolicyMetadata
 
@@ -16,8 +16,7 @@ export default function PrivacyPolicy() {
                         <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
                         <p className="text-gray-600 mb-4">
                             At hair-style.ai, your privacy is important to us. This Privacy Policy outlines the types of personal information 
-                            we receive and collect when you use our website (hair-style.ai) and how we safeguard that information. By using our site, 
-                            you consent to the data practices described in this policy.
+                            we receive and collect when you use our website (hair-style.ai) and how we safeguard that information.
                         </p>
                     </section>
 

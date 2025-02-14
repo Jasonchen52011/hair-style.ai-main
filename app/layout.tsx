@@ -1,5 +1,9 @@
 import './globals.css'
 import Script from 'next/script'
+import { baseMetadata } from './metadata'
+
+// 导出 metadata 配置
+export const metadata = baseMetadata
 
 export default function RootLayout({
   children,
