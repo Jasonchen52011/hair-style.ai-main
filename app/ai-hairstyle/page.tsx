@@ -231,9 +231,9 @@ function SelectStylePageContent() {
                             height={32}
                             priority
                         />
-                        <h1 className="text-2xl font-semibold hover:text-purple-700 transition-colors">
+                        <span className="text-2xl font-semibold hover:text-purple-700 transition-colors">
                             Hair-style.ai
-                        </h1>
+                        </span>
                     </Link>
                 </div>
                 
