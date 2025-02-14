@@ -1,6 +1,5 @@
 import './globals.css'
-import { Metadata } from 'next'
-import Link from 'next/link'  
+import { Metadata } from 'next' 
 import Script from 'next/script'
 
 export const metadata: Metadata = {
@@ -29,12 +28,6 @@ export const metadata: Metadata = {
       sizes: '192x192',
       type: 'image/png',
     },
-    shortcut: [
-      { 
-        url: '/images/logo/favicon.ico',
-        type: 'image/x-icon'
-      }
-    ],
     other: [
       {
         rel: 'icon',
@@ -58,19 +51,19 @@ export const metadata: Metadata = {
     siteName: 'Hair-style.ai',
     images: [
       {
-        url: '/images/logo/logo-512x512.png',
-        width: 512,
-        height: 512,
-        alt: 'Hair-style.ai Logo',
-        type: 'image/png',
+        url: '/images/hero/ba3.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Before and after comparison of AI hairstyle transformation',
+        type: 'image/jpeg',
       }
     ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Hair-style.ai - AI Hairstyle Changer',
     description: 'Try different hairstyles instantly with AI. Change your look virtually before making a real change.',
-    images: ['/images/logo/logo-512x512.png'],
+    images: ['/images/hero/ba3.jpg'],
   },
 }
 
@@ -85,7 +78,7 @@ export default function RootLayout({
     'url': 'https://hair-style.ai',
     'logo': 'https://hair-style.ai/images/logo/logo-512x512.png',
     'name': 'Hair-style.ai',
-    'image': 'https://hair-style.ai/images/logo/logo-512x512.png',
+    'image': 'https://hair-style.ai/images/hero/ba3.jpg',
     'description': 'AI Hairstyle Changer - Try different hairstyles instantly with AI',
     'sameAs': [
       'https://x.com/hair_styleai'

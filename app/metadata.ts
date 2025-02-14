@@ -142,7 +142,7 @@ export const aboutUsMetadata: Metadata = {
         canonical: 'https://hair-style.ai/about',
     },
     title: 'About Us - Hair-style.ai',
-    description: 'Learn more about Hair-style.ai and our mission to help people visualize their perfect hairstyle.',
+    description: 'Meet our team and discover how we're revolutionizing hairstyle visualization.',
 }
 
 // Privacy Policy 页面 metadata
