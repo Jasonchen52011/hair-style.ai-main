@@ -131,7 +131,7 @@ export const aiHairstyleMetadata: Metadata = {
     keywords: [
         'ai hairstyle generator',
         'hair makeover app',
-        'virtual hair color changer',
+        'hair color changer',
         'hairstyle preview tool',
         'ai hair transformation',
     ],

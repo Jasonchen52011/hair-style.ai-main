@@ -310,6 +310,11 @@ function SelectStylePageContent() {
                             <SelectStyle 
                                 uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
+                                renderCategoryTitle={(title) => (
+                                    <h3 className="text-lg font-medium text-gray-700 mb-3">
+                                        {title}  {/* Female Hairstyle 或 Male Hairstyle */}
+                                    </h3>
+                                )}
                             />
                         </div>
                     </section>
