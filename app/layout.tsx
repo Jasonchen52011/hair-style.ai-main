@@ -16,18 +16,14 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
+    icon: '/images/logo/favicon.ico',
+    apple: [
       {
-        url: '/images/logo/favicon.ico',
-        type: 'image/x-icon',
-        sizes: 'any'
+        url: '/images/logo/logo-192x192.png',
+        sizes: '192x192',
+        type: 'image/png'
       }
     ],
-    apple: {
-      url: '/images/logo/logo-192x192.png',
-      sizes: '192x192',
-      type: 'image/png',
-    },
     other: [
       {
         rel: 'icon',
