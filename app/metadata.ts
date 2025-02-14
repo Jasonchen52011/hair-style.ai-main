@@ -145,7 +145,6 @@ export const aiHairstyleMetadata: Metadata = {
     ],
     openGraph: {
         title: 'AI Hairstyle Changer - Try New Hairstyles',
-        description: 'Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use, and no registration required.',
         url: 'https://hair-style.ai/ai-hairstyle',
         siteName: 'Hair-style.ai',
         images: [
@@ -168,7 +167,7 @@ export const aboutUsMetadata: Metadata = {
         canonical: 'https://hair-style.ai/about',
     },
     title: 'About Hair-style.ai | AI Powered Hairstyle Transformation',
-    description: 'Discover how Hair-style.ai is revolutionizing hairstyle visualization with cutting-edge AI technology. Meet our passionate team dedicated to helping you find your perfect look.',
+    description: 'Discover how Hair-style.ai is revolutionizing hairstyle visualization with cutting-edge AI technology. Meet our passionate team.',
     keywords: 'Hair-style.ai, AI hairstyle, virtual hairstyle, hairstyle transformation, about us',
 }
 
@@ -191,7 +190,6 @@ export const privacyPolicyMetadata: Metadata = {
     ],
     openGraph: {
         title: 'Privacy Policy - Hair-style.ai',
-        description: 'Learn how Hair-style.ai protects your privacy and personal data. Our comprehensive privacy policy explains our data collection, usage, security measures, and your rights.',
         url: 'https://hair-style.ai/privacy-policy',
         siteName: 'Hair-style.ai',
         type: 'website'
@@ -205,9 +203,8 @@ export const termsAndConditionsMetadata: Metadata = {
         canonical: 'https://hair-style.ai/terms-and-conditions',
     },
     title: 'Terms & Conditions - Hair-style.ai',
-    description: 'Read our detailed terms and conditions to understand your rights and responsibilities when using Hair-style.ai. Learn about our service guidelines and user agreements.',
+    description: 'Read our terms and conditions to understand your rights and responsibilities when using Hair-style.ai. Learn about our service guidelines and user agreements.',
     keywords: [
-        'terms and conditions',
         'user agreement',
         'service terms',
         'legal terms',
@@ -217,7 +214,6 @@ export const termsAndConditionsMetadata: Metadata = {
     ],
     openGraph: {
         title: 'Terms & Conditions - Hair-style.ai',
-        description: 'Read our detailed terms and conditions to understand your rights and responsibilities when using Hair-style.ai. Learn about our service guidelines and user agreements.',
         url: 'https://hair-style.ai/terms-and-conditions',
         siteName: 'Hair-style.ai',
         type: 'website'
