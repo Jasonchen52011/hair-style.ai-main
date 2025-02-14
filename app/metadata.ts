@@ -93,7 +93,7 @@ export const homeMetadata: Metadata = {
         canonical: 'https://hair-style.ai',
     },
     title: 'Hair-style.ai - AI Hairstyle Changer',
-    description: 'Transform your look with our AI hairstyle changer. Try 60+ trendy styles including bob cuts, waves, braids, and more. Free instant preview.',
+    description: 'Transform your look with our AI hairstyle changer. Try 60+ trendy styles including bob cuts, waves, braids and more.',
     openGraph: {
         title: 'Hair-style.ai - AI Hairstyle Changer',
         description: 'One-click free AI hairstyle change! Choose from over 60 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.',
