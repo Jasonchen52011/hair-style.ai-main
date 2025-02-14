@@ -133,7 +133,6 @@ export const aiHairstyleMetadata: Metadata = {
         'hair makeover app',
         'hair color changer',
         'hairstyle preview tool',
-        'ai hair transformation',
     ],
     openGraph: {
         title: 'AI Hairstyle Changer - Try New Hairstyles',
