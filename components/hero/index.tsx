@@ -540,11 +540,10 @@ export default function Hero() {
             <div id="testimonials" className="bg-white py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        {/* 标题 */}
                         <h2 className="text-3xl font-bold text-center mb-16">
                             What Others Say about Us?
                         </h2>
-
+                        
                         {/* 评价卡片 */}
                         <div className="relative bg-white rounded-2xl shadow-lg p-12">
                             {/* 引号装饰 */}
