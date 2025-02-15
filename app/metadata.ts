@@ -43,7 +43,7 @@ export const defaultMetadata = {
 export const baseMetadata: Metadata = {
     metadataBase: new URL('https://hair-style.ai'),
     title: 'Free AI Hairstyle Changer: Try all Hairstyles in Photos',
-    description: 'Upload images try all hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
+    description: 'Upload images try all 60+ trendy hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
     keywords: 'AI hairstyle, virtual hairstyle, hairstyle transformation, hairstyle preview, AI hair makeover, virtual hair try-on',
     openGraph: {
         title: 'Hair-style.ai | Try Different Hairstyles with AI',
@@ -93,10 +93,10 @@ export const homeMetadata: Metadata = {
         canonical: 'https://hair-style.ai',
     },
     title: 'Free AI Hairstyle Changer: Try all Hairstyles in Photos',
-    description: 'Upload images try all hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
+    description: 'Upload images try all 60+ trendy hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
     openGraph: {
         title: 'Free AI Hairstyle Changer: Try all Hairstyles in Photos',
-        description: 'Upload images try all hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
+        description: 'Upload images try all 60+ trendy hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
         url: 'https://hair-style.ai',
         siteName: 'Hair-style.ai',
         images: [
