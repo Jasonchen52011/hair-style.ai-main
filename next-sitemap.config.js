@@ -5,7 +5,20 @@ module.exports = {
     changefreq: 'daily',
     priority: 0.7,
     exclude: ['/api/*', '/404', '/500'],
-    // 添加额外的 sitemap 配置
+    robotsTxtOptions: {
+        policies: [
+            {
+                userAgent: '*',
+                allow: '/',
+                disallow: [
+                    '/api/*',
+                    '/admin/*',
+                    '/404',
+                    '/500'
+                ]
+            }
+        ],
+    },
     additionalPaths: async (config) => {
         const result = []
         
@@ -46,22 +59,5 @@ module.exports = {
         })
 
         return result
-    },
-    robotsTxtOptions: {
-        policies: [
-            {
-                userAgent: '*',
-                allow: '/',
-                disallow: [
-                    '/api/*',
-                    '/admin/*',
-                    '/404',
-                    '/500'
-                ]
-            }
-        ],
-        additionalSitemaps: [
-            'https://hair-style.ai/sitemap.xml'
-        ]
     },
 } 
