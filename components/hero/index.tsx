@@ -631,7 +631,7 @@ export default function Hero() {
                         <h2 className="text-3xl font-bold text-center mb-4">
                             Frequently Asked Questions
                         </h2>
-                        <p className="text-xl text-gray-800 leading-relaxed mb-12">
+                        <p className="text-xl text-gray-800 text-center mb-12 leading-relaxed">
                             Find answers to common questions about our AI hairstyle changer tool
                         </p>
 
@@ -646,7 +646,9 @@ export default function Hero() {
                                         onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
                                         className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
                                     >
-                                        <span className="font-semibold text-lg">{item.question}</span>
+                                        <span className="text-xl font-semibold text-gray-800">
+                                            {item.question}
+                                        </span>
                                         <svg
                                             className={`w-5 h-5 transform transition-transform ${
                                                 expandedFAQ === index ? 'rotate-180' : ''
@@ -665,7 +667,9 @@ export default function Hero() {
                                     </button>
                                     {expandedFAQ === index && (
                                         <div className="px-6 py-4 bg-white border-t border-gray-200">
-                                            <p className="text-gray-600">{item.answer}</p>
+                                            <p className="text-xl text-gray-800 leading-relaxed">
+                                                {item.answer}
+                                            </p>
                                         </div>
                                     )}
                                 </div>
