@@ -1,28 +1,9 @@
 import './globals.css'
 import Script from 'next/script'
-import { baseMetadata } from './metadata'
+import { baseMetadata, jsonLd } from './metadata'
 
 // 扩展 metadata 配置
-export const metadata = {
-  ...baseMetadata,
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  // 添加其他 robots 指令
-  other: {
-    'X-Robots-Tag': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-  }
-}
+export const metadata = baseMetadata
 
 export default function RootLayout({
   children,
