@@ -1,7 +1,6 @@
 # *
 User-agent: *
 Allow: /
-Sitemap: https://hair-style.ai/sitemap.xml
 
 # Host
 Host: https://hair-style.ai

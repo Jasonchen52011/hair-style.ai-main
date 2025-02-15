@@ -59,6 +59,9 @@ module.exports = {
                     '/500'
                 ]
             }
+        ],
+        additionalSitemaps: [
+            'https://hair-style.ai/sitemap.xml'
         ]
     },
 } 

@@ -42,8 +42,8 @@ export const defaultMetadata = {
 // 首先定义基础 metadata
 export const baseMetadata: Metadata = {
     metadataBase: new URL('https://hair-style.ai'),
-    title: 'Hair-style.ai | AI Powered Hairstyle Transformation',
-    description: 'Transform your look with AI-powered hairstyle visualization. Try different hairstyles instantly and find your perfect style with Hair-style.ai',
+    title: 'Free AI Hairstyle Changer: Try all Hairstyles in Photos',
+    description: 'Upload images try all hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
     keywords: 'AI hairstyle, virtual hairstyle, hairstyle transformation, hairstyle preview, AI hair makeover, virtual hair try-on',
     openGraph: {
         title: 'Hair-style.ai | Try Different Hairstyles with AI',
@@ -92,11 +92,11 @@ export const homeMetadata: Metadata = {
     alternates: {
         canonical: 'https://hair-style.ai',
     },
-    title: 'Hair-style.ai - AI Hairstyle Changer',
-    description: 'Transform your look with our AI hairstyle changer. Try 60+ trendy styles including bob cuts, waves, braids and more.',
+    title: 'Free AI Hairstyle Changer: Try all Hairstyles in Photos',
+    description: 'Upload images try all hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
     openGraph: {
-        title: 'Hair-style.ai - AI Hairstyle Changer',
-        description: 'One-click free AI hairstyle change! Choose from over 60 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.',
+        title: 'Free AI Hairstyle Changer: Try all Hairstyles in Photos',
+        description: 'Upload images try all hairstyles, find that fits your face best in seconds by using Hair-style.ai free AI hairstyle changer.',
         url: 'https://hair-style.ai',
         siteName: 'Hair-style.ai',
         images: [
