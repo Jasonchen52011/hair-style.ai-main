@@ -155,11 +155,11 @@ export default function Hero() {
                             Free AI Hairstyle Changer
                         </h1>
 
-                        <p className="text-xl text-gray-800 mb-4">
+                        <p className="text-xl text-gray-800 mb-4 leading-relaxed">
                             Are you worried about trying a new hairstyle and regretting it later?
                         </p>
 
-                        <p className="text-xl text-gray-800 mb-12">
+                        <p className="text-xl text-gray-800 mb-12 leading-relaxed">
                             Hair-style solves this problem by showing you how you look with different hairstyles and colors instantly. Try it now and discover your perfect look!
                         </p>
 
@@ -226,7 +226,7 @@ export default function Hero() {
                         <h2 className="text-3xl font-bold mb-6">
                             Popular AI Hairstyles for Men and Women
                         </h2>
-                        <p className="text-gray-800 max-w-3xl mx-auto text-xl">
+                        <p className="text-xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
                             We have a very large number of popular hairstyles for you to change online for free, 
                             to help you find the most suitable hairstyle and show your brightest self!
                         </p>
@@ -333,7 +333,7 @@ export default function Hero() {
                         <h2 className="text-3xl font-bold mb-6">
                             How to Use AI Hairstyle Changer
                         </h2>
-                        <p className="text-gray-800 text-xl">
+                        <p className="text-xl text-gray-800 leading-relaxed">
                             Transform your look with our AI-powered hairstyle changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
@@ -354,7 +354,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step1: Upload Image</h3>
-                            <p className="text-gray-800 text-xl">
+                            <p className="text-xl text-gray-800 leading-relaxed">
                                 Upload your photo if you want to change your hairstyle with AI.
                             </p>
                         </div>
@@ -372,7 +372,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step2: Choose Hairstyle and Color</h3>
-                            <p className="text-gray-800 text-xl">
+                            <p className="text-xl text-gray-800 leading-relaxed">
                                 Choose from our AI hairstyles, and pick the hair color you want to try.
                             </p>
                         </div>
@@ -390,7 +390,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step3: Download Photo!</h3>
-                            <p className="text-gray-800 text-xl">
+                            <p className="text-xl text-gray-800 leading-relaxed">
                                 Our AI hairstyle tool will change your hairstyle. Once complete, download the photo with your new virtual hair style and see how the transformation suits you.
                             </p>
                         </div>
@@ -418,7 +418,7 @@ export default function Hero() {
                                 <h2 className="text-3xl font-bold mb-6">
                                     How to try on hairstyles on my face?
                                 </h2>
-                                <p className="text-gray-800 mb-8 text-xl">
+                                <p className="text-xl text-gray-800 leading-relaxed mb-8">
                                     Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
                                     Our free online AI hairstyle tool helps you try on different hairstyles before making a decision. 
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
@@ -470,7 +470,7 @@ export default function Hero() {
                                 <h2 className="text-3xl font-bold mb-6">
                                     What Haircut Fits My Face?
                                 </h2>
-                                <div className="space-y-6 text-gray-800 text-xl">
+                                <div className="space-y-6 text-xl text-gray-800 leading-relaxed">
                                     <p>
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
@@ -504,7 +504,7 @@ export default function Hero() {
                                 <h2 className="text-3xl font-bold mb-6">
                                     What is AI hairstyle changer?
                                 </h2>
-                                <p className="text-gray-800 mb-8 text-xl">
+                                <p className="text-xl text-gray-800 leading-relaxed mb-8">
                                     Are you still unsure about what hairstyle to wear for your next event? 
                                     Our free online AI hairstyle tool is here to help! Simply upload your photo, 
                                     choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
@@ -632,7 +632,7 @@ export default function Hero() {
                         <h2 className="text-3xl font-bold text-center mb-4">
                             Frequently Asked Questions
                         </h2>
-                        <p className="text-gray-800 text-center mb-12 text-xl">
+                        <p className="text-xl text-gray-800 leading-relaxed mb-12">
                             Find answers to common questions about our AI hairstyle changer tool
                         </p>
 
