@@ -156,7 +156,7 @@ export const aboutUsMetadata: Metadata = {
     alternates: {
         canonical: 'https://hair-style.ai/about',
     },
-    title: 'About Hair-style.ai | AI Powered Hairstyle Transformation',
+    title: 'About Hair-style.ai - AI Powered Hairstyle Transformation',
     description: 'Discover how Hair-style.ai is revolutionizing hairstyle visualization with cutting-edge AI technology. Meet our passionate team.',
     keywords: 'Hair-style.ai, AI hairstyle, virtual hairstyle, hairstyle transformation, about us',
 }

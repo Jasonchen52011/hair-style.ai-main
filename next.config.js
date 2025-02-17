@@ -66,6 +66,32 @@ const nextConfig = {
     },
     // 添加静态资源配置
     assetPrefix: '',
+    async redirects() {
+        return [
+            // 删除的页面重定向到主页或相应页面
+            {
+                source: '/en/:path*',
+                destination: '/:path*',
+                permanent: true, // 301 重定向
+            },
+            {
+                source: '/zh/:path*',
+                destination: '/:path*',
+                permanent: true,
+            },
+            // 其他不需要的路径
+            {
+                source: '/en',
+                destination: '/',
+                permanent: true,
+            },
+            {
+                source: '/zh',
+                destination: '/',
+                permanent: true,
+            }
+        ]
+    },
 }
 
 module.exports = nextConfig 

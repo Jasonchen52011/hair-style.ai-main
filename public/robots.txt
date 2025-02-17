@@ -1,6 +1,8 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /en/
+Disallow: /zh/
 Disallow: /api/*
 Disallow: /admin/*
 Disallow: /404
