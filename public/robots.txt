@@ -7,6 +7,12 @@ Disallow: /api/*
 Disallow: /admin/*
 Disallow: /404
 Disallow: /500
+Disallow: https://hair-style.ai/?ref=aifly.tools
+Disallow: https://hair-style.ai/?ref=seofai?ref=seofai&utm_source=seofai&utm_medium=referral
+Disallow: https://hair-style.ai/?ref=toolhunt.io
+Disallow: https://hair-style.ai/?ref=taaft&utm_source=taaft&utm_medium=referral
+Disallow: https://hair-style.ai/?ref=topyai
+Disallow: https://hair-style.ai/?ref=poweredbyai
 
 # Host
 Host: https://hair-style.ai
