@@ -18,3 +18,37 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
+.hairstyle-item {
+  @apply flex flex-col;
+}
+
+.hairstyle-image {
+  @apply aspect-square overflow-hidden rounded-lg;
+}
+
+.hairstyle-overlay {
+  @apply cursor-pointer;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.hairstyle-item {
+  transition: transform 0.3s ease-in-out;
+}
+
+.hairstyle-item:hover {
+  transform: translateY(-5px);
+}

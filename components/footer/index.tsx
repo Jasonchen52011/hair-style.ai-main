@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="container mx-auto px-4">
                 {/* Logo 部分 */}
                 <div className="mb-8 text-center md:text-left">
-                    <h2 className="text-2xl font-bold">Hair-style.ai</h2>
+                    <h2 className="text-2xl font-bold">Hair-style</h2>
                 </div>
 
                 {/* 链接区域 */}

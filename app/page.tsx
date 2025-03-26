@@ -6,7 +6,7 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
     title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
-    description: 'Free AI hairstyle changer! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.',
+    description: 'Free AI hairstyle changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
     alternates: {
         canonical: 'https://hair-style.ai'
     },

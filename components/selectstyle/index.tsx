@@ -45,65 +45,65 @@ export const hairColors = [
 ];
 
 export const femaleStyles: HairStyle[] = [
-  { style: "ShortPixieWithShavedSides", description: "Short Pixie", category: "Female", imageUrl: "/hairstyles/female/short-pixie.jpg", alt: "Modern short pixie cut with shaved sides, perfect for a bold and contemporary look" },
-  { style: "ShortNeatBob", description: "Neat Bob", category: "Female", imageUrl: "/hairstyles/female/neat-bob.jpg", alt: "Classic neat bob hairstyle with clean lines and professional finish" },
-  { style: "DoubleBun", description: "Double Bun", category: "Female", imageUrl: "/hairstyles/female/double-bun.jpg", alt: "Trendy double bun hairstyle popular among young fashion enthusiasts" },
-  { style: "Updo", description: "Updo", category: "Female", imageUrl: "/hairstyles/female/updo.jpg", alt: "Updo hairstyle" },
-  { style: "PixieCut", description: "Pixie Cut", category: "Female", imageUrl: "/hairstyles/female/pixie-cut.jpg", alt: "Pixie cut hairstyle" },
-  { style: "LongCurly", description: "Long Curly", category: "Female", imageUrl: "/hairstyles/female/long-curly.jpg", alt: "Long curly hairstyle" },
-  { style: "CurlyBob", description: "Curly Bob", category: "Female", imageUrl: "/hairstyles/female/curly-bob.jpg", alt: "Curly bob hairstyle" },
-  { style: "JapaneseShort", description: "Japanese Short", category: "Female", imageUrl: "/hairstyles/female/japanese-short.jpg", alt: "Japanese short hairstyle" },
-  { style: "Spiked", description: "Spiked", category: "Female", imageUrl: "/hairstyles/female/spiked.jpg", alt: "Spiked hairstyle" },
-  { style: "bowlCut", description: "Bowl Cut", category: "Female", imageUrl: "/hairstyles/female/bowl-cut.jpg", alt: "Bowl cut hairstyle" },
-  { style: "Chignon", description: "Chignon", category: "Female", imageUrl: "/hairstyles/female/chignon.jpg", alt: "Chignon hairstyle" },
-  { style: "SlickedBack", description: "Slicked Back", category: "Female", imageUrl: "/hairstyles/female/slicked-back.jpg", alt: "Slicked back hairstyle" },
-  { style: "StackedCurlsInShortBob", description: "Stacked Curls Bob", category: "Female", imageUrl: "/hairstyles/female/stacked-curls-bob.jpg", alt: "Stacked curls bob hairstyle" },
-  { style: "SidePartCombOverHairstyleWithHighFade", description: "Side Part High Fade", category: "Female", imageUrl: "/hairstyles/female/side-part-fade.jpg", alt: "Side part high fade hairstyle" },
-  { style: "WavyFrenchBobVibesfrom1920", description: "Wavy French Bob", category: "Female", imageUrl: "/hairstyles/female/wavy-french-bob.jpg", alt: "Wavy french bob hairstyle" },
-  { style: "BobCut", description: "Bob Cut", category: "Female", imageUrl: "/hairstyles/female/bob-cut.jpg", alt: "Bob cut hairstyle" },
-  { style: "ShortTwintails", description: "Short Twintails", category: "Female", imageUrl: "/hairstyles/female/short-twintails.jpg", alt: "Short twintails hairstyle" },
-  { style: "ShortCurlyPixie", description: "Short Curly Pixie", category: "Female", imageUrl: "/hairstyles/female/short-curly-pixie.jpg", alt: "Short curly pixie hairstyle" },
-  { style: "LongStraight", description: "Long Straight", category: "Female", imageUrl: "/hairstyles/female/long-straight.jpg", alt: "Long straight hairstyle" },
-  { style: "LongWavy", description: "Long Wavy", category: "Female", imageUrl: "/hairstyles/female/long-wavy.jpg", alt: "Long wavy hairstyle" },
-  { style: "FishtailBraid", description: "Fishtail Braid", category: "Female", imageUrl: "/hairstyles/female/fishtail-braid.jpg", alt: "Fishtail braid hairstyle" },
-  { style: "TwinBraids", description: "Twin Braids", category: "Female", imageUrl: "/hairstyles/female/twin-braids.jpg", alt: "Twin braids hairstyle" },
-  { style: "Ponytail", description: "Ponytail", category: "Female", imageUrl: "/hairstyles/female/ponytail.jpg", alt: "Ponytail hairstyle" },
-  { style: "Dreadlocks", description: "Dreadlocks", category: "Female", imageUrl: "/hairstyles/female/dreadlocks.jpg", alt: "Dreadlocks hairstyle" },
-  { style: "Cornrows", description: "Cornrows", category: "Female", imageUrl: "/hairstyles/female/cornrows.jpg", alt: "Cornrows hairstyle" },
-  { style: "ShoulderLengthHair", description: "Shoulder Length", category: "Female", imageUrl: "/hairstyles/female/shoulder-length.jpg", alt: "Shoulder length hairstyle" },
-  { style: "LooseCurlyAfro", description: "Loose Curly Afro", category: "Female", imageUrl: "/hairstyles/female/loose-curly-afro.jpg", alt: "Loose curly afro hairstyle" },
-  { style: "LongTwintails", description: "Long Twintails", category: "Female", imageUrl: "/hairstyles/female/long-twintails.jpg", alt: "Long twintails hairstyle" },
-  { style: "LongHimeCut", description: "Long Hime Cut", category: "Female", imageUrl: "/hairstyles/female/long-hime-cut.jpg", alt: "Long hime cut hairstyle" },
-  { style: "BoxBraids", description: "Box Braids", category: "Female", imageUrl: "/hairstyles/female/box-braids.jpg", alt: "Box braids hairstyle" },
-  { style: "FrenchBangs", description: "French Bangs", category: "Female", imageUrl: "/hairstyles/female/french-bangs.jpg", alt: "French bangs hairstyle" },
-  { style: "MediumLongLayered", description: "Medium Long Layered", category: "Female", imageUrl: "/hairstyles/female/medium-long-layered.jpg", alt: "Medium long layered hairstyle" }
+  { style: "ShortPixieWithShavedSides", description: "Short Pixie", category: "Female", imageUrl: "/images/hairstyles/female/short-pixie.jpg", alt: "Modern short pixie cut with shaved sides, perfect for a bold and contemporary look" },
+  { style: "ShortNeatBob", description: "Neat Bob", category: "Female", imageUrl: "/images/hairstyles/female/neat-bob.jpg", alt: "Classic neat bob hairstyle with clean lines and professional finish" },
+  { style: "DoubleBun", description: "Double Bun", category: "Female", imageUrl: "/images/hairstyles/female/double-bun.jpg", alt: "Trendy double bun hairstyle popular among young fashion enthusiasts" },
+  { style: "Updo", description: "Updo", category: "Female", imageUrl: "/images/hairstyles/female/updo.jpg", alt: "Updo hairstyle" },
+  { style: "PixieCut", description: "Pixie Cut", category: "Female", imageUrl: "/images/hairstyles/female/pixie-cut.jpg", alt: "Pixie cut hairstyle" },
+  { style: "LongCurly", description: "Long Curly", category: "Female", imageUrl: "/images/hairstyles/female/long-curly.jpg", alt: "Long curly hairstyle" },
+  { style: "CurlyBob", description: "Curly Bob", category: "Female", imageUrl: "/images/hairstyles/female/curly-bob.jpg", alt: "Curly bob hairstyle" },
+  { style: "JapaneseShort", description: "Japanese Short", category: "Female", imageUrl: "/images/hairstyles/female/japanese-short.jpg", alt: "Japanese short hairstyle" },
+  { style: "Spiked", description: "Spiked", category: "Female", imageUrl: "/images/hairstyles/female/spiked.jpg", alt: "Spiked hairstyle" },
+  { style: "bowlCut", description: "Bowl Cut", category: "Female", imageUrl: "/images/hairstyles/female/bowl-cut.jpg", alt: "Bowl cut hairstyle" },
+  { style: "Chignon", description: "Chignon", category: "Female", imageUrl: "/images/hairstyles/female/chignon.jpg", alt: "Chignon hairstyle" },
+  { style: "SlickedBack", description: "Slicked Back", category: "Female", imageUrl: "/images/hairstyles/female/slicked-back.jpg", alt: "Slicked back hairstyle" },
+  { style: "StackedCurlsInShortBob", description: "Stacked Curls Bob", category: "Female", imageUrl: "/images/hairstyles/female/stacked-curls-bob.jpg", alt: "Stacked curls bob hairstyle" },
+  { style: "SidePartCombOverHairstyleWithHighFade", description: "Side Part High Fade", category: "Female", imageUrl: "/images/hairstyles/female/side-part-fade.jpg", alt: "Side part high fade hairstyle" },
+  { style: "WavyFrenchBobVibesfrom1920", description: "Wavy French Bob", category: "Female", imageUrl: "/images/hairstyles/female/wavy-french-bob.jpg", alt: "Wavy french bob hairstyle" },
+  { style: "BobCut", description: "Bob Cut", category: "Female", imageUrl: "/images/hairstyles/female/bob-cut.jpg", alt: "Bob cut hairstyle" },
+  { style: "ShortTwintails", description: "Short Twintails", category: "Female", imageUrl: "/images/hairstyles/female/short-twintails.jpg", alt: "Short twintails hairstyle" },
+  { style: "ShortCurlyPixie", description: "Short Curly Pixie", category: "Female", imageUrl: "/images/hairstyles/female/short-curly-pixie.jpg", alt: "Short curly pixie hairstyle" },
+  { style: "LongStraight", description: "Long Straight", category: "Female", imageUrl: "/images/hairstyles/female/long-straight.jpg", alt: "Long straight hairstyle" },
+  { style: "LongWavy", description: "Long Wavy", category: "Female", imageUrl: "/images/hairstyles/female/long-wavy.jpg", alt: "Long wavy hairstyle" },
+  { style: "FishtailBraid", description: "Fishtail Braid", category: "Female", imageUrl: "/images/hairstyles/female/fishtail-braid.jpg", alt: "Fishtail braid hairstyle" },
+  { style: "TwinBraids", description: "Twin Braids", category: "Female", imageUrl: "/images/hairstyles/female/twin-braids.jpg", alt: "Twin braids hairstyle" },
+  { style: "Ponytail", description: "Ponytail", category: "Female", imageUrl: "/images/hairstyles/female/ponytail.jpg", alt: "Ponytail hairstyle" },
+  { style: "Dreadlocks", description: "Dreadlocks", category: "Female", imageUrl: "/images/hairstyles/female/dreadlocks.jpg", alt: "Dreadlocks hairstyle" },
+  { style: "Cornrows", description: "Cornrows", category: "Female", imageUrl: "/images/hairstyles/female/cornrows.jpg", alt: "Cornrows hairstyle" },
+  { style: "ShoulderLengthHair", description: "Shoulder Length", category: "Female", imageUrl: "/images/hairstyles/female/shoulder-length.jpg", alt: "Shoulder length hairstyle" },
+  { style: "LooseCurlyAfro", description: "Loose Curly Afro", category: "Female", imageUrl: "/images/hairstyles/female/loose-curly-afro.jpg", alt: "Loose curly afro hairstyle" },
+  { style: "LongTwintails", description: "Long Twintails", category: "Female", imageUrl: "/images/hairstyles/female/long-twintails.jpg", alt: "Long twintails hairstyle" },
+  { style: "LongHimeCut", description: "Long Hime Cut", category: "Female", imageUrl: "/images/hairstyles/female/long-hime-cut.jpg", alt: "Long hime cut hairstyle" },
+  { style: "BoxBraids", description: "Box Braids", category: "Female", imageUrl: "/images/hairstyles/female/box-braids.jpg", alt: "Box braids hairstyle" },
+  { style: "FrenchBangs", description: "French Bangs", category: "Female", imageUrl: "/images/hairstyles/female/french-bangs.jpg", alt: "French bangs hairstyle" },
+  { style: "MediumLongLayered", description: "Medium Long Layered", category: "Female", imageUrl: "/images/hairstyles/female/medium-long-layered.jpg", alt: "Medium long layered hairstyle" }
 ];
 
 export const maleStyles: HairStyle[] = [
-  { style: "BuzzCut", description: "Buzz Cut", category: "Male", imageUrl: "/hairstyles/male/buzz-cut.jpg", alt: "Classic military-inspired buzz cut with uniform short length" },
-  { style: "UnderCut", description: "Undercut", category: "Male", imageUrl: "/hairstyles/male/undercut.jpg", alt: "Modern undercut with contrasting lengths between top and sides" },
-  { style: "Pompadour", description: "Pompadour", category: "Male", imageUrl: "/hairstyles/male/pompadour.jpg", alt: "Classic pompadour style with volume on top and shorter sides" },
-  { style: "SlickBack", description: "Slick Back", category: "Male", imageUrl: "/hairstyles/male/slick-back.jpg", alt: "Slick back hairstyle" },
-  { style: "CurlyShag", description: "Curly Shag", category: "Male", imageUrl: "/hairstyles/male/curly-shag.jpg", alt: "Curly shag hairstyle" },
-  { style: "WavyShag", description: "Wavy Shag", category: "Male", imageUrl: "/hairstyles/male/wavy-shag.jpg", alt: "Wavy shag hairstyle" },
-  { style: "FauxHawk", description: "Faux Hawk", category: "Male", imageUrl: "/hairstyles/male/faux-hawk.jpg", alt: "Faux hawk hairstyle" },
-  { style: "Spiky", description: "Spiky", category: "Male", imageUrl: "/hairstyles/male/spiky.jpg", alt: "Spiky hairstyle" },
-  { style: "CombOver", description: "Comb Over", category: "Male", imageUrl: "/hairstyles/male/comb-over.jpg", alt: "Comb over hairstyle" },
-  { style: "HighTightFade", description: "High Tight Fade", category: "Male", imageUrl: "/hairstyles/male/high-tight-fade.jpg", alt: "High tight fade hairstyle" },
-  { style: "ManBun", description: "Man Bun", category: "Male", imageUrl: "/hairstyles/male/man-bun.jpg", alt: "Man bun hairstyle" },
-  { style: "Afro", description: "Afro", category: "Male", imageUrl: "/hairstyles/male/afro.jpg", alt: "Afro hairstyle" },
-  { style: "LowFade", description: "Low Fade", category: "Male", imageUrl: "/hairstyles/male/low-fade.jpg", alt: "Low fade hairstyle" },
-  { style: "UndercutLongHair", description: "Undercut Long Hair", category: "Male", imageUrl: "/hairstyles/male/undercut-long-hair.jpg", alt: "Undercut long hair hairstyle" },
-  { style: "TwoBlockHaircut", description: "Two Block", category: "Male", imageUrl: "/hairstyles/male/two-block.jpg", alt: "Two block hairstyle" },
-  { style: "TexturedFringe", description: "Textured Fringe", category: "Male", imageUrl: "/hairstyles/male/textured-fringe.jpg", alt: "Textured fringe hairstyle" },
-  { style: "BluntBowlCut", description: "Blunt Bowl Cut", category: "Male", imageUrl: "/hairstyles/male/blunt-bowl-cut.jpg", alt: "Blunt bowl cut hairstyle" },
-  { style: "LongWavyCurtainBangs", description: "Long Wavy Curtain", category: "Male", imageUrl: "/hairstyles/male/long-wavy-curtain.jpg", alt: "Long wavy curtain hairstyle" },
-  { style: "MessyTousled", description: "Messy Tousled", category: "Male", imageUrl: "/hairstyles/male/messy-tousled.jpg", alt: "Messy tousled hairstyle" },
-  { style: "CornrowBraids", description: "Cornrow Braids", category: "Male", imageUrl: "/hairstyles/male/cornrow-braids.jpg", alt: "Cornrow braids hairstyle" },
-  { style: "LongHairTiedUp", description: "Long Hair Tied Up", category: "Male", imageUrl: "/hairstyles/male/long-hair-tied-up.jpg", alt: "Long hair tied up hairstyle" },
-  { style: "TinfoilPerm", description: "Tinfoil Perm", category: "Male", imageUrl: "/hairstyles/male/tinfoil-perm.jpg", alt: "Tinfoil perm hairstyle" },
-  { style: "Chestnut", description: "Chestnut", category: "Male", imageUrl: "/hairstyles/male/chestnut.jpg", alt: "Chestnut hairstyle" },
-  { style: "ChoppyBangs", description: "Choppy Bangs", category: "Male", imageUrl: "/hairstyles/male/choppy-bangs.jpg", alt: "Choppy bangs hairstyle" }
+  { style: "BuzzCut", description: "Buzz Cut", category: "Male", imageUrl: "/images/hairstyles/male/buzz-cut.jpg", alt: "Classic military-inspired buzz cut with uniform short length" },
+  { style: "UnderCut", description: "Undercut", category: "Male", imageUrl: "/images/hairstyles/male/undercut.jpg", alt: "Modern undercut with contrasting lengths between top and sides" },
+  { style: "Pompadour", description: "Pompadour", category: "Male", imageUrl: "/images/hairstyles/male/pompadour.jpg", alt: "Classic pompadour style with volume on top and shorter sides" },
+  { style: "SlickBack", description: "Slick Back", category: "Male", imageUrl: "/images/hairstyles/male/slick-back.jpg", alt: "Slick back hairstyle" },
+  { style: "CurlyShag", description: "Curly Shag", category: "Male", imageUrl: "/images/hairstyles/male/curly-shag.jpg", alt: "Curly shag hairstyle" },
+  { style: "WavyShag", description: "Wavy Shag", category: "Male", imageUrl: "/images/hairstyles/male/wavy-shag.jpg", alt: "Wavy shag hairstyle" },
+  { style: "FauxHawk", description: "Faux Hawk", category: "Male", imageUrl: "/images/hairstyles/male/faux-hawk.jpg", alt: "Faux hawk hairstyle" },
+  { style: "Spiky", description: "Spiky", category: "Male", imageUrl: "/images/hairstyles/male/spiky.jpg", alt: "Spiky hairstyle" },
+  { style: "CombOver", description: "Comb Over", category: "Male", imageUrl: "/images/hairstyles/male/comb-over.jpg", alt: "Comb over hairstyle" },
+  { style: "HighTightFade", description: "High Tight Fade", category: "Male", imageUrl: "/images/hairstyles/male/high-tight-fade.jpg", alt: "High tight fade hairstyle" },
+  { style: "ManBun", description: "Man Bun", category: "Male", imageUrl: "/images/hairstyles/male/man-bun.jpg", alt: "Man bun hairstyle" },
+  { style: "Afro", description: "Afro", category: "Male", imageUrl: "/images/hairstyles/male/afro.jpg", alt: "Afro hairstyle" },
+  { style: "LowFade", description: "Low Fade", category: "Male", imageUrl: "/images/hairstyles/male/low-fade.jpg", alt: "Low fade hairstyle" },
+  { style: "UndercutLongHair", description: "Undercut Long Hair", category: "Male", imageUrl: "/images/hairstyles/male/undercut-long-hair.jpg", alt: "Undercut long hair hairstyle" },
+  { style: "TwoBlockHaircut", description: "Two Block", category: "Male", imageUrl: "/images/hairstyles/male/two-block.jpg", alt: "Two block hairstyle" },
+  { style: "TexturedFringe", description: "Textured Fringe", category: "Male", imageUrl: "/images/hairstyles/male/textured-fringe.jpg", alt: "Textured fringe hairstyle" },
+  { style: "BluntBowlCut", description: "Blunt Bowl Cut", category: "Male", imageUrl: "/images/hairstyles/male/blunt-bowl-cut.jpg", alt: "Blunt bowl cut hairstyle" },
+  { style: "LongWavyCurtainBangs", description: "Long Wavy Curtain", category: "Male", imageUrl: "/images/hairstyles/male/long-wavy-curtain.jpg", alt: "Long wavy curtain hairstyle" },
+  { style: "MessyTousled", description: "Messy Tousled", category: "Male", imageUrl: "/images/hairstyles/male/messy-tousled.jpg", alt: "Messy tousled hairstyle" },
+  { style: "CornrowBraids", description: "Cornrow Braids", category: "Male", imageUrl: "/images/hairstyles/male/cornrow-braids.jpg", alt: "Cornrow braids hairstyle" },
+  { style: "LongHairTiedUp", description: "Long Hair Tied Up", category: "Male", imageUrl: "/images/hairstyles/male/long-hair-tied-up.jpg", alt: "Long hair tied up hairstyle" },
+  { style: "TinfoilPerm", description: "Tinfoil Perm", category: "Male", imageUrl: "/images/hairstyles/male/tinfoil-perm.jpg", alt: "Tinfoil perm hairstyle" },
+  { style: "Chestnut", description: "Chestnut", category: "Male", imageUrl: "/images/hairstyles/male/chestnut.jpg", alt: "Chestnut hairstyle" },
+  { style: "ChoppyBangs", description: "Choppy Bangs", category: "Male", imageUrl: "/images/hairstyles/male/choppy-bangs.jpg", alt: "Choppy bangs hairstyle" }
 ];
 
 export default function SelectStyle({
@@ -255,32 +255,28 @@ export default function SelectStyle({
         </div>
       </div>
 
-      {/* Hairstyles Grid */}
-      <div className="grid grid-cols-3 gap-3 mb-4 overflow-y-auto h-[380px]">
-        {currentStyles.map((style) => (
-          <button
-            key={style.style}
-            onClick={() => handleStyleClick(style.style)}
-            className={`p-1 rounded-2xl border transition-all flex flex-col ${
-              selectedStyle === style.style
-                ? "border-purple-700 bg-purple-700 shadow-md"
-                : "border-transparent hover:border-gray-200 bg-gray-100 hover:shadow-sm"
-            }`}
-          >
-            <div className="w-full h-[120px] mb-2 overflow-hidden rounded-xl">
-            <img
-              src={style.imageUrl}
-              alt={`Trendy ${style.description} hairstyle - a popular modern haircut choice for fashion-forward individuals`}
-              className="w-full h-full object-cover"
-            />
+      {/* 第二部分：发型展示区域 */}
+      <div className="showcase-scroll">
+        <div className="showcase-content">
+          {currentStyles.map((style) => (
+            <div 
+              key={style.style}
+              className="hairstyle-item"
+              onClick={() => handleStyleClick(style.style)}
+            >
+              <div className="hairstyle-image">
+                <img
+                  src={style.imageUrl}
+                  alt={style.alt}
+                  loading="lazy"
+                />
+                <div className="hairstyle-overlay">
+                  <h3>{style.description}</h3>
+                </div>
+              </div>
             </div>
-            <p className={`text-xs font-medium text-center min-h-[2.0em] flex items-center justify-center text-center w-full ${
-              selectedStyle === style.style ? "text-white" : "text-gray-700"
-            }`}>
-              {style.description}
-            </p>
-          </button>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Color Selection */}

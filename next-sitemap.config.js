@@ -2,6 +2,9 @@
 module.exports = {
     siteUrl: 'https://hair-style.ai',
     generateRobotsTxt: true,
+    generateIndexSitemap: false,
+    sitemapSize: 50000,
+    outDir: 'public',
     changefreq: 'daily',
     priority: 0.7,
     exclude: ['/api/*', '/404', '/500'],

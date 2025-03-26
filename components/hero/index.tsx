@@ -7,100 +7,98 @@ import Link from 'next/link';
 
 type TabType = 'Female' | 'Male' | 'Color';
 
-// 将评论数据移到组件外部
-const testimonials = [
-    {
-        quote: "I've always been hesitant to try new hairstyles because I wasn't sure how they'd look on me. With this AI tool, I uploaded my photo and tried out different styles, which gave me the confidence to switch to a modern fade. It's a game-changer for anyone unsure about new looks.",
-        name: "Mark",
-        title: "Financial Analyst"
-    },
-    {
-        quote: "As a professional photographer, I needed to visualize different hairstyles for my clients before photoshoots. This AI tool has become an essential part of my pre-shoot consultation. It helps clients make confident decisions about their styling and saves us both time and uncertainty.",
-        name: "Emily",
-        title: "Professional Photographer"
-    },
-    {
-        quote: "The accuracy of this AI tool is impressive! I was skeptical at first, but after trying several hairstyles, I found the perfect look for my wedding day. The ability to experiment with different colors and styles helped me avoid any styling regrets on my big day.",
-        name: "Sophie",
-        title: "Interior Designer"
-    },
-    {
-        quote: "Working in tech, I appreciate tools that combine innovation with practicality. This AI hairstyle changer does exactly that. It's intuitive, fast, and surprisingly accurate. I used it before my recent makeover and the actual result matched the AI preview perfectly.",
-        name: "James",
-        title: "Software Developer"
-    },
-    {
-        quote: "Being a style consultant, I recommend this tool to all my clients. It's revolutionized how we approach hair makeovers. The realistic previews and variety of options make it easy for clients to visualize their transformation. It's become an indispensable tool in my consulting process.",
-        name: "Lisa",
-        title: "Style Consultant"
-    }
-];
-
-// 在文件顶部添加新的类型和状态
-type FAQItem = {
-    question: string;
-    answer: string;
-};
-
-const faqItems: FAQItem[] = [
-    {
-        question: "Is it really free to use AI hairstyle changer?",
-        answer: "Yes, our AI hairstyle changer is completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost."
-    },
-    {
-        question: "Is it safe to upload my image to hairstyle generator?",
-        answer: "Absolutely! We take your privacy seriously. Your uploaded images are processed securely and are not stored permanently. We use advanced encryption to protect your data, and all images are automatically deleted after processing."
-    },
-    {
-        question: "Can I use AI hairstyle generator on my phone?",
-        answer: "Yes! Our AI hairstyle generator is fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go."
-    },
-    {
-        question: "How to try hairstyles on my face?",
-        answer: "It's simple! Just upload a clear photo of your face, select from our wide range of hairstyle options, and our AI will automatically apply the chosen style to your photo. You can also experiment with different hair colors to find your perfect look."
-    },
-    {
-        question: "Can AI tell me what hairstyle suits me?",
-        answer: "While our AI tool helps you visualize different hairstyles on your face, the best hairstyle choice ultimately depends on your personal preference and style. We recommend trying multiple styles and colors to find what makes you feel most confident."
-    }
-];
-
-// 定义颜色图片映射
-const colorImages = {
-    black: "/images/colors/black-hair.jpg",
-    red: "/images/colors/red-hair.jpg",
-    silver: "/images/colors/silver-hair.jpg",
-    purple: "/images/colors/purple-hair.jpg",
-    blue: "/images/colors/blue-hair.jpg",
-    pink: "/images/colors/pink-hair.jpg",
-    brown: "/images/colors/brown-hair.jpg",
-    gray: "/images/colors/gray-hair.jpg",
-    green: "/images/colors/green-hair.jpg",
-    orange: "/images/colors/orange-hair.jpg",
-    white: "/images/colors/white-hair.jpg",
-    yellow: "/images/colors/yellow-hair.jpg",
-    lightBrown: "/images/colors/light-brown-hair.jpg",
-    lightBlue: "/images/colors/light-blue-hair.jpg",
-    blonde: "/images/colors/blonde-hair.jpg",
-    lightPurple: "/images/colors/light-purple-hair.jpg"
-};
-
-const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    const target = e.target as HTMLImageElement;
-    target.onerror = null; // 防止无限循环
-    target.src = '/images/fallback.jpg'; // 确保这个路径存在
-};
-
 export default function Hero() {
     const [activeTab, setActiveTab] = useState<TabType>('Female');
     const [displayStyles, setDisplayStyles] = useState<Array<{imageUrl: string; description: string}>>([]);
     const [displayColors, setDisplayColors] = useState<Array<{id: string; color: string; label: string}>>([]);
-    // 将评论状态提升到组件顶部
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
-    // 添加新的状态
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(0);
-    // 添加错误边界
     const [error, setError] = useState<Error | null>(null);
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 18;
+    const autoPlayInterval = 3000; // 3秒轮播
+    const [isPaused, setIsPaused] = useState(false);
+    const pauseDuration = 5000; // 暂停 5 秒
+
+    // 将评论数据移到组件内部
+    const testimonials = [
+        {
+            quote: "I've always been hesitant to try new hairstyles because I wasn't sure how they'd look on me. With this tool, I uploaded my photo and tried out different styles, which gave me the confidence to switch to a modern fade. It's a game-changer for anyone unsure about new looks.",
+            name: "Mark",
+            title: "Financial Analyst"
+        },
+        {
+            quote: "As a professional photographer, I needed to visualize different hairstyles for my clients before photoshoots. This tool has become an essential part of my pre-shoot consultation. It helps clients make confident decisions about their styling and saves us both time and uncertainty.",
+            name: "Emily",
+            title: "Professional Photographer"
+        },
+        {
+            quote: "The accuracy of this tool is impressive! I was skeptical at first, but after trying several hairstyles, I found the perfect look for my wedding day. The ability to experiment with different colors and styles helped me avoid any styling regrets on my big day.",
+            name: "Sophie",
+            title: "Interior Designer"
+        },
+        {
+            quote: "Working in tech, I appreciate tools that combine innovation with practicality. This hairstyle changer does exactly that. It's intuitive, fast, and surprisingly accurate. I used it before my recent makeover and the actual result matched the preview perfectly.",
+            name: "James",
+            title: "Software Developer"
+        },
+        {
+            quote: "Being a style consultant, I recommend this tool to all my clients. It's revolutionized how we approach hair makeovers. The realistic previews and variety of options make it easy for clients to visualize their transformation. It's become an indispensable tool in my consulting process.",
+            name: "Lisa",
+            title: "Style Consultant"
+        }
+    ];
+
+    // FAQ items inside the component
+    const faqItems = [
+        {
+            question: "Is it really free to use hairstyles changer tools?",
+            answer: "Yes, our hairstyles changer tools are completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost."
+        },
+        {
+            question: "Is it safe to upload my image to hairstyles changer tools?",
+            answer: "Absolutely! We take your privacy seriously. Your uploaded images are processed securely and are not stored permanently. We use advanced encryption to protect your data, and all images are automatically deleted after processing."
+        },
+        {
+            question: "Can I use hairstyles changer tools on my phone?",
+            answer: "Yes! Our hairstyles changer tools are fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go."
+        },
+        {
+            question: "How to try hairstyles on my face?",
+            answer: "It's simple! Just upload a clear photo of your face, select from our wide range of hairstyle options, and our AI will automatically apply the chosen style to your photo. You can also experiment with different hair colors to find your perfect look."
+        },
+        {
+            question: "Can hairstyles changer tools tell me what hairstyle suits me?",
+            answer: "While our hairstyles changer tools help you visualize different hairstyles on your face, the best hairstyle choice ultimately depends on your personal preference and style. We recommend trying multiple styles and colors to find what makes you feel most confident."
+        }
+    ];
+
+    // 添加图片错误处理函数
+    const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+        const target = e.target as HTMLImageElement;
+        target.onerror = null; // 防止无限循环
+        target.src = '/images/fallback/hairstyle-placeholder.jpg'; // 使用占位图
+    };
+
+    // 定义颜色图片映射
+    const colorImages = {
+        black: "/images/colors/black-hair.jpg",
+        red: "/images/colors/red-hair.jpg",
+        silver: "/images/colors/silver-hair.jpg",
+        purple: "/images/colors/purple-hair.jpg",
+        blue: "/images/colors/blue-hair.jpg",
+        pink: "/images/colors/pink-hair.jpg",
+        brown: "/images/colors/brown-hair.jpg",
+        gray: "/images/colors/gray-hair.jpg",
+        green: "/images/colors/green-hair.jpg",
+        orange: "/images/colors/orange-hair.jpg",
+        white: "/images/colors/white-hair.jpg",
+        yellow: "/images/colors/yellow-hair.jpg",
+        lightBrown: "/images/colors/light-brown-hair.jpg",
+        lightBlue: "/images/colors/light-blue-hair.jpg",
+        blonde: "/images/colors/blonde-hair.jpg",
+        lightPurple: "/images/colors/light-purple-hair.jpg"
+    };
 
     useEffect(() => {
         // 根据选中的标签获取对应的数据
@@ -121,6 +119,54 @@ export default function Hero() {
             setDisplayColors([]);
         }
     }, [activeTab]);
+
+    // 计算总页数
+    const getTotalPages = (styles: typeof femaleStyles) => {
+        return Math.ceil(styles.length / itemsPerPage);
+    };
+
+    // 获取当前页的样式
+    const getCurrentPageStyles = () => {
+        const styles = activeTab === 'Female' ? femaleStyles : maleStyles;
+        const start = currentPage * itemsPerPage;
+        return styles.slice(start, start + itemsPerPage);
+    };
+
+    // 修改自动轮播逻辑
+    useEffect(() => {
+        // 如果处于暂停状态，不执行自动轮播
+        if (isPaused) return;
+
+        const timer = setInterval(() => {
+            const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
+            setCurrentPage(prev => (prev + 1) % totalPages);
+        }, autoPlayInterval);
+
+        return () => clearInterval(timer);
+    }, [activeTab, isPaused]); // 添加 isPaused 作为依赖项
+
+    // 手动切换页面
+    const handlePrevPage = () => {
+        const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
+        setCurrentPage(prev => (prev - 1 + totalPages) % totalPages);
+        // 设置暂停状态
+        setIsPaused(true);
+        // 5秒后恢复自动轮播
+        setTimeout(() => {
+            setIsPaused(false);
+        }, pauseDuration);
+    };
+
+    const handleNextPage = () => {
+        const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
+        setCurrentPage(prev => (prev + 1) % totalPages);
+        // 设置暂停状态
+        setIsPaused(true);
+        // 5秒后恢复自动轮播
+        setTimeout(() => {
+            setIsPaused(false);
+        }, pauseDuration);
+    };
 
     // 评论导航函数
     const handlePrevious = () => {
@@ -151,16 +197,12 @@ export default function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold mb-6 mt-10">
-                            Free AI Hairstyle Changer
+                        <h1 className="text-4xl font-semibold mb-6 mt-10">
+                            Free Hairstyles Changer Tools - Find Your Next Hairstyle in One Click!
                         </h1>
 
-                        <p className="text-xl text-gray-800 mb-4 leading-relaxed">
-                            Are you worried about trying a new hairstyle and regretting it later?
-                        </p>
-
-                        <p className="text-xl text-gray-800 mb-12 leading-relaxed">
-                            Hair-style solves this problem by showing you how you look with different hairstyles and colors instantly. Try it now and discover your perfect look!
+                        <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+                            Not sure which hairstyle suits you best? Our free hairstyles changer lets you try on 60+ styles in just a few clicks! Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free hairstyles changer helps you experiment without a trip to the salon.Whether you need an online hairstyles changer for men or women, this tool has it all—from short cuts to long waves. It's an easy way to try on hairstyles for free without commitment. Love what you see? Save your favorite look and show it to your hairstylist! Try our hairstyles changer now and discover your next style!
                         </p>
 
                         <div className="flex flex-col lg:flex-row items-center gap-8">
@@ -223,12 +265,11 @@ export default function Hero() {
                 <div className="max-w-7xl mx-auto">
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold mb-6">
-                            Popular AI Hairstyles for Men and Women
+                        <h2 className="text-3xl font-semibold mb-6">
+                            Popular Hairstyles for Men and Women
                         </h2>
-                        <p className="text-xl text-gray-800 max-w-3xl mx-auto leading-relaxed">
-                            We have a very large number of popular hairstyles for you to change online for free, 
-                            to help you find the most suitable hairstyle and show your brightest self!
+                        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                              Looking for hairstyle inspiration? Our free AI hairstyle changer helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this hairstyle changer online makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                         </p>
                     </div>
 
@@ -252,65 +293,95 @@ export default function Hero() {
                     </div>
 
                     {/* 发型/颜色网格 */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-12">
-                        {activeTab === 'Color' ? (
-                            // 显示颜色选项
-                            displayColors.map((color, index) => (
-                                <div key={index} className="group">
-                                    <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
-                                        {colorImages[color.id as keyof typeof colorImages] ? (
+                    <div className="relative">
+                        {/* 左右切换按钮 */}
+                        <button
+                            onClick={handlePrevPage}
+                            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-2 rounded-r-lg shadow-md hover:bg-white"
+                            aria-label="Previous page"
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+
+                        <div className="grid grid-cols-3 md:grid-cols-6 gap-4 overflow-hidden">
+                            {activeTab === 'Color' ? (
+                                // 颜色选项展示
+                                displayColors.map((color, index) => (
+                                    <div key={index} className="group">
+                                        <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                                            {colorImages[color.id as keyof typeof colorImages] ? (
+                                                <Image
+                                                    src={colorImages[color.id as keyof typeof colorImages]}
+                                                    alt={color.label}
+                                                    className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                                    width={200}
+                                                    height={200}
+                                                    onError={handleImageError}
+                                                />
+                                            ) : (
+                                                // 如果没有对应的图片，显示颜色块
+                                                <div 
+                                                    className="w-full h-full"
+                                                    style={{ 
+                                                        background: color.id === 'random' ? color.color : color.color,
+                                                        opacity: 0.8 
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                        <p className="text-center text-gray-800 font-medium">
+                                            {color.label}
+                                        </p>
+                                    </div>
+                                ))
+                            ) : (
+                                // 发型选项展示
+                                getCurrentPageStyles().map((style, index) => (
+                                    <div key={style.style} className="hairstyle-item">
+                                        <div className="hairstyle-image relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
                                             <Image
-                                                src={colorImages[color.id as keyof typeof colorImages]}
-                                                alt={color.label}
-                                                className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                                src={style.imageUrl}
+                                                alt={style.description}
+                                                className="w-full h-full object-cover"
                                                 width={200}
                                                 height={200}
                                                 onError={handleImageError}
+                                                loading="lazy"
                                             />
-                                        ) : (
-                                            // 如果没有对应的图片，显示颜色块
-                                            <div 
-                                                className="w-full h-full"
-                                                style={{ 
-                                                    background: color.id === 'random' ? color.color : color.color,
-                                                    opacity: 0.8 
-                                                }}
-                                            />
-                                        )}
+                                        </div>
+                                        <h3 className="text-center text-gray-800 font-medium">
+                                            {style.description}
+                                        </h3>
                                     </div>
-                                    <p className="text-center text-gray-800 font-medium">
-                                        {color.label}
-                                    </p>
-                                </div>
-                            ))
-                        ) : (
-                            // 显示发型选项
-                            displayStyles.map((style, index) => (
-                                <div key={index} className="group">
-                                    <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3 relative">
-                                        <Image
-                                            src={style.imageUrl}
-                                            alt={style.description}
-                                            className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
-                                            width={200}
-                                            height={200}
-                                            onError={(e) => {
-                                                const target = e.target as HTMLImageElement;
-                                                target.onerror = null; // 防止无限循环
-                                                target.src = '/images/fallback/hairstyle-placeholder.jpg'; // 使用占位图
-                                                console.error(`Failed to load image: ${style.imageUrl}`);
-                                            }}
-                                            loading="lazy"
-                                            placeholder="blur"
-                                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkLzYvLy0vLi44QjQ4OEQ4LjE1REVHS1NTW1xfXkVnaWVsbW1u/2wBDARVFx4eIB4gHR0gIjglOCU4NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2Njb/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                                        />
-                                    </div>
-                                    <p className="text-center text-gray-800 font-medium">
-                                        {style.description}
-                                    </p>
-                                </div>
-                            ))
-                        )}
+                                ))
+                            )}
+                        </div>
+
+                        <button
+                            onClick={handleNextPage}
+                            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-2 rounded-l-lg shadow-md hover:bg-white"
+                            aria-label="Next page"
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {/* 页码指示器 */}
+                        <div className="flex justify-center mt-4 gap-2">
+                            {[...Array(getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles))].map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentPage(i)}
+                                    className={`w-2 h-2 rounded-full ${
+                                        currentPage === i ? 'bg-purple-600' : 'bg-gray-300'
+                                    }`}
+                                    aria-label={`Go to page ${i + 1}`}
+                                />
+                            ))}
+                        </div>
                     </div>
 
                     {/* More Style 按钮 */}
@@ -330,11 +401,11 @@ export default function Hero() {
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
                     <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold mb-6">
-                            How to Use AI Hairstyle Changer
+                        <h2 className="text-3xl font-semibold mb-6">
+                            How to Use Hairstyles Changer
                         </h2>
-                        <p className="text-xl text-gray-800 leading-relaxed">
-                            Transform your look with our AI-powered hairstyle changer in just three simple steps. 
+                        <p className="text-lg text-gray-600 leading-relaxed">
+                            Transform your look with our AI-powered hairstyles changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
                     </div>
@@ -354,8 +425,8 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step1: Upload Image</h3>
-                            <p className="text-xl text-gray-800 leading-relaxed">
-                                Upload your photo if you want to change your hairstyle with AI.
+                            <p className="text-lg text-gray-600 leading-relaxed">
+                                Upload your photo if you want to change your hairstyle with hairstyles changer tools.
                             </p>
                         </div>
 
@@ -372,8 +443,8 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Step2: Choose Hairstyle and Color</h3>
-                            <p className="text-xl text-gray-800 leading-relaxed">
-                                Choose from our AI hairstyles, and pick the hair color you want to try.
+                            <p className="text-lg text-gray-600 leading-relaxed">
+                                Choose from our hairstyles changer tools, and pick the hair color you want to try.
                             </p>
                         </div>
 
@@ -389,9 +460,9 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">Step3: Download Photo!</h3>
-                            <p className="text-xl text-gray-800 leading-relaxed">
-                                Our AI hairstyle tool will change your hairstyle. Once complete, download the photo with your new virtual hair style and see how the transformation suits you.
+                            <h3 className="text-xl font-semibold mb-2">Step3: Download Photo!</h3>
+                            <p className="text-lg text-gray-600 leading-relaxed">
+                                Our hairstyles changer tools will change your hairstyle. Once complete, download the photo with your new virtual hairstyle and see how the transformation suits you.
                             </p>
                         </div>
                     </div>
@@ -415,10 +486,10 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6">
+                                <h2 className="text-3xl font-semibold mb-6">
                                     How to try on hairstyles on my face?
                                 </h2>
-                                <p className="text-xl text-gray-800 leading-relaxed mb-8">
+                                <p className="text-lg text-gray-600 leading-relaxed mb-8">
                                     Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
                                     Our free online AI hairstyle tool helps you try on different hairstyles before making a decision. 
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
@@ -467,10 +538,10 @@ export default function Hero() {
                             </div>
                             {/* 右侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6">
+                                <h2 className="text-3xl font-semibold mb-6">
                                     What Haircut Fits My Face?
                                 </h2>
-                                <div className="space-y-6 text-xl text-gray-800 leading-relaxed">
+                                <div className="space-y-6 text-lg text-gray-600 ">
                                     <p>
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
@@ -501,12 +572,12 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6">
-                                    What is AI hairstyle changer?
+                                <h2 className="text-3xl font-semibold mb-6">
+                                    What is hairstyles changer?
                                 </h2>
-                                <p className="text-xl text-gray-800 leading-relaxed mb-8">
+                                <p className="text-lg text-gray-600 leading-relaxed mb-8">
                                     Are you still unsure about what hairstyle to wear for your next event? 
-                                    Our free online AI hairstyle tool is here to help! Simply upload your photo, 
+                                    Our free online hairstyles changer tools are here to help! Simply upload your photo, 
                                     choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
                                     and instantly see how it looks with different hair colors. You can easily experiment with 
                                     various styles and colors to find the perfect match for your face and personality. 
@@ -540,7 +611,7 @@ export default function Hero() {
             <div id="testimonials" className="bg-white py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-center mb-16">
+                        <h2 className="text-3xl font-semibold text-center mb-16">
                             What Others Say about Us?
                         </h2>
                         
@@ -553,7 +624,7 @@ export default function Hero() {
 
                             {/* 评价内容 */}
                             <div className="relative">
-                                <p className="text-xl text-gray-700 mb-8 italic">
+                                <p className="text-lg text-gray-700 mb-8 italic">
                                     {testimonials[currentTestimonial].quote}
                                 </p>
 
@@ -568,9 +639,9 @@ export default function Hero() {
                                         onError={handleImageError}
                                     />
                                     <div>
-                                        <h4 className="text-xl font-semibold">
+                                        <p className="text-xl font-semibold">
                                             {testimonials[currentTestimonial].name}
-                                        </h4>
+                                        </p>
                                         <p className="text-gray-600">
                                             {testimonials[currentTestimonial].title}
                                         </p>
@@ -628,11 +699,11 @@ export default function Hero() {
             <div id="faq" className="bg-gray-50">
                 <div className="container mx-auto px-4 py-20">
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-3xl font-bold text-center mb-4">
+                        <h2 className="text-3xl font-semibold text-center mb-4">
                             Frequently Asked Questions
                         </h2>
-                        <p className="text-xl text-gray-800 text-center mb-12 leading-relaxed">
-                            Find answers to common questions about our AI hairstyle changer tool
+                        <p className="text-lg text-gray-600 text-center mb-12 leading-relaxed">
+                            Find answers to common questions about our hairstyles changer tools
                         </p>
 
                         {/* FAQ Items */}
@@ -646,7 +717,7 @@ export default function Hero() {
                                         onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
                                         className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
                                     >
-                                        <span className="text-xl font-semibold text-gray-800">
+                                        <span className="text-lg font-semibold text-gray-800">
                                             {item.question}
                                         </span>
                                         <svg
@@ -667,7 +738,7 @@ export default function Hero() {
                                     </button>
                                     {expandedFAQ === index && (
                                         <div className="px-6 py-4 bg-white border-t border-gray-200">
-                                            <p className="text-xl text-gray-800 leading-relaxed">
+                                            <p className="text-lg text-gray-600 leading-relaxed">
                                                 {item.answer}
                                             </p>
                                         </div>
