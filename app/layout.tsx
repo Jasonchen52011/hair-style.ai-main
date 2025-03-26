@@ -1,52 +1,10 @@
 import './globals.css'
-import Script from 'next/script'
-import { baseMetadata, jsonLd } from './metadata'
-
-// 扩展 metadata 配置
-export const metadata = {
-  ...baseMetadata,
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  // 添加其他 robots 指令
-  other: {
-    'X-Robots-Tag': 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-  }
-}
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    'url': 'https://hair-style.ai',
-    'logo': 'https://hair-style.ai/images/logo/logo.png',
-    'name': 'Hair-style.ai',
-    'image': 'https://hair-style.ai/images/hero/ba3.jpg',
-    'description': 'AI Hairstyle Changer - Try different hairstyles instantly with AI',
-    'sameAs': [
-      'https://x.com/hair_styleai'
-    ],
-    'brand': {
-      '@type': 'Brand',
-      'name': 'Hair-style.ai',
-      'logo': 'https://hair-style.ai/images/logo/logo.png'
-    }
-  };
-
   return (
     <html lang="en">
       <head>
@@ -65,13 +23,6 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', 'G-SQ0ZZ6EFP6');
             `,
-          }}
-        />
-        <Script
-          id="schema-org"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd)
           }}
         />
         <script async src="https://www.google.com/..."></script>

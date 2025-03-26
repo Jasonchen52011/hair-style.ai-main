@@ -1,8 +1,37 @@
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import { privacyPolicyMetadata } from '../metadata'
+import { Metadata } from 'next'
 
-export const metadata = privacyPolicyMetadata
+// Privacy Policy 页面 metadata
+export const metadata: Metadata = {
+    alternates: {
+        canonical: 'https://hair-style.ai/privacy-policy',
+    },
+    title: 'Privacy Policy - Hair-style.ai',
+    description: 'Learn how Hair-style.ai protects your privacy and personal data. Our comprehensive privacy policy explains our data collection, usage, security measures.',
+    keywords: [
+        'privacy policy',
+        'data protection',
+        'user privacy',
+        'data security',
+        'hair-style.ai privacy'
+    ],
+    openGraph: {
+        title: 'Privacy Policy - Hair-style.ai',
+        url: 'https://hair-style.ai/privacy-policy',
+        siteName: 'Hair-style.ai',
+        type: 'website',
+        images: [
+            {
+                url: 'https://hair-style.ai/images/hero/ba3.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Hair-style.ai transformation example',
+                type: 'image/jpeg',
+            }
+        ],
+    }
+}
 
 export default function PrivacyPolicy() {
     return (

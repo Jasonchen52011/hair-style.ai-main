@@ -1,10 +1,39 @@
 import { Metadata } from 'next'
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
-import { termsAndConditionsMetadata } from '@/app/metadata'
 
-// 添加 metadata 配置
-export const metadata: Metadata = termsAndConditionsMetadata
+
+// Terms & Conditions 页面 metadata
+export const metadata: Metadata = {
+  alternates: {
+      canonical: 'https://hair-style.ai/terms-and-conditions',
+  },
+  title: 'Terms & Conditions - Hair-style.ai',
+  description: 'Read our terms and conditions to understand your rights and responsibilities when using Hair-style.ai. Learn about our service guidelines and user agreements.',
+  keywords: [
+      'user agreement',
+      'service terms',
+      'legal terms',
+      'usage terms',
+      'terms of service',
+      'hair-style.ai terms'
+  ],
+  openGraph: {
+      title: 'Terms & Conditions - Hair-style.ai',
+      url: 'https://hair-style.ai/terms-and-conditions',
+      siteName: 'Hair-style.ai',
+      type: 'website',
+      images: [
+          {
+              url: '/images/hero/ba3.jpg',
+              width: 1200,
+              height: 630,
+              alt: 'Hair-style.ai transformation example',
+              type: 'image/jpeg',
+          }
+      ],
+  }
+} 
 
 export default function TermsAndConditions() {
   // 添加结构化数据
