@@ -388,9 +388,9 @@ export default function Hero() {
                     <div className="text-center relative">
                         <Link 
                             href="/ai-hairstyle"
-                            className="inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-lg font-medium"
+                            className="mt-4 inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-lg font-medium"
                         >
-                            More style
+                            Try Free Hairstyle Changer Now
                         </Link>
                     </div>
                 </div>
@@ -717,9 +717,9 @@ export default function Hero() {
                                         onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
                                         className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
                                     >
-                                        <span className="text-lg font-semibold text-gray-800">
+                                        <h3 className="text-lg font-semibold text-gray-800">
                                             {item.question}
-                                        </span>
+                                        </h3>
                                         <svg
                                             className={`w-5 h-5 transform transition-transform ${
                                                 expandedFAQ === index ? 'rotate-180' : ''

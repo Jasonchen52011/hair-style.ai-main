@@ -37,14 +37,14 @@ export default function Navbar() {
                     <Link href="/" className="flex items-center">
                         <Image
                             src="/images/logo/logo.png"
-                            alt="Hair-style.ai Logo"
+                            alt="Hairstyle.ai Logo"
                             width={32}
                             height={32}
                             className="mr-2"
                             priority
                         />
                         <span className="text-2xl font-semibold hover:text-purple-700 transition-colors" aria-label="Hair-style.ai">
-                            Hair-style
+                            Hairstyle.ai
                         </span>
                     </Link>
                 </div>

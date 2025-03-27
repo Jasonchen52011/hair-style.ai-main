@@ -16,7 +16,7 @@ export const metadata: Metadata = {
       'legal terms',
       'usage terms',
       'terms of service',
-      'hair-style.ai terms'
+      'hairstyle.ai terms'
   ],
   openGraph: {
       title: 'Terms & Conditions - Hair-style.ai',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
               url: '/images/hero/ba3.jpg',
               width: 1200,
               height: 630,
-              alt: 'Hair-style.ai transformation example',
+              alt: 'Hairstyle.ai transformation example',
               type: 'image/jpeg',
           }
       ],
