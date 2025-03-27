@@ -10,7 +10,7 @@ export default function Footer() {
                 {/* Logo 部分 */}
                 <div className="mb-8 text-center md:text-left">
                     <Image src="/images/logo/favicon.ico" alt="Hairstyle.ai Logo" width={32} height={32} />
-                    <h2 className="text-2xl font-bold">Hairstyle.ai</h2>
+                    <h2 className="text-2xl font-bold">Hairstyle AI</h2>
                 </div>
 
                 {/* 链接区域 */}
@@ -21,7 +21,7 @@ export default function Footer() {
                         <ul className="space-y-3">
                             <li>
                                 <Link href="/ai-hairstyle" className="text-gray-400 hover:text-white transition-colors">
-                                    Try Hairstyle.ai
+                                    Try Hairstyle AI
                                 </Link>
                             </li>
                         </ul>
