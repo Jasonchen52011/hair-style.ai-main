@@ -34,7 +34,25 @@ export const metadata: Metadata = {
         description: 'Transform your look with AI-powered hairstyle visualization. Try different hairstyles instantly!',
         images: ['https://hair-style.ai/images/hero/ba3.jpg'],
         creator: '@hair_styleai',
-    }
+    },
+    icons: {
+        icon: [
+            {
+                url: '/images/logo/favicon.ico',
+        sizes: '48x48',
+        type: 'image/x-icon',
+      },
+      {
+        url: '/images/logo/favicon.svg',
+        type: 'image/svg+xml',
+      },
+      {
+        url: '/images/logo/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export default function Home() {
