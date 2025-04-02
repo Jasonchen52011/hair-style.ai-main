@@ -211,7 +211,7 @@ function SelectStylePageContent() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-2 min-h-screen">
+        <div className="container mx-auto px-2 py-2 min-h-screen">
             <Toaster
                 position="top-center"
                 toastOptions={{
@@ -223,7 +223,7 @@ function SelectStylePageContent() {
             
             <div className="max-w-7xl mx-auto">
                 {/* Logo 区域作为 h1 标题 */}
-                <h1 className="flex items-center gap-3 mb-2 h-[52px]">
+                <h1 className="flex items-center gap-3 mb-2 h-[48px]">
                     <Link 
                         href="/" 
                         className="flex items-center gap-2"
@@ -237,7 +237,7 @@ function SelectStylePageContent() {
                             priority
                         />
                         <span className="text-2xl font-semibold hover:text-purple-700 transition-colors">
-                            Hair-style.ai
+                            Hair Style AI
                         </span>
                     </Link>
                 </h1>
@@ -256,7 +256,7 @@ function SelectStylePageContent() {
                             </div>
                         ) : (
                             // 预览区域 - 减小高度和间距
-                            <div className="bg-gray-200 p-2 sm:p-4 rounded-lg shadow-sm border border-gray-200 relative h-[600px] sm:h-[680px] flex flex-col items-center">
+                            <div className="bg-gray-200 p-1 sm:p-2 rounded-lg shadow-sm border border-gray-200 relative h-[600px] sm:h-[660px] flex flex-col items-center">
                                 {/* 顶部按钮区域 - 减小间距 */}
                                 <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (
@@ -314,11 +314,7 @@ function SelectStylePageContent() {
                             <SelectStyle 
                                 uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
-                                renderCategoryTitle={(title: string) => (
-                                    <h3 className="text-lg font-medium text-gray-700 mb-3">
-                                        {title}  {/* Female Hairstyle 或 Male Hairstyle */}
-                                    </h3>
-                                )}
+
                             />
                         </div>
                     </section>

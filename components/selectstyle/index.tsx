@@ -255,28 +255,32 @@ export default function SelectStyle({
         </div>
       </div>
 
-      {/* 第二部分：发型展示区域 */}
-      <div className="showcase-scroll">
-        <div className="showcase-content">
-          {currentStyles.map((style) => (
-            <div 
-              key={style.style}
-              className="hairstyle-item"
-              onClick={() => handleStyleClick(style.style)}
-            >
-              <div className="hairstyle-image">
-                <img
-                  src={style.imageUrl}
-                  alt={style.alt}
-                  loading="lazy"
-                />
-                <div className="hairstyle-overlay">
-                  <h3>{style.description}</h3>
-                </div>
-              </div>
+      {/* Hairstyles Grid */}
+      <div className="grid grid-cols-3 gap-3 mb-4 overflow-y-auto h-[380px]">
+        {currentStyles.map((style) => (
+          <button
+            key={style.style}
+            onClick={() => handleStyleClick(style.style)}
+            className={`p-1 rounded-2xl border transition-all flex flex-col ${
+              selectedStyle === style.style
+                ? "border-purple-700 bg-purple-700 shadow-md"
+                : "border-transparent hover:border-gray-200 bg-gray-100 hover:shadow-sm"
+            }`}
+          >
+            <div className="w-full h-[120px] mb-2 overflow-hidden rounded-xl">
+            <img
+              src={style.imageUrl}
+              alt={`Trendy ${style.description} hairstyle - a popular modern haircut choice for fashion-forward individuals`}
+              className="w-full h-full object-cover"
+            />
             </div>
-          ))}
-        </div>
+            <p className={`text-xs font-medium text-center min-h-[2.0em] flex items-center justify-center text-center w-full ${
+              selectedStyle === style.style ? "text-white" : "text-gray-700"
+            }`}>
+              {style.description}
+            </p>
+          </button>
+        ))}
       </div>
 
       {/* Color Selection */}
