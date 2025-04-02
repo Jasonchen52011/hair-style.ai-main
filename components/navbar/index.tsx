@@ -43,7 +43,7 @@ export default function Navbar() {
                             className="mr-2"
                             priority
                         />
-                        <span className="text-2xl font-semibold hover:text-purple-700 transition-colors" aria-label="Hair-style.ai">
+                        <span className="text-2xl font-semibold hover:text-purple-700 text-gray-800" aria-label="Hair-style.ai">
                             Hairstyle AI
                         </span>
                     </Link>

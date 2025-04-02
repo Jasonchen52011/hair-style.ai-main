@@ -197,7 +197,7 @@ export default function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-semibold mb-6 mt-10">
+                        <h1 className="text-4xl font-semibold mb-6 mt-10 text-gray-800">
                             Free Hairstyles Changer Tools - Find Your Next Hairstyle in One Click!
                         </h1>
 
@@ -265,7 +265,7 @@ export default function Hero() {
                 <div className="max-w-7xl mx-auto">
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-semibold mb-6">
+                        <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                             Popular Hairstyles for Men and Women
                         </h2>
                         <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
@@ -401,7 +401,7 @@ export default function Hero() {
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
                     <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl font-semibold mb-6">
+                        <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                             How to Use Hairstyles AI Changer
                         </h2>
                         <p className="text-lg text-gray-600 leading-relaxed">
@@ -424,7 +424,7 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">Step1: Upload Image</h3>
+                            <h3 className="text-xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
                             <p className="text-lg text-gray-600 leading-relaxed">
                                 Upload your photo if you want to change your hairstyle with hairstyle AI changer tools.
                             </p>
@@ -442,7 +442,7 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-bold mb-2">Step2: Choose Hairstyle and Color</h3>
+                            <h3 className="text-xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle and Color</h3>
                             <p className="text-lg text-gray-600 leading-relaxed">
                                 Choose from our hairstyle AI changer tools, and pick the hair color you want to try.
                             </p>
@@ -460,7 +460,7 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2">Step3: Download Photo!</h3>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Step3: Download Photo!</h3>
                             <p className="text-lg text-gray-600 leading-relaxed">
                                 Our hairstyle AI changer tools will change your hairstyle. Once complete, download the photo with your new virtual hairstyle and see how the transformation suits you.
                             </p>
@@ -486,7 +486,7 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-semibold mb-6">
+                                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                                     How to try on hairstyles on my face?
                                 </h2>
                                 <p className="text-lg text-gray-600 leading-relaxed mb-8">
@@ -538,7 +538,7 @@ export default function Hero() {
                             </div>
                             {/* 右侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-semibold mb-6">
+                                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
                                 <div className="space-y-6 text-lg text-gray-600 ">
@@ -572,7 +572,7 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-semibold mb-6">
+                                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                                     What is hairstyle AI changer?
                                 </h2>
                                 <p className="text-lg text-gray-600 leading-relaxed mb-8">
@@ -611,7 +611,7 @@ export default function Hero() {
             <div id="testimonials" className="bg-white py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-semibold text-center mb-16">
+                        <h2 className="text-3xl font-semibold text-center mb-16 text-gray-800">
                             What Others Say about Us?
                         </h2>
                         
@@ -699,7 +699,7 @@ export default function Hero() {
             <div id="faq" className="bg-gray-50">
                 <div className="container mx-auto px-4 py-20">
                     <div className="max-w-3xl mx-auto">
-                        <h2 className="text-3xl font-semibold text-center mb-4">
+                        <h2 className="text-3xl font-semibold text-center mb-4 text-gray-800">
                             Frequently Asked Questions
                         </h2>
                         <p className="text-lg text-gray-600 text-center mb-12 leading-relaxed">
