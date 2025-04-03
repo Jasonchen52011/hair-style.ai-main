@@ -10,6 +10,10 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://hair-style.ai'
     },
+    authors: {
+        name: 'Hair-style.ai',
+        url: 'https://hair-style.ai',
+    },
     openGraph: {
         title: 'Hair Style AI - Free AI Hairstyle Changer',
         type: 'website',
@@ -35,6 +39,17 @@ export const metadata: Metadata = {
         images: ['https://hair-style.ai/images/hero/ba3.jpg'],
         creator: '@hair_styleai',
     },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+        },
+      },
     icons: {
         icon: [
             {
@@ -44,11 +59,11 @@ export const metadata: Metadata = {
       },
       {
         url: '/images/logo/favicon.svg',
-        type: 'image/svg+xml',
+        type: 'image/svg',
       },
       {
-        url: '/images/logo/favicon-96x96.png',
-        sizes: '96x96',
+        url: '/images/logo/logo-192x192.png',
+        sizes: '192x192',
         type: 'image/png',
       },
     ],
@@ -78,7 +93,9 @@ export default function Home() {
                         ratingValue: '4.8',
                         bestRating: '5',
                         ratingCount: '352'
-                    }
+                    },
+                    datePublished: '2025-02-01T22:21:00+09:00',
+                    dateModified: '2025-04-02T23:16:00+09:00',
                 })}
             </Script>
 

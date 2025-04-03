@@ -1,5 +1,6 @@
 import './globals.css'
 
+
 export default function RootLayout({
   children,
 }: {
@@ -10,6 +11,9 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/images/logo/favicon.ico" />
+        <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
         {/* Google Analytics 跟踪代码 */}
         <script
           async
