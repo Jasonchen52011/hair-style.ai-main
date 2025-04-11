@@ -268,7 +268,7 @@ export default function Hero() {
                         <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                             Popular Hairstyles for Men and Women
                         </h2>
-                        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
                               Looking for hairstyle inspiration? Our free AI hairstyle changer helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this hairstyle changer online makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                         </p>
                     </div>
@@ -400,7 +400,7 @@ export default function Hero() {
             <div id="how-to-use" className="bg-gray-50 py-20">
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <div className="text-center max-w-5xl mx-auto mb-16">
                         <h2 className="text-3xl font-semibold mb-6 text-gray-800">
                             How to Use Hairstyles AI Changer
                         </h2>
