@@ -7,6 +7,15 @@ Disallow: /*?ref=*
 Disallow: /*&ref=*
 Disallow: /*?utm_*
 Disallow: /*&utm_*
+Disallow: /cdn-cgi/
+Disallow: /images/logo/
+Disallow: /favicon.ico
+
+# Allow essential resources
+Allow: /images/hero/
+Allow: /images/steps/
+Allow: /sitemap.xml
+Allow: /robots.txt
 
 # Host
 Host: https://hair-style.ai
