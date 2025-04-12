@@ -64,18 +64,36 @@ const nextConfig = {
     assetPrefix: '',
     async redirects() {
         return [
+            // WWW to non-WWW redirect
+            {
+                source: '/',
+                has: [{
+                    type: 'host',
+                    value: 'www.hair-style.ai',
+                }],
+                destination: 'https://hair-style.ai',
+                permanent: true,
+            },
+            {
+                source: '/:path*',
+                has: [{
+                    type: 'host',
+                    value: 'www.hair-style.ai',
+                }],
+                destination: 'https://hair-style.ai/:path*',
+                permanent: true,
+            },
             // 删除的页面重定向到主页或相应页面
             {
                 source: '/en/:path*',
                 destination: '/:path*',
-                permanent: true, // 301 重定向
+                permanent: true,
             },
             {
                 source: '/zh/:path*',
                 destination: '/:path*',
                 permanent: true,
             },
-            // 其他不需要的路径
             {
                 source: '/en',
                 destination: '/',

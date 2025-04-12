@@ -3,6 +3,10 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /_next/static/media/
+Disallow: /*?ref=*
+Disallow: /*&ref=*
+Disallow: /*?utm_*
+Disallow: /*&utm_*
 
 # Host
 Host: https://hair-style.ai
