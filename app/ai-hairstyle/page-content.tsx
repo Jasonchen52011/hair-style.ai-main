@@ -249,7 +249,7 @@ function SelectStylePageContent() {
                         <h2 className="sr-only">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
                             // 上传区域 - 减小高度和内边距
-                            <div className="bg-gray-200 p-2 rounded-lg shadow-sm border border-gray-200 h-[600px] sm:h-[680px] flex flex-col items-center justify-center">
+                            <div className="bg-gray-50 p-2 rounded-lg shadow-sm border-gray-200 h-[660px] flex flex-col items-center justify-center">
                                 <div className="w-full max-w-md mx-auto px-4"> {/* 添加水平内边距 */}
                                     <UploadArea />
                                 </div>

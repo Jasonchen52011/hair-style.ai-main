@@ -224,7 +224,7 @@ export default function SelectStyle({
   return (
     <div className="w-full">
       {/* Gender Selection */}
-      <div className="mb-4 bg-gray-100 p-2 rounded-lg">
+      <div className="mb-4 bg-gray-50 p-2 rounded-lg">
         <div className="flex space-x-2">
           <button
             onClick={() => {
@@ -256,7 +256,7 @@ export default function SelectStyle({
       </div>
 
       {/* Hairstyles Grid */}
-      <div className="grid grid-cols-3 gap-3 mb-4 overflow-y-auto h-[380px]">
+      <div className="grid grid-cols-3 gap-1.5 mb-4 overflow-y-auto h-[380px]">
         {currentStyles.map((style) => (
           <button
             key={style.style}

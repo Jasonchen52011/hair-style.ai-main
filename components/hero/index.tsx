@@ -15,6 +15,7 @@ export default function Hero() {
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(0);
     const [error, setError] = useState<Error | null>(null);
     const [currentPage, setCurrentPage] = useState(0);
+    const [expandedFAQs, setExpandedFAQs] = useState(new Set());
     const itemsPerPage = 18;
     const autoPlayInterval = 3000; // 3秒轮播
     const [isPaused, setIsPaused] = useState(false);
@@ -52,20 +53,52 @@ export default function Hero() {
     // FAQ items inside the component
     const faqItems = [
         {
-            question: "Is it really free to use hairstyle AI changer tools?",
-            answer: "Yes, our hairstyle AI changer tools are completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost."
+            question: "What is AI Hairstyle Changer?",
+            answer: "AI Hairstyle Changer is a free online tool. You upload a selfie, pick from 56 hairstyles and 19 colors, and it puts the new hair on your photo."
+        },
+        {
+            question: "Is it really free to use AI Hairstyle Changer?",
+            answer: "Yes, our AI Hairstyle Changer tools are completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost and no sign-up needed."
+        },
+        {
+            question: "How does AI Hairstyle Changer work?",
+            answer: "Step 1: Upload your photo. Step 2: Choose a hairstyle. Step 3: Pick a color. Step 4: See your new look! Easy online hairstyle changer for men and women."
+        },
+        {
+            question: "What file formats are supported?",
+            answer: "You can upload JPG and PNG photos. The photo hair editor online free works best with clear, front-facing selfies."
+        },
+        {
+            question: "Is there an AI app that lets you try different hairstyles?",
+            answer: "Yes! AI Hairstyle Changer is a free online AI hairstyle generator. You can try short, long, men's, or women's hairstyles easily."
+        },
+        {
+            question: "How do I change my hairstyle with AI?",
+            answer: "Step 1: Go to AI Hairstyle Changer. Step 2: Upload your picture. Step 3: Pick a style and color. Step 4: Download your new hairstyle photo!"
         },
         {
             question: "Is it safe to upload my image to hairstyle AI changer tools?",
             answer: "Absolutely! We take your privacy seriously. Your uploaded images are processed securely and are not stored permanently. We use advanced encryption to protect your data, and all images are automatically deleted after processing."
         },
         {
-            question: "Can I use hairstyle AI changer tools on my phone?",
-            answer: "Yes! Our hairstyle AI changer tools are fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go."
+            question: "Can I use AI Hairstyle Changer on my phone?",
+            answer: "Yes! Our AI Hairstyle Changer tools are fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go."
         },
         {
             question: "How to try hairstyle on my face?",
             answer: "It's simple! Just upload a clear photo of your face, select from our wide range of hairstyle options, and our AI will automatically apply the chosen style to your photo. You can also experiment with different hair colors to find your perfect look."
+        },
+        {
+            question: "Is there an AI app that lets you try different hairstyles?",
+            answer: "Yes! AI Hairstyle Changer is a free online AI hairstyle generator. You can try short, long, men's, or women's hairstyles easily."
+        },
+        {
+            question: "Can AI fix my hair in a photo?",
+            answer: "Yes! The AI Hairstyle Changer lets you fix or completely change your hair in pictures. It's the best free AI hairstyle generator."
+        },
+        {
+            question: "What is the AI that changes hair color?",
+            answer: "AI Hairstyle Changer is the AI that changes hair color. You can pick from 19 colors when testing hairstyles on your face free."
         },
         {
             question: "Can hairstyle AI changer tools tell me what hairstyle suits me?",
@@ -177,6 +210,16 @@ export default function Hero() {
         setCurrentTestimonial(prev => (prev === testimonials.length - 1 ? 0 : prev + 1));
     };
 
+    const toggleFAQ = (index: number) => {
+        const newSet = new Set(expandedFAQs);
+        if (newSet.has(index)) {
+            newSet.delete(index);
+        } else {
+            newSet.add(index);
+        }
+        setExpandedFAQs(newSet);
+    };
+
     if (error) {
         return (
             <div className="text-center py-10">
@@ -197,7 +240,7 @@ export default function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-semibold mb-6 mt-10 text-gray-800">
+                        <h1 className="text-4xl font-bold mb-6 mt-10 text-purple-700">
                             Free Hairstyles Changer Tools - Find Your Next Hairstyle in One Click!
                         </h1>
 
@@ -265,7 +308,7 @@ export default function Hero() {
                 <div className="max-w-7xl mx-auto">
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+                        <h2 className="text-3xl font-bold mb-6 text-purple-700">
                             Popular Hairstyles for Men and Women
                         </h2>
                         <p className="text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
@@ -401,10 +444,10 @@ export default function Hero() {
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
                     <div className="text-center max-w-5xl mx-auto mb-16">
-                        <h2 className="text-3xl font-semibold mb-6 text-gray-800">
-                            How to Use Hairstyles AI Changer
+                        <h2 className="text-3xl font-bold mb-6 text-purple-700">
+                            How to Change Hairstyle Online with Hairstyle AI
                         </h2>
-                        <p className="text-lg text-gray-600 leading-relaxed">
+                        <p className="text-lg text-gray-600">
                             Transform your look with our hairstyle AI-powered changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
@@ -424,8 +467,8 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
-                            <p className="text-lg text-gray-600 leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-2 text-purple-600">Step1: Upload Image</h3>
+                            <p className="text-lg text-gray-600">
                                 Upload your photo if you want to change your hairstyle with hairstyle AI changer tools.
                             </p>
                         </div>
@@ -442,8 +485,8 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle and Color</h3>
-                            <p className="text-lg text-gray-600 leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-2 text-purple-600">Step2: Choose Hairstyle and Color</h3>
+                            <p className="text-lg text-gray-600">
                                 Choose from our hairstyle AI changer tools, and pick the hair color you want to try.
                             </p>
                         </div>
@@ -460,8 +503,8 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Step3: Download Photo!</h3>
-                            <p className="text-lg text-gray-600 leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-2 text-purple-600">Step3: Download Photo!</h3>
+                            <p className="text-lg text-gray-600">
                                 Our hairstyle AI changer tools will change your hairstyle. Once complete, download the photo with your new virtual hairstyle and see how the transformation suits you.
                             </p>
                         </div>
@@ -486,10 +529,10 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+                                <h2 className="text-3xl font-bold mb-6 text-purple-700">
                                     How to try on hairstyles on my face?
                                 </h2>
-                                <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                                <p className="text-lg text-gray-600 mb-8">
                                     Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
                                     Our free online hairstyle AI tool helps you try on different hairstyles before making a decision. 
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
@@ -538,7 +581,7 @@ export default function Hero() {
                             </div>
                             {/* 右侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+                                <h2 className="text-3xl font-bold mb-6 text-purple-700">
                                     What Haircut Fits My Face?
                                 </h2>
                                 <div className="space-y-6 text-lg text-gray-600 ">
@@ -572,10 +615,10 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+                                <h2 className="text-3xl font-bold mb-6 text-purple-700">
                                     What is hairstyle AI changer?
                                 </h2>
-                                <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                                <p className="text-lg text-gray-600 mb-8">
                                     Are you still unsure about what hairstyle to wear for your next event? 
                                     Our free online hairstyle AI changer tools are here to help! Simply upload your photo, 
                                     choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
@@ -611,8 +654,8 @@ export default function Hero() {
             <div id="testimonials" className="bg-white py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-semibold text-center mb-16 text-gray-800">
-                            What Others Say about Us?
+                        <h2 className="text-3xl font-bold text-center mb-16 text-purple-700">
+                            What Users Are Saying About Hairstyle AI?
                         </h2>
                         
                         {/* 评价卡片 */}
@@ -698,53 +741,102 @@ export default function Hero() {
             {/* FAQ Section */}
             <div id="faq" className="bg-gray-50">
                 <div className="container mx-auto px-4 py-20">
-                    <div className="max-w-3xl mx-auto">
-                        <h2 className="text-3xl font-semibold text-center mb-4 text-gray-800">
-                            Frequently Asked Questions
-                        </h2>
-                        <p className="text-lg text-gray-600 text-center mb-12 leading-relaxed">
-                            Find answers to common questions about our hairstyle AI changer tools
-                        </p>
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mb-12">
+                            <h2 className="text-4xl font-bold text-purple-700">
+                                FAQs of AI Hairstyle
+                            </h2>
+                        </div>
 
-                        {/* FAQ Items */}
-                        <div className="space-y-4">
-                            {faqItems.map((item, index) => (
-                                <div 
-                                    key={index}
-                                    className="border border-gray-200 rounded-lg overflow-hidden"
-                                >
-                                    <button
-                                        onClick={() => setExpandedFAQ(expandedFAQ === index ? null : index)}
-                                        className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
+                        {/* FAQ Items - Split into two columns */}
+                        <div className="flex flex-col md:flex-row gap-4 max-w-6xl mx-auto mt-12">
+                            {/* Left Column */}
+                            <div className="faq-column flex-1 space-y-4">
+                                {faqItems.slice(0, Math.ceil(faqItems.length / 2)).map((item, index) => (
+                                    <div 
+                                        key={index}
+                                        className="bg-white rounded-2xl shadow-sm overflow-hidden border border-purple-100 hover:border-purple-200 transition-all duration-300 ease-in-out"
                                     >
-                                        <h3 className="text-lg font-semibold text-gray-800">
-                                            {item.question}
-                                        </h3>
-                                        <svg
-                                            className={`w-5 h-5 transform transition-transform ${
-                                                expandedFAQ === index ? 'rotate-180' : ''
-                                            }`}
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
+                                        <button
+                                            onClick={() => toggleFAQ(index)}
+                                            className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
                                         >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M19 9l-7 7-7-7"
-                                            />
-                                        </svg>
-                                    </button>
-                                    {expandedFAQ === index && (
-                                        <div className="px-6 py-4 bg-white border-t border-gray-200">
-                                            <p className="text-lg text-gray-600 leading-relaxed">
-                                                {item.answer}
-                                            </p>
+                                            <h3 className="text-lg font-semibold text-purple-700">{item.question}</h3>
+                                            <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0 transition-colors duration-300 hover:bg-purple-100">
+                                                <svg
+                                                    className={`w-5 h-5 text-purple-600 transform transition-transform duration-300 ease-in-out ${
+                                                        expandedFAQs.has(index) ? 'rotate-180' : ''
+                                                    }`}
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div
+                                            className={`transition-all duration-300 ease-in-out ${
+                                                expandedFAQs.has(index) 
+                                                    ? 'max-h-[500px] opacity-100 scale-y-100 origin-top' 
+                                                    : 'max-h-0 opacity-0 scale-y-95 origin-top'
+                                            }`}
+                                        >
+                                            <div className={`px-6 pb-6 transform transition-all duration-300 ease-in-out ${
+                                                expandedFAQs.has(index) 
+                                                    ? 'translate-y-0 opacity-100' 
+                                                    : 'translate-y-4 opacity-0'
+                                            }`}>
+                                                <p className="text-gray-600 text-lg leading-relaxed">{item.answer}</p>
+                                            </div>
                                         </div>
-                                    )}
-                                </div>
-                            ))}
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Right Column */}
+                            <div className="faq-column flex-1 space-y-4">
+                                {faqItems.slice(Math.ceil(faqItems.length / 2)).map((item, index) => (
+                                    <div 
+                                        key={index + Math.ceil(faqItems.length / 2)}
+                                        className="bg-white rounded-2xl shadow-sm overflow-hidden border border-purple-100 hover:border-purple-200 transition-all duration-300 ease-in-out"
+                                    >
+                                        <button
+                                            onClick={() => toggleFAQ(index + Math.ceil(faqItems.length / 2))}
+                                            className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
+                                        >
+                                            <h3 className="text-lg font-semibold text-purple-700">{item.question}</h3>
+                                            <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0 transition-colors duration-300 hover:bg-purple-100">
+                                                <svg
+                                                    className={`w-5 h-5 text-purple-600 transform transition-transform duration-300 ease-in-out ${
+                                                        expandedFAQs.has(index + Math.ceil(faqItems.length / 2)) ? 'rotate-180' : ''
+                                                    }`}
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div
+                                            className={`transition-all duration-300 ease-in-out ${
+                                                expandedFAQs.has(index + Math.ceil(faqItems.length / 2)) 
+                                                    ? 'max-h-[500px] opacity-100 scale-y-100 origin-top' 
+                                                    : 'max-h-0 opacity-0 scale-y-95 origin-top'
+                                            }`}
+                                        >
+                                            <div className={`px-6 pb-6 transform transition-all duration-300 ease-in-out ${
+                                                expandedFAQs.has(index + Math.ceil(faqItems.length / 2)) 
+                                                    ? 'translate-y-0 opacity-100' 
+                                                    : 'translate-y-4 opacity-0'
+                                            }`}>
+                                                <p className="text-gray-600 text-lg leading-relaxed">{item.answer}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
