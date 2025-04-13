@@ -93,9 +93,7 @@ export default function Home() {
                         ratingValue: '4.8',
                         bestRating: '5',
                         ratingCount: '352'
-                    },
-                    datePublished: '2025-02-01T22:21:00+09:00',
-                    dateModified: '2025-04-02T23:16:00+09:00',
+                    }
                 })}
             </Script>
 
