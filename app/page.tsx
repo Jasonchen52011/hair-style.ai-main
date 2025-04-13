@@ -24,7 +24,7 @@ export const metadata: Metadata = {
               type: 'image/jpeg',
               width: 1920,
               height: 1080,
-              alt: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles'    
+              alt: 'AI Hairstyle Changer: Free Haircut Simulator with 56 Styles'    
             }
           ],
         siteName: 'Hair-style.ai',

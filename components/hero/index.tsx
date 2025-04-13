@@ -245,7 +245,7 @@ export default function Hero() {
                         </h1>
 
                         <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                            Not sure which hairstyle suits you best? Our free hairstyles changer lets you try on 60+ styles in just a few clicks! Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free hairstyles changer helps you experiment without a trip to the salon.Whether you need an online hairstyles changer for men or women, this tool has it all—from short cuts to long waves. It's an easy way to try on hairstyles for free without commitment. Love what you see? Save your favorite look and show it to your hairstylist! Try our hairstyles changer now and discover your next style!
+                            Not sure which hairstyle suits you best? Our free hairstyles changer lets you try on 56 styles in just a few clicks! Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free hairstyles changer helps you experiment without a trip to the salon.Whether you need an online hairstyles changer for men or women, this tool has it all—from short cuts to long waves. It's an easy way to try on hairstyles for free without commitment. Love what you see? Save your favorite look and show it to your hairstylist! Try our hairstyles changer now and discover your next style!
                         </p>
 
                         <div className="flex flex-col lg:flex-row items-center gap-8">
