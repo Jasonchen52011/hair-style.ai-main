@@ -240,7 +240,7 @@ export default function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-bold mb-6 mt-10 text-purple-700">
+                        <h1 className="text-4xl font-bold mb-6 mt-10 text-purple-800">
                             Free Hairstyles Changer Tools - Find Your Next Hairstyle in One Click!
                         </h1>
 
@@ -308,7 +308,7 @@ export default function Hero() {
                 <div className="max-w-7xl mx-auto">
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold mb-6 text-purple-700">
+                        <h2 className="text-3xl font-bold mb-6 text-purple-800">
                             Popular Hairstyles for Men and Women
                         </h2>
                         <p className="text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
@@ -444,7 +444,7 @@ export default function Hero() {
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
                     <div className="text-center max-w-5xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold mb-6 text-purple-700">
+                        <h2 className="text-3xl font-bold mb-6 text-purple-800">
                             How to Change Hairstyle Online with Hairstyle AI
                         </h2>
                         <p className="text-lg text-gray-600">
@@ -529,7 +529,7 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6 text-purple-700">
+                                <h2 className="text-3xl font-bold mb-6 text-purple-800">
                                     How to try on hairstyles on my face?
                                 </h2>
                                 <p className="text-lg text-gray-600 mb-8">
@@ -581,7 +581,7 @@ export default function Hero() {
                             </div>
                             {/* 右侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6 text-purple-700">
+                                <h2 className="text-3xl font-bold mb-6 text-purple-800">
                                     What Haircut Fits My Face?
                                 </h2>
                                 <div className="space-y-6 text-lg text-gray-600 ">
@@ -615,7 +615,7 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6 text-purple-700">
+                                <h2 className="text-3xl font-bold mb-6 text-purple-800">
                                     What is hairstyle AI changer?
                                 </h2>
                                 <p className="text-lg text-gray-600 mb-8">
@@ -654,7 +654,7 @@ export default function Hero() {
             <div id="testimonials" className="bg-white py-20">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-center mb-16 text-purple-700">
+                        <h2 className="text-3xl font-bold text-center mb-16 text-purple-800">
                             What Users Are Saying About Hairstyle AI?
                         </h2>
                         
@@ -743,7 +743,7 @@ export default function Hero() {
                 <div className="container mx-auto px-4 py-20">
                     <div className="max-w-7xl mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="text-4xl font-bold text-purple-700">
+                            <h2 className="text-3xl font-bold text-purple-800">
                                 FAQs of AI Hairstyle
                             </h2>
                         </div>
