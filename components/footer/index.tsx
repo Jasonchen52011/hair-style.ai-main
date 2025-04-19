@@ -12,13 +12,14 @@ export default function Footer() {
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
                             <div className="relative w-8 h-8">
-                                <Image
-                                    src="/images/logo-192x192.png"
-                                    alt="Hairstyle AI Logo"
-                                    fill
-                                    className="object-contain"
-                                    priority
-                                />
+                            <Image
+                                src="/images/logo/favicon.ico"
+                                alt="Hairstyle.ai Logo"
+                                width={32}
+                                height={32}
+                                className="mr-2"
+                                priority
+                            />
                             </div>
                             <h3 className="text-2xl font-bold text-white">Hairstyle AI</h3>
                         </div>
