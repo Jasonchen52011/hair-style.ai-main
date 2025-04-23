@@ -42,7 +42,6 @@ const jsonLd = {
     },
     sameAs: [
         'https://twitter.com/hairstyleai',
-        'https://facebook.com/hairstyleai',
         // 添加其他社交媒体链接
     ],
     founders: [

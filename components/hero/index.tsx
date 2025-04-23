@@ -24,7 +24,7 @@ export default function Hero() {
     // 将评论数据移到组件内部
     const testimonials = [
         {
-            quote: "I've always been hesitant to try new hairstyles because I wasn't sure how they'd look on me. With this tool, I uploaded my photo and tried out different styles, which gave me the confidence to switch to a modern fade. It's a game-changer for anyone unsure about new looks.",
+            quote: "I've always been hesitant to try on new hairstyles because I wasn't sure how they'd look on me. With this tool, I uploaded my photo and tried out different styles, which gave me the confidence to switch to a modern fade. It's a game-changer for anyone unsure about new looks.",
             name: "Mark",
             title: "Financial Analyst"
         },
@@ -54,11 +54,11 @@ export default function Hero() {
     const faqItems = [
         {
             question: "What is AI Hairstyle Changer?",
-            answer: "AI Hairstyle Changer is a free online tool. You upload a selfie, pick from 56 hairstyles and 19 colors, and it puts the new hair on your photo."
+            answer: "AI Hairstyle Changer is a free online tool. You upload a selfie, pick from 60+ hairstyles and 19 colors, and it puts the new hair on your photo."
         },
         {
             question: "Is it really free to use AI Hairstyle Changer?",
-            answer: "Yes, our AI Hairstyle Changer tools are completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost and no sign-up needed."
+            answer: "Yes, our AI Hairstyle Changer tools are completely free to use. You can upload your image, try on AI virtual hairstyles, and experiment with different colors without any cost and no sign-up needed."
         },
         {
             question: "How does AI Hairstyle Changer work?",
@@ -69,12 +69,12 @@ export default function Hero() {
             answer: "You can upload JPG and PNG photos. The photo hair editor online free works best with clear, front-facing selfies."
         },
         {
-            question: "Is there an AI app that lets you try different hairstyles?",
-            answer: "Yes! AI Hairstyle Changer is a free online AI hairstyle generator. You can try short, long, men's, or women's hairstyles easily."
+            question: "Is there an AI simulator haircut tool that lets you try on different hairstyles?",
+            answer: "Yes! AI haircut simulator is a versatile haircut tool. You can try short, long, men's, or women's AI virtual hairstyles easily."
         },
         {
             question: "How do I change my hairstyle with AI?",
-            answer: "Step 1: Go to AI Hairstyle Changer. Step 2: Upload your picture. Step 3: Pick a style and color. Step 4: Download your new hairstyle photo!"
+            answer: "Step 1: Go to AI haircut simulator. Step 2: Upload your picture. Step 3: Pick a style and color. Step 4: Download your new hairstyle photo!"
         },
         {
             question: "Is it safe to upload my image to hairstyle AI changer tools?",
@@ -82,23 +82,23 @@ export default function Hero() {
         },
         {
             question: "Can I use AI Hairstyle Changer on my phone?",
-            answer: "Yes! Our AI Hairstyle Changer tools are fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go."
+            answer: "Yes! Our AI haircut simulator tools are fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try on different hairstyles on the go."
         },
         {
-            question: "How to try hairstyle on my face?",
+            question: "How to try on versatile haircut on my face?",
             answer: "It's simple! Just upload a clear photo of your face, select from our wide range of hairstyle options, and our AI will automatically apply the chosen style to your photo. You can also experiment with different hair colors to find your perfect look."
         },
         {
-            question: "Is there an AI app that lets you try different hairstyles?",
-            answer: "Yes! AI Hairstyle Changer is a free online AI hairstyle generator. You can try short, long, men's, or women's hairstyles easily."
+            question: "Is there an AI simulator haircut tool that lets you try on different hairstyles?",
+            answer: "Yes! AI haircut simulator is a free online AI haircut simulator. You can try short, long, men's, or women's versatile haircut easily."
         },
         {
             question: "Can AI fix my hair in a photo?",
-            answer: "Yes! The AI Hairstyle Changer lets you fix or completely change your hair in pictures. It's the best free AI hairstyle generator."
+            answer: "Yes! The AI haircut simulator lets you fix or completely change your hair in pictures. It's the AI haircut simulator."
         },
         {
             question: "What is the AI that changes hair color?",
-            answer: "AI Hairstyle Changer is the AI that changes hair color. You can pick from 19 colors when testing hairstyles on your face free."
+            answer: "AI haircut simulator is the AI Virtual generator that changes hair color. You can pick from 19 colors when testing hairstyles on your face free."
         },
         {
             question: "Can hairstyle AI changer tools tell me what hairstyle suits me?",
@@ -245,7 +245,7 @@ export default function Hero() {
                         </h1>
 
                         <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on 56 styles in just a few clicks! Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free AI hairstyles changer helps you experiment without a trip to the salon.Whether you need an online hairstyles changer for men or women, this tool has it all—from short cuts to long waves. It's an easy way to try on hairstyles for free without commitment. Love what you see? Save your favorite look and show it to your hairstylist! Try our hairstyles changer now and discover your next style!
+                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on 60+ styles in just a few clicks! Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free AI simulator haircut tool helps you experiment without a trip to the salon.Whether you need an online hairstyles changer for men or women, this tool has it all—from short cuts to long waves. It's an easy way to try on hairstyles for free without commitment. Love what you see? Save your favorite look and show it to your hairstylist! Try our hairstyles changer now and discover your next style!
                         </p>
 
                         <div className="flex flex-col lg:flex-row items-center gap-8">
@@ -309,10 +309,10 @@ export default function Hero() {
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold mb-6 text-purple-800">
-                            Try Popular Hairstyles for Men and Women with Hairstyle AI
+                            Try on Popular Hairstyles for Men and Women with Hairstyle AI
                         </h2>
                         <p className="text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
-                              Looking for hairstyle inspiration? Our free AI hairstyle changer helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this hairstyle changer online makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
+                              Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this hairstyle changer online makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                         </p>
                     </div>
 
@@ -433,7 +433,7 @@ export default function Hero() {
                             href="/ai-hairstyle"
                             className="mt-4 inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-lg font-medium"
                         >
-                            Try Free AI Hairstyle Changer Now
+                            Try on Free AI Hairstyle Changer Now
                         </Link>
                     </div>
                 </div>
@@ -460,7 +460,7 @@ export default function Hero() {
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/upload.jpg" 
-                                    alt="Simple illustration showing how to upload your photo for AI hairstyle transformation"
+                                    alt="Simple illustration showing how to upload your photo for AI haircut simulator "
                                     className="w-full h-full object-cover"
                                     width={400}
                                     height={300}
@@ -505,7 +505,7 @@ export default function Hero() {
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-purple-600">Step3: Download Photo!</h3>
                             <p className="text-lg text-gray-600">
-                                Our hairstyle AI changer tools will change your hairstyle. Once complete, download the photo with your new virtual hairstyle and see how the transformation suits you.
+                                Our hairstyle AI changer will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
                         </div>
                     </div>
@@ -516,7 +516,7 @@ export default function Hero() {
                             href="/ai-hairstyle"
                             className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                         >
-                            Try Free Hairstyle AI Changer Now
+                            Try on Free Hairstyle AI Changer Now
                         </Link>
                     </div>
                 </div>
@@ -530,11 +530,11 @@ export default function Hero() {
                             {/* 左侧内容 */}
                             <div>
                                 <h2 className="text-3xl font-bold mb-6 text-purple-800">
-                                     How can I try on hairstyles on my face?
+                                     How can I try on AI virtual hairstyles on my face?
                                 </h2>
                                 <p className="text-lg text-gray-600 mb-8">
                                     Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
-                                    Our free online hairstyle AI tool helps you try on different hairstyles before making a decision. 
+                                    Our hairstyle AI tool helps you try on AI virtual hairstyles before making a decision. 
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
                                     Want to test hairstyles on my face? Just upload your image and start exploring!
                                 </p>
@@ -542,7 +542,7 @@ export default function Hero() {
                                     href="/ai-hairstyle"
                                     className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                                 >
-                                    Try Free AI Hairstyle Changer Now
+                                    Try on Free AI Hairstyle Changer Now
                                 </Link>
                             </div>
                             {/* 右侧图片 */}
@@ -589,7 +589,7 @@ export default function Hero() {
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
                                     <p>
-                                        For men, if you have a round face try a classic pompadour or a side part with a fade. 
+                                        For men, if you have a round face try on a classic pompadour or a side part with a fade. 
                                         These styles create height and angles, making your face appear more defined. 
                                         For a square face, a softer, textured crop or quiff can add some flow and balance out sharp features.
                                     </p>
@@ -599,7 +599,7 @@ export default function Hero() {
                                         For a round face, a layered bob or long waves with side-swept bangs can elongate the face, adding sophistication and elegance.
                                     </p>
                                     <p>
-                                        If you're still unsure, you can easily find your answer with our free online AI hairstyle tool.
+                                        If you're still unsure, you can easily find your answer with our online AI haircut simulator.
                                     </p>
                                 </div>
                             </div>
@@ -620,24 +620,24 @@ export default function Hero() {
                                 </h2>
                                 <p className="text-lg text-gray-600 mb-8">
                                     Are you still unsure about what hairstyle to wear for your next event? 
-                                    Our free online AI hairstyle changer tools are here to help! Simply upload your photo, 
+                                    Our AI haircut simulator are here to help! Simply upload your photo, 
                                     choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
                                     and instantly see how it looks with different hair colors. You can easily experiment with 
                                     various styles and colors to find the perfect match for your face and personality. 
-                                    Try it today and discover your ideal hairstyle in just a few clicks!
+                                    Try on AI versatile haircut tool today and discover your ideal hairstyle in just a few clicks!
                                 </p>
                                 <Link 
                                     href="/images/hero/ba.jpg"
                                     className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                                 >
-                                    Try Free AI Hairstyle Changer Now
+                                    Try on AI Hairstyle Changer Now
                                 </Link>
                             </div>
                             {/* 右侧图片 */}
                             <div className="bg-white p-4 rounded-2xl shadow-sm">
                                 <Image 
                                     src="/images/hero/ba5.jpg" 
-                                    alt="Side-by-side comparison demonstrating the power of AI hairstyle transformation technology"
+                                    alt="Side-by-side comparison demonstrating the power of AI haircut simulator technology"
                                     className="w-[600px] h-[290px] object-cover rounded-xl"
                                     width={600}
                                     height={290}
@@ -744,7 +744,7 @@ export default function Hero() {
                     <div className="max-w-7xl mx-auto">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-purple-800">
-                                FAQs of AI Hairstyle
+                                FAQs of AI Hairstyle Changer
                             </h2>
                         </div>
 

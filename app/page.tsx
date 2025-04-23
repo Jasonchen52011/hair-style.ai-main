@@ -5,8 +5,8 @@ import { Metadata } from 'next'
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-    title: 'AI Hairstyle Changer: Free Haircut Simulator with 56 Styles',
-    description: 'Free AI Hairstyle Changer,discover your perfect look! Choose from over 56 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
+    title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
+    description: 'Free AI Hairstyle Changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
     alternates: {
         canonical: 'https://hair-style.ai'
     },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
               type: 'image/jpeg',
               width: 1920,
               height: 1080,
-              alt: 'AI Hairstyle Changer: Free Haircut Simulator with 56 Styles'    
+              alt: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles'    
             }
           ],
         siteName: 'Hair-style.ai',
@@ -169,15 +169,16 @@ export default function Home() {
                 {JSON.stringify({
                     '@context': "https://schema.org",
                     '@type': "ImageObject",
-                    '@id': "https://hair-style.ai/",
+                    '@id': "https://hair-style.ai/#primaryimage",
                     'inLanguage': "en-US",
                     'url': "https://hair-style.ai/images/hero/hero4.jpg",
                     'contentUrl': "https://hair-style.ai/images/hero/hero4.jpg",
-                    'width': 800,
-                    'height': 600,
+                    'width': 1920,
+                    'height': 1080,
                     'caption': "AI Hairstyle Changer Preview"
                 })}
             </Script>
+            
             <Script id="organization-structured-data" type="application/ld+json">
                 {JSON.stringify({
                     '@context': "https://schema.org",
@@ -187,14 +188,19 @@ export default function Home() {
                     'url': "https://hair-style.ai",
                     'logo': {
                         '@type': "ImageObject",
+                        '@id': "https://hair-style.ai/#logo",
                         'url': "https://hair-style.ai/images/logo/logo-192x192.png",
+                        'contentUrl': "https://hair-style.ai/images/logo/logo-192x192.png",
                         'width': 192,
                         'height': 192
                     },
+                    'image': {
+                        '@id': "https://hair-style.ai/#primaryimage"
+                    },
                     'sameAs': [
-                        "https://x.com/hair_styleai"
+                        "https://twitter.com/hair_styleai"
                     ],
-                    'description': "AI-powered hairstyle transformation platform offering free virtual hair makeovers with over 56 different styles."
+                    'description': "AI hairstyle changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more."
                 })}
             </Script>
             <div className="min-h-screen bg-white flex flex-col">

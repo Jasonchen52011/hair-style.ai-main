@@ -30,13 +30,13 @@ const structuredData = {
 
 // AI Hairstyle 页面 metadata
 export const metadata: Metadata = {
-    title: "AI Hairstyle Changer: Free Haircut Simulator with 56 Styles",
+    title: "AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles",
     description: "Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use.",
     alternates: {
         canonical: 'https://hair-style.ai/ai-hairstyle'
     },
     openGraph: {
-        title: "AI Hairstyle Changer: Free Haircut Simulator with 56 Styles",
+        title: "AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles",
         description: "Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use.",
         images: [
             {
