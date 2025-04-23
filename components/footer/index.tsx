@@ -24,7 +24,7 @@ export default function Footer() {
                             <h3 className="text-2xl font-bold text-white">Hairstyle AI</h3>
                         </div>
                         <p className="text-gray-400 text-lg">
-                            Free hairstyle AI changer,discover your perfect look! Choose from over 56+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.
+                            Free AI Hairstyle Changer,discover your perfect look! Choose from over 56 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.
                         </p>
                     </div>
 

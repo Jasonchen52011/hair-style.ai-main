@@ -6,7 +6,7 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
     title: 'AI Hairstyle Changer: Free Haircut Simulator with 56 Styles',
-    description: 'Free hairstyle AI changer,discover your perfect look! Choose from over 56+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
+    description: 'Free AI Hairstyle Changer,discover your perfect look! Choose from over 56 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
     alternates: {
         canonical: 'https://hair-style.ai'
     },
@@ -164,6 +164,38 @@ export default function Home() {
                     }
                 ]
             })}
+            </Script>
+            <Script id="image-structured-data" type="application/ld+json">
+                {JSON.stringify({
+                    '@context': "https://schema.org",
+                    '@type': "ImageObject",
+                    '@id': "https://hair-style.ai/",
+                    'inLanguage': "en-US",
+                    'url': "https://hair-style.ai/images/hero/hero4.jpg",
+                    'contentUrl': "https://hair-style.ai/images/hero/hero4.jpg",
+                    'width': 800,
+                    'height': 600,
+                    'caption': "AI Hairstyle Changer Preview"
+                })}
+            </Script>
+            <Script id="organization-structured-data" type="application/ld+json">
+                {JSON.stringify({
+                    '@context': "https://schema.org",
+                    '@type': "Organization",
+                    '@id': "https://hair-style.ai/#organization",
+                    'name': "Hair Style AI",
+                    'url': "https://hair-style.ai",
+                    'logo': {
+                        '@type': "ImageObject",
+                        'url': "https://hair-style.ai/images/logo/logo-192x192.png",
+                        'width': 192,
+                        'height': 192
+                    },
+                    'sameAs': [
+                        "https://x.com/hair_styleai"
+                    ],
+                    'description': "AI-powered hairstyle transformation platform offering free virtual hair makeovers with over 56 different styles."
+                })}
             </Script>
             <div className="min-h-screen bg-white flex flex-col">
                 <Navbar />
