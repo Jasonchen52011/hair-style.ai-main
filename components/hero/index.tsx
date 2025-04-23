@@ -58,7 +58,7 @@ export default function Hero() {
         },
         {
             question: "Is it really free to use AI Hairstyle Changer?",
-            answer: "Yes, our AI Hairstyle Changer tools are completely free to use. You can upload your image, try on AI virtual hairstyles, and experiment with different colors without any cost and no sign-up needed."
+            answer: "Yes, our AI Hairstyle Changer are completely free to use. You can upload your image, try on AI virtual hairstyles, and experiment with different colors without any cost and no sign-up needed."
         },
         {
             question: "How does AI Hairstyle Changer work?",
@@ -77,7 +77,7 @@ export default function Hero() {
             answer: "Step 1: Go to AI haircut simulator. Step 2: Upload your picture. Step 3: Pick a style and color. Step 4: Download your new hairstyle photo!"
         },
         {
-            question: "Is it safe to upload my image to hairstyle AI changer tools?",
+            question: "Is it safe to upload my image to hairstyle AI changer?",
             answer: "Absolutely! We take your privacy seriously. Your uploaded images are processed securely and are not stored permanently. We use advanced encryption to protect your data, and all images are automatically deleted after processing."
         },
         {
@@ -101,8 +101,8 @@ export default function Hero() {
             answer: "AI haircut simulator is the AI Virtual generator that changes hair color. You can pick from 19 colors when testing hairstyles on your face free."
         },
         {
-            question: "Can hairstyle AI changer tools tell me what hairstyle suits me?",
-            answer: "While our hairstyle AI changer tools help you visualize different hairstyles on your face, the best hairstyle choice ultimately depends on your personal preference and style. We recommend trying multiple styles and colors to find what makes you feel most confident."
+            question: "Can hairstyle AI changer tell me what hairstyle suits me?",
+            answer: "While our hairstyle AI changer help you visualize different hairstyles on your face, the best hairstyle choice ultimately depends on your personal preference and style. We recommend trying multiple styles and colors to find what makes you feel most confident."
         }
     ];
 
@@ -241,7 +241,7 @@ export default function Hero() {
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
                         <h1 className="text-4xl font-bold mb-6 mt-10 text-purple-800">
-                            Free AI Hairstyles Changer Tools - Find Your Next Hairstyle in One Click!
+                            Free AI Hairstyles Changer - Find Your Next Hairstyle in One Click!
                         </h1>
 
                         <p className="text-lg text-gray-600 mb-4 leading-relaxed">
@@ -469,7 +469,7 @@ export default function Hero() {
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-purple-600">Step1: Upload Image</h3>
                             <p className="text-lg text-gray-600">
-                                Upload your photo if you want to change your hairstyle with hairstyle AI changer tools.
+                                Upload your photo if you want to change your hairstyle with hairstyle AI changer.
                             </p>
                         </div>
 
@@ -487,7 +487,7 @@ export default function Hero() {
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-purple-600">Step2: Choose Hairstyle and Color</h3>
                             <p className="text-lg text-gray-600">
-                                Choose from our hairstyle AI changer tools, and pick the hair color you want to try.
+                                Choose from our hairstyle AI changer, and pick the hair color you want to try.
                             </p>
                         </div>
 
