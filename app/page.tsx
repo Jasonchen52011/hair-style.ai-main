@@ -91,8 +91,9 @@ export default function Home() {
                     aggregateRating: {
                         '@type': 'AggregateRating',
                         ratingValue: '4.8',
+                        worstRating: '1',
                         bestRating: '5',
-                        ratingCount: '352'
+                        ratingCount: '3352'
                     }
                 })}
             </Script>

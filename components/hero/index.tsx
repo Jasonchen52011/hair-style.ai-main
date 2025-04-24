@@ -254,7 +254,7 @@ export default function Hero() {
                                 href="/ai-hairstyle" 
                                 className="inline-flex items-center bg-purple-700 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-800 transition-colors"
                             >
-                                Try Free Now
+                                Try Now
                                 <svg 
                                     className="w-6 h-6 ml-2" 
                                     fill="none" 
