@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         url: 'https://hair-style.ai',
         images: [
             {
-              url: 'https://hair-style.ai/images/hero/hero4.jpg',
+              url: 'https://hair-style.ai/images/hero/ba3.jpg',
               type: 'image/jpeg',
               width: 1920,
               height: 1080,
