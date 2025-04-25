@@ -5,6 +5,24 @@ Disallow: /api/*
 Disallow: /admin/*
 Disallow: /404
 Disallow: /500
+Disallow: /private/
+Disallow: /user-content/
+
+User-agent: GPTBot
+User-agent: Claude-Web
+User-agent: Anthropic-AI
+User-agent: PerplexityBot
+User-agent: GoogleOther
+User-agent: DuckAssistBot
+User-Agent: anthropic-ai
+User-Agent: GPTBot
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+Allow: /blog/
+Allow: /products/
+Allow: /about/
+
 
 # Host
 Host: https://hair-style.ai
