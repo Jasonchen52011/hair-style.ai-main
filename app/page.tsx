@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         url: 'https://hair-style.ai',
         images: [
             {
-              url: 'https://hair-style.ai/images/hero/ba3.jpg',
+              url: 'https://hair-style.ai/images/hero/hero4.jpg',
               type: 'image/jpeg',
               width: 1920,
               height: 1080,
@@ -90,7 +90,7 @@ export default function Home() {
                     },
                     aggregateRating: {
                         '@type': 'AggregateRating',
-                        ratingValue: '4.8',
+                        ratingValue: '4.9',
                         worstRating: '1',
                         bestRating: '5',
                         ratingCount: '3352'
