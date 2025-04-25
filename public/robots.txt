@@ -1,4 +1,4 @@
-# *
+
 User-agent: *
 Allow: /
 Disallow: /api/*
@@ -19,8 +19,8 @@ User-Agent: GPTBot
 Allow: /llms.txt
 Allow: /llms-full.txt
 
-Allow: /blog/
-Allow: /products/
+
+Allow: /ai-hairstyle
 Allow: /about/
 
 
