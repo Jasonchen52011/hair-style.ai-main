@@ -53,13 +53,9 @@ export const metadata: Metadata = {
     icons: {
         icon: [
             {
-                url: '/images/logo/favicon.ico',
+        url: '/images/logo/favicon.ico',
         sizes: '48x48',
         type: 'image/x-icon',
-      },
-      {
-        url: '/images/logo/favicon.svg',
-        type: 'image/svg',
       },
       {
         url: '/images/logo/logo-192x192.png',
@@ -70,139 +66,151 @@ export const metadata: Metadata = {
   },
 }
 
+const structuredData = {
+    application: {
+        '@context': "https://schema.org",
+        '@type': "WebApplication",
+        name: "Hair Style AI",
+        applicationCategory: 'UtilityApplication',
+        url: "https://hair-style.ai",
+        description: "Try on different hairstyles with AI technology",
+        operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
+        image: "https://hair-style.ai/images/hero/ba3.jpg",
+        offers: {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD'
+        },
+        aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.8',
+            bestRating: '5',
+            ratingCount: '352'
+        }
+    },
+    faq: {
+        '@context': "https://schema.org",
+        '@type': "FAQPage",
+        mainEntity: [
+            {
+                '@type': 'Question',
+                name: 'Is it really free to use AI hairstyle changer?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Yes, our AI hairstyle changer is completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost.'
+                }
+            },
+            {
+                '@type': 'Question',
+                name: 'Is it safe to upload my image to hairstyle generator?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Absolutely! We take your privacy seriously. Your uploaded images are processed securely and are not stored permanently. We use advanced encryption to protect your data, and all images are automatically deleted after processing.'
+                }
+            },
+            {
+                '@type': 'Question',
+                name: 'Can I use AI hairstyle generator on my phone?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Yes! Our AI hairstyle generator is fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go.'
+                }
+            },
+            {
+                '@type': 'Question',
+                name: 'How to try hairstyles on my face?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: "It's simple! Just upload a clear photo of your face, select from our wide range of hairstyle options, and our AI will automatically apply the chosen style to your photo. You can also experiment with different hair colors to find your perfect look."
+                }
+            },
+            {
+                '@type': 'Question',
+                name: 'Can AI tell me what hairstyle suits me?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: "While our AI tool helps you visualize different hairstyles on your face, the best hairstyle choice ultimately depends on your personal preference and style. We recommend trying multiple styles and colors to find what makes you feel most confident."
+                }
+            }
+        ]
+    },
+    breadcrumb: {
+        '@context': "https://schema.org",
+        '@type': "BreadcrumbList",
+        itemListElement: [
+            {
+                '@type': "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://hair-style.ai/"
+            },
+            {
+                '@type': "ListItem",
+                position: 2,
+                name: "Hair Style AI Tools",
+                item: "https://hair-style.ai/ai-hairstyle"
+            }
+        ]
+    },
+    organization: {
+        '@context': "https://schema.org",
+        '@type': "Organization",
+        '@id': "https://hair-style.ai/#organization",
+        'name': "Hair Style AI",
+        'url': "https://hair-style.ai",
+        'logo': {
+            '@type': "ImageObject",
+            '@id': "https://hair-style.ai/#logo",
+            'url': "https://hair-style.ai/images/logo/logo-192x192.png",
+            'contentUrl': "https://hair-style.ai/images/logo/logo-192x192.png",
+            'width': 192,
+            'height': 192,
+            'caption': "Hair Style AI Logo"
+        },
+        'image': [{
+            '@id': "https://hair-style.ai/#logo"
+        }, {
+            '@id': "https://hair-style.ai/#primaryimage"
+        }],
+        'sameAs': [
+            "https://twitter.com/hair_styleai"
+        ],
+        'description': "AI-powered hairstyle transformation platform offering free virtual hair makeovers with over 56 different styles."
+    },
+    website: {
+        '@context': "https://schema.org",
+        '@type': "WebSite",
+        '@id': "https://hair-style.ai/#website",
+        'url': "https://hair-style.ai",
+        'name': "Hair Style AI",
+        'publisher': {
+            '@id': "https://hair-style.ai/#organization"
+        },
+        'potentialAction': {
+            '@type': "SearchAction",
+            'target': "https://hair-style.ai/search?q={search_term_string}",
+            'query-input': "required name=search_term_string"
+        }
+    }
+};
+
 export default function Home() {
     return (
         <>
             <Script id="application-structured-data" type="application/ld+json">
-                {JSON.stringify({
-                    '@context': "https://schema.org",
-                    '@type': "WebApplication",
-                    name: "Hair Style AI",
-                    applicationCategory: 'UtilityApplication',
-                    url: "https://hair-style.ai",
-                    description: "Try on different hairstyles with AI technology",
-                    operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
-                    image: "https://hair-style.ai/images/hero/ba3.jpg",
-                    offers: {
-                        '@type': 'Offer',
-                        price: '0',
-                        priceCurrency: 'USD'
-                    },
-                    aggregateRating: {
-                        '@type': 'AggregateRating',
-                        ratingValue: '4.9',
-                        worstRating: '1',
-                        bestRating: '5',
-                        ratingCount: '3352'
-                    }
-                })}
+                {JSON.stringify(structuredData.application)}
             </Script>
-
             <Script id="faq-structured-data" type="application/ld+json">
-                {JSON.stringify({
-                    '@context': "https://schema.org",
-                    '@type': "FAQPage",
-                    mainEntity: [
-                        {
-                            '@type': 'Question',
-                            name: 'Is it really free to use AI hairstyle changer?',
-                            acceptedAnswer: {
-                                '@type': 'Answer',
-                                text: 'Yes, our AI hairstyle changer is completely free to use. You can upload your image, try various hairstyles, and experiment with different colors without any cost.'
-                            }
-                        },
-                        {
-                            '@type': 'Question',
-                            name: 'Is it safe to upload my image to hairstyle generator?',
-                            acceptedAnswer: {
-                                '@type': 'Answer',
-                                text: 'Absolutely! We take your privacy seriously. Your uploaded images are processed securely and are not stored permanently. We use advanced encryption to protect your data, and all images are automatically deleted after processing.'
-                            }
-                        },
-                        {
-                            '@type': 'Question',
-                            name: 'Can I use AI hairstyle generator on my phone?',
-                            acceptedAnswer: {
-                                '@type': 'Answer',
-                                text: 'Yes! Our AI hairstyle generator is fully mobile-responsive and works perfectly on smartphones and tablets. You can easily upload photos from your mobile device and try different hairstyles on the go.'
-                            }
-                        },
-                        {
-                            '@type': 'Question',
-                            name: 'How to try hairstyles on my face?',
-                            acceptedAnswer: {
-                                '@type': 'Answer',
-                                text: "It's simple! Just upload a clear photo of your face, select from our wide range of hairstyle options, and our AI will automatically apply the chosen style to your photo. You can also experiment with different hair colors to find your perfect look."
-                            }
-                        },
-                        {
-                            '@type': 'Question',
-                            name: 'Can AI tell me what hairstyle suits me?',
-                            acceptedAnswer: {
-                                '@type': 'Answer',
-                                text: "While our AI tool helps you visualize different hairstyles on your face, the best hairstyle choice ultimately depends on your personal preference and style. We recommend trying multiple styles and colors to find what makes you feel most confident."
-                            }
-                        }
-                    ]
-                })}
+                {JSON.stringify(structuredData.faq)}
             </Script>
             <Script id="breadcrumb-structured-data" type="application/ld+json">
-                {JSON.stringify({
-                    '@context': "https://schema.org",
-                '@type': "BreadcrumbList",
-                itemListElement: [
-                    {
-                        '@type': "ListItem",
-                        position: 1,
-                        name: "Home",
-                        item: "https://hair-style.ai/"
-                    },
-                    {
-                        '@type': "ListItem",
-                        position: 2,
-                        name: "Hair Style AI Tools",
-                        item: "https://hair-style.ai/ai-hairstyle"
-                    }
-                ]
-            })}
+                {JSON.stringify(structuredData.breadcrumb)}
             </Script>
-            <Script id="image-structured-data" type="application/ld+json">
-                {JSON.stringify({
-                    '@context': "https://schema.org",
-                    '@type': "ImageObject",
-                    '@id': "https://hair-style.ai/#primaryimage",
-                    'inLanguage': "en-US",
-                    'url': "https://hair-style.ai/images/hero/hero4.jpg",
-                    'contentUrl': "https://hair-style.ai/images/hero/hero4.jpg",
-                    'width': 1920,
-                    'height': 1080,
-                    'caption': "AI Hairstyle Changer Preview"
-                })}
-            </Script>
-            
             <Script id="organization-structured-data" type="application/ld+json">
-                {JSON.stringify({
-                    '@context': "https://schema.org",
-                    '@type': "Organization",
-                    '@id': "https://hair-style.ai/#organization",
-                    'name': "Hair Style AI",
-                    'url': "https://hair-style.ai",
-                    'logo': {
-                        '@type': "ImageObject",
-                        '@id': "https://hair-style.ai/#logo",
-                        'url': "https://hair-style.ai/images/logo/logo-192x192.png",
-                        'contentUrl': "https://hair-style.ai/images/logo/logo-192x192.png",
-                        'width': 192,
-                        'height': 192
-                    },
-                    'image': {
-                        '@id': "https://hair-style.ai/#primaryimage"
-                    },
-                    'sameAs': [
-                        "https://twitter.com/hair_styleai"
-                    ],
-                    'description': "AI hairstyle changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more."
-                })}
+                {JSON.stringify(structuredData.organization)}
+            </Script>
+            <Script id="website-structured-data" type="application/ld+json">
+                {JSON.stringify(structuredData.website)}
             </Script>
             <div className="min-h-screen bg-white flex flex-col">
                 <Navbar />

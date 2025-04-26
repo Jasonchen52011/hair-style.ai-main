@@ -74,11 +74,11 @@ export default function Navbar() {
                     <div className="flex items-center h-22">
                         <Link href="/" className="flex items-center">
                             <Image
-                                src="/images/logo/logo.png"
+                                src="/images/logo/logo-192x192.png"
                                 alt="Hairstyle.ai Logo"
                                 width={32}
                                 height={32}
-                                className="mr-2"
+
                                 priority
                             />
                             <span className="text-2xl font-semibold hover:text-purple-700" aria-label="Hair-style.ai">

@@ -41,7 +41,7 @@ const nextConfig = {
                     },
                     {
                         key: 'X-Robots-Tag',
-                        value: 'noindex',
+                        value: 'all',
                     },
                 ],
             },
