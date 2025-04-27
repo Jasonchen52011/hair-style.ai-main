@@ -13,10 +13,10 @@ export default function Footer() {
                         <div className="flex items-center gap-3">
                             <div className="relative w-8 h-8">
                             <Image
-                                src="/images/logo/logo-192x192.png"
-                                alt="Hairstyle.ai Logo"
-                                width={40}
-                                height={40}
+                                src="/images/logo/favicon.ico"
+                                alt="Hair Style AI Logo"
+                                width={48}
+                                height={48}
                                 priority
                             />
                             </div>
