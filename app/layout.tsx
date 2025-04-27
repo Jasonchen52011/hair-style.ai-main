@@ -1,6 +1,44 @@
 import './globals.css'
 
 
+export const metadata = {
+  icons: {
+    icon: [
+      {
+        url: '/images/logo/favicon.ico',
+        sizes: '48x48',
+        type: 'image/x-icon',
+      },
+      {
+        url: '/images/logo/favicon.svg',
+        type: 'image/svg+xml',
+      },
+      {
+        url: '/images/logo/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      }
+    ],
+    apple: [
+      {
+        url: '/images/logo/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png'
+      }
+    ],
+    shortcut: [
+      {
+        url: '/images/logo/favicon.ico',
+        type: 'image/x-icon'
+      }
+    ],
+    maskIcon: {
+      url: '/images/logo/safari-pinned-tab.svg',
+      color: '#000000'
+    }
+  }
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -12,8 +50,6 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/images/logo/favicon.ico" />
-        <link rel="apple-touch-icon" href="/images/logo/apple-touch-icon.png" />
         {/* Google Analytics 跟踪代码 */}
         <script
           async
