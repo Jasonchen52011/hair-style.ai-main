@@ -204,7 +204,7 @@ const structuredData = {
         'url': "https://hair-style.ai",
         'logo': {
             '@type': "ImageObject",
-            '@id': "https://hair-style.ai/#logo",
+            '@id': "https://hair-style.ai/images/logo-192x192.png",
             'url': "https://hair-style.ai/images/logo/logo-192x192.png",
             'contentUrl': "https://hair-style.ai/images/logo/logo-192x192.png",
             'width': 192,
