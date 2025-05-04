@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 
 // About Us 页面 metadata
 export const metadata: Metadata = {
+    metadataBase: new URL('https://hair-style.ai'),
     alternates: {
         canonical: 'https://hair-style.ai/about',
     },

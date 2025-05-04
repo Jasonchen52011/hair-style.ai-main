@@ -3,6 +3,7 @@ import PageContent from "./page-content";
 
 
 const structuredData = {
+    metadataBase: new URL('https://hair-style.ai'),
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'AI Hairstyle Changer',

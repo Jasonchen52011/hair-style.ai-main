@@ -6,9 +6,18 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
     title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
+    metadataBase: new URL('https://hair-style.ai'),
     description: 'Free AI Hairstyle Changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
     alternates: {
         canonical: 'https://hair-style.ai'
+    },
+    icons: {
+      icon: [
+        {url: '/images/logo/favicon.ico',sizes: '48x48',type: 'image/x-icon',},
+        {url: '/images/logo/logo-192x192.png',sizes: '192x192',type: 'image/png',},
+      ],
+      apple: [{url: '/images/logo/apple-touch-icon.png',sizes: '180x180',type: 'image/png',}],
+      shortcut: [{url: '/images/logo/favicon.ico',type: 'image/x-icon',}],
     },
     authors: {
         name: 'Hair-style.ai',
@@ -30,6 +39,7 @@ export const metadata: Metadata = {
         siteName: 'Hair-style.ai',
         description: 'One-click free AI hairstyle change! Choose from over 60 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.',
         locale: 'en_US',
+      
     },
     twitter: {
         card: 'summary_large_image',
