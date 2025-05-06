@@ -73,12 +73,12 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-20">
                     <div className="flex items-center h-22">
                         <Link href="/" className="flex items-center">
-                            <Image
-                                src="/images/logo/logo-192x192.png"
+                        <Image
+                                src="/images/logo/logo.png"
                                 alt="Hairstyle.ai Logo"
-                                width={45}
-                                height={45}
-                                className="rounded-full"
+                                width={32}
+                                height={32}
+                                className="mr-2"
                                 priority
                             />
                             <span className="text-2xl font-semibold hover:text-purple-700" aria-label="Hair-style.ai">
