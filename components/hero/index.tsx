@@ -245,22 +245,22 @@ export default function Hero() {
                         </h1>
                         
                         <p className="text-lg text-gray-600 mb-4">
-                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on <span className=" font-bold text-purple-700">60+ styles</span> in just a few clicks!
+                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on <span className=" font-bold text-purple-600">60+ styles</span> in just a few clicks!
                             Whether you want <span className=" font-bold">short, curly, wavy, or bold styles like buzz cuts and braids,</span>
                              this free AI simulator haircut tool helps you experiment without a trip to the salon.</p>
                              
                              <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                             Whether you need an online hairstyles changer for <span className=" font-bold text-purple-700">men or women,</span> 
+                             Whether you need an online hairstyles changer for <span className=" font-bold text-purple-600">men or women,</span> 
                              this tool has it all.Hairstyle try-on has never been easier – upload your photo and explore the best styles.
                         </p>
 
-                        <div className="flex flex-col lg:flex-row items-center gap-8">
+                        <div className="flex flex-col lg:flex-row items-center gap-8 mt-14">
 
                             <Link 
                                 href="/ai-hairstyle" 
-                                className="inline-flex items-center bg-purple-700 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-800 transition-colors"
+                                className="inline-flex items-center bg-purple-600 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-800 transition-colors"
                             >
-                                Start for Free Now
+                                Try on Now
                                 <svg 
                                     className="w-6 h-6 ml-2" 
                                     fill="none" 
