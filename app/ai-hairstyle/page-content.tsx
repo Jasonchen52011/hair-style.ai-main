@@ -138,6 +138,32 @@ function SelectStylePageContent() {
         }
     };
 
+    // 添加示例图片加载函数
+    const loadSampleImage = async (imagePath: string) => {
+        try {
+            const response = await fetch(imagePath);
+            if (!response.ok) {
+                throw new Error('Failed to load sample image');
+            }
+            
+            const blob = await response.blob();
+            const reader = new FileReader();
+            
+            reader.onloadend = () => {
+                setUploadedImageUrl(reader.result as string);
+            };
+            
+            reader.onerror = () => {
+                toast.error('Failed to load sample image');
+            };
+            
+            reader.readAsDataURL(blob);
+        } catch (error) {
+            console.error('Sample image loading error:', error);
+            toast.error('Failed to load sample image');
+        }
+    };
+
     // 修改 UploadArea 组件，添加更明显的样式
     const UploadArea = () => {
         const [isDragging, setIsDragging] = useState(false);
@@ -248,15 +274,74 @@ function SelectStylePageContent() {
                     <section className="lg:col-span-9 h-fit" aria-label="Photo Upload Area">
                         <h2 className="sr-only">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
-                            // 上传区域 - 减小高度和内边距
-                            <div className="bg-gray-50 p-2 rounded-lg shadow-sm border-gray-200 h-[660px] flex flex-col items-center justify-center">
-                                <div className="w-full max-w-md mx-auto px-4"> {/* 添加水平内边距 */}
-                                    <UploadArea />
+                            <>
+                                {/* 上传区域 */}
+                                <div className="p-2 rounded-lg h-[400px] sm:h-[500px] flex flex-col items-center justify-center mb-2">
+                                    <div className="w-full max-w-md md:max-w-xl mx-auto px-4">
+                                        <UploadArea />
+                                    </div>
                                 </div>
-                            </div>
+                                
+                                {/* 示例图片区域 - 移到上传区域外部 */}
+                                <div className="text-center">
+                                    <p className="text-xs text-gray-500 mb-2">No image? Try one of these.</p>
+                                    <div className="grid grid-cols-4 gap-3 max-w-xl mx-auto">
+                                        {/* 男性示例头像 */}
+                                        <button 
+                                            className="rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            onClick={() => loadSampleImage('/images/examles/david.jpg')}
+                                        >
+                                            <Image 
+                                                src="/images/examles/david.jpg" 
+                                                alt="Male example 1" 
+                                                width={90} 
+                                                height={90} 
+                                                className="w-full h-auto object-cover aspect-square"
+                                            />
+                                        </button>
+                                        <button 
+                                            className="rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            onClick={() => loadSampleImage('/images/examles/michael.jpg')}
+                                        >
+                                            <Image 
+                                                src="/images/examles/michael.jpg" 
+                                                alt="Male example 2" 
+                                                width={90} 
+                                                height={90} 
+                                                className="w-full h-auto object-cover aspect-square"
+                                            />
+                                        </button>
+                                        {/* 女性示例头像 */}
+                                        <button 
+                                            className="rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            onClick={() => loadSampleImage('/images/examles/k.jpg')}
+                                        >
+                                            <Image 
+                                                src="/images/examles/k.jpg" 
+                                                alt="Female example 1" 
+                                                width={90} 
+                                                height={90} 
+                                                className="w-full h-auto object-cover aspect-square"
+                                            />
+                                        </button>
+                                        <button 
+                                            className="rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            onClick={() => loadSampleImage('/images/examles/nana.jpg')}
+                                        >
+                                            <Image 
+                                                src="/images/examles/nana.jpg" 
+                                                alt="Female example 2" 
+                                                width={90} 
+                                                height={90} 
+                                                className="w-full h-auto object-cover aspect-square"
+                                            />
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
                         ) : (
                             // 预览区域 - 减小高度和间距
-                            <div className="bg-gray-200 p-1 sm:p-2 rounded-lg shadow-sm border border-gray-200 relative h-[600px] sm:h-[660px] flex flex-col items-center">
+                            <div className="p-1 sm:p-2 rounded-lg shadow-sm  relative h-[500px] sm:h-[660px] flex flex-col items-center">
                                 {/* 顶部按钮区域 - 减小间距 */}
                                 <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (
