@@ -240,12 +240,18 @@ export default function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-bold mb-6 mt-10 text-purple-800">
-                            Free AI Hairstyles Changer - Find Your Next Hairstyle in One Click!
+                        <h1 className="text-5xl font-bold mb-12 mt-10 text-gray-800">
+                            Free AI Hairstyle Changer
                         </h1>
-
-                        <p className="text-lg text-gray-600 mb-4 leading-relaxed">
-                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on 60+ styles in just a few clicks! Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free AI simulator haircut tool helps you experiment without a trip to the salon.Whether you need an online hairstyles changer for men or women, this tool has it all—from short cuts to long waves. It's an easy way to try on hairstyles for free without commitment. Love what you see? Save your favorite look and show it to your hairstylist! Try our hairstyles changer now and discover your next style!
+                        
+                        <p className="text-lg text-gray-600 mb-4">
+                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on <span className=" font-bold text-purple-700">60+ styles</span> in just a few clicks!
+                            Whether you want <span className=" font-bold">short, curly, wavy, or bold styles like buzz cuts and braids,</span>
+                             this free AI simulator haircut tool helps you experiment without a trip to the salon.</p>
+                             
+                             <p className="text-lg text-gray-600 mb-4 leading-relaxed">
+                             Whether you need an online hairstyles changer for <span className=" font-bold text-purple-700">men or women,</span> 
+                             this tool has it all.Hairstyle try-on has never been easier – upload your photo and explore the best styles.
                         </p>
 
                         <div className="flex flex-col lg:flex-row items-center gap-8">
@@ -254,7 +260,7 @@ export default function Hero() {
                                 href="/ai-hairstyle" 
                                 className="inline-flex items-center bg-purple-700 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-800 transition-colors"
                             >
-                                Try Now
+                                Start for Free Now
                                 <svg 
                                     className="w-6 h-6 ml-2" 
                                     fill="none" 
@@ -382,7 +388,7 @@ export default function Hero() {
                             ) : (
                                 // 发型选项展示
                                 getCurrentPageStyles().map((style, index) => (
-                                    <div key={style.style} className="hairstyle-item">
+                                    <div key={index} className="hairstyle-item">
                                         <div className="hairstyle-image relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
                                             <Image
                                                 src={style.imageUrl}
