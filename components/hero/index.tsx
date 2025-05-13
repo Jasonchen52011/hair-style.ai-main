@@ -245,7 +245,7 @@ export default function Hero() {
                         </h1>
                         
                         <p className="text-lg text-gray-600 mb-4">
-                            Not sure which hairstyle suits you best? Our free AI hairstyles changer lets you try on <span className=" font-bold 
+                            Not sure which hairstyle suits you best? Our free AI hairstyle generator lets you try on <span className=" font-bold 
                             ">60+ styles</span> in just a few clicks!
                             Whether you want <span className=" font-bold">short, curly, wavy, or bold styles like buzz cuts and braids,</span>
                              this free AI simulator haircut tool helps you experiment without a trip to the salon.</p>
@@ -512,7 +512,7 @@ export default function Hero() {
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-purple-600">Step3: Download Photo!</h3>
                             <p className="text-lg text-gray-600">
-                                Our hairstyle AI changer will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
+                                Our AI hairstyle generator will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
                         </div>
                     </div>
