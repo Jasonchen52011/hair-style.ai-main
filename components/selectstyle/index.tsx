@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import toast from 'react-hot-toast';
 
 export interface HairStyle {
@@ -14,6 +14,7 @@ export interface HairStyle {
 interface SelectStyleProps {
   uploadedImageUrl?: string;
   onStyleSelect: (style: string) => void;
+  defaultStyle?: string;
 }
 
 export const hairColors = [
@@ -109,11 +110,27 @@ export const maleStyles: HairStyle[] = [
 export default function SelectStyle({
   uploadedImageUrl,
   onStyleSelect,
+  defaultStyle,
 }: SelectStyleProps) {
   const [selectedGender, setSelectedGender] = useState<"Female" | "Male">("Female");
-  const [selectedStyle, setSelectedStyle] = useState<string>("");
+  const [selectedStyle, setSelectedStyle] = useState<string>(defaultStyle || "");
   const [selectedColor, setSelectedColor] = useState<string>("brown");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (defaultStyle) {
+      const femaleStyle = femaleStyles.find(style => style.style === defaultStyle);
+      if (femaleStyle) {
+        setSelectedGender("Female");
+      } else {
+        const maleStyle = maleStyles.find(style => style.style === defaultStyle);
+        if (maleStyle) {
+          setSelectedGender("Male");
+        }
+      }
+      setSelectedStyle(defaultStyle);
+    }
+  }, [defaultStyle]);
 
   const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
@@ -121,7 +138,6 @@ export default function SelectStyle({
     setSelectedStyle(style);
   };
 
-  // 添加轮询函数
   const pollTaskStatus = async (taskId: string, maxAttempts = 12) => {
     for (let i = 0; i < maxAttempts; i++) {
       try {
@@ -133,11 +149,9 @@ export default function SelectStyle({
           return data;
         }
         
-        // 等待5秒后重试
         await new Promise(resolve => setTimeout(resolve, 5000));
       } catch (error) {
         console.error('Poll error:', error);
-        // 继续轮询
       }
     }
     throw new Error('Processing timeout');
@@ -180,17 +194,14 @@ export default function SelectStyle({
       const data = await response.json();
       
       if (data.status === 'processing' && data.taskId) {
-        // 开始轮询任务状态
         const result = await pollTaskStatus(data.taskId);
         if (result.data.images) {
           const firstStyle = Object.keys(result.data.images)[0];
           const imageUrl = result.data.images[firstStyle][0];
           
-          // 获取当前选中的发型对象
           const currentStyle = currentStyles.find(style => style.style === selectedStyle);
           const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
           
-          // 将结果传回父组件
           onStyleSelect?.(imageUrlWithStyle);
           
           toast.success('Generate Success!', {
@@ -223,7 +234,6 @@ export default function SelectStyle({
 
   return (
     <div className="w-full">
-      {/* Gender Selection */}
       <div className="mb-4 bg-gray-50 p-2 rounded-lg">
         <div className="flex space-x-2">
           <button
@@ -255,7 +265,6 @@ export default function SelectStyle({
         </div>
       </div>
 
-      {/* Hairstyles Grid */}
       <div className="grid grid-cols-3 gap-1.5 mb-4 overflow-y-auto h-[380px]">
         {currentStyles.map((style) => (
           <button
@@ -283,7 +292,6 @@ export default function SelectStyle({
         ))}
       </div>
 
-      {/* Color Selection */}
       <div className="grid grid-cols-7 gap-1">
         {hairColors.map((color) => (
           <button
@@ -317,7 +325,6 @@ export default function SelectStyle({
         ))}
       </div>
 
-      {/* Generate Button */}
       <button
         onClick={handleGenerate}
         className="w-full mt-8 py-4 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"

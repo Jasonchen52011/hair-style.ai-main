@@ -28,6 +28,7 @@ export default function SelectStylePage() {
 function SelectStylePageContent() {
     const [uploadedImageUrl, setUploadedImageUrl] = useState<string>();
     const [resultImageUrl, setResultImageUrl] = useState<string>();
+    const [defaultStyle, setDefaultStyle] = useState<string>("PixieCut");
     const searchParams = useSearchParams();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -284,8 +285,8 @@ function SelectStylePageContent() {
                                 
                                 {/* 示例图片区域 - 移到上传区域外部 */}
                                 <div className="text-center">
-                                    <p className="text-xs text-gray-500 mb-2">No image? Try one of these.</p>
-                                    <div className="grid grid-cols-4 gap-3 max-w-xl mx-auto">
+                                    <p className="text-base text-gray-800 mb-2">No image? Try one of these.</p>
+                                    <div className="grid grid-cols-4 gap-3 max-w-md mx-auto">
                                         {/* 男性示例头像 */}
                                         <button 
                                             className="rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
@@ -399,7 +400,7 @@ function SelectStylePageContent() {
                             <SelectStyle 
                                 uploadedImageUrl={uploadedImageUrl}
                                 onStyleSelect={handleStyleSelect}
-
+                                defaultStyle={defaultStyle}
                             />
                         </div>
                     </section>
