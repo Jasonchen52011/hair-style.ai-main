@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: false,
+    compiler: {
+        styledComponents: true,
+    },
+    unstable_runtimeJS: true,
     async headers() {
         return [
             {

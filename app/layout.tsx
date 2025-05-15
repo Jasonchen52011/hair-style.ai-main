@@ -1,5 +1,7 @@
 import './globals.css'
 import localFont from 'next/font/local'
+import { Inter } from 'next/font/google'
+
 
 const satoshi = localFont({
   src: [
@@ -28,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html className={satoshi.className}>
+    <html lang="en" suppressHydrationWarning>
       <head>
       <script
         id="clarity-script"

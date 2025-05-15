@@ -1,8 +1,9 @@
 import Hero from "@/components/hero";
 import Footer from "@/components/footer";
-import Navbar from '@/components/navbar';
 import { Metadata } from 'next'
 import Script from 'next/script';
+import Navbar from '@/components/navbar';
+
 
 export const metadata: Metadata = {
     title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
@@ -267,7 +268,7 @@ export default function Home() {
                 {JSON.stringify(structuredData.website)}
             </Script>
             <div className="min-h-screen bg-white flex flex-col">
-                <Navbar />
+               <Navbar />
                 <Hero />
                 <Footer />
             </div>

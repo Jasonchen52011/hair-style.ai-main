@@ -66,7 +66,7 @@ export default function Navbar() {
     return (
         <nav className={`w-full ${
             isSticky 
-                ? 'fixed top-0 bg-white shadow-md animate-slideDown z-50' 
+                ? 'fixed top-0 bg-white shadow-md z-50' 
                 : 'relative bg-transparent'
         }`}>
             <div className="container mx-auto px-4">
