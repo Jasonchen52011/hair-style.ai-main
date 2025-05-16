@@ -252,11 +252,11 @@ export default function Hero() {
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold mb-12 mt-10 text-gray-800">
-                            Free AI Hairstyle Changer
+                            AI Hairstyle Online Free
                         </h1>
                         
                         <p className="text-lg text-gray-800 mb-4">
-                            Not sure which hairstyle suits you best? Our free AI hairstyle generator lets you try on  <span className="font-bold">60+ styles</span> in just a few clicks! 
+                            Not sure which hairstyle suits you best? Our free AI hairstyle generator lets you try on  <span className="font-bold">60+ styles and 19 colors</span> in just a few clicks! 
                             Whether you want <span className="font-bold">short, curly, wavy, or bold styles like buzz cuts and braids</span> , this free AI simulator haircut tool helps you experiment without a trip to the salon.
                         </p>
 
@@ -484,7 +484,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
-                            <p className="text-lg text-gray-600">
+                            <p className="text-lg text-gray-800">
                                 Upload your photo if you want to change your hairstyle with hairstyle AI changer.
                             </p>
                         </div>
@@ -502,7 +502,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle and Color</h3>
-                            <p className="text-lg text-gray-600">
+                            <p className="text-lg text-gray-800">
                                 Choose from our hairstyle AI changer, and pick the hair color you want to try.
                             </p>
                         </div>
@@ -520,7 +520,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
-                            <p className="text-lg text-gray-600">
+                            <p className="text-lg text-gray-800">
                                 Our AI hairstyle generator will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
                         </div>
