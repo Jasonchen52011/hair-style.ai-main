@@ -256,7 +256,7 @@ export default function Hero() {
                         </h1>
                         
                         <p className="text-lg text-gray-800 mb-4">
-                            Not sure which hairstyle suits you best? Our free AI hairstyle generator lets you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
+                            Not sure which hairstyle suits you best? Upload photo,and let Haistyle.a free AI hairstyle generator help you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
                             Whether you want <span className="font-bold">short, curly, wavy, or bold styles like buzz cuts and braids</span> , this free AI simulator haircut tool helps you experiment without a trip to the salon.
                         </p>
 
@@ -310,9 +310,9 @@ export default function Hero() {
                         <Image
                             src="/images/hero/hero4.jpg"
                             alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
-                            className="w-full h-auto max-w-2xl mx-auto"
-                            width={1024}
-                            height={768}
+                            className="w-full h-auto max-w-lg mx-auto"
+                            width={700}
+                            height={700}
                             onError={handleImageError}
                         />
                     </div>
