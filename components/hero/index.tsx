@@ -252,7 +252,7 @@ export default function Hero() {
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold mb-12 mt-10 text-gray-800">
-                            AI Hairstyle Online Free
+                            AI Hairstyle Changer
                         </h1>
                         
                         <p className="text-lg text-gray-800 mb-4">
@@ -461,7 +461,7 @@ export default function Hero() {
                     {/* 标题和介绍 */}
                     <div className="text-center max-w-5xl mx-auto mb-16">
                         <h2 className="text-3xl font-bold mb-6 text-gray-800">
-                            How to Change Hairstyle Online with Hairstyle AI
+                            How to Change Hairstyle Online with AI Hairstyle Online Free
                         </h2>
                         <p className="text-lg text-gray-600">
                             Transform your look with our hairstyle AI-powered changer in just three simple steps. 
