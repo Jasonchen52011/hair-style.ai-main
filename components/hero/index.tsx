@@ -256,12 +256,12 @@ export default function Hero() {
                         </h1>
                         
                         <p className="text-lg text-gray-800 mb-4">
-                            Not sure which hairstyle suits you best? Our free AI hairstyle generator lets you try on  <span className="font-bold">60+ styles and 19 colors</span> in just a few clicks! 
+                            Not sure which hairstyle suits you best? Our free AI hairstyle generator lets you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
                             Whether you want <span className="font-bold">short, curly, wavy, or bold styles like buzz cuts and braids</span> , this free AI simulator haircut tool helps you experiment without a trip to the salon.
                         </p>
 
                         <p className="text-lg text-gray-600 mb-4">
-                            Whether you need an online hairstyles changer for <span className="font-bold">men or women</span>,this tool has it all.Hairstyle try-on has never been easier – upload your photo and explore the best styles.
+                            Whether you need an online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
                         </p>
 
                         <div className="flex flex-col lg:flex-row items-center gap-8 mt-14">
@@ -325,10 +325,10 @@ export default function Hero() {
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold mb-6 text-gray-800">
-                            Try on Popular Hairstyles for Men and Women with Hairstyle AI
+                            Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
                         </h2>
                         <p className="text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
-                              Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this hairstyle changer online makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
+                              Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                         </p>
                     </div>
 
@@ -501,9 +501,9 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle and Color</h3>
+                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
                             <p className="text-lg text-gray-800">
-                                Choose from our hairstyle AI changer, and pick the hair color you want to try.
+                                Choose from our hairstyle AI changer, and pick the hairstyle filter and hair color you want to try.
                             </p>
                         </div>
 
@@ -640,7 +640,7 @@ export default function Hero() {
                                     choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
                                     and instantly see how it looks with different hair colors. You can easily experiment with 
                                     <span className="font-bold"> various styles and colors</span> to find the perfect match for your face and personality. 
-                                    Try on AI versatile haircut tool today and discover your ideal hairstyle in just a few clicks!
+                                    Try on AI versatile hairstyle filters today and discover your ideal hairstyle in just a few clicks!
                                 </p>
                                 <Link 
                                     href="/images/hero/ba.jpg"
