@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 const structuredData = {
     application: {
         '@context': "https://schema.org",
-        '@type': "WebApplication",
+        '@type': "SoftwareApplication",
         name: "Hair Style AI",
         applicationCategory: 'UtilityApplication',
         url: "https://hair-style.ai",
