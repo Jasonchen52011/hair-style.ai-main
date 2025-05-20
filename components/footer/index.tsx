@@ -38,13 +38,13 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
                                     Privacy Policy
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-                                    Terms & Conditions
+                                <Link href="/terms-and-conditions" className="text-gray-400 hover:text-white transition-colors">
+                                    Terms and Conditions
                                 </Link>
                             </li>
                         </ul>
