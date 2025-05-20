@@ -65,6 +65,7 @@ export default function RootLayout({
         />
         <script async src="https://www.google.com/..."></script>
         <script async src="https://cse.google.com/..."></script>
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="pzQdswZNDZJoi+e1uLS3jg" async></script>
       </head>
       <body>{children}</body>
     </html>
