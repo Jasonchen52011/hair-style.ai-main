@@ -252,7 +252,7 @@ export default function Hero() {
                     {/* 左侧内容 */}
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold mb-12 mt-10 text-gray-800">
-                            AI Hairstyle Changer
+                            Free AI Hairstyle Changer
                         </h1>
                         
                         <p className="text-lg text-gray-800 mb-4">

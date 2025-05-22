@@ -3,12 +3,13 @@ import Footer from "@/components/footer";
 import { Metadata } from 'next'
 import Script from 'next/script';
 import Navbar from '@/components/navbar';
+import { publicDecrypt } from "crypto";
 
 
 export const metadata: Metadata = {
     title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
     metadataBase: new URL('https://hair-style.ai'),
-    description: 'Free AI Hairstyle Changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more',
+    description: 'Free AI Hairstyle Changer, discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, slicked back, braids, and more',
     alternates: {
         canonical: 'https://hair-style.ai'
     },
@@ -18,10 +19,9 @@ export const metadata: Metadata = {
         {url: '/images/logo/logo-192x192.png',sizes: '192x192',type: 'image/png',},
       ],
       apple: [{url: '/images/logo/apple-touch-icon.png',sizes: '180x180',type: 'image/png',}],
-      shortcut: [{url: '/images/logo/favicon.ico',type: 'image/x-icon',}],
     },
     authors: {
-        name: 'Hair-style.ai',
+        name: 'Jason',
         url: 'https://hair-style.ai',
     },
     openGraph: {
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
               alt: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles'    
             }
           ],
-        siteName: 'Hair-style.ai',
+        siteName: 'Hair Style AI',
         description: 'One-click free AI hairstyle change! Choose from over 60 hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.',
         locale: 'en_US',
       
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         site: '@hair_styleai',
-        title: 'Hair-style.ai | AI Powered Hairstyle Transformation',
-        description: 'Transform your look with AI-powered hairstyle visualization. Try different hairstyles instantly!',
+        title: 'Hair Style AI - Free AI Hairstyle Changer',
+        description: 'Free AI Hairstyle Changer, discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, slicked back, braids, and more',
         images: ['https://hair-style.ai/images/hero/ba3.jpg'],
         creator: '@hair_styleai',
     },
@@ -65,15 +65,15 @@ export const metadata: Metadata = {
 }
 
 const structuredData = {
-    application: {
         '@context': "https://schema.org",
         '@type': "WebApplication",
+        '@id': "https://hair-style.ai/#webapplication",
         name: "Hair Style AI",
-        applicationCategory: 'UtilityApplication',
+        applicationCategory: 'EntertainmentApplication',
         url: "https://hair-style.ai",
         description: "Try on different hairstyles with AI technology",
         operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
-        image: "https://hair-style.ai/images/hero/ba3.jpg",
+        ImageObject: "https://hair-style.ai/images/hero/ba3.jpg",
         offers: {
             '@type': 'Offer',
             price: '0',
@@ -85,10 +85,14 @@ const structuredData = {
             worstRating: '1',
             bestRating: '5',
             ratingCount: '3352'
-        }
-    },
-    faq: {
-        '@context': "https://schema.org",
+        },
+        publisher: {
+          '@type': 'Organization',
+          '@id': "https://hair-style.ai/#organization",
+          name: 'Hair Style AI',
+          url: 'https://hair-style.ai'
+        },
+        faq: {
         '@type': "FAQPage",
         mainEntity: [
           {
@@ -188,7 +192,7 @@ const structuredData = {
             }
           }
         ]
-    },
+       },
     breadcrumb: {
         '@context': "https://schema.org",
         '@type': "BreadcrumbList",
@@ -210,42 +214,28 @@ const structuredData = {
     organization: {
         '@context': "https://schema.org",
         '@type': "Organization",
-        '@id': "https://hair-style.ai/#organization",
         'name': "Hair Style AI",
         'url': "https://hair-style.ai",
         'logo': {
             '@type': "ImageObject",
             '@id': "https://hair-style.ai/images/logo-192x192.png",
             'url': "https://hair-style.ai/images/logo/logo-192x192.png",
-            'contentUrl': "https://hair-style.ai/images/logo/logo-192x192.png",
             'width': 192,
             'height': 192,
             'caption': "Hair Style AI Logo"
         },
-        'image': [{
-            '@id': "https://hair-style.ai/#logo"
-        }, {
-            '@id': "https://hair-style.ai/#primaryimage"
-        }],
-        'sameAs': [
-            "https://twitter.com/hair_styleai"
-        ],
-        'description': "AI-powered hairstyle transformation platform offering free virtual hair makeovers with over 56 different styles."
+        publisher: {
+          '@type': 'Organization',
+          '@id': "https://hair-style.ai/#organization",
+          name: 'Hair Style AI',
+          url: 'https://hair-style.ai'
+        },
+    
     },
     website: {
-        '@context': "https://schema.org",
         '@type': "WebSite",
-        '@id': "https://hair-style.ai/#website",
         'url': "https://hair-style.ai",
         'name': "Hair Style AI",
-        'publisher': {
-            '@id': "https://hair-style.ai/#organization"
-        },
-        'potentialAction': {
-            '@type': "SearchAction",
-            'target': "https://hair-style.ai/search?q={search_term_string}",
-            'query-input': "required name=search_term_string"
-        }
     }
 };
 
@@ -253,7 +243,7 @@ export default function Home() {
     return (
         <>
             <Script id="application-structured-data" type="application/ld+json">
-                {JSON.stringify(structuredData.application)}
+                {JSON.stringify(structuredData)}
             </Script>
             <Script id="faq-structured-data" type="application/ld+json">
                 {JSON.stringify(structuredData.faq)}
