@@ -108,56 +108,6 @@ export default function About() {
                         </div>
                     </div>
 
-                    {/* Meet the Team Section */}
-                    <div className="max-w-6xl mx-auto mb-20">
-                            <h2 className="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-purple-500">
-                                Meet the Hair-style.ai Team
-                            </h2>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                {[
-                                    {
-                                        name: 'Span Chen',
-                                        title: 'Founder',
-                                        image: '/team/Span Chen.jpeg',
-                                        description: 'With 10 years of experience in product management and marketing, I\'ve created Hair-style.ai to revolutionize Helping people explore better hairstyles and find the best version of themselves.',
-                                        alt: 'Professional headshot of Span Chen, Founder of Hair-style.ai, against a modern office background,Helping people explore better hairstyles and find the best version of themselves.'
-                                    },
-                                    {
-                                        name: 'Jason Chen',
-                                        title: 'Tech & Writer',
-                                        image: '/team/Jason Chen.jpeg',
-                                        description: 'As the Tech & Writer for Hair-style.ai, I\'m passionate about creating a user-friendly and innovative experience. I focus on simplifying the technology behind AI hairstyle changes, making it accessible and fun,for everyone.',
-                                        alt: 'Professional portrait of Jason Chen, Tech Lead at Hair-style.ai, in a modern tech workspace'
-                                    },
-                                    {
-                                        name: 'Taylor Lei',
-                                        title: 'Marketing',
-                                        image: '/team/Taylor Lei.jpeg',
-                                        description: 'As the Marketing for Hair-style.ai, Taylor Lei is passionate about crafting a delightful and user-friendly experience for individuals looking to explore new hairstyles. Makes it easy for users to experiment with different looks, fostering creativity and self-expression.',
-                                        alt: 'Professional headshot of Taylor Lei, Marketing Lead at Hair-style.ai, link to more people with beautiful hair pursuits'
-                                    }
-                                ].map((member, index) => (
-                                    <div key={index} className="bg-white rounded-3xl shadow-lg border border-purple-100 p-8 transform hover:scale-[1.02] transition-all duration-300">
-                                        <div className="relative mb-6 rounded-2xl overflow-hidden">
-                                            <Image
-                                                src={member.image}
-                                                alt={member.alt}
-                                                width={400}
-                                                height={400}
-                                                className="aspect-square object-cover"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent" />
-                            </div>
-                                        <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-                                        <p className="text-purple-600 font-medium mb-4">{member.title}</p>
-                                        <p className="text-gray-600 leading-relaxed">
-                                            {member.description}
-                                </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
 
                         {/* Our Vision & Mission Section */}
                         <div className="max-w-6xl mx-auto mb-20 px-4">
