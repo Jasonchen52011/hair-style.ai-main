@@ -36,28 +36,20 @@ const DAILY_LIMIT = 5;
 export async function POST(req: NextRequest) {
     try {
         // 获取客户端 IP
-        const headersList = headers();
+        const headersList = await headers();
         const forwardedFor = headersList.get('x-forwarded-for');
         const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
 
-        // IP 限制检查
+        // IP 限制检查 - 先检查是否超限，但不立即计数
         const today = new Date().toISOString().split('T')[0];
         const currentCount = requestCounts.get(ip);
 
-        // 如果是新的一天，重置计数
-        if (!currentCount || currentCount.date !== today) {
-            requestCounts.set(ip, { count: 1, date: today });
-        } else if (currentCount.count >= DAILY_LIMIT) {
+        // 检查是否已达到每日限制
+        if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
             return NextResponse.json({
                 success: false,
                 error: 'You have reached your daily limit of 5 free generations. Please try again tomorrow.'
             }, { status: 429 });
-        } else {
-            // 增加计数
-            requestCounts.set(ip, {
-                count: currentCount.count + 1,
-                date: today
-            });
         }
 
         const { imageUrl, hairStyle, hairColor } = await req.json();
@@ -73,19 +65,38 @@ export async function POST(req: NextRequest) {
         formData.append("task_type", "async");
         
         if (imageUrl.startsWith('http')) {
+            // 对于 HTTP/HTTPS URL，直接传递给 API
             formData.append("image_url", imageUrl);
         } else {
-            const imageResponse = await fetch(imageUrl, { 
-                timeout: 5000 // 缩短图片获取超时时间
-            });
-            if (!imageResponse.ok) {
-                throw new Error('Failed to fetch image');
+            // 对于非 HTTP URL，假设是 base64 data URL 或本地文件
+            console.log('Processing non-HTTP imageUrl, length:', imageUrl.length);
+            
+            try {
+                let buffer;
+                
+                if (imageUrl.startsWith('data:')) {
+                    // 处理 data URL (base64)
+                    const base64Data = imageUrl.split(',')[1];
+                    if (!base64Data) {
+                        throw new Error('Invalid data URL format');
+                    }
+                    buffer = Buffer.from(base64Data, 'base64');
+                } else {
+                    // 假设是 base64 字符串（没有 data: 前缀）
+                    buffer = Buffer.from(imageUrl, 'base64');
+                }
+                
+                formData.append("image", buffer, {
+                    filename: 'image.jpg',
+                    contentType: 'image/jpeg'
+                });
+                
+                console.log('Successfully processed image buffer, size:', buffer.length);
+                
+            } catch (error) {
+                console.error('Image processing error:', error);
+                throw new Error(`Invalid image data: ${error instanceof Error ? error.message : 'Unknown error'}`);
             }
-            const buffer = Buffer.from(await imageResponse.arrayBuffer());
-            formData.append("image", buffer, {
-                filename: 'image.jpg',
-                contentType: 'image/jpeg'
-            });
         }
 
         formData.append("hair_data", JSON.stringify([{
@@ -106,19 +117,54 @@ export async function POST(req: NextRequest) {
             timeout: 10000 // 保持与 client 配置一致
         });
 
-        if (response.data.error_code === 0 && response.data.task_id) {
+        const responseData = response.data as any;
+        console.log('API Response:', {
+            status: response.status,
+            error_code: responseData.error_code,
+            task_id: responseData.task_id,
+            error_detail: responseData.error_detail
+        });
+
+        if (responseData.error_code === 0 && responseData.task_id) {
+            // 只有在成功调用 AI API 后才计数
+            if (!currentCount || currentCount.date !== today) {
+                requestCounts.set(ip, { count: 1, date: today });
+            } else {
+                requestCounts.set(ip, {
+                    count: currentCount.count + 1,
+                    date: today
+                });
+            }
+            
             return NextResponse.json({ 
                 success: true,
-                taskId: response.data.task_id,
+                taskId: responseData.task_id,
                 status: 'processing'
             });
         }
         
+        // 根据不同的错误码提供更具体的错误信息
+        let errorMessage = 'This image might not work for hairstyle changes. Please try another photo.';
+        
+        if (responseData.error_detail) {
+            console.log('API Error Detail:', responseData.error_detail);
+            
+            // 根据具体错误提供更友好的提示
+            if (responseData.error_detail.includes('face') || responseData.error_detail.includes('人脸')) {
+                errorMessage = 'No clear face detected in the image. Please upload a photo with a clear, front-facing portrait.';
+            } else if (responseData.error_detail.includes('image') || responseData.error_detail.includes('图片')) {
+                errorMessage = 'Image format or quality issue. Please try a different photo.';
+            } else if (responseData.error_detail.includes('size') || responseData.error_detail.includes('大小')) {
+                errorMessage = 'Image size issue. Please try a smaller or higher quality image.';
+            }
+        }
+        
         return NextResponse.json({ 
             success: false,
-            error: 'This image might not work for hairstyle changes. Please try another photo.',
-            error_detail: response.data.error_detail
-        }, { status: response.data.error_detail?.status_code || 400 });
+            error: errorMessage,
+            error_detail: responseData.error_detail,
+            error_code: responseData.error_code
+        }, { status: 422 }); // 使用 422 表示请求格式正确但无法处理
 
     } catch (error) {
         console.error('Submit error:', error);

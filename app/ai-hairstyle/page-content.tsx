@@ -105,15 +105,16 @@ function SelectStylePageContent() {
     // 添加文件上传处理函数
     const handleImageUpload = async (file: File) => {
         try {
-            // 检查文件类型
-            if (!file.type.startsWith('image/')) {
-                toast.error('Please upload an image file');
+            // 检查文件类型 - 只支持 JPG, JPEG, PNG
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            if (!allowedTypes.includes(file.type.toLowerCase())) {
+                toast.error('Only JPG, JPEG, PNG formats are supported');
                 return;
             }
 
-            // 检查文件大小 (例如限制为 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                toast.error('Image size should be less than 5MB');
+            // 检查文件大小 (限制为 3MB)
+            if (file.size > 3 * 1024 * 1024) {
+                toast.error('Please upload an image less than 3MB');
                 return;
             }
 
@@ -198,7 +199,7 @@ function SelectStylePageContent() {
                         const file = e.target.files?.[0];
                         if (file) handleImageUpload(file);
                     }}
-                    accept="image/*"
+                    accept="image/jpeg,image/jpg,image/png"
                     className="hidden"
                 />
                 <div className="flex flex-col items-center space-y-4 p-8">
@@ -219,8 +220,10 @@ function SelectStylePageContent() {
                         <p className="text-xl font-medium text-gray-900">
                             Click or drag image here to upload
                         </p>
+
+
                         <p className="mt-2 text-sm text-gray-500">
-                            JPG, JPEG, PNG, BMP, WEBP
+                            JPG, JPEG, PNG, Less Than 3MB
                         </p>
                     </div>
                     <button 
@@ -232,6 +235,7 @@ function SelectStylePageContent() {
                     >
                         Upload Image
                     </button>
+   
                 </div>
             </div>
         );
