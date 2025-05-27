@@ -249,18 +249,31 @@ export default function Hero() {
         <section className="relative overflow-hidden">
             <div className="container mx-auto px-4 py-20">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto -mt-10">
+                    {/* 右侧图片 - 移动端优先显示 */}
+                    <div className="flex justify-center lg:order-2">
+                        <Image
+                            src="/images/hero/hero4.jpg"
+                            alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
+                            className="w-full h-auto max-w-sm lg:max-w-lg mx-auto"
+                            width={700}
+                            height={700}
+                            onError={handleImageError}
+                            priority
+                        />
+                    </div>
+
                     {/* 左侧内容 */}
-                    <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold mb-12 mt-10 text-gray-800">
+                    <div className="text-center lg:text-left lg:order-1">
+                        <h1 className="text-3xl md:text-5xl font-bold mb-8 lg:mb-12 mt-1 lg:mt-10 text-gray-800">
                             Free AI Hairstyle Changer
                         </h1>
                         
-                        <p className="text-lg text-gray-800 mb-4">
+                        <p className="text-sm md:text-lg text-gray-800 mb-4">
                             Not sure which hairstyle suits you best? Upload photo,and let Haistyle.a free AI hairstyle generator help you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
                             Whether you want <span className="font-bold">short, curly, wavy, or bold styles like buzz cuts and braids</span> , this free AI simulator haircut tool helps you experiment without a trip to the salon.
                         </p>
 
-                        <p className="text-lg text-gray-600 mb-4">
+                        <p className="text-sm md:text-lg text-gray-600 mb-4">
                             Whether you need an online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
                         </p>
 
@@ -268,11 +281,11 @@ export default function Hero() {
 
                             <Link 
                                 href="/ai-hairstyle" 
-                                className="inline-flex items-center bg-purple-600 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-purple-800 transition-colors"
+                                className="inline-flex items-center bg-purple-600 text-white px-8 py-4 rounded-full text-sm md:text-xl font-semibold hover:bg-purple-800 transition-colors"
                             >
                                 Try on Now
                                 <svg 
-                                    className="w-6 h-6 ml-2" 
+                                    className="w-3 h-3 md:w-6 md:h-6 " 
                                     fill="none" 
                                     stroke="currentColor" 
                                     viewBox="0 0 24 24"
@@ -305,17 +318,7 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* 右侧图片 */}
-                    <div className="hidden lg:block">
-                        <Image
-                            src="/images/hero/hero4.jpg"
-                            alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
-                            className="w-full h-auto max-w-lg mx-auto"
-                            width={700}
-                            height={700}
-                            onError={handleImageError}
-                        />
-                    </div>
+
                 </div>
             </div>
 
@@ -324,10 +327,10 @@ export default function Hero() {
                 <div className="max-w-7xl mx-auto">
                     {/* 标题和描述 */}
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold mb-6 text-gray-800">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                             Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
                         </h2>
-                        <p className="text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
+                        <p className="text-sm md:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
                               Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                         </p>
                     </div>
@@ -447,7 +450,7 @@ export default function Hero() {
                     <div className="text-center relative">
                         <Link 
                             href="/ai-hairstyle"
-                            className="mt-4 inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-lg font-medium"
+                            className="mt-4 inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-sm md:text-lg font-medium"
                         >
                             Try on Free AI Hairstyle Changer Now
                         </Link>
@@ -456,14 +459,14 @@ export default function Hero() {
             </div>
 
             {/* 第三部分：使用步骤说明 */}
-            <div id="how-to-use" className="bg-gray-50 py-20">
+            <div id="how-to-use" className="bg-gray-50 py-2 md:py-20">
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
                     <div className="text-center max-w-5xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold mb-6 text-gray-800">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                             How to Change Hairstyle Online with AI Hairstyle Online Free
                         </h2>
-                        <p className="text-lg text-gray-600">
+                        <p className="text-sm md:text-lg text-gray-600">
                             Transform your look with our hairstyle AI-powered changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
@@ -483,8 +486,8 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
-                            <p className="text-lg text-gray-800">
+                            <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
+                            <p className="text-sm md:text-lg text-gray-800">
                                 Upload your photo if you want to change your hairstyle with hairstyle AI changer.
                             </p>
                         </div>
@@ -501,8 +504,8 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
-                            <p className="text-lg text-gray-800">
+                            <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
+                            <p className="text-sm md:text-lg text-gray-800">
                                 Choose from our hairstyle AI changer, and pick the hairstyle filter and hair color you want to try.
                             </p>
                         </div>
@@ -519,15 +522,15 @@ export default function Hero() {
                                     onError={handleImageError}
                                 />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
-                            <p className="text-lg text-gray-800">
+                            <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
+                            <p className="text-sm md:text-lg text-gray-800">
                                 Our AI hairstyle generator will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
                         </div>
                     </div>
 
                     {/* 添加底部按钮 */}
-                    <div className="text-center mt-12">
+                    <div className="text-center text-sm md:text-lg mt-12">
                         <Link 
                             href="/ai-hairstyle"
                             className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
@@ -545,10 +548,10 @@ export default function Hero() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6 text-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                      How can I try on AI virtual hairstyles on my face?
                                 </h2>
-                                <p className="text-lg text-gray-600 mb-8">
+                                <p className="text-sm md:text-lg text-gray-600 mb-8">
                                     Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
                                     Our hairstyle AI tool helps you try on AI virtual hairstyles before making a decision. 
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
@@ -556,7 +559,7 @@ export default function Hero() {
                                 </p>
                                 <Link 
                                     href="/ai-hairstyle"
-                                    className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
+                                    className="inline-block text-sm md:text-lg bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
                                 >
                                     Try on Free AI Hairstyle Changer Now
                                 </Link>
@@ -566,7 +569,7 @@ export default function Hero() {
                                 <Image 
                                     src="/images/hero/ba3.jpg" 
                                     alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
-                                    className="w-[440px] h-[450px] object-cover rounded-xl"
+                                    className="w-[340px] md:w-[440px] h-[350px] md:h-[450px] object-cover rounded-xl"
                                     width={440}
                                     height={450}
                                     onError={handleImageError}
@@ -588,7 +591,7 @@ export default function Hero() {
                                 <Image 
                                     src="/images/hero/change.jpg" 
                                     alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
-                                    className="w-[430px] h-[470px] object-cover rounded-xl"
+                                    className="w-[300px] md:w-[430px] h-[320px] md:h-[470px] object-cover rounded-xl"
                                     width={430}
                                     height={470}
                                     onError={handleImageError}
@@ -597,10 +600,10 @@ export default function Hero() {
                             </div>
                             {/* 右侧内容 */}
                             <div>
-                                <h2 className="text-3xl font-bold mb-6 text-gray-800">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
-                                <div className="space-y-6 text-lg text-gray-600 ">
+                                <div className="space-y-6 text-sm md:text-lg text-gray-600 ">
                                     <p>
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
@@ -667,10 +670,10 @@ export default function Hero() {
             </div>
 
             {/* 第七部分：用户评价 */}
-            <div id="testimonials" className="bg-white py-20">
+            <div id="testimonials" className="bg-white py-6 md:py-20 ">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-center mb-16 text-gray-800">
+                        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 md:mb-16 text-gray-800">
                             What Users Are Saying About Hairstyle AI?
                         </h2>
                         
@@ -683,7 +686,7 @@ export default function Hero() {
 
                             {/* 评价内容 */}
                             <div className="relative">
-                                <p className="text-lg text-gray-700 mb-8 italic">
+                                <p className="text-sm md:text-lg text-gray-700 mb-8 italic">
                                     {testimonials[currentTestimonial].quote}
                                 </p>
 
@@ -756,10 +759,10 @@ export default function Hero() {
 
             {/* FAQ Section */}
             <div id="faq" className="bg-gray-50">
-                <div className="container mx-auto px-4 py-20">
+                <div className="container mx-auto px-4 py-2 md:py-20">
                     <div className="max-w-7xl mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-gray-800">
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
                                 FAQs of AI Hairstyle Changer
                             </h2>
                         </div>
@@ -777,7 +780,7 @@ export default function Hero() {
                                             onClick={() => toggleFAQ(index)}
                                             className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
                                         >
-                                            <h3 className="text-lg font-semibold text-gray-700">{item.question}</h3>
+                                            <h3 className="text-sm md:text-lg font-semibold text-gray-700">{item.question}</h3>
                                             <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                                                 <svg
                                                     className={`w-5 h-5 text-purple-600 transform transition-transform duration-300 ease-in-out ${
@@ -821,7 +824,7 @@ export default function Hero() {
                                             onClick={() => toggleFAQ(index + Math.ceil(faqItems.length / 2))}
                                             className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
                                         >
-                                            <h3 className="text-lg font-semibold text-gray-700">{item.question}</h3>
+                                            <h3 className="text-sm md:text-lg font-semibold text-gray-700">{item.question}</h3>
                                             <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                                                 <svg
                                                     className={`w-5 h-5 text-purple-700 transform transition-transform duration-300 ease-in-out ${
@@ -861,8 +864,8 @@ export default function Hero() {
             {/* Call to Action after FAQ */}
             <div className="bg-white py-16 px-4">
                 <div className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-6 text-gray-900">Ready to Find Your Perfect Hairstyle?</h2>
-                    <p className="text-xl text-gray-800 mb-10 max-w-3xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Ready to Find Your Perfect Hairstyle?</h2>
+                    <p className="text-sm md:text-xl text-gray-800 mb-10 max-w-3xl mx-auto">
                     Not sure which hairstyle suits you? Try on <span className="font-bold">60+ styles</span> for free with our AI tool—upload your photo and find the perfect look in just a few clicks!
                     </p>
 
