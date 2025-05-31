@@ -1,16 +1,7 @@
 # Allow all crawlers
 User-agent: *
 Allow: /
-Allow: /about/
 
-Disallow: /_next/static/
-Disallow: /api/*
-Disallow: /admin/*
-Disallow: /404
-Disallow: /500
-Disallow: /private/
-Disallow: /user-content/
-Disallow: /uploads/
 
 User-agent: GPTBot
 User-agent: Claude-Web
