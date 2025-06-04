@@ -40,6 +40,7 @@ export const hairColors = [
 ];
 
 export const femaleStyles: HairStyle[] = [
+  { style: "BuzzCut", description: "Buzz Cut", category: "Female", imageUrl: "/images/hairstyles/female/buzzcutfemale.jpg", alt: "Bold and edgy buzz cut hairstyle for women, perfect for a minimalist and confident look" },
   { style: "ShortPixieWithShavedSides", description: "Short Pixie", category: "Female", imageUrl: "/images/hairstyles/female/short-pixie.jpg", alt: "Modern short pixie cut with shaved sides, perfect for a bold and contemporary look" },
   { style: "ShortNeatBob", description: "Neat Bob", category: "Female", imageUrl: "/images/hairstyles/female/neat-bob.jpg", alt: "Classic neat bob hairstyle with clean lines and professional finish" },
   { style: "DoubleBun", description: "Double Bun", category: "Female", imageUrl: "/images/hairstyles/female/double-bun.jpg", alt: "Trendy double bun hairstyle popular among young fashion enthusiasts" },
