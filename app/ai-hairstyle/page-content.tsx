@@ -79,7 +79,7 @@ function SelectStylePageContent() {
 
     // 初始化默认样式（当没有URL参数时的fallback）
     useEffect(() => {
-        if (!searchParams.get('style') && defaultStyle && !selectedStyle) {
+        if (!searchParams.get('style') && defaultStyle && !selectedStyle && selectedGender === "Female") {
             const femaleStyle = femaleStyles.find(style => style.style === defaultStyle);
             if (femaleStyle) {
                 setSelectedGender("Female");
@@ -92,7 +92,7 @@ function SelectStylePageContent() {
                 }
             }
         }
-    }, [defaultStyle, selectedStyle, searchParams]);
+    }, [defaultStyle, searchParams]);
 
     const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
@@ -617,7 +617,6 @@ function SelectStylePageContent() {
                                         </button>
                                         <button
                                             onClick={() => {
-                                                console.log("Male Hairstyle button clicked");
                                                 setSelectedGender("Male");
                                                 setSelectedStyle("");
                                             }}
@@ -740,7 +739,7 @@ function SelectStylePageContent() {
                 <div className="lg:hidden flex flex-col h-screen max-h-screen overflow-hidden relative">
                     {/* 移动端图片上传/预览区域 - 扩大高度 */}
                     <section className="flex-shrink-0 h-80 mb-6" aria-label="Photo Upload Area">
-                        <h2 className="sr-only ">Upload Your Photo</h2>
+                        <h2 className="sr-only">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
                             <div className="h-full flex flex-col">
                                 {/* 上传区域 */}
@@ -755,7 +754,7 @@ function SelectStylePageContent() {
                                     <p className="text-sm text-gray-600 mb-1">Try these examples:</p>
                                     <div className="flex justify-center mt-6 gap-1.5">
                                         <button 
-                                            className="w-20 h-20  rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/david.jpg')}
                                         >
                                             <Image 
@@ -848,7 +847,6 @@ function SelectStylePageContent() {
                                 </button>
                                 <button
                                     onClick={() => {
-                                        console.log("Male button clicked (mobile)");
                                         setSelectedGender("Male");
                                         setSelectedStyle("");
                                     }}
