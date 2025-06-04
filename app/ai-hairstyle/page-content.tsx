@@ -737,11 +737,11 @@ function SelectStylePageContent() {
 
                 {/* 移动端布局 - 垂直布局，一屏显示 */}
                 <div className="lg:hidden flex flex-col h-screen max-h-screen overflow-hidden relative">
-                    {/* 移动端图片上传/预览区域 - 扩大高度 */}
-                    <section className="flex-shrink-0 h-80 mb-6 overflow-hidden" aria-label="Photo Upload Area">
+                    {/* 移动端图片上传/预览区域 - 调整高度 */}
+                    <section className="flex-shrink-0 h-60 mb-4" aria-label="Photo Upload Area">
                         <h2 className="sr-only">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
-                            <div className="h-full flex flex-col overflow-hidden">
+                            <div className="h-full flex flex-col">
                                 {/* 上传区域 */}
                                 <div className="flex-1 flex items-center justify-center px-4">
                                     <div className="w-full max-w-sm">
@@ -750,11 +750,11 @@ function SelectStylePageContent() {
                                 </div>
                                 
                                 {/* 示例图片区域 - 更紧凑 */}
-                                <div className="text-center mt-10 px-4 pb-1 flex-shrink-0">
+                                <div className="text-center mt-6 px-4 pb-1">
                                     <p className="text-sm text-gray-600 mb-1">Try these examples:</p>
-                                    <div className="flex justify-center mt-6 gap-1.5">
+                                    <div className="flex justify-center mt-4 gap-1.5">
                                         <button 
-                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/david.jpg')}
                                         >
                                             <Image 
@@ -766,7 +766,7 @@ function SelectStylePageContent() {
                                             />
                                         </button>
                                         <button 
-                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/michael.jpg')}
                                         >
                                             <Image 
@@ -778,7 +778,7 @@ function SelectStylePageContent() {
                                             />
                                         </button>
                                         <button 
-                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/k.jpg')}
                                         >
                                             <Image 
@@ -790,7 +790,7 @@ function SelectStylePageContent() {
                                             />
                                         </button>
                                         <button 
-                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/nana.jpg')}
                                         >
                                             <Image 
@@ -806,16 +806,16 @@ function SelectStylePageContent() {
                             </div>
                         ) : (
                             // 移动端预览区域
-                            <div className="h-full flex flex-col items-center justify-center overflow-hidden">
-                                {/* 图片显示区域 - 固定不滚动 */}
-                                <div className="flex items-center justify-center px-4 h-full w-full">
-                                    <div className="max-w-xs w-full flex-shrink-0">
+                            <div className="h-full flex flex-col">
+                                {/* 图片显示区域 */}
+                                <div className="flex-1 flex items-center justify-center px-4 relative">
+                                    <div className="max-w-xs w-full">
                                         <Image 
                                             src={uploadedImageUrl} 
                                             alt="Preview" 
                                             width={400}
                                             height={400}
-                                            className="w-full h-auto object-contain rounded-lg max-h-full"
+                                            className="w-full h-auto object-contain rounded-lg"
                                             unoptimized
                                         />
                                     </div>
@@ -971,7 +971,7 @@ function SelectStylePageContent() {
                 </div>
             </div>
 
-            {/* 添加隐藏滚动条的全局样式和自定义滚动条 */}
+            {/* 添加隐藏滚动条的全局样式 */}
             <style dangerouslySetInnerHTML={{
                 __html: `
                     .scrollbar-hide {
