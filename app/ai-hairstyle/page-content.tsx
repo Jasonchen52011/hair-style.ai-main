@@ -736,9 +736,9 @@ function SelectStylePageContent() {
                 </div>
 
                 {/* 移动端布局 - 垂直布局，一屏显示 */}
-                <div className="lg:hidden flex flex-col h-screen max-h-screen overflow-hidden">
+                <div className="lg:hidden flex flex-col h-screen max-h-screen overflow-hidden relative">
                     {/* 移动端图片上传/预览区域 - 扩大高度 */}
-                    <section className="flex-shrink-0 h-80 mb-2 " aria-label="Photo Upload Area">
+                    <section className="flex-shrink-0 h-80 mb-6" aria-label="Photo Upload Area">
                         <h2 className="sr-only ">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
                             <div className="h-full flex flex-col">
@@ -824,14 +824,14 @@ function SelectStylePageContent() {
                         )}
                     </section>
 
-                    {/* 移动端样式选择区域 - 压缩高度 */}
+                    {/* 移动端样式选择区域 - 固定在底部 */}
                     {uploadedImageUrl && (
-                    <section className="flex-shrink-0 px-2 pb-2" aria-label="Style Selection">
+                    <section className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-safe-area-inset-bottom shadow-lg z-50" aria-label="Style Selection">
                         <h2 className="sr-only">Select Hairstyle</h2>
                         
                         {/* 性别选择 - 更紧凑 */}
-                        <div className=" bg-white p-1.5 rounded-lg ">
-                            <div className="flex space-x-1.5 mt-8">
+                        <div className="bg-white p-1.5 rounded-lg">
+                            <div className="flex space-x-1.5 mt-2">
                                 <button
                                     onClick={() => {
                                         setSelectedGender("Female");
@@ -931,7 +931,7 @@ function SelectStylePageContent() {
                         {/* 生成按钮 - 更紧凑 */}
                         <button
                             onClick={handleGenerate}
-                            className="w-full py-2.5 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mb-2"
+                            className="w-full py-2.5 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mb-4"
                             disabled={!selectedStyle || !uploadedImageUrl || isLoading}
                         >
                             {isLoading ? (

@@ -266,7 +266,7 @@ export default function BuzzCutFilterPage() {
                                     <div className="font-medium text-gray-800">Popularity in 2025</div>
                                     <div className="text-gray-600 flex items-center">
                                         <span className="text-yellow-400">★★★★★</span>
-                                        <span className="ml-2">4.2/5.0</span>
+                                        <span className="ml-2">4.8/5.0</span>
                                     </div>
                                 </div>
                                 
