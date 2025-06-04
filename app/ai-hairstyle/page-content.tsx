@@ -738,10 +738,10 @@ function SelectStylePageContent() {
                 {/* 移动端布局 - 垂直布局，一屏显示 */}
                 <div className="lg:hidden flex flex-col h-screen max-h-screen overflow-hidden relative">
                     {/* 移动端图片上传/预览区域 - 扩大高度 */}
-                    <section className="flex-shrink-0 h-80 mb-6" aria-label="Photo Upload Area">
+                    <section className="flex-shrink-0 h-80 mb-6 overflow-hidden" aria-label="Photo Upload Area">
                         <h2 className="sr-only">Upload Your Photo</h2>
                         {!uploadedImageUrl ? (
-                            <div className="h-full flex flex-col">
+                            <div className="h-full flex flex-col overflow-hidden">
                                 {/* 上传区域 */}
                                 <div className="flex-1 flex items-center justify-center px-4">
                                     <div className="w-full max-w-sm">
@@ -750,7 +750,7 @@ function SelectStylePageContent() {
                                 </div>
                                 
                                 {/* 示例图片区域 - 更紧凑 */}
-                                <div className="text-center mt-10 px-4 pb-1">
+                                <div className="text-center mt-10 px-4 pb-1 flex-shrink-0">
                                     <p className="text-sm text-gray-600 mb-1">Try these examples:</p>
                                     <div className="flex justify-center mt-6 gap-1.5">
                                         <button 
@@ -806,16 +806,16 @@ function SelectStylePageContent() {
                             </div>
                         ) : (
                             // 移动端预览区域
-                            <div className="h-full flex flex-col">
-                                {/* 图片显示区域 */}
-                                <div className="flex-1 flex items-center justify-center px-4 relative">
-                                    <div className="max-w-sm w-full">
+                            <div className="h-full flex flex-col items-center justify-center overflow-hidden">
+                                {/* 图片显示区域 - 固定不滚动 */}
+                                <div className="flex items-center justify-center px-4 h-full w-full">
+                                    <div className="max-w-xs w-full flex-shrink-0">
                                         <Image 
                                             src={uploadedImageUrl} 
                                             alt="Preview" 
                                             width={400}
                                             height={400}
-                                            className="w-full h-auto object-contain rounded-lg"
+                                            className="w-full h-auto object-contain rounded-lg max-h-full"
                                             unoptimized
                                         />
                                     </div>
@@ -971,7 +971,7 @@ function SelectStylePageContent() {
                 </div>
             </div>
 
-            {/* 添加隐藏滚动条的全局样式 */}
+            {/* 添加隐藏滚动条的全局样式和自定义滚动条 */}
             <style dangerouslySetInnerHTML={{
                 __html: `
                     .scrollbar-hide {
@@ -980,6 +980,33 @@ function SelectStylePageContent() {
                     }
                     .scrollbar-hide::-webkit-scrollbar {
                         display: none;
+                    }
+                    
+                    /* 自定义滚动条样式 */
+                    ::-webkit-scrollbar {
+                        width: 8px;
+                        height: 8px;
+                    }
+                    
+                    ::-webkit-scrollbar-track {
+                        background: #f1f1f1;
+                        border-radius: 4px;
+                    }
+                    
+                    ::-webkit-scrollbar-thumb {
+                        background: #c1c1c1;
+                        border-radius: 4px;
+                        transition: background 0.3s ease;
+                    }
+                    
+                    ::-webkit-scrollbar-thumb:hover {
+                        background: #a8a8a8;
+                    }
+                    
+                    /* Firefox 滚动条样式 */
+                    * {
+                        scrollbar-width: thin;
+                        scrollbar-color: #c1c1c1 #f1f1f1;
                     }
                 `
             }} />
