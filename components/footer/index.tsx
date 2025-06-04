@@ -7,7 +7,7 @@ export default function Footer() {
     return (
         <footer className="bg-black text-white py-16">
             <div className="container mx-auto px-4">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
                     {/* Column 1 - Logo and Description */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
@@ -24,11 +24,23 @@ export default function Footer() {
                             <h3 className="text-2xl font-bold text-white">Hairstyle AI</h3>
                         </div>
                         <p className="text-gray-400 text-lg">
-                            Free AI Hairstyle Changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more.
+                            Hairstyle AI is a free online hairstyle simulator that lets you try 60+ haircuts and colors on your photo in seconds.
                         </p>
                     </div>
 
-                    {/* Column 2 - Company Links */}
+                    {/* Column 2 - Hairstyle Types */}
+                    <div>
+                        <h3 className="text-xl font-semibold mb-6">Hairstyle Filters</h3>
+                        <ul className="space-y-4">
+                            <li>
+                                <Link href="/buzz-cut-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Buzz Cut Filter
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Column 3 - Company Links */}
                     <div>
                         <h3 className="text-xl font-semibold mb-6">Company</h3>
                         <ul className="space-y-4">
@@ -50,7 +62,7 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Column 3 - Connect */}
+                    {/* Column 4 - Connect */}
                     <div>
                         <h3 className="text-xl font-semibold mb-6">Connect With Us</h3>
                         <div className="space-y-4">

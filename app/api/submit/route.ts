@@ -33,6 +33,9 @@ axiosRetry(client, {
 const requestCounts = new Map<string, { count: number; date: string }>();
 const DAILY_LIMIT = 5;
 
+// 本地开发白名单IP
+const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
+
 export async function POST(req: NextRequest) {
     try {
         // 获取客户端 IP
@@ -40,16 +43,26 @@ export async function POST(req: NextRequest) {
         const forwardedFor = headersList.get('x-forwarded-for');
         const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
 
-        // IP 限制检查 - 先检查是否超限，但不立即计数
-        const today = new Date().toISOString().split('T')[0];
-        const currentCount = requestCounts.get(ip);
+        // 检查是否为本地开发环境或白名单IP
+        const isLocalDev = process.env.NODE_ENV === 'development';
+        const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
+        
+        // IP 限制检查变量
+        let currentCount;
+        let today = new Date().toISOString().split('T')[0]; // 总是初始化today变量
+        
+        // 只在非本地开发环境且非白名单IP时进行限制检查
+        if (!isLocalDev && !isWhitelistIP) {
+            // IP 限制检查 - 先检查是否超限，但不立即计数
+            currentCount = requestCounts.get(ip);
 
-        // 检查是否已达到每日限制
-        if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
-            return NextResponse.json({
-                success: false,
-                error: 'You have reached your daily limit of 5 free generations. Please try again tomorrow.'
-            }, { status: 429 });
+            // 检查是否已达到每日限制
+            if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
+                return NextResponse.json({
+                    success: false,
+                    error: 'You have reached your daily limit of 5 free generations. Please try again tomorrow.'
+                }, { status: 429 });
+            }
         }
 
         const { imageUrl, hairStyle, hairColor } = await req.json();
@@ -126,14 +139,16 @@ export async function POST(req: NextRequest) {
         });
 
         if (responseData.error_code === 0 && responseData.task_id) {
-            // 只有在成功调用 AI API 后才计数
-            if (!currentCount || currentCount.date !== today) {
-                requestCounts.set(ip, { count: 1, date: today });
-            } else {
-                requestCounts.set(ip, {
-                    count: currentCount.count + 1,
-                    date: today
-                });
+            // 只有在成功调用 AI API 后才计数，且只对非白名单IP计数
+            if (!isLocalDev && !isWhitelistIP) {
+                if (!currentCount || currentCount.date !== today) {
+                    requestCounts.set(ip, { count: 1, date: today });
+                } else {
+                    requestCounts.set(ip, {
+                        count: currentCount.count + 1,
+                        date: today
+                    });
+                }
             }
             
             return NextResponse.json({ 
@@ -144,19 +159,20 @@ export async function POST(req: NextRequest) {
         }
         
         // 根据不同的错误码提供更具体的错误信息
-        let errorMessage = 'This image might not work for hairstyle changes. Please try another photo.';
+        let errorMessage = 'Unable to process this image. Please try a different photo.'; // 更简洁的默认消息
         
+        // 只对非常明确的错误进行特殊处理，其他情况使用默认消息
         if (responseData.error_detail) {
             console.log('API Error Detail:', responseData.error_detail);
             
-            // 根据具体错误提供更友好的提示
-            if (responseData.error_detail.includes('face') || responseData.error_detail.includes('人脸')) {
-                errorMessage = 'No clear face detected in the image. Please upload a photo with a clear, front-facing portrait.';
-            } else if (responseData.error_detail.includes('image') || responseData.error_detail.includes('图片')) {
-                errorMessage = 'Image format or quality issue. Please try a different photo.';
-            } else if (responseData.error_detail.includes('size') || responseData.error_detail.includes('大小')) {
-                errorMessage = 'Image size issue. Please try a smaller or higher quality image.';
+            // 确保 error_detail 是字符串类型后再使用 includes 方法
+            const errorDetail = String(responseData.error_detail);
+            
+            // 只保留最关键的错误判断
+            if (errorDetail.includes('人脸') && (errorDetail.includes('检测') || errorDetail.includes('识别'))) {
+                errorMessage = 'Please upload a photo with a clear, visible face.';
             }
+            // 其他所有错误都使用默认的简单消息，不进行具体分类
         }
         
         return NextResponse.json({ 

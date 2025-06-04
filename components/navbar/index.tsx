@@ -1,14 +1,16 @@
 "use client"
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
     const [isSticky, setIsSticky] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const pathname = usePathname();
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -30,14 +32,22 @@ export default function Navbar() {
         };
     }, []);
 
-    const scrollToSection = (id: string) => {
-        if (typeof document !== 'undefined') {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+    // 点击外部关闭下拉菜单
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
             }
+        };
+
+        if (isDropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
         }
-    };
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isDropdownOpen]);
 
     // 如果组件还没有挂载，返回一个占位导航栏
     if (!isMounted) {
@@ -52,7 +62,7 @@ export default function Navbar() {
                             </div>
                         </div>
                         <div className="hidden md:flex items-center space-x-1 ml-auto mr-8">
-                            {[1, 2, 3, 4].map((i) => (
+                            {[1, 2].map((i) => (
                                 <div key={i} className="w-24 h-8 bg-gray-200 rounded mx-2" />
                             ))}
                         </div>
@@ -97,24 +107,40 @@ export default function Navbar() {
                         >
                             Home
                         </Link>
-                        <button 
-                            onClick={() => scrollToSection('how-to-use')}
-                            className="px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
-                        >
-                            How To Use
-                        </button>
-                        <button 
-                            onClick={() => scrollToSection('testimonials')}
-                            className="px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
-                        >
-                            What Our Users Say
-                        </button>
-                        <button 
-                            onClick={() => scrollToSection('faq')}
-                            className="px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
-                        >
-                            FAQs of AI Hairstyle
-                        </button>
+                        
+                        {/* Hairstyle Filter Dropdown */}
+                        <div className="relative" ref={dropdownRef}>
+                            <button 
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
+                            >
+                                Hairstyle Filters
+                                <svg 
+                                    className={`ml-1 w-4 h-4 transition-transform duration-200 ${
+                                        isDropdownOpen ? 'rotate-180' : ''
+                                    }`} 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            {isDropdownOpen && (
+                                <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                    <div className="py-2">
+                                        <Link
+                                            href="/buzz-cut-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Buzz Cut Filter
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* Action Buttons */}

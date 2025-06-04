@@ -1,16 +1,10 @@
-# Allow all crawlers
+# *
 User-agent: *
 Allow: /
-
-
-User-agent: GPTBot
-User-agent: Claude-Web
-User-agent: Anthropic-AI
-User-agent: PerplexityBot
-User-agent: GoogleOther
-User-agent: DuckAssistBot
-User-Agent: anthropic-ai
-User-Agent: GPTBot
+Disallow: /api/*
+Disallow: /admin/*
+Disallow: /404
+Disallow: /500
 
 # Host
 Host: https://hair-style.ai

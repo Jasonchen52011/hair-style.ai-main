@@ -4,7 +4,6 @@ const nextConfig = {
     compiler: {
         styledComponents: true,
     },
-    unstable_runtimeJS: true,
     async headers() {
         return [
             {
