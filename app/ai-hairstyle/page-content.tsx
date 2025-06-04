@@ -617,6 +617,7 @@ function SelectStylePageContent() {
                                         </button>
                                         <button
                                             onClick={() => {
+                                                console.log("Male Hairstyle button clicked");
                                                 setSelectedGender("Male");
                                                 setSelectedStyle("");
                                             }}
@@ -847,6 +848,7 @@ function SelectStylePageContent() {
                                 </button>
                                 <button
                                     onClick={() => {
+                                        console.log("Male button clicked (mobile)");
                                         setSelectedGender("Male");
                                         setSelectedStyle("");
                                     }}
