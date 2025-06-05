@@ -331,7 +331,7 @@ export default function BuzzCutFilterPage() {
                                         Step 1: Upload Your Photo
                                     </h3>
                                     <p className="text-gray-600 leading-relaxed">
-                                        Take or choose a clear photo showing your full face. Make sure your photo is front-facing, with good lighting and no hair covering your forehead. You can upload PNG, JPG, JPEG, or WEBP files up to 10MB. The clearer your face, the more realistic your buzz cut result will look.
+                                        Take or choose a clear photo showing your full face. Make sure your photo is front-facing, with good lighting and no hair covering your forehead. You can upload PNG, JPG or JPEG files up to 3MB. The clearer your face, the more realistic your buzz cut result will look.
                                     </p>
                                 </div>
                                 

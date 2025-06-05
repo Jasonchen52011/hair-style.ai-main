@@ -754,7 +754,7 @@ function SelectStylePageContent() {
                                     <p className="text-sm text-gray-600 mb-1">Try these examples:</p>
                                     <div className="flex justify-center mt-4 gap-1.5">
                                         <button 
-                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/david.jpg')}
                                         >
                                             <Image 
@@ -766,7 +766,7 @@ function SelectStylePageContent() {
                                             />
                                         </button>
                                         <button 
-                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/michael.jpg')}
                                         >
                                             <Image 
@@ -778,7 +778,7 @@ function SelectStylePageContent() {
                                             />
                                         </button>
                                         <button 
-                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/k.jpg')}
                                         >
                                             <Image 
@@ -790,7 +790,7 @@ function SelectStylePageContent() {
                                             />
                                         </button>
                                         <button 
-                                            className="w-16 h-16 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
+                                            className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
                                             onClick={() => loadSampleImage('/images/examles/nana.jpg')}
                                         >
                                             <Image 
