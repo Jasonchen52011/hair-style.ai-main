@@ -101,23 +101,102 @@ function SelectStylePageContent() {
     };
 
     // 合并自 SelectStyle 组件的轮询函数
-    const pollTaskStatus = async (taskId: string, maxAttempts = 12) => {
+    const pollTaskStatus = async (taskId: string, maxAttempts = 20) => {
+        console.log(`Starting task polling, taskId: ${taskId}`);
+        
         for (let i = 0; i < maxAttempts; i++) {
             try {
-                const response = await fetch(`/api/submit?taskId=${taskId}`);
-                if (!response.ok) continue;
+                console.log(`Polling attempt ${i + 1} of ${maxAttempts}`);
                 
-                const data = await response.json();
-                if (data.task_status === 2 && data.data?.images) {
-                    return data;
+                const response = await fetch(`/api/submit?taskId=${taskId}`);
+                
+                if (!response.ok) {
+                    console.log(`Polling request failed, status: ${response.status}`);
+                    // Handle different HTTP error types
+                    if (response.status === 404) {
+                        throw new Error('Task not found. Please try uploading a new image.');
+                    } else if (response.status >= 500) {
+                        console.log('Server error, retrying...');
+                        await new Promise(resolve => setTimeout(resolve, 5000));
+                        continue;
+                    } else if (response.status === 429) {
+                        throw new Error('Too many requests. Please wait a moment and try again.');
+                    } else {
+                        console.error(`HTTP error: ${response.status} ${response.statusText}`);
+                        await new Promise(resolve => setTimeout(resolve, 5000));
+                        continue;
+                    }
                 }
                 
+                const data = await response.json();
+                console.log(`Polling response:`, {
+                    task_status: data.task_status,
+                    hasImages: !!data.data?.images,
+                    error_detail: data.error_detail
+                });
+                
+                // Check task completion status
+                if (data.task_status === 2) {
+                    if (data.data?.images) {
+                        // Validate image data integrity
+                        const imageKeys = Object.keys(data.data.images);
+                        if (imageKeys.length > 0) {
+                            const firstStyleImages = data.data.images[imageKeys[0]];
+                            if (Array.isArray(firstStyleImages) && firstStyleImages.length > 0 && firstStyleImages[0]) {
+                                console.log('Task completed successfully, found valid images');
+                                return data;
+                            }
+                        }
+                        console.warn('Task completed but image data is invalid:', data.data.images);
+                        throw new Error('Image processing completed but result is invalid. Please try with a different photo.');
+                    } else {
+                        console.warn('Task completed but no image data returned');
+                        throw new Error('Processing completed but no result image. Please try uploading a clearer photo.');
+                    }
+                } else if (data.task_status === 3) {
+                    // Task failed - provide specific guidance based on error
+                    console.error('Task processing failed:', data);
+                    const errorDetail = data.error_detail || data.error_msg || '';
+                    
+                    if (errorDetail.includes('face') || errorDetail.includes('人脸')) {
+                        throw new Error('No clear face detected in your photo. Please upload a photo with a clearly visible face looking forward.');
+                    } else if (errorDetail.includes('quality') || errorDetail.includes('resolution')) {
+                        throw new Error('Image quality is too low. Please upload a higher quality photo with better lighting.');
+                    } else if (errorDetail.includes('format') || errorDetail.includes('type')) {
+                        throw new Error('Unsupported image format. Please upload a JPG, JPEG, or PNG image.');
+                    } else if (errorDetail.includes('size') || errorDetail.includes('large')) {
+                        throw new Error('Image file is too large. Please upload an image smaller than 3MB.');
+                    } else {
+                        throw new Error('Unable to process this image. Please try with a different photo with clear lighting and visible face.');
+                    }
+                } else if (data.task_status === 1) {
+                    console.log('Task is still processing...');
+                } else {
+                    console.log(`Unknown task status: ${data.task_status}`);
+                }
+                
+                // Wait 5 seconds before next polling
                 await new Promise(resolve => setTimeout(resolve, 5000));
             } catch (error) {
-                console.error('Poll error:', error);
+                console.error(`Polling attempt ${i + 1} error:`, error);
+                // If it's a specific error we want to show immediately, throw it
+                if (error instanceof Error && 
+                    (error.message.includes('face detected') || 
+                     error.message.includes('quality') || 
+                     error.message.includes('format') || 
+                     error.message.includes('Task not found'))) {
+                    throw error;
+                }
+                // For other errors, continue trying if not the last attempt
+                if (i < maxAttempts - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    continue;
+                }
             }
         }
-        throw new Error('Processing timeout');
+        
+        console.error('Polling timeout - task may still be processing');
+        throw new Error('Processing is taking longer than expected. Please try again with a different photo or check your internet connection.');
     };
 
     // 合并自 SelectStyle 组件的生成函数
@@ -129,10 +208,13 @@ function SelectStylePageContent() {
 
         try {
             setIsLoading(true);
+            console.log('Starting hairstyle generation:', { selectedStyle, selectedColor });
 
             const finalColor = selectedColor === 'random' 
                 ? hairColors.filter(c => c.id !== 'random')[Math.floor(Math.random() * (hairColors.length - 1))].id
                 : selectedColor;
+
+            console.log('Final selected color:', finalColor);
 
             const response = await fetch("/api/submit", {
                 method: "POST",
@@ -145,6 +227,7 @@ function SelectStylePageContent() {
             });
 
             if (response.status === 429) {
+                toast.dismiss('generation-status');
                 toast.error('You have reached your daily limit of 5 free generations. Please try again tomorrow.', {
                     duration: 5000,
                     style: {
@@ -155,42 +238,105 @@ function SelectStylePageContent() {
                 return;
             }
 
+            if (!response.ok) {
+                toast.dismiss('generation-status');
+                const errorData = await response.json().catch(() => ({}));
+                console.error('API submission failed:', response.status, errorData);
+                
+                // Provide specific guidance based on HTTP status
+                if (response.status === 400) {
+                    throw new Error('Invalid image or parameters. Please try uploading a different photo.');
+                } else if (response.status === 413) {
+                    throw new Error('Image file is too large. Please upload an image smaller than 3MB.');
+                } else if (response.status === 422) {
+                    throw new Error(errorData.error || 'Unable to process this image. Please try with a clearer photo showing your face.');
+                } else if (response.status >= 500) {
+                    throw new Error('Server is temporarily unavailable. Please try again in a few moments.');
+                } else {
+                    throw new Error(errorData.error || `Request failed (${response.status}). Please try again.`);
+                }
+            }
+
             const data = await response.json();
+            console.log('API response received:', data);
             
             if (data.status === 'processing' && data.taskId) {
-                const result = await pollTaskStatus(data.taskId);
-                if (result.data.images) {
-                    const firstStyle = Object.keys(result.data.images)[0];
-                    const imageUrl = result.data.images[firstStyle][0];
+                toast.dismiss('generation-status');
+                toast.loading('Processing your image ...', {
+                    id: 'processing-status',
+                    duration: 120000, // 2 minutes
+                });
+
+                try {
+                    const result = await pollTaskStatus(data.taskId);
+                    toast.dismiss('processing-status');
                     
-                    const currentStyle = currentStyles.find(style => style.style === selectedStyle);
-                    const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
-                    
-                    handleStyleSelect(imageUrlWithStyle);
-                    
-                    toast.success('Generate Success!', {
-                        duration: 3000,
-                        position: 'top-center',
-                        style: {
-                            background: '#1F2937',
-                            color: '#fff',
-                            padding: '16px',
-                            borderRadius: '8px',
-                            marginTop: '100px',
-                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                        },
-                        icon: '✨',
-                    });
-                } else {
-                    throw new Error('Failed to get result image');
+                    if (result.data?.images) {
+                        const firstStyle = Object.keys(result.data.images)[0];
+                        const imageUrl = result.data.images[firstStyle][0];
+                        
+                        // Validate the generated image URL
+                        if (!imageUrl || typeof imageUrl !== 'string' || !imageUrl.startsWith('http')) {
+                            console.error('Invalid generated image URL:', imageUrl);
+                            throw new Error('Generated image URL is invalid. Please try again.');
+                        }
+                        
+                        console.log('Generation successful, image URL:', imageUrl);
+                        
+                        const currentStyle = currentStyles.find(style => style.style === selectedStyle);
+                        const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
+                        
+                        handleStyleSelect(imageUrlWithStyle);
+                        
+                        toast.success('Hairstyle generated successfully! 🎉', {
+                            duration: 3000,
+                            position: 'top-center',
+                            style: {
+                                background: '#1F2937',
+                                color: '#fff',
+                                padding: '16px',
+                                borderRadius: '8px',
+                                marginTop: '100px',
+                                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                            },
+                            icon: '✨',
+                        });
+                    } else {
+                        throw new Error('Processing completed but no result image was generated. Please try with a different photo.');
+                    }
+                } catch (pollError) {
+                    toast.dismiss('processing-status');
+                    console.error('Processing error:', pollError);
+                    throw pollError; // Re-throw to be handled by outer catch
                 }
             } else if (!data.success) {
-                throw new Error(data.error || 'Failed to process image');
+                toast.dismiss('generation-status');
+                const errorMsg = data.error || 'Failed to process image';
+                console.error('API processing failed:', errorMsg);
+                throw new Error(errorMsg);
+            } else {
+                toast.dismiss('generation-status');
+                throw new Error('Unexpected response format. Please try again.');
             }
 
         } catch (error) {
-            console.error('Style selection error:', error);
-            toast.error(error instanceof Error ? error.message : 'Failed to process image');
+            console.error('Generation error:', error);
+            
+            // Clean up any existing toasts
+            toast.dismiss('generation-status');
+            toast.dismiss('processing-status');
+            
+            // Show user-friendly error message
+            const errorMessage = error instanceof Error ? error.message : 'Hairstyle generation failed. Please try again.';
+            
+            toast.error(errorMessage, {
+                duration: 6000,
+                style: {
+                    background: '#1F2937',
+                    color: '#fff',
+                    maxWidth: '400px',
+                },
+            });
         } finally {
             setIsLoading(false);
         }
@@ -198,10 +344,67 @@ function SelectStylePageContent() {
 
     // 修改 handleStyleSelect 函数
     const handleStyleSelect = (imageUrl: string) => {
-        // 更新结果图片
+        console.log('Setting generation result:', imageUrl);
+        
+        if (!imageUrl || typeof imageUrl !== 'string') {
+            console.error('Invalid image URL provided:', imageUrl);
+            toast.error('Generated image link is invalid');
+            return;
+        }
+        
+        // Extract clean URL for validation
+        const cleanUrl = imageUrl.split('?')[0];
+        
+        // Validate URL format
+        if (!cleanUrl.startsWith('http')) {
+            console.error('Invalid image URL format:', imageUrl);
+            toast.error('Generated image link format is invalid');
+            return;
+        }
+        
+        // Update result image state
         setResultImageUrl(imageUrl);
-        // 将结果图片设置为当前显示的图片
+        console.log('Result image URL set:', imageUrl);
+        
+        // Update displayed image
         setUploadedImageUrl(imageUrl);
+        console.log('Display image URL updated:', imageUrl);
+        
+        // Preload image to ensure it displays properly
+        const img = document.createElement('img');
+        
+        img.onload = () => {
+            console.log('Result image preloaded successfully');
+            // Image loaded successfully, no further action needed
+        };
+        
+        img.onerror = (event) => {
+            console.error('Result image failed to load:', event);
+            toast.error('Generated image cannot be loaded. Please try generating again.', {
+                duration: 5000,
+                style: {
+                    background: '#1F2937',
+                    color: '#fff',
+                },
+            });
+            
+            // Reset to original image if result image fails to load
+            const originalUrl = searchParams.get('image');
+            if (originalUrl) {
+                setUploadedImageUrl(decodeURIComponent(originalUrl));
+            }
+        };
+        
+        // Set crossOrigin to handle CORS issues if any
+        img.crossOrigin = 'anonymous';
+        img.src = cleanUrl;
+        
+        // Also try to preload with the full URL (with parameters)
+        if (cleanUrl !== imageUrl) {
+            const imgWithParams = document.createElement('img');
+            imgWithParams.crossOrigin = 'anonymous';
+            imgWithParams.src = imageUrl;
+        }
     };
 
     // 修改下载处理函数
@@ -649,7 +852,7 @@ function SelectStylePageContent() {
                                                     className="w-full h-full object-cover"
                                                 />
                                             </div>
-                                            <p className={`text-xs font-medium text-center min-h-[2.0em] flex items-center justify-center text-center w-full ${
+                                            <p className={`text-xs font-medium min-h-[2.0em] flex items-center justify-center text-center w-full ${
                                                 selectedStyle === style.style ? "text-white" : "text-gray-700"
                                             }`}>
                                                 {style.description}
