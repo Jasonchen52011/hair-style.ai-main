@@ -1,5 +1,3 @@
-
-import Image from 'next/image'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import { Metadata } from 'next'
@@ -216,7 +214,7 @@ export default function About() {
                                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
                                     Hair-style.ai uses advanced AI and deep learning technologies to provide realistic hairstyle transformations. 
                                     Our proprietary algorithms analyze facial features and hair patterns to ensure natural-looking results that 
-                                    complement each individual's unique characteristics.
+                                    complement each individual&apos;s unique characteristics.
                                 </p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                     {[
