@@ -202,15 +202,15 @@ export default function BuzzCutFilterPage() {
                 <Navbar />
                 
                 {/* Hero Section */}
-                <section className="bg-white py-10 mb-10 mt-6">
+                <section className="bg-white py-2 sm:py-10  mb-10 mt-2 sm:mt-6">
                     <div className="w-full px-6 sm:px-12  xl:px-28">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center ">
                             {/* 左侧内容 */}
-                            <div className="pr-8">
+                            <div className="pr-8 order-2 lg:order-1">
                                 <h1 className="text-3xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     Buzz Cut Filter Online for Free
                                 </h1>
-                                <p className="text-lg md:text-2xl text-gray-600 mb-8">
+                                <p className="text-lg md:text-2xl text-gray-600 mb-4 sm:mb-8 ">
                                     Transform your look instantly with our free AI buzz cut simulator. 
                                     Just upload a photo and preview a fresh, bold buzz cut in 
                                     seconds—no haircut, no commitment, just a smarter way to 
@@ -249,7 +249,7 @@ export default function BuzzCutFilterPage() {
                                             }
                                         })}
                                     </div>
-                                    <span className="text-gray-600 font-medium">    258,000+ virtual hairstyles transformed</span>
+                                    <span className="text-gray-600 font-medium text-sm sm:text-base">    258,000+ virtual hairstyles transformed</span>
                                 </div>
                                 
                                 <Link 
@@ -262,7 +262,7 @@ export default function BuzzCutFilterPage() {
                             </div>
                             
                             {/* 右侧对比图片 */}
-                            <div className="flex justify-center lg:justify-end">
+                            <div className="flex justify-center lg:justify-end order-1 lg:order-2">
                                 <BeforeAfterSlider
                                     beforeImage={before}
                                     afterImage={after}
@@ -277,7 +277,7 @@ export default function BuzzCutFilterPage() {
 
                 {/* Before & After Gallery */}
                 <LazySection animationClass="animate-fadeInUp">
-                    <section className="py-20 bg-gray-50">
+                    <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
@@ -289,7 +289,7 @@ export default function BuzzCutFilterPage() {
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                                 <div className="bg-white rounded-lg overflow-hidden shadow-lg">
                                     <Image
                                         src="/images/buzzcutman3.jpg"
@@ -300,15 +300,7 @@ export default function BuzzCutFilterPage() {
                                     />
                                 </div>
                                 
-                                <div className="bg-white rounded-lg overflow-hidden shadow-lg">
-                                    <Image
-                                        src="/images/buzzcutgirl3.jpg"
-                                        alt="Buzz cut transformation - girl before and after"
-                                        width={400}
-                                        height={300}
-                                        className="w-full h-auto object-contain"
-                                    />
-                                </div>
+
                                 
                                 <div className="bg-white rounded-lg overflow-hidden shadow-lg">
                                     <Image
@@ -326,7 +318,7 @@ export default function BuzzCutFilterPage() {
 
                 {/* Is Buzz Cut Right for Me Section */}
                 <LazySection animationClass="animate-fadeInLeft">
-                <section className="py-20 bg-white">
+                <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
                             Is Buzz Cut Right for Me?
@@ -394,8 +386,8 @@ export default function BuzzCutFilterPage() {
 
                 {/* How to Use Buzz Cut Filter Section */}
                 <LazySection animationClass="animate-fadeInRight">
-                <section className="py-20 bg-gray-50">
-                    <div className="w-full px-2 sm:px-4 lg:px-6">
+                <section className="py-10 sm:py-20 bg-gray-50">
+                    <div className="w-full px-2 sm:px-4 lg:px-6 ">
                         <div className="text-center mb-12">
                             <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                 How to Use Buzz Cut Filter
@@ -405,9 +397,9 @@ export default function BuzzCutFilterPage() {
                             </p>
                         </div>
                         
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ">
                             {/* 左侧步骤 */}
-                            <div className="space-y-8">
+                            <div className="space-y-8 order-2 lg:order-1">
                                 <div>
                                     <h3 className="text-xl font-bold text-gray-800 mb-3">
                                         <i className="fas fa-upload mr-2 text-purple-600"></i>
@@ -458,7 +450,7 @@ export default function BuzzCutFilterPage() {
                             </div>
                             
                             {/* 右侧占位图 */}
-                            <div className="flex justify-center">
+                            <div className="flex justify-center order-1 lg:order-2">
                                 <div className="w-full max-w-3xl bg-gray-200 rounded-lg overflow-hidden shadow-lg">
                                     <Image
                                         src="/images/buzzcuthowto.jpg"
@@ -515,12 +507,12 @@ export default function BuzzCutFilterPage() {
                 </section>
 
                 {/* Try a Bold Look Section */}
-                <section className="py-20 bg-white">
+                <section className="py-2 sm:py-20  bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 {/* 左侧文本内容 */}
-                                <div className="space-y-6">
+                                <div className="space-y-6 order-2 lg:order-1">
                                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
                                         Try a Bold Look Just for Fun
                                     </h2>
@@ -595,12 +587,12 @@ export default function BuzzCutFilterPage() {
                 </section>
 
                 {/* Explore New Styles Section */}
-                <section className="py-20 bg-white">
+                <section className="py-2 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 {/* 左侧文本内容 */}
-                                <div className="space-y-6">
+                                <div className="space-y-6 order-2 lg:order-1">
                                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
                                         Explore New Styles Without Any Regrets
                                     </h2>
@@ -639,7 +631,7 @@ export default function BuzzCutFilterPage() {
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+                            <h2 className="text-2xl md:text-4xl font-bold mb-2 sm:mb-6 text-gray-800">
                                 Why Choose Our Buzz Cut Simulator?
                             </h2>
                         </div>
@@ -681,7 +673,7 @@ export default function BuzzCutFilterPage() {
                                 </p>
                             </div>
                         </div>
-                    <div className="w-full px-4 sm:px-6 lg:px-8 mt-10">
+                    <div className="w-full px-1 sm:px-6 lg:px-8 mt-10">
                     <div className="w-full">
                         <Testimonials testimonials={testimonialsConfig} />
                     </div>
@@ -707,7 +699,7 @@ export default function BuzzCutFilterPage() {
                 </LazySection>
 
                 {/* CTA Section */}
-                <section className="py-20 bg-gray-50">
+                <section className="py-2 sm:py-20 bg-gray-50 mb-10">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-4xl mx-auto text-center">
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
