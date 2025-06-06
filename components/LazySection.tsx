@@ -12,6 +12,7 @@ interface LazySectionProps {
   animationClass?: string
   animation?: string  // 添加 animation 属性支持
   delay?: number      // 添加 delay 属性支持
+  id?: string         // 添加 id 属性支持
 }
 
 export default function LazySection({ 
@@ -22,7 +23,8 @@ export default function LazySection({
   fallback,
   animationClass = 'animate-fadeInUp',
   animation,
-  delay = 0
+  delay = 0,
+  id
 }: LazySectionProps) {
   const { isVisible, isLoaded, elementRef } = useLazyLoad({
     threshold,
@@ -63,6 +65,7 @@ export default function LazySection({
   return (
     <div 
       ref={elementRef} 
+      id={id}
       className={`transition-all duration-700 ${className} ${delayClass} ${
         isVisible ? `opacity-100 ${getAnimationClass()}` : 'opacity-0'
       }`}
