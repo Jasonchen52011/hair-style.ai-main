@@ -399,7 +399,7 @@ export default function BuzzCutFilterPage() {
                         
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ">
                             {/* 左侧步骤 */}
-                            <div className="space-y-8 order-2 lg:order-1">
+                            <div className="space-y-6 order-2 lg:order-1">
                                 <div>
                                     <h3 className="text-xl font-bold text-gray-800 mb-3">
                                         <i className="fas fa-upload mr-2 text-purple-600"></i>
@@ -530,7 +530,7 @@ export default function BuzzCutFilterPage() {
                                 </div>
                                 
                                 {/* 右侧占位图 */}
-                                <div className="flex justify-center">
+                                <div className="flex justify-center order-1 lg:order-2">
                                     <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
                                         <Image
                                             src="/images/buzzcutgirl1.jpg"
@@ -610,7 +610,7 @@ export default function BuzzCutFilterPage() {
                                 </div>
                                 
                                 {/* 右侧占位图 */}
-                                <div className="flex justify-center">
+                                <div className="flex justify-center order-1 lg:order-2">
                                     <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
                                         <Image
                                             src="/images/buzzcutgirl2.jpg"
