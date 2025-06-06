@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { femaleStyles, maleStyles, hairColors } from '@/lib/hairstyles';
 import Image from 'next/image';
 import Link from 'next/link';
+import LazySection from '@/components/LazySection';
 
 
 type TabType = 'Female' | 'Male' | 'Color';
@@ -124,11 +125,9 @@ export default function Hero() {
         blue: "/images/colors/blue-hair.jpg",
         pink: "/images/colors/pink-hair.jpg",
         brown: "/images/colors/brown-hair.jpg",
-        gray: "/images/colors/gray-hair.jpg",
         green: "/images/colors/green-hair.jpg",
         orange: "/images/colors/orange-hair.jpg",
         white: "/images/colors/white-hair.jpg",
-        yellow: "/images/colors/yellow-hair.jpg",
         lightBrown: "/images/colors/light-brown-hair.jpg",
         lightBlue: "/images/colors/light-blue-hair.jpg",
         blonde: "/images/colors/blonde-hair.jpg",
@@ -136,6 +135,9 @@ export default function Hero() {
     };
 
     useEffect(() => {
+        // 切换标签时重置页码
+        setCurrentPage(0);
+        
         // 根据选中的标签获取对应的数据
         if (activeTab === 'Color') {
             // 只显示有对应图片的颜色选项
@@ -146,12 +148,9 @@ export default function Hero() {
             setDisplayColors(availableColors);
             setDisplayStyles([]);
         } else {
-            const styles = activeTab === 'Female' ? femaleStyles : maleStyles;
-            setDisplayStyles(styles.slice(0, 18).map(style => ({
-                imageUrl: style.imageUrl,
-                description: style.description
-            })));
+            // 对于发型标签，清空颜色数据，样式数据将通过 getCurrentPageStyles 动态获取
             setDisplayColors([]);
+            setDisplayStyles([]);
         }
     }, [activeTab]);
 
@@ -169,8 +168,8 @@ export default function Hero() {
 
     // 修改自动轮播逻辑
     useEffect(() => {
-        // 如果处于暂停状态，不执行自动轮播
-        if (isPaused) return;
+        // 如果处于暂停状态或在颜色标签，不执行自动轮播
+        if (isPaused || activeTab === 'Color') return;
 
         const timer = setInterval(() => {
             const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
@@ -247,224 +246,224 @@ export default function Hero() {
 
     return (
         <section className="relative overflow-hidden">
-            <div className="container mx-auto px-4 py-8  mb-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-full mx-auto ">
-                    {/* 右侧图片 - 移动端优先显示 */}
-                    <div className="flex justify-center lg:order-2">
-                        <Image
-                            src="/images/hero/hero4.jpg"
-                            alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
-                            className="w-full h-auto max-w-sm lg:max-w-lg mx-auto"
-                            width={700}
-                            height={700}
-                            onError={handleImageError}
-                            priority
-                        />
-                    </div>
+            <LazySection animation="fadeIn" threshold={0.2}>
+                <div className="container mx-auto px-4 py-8  mb-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-full mx-auto ">
+                        {/* 右侧图片 - 移动端优先显示 */}
+                        <LazySection animation="slideLeft" delay={200} className="flex justify-center lg:order-2">
+                            <Image
+                                src="/images/hero/hero4.jpg"
+                                alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
+                                className="w-full h-auto max-w-sm lg:max-w-lg mx-auto"
+                                width={700}
+                                height={700}
+                                onError={handleImageError}
+                                priority
+                            />
+                        </LazySection>
 
-                    {/* 左侧内容 */}
-                    <div className="text-center lg:text-left lg:order-1">
-                        <h1 className="text-3xl md:text-4xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
-                            Free AI Hairstyle Changer
-                        </h1>
-                        
-                        <p className="text-sm md:text-base text-gray-800 mb-4">
-                            Not sure which hairstyle suits you best? Upload photo,and let Haistyle.a free AI hairstyle generator help you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
-                            Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free AI simulator haircut tool helps you experiment without a trip to the salon.
-                        </p>
+                        {/* 左侧内容 */}
+                        <LazySection animation="slideRight" delay={400} className="text-center lg:text-left lg:order-1">
+                            <h1 className="text-3xl sm:text-5xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
+                                Free AI Hairstyle Changer
+                            </h1>
+                            
+                            <p className="text-sm sm:text-lg text-gray-800 mb-4">
+                                Not sure which hairstyle suits you best? Upload photo,and let Haistyle.a free AI hairstyle generator help you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
+                                Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free AI simulator haircut tool helps you experiment without a trip to the salon.
+                            </p>
 
-                        <p className="text-sm md:text-base text-gray-600 mb-4">
-                            Whether you need an online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
-                        </p>
+                            <p className="text-sm sm:text-lg text-gray-800 mb-4">
+                                Whether you need an online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
+                            </p>
 
-                            {/* 评分 */}
-                            <div className="flex items-center gap-2">
-                                <div className="flex">
-                                    {[...Array(5)].map((_, i) => (
-                                        <svg 
-                                            key={i}
-                                            className="w-6 h-6 text-yellow-400" 
-                                            fill="currentColor" 
-                                            viewBox="0 0 20 20"
-                                        >
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                        </svg>
-                                    ))}
+                                {/* 评分 */}
+                                <div className="flex items-center gap-2">
+                                    <div className="flex">
+                                        {[...Array(5)].map((_, i) => (
+                                            <svg 
+                                                key={i}
+                                                className="w-6 h-6 text-yellow-400" 
+                                                fill="currentColor" 
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                            </svg>
+                                        ))}
+                                    </div>
+                                    <span className="text-sm sm:text-lg  text-gray-800">4.9/5 from 50k+ users</span>
                                 </div>
-                                <span className="text-sm  text-gray-700">4.9/5 from 50k+ users</span>
-                            </div>
 
-                        <div className="flex flex-col lg:flex-row items-center gap-8 mt-6">
+                            <div className="flex flex-col lg:flex-row items-center gap-8 mt-6">
 
-                            <Link 
+                                                            <Link 
                                 href="/ai-hairstyle" 
-                                className="inline-flex items-center bg-purple-600 text-white px-8 py-4 rounded-full text-sm md:text-lg font-semibold hover:bg-purple-800 transition-colors"
+                                className="btn bg-purple-700 text-white btn-lg rounded-2xl "
                             >
                                 Try on Now
                             </Link>
 
 
-                        </div>
+                            </div>
+                        </LazySection>
+
+
                     </div>
-
-
                 </div>
-            </div>
+            </LazySection>
 
             {/* 第二部分：发型展示区域 */}
-            <div className="container mx-auto px-4 pb-20">
-                <div className="max-w-full mx-auto">
-                    {/* 标题和描述 */}
-                    <div className="text-center mb-16">
-                        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-                            Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
-                        </h2>
-                        <p className="text-sm md:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
-                              Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
-                        </p>
-                    </div>
+            <LazySection animation="slideUp" threshold={0.1}>
+                <div className="container mx-auto px-4 pb-20">
+                    <div className="max-w-full mx-auto">
+                        {/* 标题和描述 */}
+                        <LazySection animation="fadeIn" delay={200} className="text-center mb-16">
+                            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+                                Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
+                            </h2>
+                            <p className="text-sm md:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
+                                  Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
+                            </p>
+                        </LazySection>
 
-                    {/* 标签切换 */}
-                    <div className="flex justify-center mb-12">
-                        <div className="inline-flex rounded-lg overflow-hidden">
-                            {(['Female', 'Male', 'Color'] as const).map((tab) => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`px-16 py-3 text-base font-medium transition-all ${
-                                        activeTab === tab
-                                            ? 'bg-purple-700 text-white'
-                                            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                                    }`}
-                                >
-                                    {tab}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
+                        {/* 标签切换 */}
+                        <LazySection animation="zoomIn" delay={400} className="flex justify-center mb-12">
+                            <div className="inline-flex rounded-lg overflow-hidden">
+                                {(['Female', 'Male', 'Color'] as const).map((tab) => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`px-16 py-3 text-base font-medium transition-all ${
+                                            activeTab === tab
+                                                ? 'bg-purple-700 text-white shadow-lg'
+                                                : 'bg-gray-100 text-gray-600 hover:bg-gray-300'
+                                        }`}
+                                    >
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
+                        </LazySection>
 
-                    {/* 发型/颜色网格 */}
-                    <div className="relative">
-                        {/* 左右切换按钮 */}
-                        <button
-                            onClick={handlePrevPage}
-                            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-2 rounded-r-lg shadow-md hover:bg-white"
-                            aria-label="Previous page"
-                        >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
 
-                        <div className="grid grid-cols-3 md:grid-cols-6 gap-4 overflow-hidden">
-                            {activeTab === 'Color' ? (
-                                // 颜色选项展示
-                                displayColors.map((color, index) => (
-                                    <div key={index} className="group">
-                                        <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
-                                            {colorImages[color.id as keyof typeof colorImages] ? (
+                        {/* 发型/颜色网格 */}
+                        <LazySection animation="slideUp" delay={600} className="relative">
+                            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 overflow-hidden">
+                                {activeTab === 'Color' ? (
+                                    // 颜色选项展示
+                                    displayColors.map((color, index) => (
+                                        <div key={index} className="group transition-all duration-300 hover:scale-105">
+                                            <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                                                {colorImages[color.id as keyof typeof colorImages] ? (
+                                                    <Image
+                                                        src={colorImages[color.id as keyof typeof colorImages]}
+                                                        alt={color.label}
+                                                        className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                                        width={200}
+                                                        height={200}
+                                                        onError={handleImageError}
+                                                        loading="lazy"
+                                                    />
+                                                ) : (
+                                                    // 如果没有对应的图片，显示颜色块
+                                                    <div 
+                                                        className="w-full h-full"
+                                                        style={{ 
+                                                            background: color.id === 'random' ? color.color : color.color,
+                                                            opacity: 0.8 
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                            <p className="text-center text-gray-800 font-medium">
+                                                {color.label}
+                                            </p>
+                                        </div>
+                                    ))
+                                ) : (
+                                    // 发型选项展示
+                                    getCurrentPageStyles().map((style, index) => (
+                                        <div key={index} className="hairstyle-item transition-all duration-300 hover:scale-105">
+                                            <div className="hairstyle-image relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
                                                 <Image
-                                                    src={colorImages[color.id as keyof typeof colorImages]}
-                                                    alt={color.label}
-                                                    className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                                    src={style.imageUrl}
+                                                    alt={style.description}
+                                                    className="w-full h-full object-cover"
                                                     width={200}
                                                     height={200}
                                                     onError={handleImageError}
+                                                    loading="lazy"
                                                 />
-                                            ) : (
-                                                // 如果没有对应的图片，显示颜色块
-                                                <div 
-                                                    className="w-full h-full"
-                                                    style={{ 
-                                                        background: color.id === 'random' ? color.color : color.color,
-                                                        opacity: 0.8 
-                                                    }}
-                                                />
-                                            )}
+                                            </div>
+                                            <h3 className="text-center text-gray-800 font-medium">
+                                                {style.description}
+                                            </h3>
                                         </div>
-                                        <p className="text-center text-gray-800 font-medium">
-                                            {color.label}
-                                        </p>
-                                    </div>
-                                ))
-                            ) : (
-                                // 发型选项展示
-                                getCurrentPageStyles().map((style, index) => (
-                                    <div key={index} className="hairstyle-item">
-                                        <div className="hairstyle-image relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
-                                            <Image
-                                                src={style.imageUrl}
-                                                alt={style.description}
-                                                className="w-full h-full object-cover"
-                                                width={200}
-                                                height={200}
-                                                onError={handleImageError}
-                                                loading="lazy"
-                                            />
-                                        </div>
-                                        <h3 className="text-center text-gray-800 font-medium">
-                                            {style.description}
-                                        </h3>
-                                    </div>
-                                ))
-                            )}
-                        </div>
+                                    ))
+                                )}
+                            </div>
 
-                        <button
-                            onClick={handleNextPage}
-                            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 p-2 rounded-l-lg shadow-md hover:bg-white"
-                            aria-label="Next page"
-                        >
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        </LazySection>
 
-                        {/* 页码指示器 */}
-                        <div className="flex justify-center mt-4 gap-2">
-                            {[...Array(getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles))].map((_, i) => (
+
+                        {/* 左右切换按钮 - 居中显示 */}
+                        {activeTab !== 'Color' && (
+                            <div className="flex justify-center items-center gap-8 mb-8 mt-4">
                                 <button
-                                    key={i}
-                                    onClick={() => setCurrentPage(i)}
-                                    className={`w-2 h-2 rounded-full ${
-                                        currentPage === i ? 'bg-purple-600' : 'bg-gray-300'
-                                    }`}
-                                    aria-label={`Go to page ${i + 1}`}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                                    onClick={handlePrevPage}
+                                    className="btn btn-circle btn-outline"
+                                    aria-label="Previous page"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                
+                                <button
+                                    onClick={handleNextPage}
+                                    className="btn btn-circle btn-outline"
+                                    aria-label="Next page"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        )}
 
-                    {/* More Style 按钮 */}
-                    <div className="text-center relative">
-                        <Link 
-                            href="/ai-hairstyle"
-                            className="mt-4 inline-flex items-center justify-center px-8 py-3 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition-colors text-sm md:text-lg font-medium"
-                        >
-                            Try on Free AI Hairstyle Changer Now
-                        </Link>
+
+
+                        {/* More Style 按钮 */}
+                        <LazySection animation="fadeIn" delay={800} className="text-center relative">
+                            <Link 
+                                href="/ai-hairstyle"
+                                className="btn bg-purple-700 text-white btn-lg rounded-xl mt-4"
+                            >
+                                Try on Free AI Hairstyle Changer Now
+                            </Link>
+                        </LazySection>
                     </div>
                 </div>
-            </div>
+            </LazySection>
 
             {/* 第三部分：使用步骤说明 */}
-            <div id="how-to-use" className="bg-gray-50 py-2 md:py-20">
+            <LazySection animation="fadeIn" className="bg-gray-50 py-2 md:py-20" id="how-to-use">
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
-                    <div className="text-center max-w-full mx-auto mb-16">
-                        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+                    <LazySection animation="slideUp" delay={200} className="text-center max-w-full mx-auto mb-16">
+                        <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                             How to Change Hairstyle Online with AI Hairstyle Online Free
                         </h2>
-                        <p className="text-sm md:text-lg text-gray-600">
+                        <p className="text-sm sm:text-lg text-gray-800">
                             Transform your look with our hairstyle AI-powered changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
-                    </div>
+                    </LazySection>
 
                     {/* 步骤说明卡片 */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-full mx-auto mb-12">
                         {/* Step 1 */}
-                        <div className="text-center">
+                        <LazySection animation="slideUp" delay={400} className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/upload.jpg" 
@@ -473,16 +472,17 @@ export default function Hero() {
                                     width={400}
                                     height={300}
                                     onError={handleImageError}
+                                    loading="lazy"
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
                             <p className="text-sm md:text-lg text-gray-800">
                                 Upload your photo if you want to change your hairstyle with hairstyle AI changer.
                             </p>
-                        </div>
+                        </LazySection>
 
                         {/* Step 2 */}
-                        <div className="text-center">
+                        <LazySection animation="slideUp" delay={600} className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/choose.jpg" 
@@ -491,16 +491,17 @@ export default function Hero() {
                                     width={400}
                                     height={300}
                                     onError={handleImageError}
+                                    loading="lazy"
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
                             <p className="text-sm md:text-lg text-gray-800">
                                 Choose from our hairstyle AI changer, and pick the hairstyle filter and hair color you want to try.
                             </p>
-                        </div>
+                        </LazySection>
 
                         {/* Step 3 */}
-                        <div className="text-center">
+                        <LazySection animation="slideUp" delay={800} className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/download.jpg" 
@@ -509,34 +510,47 @@ export default function Hero() {
                                     width={400}
                                     height={300}
                                     onError={handleImageError}
+                                    loading="lazy"
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
                             <p className="text-sm md:text-lg text-gray-800">
                                 Our AI hairstyle generator will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
-                        </div>
+                        </LazySection>
                     </div>
 
                     {/* 添加底部按钮 */}
-                    <div className="text-center text-sm md:text-lg mt-12">
+                    <LazySection animation="fadeIn" delay={1000} className="text-center mt-12">
                         <Link 
                             href="/ai-hairstyle"
-                            className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
+                            className="btn bg-purple-700 text-white btn-lg rounded-xl"
                         >
                             Try on Free Hairstyle AI Changer Now
                         </Link>
-                    </div>
+                    </LazySection>
                 </div>
-            </div>
+            </LazySection>
 
             {/* 第四部分：How to try on hairstyles */}
-            <div className="bg-gray-100">
+            <LazySection animation="fadeIn" className="bg-white">
                 <div className="container mx-auto px-4 py-10">
                     <div className="max-w-full mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* 左侧内容 */}
-                            <div>
+                            {/* 图片 - 移动端显示在上方 */}
+                            <LazySection animation="slideLeft" delay={400} className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                                <Image 
+                                    src="/images/hero/ba3.jpg" 
+                                    alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
+                                    className="w-[340px] md:w-[440px] h-[350px] md:h-[450px] object-cover rounded-xl"
+                                    width={440}
+                                    height={450}
+                                    onError={handleImageError}
+                                    loading="lazy"
+                                />
+                            </LazySection>
+                            {/* 内容 - 移动端显示在下方 */}
+                            <LazySection animation="slideRight" delay={200} className="order-1 lg:order-2">
                                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                      How can I try on AI virtual hairstyles on my face?
                                 </h2>
@@ -548,35 +562,23 @@ export default function Hero() {
                                 </p>
                                 <Link 
                                     href="/ai-hairstyle"
-                                    className="inline-block text-sm md:text-lg bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
+                                    className="btn bg-purple-700 text-white btn-lg rounded-xl"
                                 >
                                     Try on Free AI Hairstyle Changer Now
                                 </Link>
-                            </div>
-                            {/* 右侧图片 */}
-                            <div className="bg-white p-4 rounded-2xl shadow-sm">
-                                <Image 
-                                    src="/images/hero/ba3.jpg" 
-                                    alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
-                                    className="w-[340px] md:w-[440px] h-[350px] md:h-[450px] object-cover rounded-xl"
-                                    width={440}
-                                    height={450}
-                                    onError={handleImageError}
-                                    priority
-                                />
-                            </div>
+                            </LazySection>
                         </div>
                     </div>
                 </div>
-            </div>
+            </LazySection>
 
             {/* 第五部分：What Haircut Fits */}
-            <div className="bg-white">
-                <div className="container mx-auto px-4 py-20">
+            <LazySection animation="fadeIn" className="bg-white">
+                <div className="container mx-auto px-4 py-4 sm:py-20">
                     <div className="max-w-full mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧图片 */}
-                            <div className="bg-white p-4 rounded-2xl shadow-sm">
+                            <LazySection animation="slideRight" delay={200} className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
                                 <Image 
                                     src="/images/hero/change.jpg" 
                                     alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
@@ -584,15 +586,15 @@ export default function Hero() {
                                     width={430}
                                     height={470}
                                     onError={handleImageError}
-                                    priority
+                                    loading="lazy"
                                 />
-                            </div>
+                            </LazySection>
                             {/* 右侧内容 */}
-                            <div>
-                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+                            <LazySection animation="slideLeft" delay={400} className="order-2 lg:order-1">
+                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
-                                <div className="space-y-6 text-sm md:text-lg text-gray-600 ">
+                                <div className="space-y-6 text-sm sm:text-lg text-gray-600 ">
                                     <p>
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
@@ -610,19 +612,19 @@ export default function Hero() {
                                         If you're still unsure, you can easily find your answer with our online AI haircut simulator.
                                     </p>
                                 </div>
-                            </div>
+                            </LazySection>
                         </div>
                     </div>
                 </div>
-            </div>
+            </LazySection>
 
             {/* 第六部分：What is hairstyle AI changer */}
-            <div className="bg-gray-100">
+            <div className="bg-gray-50">
                 <div className="container mx-auto px-4 py-20">
                     <div className="max-w-full mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
-                            <div>
+                            <div className="order-1 lg:order-2">
                                 <h2 className="text-3xl font-bold mb-6 text-gray-800">
                                     What is AI Hairstyle Changer?
                                 </h2>
@@ -635,14 +637,14 @@ export default function Hero() {
                                     Try on AI versatile hairstyle filters today and discover your ideal hairstyle in just a few clicks!
                                 </p>
                                 <Link 
-                                    href="/images/hero/ba.jpg"
-                                    className="inline-block bg-purple-700 text-white px-8 py-4 rounded-xl font-semibold hover:bg-purple-800 transition-colors"
+                                    href="/ai-hairstyle"
+                                    className="btn bg-purple-700 text-white btn-lg rounded-xl"
                                 >
                                     Try on AI Hairstyle Changer Now
                                 </Link>
                             </div>
                             {/* 右侧图片 */}
-                            <div className="bg-white p-4 rounded-2xl shadow-sm">
+                            <div className="bg-gray-50 rounded-xl shadow-lg">
                                 <Image 
                                     src="/images/hero/ba5.jpg" 
                                     alt="Side-by-side comparison demonstrating the power of AI haircut simulator technology"
@@ -662,7 +664,7 @@ export default function Hero() {
             <div id="testimonials" className="bg-white py-6 md:py-20 ">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 md:mb-16 text-gray-800">
+                        <h2 className="text-2xl sm:text-4xl font-bold text-center mb-2 md:mb-16 text-gray-800">
                             What Users Are Saying About Hairstyle AI?
                         </h2>
                         
@@ -704,11 +706,11 @@ export default function Hero() {
                             <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full left-0 px-4">
                                 <button
                                     onClick={handlePrevious}
-                                    className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors -translate-x-20"
+                                    className="btn btn-circle btn-ghost -translate-x-20"
                                     aria-label="Previous testimonial"
                                 >
                                     <svg
-                                        className="w-6 h-6 text-gray-600"
+                                        className="w-6 h-6"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -723,11 +725,11 @@ export default function Hero() {
                                 </button>
                                 <button
                                     onClick={handleNext}
-                                    className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-50 transition-colors translate-x-20"
+                                    className="btn btn-circle btn-ghost translate-x-20"
                                     aria-label="Next testimonial"
                                 >
                                     <svg
-                                        className="w-6 h-6 text-gray-600"
+                                        className="w-6 h-6"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -751,7 +753,7 @@ export default function Hero() {
                 <div className="container mx-auto px-4 py-2 md:py-20">
                     <div className="max-w-full mx-auto">
                         <div className="text-center mb-12">
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+                            <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                 FAQs of AI Hairstyle Changer
                             </h2>
                         </div>
@@ -767,9 +769,9 @@ export default function Hero() {
                                     >
                                         <button
                                             onClick={() => toggleFAQ(index)}
-                                            className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
+                                            className="w-full px-3 py-2 sm:px-4 sm:py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
                                         >
-                                            <h3 className="text-sm md:text-lg font-semibold text-gray-700">{item.question}</h3>
+                                            <h3 className="text-base sm:text-lg  text-gray-700">{item.question}</h3>
                                             <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                                                 <svg
                                                     className={`w-5 h-5 text-purple-600 transform transition-transform duration-300 ease-in-out ${
@@ -811,9 +813,9 @@ export default function Hero() {
                                     >
                                         <button
                                             onClick={() => toggleFAQ(index + Math.ceil(faqItems.length / 2))}
-                                            className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
+                                            className="w-full px-3 py-2 sm:px-4 sm:py-4 text-left flex justify-between items-center hover:bg-purple-50/50 transition-all duration-300"
                                         >
-                                            <h3 className="text-sm md:text-lg font-semibold text-gray-700">{item.question}</h3>
+                                            <h3 className="text-base sm:text-lg  text-gray-700">{item.question}</h3>
                                             <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                                                 <svg
                                                     className={`w-5 h-5 text-purple-700 transform transition-transform duration-300 ease-in-out ${
@@ -861,7 +863,7 @@ export default function Hero() {
 
                     <button
                       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                      className="bg-purple-600 text-white px-8 py-3 rounded-full hover:bg-purple-800 transition-colors inline-flex items-center gap-4"
+                      className="btn bg-purple-700 text-white btn-lg rounded-xl"
                     >
                       Try AI Hairstyle Changer Now
                     </button>

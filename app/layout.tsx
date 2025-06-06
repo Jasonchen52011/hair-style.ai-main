@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning>
       <head>
       <script
         id="clarity-script"
@@ -67,7 +67,7 @@ export default function RootLayout({
         <script async src="https://cse.google.com/..."></script>
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="pzQdswZNDZJoi+e1uLS3jg" async></script>
       </head>
-      <body>{children}</body>
+      <body className={satoshi.className}>{children}</body>
     </html>
   )
 }

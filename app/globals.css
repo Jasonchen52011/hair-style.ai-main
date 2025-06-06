@@ -30,11 +30,60 @@
 :root {
   --foreground: #171717;
   --background: #ffffff;
+  
+  /* Primary 颜色系统 */
+  --primary-50: #faf5ff;
+  --primary-100: #f3e8ff;
+  --primary-200: #e9d5ff;
+  --primary-300: #d8b4fe;
+  --primary-400: #c084fc;
+  --primary-500: #a855f7;
+  --primary-600: #9333ea;
+  --primary-700: #7c3aed;  /* 主色 */
+  --primary-800: #6b21a8;  /* 深色 */
+  --primary-900: #581c87;
+  --primary-950: #3b0764;
+  
+  /* 语义化颜色 */
+  --primary: var(--primary-700);
+  --primary-dark: var(--primary-800);
+  --primary-light: var(--primary-500);
+  --primary-lighter: var(--primary-300);
+  --primary-lightest: var(--primary-100);
+}
+
+/* 强制使用浅色模式 */
+html {
+  color-scheme: light only;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+  /* 强制白色背景，防止系统深色模式影响 */
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+/* 自定义 primary 按钮样式 */
+.btn-primary-custom {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-primary-custom:focus {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
 }
 
 /* 懒加载动画 */
@@ -111,4 +160,16 @@ body {
 
 .animate-delay-400 {
   animation-delay: 0.4s;
+}
+
+.animate-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animate-delay-800 {
+  animation-delay: 0.8s;
+}
+
+.animate-delay-1000 {
+  animation-delay: 1s;
 }
