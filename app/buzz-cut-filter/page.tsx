@@ -276,7 +276,7 @@ export default function BuzzCutFilterPage() {
                 </section>
 
                 {/* Before & After Gallery */}
-                <LazySection animationClass="animate-fadeInUp">
+                <LazySection>
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
@@ -317,7 +317,7 @@ export default function BuzzCutFilterPage() {
                 </LazySection>
 
                 {/* Is Buzz Cut Right for Me Section */}
-                <LazySection animationClass="animate-fadeInLeft">
+                <LazySection>
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
@@ -385,7 +385,7 @@ export default function BuzzCutFilterPage() {
                 </LazySection>
 
                 {/* How to Use Buzz Cut Filter Section */}
-                <LazySection animationClass="animate-fadeInRight">
+                <LazySection>
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full px-2 sm:px-4 lg:px-6 ">
                         <div className="text-center mb-12">
@@ -627,7 +627,7 @@ export default function BuzzCutFilterPage() {
                 </section>
 
                 {/* Why Choose Our Buzz Cut Simulator Section */}
-                <LazySection animationClass="animate-fadeIn">
+                <LazySection>
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full px-4 sm:px-6 lg:px-8">
                         <div className="text-center mb-16">
@@ -683,7 +683,7 @@ export default function BuzzCutFilterPage() {
                 </LazySection>
 
                 {/* FAQ Section */}
-                <LazySection animationClass="animate-fadeInUp">
+                <LazySection>
                 <section className="py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="text-center mb-16">

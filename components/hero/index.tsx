@@ -246,11 +246,11 @@ export default function Hero() {
 
     return (
         <section className="relative overflow-hidden">
-            <LazySection animation="fadeIn" threshold={0.2}>
+            <LazySection threshold={0.2}>
                 <div className="container mx-auto px-4 py-8  mb-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-full mx-auto ">
                         {/* 右侧图片 - 移动端优先显示 */}
-                        <LazySection animation="slideLeft" delay={200} className="flex justify-center lg:order-2">
+                        <LazySection className="flex justify-center lg:order-2">
                             <Image
                                 src="/images/hero/hero4.jpg"
                                 alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
@@ -263,7 +263,7 @@ export default function Hero() {
                         </LazySection>
 
                         {/* 左侧内容 */}
-                        <LazySection animation="slideRight" delay={400} className="text-center lg:text-left lg:order-1">
+                        <LazySection className="text-center lg:text-left lg:order-1">
                             <h1 className="text-3xl sm:text-5xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
                                 Free AI Hairstyle Changer
                             </h1>
@@ -313,11 +313,11 @@ export default function Hero() {
             </LazySection>
 
             {/* 第二部分：发型展示区域 */}
-            <LazySection animation="slideUp" threshold={0.1}>
+            <LazySection threshold={0.1}>
                 <div className="container mx-auto px-4 pb-20">
                     <div className="max-w-full mx-auto">
                         {/* 标题和描述 */}
-                        <LazySection animation="fadeIn" delay={200} className="text-center mb-16">
+                        <LazySection className="text-center mb-16">
                             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                 Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
                             </h2>
@@ -327,7 +327,7 @@ export default function Hero() {
                         </LazySection>
 
                         {/* 标签切换 */}
-                        <LazySection animation="zoomIn" delay={400} className="flex justify-center mb-12">
+                        <LazySection className="flex justify-center mb-12">
                             <div className="inline-flex rounded-lg overflow-hidden">
                                 {(['Female', 'Male', 'Color'] as const).map((tab) => (
                                     <button
@@ -347,7 +347,7 @@ export default function Hero() {
 
 
                         {/* 发型/颜色网格 */}
-                        <LazySection animation="slideUp" delay={600} className="relative">
+                        <LazySection className="relative">
                             <div className="grid grid-cols-3 md:grid-cols-6 gap-4 overflow-hidden">
                                 {activeTab === 'Color' ? (
                                     // 颜色选项展示
@@ -434,7 +434,7 @@ export default function Hero() {
 
 
                         {/* More Style 按钮 */}
-                        <LazySection animation="fadeIn" delay={800} className="text-center relative">
+                        <LazySection className="text-center relative">
                             <Link 
                                 href="/ai-hairstyle"
                                 className="btn bg-purple-700 text-white btn-lg rounded-xl mt-4"
@@ -447,10 +447,10 @@ export default function Hero() {
             </LazySection>
 
             {/* 第三部分：使用步骤说明 */}
-            <LazySection animation="fadeIn" className="bg-gray-50 py-2 md:py-20" id="how-to-use">
+            <LazySection className="bg-gray-50 py-2 md:py-20" id="how-to-use">
                 <div className="container mx-auto px-4">
                     {/* 标题和介绍 */}
-                    <LazySection animation="slideUp" delay={200} className="text-center max-w-full mx-auto mb-16">
+                    <LazySection className="text-center max-w-full mx-auto mb-16">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                             How to Change Hairstyle Online with AI Hairstyle Online Free
                         </h2>
@@ -463,7 +463,7 @@ export default function Hero() {
                     {/* 步骤说明卡片 */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-full mx-auto mb-12">
                         {/* Step 1 */}
-                        <LazySection animation="slideUp" delay={400} className="text-center">
+                        <LazySection className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/upload.jpg" 
@@ -482,7 +482,7 @@ export default function Hero() {
                         </LazySection>
 
                         {/* Step 2 */}
-                        <LazySection animation="slideUp" delay={600} className="text-center">
+                        <LazySection className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/choose.jpg" 
@@ -501,7 +501,7 @@ export default function Hero() {
                         </LazySection>
 
                         {/* Step 3 */}
-                        <LazySection animation="slideUp" delay={800} className="text-center">
+                        <LazySection className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/download.jpg" 
@@ -521,7 +521,7 @@ export default function Hero() {
                     </div>
 
                     {/* 添加底部按钮 */}
-                    <LazySection animation="fadeIn" delay={1000} className="text-center mt-12">
+                    <LazySection className="text-center mt-12">
                         <Link 
                             href="/ai-hairstyle"
                             className="btn bg-purple-700 text-white btn-lg rounded-xl"
@@ -533,12 +533,12 @@ export default function Hero() {
             </LazySection>
 
             {/* 第四部分：How to try on hairstyles */}
-            <LazySection animation="fadeIn" className="bg-white">
+            <LazySection className="bg-white">
                 <div className="container mx-auto px-4 py-10">
                     <div className="max-w-full mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 图片 - 移动端显示在上方 */}
-                            <LazySection animation="slideLeft" delay={400} className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
                                 <Image 
                                     src="/images/hero/ba3.jpg" 
                                     alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
@@ -550,7 +550,7 @@ export default function Hero() {
                                 />
                             </LazySection>
                             {/* 内容 - 移动端显示在下方 */}
-                            <LazySection animation="slideRight" delay={200} className="order-1 lg:order-2">
+                            <LazySection className="order-1 lg:order-2">
                                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                      How can I try on AI virtual hairstyles on my face?
                                 </h2>
@@ -573,12 +573,12 @@ export default function Hero() {
             </LazySection>
 
             {/* 第五部分：What Haircut Fits */}
-            <LazySection animation="fadeIn" className="bg-white">
+            <LazySection className="bg-white">
                 <div className="container mx-auto px-4 py-4 sm:py-20">
                     <div className="max-w-full mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧图片 */}
-                            <LazySection animation="slideRight" delay={200} className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
                                 <Image 
                                     src="/images/hero/change.jpg" 
                                     alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
@@ -590,7 +590,7 @@ export default function Hero() {
                                 />
                             </LazySection>
                             {/* 右侧内容 */}
-                            <LazySection animation="slideLeft" delay={400} className="order-2 lg:order-1">
+                            <LazySection className="order-2 lg:order-1">
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
