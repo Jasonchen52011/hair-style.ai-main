@@ -17,12 +17,7 @@ export default function Hero() {
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(0);
     const [error, setError] = useState<Error | null>(null);
-    const [currentPage, setCurrentPage] = useState(0);
     const [expandedFAQs, setExpandedFAQs] = useState(new Set());
-    const itemsPerPage = 18;
-    const autoPlayInterval = 3000; // 3秒轮播
-    const [isPaused, setIsPaused] = useState(false);
-    const pauseDuration = 5000; // 暂停 5 秒
 
     // 将评论数据移到组件内部
     const testimonials = [
@@ -135,9 +130,6 @@ export default function Hero() {
     };
 
     useEffect(() => {
-        // 切换标签时重置页码
-        setCurrentPage(0);
-        
         // 根据选中的标签获取对应的数据
         if (activeTab === 'Color') {
             // 只显示有对应图片的颜色选项
@@ -148,59 +140,12 @@ export default function Hero() {
             setDisplayColors(availableColors);
             setDisplayStyles([]);
         } else {
-            // 对于发型标签，清空颜色数据，样式数据将通过 getCurrentPageStyles 动态获取
+            // 对于发型标签，设置所有样式数据
+            const styles = activeTab === 'Female' ? femaleStyles : maleStyles;
+            setDisplayStyles(styles);
             setDisplayColors([]);
-            setDisplayStyles([]);
         }
     }, [activeTab]);
-
-    // 计算总页数
-    const getTotalPages = (styles: typeof femaleStyles) => {
-        return Math.ceil(styles.length / itemsPerPage);
-    };
-
-    // 获取当前页的样式
-    const getCurrentPageStyles = () => {
-        const styles = activeTab === 'Female' ? femaleStyles : maleStyles;
-        const start = currentPage * itemsPerPage;
-        return styles.slice(start, start + itemsPerPage);
-    };
-
-    // 修改自动轮播逻辑
-    useEffect(() => {
-        // 如果处于暂停状态或在颜色标签，不执行自动轮播
-        if (isPaused || activeTab === 'Color') return;
-
-        const timer = setInterval(() => {
-            const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
-            setCurrentPage(prev => (prev + 1) % totalPages);
-        }, autoPlayInterval);
-
-        return () => clearInterval(timer);
-    }, [activeTab, isPaused]); // 添加 isPaused 作为依赖项
-
-    // 手动切换页面
-    const handlePrevPage = () => {
-        const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
-        setCurrentPage(prev => (prev - 1 + totalPages) % totalPages);
-        // 设置暂停状态
-        setIsPaused(true);
-        // 5秒后恢复自动轮播
-        setTimeout(() => {
-            setIsPaused(false);
-        }, pauseDuration);
-    };
-
-    const handleNextPage = () => {
-        const totalPages = getTotalPages(activeTab === 'Female' ? femaleStyles : maleStyles);
-        setCurrentPage(prev => (prev + 1) % totalPages);
-        // 设置暂停状态
-        setIsPaused(true);
-        // 5秒后恢复自动轮播
-        setTimeout(() => {
-            setIsPaused(false);
-        }, pauseDuration);
-    };
 
     // 评论导航函数
     const handlePrevious = () => {
@@ -315,13 +260,13 @@ export default function Hero() {
             {/* 第二部分：发型展示区域 */}
             <LazySection threshold={0.1}>
                 <div className="container mx-auto px-4 pb-20">
-                    <div className="max-w-full mx-auto">
+                    <div className="max-w-6xl mx-auto">
                         {/* 标题和描述 */}
                         <LazySection className="text-center mb-16">
                             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                 Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
                             </h2>
-                            <p className="text-sm md:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
+                            <p className="text-sm sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
                                   Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                             </p>
                         </LazySection>
@@ -355,15 +300,15 @@ export default function Hero() {
                                         <div key={index} className="group transition-all duration-300 hover:scale-105">
                                             <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
                                                 {colorImages[color.id as keyof typeof colorImages] ? (
-                                                    <Image
-                                                        src={colorImages[color.id as keyof typeof colorImages]}
-                                                        alt={color.label}
-                                                        className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
-                                                        width={200}
-                                                        height={200}
-                                                        onError={handleImageError}
-                                                        loading="lazy"
-                                                    />
+                                                                                        <Image
+                                        src={colorImages[color.id as keyof typeof colorImages]}
+                                        alt={color.label}
+                                        className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                                        width={300}
+                                        height={300}
+                                        onError={handleImageError}
+                                        loading="lazy"
+                                    />
                                                 ) : (
                                                     // 如果没有对应的图片，显示颜色块
                                                     <div 
@@ -381,16 +326,16 @@ export default function Hero() {
                                         </div>
                                     ))
                                 ) : (
-                                    // 发型选项展示
-                                    getCurrentPageStyles().map((style, index) => (
+                                    // 发型选项展示 - 显示所有样式
+                                    displayStyles.map((style, index) => (
                                         <div key={index} className="hairstyle-item transition-all duration-300 hover:scale-105">
                                             <div className="hairstyle-image relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
                                                 <Image
                                                     src={style.imageUrl}
                                                     alt={style.description}
                                                     className="w-full h-full object-cover"
-                                                    width={200}
-                                                    height={200}
+                                                    width={300}
+                                                    height={300}
                                                     onError={handleImageError}
                                                     loading="lazy"
                                                 />
@@ -404,34 +349,6 @@ export default function Hero() {
                             </div>
 
                         </LazySection>
-
-
-                        {/* 左右切换按钮 - 居中显示 */}
-                        {activeTab !== 'Color' && (
-                            <div className="flex justify-center items-center gap-8 mb-8 mt-4">
-                                <button
-                                    onClick={handlePrevPage}
-                                    className="btn btn-circle btn-outline"
-                                    aria-label="Previous page"
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                
-                                <button
-                                    onClick={handleNextPage}
-                                    className="btn btn-circle btn-outline"
-                                    aria-label="Next page"
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-                            </div>
-                        )}
-
-
 
                         {/* More Style 按钮 */}
                         <LazySection className="text-center relative">
@@ -448,7 +365,7 @@ export default function Hero() {
 
             {/* 第三部分：使用步骤说明 */}
             <LazySection className="bg-gray-50 py-2 md:py-20" id="how-to-use">
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4 max-w-6xl">
                     {/* 标题和介绍 */}
                     <LazySection className="text-center max-w-full mx-auto mb-16">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
@@ -535,7 +452,7 @@ export default function Hero() {
             {/* 第四部分：How to try on hairstyles */}
             <LazySection className="bg-white">
                 <div className="container mx-auto px-4 py-10">
-                    <div className="max-w-full mx-auto">
+                    <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 图片 - 移动端显示在上方 */}
                             <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
@@ -575,7 +492,7 @@ export default function Hero() {
             {/* 第五部分：What Haircut Fits */}
             <LazySection className="bg-white">
                 <div className="container mx-auto px-4 py-4 sm:py-20">
-                    <div className="max-w-full mx-auto">
+                    <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧图片 */}
                             <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
@@ -621,7 +538,7 @@ export default function Hero() {
             {/* 第六部分：What is hairstyle AI changer */}
             <div className="bg-gray-50">
                 <div className="container mx-auto px-4 py-20">
-                    <div className="max-w-full mx-auto">
+                    <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* 左侧内容 */}
                             <div className="order-1 lg:order-2">
@@ -751,7 +668,7 @@ export default function Hero() {
             {/* FAQ Section */}
             <div id="faq" className="bg-gray-50">
                 <div className="container mx-auto px-4 py-2 md:py-20">
-                    <div className="max-w-full mx-auto">
+                    <div className="max-w-6xl mx-auto">
                         <div className="text-center mb-12">
                             <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                 FAQs of AI Hairstyle Changer
@@ -759,7 +676,7 @@ export default function Hero() {
                         </div>
 
                         {/* FAQ Items - Split into two columns */}
-                        <div className="flex flex-col md:flex-row gap-4 max-w-full mx-auto mt-12">
+                        <div className="flex flex-col md:flex-row gap-3 max-w-full mx-auto mt-12">
                             {/* Left Column */}
                             <div className="faq-column flex-1 space-y-4">
                                 {faqItems.slice(0, Math.ceil(faqItems.length / 2)).map((item, index) => (
