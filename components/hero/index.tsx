@@ -197,7 +197,7 @@ export default function Hero() {
                         {/* 右侧图片 - 移动端优先显示 */}
                         <LazySection className="flex justify-center lg:order-2">
                             <Image
-                                src="/images/hero/hero4.jpg"
+                                src="/images/hero/hero4.webp"
                                 alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
                                 className="w-full h-auto max-w-sm lg:max-w-lg mx-auto"
                                 width={700}
