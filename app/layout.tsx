@@ -1,8 +1,9 @@
 import './globals.css'
 import localFont from 'next/font/local'
 import { Inter } from 'next/font/google'
+import PerformanceMonitor from '@/components/PerformanceMonitor'
 
-
+// 优化字体加载策略
 const satoshi = localFont({
   src: [
     {
@@ -22,6 +23,9 @@ const satoshi = localFont({
     },
   ],
   display: 'swap',
+  preload: true, // 预加载关键字体
+  fallback: ['system-ui', 'arial'], // 添加字体回退
+  variable: '--font-satoshi', // 使用CSS变量
 });
 
 export default function RootLayout({
@@ -30,44 +34,101 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={satoshi.variable}>
       <head>
-      <script
-        id="clarity-script"
-        type="text/javascript"
-        dangerouslySetInnerHTML={{
-          __html: `(function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "r341ayxao1");`
-        }}
-      />
+        {/* 最重要的资源预加载 - 为LCP优化 */}
+        <link rel="preload" href="/images/optimized/hero/hero4.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/fonts/satoshi-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/satoshi-medium.woff2" as="font" type="font/woff2" crossOrigin="" />
+        
+        {/* 预连接到外部域名 */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google.com" />
+        
+        {/* Critical CSS for Hero section - LCP optimization */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            .hero-section { min-height: 60vh; contain: layout style paint; }
+            .hero-image { aspect-ratio: 1 / 1; max-width: 500px; width: 100%; }
+            .prevent-layout-shift { contain: layout; }
+            .skeleton { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background-color: #e5e7eb; }
+            @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+          `
+        }} />
+        
+        {/* 基本元数据 */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/manifest.json" />
-        {/* Google Analytics 跟踪代码 */}
+      </head>
+      <body className={`${satoshi.className} antialiased`}>
+        <PerformanceMonitor />
+        <div id="root" style={{minHeight: '100vh'}}>{children}</div>
+        
+        {/* 延迟加载非关键脚本到页面底部 */}
         <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6"
+          id="clarity-script"
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              // 延迟加载Clarity
+              setTimeout(function() {
+                (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window, document, "clarity", "script", "r341ayxao1");
+              }, 2000);
+            `
+          }}
         />
         
+        {/* 延迟加载Google Analytics */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-SQ0ZZ6EFP6');
+              // 延迟加载GA
+              setTimeout(function() {
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6';
+                document.head.appendChild(script);
+                
+                script.onload = function() {
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-SQ0ZZ6EFP6');
+                };
+              }, 3000);
             `,
           }}
         />
-        <script async src="https://www.google.com/..."></script>
-        <script async src="https://cse.google.com/..."></script>
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="pzQdswZNDZJoi+e1uLS3jg" async></script>
-      </head>
-      <body className={satoshi.className}>{children}</body>
+        
+        {/* 延迟加载其他分析脚本 */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // 延迟加载其他分析工具
+              setTimeout(function() {
+                // Google CSE
+                var cseScript = document.createElement('script');
+                cseScript.async = true;
+                cseScript.src = 'https://cse.google.com/cse.js?cx=c2e98ada1f90c4fda';
+                document.head.appendChild(cseScript);
+                
+                // Ahrefs Analytics
+                var ahrefsScript = document.createElement('script');
+                ahrefsScript.async = true;
+                ahrefsScript.src = 'https://analytics.ahrefs.com/analytics.js';
+                ahrefsScript.setAttribute('data-key', 'pzQdswZNDZJoi+e1uLS3jg');
+                document.head.appendChild(ahrefsScript);
+              }, 5000);
+            `,
+          }}
+        />
+      </body>
     </html>
   )
 }

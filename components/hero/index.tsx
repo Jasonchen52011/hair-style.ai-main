@@ -6,8 +6,60 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LazySection from '@/components/LazySection';
 
-
 type TabType = 'Female' | 'Male' | 'Color';
+
+// 添加图片骨架屏组件
+const ImageSkeleton = ({ className = "" }: { className?: string }) => (
+    <div className={`animate-pulse bg-gray-200 ${className}`} />
+);
+
+// 添加优化的图片组件
+const OptimizedImage = ({ 
+    src, 
+    alt, 
+    width, 
+    height, 
+    className = "", 
+    priority = false,
+    aspectRatio = "1:1"
+}: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+    className?: string;
+    priority?: boolean;
+    aspectRatio?: string;
+}) => {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [hasError, setHasError] = useState(false);
+    
+    const handleLoad = () => setImageLoaded(true);
+    const handleError = () => {
+        setHasError(true);
+        setImageLoaded(true);
+    };
+
+    return (
+        <div className={`relative ${className}`} style={{ aspectRatio }}>
+            {!imageLoaded && !hasError && (
+                <ImageSkeleton className="absolute inset-0 rounded-lg" />
+            )}
+            <Image
+                src={hasError ? '/images/fallback/hairstyle-placeholder.jpg' : src}
+                alt={alt}
+                width={width}
+                height={height}
+                className={`${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300 w-full h-full object-cover rounded-lg`}
+                onLoad={handleLoad}
+                onError={handleError}
+                priority={priority}
+                loading={priority ? undefined : "lazy"}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+        </div>
+    );
+};
 
 export default function Hero() {
     const [mounted, setMounted] = useState(false);
@@ -193,23 +245,25 @@ export default function Hero() {
         <section className="relative overflow-hidden">
             <LazySection threshold={0.2}>
                 <div className="container mx-auto px-4 py-8  mb-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-full mx-auto ">
+                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-6xl mx-auto ">
                         {/* 右侧图片 - 移动端优先显示 */}
                         <LazySection className="flex justify-center lg:order-2">
-                            <Image
-                                src="/images/hero/hero4.jpg"
-                                alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
-                                className="w-full h-auto max-w-sm lg:max-w-lg mx-auto"
-                                width={700}
-                                height={700}
-                                onError={handleImageError}
-                                priority
-                            />
+                            <div className="w-full max-w-sm lg:max-w-lg mx-auto" style={{ aspectRatio: '4:3' }}>
+                                <OptimizedImage
+                                    src="/images/optimized/hero/hero4.webp"
+                                    alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
+                                    className="w-full h-full"
+                                    width={700}
+                                    height={700}
+                                    priority={true}
+                                    aspectRatio="4:3"
+                                />
+                            </div>
                         </LazySection>
 
                         {/* 左侧内容 */}
                         <LazySection className="text-center lg:text-left lg:order-1">
-                            <h1 className="text-3xl sm:text-5xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
+                            <h1 className="text-3xl sm:text-4xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
                                 Free AI Hairstyle Changer
                             </h1>
                             
@@ -223,12 +277,12 @@ export default function Hero() {
                             </p>
 
                                 {/* 评分 */}
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
                                     <div className="flex">
                                         {[...Array(5)].map((_, i) => (
                                             <svg 
                                                 key={i}
-                                                className="w-6 h-6 text-yellow-400" 
+                                                className="w-5 h-5 text-yellow-400" 
                                                 fill="currentColor" 
                                                 viewBox="0 0 20 20"
                                             >
@@ -236,19 +290,16 @@ export default function Hero() {
                                             </svg>
                                         ))}
                                     </div>
-                                    <span className="text-sm sm:text-lg  text-gray-800">4.9/5 from 50k+ users</span>
+                                    <span className="text-base text-gray-800">4.9/5 from 50k+ users</span>
                                 </div>
 
-                            <div className="flex flex-col lg:flex-row items-center gap-8 mt-6">
-
-                                                            <Link 
-                                href="/ai-hairstyle" 
-                                className="btn bg-purple-700 text-white btn-lg rounded-2xl "
-                            >
-                                Try on Now
-                            </Link>
-
-
+                            <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start gap-6 mt-6">
+                                <Link 
+                                    href="/ai-hairstyle" 
+                                    className="btn bg-purple-700 hover:bg-purple-800 text-white btn-lg rounded-2xl px-8 py-3 text-lg font-semibold shadow-lg transition-all duration-300"
+                                >
+                                    Try on Now
+                                </Link>
                             </div>
                         </LazySection>
 
@@ -293,22 +344,21 @@ export default function Hero() {
 
                         {/* 发型/颜色网格 */}
                         <LazySection className="relative">
-                            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 overflow-hidden">
+                            <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 overflow-hidden">
                                 {activeTab === 'Color' ? (
                                     // 颜色选项展示
                                     displayColors.map((color, index) => (
                                         <div key={index} className="group transition-all duration-300 hover:scale-105">
-                                            <div className="aspect-square rounded-lg overflow-hidden mb-3 relative">
+                                            <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-3 relative">
                                                 {colorImages[color.id as keyof typeof colorImages] ? (
-                                                                                        <Image
-                                        src={colorImages[color.id as keyof typeof colorImages]}
-                                        alt={color.label}
-                                        className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
-                                        width={300}
-                                        height={300}
-                                        onError={handleImageError}
-                                        loading="lazy"
-                                    />
+                                                    <OptimizedImage
+                                                        src={colorImages[color.id as keyof typeof colorImages]}
+                                                        alt={color.label}
+                                                        className="group-hover:opacity-90 transition-opacity"
+                                                        width={400}
+                                                        height={300}
+                                                        aspectRatio="4:3"
+                                                    />
                                                 ) : (
                                                     // 如果没有对应的图片，显示颜色块
                                                     <div 
@@ -329,15 +379,14 @@ export default function Hero() {
                                     // 发型选项展示 - 显示所有样式
                                     displayStyles.map((style, index) => (
                                         <div key={index} className="hairstyle-item transition-all duration-300 hover:scale-105">
-                                            <div className="hairstyle-image relative aspect-square bg-gray-100 rounded-lg overflow-hidden mb-3">
-                                                <Image
+                                            <div className="aspect-[3/4]  hairstyle-image relative bg-gray-100 rounded-2xl overflow-hidden mb-3">
+                                                <OptimizedImage
                                                     src={style.imageUrl}
                                                     alt={style.description}
-                                                    className="w-full h-full object-cover"
+                                                    className="w-full h-full"
                                                     width={300}
                                                     height={300}
-                                                    onError={handleImageError}
-                                                    loading="lazy"
+                                                    aspectRatio="4:3"
                                                 />
                                             </div>
                                             <h3 className="text-center text-gray-800 font-medium">

@@ -2,6 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 字体优化 - 减少CLS */
+@layer base {
+  html {
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: var(--font-satoshi), system-ui, -apple-system, sans-serif;
+    font-display: swap;
+  }
+
+  /* 确保图片容器有稳定的尺寸 */
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* 预防布局偏移 */
+@layer components {
+  /* 骨架屏动画 */
+  .skeleton {
+    @apply animate-pulse bg-gray-200;
+  }
+  
+  /* 图片容器优化 */
+  .image-container {
+    @apply relative overflow-hidden;
+    contain: layout style paint;
+  }
+  
+  /* 防止图片加载时的闪烁 */
+  .image-fade-in {
+    @apply transition-opacity duration-300;
+  }
+  
+  /* 确保按钮有稳定的尺寸 */
+  .btn {
+    @apply inline-flex items-center justify-center;
+    min-height: 3rem;
+  }
+  
+  /* 导航栏稳定高度 */
+  .navbar {
+    min-height: 4rem;
+  }
+}
+
+/* 布局稳定性优化 */
+@layer utilities {
+  /* 防止内容跳跃 */
+  .prevent-layout-shift {
+    contain: layout;
+  }
+  
+  /* 优化滚动性能 */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* 提升合成层 */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  /* 硬件加速 */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+}
+
+/* Critical CSS - 内联到首屏 */
+.hero-section {
+  min-height: 60vh;
+  contain: layout style paint;
+}
+
+.hero-image {
+  aspect-ratio: 1 / 1;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* 响应式图片优化 */
+.responsive-image {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* 减少重绘和回流 */
+.optimized-grid {
+  contain: layout style;
+}
+
+.grid-item {
+  contain: layout style paint;
+}
+
+/* 自定义滚动条（可选） */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
 /* Satoshi 字体 */
 @font-face {
   font-family: 'Satoshi';

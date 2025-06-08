@@ -834,7 +834,7 @@ function SelectStylePageContent() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-1.5 mb-4 overflow-y-auto h-[380px]">
+                                <div className="grid grid-cols-3 lg:grid-cols-3 gap-2 mb-4 overflow-y-auto h-[380px]">
                                     {currentStyles.map((style) => (
                                         <button
                                             key={style.style}
@@ -845,7 +845,7 @@ function SelectStylePageContent() {
                                                     : "border-transparent hover:border-gray-200 bg-gray-100 hover:shadow-sm"
                                             }`}
                                         >
-                                            <div className="w-full h-[120px] mb-2 overflow-hidden rounded-xl">
+                                            <div className="w-full h-28 mb-1 overflow-hidden rounded-xl">
                                                 <img
                                                     src={style.imageUrl}
                                                     alt={`Trendy ${style.description} hairstyle - a popular modern haircut choice for fashion-forward individuals`}
