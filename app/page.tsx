@@ -69,7 +69,7 @@ const structuredData = {
         '@type': "WebApplication",
         '@id': "https://hair-style.ai/#webapplication",
         name: "Hair Style AI",
-        applicationCategory: 'EntertainmentApplication',
+        applicationCategory: 'UtilitiesApplication',
         url: "https://hair-style.ai",
         description: "Try on different hairstyles with AI technology",
         operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
@@ -80,11 +80,10 @@ const structuredData = {
             priceCurrency: 'USD'
         },
         aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: '4.8',
-            worstRating: '1',
-            bestRating: '5',
-            ratingCount: '3352'
+          '@type': 'AggregateRating',
+          ratingValue: '4.8',
+          bestRating: '5',
+          ratingCount: '26135'
         },
         publisher: {
           '@type': 'Organization',

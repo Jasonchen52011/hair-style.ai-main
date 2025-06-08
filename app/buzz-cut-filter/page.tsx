@@ -104,7 +104,7 @@ const structuredData = {
     name: 'Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women',
     description:
       "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
-    applicationCategory: 'WebApplication',
+    applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
     brand: {
       '@type': 'Brand',
