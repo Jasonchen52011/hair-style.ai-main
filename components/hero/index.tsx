@@ -31,22 +31,46 @@ const OptimizedImage = ({
     priority?: boolean;
     aspectRatio?: string;
 }) => {
+    const [imageSrc, setImageSrc] = useState(src);
     const [imageLoaded, setImageLoaded] = useState(false);
     const [hasError, setHasError] = useState(false);
     
     const handleLoad = () => setImageLoaded(true);
     const handleError = () => {
-        setHasError(true);
-        setImageLoaded(true);
+        if (imageSrc.endsWith('.webp')) {
+            // 尝试jpg格式
+            const jpgSrc = imageSrc.replace('.webp', '.jpg');
+            setImageSrc(jpgSrc);
+        } else if (imageSrc.endsWith('.jpg')) {
+            // 尝试webp格式
+            const webpSrc = imageSrc.replace('.jpg', '.webp');
+            setImageSrc(webpSrc);
+        } else {
+            // 如果都失败了，显示错误状态
+            setHasError(true);
+            setImageLoaded(true);
+        }
     };
+
+    // 如果图片加载失败，显示占位符
+    if (hasError) {
+        return (
+            <div className={`relative ${className} bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center`} style={{ aspectRatio }}>
+                <div className="text-center px-4">
+                    <div className="text-2xl mb-2">📷</div>
+                    <div className="text-sm text-gray-500">{alt}</div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className={`relative ${className}`} style={{ aspectRatio }}>
-            {!imageLoaded && !hasError && (
+            {!imageLoaded && (
                 <ImageSkeleton className="absolute inset-0 rounded-lg" />
             )}
             <Image
-                src={hasError ? '/images/fallback/hairstyle-placeholder.jpg' : src}
+                src={imageSrc}
                 alt={alt}
                 width={width}
                 height={height}
