@@ -1,0 +1,8 @@
+{"build":{"env":{"NPM_RC":"registry=https://registry.npmjs.org/
+strict-peer-dependencies=false
+auto-install-peers=true
+shamefully-hoist=true
+network-timeout=100000
+fetch-retries=5
+fetch-retry-mintimeout=20000
+fetch-retry-maxtimeout=120000","NEXT_TELEMETRY_DISABLED":"1"}},"env":{"VERCEL_FORCE_NO_BUILD_CACHE":"1"}}
