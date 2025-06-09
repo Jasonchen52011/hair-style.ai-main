@@ -283,7 +283,7 @@ export default function BuzzCutFilterPage() {
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     Buzz Cut Transformations
                                 </h2>
-                                <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+                                <p className="text-lg text-gray-600 max-w-5xl mx-auto">
                                     See the dramatic difference a buzz cut can make. Our AI filter shows 
                                     you exactly how this clean, sharp look will suit your face.
                                 </p>
