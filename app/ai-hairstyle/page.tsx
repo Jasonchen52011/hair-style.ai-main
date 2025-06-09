@@ -13,7 +13,7 @@ const structuredData = {
     operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
     brand: {
       '@type': 'Brand',
-      name: 'AI Hairstyle Changer'
+      name: 'Hairstyle AI'
     },
     offers: {
       '@type': 'Offer',
