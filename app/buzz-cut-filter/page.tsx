@@ -182,7 +182,7 @@ export const metadata: Metadata = {
         site: "@hair_styleai",
         title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
         description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
-        images: ["https://hair-style.ai/images/buzzcutman2.jpg"]
+        images: ["https://hair-style.ai/images/buzzcutman1.jpg"]
     },
 
 }

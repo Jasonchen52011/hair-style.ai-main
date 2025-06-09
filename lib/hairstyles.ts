@@ -36,7 +36,6 @@ export const hairColors = [
 ];
 
 export const femaleStyles: HairStyle[] = [
-  { style: "BuzzCut", description: "Buzz Cut", category: "Female", imageUrl: "/images/hairstyles/female/buzzcutfemale.webp", alt: "Bold and edgy buzz cut hairstyle for women, perfect for a minimalist and confident look" },
   { style: "ShortPixieWithShavedSides", description: "Short Pixie", category: "Female", imageUrl: "/images/hairstyles/female/short-pixie.webp", alt: "Modern short pixie cut with shaved sides, perfect for a bold and contemporary look" },
   { style: "ShortNeatBob", description: "Neat Bob", category: "Female", imageUrl: "/images/hairstyles/female/neat-bob.webp", alt: "Classic neat bob hairstyle with clean lines and professional finish" },
   { style: "DoubleBun", description: "Double Bun", category: "Female", imageUrl: "/images/hairstyles/female/double-bun.webp", alt: "Trendy double bun hairstyle popular among young fashion enthusiasts" },
@@ -44,6 +43,7 @@ export const femaleStyles: HairStyle[] = [
   { style: "PixieCut", description: "Pixie Cut", category: "Female", imageUrl: "/images/hairstyles/female/pixie-cut.webp", alt: "Pixie cut hairstyle" },
   { style: "LongCurly", description: "Long Curly", category: "Female", imageUrl: "/images/hairstyles/female/long-curly.webp", alt: "Long curly hairstyle" },
   { style: "CurlyBob", description: "Curly Bob", category: "Female", imageUrl: "/images/hairstyles/female/curly-bob.webp", alt: "Curly bob hairstyle" },
+
   { style: "JapaneseShort", description: "Japanese Short", category: "Female", imageUrl: "/images/hairstyles/female/japanese-short.webp", alt: "Japanese short hairstyle" },
   { style: "Spiked", description: "Spiked", category: "Female", imageUrl: "/images/hairstyles/female/spiked.webp", alt: "Spiked hairstyle" },
   { style: "bowlCut", description: "Bowl Cut", category: "Female", imageUrl: "/images/hairstyles/female/bowl-cut.webp", alt: "Bowl cut hairstyle" },
@@ -68,7 +68,8 @@ export const femaleStyles: HairStyle[] = [
   { style: "LongHimeCut", description: "Long Hime Cut", category: "Female", imageUrl: "/images/hairstyles/female/long-hime-cut.webp", alt: "Long hime cut hairstyle" },
   { style: "BoxBraids", description: "Box Braids", category: "Female", imageUrl: "/images/hairstyles/female/box-braids.webp", alt: "Box braids hairstyle" },
   { style: "FrenchBangs", description: "French Bangs", category: "Female", imageUrl: "/images/hairstyles/female/french-bangs.webp", alt: "French bangs hairstyle" },
-  { style: "MediumLongLayered", description: "Medium Long Layered", category: "Female", imageUrl: "/images/hairstyles/female/medium-long-layered.webp", alt: "Medium long layered hairstyle" }
+  { style: "MediumLongLayered", description: "Medium Long Layered", category: "Female", imageUrl: "/images/hairstyles/female/medium-long-layered.webp", alt: "Medium long layered hairstyle" },
+  { style: "BuzzCut", description: "Buzz Cut", category: "Female", imageUrl: "/images/hairstyles/female/buzzcutfemale.webp", alt: "Bold and edgy buzz cut hairstyle for women, perfect for a minimalist and confident look" }
 ];
 
 export const maleStyles: HairStyle[] = [
