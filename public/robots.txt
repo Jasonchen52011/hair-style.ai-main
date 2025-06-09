@@ -1,13 +1,8 @@
-# *
-User-agent: *
-Allow: /
-Disallow: /api/*
-Disallow: /admin/*
-Disallow: /404
-Disallow: /500
 
-# Host
+User-agent: *
+
+Allow: /
+
 Host: https://hair-style.ai
 
-# Sitemaps
 Sitemap: https://hair-style.ai/sitemap.xml

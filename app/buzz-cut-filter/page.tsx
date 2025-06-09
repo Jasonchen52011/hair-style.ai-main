@@ -283,7 +283,7 @@ export default function BuzzCutFilterPage() {
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     Buzz Cut Transformations
                                 </h2>
-                                <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+                                <p className="text-lg text-gray-600 max-w-45xl mx-auto">
                                     See the dramatic difference a buzz cut can make. Our AI filter shows 
                                     you exactly how this clean, sharp look will suit your face.
                                 </p>
@@ -589,7 +589,7 @@ export default function BuzzCutFilterPage() {
                 {/* Explore New Styles Section */}
                 <section className="py-2 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
-                        <div className="max-w-full mx-auto">
+                        <div className="max-w-6xl mx-auto">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 {/* 左侧文本内容 */}
                                 <div className="space-y-6 order-2 lg:order-1">
@@ -641,7 +641,7 @@ export default function BuzzCutFilterPage() {
                             <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                                     <i className="fas fa-hand-point-up text-4xl text-purple-600 mb-6"></i>
                                 <h3 className="text-lg font-bold text-gray-800 mb-3">Easy & Free to Use</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                                     No sign-ups, no downloads—just upload a photo and click "Generate." Whether you're tech-savvy or not, anyone can try new hairstyles in seconds. It's free, fast, simple, and works right in your browser on mobile or desktop.
                                 </p>
                             </div>
@@ -650,7 +650,7 @@ export default function BuzzCutFilterPage() {
                             <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                                     <i className="fas fa-palette text-4xl text-purple-600 mb-6"></i>
                                 <h3 className="text-lg font-bold text-gray-800 mb-3">Various Haircuts and Colors</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                                     Choose from 60+ haircuts and 19 hair colors, from bold buzz cuts to trendy bangs and soft curls. You can mix and match styles and shades until you find the perfect look that fits your vibe.
                                 </p>
                             </div>
@@ -659,7 +659,7 @@ export default function BuzzCutFilterPage() {
                             <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                                     <i className="fas fa-award text-4xl text-purple-600 mb-6"></i>
                                 <h3 className="text-lg font-bold text-gray-800 mb-3">Realistic, Natural Results</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                                     Our AI is built to match your face shape, lighting, and angles—so the final look feels real. No cartoon effects or fake overlays—just believable, photo-quality transformations that help you decide with confidence.
                                 </p>
                             </div>
@@ -668,7 +668,7 @@ export default function BuzzCutFilterPage() {
                             <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                                     <i className="fas fa-shield-alt text-4xl text-purple-600 mb-6"></i>
                                 <h3 className="text-lg font-bold text-gray-800 mb-3">Privacy Comes First</h3>
-                                <p className="text-gray-600 text-sm leading-relaxed">
+                                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                                     We never save your photos. Everything is processed instantly and deleted after use. You can explore new hairstyles safely, knowing your personal data stays private and secure every time.
                                 </p>
                             </div>
