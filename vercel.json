@@ -1,0 +1,9 @@
+{
+  "build": {
+    "env": {
+      "NPM_RC": "registry=https://registry.npmjs.org/\nstrict-peer-dependencies=false\nauto-install-peers=true\nshamefully-hoist=true\nnetwork-timeout=100000\nfetch-retries=5\nfetch-retry-mintimeout=20000\nfetch-retry-maxtimeout=120000",
+      "NEXT_TELEMETRY_DISABLED": "1"
+    },
+    "cache": "false"
+  }
+} 
