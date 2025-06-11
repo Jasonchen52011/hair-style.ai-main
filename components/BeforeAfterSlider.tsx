@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 const ReactBeforeSliderComponent = dynamic(() => import('react-before-after-slider-component'), { ssr: false });
 
@@ -63,6 +64,17 @@ export default function BeforeAfterSlider({
   // 根据设备类型调整高度
   const responsiveHeight = isMobile ? 342 : height;
   
+  // 预加载图片
+  useEffect(() => {
+    const preloadImages = () => {
+      const beforeImg = new window.Image();
+      const afterImg = new window.Image();
+      beforeImg.src = beforeImage;
+      afterImg.src = afterImage;
+    };
+    
+    preloadImages();
+  }, [beforeImage, afterImage]);
 
   return (
     <div 

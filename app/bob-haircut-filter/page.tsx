@@ -168,7 +168,7 @@ export default function BobHaircutFilterPage() {
                 </section>
 
                 {/* Before & After Gallery */}
-                <LazySection>
+                <LazySection rootMargin="200px">
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
@@ -189,6 +189,9 @@ export default function BobHaircutFilterPage() {
                                             width={400}
                                             height={300}
                                             className="w-full h-auto object-contain"
+                                            priority={false}
+                                            placeholder="blur"
+                                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                                         />
                                     </div>
                                 ))}
@@ -198,7 +201,7 @@ export default function BobHaircutFilterPage() {
                 </LazySection>
 
                 {/* Will a Bob Haircut Suit You? Try First Section */}
-                <LazySection>
+                <LazySection rootMargin="200px">
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
@@ -244,7 +247,7 @@ export default function BobHaircutFilterPage() {
                 </LazySection>
 
                 {/* See Yourself with a Bob Cut in Just 4 Easy Steps Section */}
-                <LazySection>
+                <LazySection rootMargin="200px">
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
                         <div className="text-center mb-12">
@@ -283,13 +286,16 @@ export default function BobHaircutFilterPage() {
                             {/* 右侧占位图 */}
                             <div className="flex justify-center order-1 lg:order-2">
                                 <div className="w-full max-w-3xl bg-gray-200 rounded-lg overflow-hidden shadow-lg">
-                                    <Image
-                                        src={howToUseSection.image.src}
-                                        alt={howToUseSection.image.alt}
-                                        width={800}
-                                        height={900}
-                                        className="w-full h-auto object-contain"
-                                    />
+                                                                            <Image
+                                            src={howToUseSection.image.src}
+                                            alt={howToUseSection.image.alt}
+                                            width={800}
+                                            height={900}
+                                            className="w-full h-auto object-contain"
+                                            priority={false}
+                                            placeholder="blur"
+                                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                                        />
                                 </div>
                             </div>
                         </div>

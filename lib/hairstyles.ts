@@ -36,8 +36,8 @@ export const hairColors = [
 ];
 
 export const femaleStyles: HairStyle[] = [
+  { style: "BobCut", description: "Bob Cut", category: "Female", imageUrl: "/images/hairstyles/female/bob-cut.webp", alt: "Bob cut hairstyle" },
   { style: "ShortPixieWithShavedSides", description: "Short Pixie", category: "Female", imageUrl: "/images/hairstyles/female/short-pixie.webp", alt: "Modern short pixie cut with shaved sides, perfect for a bold and contemporary look" },
-  { style: "ShortNeatBob", description: "Neat Bob", category: "Female", imageUrl: "/images/hairstyles/female/neat-bob.webp", alt: "Classic neat bob hairstyle with clean lines and professional finish" },
   { style: "DoubleBun", description: "Double Bun", category: "Female", imageUrl: "/images/hairstyles/female/double-bun.webp", alt: "Trendy double bun hairstyle popular among young fashion enthusiasts" },
   { style: "Updo", description: "Updo", category: "Female", imageUrl: "/images/hairstyles/female/updo.webp", alt: "Updo hairstyle" },
   { style: "PixieCut", description: "Pixie Cut", category: "Female", imageUrl: "/images/hairstyles/female/pixie-cut.webp", alt: "Pixie cut hairstyle" },
@@ -51,7 +51,6 @@ export const femaleStyles: HairStyle[] = [
   { style: "StackedCurlsInShortBob", description: "Stacked Curls Bob", category: "Female", imageUrl: "/images/hairstyles/female/stacked-curls-bob.webp", alt: "Stacked curls bob hairstyle" },
   { style: "SidePartCombOverHairstyleWithHighFade", description: "Side Part High Fade", category: "Female", imageUrl: "/images/hairstyles/female/side-part-fade.webp", alt: "Side part high fade hairstyle" },
   { style: "WavyFrenchBobVibesfrom1920", description: "Wavy French Bob", category: "Female", imageUrl: "/images/hairstyles/female/wavy-french-bob.webp", alt: "Wavy french bob hairstyle" },
-  { style: "BobCut", description: "Bob Cut", category: "Female", imageUrl: "/images/hairstyles/female/bob-cut.webp", alt: "Bob cut hairstyle" },
   { style: "ShortTwintails", description: "Short Twintails", category: "Female", imageUrl: "/images/hairstyles/female/short-twintails.webp", alt: "Short twintails hairstyle" },
   { style: "ShortCurlyPixie", description: "Short Curly Pixie", category: "Female", imageUrl: "/images/hairstyles/female/short-curly-pixie.webp", alt: "Short curly pixie hairstyle" },
   { style: "LongStraight", description: "Long Straight", category: "Female", imageUrl: "/images/hairstyles/female/long-straight.webp", alt: "Long straight hairstyle" },

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebP Image Test</title>
+    <style>
+        .image-container {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>WebP Image Loading Test</h1>
+    
+    <div class="image-container">
+        <h3>Hero Section Images (直接加载)</h3>
+        <div>
+            <h4>Before Image:</h4>
+            <img src="/images/bob-cut-before.webp" alt="Before" width="200" onload="console.log('Before image loaded')" onerror="console.error('Before image failed')" />
+        </div>
+        <div>
+            <h4>After Image:</h4>
+            <img src="/images/bob-cut-after.webp" alt="After" width="200" onload="console.log('After image loaded')" onerror="console.error('After image failed')" />
+        </div>
+    </div>
+
+    <div class="image-container">
+        <h3>Gallery Images</h3>
+        <div>
+            <h4>Bob Cut:</h4>
+            <img src="/images/bob-cut.webp" alt="Bob Cut" width="200" onload="console.log('Bob cut image loaded')" onerror="console.error('Bob cut image failed')" />
+        </div>
+        <div>
+            <h4>French Bob:</h4>
+            <img src="/images/french-bob.webp" alt="French Bob" width="200" onload="console.log('French bob image loaded')" onerror="console.error('French bob image failed')" />
+        </div>
+    </div>
+
+    <div class="image-container">
+        <h3>CTA Section Images</h3>
+        <div>
+            <h4>Bob Cut 3:</h4>
+            <img src="/images/bob-cut3.webp" alt="Bob Cut 3" width="200" onload="console.log('Bob cut 3 image loaded')" onerror="console.error('Bob cut 3 image failed')" />
+        </div>
+        <div>
+            <h4>Bob Cut Social:</h4>
+            <img src="/images/bob-cut-social.webp" alt="Bob Cut Social" width="200" onload="console.log('Bob cut social image loaded')" onerror="console.error('Bob cut social image failed')" />
+        </div>
+    </div>
+
+    <script>
+        // 检查WebP支持
+        function checkWebPSupport() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1;
+            canvas.height = 1;
+            
+            try {
+                return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        console.log('WebP Support:', checkWebPSupport());
+        
+        // 检查网络连接
+        if (navigator.onLine) {
+            console.log('Network: Online');
+        } else {
+            console.log('Network: Offline');
+        }
+    </script>
+</body>
+</html> 
