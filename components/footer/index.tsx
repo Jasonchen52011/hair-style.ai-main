@@ -37,6 +37,11 @@ export default function Footer() {
                                     Buzz Cut Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/bob-haircut-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Bob Haircut Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

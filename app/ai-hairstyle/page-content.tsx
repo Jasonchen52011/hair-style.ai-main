@@ -97,7 +97,12 @@ function SelectStylePageContent() {
     const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
     const handleStyleClick = (style: string) => {
-        setSelectedStyle(style);
+        // 如果点击的是已选中的发型，则取消选中
+        if (selectedStyle === style) {
+            setSelectedStyle("");
+        } else {
+            setSelectedStyle(style);
+        }
     };
 
     // 合并自 SelectStyle 组件的轮询函数
@@ -201,8 +206,8 @@ function SelectStylePageContent() {
 
     // 合并自 SelectStyle 组件的生成函数
     const handleGenerate = async () => {
-        if (!uploadedImageUrl || !selectedStyle) {
-            toast.error('Please select a hairstyle first');
+        if (!uploadedImageUrl) {
+            toast.error('Please upload a photo first');
             return;
         }
 
@@ -221,7 +226,7 @@ function SelectStylePageContent() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     imageUrl: uploadedImageUrl,
-                    hairStyle: selectedStyle,
+                    hairStyle: selectedStyle || "color-only", // 如果没有选中发型，只改变颜色
                     hairColor: finalColor,
                 }),
             });
@@ -899,7 +904,7 @@ function SelectStylePageContent() {
                                 <button
                                     onClick={handleGenerate}
                                     className="w-full mt-8 py-4 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-                                    disabled={!selectedStyle || !uploadedImageUrl || isLoading}
+                                    disabled={!uploadedImageUrl || isLoading}
                                 >
                                     {isLoading ? (
                                         <div className="flex items-center justify-center">
@@ -928,7 +933,7 @@ function SelectStylePageContent() {
                                     ) : !uploadedImageUrl ? (
                                         "Upload Photo"
                                     ) : !selectedStyle ? (
-                                        "Select a Hairstyle"
+                                        "Change Color Only"
                                     ) : (
                                         "Generate"
                                     )}
@@ -1135,7 +1140,7 @@ function SelectStylePageContent() {
                         <button
                             onClick={handleGenerate}
                             className="w-full py-2.5 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mb-4"
-                            disabled={!selectedStyle || !uploadedImageUrl || isLoading}
+                            disabled={!uploadedImageUrl || isLoading}
                         >
                             {isLoading ? (
                                 <div className="flex items-center justify-center">
@@ -1164,7 +1169,7 @@ function SelectStylePageContent() {
                             ) : !uploadedImageUrl ? (
                                 "Upload Photo First"
                             ) : !selectedStyle ? (
-                                "Select a Hairstyle"
+                                "Change Color Only"
                             ) : (
                                 "Generate"
                             )}

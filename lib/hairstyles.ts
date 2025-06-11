@@ -43,7 +43,6 @@ export const femaleStyles: HairStyle[] = [
   { style: "PixieCut", description: "Pixie Cut", category: "Female", imageUrl: "/images/hairstyles/female/pixie-cut.webp", alt: "Pixie cut hairstyle" },
   { style: "LongCurly", description: "Long Curly", category: "Female", imageUrl: "/images/hairstyles/female/long-curly.webp", alt: "Long curly hairstyle" },
   { style: "CurlyBob", description: "Curly Bob", category: "Female", imageUrl: "/images/hairstyles/female/curly-bob.webp", alt: "Curly bob hairstyle" },
-
   { style: "JapaneseShort", description: "Japanese Short", category: "Female", imageUrl: "/images/hairstyles/female/japanese-short.webp", alt: "Japanese short hairstyle" },
   { style: "Spiked", description: "Spiked", category: "Female", imageUrl: "/images/hairstyles/female/spiked.webp", alt: "Spiked hairstyle" },
   { style: "bowlCut", description: "Bowl Cut", category: "Female", imageUrl: "/images/hairstyles/female/bowl-cut.webp", alt: "Bowl cut hairstyle" },

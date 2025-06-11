@@ -15,13 +15,14 @@ const {
   imageConfig, 
   heroSection, 
   beforeAfterGallery, 
-  isBuzzCutRightSection, 
+  isBobCutRightSection, 
   howToUseSection, 
   ctaSections, 
   whyChooseSection, 
   testimonialsConfig, 
   faqConfig, 
   finalCta, 
+  metadata: metadataConfig,
   structuredData, 
   breadcrumbData 
 } = config;
@@ -32,12 +33,12 @@ const IMAGE_DISPLAY_HEIGHT = imageConfig.displayHeight;
 
 
 
-// AI Hairstyle 页面 metadata
+// Bob Haircut Filter 页面 metadata
 export const metadata: Metadata = {
-    title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
-    description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
+    title: metadataConfig.title,
+    description: metadataConfig.description,
     alternates: {
-        canonical: 'https://hair-style.ai/buzz-cut-filter'
+        canonical: metadataConfig.canonical
     },
 
     robots: {
@@ -52,33 +53,33 @@ export const metadata: Metadata = {
       },
     },
     openGraph: {
-        title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
-        description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
+        title: metadataConfig.openGraph.title,
+        description: metadataConfig.openGraph.description,
         images: [
             {
-                url: "https://hair-style.ai/images/buzzcutgirl.jpg",
+                url: metadataConfig.openGraph.image,
                 width: 1920,
                 height: 1080,
-                alt: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
+                alt: metadataConfig.openGraph.imageAlt,
                 type: "image/jpeg"
             }
         ],
         siteName: "Hair-style.ai",
         locale: "en_US",
         type: "website",
-        url: "https://hair-style.ai/buzz-cut-filter",
+        url: metadataConfig.openGraph.url,
     },
     twitter: {
         card: "summary_large_image",
         site: "@hair_styleai",
-        title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
-        description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
-        images: ["https://hair-style.ai/images/buzzcutman1.jpg"]
+        title: metadataConfig.twitter.title,
+        description: metadataConfig.twitter.description,
+        images: [metadataConfig.twitter.image]
     },
 
 }
 
-export default function BuzzCutFilterPage() {
+export default function BobHaircutFilterPage() {
     return (
         <>        
         <script
@@ -157,8 +158,8 @@ export default function BuzzCutFilterPage() {
                                 <BeforeAfterSlider
                                     beforeImage={before}
                                     afterImage={after}
-                                    beforeAlt="Before buzz cut - original hairstyle"
-                                    afterAlt="After buzz cut - transformed hairstyle with short buzz cut"
+                                    beforeAlt="Before bob haircut - original hairstyle"
+                                    afterAlt="After bob haircut - transformed hairstyle with bob cut"
                                     height={IMAGE_DISPLAY_HEIGHT}
                                 />
                             </div>
@@ -196,12 +197,12 @@ export default function BuzzCutFilterPage() {
                     </section>
                 </LazySection>
 
-                {/* Is Buzz Cut Right for Me Section */}
+                {/* Will a Bob Haircut Suit You? Try First Section */}
                 <LazySection>
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
-                            {isBuzzCutRightSection.title}
+                            {isBobCutRightSection.title}
                         </h2>
                         
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -212,8 +213,8 @@ export default function BuzzCutFilterPage() {
                                     <div className="font-semibold text-gray-800">Description</div>
                                 </div>
                                 
-                                {isBuzzCutRightSection.tableData.map((row, index) => (
-                                    <div key={index} className={`px-6 py-4 ${index !== isBuzzCutRightSection.tableData.length - 1 ? 'border-b border-gray-100' : ''} grid grid-cols-2 gap-4`}>
+                                {isBobCutRightSection.tableData.map((row, index) => (
+                                    <div key={index} className={`px-6 py-4 ${index !== isBobCutRightSection.tableData.length - 1 ? 'border-b border-gray-100' : ''} grid grid-cols-2 gap-4`}>
                                         <div className="font-medium text-gray-800">{row.feature}</div>
                                         <div className="text-gray-600">
                                             {row.feature === "Popularity in 2025" ? (
@@ -231,7 +232,7 @@ export default function BuzzCutFilterPage() {
                             
                             {/* 右侧文本 */}
                             <div className="space-y-4 text-gray-600 text-base leading-relaxed">
-                                {isBuzzCutRightSection.textContent.map((paragraph, index) => (
+                                {isBobCutRightSection.textContent.map((paragraph, index) => (
                                     <p key={index}>
                                         {paragraph}
                                     </p>
@@ -242,7 +243,7 @@ export default function BuzzCutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* How to Use Buzz Cut Filter Section */}
+                {/* See Yourself with a Bob Cut in Just 4 Easy Steps Section */}
                 <LazySection>
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
@@ -296,7 +297,7 @@ export default function BuzzCutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* First CTA Section */}
+                {/* Try Before You Cut Section */}
                 <section className="py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
@@ -336,7 +337,7 @@ export default function BuzzCutFilterPage() {
                     </div>
                 </section>
 
-                {/* Try a Bold Look Section */}
+                {/* Create Fun Looks for Social Media Section */}
                 <section className="py-2 sm:py-20  bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
@@ -361,7 +362,7 @@ export default function BuzzCutFilterPage() {
                                 
                                 {/* 右侧占位图 */}
                                 <div className="flex justify-center order-1 lg:order-2">
-                                    <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
+                                    <div className="w-full max-w-3xl bg-white p-2 rounded-lg overflow-hidden">
                                         <Image
                                             src={ctaSections[1].image.src}
                                             alt={ctaSections[1].image.alt}
@@ -376,14 +377,14 @@ export default function BuzzCutFilterPage() {
                     </div>
                 </section>
 
-                {/* Hair Loss Section */}
+                {/* Plan a Makeover with Friends Section */}
                 <section className="py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 {/* 左侧占位图 */}
                                 <div className="flex justify-center">
-                                    <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
+                                    <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden">
                                         <Image
                                             src={ctaSections[2].image.src}
                                             alt={ctaSections[2].image.alt}
@@ -416,7 +417,7 @@ export default function BuzzCutFilterPage() {
                     </div>
                 </section>
 
-                {/* Explore New Styles Section */}
+                {/* How to Keep Your Bob Haircut Looking Fresh Section */}
                 <section className="py-2 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-6xl mx-auto">
@@ -456,7 +457,48 @@ export default function BuzzCutFilterPage() {
                     </div>
                 </section>
 
-                {/* Why Choose Our Buzz Cut Simulator Section */}
+                {/* Regret Your Bob Haircut? Here's What to Do Section */}
+                <section className="py-20 bg-white">
+                    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                        <div className="max-w-full mx-auto">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                {/* 左侧占位图 */}
+                                <div className="flex justify-center">
+                                    <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
+                                        <Image
+                                            src={ctaSections[4].image.src}
+                                            alt={ctaSections[4].image.alt}
+                                            width={800}
+                                            height={600}
+                                            className="w-full h-auto object-contain"
+                                        />
+                                    </div>
+                                </div>
+                                
+                                {/* 右侧文本内容 */}
+                                <div className="space-y-6">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                        {ctaSections[4].title}
+                                    </h2>
+                                    <p className="text-lg text-gray-800 leading-relaxed">
+                                        {ctaSections[4].description}
+                                    </p>
+                                    
+                                    <Link 
+                                        href={ctaSections[4].ctaLink}
+                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+                                    >
+                                        {ctaSections[4].ctaText}
+                                        <i className="fas fa-arrow-right"></i>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                {/* Why Choose Our Bob Cut Simulator Section */}
                 <LazySection>
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">

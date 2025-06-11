@@ -137,6 +137,13 @@ export default function Navbar() {
                                         >
                                             Buzz Cut Filter
                                         </Link>
+                                        <Link
+                                            href="/bob-haircut-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Bob Haircut Filter
+                                        </Link>
                                     </div>
                                 </div>
                             )}
