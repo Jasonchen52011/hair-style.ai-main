@@ -8,7 +8,7 @@
     "ctaLink": "/ai-hairstyle?style=bobcut"
   },
   "imageConfig": {
-    "displayHeight": 500,
+    "displayHeight": 400,
     "beforeImage": "/images/bob-cut-before.webp",
     "afterImage": "/images/bob-cut-after.webp"
   },
@@ -24,6 +24,7 @@
         "src": "/images/french-bob.webp",
         "alt": "French bob cut transformation - before and after"
       }
+      
 
     ]
   },
@@ -98,7 +99,11 @@
   "ctaSections": [
     {
       "title": "Try Before You Cut",
-      "description": "Thinking of a bob cut but not ready to commit? Use HairstyleAI to preview how you'll look before going to the salon. Test different bob haircut filters like the Wavy French Bob or Pixie Bob. You can switch up layers, lengths, and bangs without touching your real hair. It's the best way to avoid haircut regret and feel confident in your choice.",
+      "textContent": [
+        "Thinking of a bob cut but not ready to commit? Use HairstyleAI to preview how you'll look before going to the salon.",
+        "Test different bob haircut filters like the Wavy French Bob or Pixie Bob. You can switch up layers, lengths, and bangs without touching your real hair.",
+        "It's the best way to avoid haircut regret and feel confident in your choice."
+      ],
       "image": {
         "src": "/images/bob-cut3.webp",
         "alt": "Bob cut transformation before and after - woman"
@@ -108,7 +113,11 @@
     },
     {
       "title": "Create Fun Looks for Social Media",
-      "description": "Want to prank your friends or show off a new style? Use our realistic bob haircut simulator to try bold or classic styles. Then share your new virtual cut on TikTok or Instagram. It's a fun way to surprise your followers, try trending styles, or even make before/after posts. No filters, just fun.",
+      "textContent": [
+        "Want to prank your friends or show off a new style? Use our realistic bob haircut simulator to try bold or classic styles.",
+        "Then share your new virtual cut on TikTok or Instagram. It's a fun way to surprise your followers, try trending styles, or even make before/after posts.",
+        "No filters, just fun."
+      ],
       "image": {
         "src": "/images/bob-cut-social.webp",
         "alt": "Fun bob cut to share on social media"
@@ -118,7 +127,11 @@
     },
     {
       "title": "Plan a Makeover with Friends",
-      "description": "Thinking of a group style challenge or makeover party? You and your friends can each try 5 looks per day—free. Upload your photos and mix styles like Short Layered Haircuts or Medium Bob Haircuts. Share your picks and vote on each other's looks. Perfect for a girls' night in or back-to-school prep!",
+      "textContent": [
+        "Thinking of a group style challenge or makeover party? You and your friends can each try 5 looks per day—free.",
+        "Upload your photos and mix styles like Short Layered Haircuts or Medium Bob Haircuts. Share your picks and vote on each other's looks.",
+        "Perfect for a girls' night in or back-to-school prep!"
+      ],
       "image": {
         "src": "/images/bob-cut-color.webp",
         "alt": "Group makeover with different color bob cuts - friends trying virtual hairstyles"
@@ -128,7 +141,11 @@
     },
     {
       "title": "How to Keep Your Bob Haircut Looking Fresh",
-      "description": "A bob cut looks neat—but it needs some love! First, trim your bob every 4–6 weeks. This keeps the ends sharp and the shape clean. Use a light shampoo and a smoothing conditioner to fight frizz, especially if you have wavy or thick hair. Can you just let it air-dry? Sure—but it depends. Some hair dries beautifully on its own, especially if it's straight or lightly wavy. If not, a quick blow-dry with a round brush can help your bob sit right. Don't forget heat protection! Worried your bob might look too plain or 'old'? Add side bangs, go for layers, or try a fun color. With the right tweaks, your bob can be soft, trendy, or even bold. And hey—if you want to test before you cut, try it on HairstyleAI first!",
+      "textContent": [
+        "A bob cut looks neat—but it needs some love! First, trim your bob every 4–6 weeks. This keeps the ends sharp and the shape clean. Use a light shampoo and a smoothing conditioner to fight frizz, especially if you have wavy or thick hair. ",
+        "Can you just let it air-dry? Sure—but it depends. Some hair dries beautifully on its own, especially if it's straight or lightly wavy. If not, a quick blow-dry with a round brush can help your bob sit right. ",
+        "Don't forget heat protection! Worried your bob might look too plain or 'old'? Add side bangs, go for layers, or try a fun color. With the right tweaks, your bob can be soft, trendy, or even bold. And hey—if you want to test before you cut, try it on HairstyleAI first!"
+      ],
       "image": {
         "src": "/images/franch-bob2.webp",
         "alt": "Bob haircut maintenance tips and styling"
@@ -138,7 +155,11 @@
     },
     {
       "title": "Regret Your Bob Haircut? Here's What to Do",
-      "description": "Feeling stuck with your new bob? Don't worry—it's normal! That 'awkward phase' happens to everyone. Try cute clips, hats, or curling the ends to mix things up while it grows. So, how long does it take to grow out? On average, about 3–4 months to reach your shoulders again. Be patient and trim only the ends to keep it healthy. In the meantime, try a short layered haircut, pixie bob, or even bangs to switch things up. These styles work well as your bob grows out. Still unsure? Go to HairstyleAI and try on different hairstyles for free. You can test looks in seconds—no stress, no regrets.",
+      "textContent": [
+        "Feeling stuck with your new bob? Don't worry—it's normal! That 'awkward phase' happens to everyone. Try cute clips, hats, or curling the ends to mix things up while it grows.",
+        "So, how long does it take to grow out? On average, about 3–4 months to reach your shoulders again. Be patient and trim only the ends to keep it healthy. In the meantime, try a short layered haircut, pixie bob, or even bangs to switch things up. These styles work well as your bob grows out.",
+        "Still unsure? Go to HairstyleAI and try on different hairstyles for free. You can test looks in seconds—no stress, no regrets."
+      ],
       "image": {
         "src": "/images/curly-bob2.webp",
         "alt": "Bob haircut regret solutions and growing out tips"

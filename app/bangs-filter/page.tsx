@@ -106,7 +106,7 @@ export default function BangsFilterPage() {
                                     {heroSection.title}
                                 </h1>
                                 <p className="text-sm sm:text-lg text-gray-800 mb-4 sm:mb-8 ">
-                                    {heroSection.description}
+                                    {heroSection.textcontent}
                                 </p>
                                 
                                 {/* 统计数据 */}
@@ -176,7 +176,7 @@ export default function BangsFilterPage() {
                                     {beforeAfterGallery.title}
                                 </h2>
                                 <p className="text-lg text-gray-800 max-w-5xl mx-auto">
-                                    {beforeAfterGallery.description}
+                                    {beforeAfterGallery.textcontent}
                                 </p>
                             </div>
 
@@ -197,7 +197,7 @@ export default function BangsFilterPage() {
                     </section>
                 </LazySection>
 
-                {/* Do Bangs Suit You? Try First Section */}
+                {/* Do Bangs Suit Your Face? Section */}
                 <LazySection>
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
@@ -215,15 +215,15 @@ export default function BangsFilterPage() {
                                 
                                 {isBangsRightSection.tableData.map((row, index) => (
                                     <div key={index} className={`px-6 py-4 ${index !== isBangsRightSection.tableData.length - 1 ? 'border-b border-gray-100' : ''} grid grid-cols-2 gap-4`}>
-                                        <div className="font-medium text-gray-800">{row.feature}</div>
+                                        <div className="font-medium text-sm sm:text-lg text-gray-800">{row.feature}</div>
                                         <div className="text-gray-800">
                                             {row.feature === "Popularity in 2025" ? (
                                                 <div className="flex items-center">
                                                     <span className="text-yellow-400">★★★★★</span>
-                                                    <span className="ml-2">{row.description}</span>
+                                                    <span className="ml-2">{row.textcontent}</span>
                                                 </div>
                                             ) : (
-                                                row.description
+                                                row.textcontent
                                             )}
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@ export default function BangsFilterPage() {
                             </div>
                             
                             {/* 右侧文本 */}
-                            <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed lg:col-span-3">
+                            <div className="space-y-6 text-gray-800 text-sm sm:text-lg leading-relaxed lg:col-span-3">
                                 {isBangsRightSection.textContent.map((paragraph, index) => (
                                     <p key={index}>
                                         {paragraph}
@@ -243,7 +243,7 @@ export default function BangsFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* How to Section */}
+                {/* How to Keep Your Bangs Section */}
                 <section className="py-2 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-6xl mx-auto">
@@ -253,15 +253,13 @@ export default function BangsFilterPage() {
                                     <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                         {ctaSections[3].title}
                                     </h2>
-                                    <p className="text-sm sm:text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[3].description}
-                                    </p>
-                                    <p className="text-sm sm:text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[3].description2}
-                                    </p>
-                                    <p className="text-sm sm:text-lg text-gray-800  leading-relaxed mb-4">
-                                        {ctaSections[3].description3}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[3].textcontent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[3].ctaLink}
@@ -289,13 +287,13 @@ export default function BangsFilterPage() {
                     </div>
                 </section>
 
-                {/* Regret Your Bangs? Here's What to Do Section */}
+                {/* Regret Your New Bangs? Easy Fixes for You Section */}
                 <section className="py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
                                 {/* 左侧占位图 */}
-                                <div className="flex justify-center lg:col-span-3">
+                                <div className="flex justify-center lg:col-span-2">
                                     <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden">
                                         <Image
                                             src={ctaSections[4].image.src}
@@ -312,15 +310,13 @@ export default function BangsFilterPage() {
                                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
                                         {ctaSections[4].title}
                                     </h2>
-                                    <p className="text-sm sm:text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[4].description}
-                                    </p>
-                                    <p className="text-sm sm:text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[4].description2}
-                                    </p>
-                                    <p className="text-sm sm:text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[4].description3}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[4].textcontent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[4].ctaLink}
@@ -339,14 +335,14 @@ export default function BangsFilterPage() {
                 <LazySection>
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
-                        <div className="text-center mb-12">
-                            <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
-                                {howToUseSection.title}
-                            </h2>
-                            <p className="text-base text-gray-800 max-w-5xl mx-auto">
-                                {howToUseSection.description}
-                            </p>
-                        </div>
+                     <div className="text-center mb-12">
+                      <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
+                      {howToUseSection.title}
+                      </h2>
+                      <p className="text-base text-gray-800 max-w-5xl mx-auto">
+                      {howToUseSection.textcontent}
+                       </p>
+                      </div>
                         
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ">
                             {/* 左侧步骤 */}
@@ -358,7 +354,7 @@ export default function BangsFilterPage() {
                                             {step.title}
                                         </h3>
                                         <p className="text-gray-800 text-sm sm:text-base leading-relaxed">
-                                            {step.description}
+                                            {step.textcontent}
                                         </p>
                                     </div>
                                 ))}
@@ -390,13 +386,13 @@ export default function BangsFilterPage() {
                 </LazySection>
            
 
-                {/* CTA1 Section */}
+                {/* Thinking of Getting Bangs? Section */}
                 <section className="py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
                                 {/* 左侧占位图 */}
-                                <div className="flex justify-center lg:col-span-3">
+                                <div className="flex justify-center lg:col-span-2">
                                     <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden">
                                         <Image
                                             src={ctaSections[0].image.src}
@@ -410,12 +406,16 @@ export default function BangsFilterPage() {
                                 
                                 {/* 右侧文本内容 */}
                                 <div className="space-y-6 lg:col-span-2">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                     {ctaSections[0].title}    
                                     </h2>
-                                    <p className="text-sm sm:text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[0].description}
-                                    </p>
+                                    <div className="space-y-4  text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[0].textcontent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[0].ctaLink}
@@ -430,19 +430,23 @@ export default function BangsFilterPage() {
                     </div>
                 </section>
 
-                {/* CTA2 Social Media Section */}
+                {/* Planning a Fun Social Media Post Social Media Section */}
                 <section className="py-2 sm:py-20  bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
                                 {/* 左侧文本内容 */}
                                 <div className="space-y-6 order-2 lg:order-1 lg:col-span-2">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                    <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                         {ctaSections[1].title}
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[1].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[1].textcontent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[1].ctaLink}
@@ -454,7 +458,7 @@ export default function BangsFilterPage() {
                                 </div>
                                 
                                 {/* 右侧占位图 */}
-                                <div className="flex justify-center order-1 lg:order-2 lg:col-span-3">
+                                <div className="flex justify-center order-1 lg:order-2 lg:col-span-2">
                                     <div className="w-full max-w-3xl bg-white p-2 rounded-lg overflow-hidden">
                                         <Image
                                             src={ctaSections[1].image.src}
@@ -470,11 +474,11 @@ export default function BangsFilterPage() {
                     </div>
                 </section>
 
-                {/* CTA3 Section */}
-                <section className="py-20 bg-white">
+                {/*Special Events and Parties Section */}
+                <section className="py-20 bg-white hidden">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-center">
                                 {/* 左侧占位图 */}
                                 <div className="flex justify-center lg:col-span-3">
                                     <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden">
@@ -489,13 +493,17 @@ export default function BangsFilterPage() {
                                 </div>
                                 
                                 {/* 右侧文本内容 */}
-                                <div className="space-y-6 lg:col-span-2">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                <div className="space-y-6 lg:col-span-3">
+                                    <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                             {ctaSections[2].title}
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[2].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[2].textcontent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[2].ctaLink}
@@ -526,7 +534,7 @@ export default function BangsFilterPage() {
                                     <i className={`${feature.icon} text-4xl text-purple-600 mb-6`}></i>
                                     <h3 className="text-lg font-bold text-gray-800 mb-3">{feature.title}</h3>
                                     <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                                        {feature.description}
+                                        {feature.textcontent}
                                     </p>
                                 </div>
                             ))}
@@ -564,7 +572,7 @@ export default function BangsFilterPage() {
                                  {finalCta.title}
                             </h2>
                             <p className="text-xl text-gray-700 mb-8">
-                                 {finalCta.description}
+                                 {finalCta.textcontent}
                             </p>
                             <Link 
                                 href={finalCta.ctaLink}

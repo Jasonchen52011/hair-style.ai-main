@@ -218,8 +218,8 @@ export default function BobHaircutFilterPage() {
                                 
                                 {isBobCutRightSection.tableData.map((row, index) => (
                                     <div key={index} className={`px-6 py-4 ${index !== isBobCutRightSection.tableData.length - 1 ? 'border-b border-gray-100' : ''} grid grid-cols-2 gap-4`}>
-                                        <div className="font-medium text-gray-800">{row.feature}</div>
-                                        <div className="text-gray-600">
+                                        <div className="font-semibold text-gray-800 text-sm sm:text-lg">{row.feature}</div>
+                                        <div className="text-gray-800">
                                             {row.feature === "Popularity in 2025" ? (
                                                 <div className="flex items-center">
                                                     <span className="text-yellow-400">★★★★★</span>
@@ -234,7 +234,7 @@ export default function BobHaircutFilterPage() {
                             </div>
                             
                             {/* 右侧文本 */}
-                            <div className="space-y-4 text-gray-600 text-base leading-relaxed">
+                            <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                 {isBobCutRightSection.textContent.map((paragraph, index) => (
                                     <p key={index}>
                                         {paragraph}
@@ -254,7 +254,7 @@ export default function BobHaircutFilterPage() {
                             <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                 {howToUseSection.title}
                             </h2>
-                            <p className="text-base text-gray-600 max-w-5xl mx-auto">
+                            <p className="text-base text-gray-800 max-w-5xl mx-auto">
                                 {howToUseSection.description}
                             </p>
                         </div>
@@ -323,12 +323,16 @@ export default function BobHaircutFilterPage() {
                                 
                                 {/* 右侧文本内容 */}
                                 <div className="space-y-6">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                     {ctaSections[0].title}    
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[0].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[0].textContent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[0].ctaLink}
@@ -350,12 +354,16 @@ export default function BobHaircutFilterPage() {
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 {/* 左侧文本内容 */}
                                 <div className="space-y-6 order-2 lg:order-1">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                    <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                         {ctaSections[1].title}
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[1].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[1].textContent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[1].ctaLink}
@@ -403,12 +411,16 @@ export default function BobHaircutFilterPage() {
                                 
                                 {/* 右侧文本内容 */}
                                 <div className="space-y-6">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                    <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                             {ctaSections[2].title}
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[2].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[2].textContent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[2].ctaLink}
@@ -430,12 +442,16 @@ export default function BobHaircutFilterPage() {
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                                 {/* 左侧文本内容 */}
                                 <div className="space-y-6 order-2 lg:order-1">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                    <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                         {ctaSections[3].title}
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[3].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[3].textContent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[3].ctaLink}
@@ -486,9 +502,13 @@ export default function BobHaircutFilterPage() {
                                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
                                         {ctaSections[4].title}
                                     </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[4].description}
-                                    </p>
+                                    <div className="space-y-4 text-gray-800 text-lg leading-relaxed">
+                                        {ctaSections[4].textContent.map((paragraph, index) => (
+                                            <p key={index}>
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
                                     
                                     <Link 
                                         href={ctaSections[4].ctaLink}
