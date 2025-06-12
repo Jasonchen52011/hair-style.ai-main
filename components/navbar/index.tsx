@@ -144,6 +144,13 @@ export default function Navbar() {
                                         >
                                             Bob Haircut Filter
                                         </Link>
+                                        <Link
+                                            href="/bangs-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Bangs Filter
+                                        </Link>
                                     </div>
                                 </div>
                             )}

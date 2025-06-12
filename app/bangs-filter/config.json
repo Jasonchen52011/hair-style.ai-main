@@ -9,20 +9,36 @@
     },
     "imageConfig": {
       "displayHeight": 400,
-      "beforeImage": "/images/bob-cut-before.jpg",
-      "afterImage": "/images/bob-cut-after.jpg"
+      "beforeImage": "/images/h1-bangs-a.jpg",
+      "afterImage": "/images/h1-bangs-b.jpg"
     },
     "beforeAfterGallery": {
       "title": "Real Bangs Transformations by Our Happy Users!",
       "description": "See real before-and-after examples of how Hairstyle AI's bang filter transformed our users' looks. Check out curtain bangs, wispy bangs, and other popular bang styles that boosted confidence. Get inspired and try your own new hairstyle today!",
       "images": [
         {
-          "src": "/images/bob-cut.jpg",
-          "alt": "Bangs transformation - before and after with curtain bangs"
+          "src": "/images/long-hime-bangs.jpg",
+          "alt": "Long hime bangs transformation - before and after"
         },
         {
-          "src": "/images/french-bob.jpg",
-          "alt": "Wispy bangs transformation - before and after"
+          "src": "/images/long-hime-bangs2.jpg",
+          "alt": "Long hime bangs style variation - elegant transformation"
+        },
+        {
+          "src": "/images/bob-bangs.jpg",
+          "alt": "Bob with bangs transformation - modern style"
+        },
+        {
+          "src": "/images/pixie-bangs.jpg",
+          "alt": "Pixie cut with bangs - short and stylish"
+        },
+        {
+          "src": "/images/long-hime-bangs3.jpg",
+          "alt": "Long layered bangs - sophisticated look"
+        },
+        {
+          "src": "/images/long-hime-bangs4.jpg",
+          "alt": "Long curtain bangs - face-framing style"
         }
   
       ]
@@ -91,7 +107,7 @@
         }
       ],
       "image": {
-        "src": "/images/bob-cut-how-to.jpg",
+        "src": "/images/how-to-bangs.jpg",
         "alt": "How to use bangs filter - step by step demonstration"
       },
       "ctaText": "Try Bangs Filter",
@@ -102,7 +118,7 @@
         "title": "Thinking of Getting Bangs?",
         "description": "You're thinking about cutting your bangs but aren't sure. Will curtain bangs suit your face? Would wispy bangs look cute or awkward? Hairstyle AI helps you avoid regrets. Before you visit the salon, upload your photo, pick your preferred bangs style, and see exactly how bangs transform your look. Easily compare different styles like Korean bangs or face-framing wispy bangs. Save your favorites, show friends and confidently choose your perfect hairstyle. Now you can walk into the salon knowing exactly what you want—no anxiety, just excitement!",
         "image": {
-          "src": "/images/bob-cut3.jpg",
+          "src": "/images/long-hime-bangs.jpg",
           "alt": "Bangs transformation preview - woman considering curtain bangs"
         },
         "ctaText": "Try Bangs Filter",
@@ -112,7 +128,7 @@
         "title": "Planning a Fun Social Media Post",
         "description": "Love trying new hairstyles for TikTok, Instagram, or Snapchat? Hairstyle AI makes it easy to experiment with trendy looks without commitment. Want to see yourself with bold Korean bangs or stylish curtain bangs with layers? Simply upload a clear photo, select your hairstyle, and our realistic AI filter will quickly generate your new look. Share the funny, surprising, or beautiful results instantly on social media. Impress your followers, prank your friends, or simply boost your confidence by discovering exciting hairstyles you never imagined before.",
         "image": {
-          "src": "/images/bob-cut-social.jpg",
+          "src": "/images/social-bangs-b.jpg",
           "alt": "Fun bangs styles to share on social media"
         },
         "ctaText": "Try Bangs Filter",
@@ -122,7 +138,7 @@
         "title": "Special Events and Parties",
         "description": "Got a special event or party soon? Wondering if bangs would add the perfect finishing touch to your outfit? Hairstyle AI lets you virtually try bangs for weddings, birthday parties, or graduations, ensuring you look your absolute best. Test elegant curtain bangs or trendy wispy bangs ahead of the event. Our realistic, AI-powered hairstyle simulator shows you exactly how bangs enhance your look, helping you choose the best style. Be ready to turn heads at your event, feeling confident and stylish, knowing you've found your ideal hairstyle in advance.",
         "image": {
-          "src": "/images/bob-cut-color.jpg",
+          "src": "/images/bob-bangs.jpg",
           "alt": "Elegant bangs styles for special events and parties"
         },
         "ctaText": "Try Bangs Filter",
@@ -134,7 +150,7 @@
         "description2": "Bangs also require regular trims. They grow fast, so visit your hairstylist every 2-4 weeks. Regular trims keep your bangs neat, precise, and looking just right.",
         "description3": "Also, keep your forehead dry and clean to avoid breakouts. For oily hair, regularly washing with an oil-control shampoo will prevent your bangs from getting greasy and uncomfortable, especially during hot weather.",
         "image": {
-          "src": "/images/franch-bob2.jpg",
+          "src": "/images/pixie-bangs.jpg",
           "alt": "Bangs maintenance tips and styling guide"
         },
         "ctaText": "Try Bangs Filter",
@@ -146,7 +162,7 @@
         "description2": "Typically, bangs grow about half an inch per month. Within 3-4 months, they'll usually blend back into your hairstyle comfortably.",
         "description3": "If waiting feels too long, try extensions or temporary clip-in bangs for a quick fix. This lets you experiment without further commitment. Or even better—try Hairstyle AI's free online hairstyle changer! You can upload your photo and find a new hairstyle you really love, instantly boosting your confidence again.",  
         "image": {
-          "src": "/images/curly-bob2.jpg",
+          "src": "/images/long-hime-bangs4.jpg",
           "alt": "Bangs regret solutions and growing out tips"
         },
         "ctaText": "Try Bangs Filter",
@@ -307,14 +323,14 @@
       "openGraph": {
         "title": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
         "description": "Wondering if bangs suit your face? Use our free bangs filter online! Upload your photo, select from realistic bang styles and instantly see your new look for free",
-        "image": "https://hair-style.ai/images/bob-cut3.jpg",
+        "image": "https://hair-style.ai/images/h1-bangs-a.jpg",
         "imageAlt": "Free Bangs Filter Online - Try Virtual Bang Hairstyles with AI",
         "url": "https://hair-style.ai/bangs-filter"
       },
       "twitter": {
         "title": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
         "description": "Wondering if bangs suit your face? Use Hairstyle AI's free bangs filter online! Upload your photo, select from realistic bang styles like curtain bangs and instantly see your new look—risk-free and no commitment!",
-        "image": "https://hair-style.ai/images/bob-cut3.jpg"
+        "image": "https://hair-style.ai/images/h1-bangs-a.jpg"
       }
     },
     "structuredData": {

@@ -205,7 +205,7 @@ export default function BangsFilterPage() {
                             {isBangsRightSection.title}
                         </h2>
                         
-                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                        <div className="grid grid-cols-1 lg:grid-cols-6 gap-8 items-start">
                             {/* 左侧表格 */}
                             <div className="bg-white rounded-lg shadow-sm overflow-hidden lg:col-span-3">
                                 <div className="bg-gray-100 px-6 py-4 grid grid-cols-2 gap-4">
@@ -231,7 +231,7 @@ export default function BangsFilterPage() {
                             </div>
                             
                             {/* 右侧文本 */}
-                            <div className="space-y-4 text-gray-800 text-base leading-relaxed lg:col-span-2">
+                            <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed lg:col-span-3">
                                 {isBangsRightSection.textContent.map((paragraph, index) => (
                                     <p key={index}>
                                         {paragraph}
@@ -247,7 +247,7 @@ export default function BangsFilterPage() {
                 <section className="py-2 sm:py-20 bg-white">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-6xl mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
                                 {/* 左侧文本内容 */}
                                 <div className="space-y-3 order-2 lg:order-1 lg:col-span-2">
                                     <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
@@ -273,7 +273,7 @@ export default function BangsFilterPage() {
                                 </div>
                                 
                                 {/* 右侧占位图 */}
-                                <div className="flex justify-center order-1 lg:order-2 lg:col-span-3">
+                                <div className="flex justify-center order-1 lg:order-2 lg:col-span-2">
                                     <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
                                         <Image
                                             src={ctaSections[3].image.src}
