@@ -105,7 +105,7 @@ export default function BangsFilterPage() {
                                 <h1 className="text-3xl sm:text-5xl font-bold sm:mb-10 mb-4 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-sm sm:text-lg text-gray-800 mb-4 sm:mb-8 ">
+                                <p className="text-lg sm:text-2xl text-gray-800 mb-4 sm:mb-8 ">
                                     {heroSection.textcontent}
                                 </p>
                                 
@@ -189,6 +189,7 @@ export default function BangsFilterPage() {
                                             width={400}
                                             height={300}
                                             className="w-full h-auto object-contain"
+                                            unoptimized={true}
                                         />
                                     </div>
                                 ))}
@@ -279,6 +280,7 @@ export default function BangsFilterPage() {
                                             width={800}
                                             height={600}
                                             className="w-full h-auto object-contain"
+                                            unoptimized={true}
                                         />
                                     </div>
                                 </div>
@@ -331,7 +333,7 @@ export default function BangsFilterPage() {
                     </div>
                 </section>
 
-                {/* How to Use Section */}
+                {/* How to Use the Hairstyle AI Bang Filter Section */}
                 <LazySection>
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
