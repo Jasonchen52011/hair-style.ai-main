@@ -680,7 +680,7 @@ function SelectStylePageContent() {
                         {!uploadedImageUrl ? (
                             <>
                                 {/* 上传区域 */}
-                                <div className="p-2 rounded-lg h-[400px] sm:h-[500px] flex flex-col items-center justify-center mb-2">
+                                <div className="p-2 rounded-lg h-[600px] sm:h-[700px] flex flex-col items-center justify-center mb-2">
                                     <div className="w-full max-w-md md:max-w-xl mx-auto px-4">
                                         <UploadArea />
                                     </div>
@@ -743,7 +743,7 @@ function SelectStylePageContent() {
                             </>
                         ) : (
                             // PC端预览区域
-                            <div className="p-1 sm:p-2 rounded-lg shadow-sm relative h-[500px] sm:h-[660px] flex flex-col items-center">
+                            <div className="p-1 sm:p-2 rounded-lg shadow-sm relative h-[700px] sm:h-[800px] flex flex-col items-center">
                                 {/* 顶部按钮区域 */}
                                 <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (

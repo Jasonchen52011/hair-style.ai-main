@@ -151,6 +151,13 @@ export default function Navbar() {
                                         >
                                             Bangs Filter
                                         </Link>
+                                        <Link
+                                            href="/ai-braids"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            AI Braids Filter
+                                        </Link>
                                     </div>
                                 </div>
                             )}

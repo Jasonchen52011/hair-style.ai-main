@@ -42,6 +42,11 @@ export default function Footer() {
                                     Bob Haircut Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/ai-braids" className="text-gray-400 hover:text-white transition-colors">
+                                    AI Braids Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
