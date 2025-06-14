@@ -43,6 +43,11 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/bangs-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Bangs Filter
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/ai-braids" className="text-gray-400 hover:text-white transition-colors">
                                     AI Braids Filter
                                 </Link>
