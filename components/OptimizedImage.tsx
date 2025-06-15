@@ -69,7 +69,7 @@ export default function OptimizedImage({
     onLoad?.()
   }
 
-  // 如果图片加载失败，显示占位符
+
   if (imageError) {
     return (
       <div 
@@ -77,8 +77,8 @@ export default function OptimizedImage({
         style={{ width, height }}
       >
         <div className="text-center px-4">
-          <div className="text-2xl mb-2">📷</div>
-          <span className="text-gray-500 text-sm">图片加载失败</span>
+          <div className="text-2xl mb-2">�</div>
+          <span className="text-gray-500 text-sm">image loading failed</span>
         </div>
       </div>
     )
