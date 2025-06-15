@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { femaleStyles, maleStyles, hairColors } from '@/lib/hairstyles';
+import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/lib/hairstyles';
 import Image from 'next/image';
 import Link from 'next/link';
 import LazySection from '@/components/LazySection';
@@ -88,7 +88,7 @@ const OptimizedImage = ({
 export default function Hero() {
     const [mounted, setMounted] = useState(false);
     const [activeTab, setActiveTab] = useState<TabType>('Female');
-    const [displayStyles, setDisplayStyles] = useState<Array<{imageUrl: string; description: string}>>([]);
+    const [displayStyles, setDisplayStyles] = useState<HairStyle[]>([]);
     const [displayColors, setDisplayColors] = useState<Array<{id: string; color: string; label: string}>>([]);
     const [currentTestimonial, setCurrentTestimonial] = useState(0);
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(0);
@@ -205,9 +205,9 @@ export default function Hero() {
         lightPurple: "/images/colors/light-purple-hair.jpg"
     };
 
-    useEffect(() => {
-        // 根据选中的标签获取对应的数据
-        if (activeTab === 'Color') {
+    // 数据更新函数
+    const updateDisplayData = (tabType: TabType) => {
+        if (tabType === 'Color') {
             // 只显示有对应图片的颜色选项
             const availableColors = hairColors.filter(color => 
                 // 检查颜色ID是否在 colorImages 中存在
@@ -215,12 +215,19 @@ export default function Hero() {
             );
             setDisplayColors(availableColors);
             setDisplayStyles([]);
+            console.log(`切换到 ${tabType} - 显示 ${availableColors.length} 个颜色选项`);
         } else {
             // 对于发型标签，设置所有样式数据
-            const styles = activeTab === 'Female' ? femaleStyles : maleStyles;
+            const styles = tabType === 'Female' ? femaleStyles : maleStyles;
             setDisplayStyles(styles);
             setDisplayColors([]);
+            console.log(`切换到 ${tabType} - 显示 ${styles.length} 个发型选项`, styles.slice(0, 3).map(s => s.description));
         }
+    };
+
+    useEffect(() => {
+        // 根据选中的标签获取对应的数据
+        updateDisplayData(activeTab);
     }, [activeTab]);
 
     // 评论导航函数
@@ -245,6 +252,8 @@ export default function Hero() {
     // 添加客户端挂载检查，避免hydration错误
     useEffect(() => {
         setMounted(true);
+        // 组件挂载时立即加载初始数据
+        updateDisplayData(activeTab);
     }, []);
 
     if (!mounted) {
@@ -352,7 +361,11 @@ export default function Hero() {
                                 {(['Female', 'Male', 'Color'] as const).map((tab) => (
                                     <button
                                         key={tab}
-                                        onClick={() => setActiveTab(tab)}
+                                        onClick={() => {
+                                            setActiveTab(tab);
+                                            // 立即更新数据，确保状态同步
+                                            updateDisplayData(tab);
+                                        }}
                                         className={`px-16 py-3 text-base font-medium transition-all ${
                                             activeTab === tab
                                                 ? 'bg-purple-700 text-white shadow-lg'
@@ -402,9 +415,10 @@ export default function Hero() {
                                 ) : (
                                     // 发型选项展示 - 显示所有样式
                                     displayStyles.map((style, index) => (
-                                        <div key={index} className="hairstyle-item transition-all duration-300 hover:scale-105">
+                                        <div key={`${activeTab}-${style.description}-${index}`} className="hairstyle-item transition-all duration-300 hover:scale-105">
                                             <div className="aspect-[3/4]  hairstyle-image relative bg-gray-100 rounded-2xl overflow-hidden mb-3">
                                                 <OptimizedImage
+                                                    key={`img-${activeTab}-${style.description}`}
                                                     src={style.imageUrl}
                                                     alt={style.description}
                                                     className="w-full h-full"
