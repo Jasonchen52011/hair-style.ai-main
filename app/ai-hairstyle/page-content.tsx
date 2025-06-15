@@ -743,7 +743,7 @@ function SelectStylePageContent() {
                             </>
                         ) : (
                             // PC端预览区域
-                            <div className="p-1 sm:p-2 rounded-lg shadow-sm relative h-[700px] sm:h-[800px] flex flex-col items-center">
+                            <div className="p-1 sm:p-2 rounded-lg shadow-sm relative h-[700px]  flex flex-col items-center">
                                 {/* 顶部按钮区域 */}
                                 <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (

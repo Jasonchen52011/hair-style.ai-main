@@ -52,6 +52,11 @@ export default function Footer() {
                                     AI Braids Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/pixie-cut-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Pixie Cut Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
