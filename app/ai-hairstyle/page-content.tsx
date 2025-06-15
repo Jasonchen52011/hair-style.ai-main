@@ -680,7 +680,7 @@ function SelectStylePageContent() {
                         {!uploadedImageUrl ? (
                             <>
                                 {/* 上传区域 */}
-                                <div className="p-2 rounded-lg h-[600px] sm:h-[700px] flex flex-col items-center justify-center mb-2">
+                                <div className="p-2 rounded-lg h-[400px] flex flex-col items-center justify-center mb-2">
                                     <div className="w-full max-w-md md:max-w-xl mx-auto px-4">
                                         <UploadArea />
                                     </div>
