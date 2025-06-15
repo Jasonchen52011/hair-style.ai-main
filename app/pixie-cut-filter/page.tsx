@@ -314,7 +314,7 @@ export default function PixieCutFilterPage() {
                                             <i className={`${step.icon} mr-2 text-purple-600`}></i>
                                             {step.title}
                                         </h3>
-                                        <p className="text-gray-800 leading-relaxed">
+                                        <p className="text-gray-800 text-sm sm:text-lg leading-relaxed">
                                             {step.description}
                                         </p>
                                     </div>
