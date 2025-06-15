@@ -416,45 +416,35 @@ export default function BuzzCutFilterPage() {
                     </div>
                 </section>
 
-                {/* Explore New Styles Section */}
-                <section className="py-2 sm:py-20 bg-white">
-                    <div className="w-full px-2 sm:px-4 lg:px-6">
-                        <div className="max-w-6xl mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                                {/* 左侧文本内容 */}
-                                <div className="space-y-6 order-2 lg:order-1">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                                        {ctaSections[3].title}
-                                    </h2>
-                                    <p className="text-lg text-gray-800 leading-relaxed">
-                                        {ctaSections[3].description}
-                                    </p>
-                                    
-                                    <Link 
-                                        href={ctaSections[3].ctaLink}
-                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
-                                    >
-                                        {ctaSections[3].ctaText}
-                                        <i className="fas fa-arrow-right"></i>
-                                    </Link>
-                                </div>
-                                
-                                {/* 右侧占位图 */}
-                                <div className="flex justify-center order-1 lg:order-2">
-                                    <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden shadow-lg">
+                {/* Before & After Gallery */}
+                <LazySection>
+                    <section className="py-2 sm:py-20 bg-gray-50">
+                        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                            <div className="text-center mb-16">
+                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
+                                    {beforeAfterGallery.title}
+                                </h2>
+                                <p className="text-lg text-gray-800 max-w-5xl mx-auto">
+                                    {beforeAfterGallery.description}
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                                {beforeAfterGallery.images.map((image, index) => (
+                                    <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg">
                                         <Image
-                                            src={ctaSections[3].image.src}
-                                            alt={ctaSections[3].image.alt}
-                                            width={800}
-                                            height={600}
+                                            src={image.src}
+                                            alt={image.alt}
+                                            width={400}
+                                            height={300}
                                             className="w-full h-auto object-contain"
                                         />
                                     </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </LazySection>
 
                 {/* Why Choose Our Buzz Cut Simulator Section */}
                 <LazySection>
