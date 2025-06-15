@@ -110,7 +110,7 @@ const nextConfig = {
             'www.hair-style.ai',
             'pub-static.aiease.ai'
         ],
-        unoptimized: false, // 启用Next.js图片优化
+        unoptimized: true, // 全局禁用Next.js图片优化，避免线上/_next/image服务问题
         formats: ['image/webp', 'image/avif'], // 优先使用现代格式
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
         imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
