@@ -170,7 +170,6 @@ export default function PixieCutFilterPage() {
 
 
                 {/* Before & After Gallery */}
-                <LazySection>
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
@@ -197,7 +196,7 @@ export default function PixieCutFilterPage() {
                             </div>
                         </div>
                     </section>
-                </LazySection>
+         
 
 
 
