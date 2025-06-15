@@ -167,6 +167,8 @@ export default function PixieCutFilterPage() {
                     </div>
                 </section>
 
+
+
                 {/* Before & After Gallery */}
                 <LazySection>
                     <section className="py-2 sm:py-20 bg-gray-50">
@@ -196,6 +198,8 @@ export default function PixieCutFilterPage() {
                         </div>
                     </section>
                 </LazySection>
+
+
 
                 {/* Is Pixie Cut Right for Me? Section */}
                 <LazySection>
@@ -343,7 +347,7 @@ export default function PixieCutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* Planning Your Next Hair App Sections */}
+                {/* Not Sure If a Pixie Cut Suits Your Face Shape? Try It Online in Seconds Sections */}
                 {ctaSections.map((section, index) => (
                     <section key={index} className={`py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
