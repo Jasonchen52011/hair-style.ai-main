@@ -426,7 +426,7 @@ export default function BobHaircutFilterPage() {
                 </section>
 
                 {/* Fun with Friends on Social Media Section */}
-                <section className="py-20 bg-gray-50">
+                <section className="py-20">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
