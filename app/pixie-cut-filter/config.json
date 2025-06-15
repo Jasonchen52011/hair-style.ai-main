@@ -17,7 +17,7 @@
     "description": "Explore amazing before-and-after results. Our users went from long hair to short pixie styles with just a click. It's all free and 100% virtual.",
     "images": [
       {
-        "src": "/images/pixie-cut-filter.webp",
+        "src": "/images/pixie-cut-filter.jpg",
         "alt": "short pixie cut transformation - person before and after"
       },
       {
@@ -125,7 +125,7 @@
       "title": "Not Sure If a Pixie Cut Suits Your Face Shape? Try It Online in Seconds",
       "description": "Not sure if a pixie cut works for your face shape? Don't worry—you don't need to guess or grab scissors. Just upload your photo and try it online with our realistic AI filter. You'll see how you'd look with short hair in under a minute. It's perfect for anyone thinking about a big change but not ready to commit. Whether you're on a break, at home, or getting ready for a video call, you can test out different styles fast—right from your phone or laptop.",
       "image": {
-        "src": "/images/pixie-cut-filter5.webp",
+        "src": "/images/pixie-cut-filter5.jpg",
         "alt": "pixie cut face shape compatibility - before and after transformation"
       },
       "ctaText": "Try Pixie Cut Filter",
@@ -325,7 +325,7 @@
       "type": "website",
       "images": [
         {
-          "url": "https://hair-style.ai/images/pixie-cut-filter.webp",
+          "url": "https://hair-style.ai/images/pixie-cut-filter.jpg",
           "width": 1920,
           "height": 1080,
           "alt": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
@@ -338,7 +338,7 @@
       "site": "@hair_styleai",
       "title": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
       "description": "Wondering if a pixie cut suits you? Try the pixie cut filter everyone's talking about online! Upload a photo, choose your favorite pixie style, and see your new look.",
-      "images": ["https://hair-style.ai/images/pixie-cut-filter.webp"]
+      "images": ["https://hair-style.ai/images/pixie-cut-filter.jpg"]
     }
   }
 } 
