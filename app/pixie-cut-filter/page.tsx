@@ -182,6 +182,7 @@ export default function BobHaircutFilterPage() {
                                             width={400}
                                             height={300}
                                             className="w-full h-auto object-contain"
+                                            unoptimized
                                         />
                                     </div>
                                 ))}
@@ -253,6 +254,7 @@ export default function BobHaircutFilterPage() {
                                             width={800}
                                             height={600}
                                             className="w-full h-auto object-contain rounded-lg"
+                                            unoptimized
                                         />
                                     </div>
                                 </div>
@@ -297,6 +299,7 @@ export default function BobHaircutFilterPage() {
                                             width={800}
                                             height={600}
                                             className="w-full h-auto object-contain rounded-lg"
+                                            unoptimized
                                         />
                                     </div>
                                 </div>
@@ -373,6 +376,7 @@ export default function BobHaircutFilterPage() {
                                         width={800}
                                         height={900}
                                         className="w-full h-auto object-contain"
+                                        unoptimized
                                     />
                                 </div>
                             </div>
