@@ -11,7 +11,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import config from './config.json'
 
-
 const { 
   imageConfig, 
   heroSection, 
@@ -24,9 +23,9 @@ const {
   testimonialsConfig, 
   faqConfig, 
   finalCta, 
+  seoConfig: metadataConfig,
   structuredData, 
-  breadcrumbData,
-  seoConfig
+  breadcrumbData 
 } = config;
 
 const before = imageConfig.beforeImage;
@@ -35,51 +34,45 @@ const IMAGE_DISPLAY_HEIGHT = imageConfig.displayHeight;
 
 
 
-// AI Pixie Cut Filter 页面 metadata
+// Bob Haircut Filter 页面 metadata
 export const metadata: Metadata = {
-    title: seoConfig.title,
-    description: seoConfig.description,
+    title: metadataConfig.title,
+    description: metadataConfig.description,
     alternates: {
-        canonical: seoConfig.canonical
+        canonical: metadataConfig.canonical
     },
+
     robots: {
-        index: seoConfig.robots.index,
-        follow: seoConfig.robots.follow,
-        googleBot: {
-            index: seoConfig.robots.googleBot.index,
-            follow: seoConfig.robots.googleBot.follow,
-            'max-video-preview': seoConfig.robots.googleBot['max-video-preview'],
-            'max-image-preview': 'large' as const,
-            'max-snippet': seoConfig.robots.googleBot['max-snippet'],
-        },
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
     openGraph: {
-        title: seoConfig.openGraph.title,
-        description: seoConfig.openGraph.description,
-        url: seoConfig.openGraph.url,
-        siteName: seoConfig.openGraph.siteName,
-        locale: seoConfig.openGraph.locale,
-        type: 'website',
-        images: [
-            {
-                url: seoConfig.openGraph.images[0].url,
-                width: seoConfig.openGraph.images[0].width,
-                height: seoConfig.openGraph.images[0].height,
-                alt: seoConfig.openGraph.images[0].alt,
-                type: seoConfig.openGraph.images[0].type as 'image/webp'
-            }
-        ]
+        title: metadataConfig.openGraph.title,
+        description: metadataConfig.openGraph.description,
+        images: metadataConfig.openGraph.images,
+        siteName: metadataConfig.openGraph.siteName,
+        locale: metadataConfig.openGraph.locale as any,
+        type: metadataConfig.openGraph.type as any,
+        url: metadataConfig.openGraph.url,
     },
     twitter: {
-        card: seoConfig.twitter.card as 'summary_large_image',
-        site: seoConfig.twitter.site,
-        title: seoConfig.twitter.title,
-        description: seoConfig.twitter.description,
-        images: seoConfig.twitter.images
+        card: metadataConfig.twitter.card as any,
+        site: metadataConfig.twitter.site,
+        title: metadataConfig.twitter.title,
+        description: metadataConfig.twitter.description,
+        images: metadataConfig.twitter.images
     },
+
 }
 
-export default function PixieCutFilterPage() {
+export default function BobHaircutFilterPage() {
     return (
         <>        
         <script
@@ -102,10 +95,10 @@ export default function PixieCutFilterPage() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center ">
                             {/* 左侧内容 */}
                             <div className="pr-8 order-2 lg:order-1">
-                                <h1 className="text-2xl sm:text-5xl font-bold mb-6 text-gray-900">
+                                <h1 className="text-3xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-lg md:text-xl text-gray-800 mb-4 sm:mb-2 ">
+                                <p className="text-lg md:text-2xl text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.description}
                                 </p>
                                 
@@ -158,8 +151,8 @@ export default function PixieCutFilterPage() {
                                 <BeforeAfterSlider
                                     beforeImage={before}
                                     afterImage={after}
-                                    beforeAlt="Before pixie cut - original hairstyle"
-                                    afterAlt="After pixie cut - transformed short hairstyle"
+                                    beforeAlt="Before bob haircut - original hairstyle"
+                                    afterAlt="After bob haircut - transformed hairstyle with bob cut"
                                     height={IMAGE_DISPLAY_HEIGHT}
                                 />
                             </div>
@@ -167,16 +160,15 @@ export default function PixieCutFilterPage() {
                     </div>
                 </section>
 
-
-
                 {/* Before & After Gallery */}
+                <LazySection rootMargin="200px">
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     {beforeAfterGallery.title}
                                 </h2>
-                                <p className="text-lg text-gray-800 max-w-5xl mx-auto">
+                                <p className="text-lg text-gray-600 max-w-5xl mx-auto">
                                     {beforeAfterGallery.description}
                                 </p>
                             </div>
@@ -196,6 +188,7 @@ export default function PixieCutFilterPage() {
                             </div>
                         </div>
                     </section>
+                </LazySection>
          
 
 
@@ -246,51 +239,93 @@ export default function PixieCutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* Additional Information Sections */}
-                {additionalSection.map((section, index) => (
-                    <LazySection key={index}>
-                        <section className={`py-10 sm:py-20 ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                            <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                                    {/* 图片 */}
-                                    <div className={`flex justify-center ${index % 2 === 0 ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}`}>
-                                        <div className="w-full max-w-3xl rounded-lg">
-                                            <Image
-                                                src={section.image.src}
-                                                alt={section.image.alt}
-                                                width={800}
-                                                height={600}
-                                                className="w-full h-auto object-contain rounded-lg"
-                                            />
-                                        </div>
-                                    </div>
-                                    
-                                    {/* 文本内容 */}
-                                    <div className={`space-y-6 ${index % 2 === 0 ? 'order-2 lg:order-2' : 'order-2 lg:order-1'}`}>
-                                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                                            {section.title}
-                                        </h2>
-                                        <div className="space-y-4">
-                                            {section.textContent.map((paragraph, pIndex) => (
-                                                <p key={pIndex} className="text-gray-800 text-sm sm:text-lg leading-relaxed">
-                                                    {paragraph}
-                                                </p>
-                                            ))}
-                                        </div>
-                                        
-                                        <Link 
-                                            href={section.ctaLink}
-                                            className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
-                                        >
-                                            {section.ctaText}
-                                            <i className="fas fa-arrow-right"></i>
-                                        </Link>
+                {/* How to Keep Your Pixie Cut Looking Fresh Section */}
+                <LazySection>
+                    <section className="py-10 sm:py-20 bg-gray-50">
+                        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                {/* 图片 */}
+                                <div className="flex justify-center order-1 lg:order-1">
+                                    <div className="w-full max-w-3xl rounded-lg">
+                                        <Image
+                                            src={additionalSection[0].image.src}
+                                            alt={additionalSection[0].image.alt}
+                                            width={800}
+                                            height={600}
+                                            className="w-full h-auto object-contain rounded-lg"
+                                        />
                                     </div>
                                 </div>
+                                
+                                {/* 文本内容 */}
+                                <div className="space-y-6 order-2 lg:order-2">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                        {additionalSection[0].title}
+                                    </h2>
+                                    <div className="space-y-4">
+                                        {additionalSection[0].textContent.map((paragraph: string, pIndex: number) => (
+                                            <p key={pIndex} className="text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
+                                    
+                                    <Link 
+                                        href={additionalSection[0].ctaLink}
+                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+                                    >
+                                        {additionalSection[0].ctaText}
+                                        <i className="fas fa-arrow-right"></i>
+                                    </Link>
+                                </div>
                             </div>
-                        </section>
-                    </LazySection>
-                ))}
+                        </div>
+                    </section>
+                </LazySection>
+
+                {/* What If I Don't Like My Pixie Cut Section */}
+                <LazySection>
+                    <section className="py-10 sm:py-20 bg-white">
+                        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                {/* 图片 */}
+                                <div className="flex justify-center order-1 lg:order-2">
+                                    <div className="w-full max-w-3xl rounded-lg">
+                                        <Image
+                                            src={additionalSection[1].image.src}
+                                            alt={additionalSection[1].image.alt}
+                                            width={800}
+                                            height={600}
+                                            className="w-full h-auto object-contain rounded-lg"
+                                        />
+                                    </div>
+                                </div>
+                                
+                                {/* 文本内容 */}
+                                <div className="space-y-6 order-2 lg:order-1">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                        {additionalSection[1].title}
+                                    </h2>
+                                    <div className="space-y-4">
+                                        {additionalSection[1].textContent.map((paragraph: string, pIndex: number) => (
+                                            <p key={pIndex} className="text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                                {paragraph}
+                                            </p>
+                                        ))}
+                                    </div>
+                                    
+                                    <Link 
+                                        href={additionalSection[1].ctaLink}
+                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+                                    >
+                                        {additionalSection[1].ctaText}
+                                        <i className="fas fa-arrow-right"></i>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </LazySection>
 
                 {/* How to Try Pixie Cut with Hairstyle AI Section */}
                 <LazySection>
@@ -346,47 +381,125 @@ export default function PixieCutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* Not Sure If a Pixie Cut Suits Your Face Shape? Try It Online in Seconds Sections */}
-                {ctaSections.map((section, index) => (
-                    <section key={index} className={`py-20 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-                            <div className="max-w-full mx-auto">
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                                    {/* 图片 */}
-                                    <div className={`flex justify-center ${index % 2 === 0 ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}`}>
-                                        <div className="w-full max-w-3xl rounded-lg ">
-                                            <Image
-                                                src={section.image.src}
-                                                alt={section.image.alt}
-                                                width={800}
-                                                height={600}
-                                                className="w-full h-auto object-contain"
-                                            />
-                                        </div>
+                {/* Not Sure If a Pixie Cut Suits Your Face Shape Section */}
+                <section className="py-20 bg-white">
+                    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                        <div className="max-w-full mx-auto">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                {/* 图片 */}
+                                <div className="flex justify-center order-1 lg:order-1">
+                                    <div className="w-full max-w-3xl rounded-lg">
+                                        <Image
+                                            src={ctaSections[0].image.src}
+                                            alt={ctaSections[0].image.alt}
+                                            width={800}
+                                            height={600}
+                                            className="w-full h-auto object-contain"
+                                        />
                                     </div>
+                                </div>
+                                
+                                {/* 文本内容 */}
+                                <div className="space-y-6 order-2 lg:order-2">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                        {ctaSections[0].title}
+                                    </h2>
+                                    <p className="text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[0].description}
+                                    </p>
                                     
-                                    {/* 文本内容 */}
-                                    <div className={`space-y-6 ${index % 2 === 0 ? 'order-2 lg:order-2' : 'order-2 lg:order-1'}`}>
-                                        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                                            {section.title}
-                                        </h2>
-                                        <p className=" text-gray-800 text-sm sm:text-lg leading-relaxed">
-                                            {section.description}
-                                        </p>
-                                        
-                                        <Link 
-                                            href={section.ctaLink}
-                                            className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
-                                        >
-                                            {section.ctaText}
-                                            <i className="fas fa-arrow-right"></i>
-                                        </Link>
-                                    </div>
+                                    <Link 
+                                        href={ctaSections[0].ctaLink}
+                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+                                    >
+                                        {ctaSections[0].ctaText}
+                                        <i className="fas fa-arrow-right"></i>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                ))}
+                    </div>
+                </section>
+
+                {/* Fun with Friends on Social Media Section */}
+                <section className="py-20 bg-gray-50">
+                    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                        <div className="max-w-full mx-auto">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                {/* 图片 */}
+                                <div className="flex justify-center order-1 lg:order-2">
+                                    <div className="w-full max-w-3xl rounded-lg">
+                                        <Image
+                                            src={ctaSections[1].image.src}
+                                            alt={ctaSections[1].image.alt}
+                                            width={800}
+                                            height={600}
+                                            className="w-full h-auto object-contain"
+                                        />
+                                    </div>
+                                </div>
+                                
+                                {/* 文本内容 */}
+                                <div className="space-y-6 order-2 lg:order-1">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                        {ctaSections[1].title}
+                                    </h2>
+                                    <p className="text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[1].description}
+                                    </p>
+                                    
+                                    <Link 
+                                        href={ctaSections[1].ctaLink}
+                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+                                    >
+                                        {ctaSections[1].ctaText}
+                                        <i className="fas fa-arrow-right"></i>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* See Yourself in Different Colors Section */}
+                <section className="py-20 bg-white">
+                    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                        <div className="max-w-full mx-auto">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                                {/* 图片 */}
+                                <div className="flex justify-center order-1 lg:order-1">
+                                    <div className="w-full max-w-3xl rounded-lg">
+                                        <Image
+                                            src={ctaSections[2].image.src}
+                                            alt={ctaSections[2].image.alt}
+                                            width={800}
+                                            height={600}
+                                            className="w-full h-auto object-contain"
+                                        />
+                                    </div>
+                                </div>
+                                
+                                {/* 文本内容 */}
+                                <div className="space-y-6 order-2 lg:order-2">
+                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+                                        {ctaSections[2].title}
+                                    </h2>
+                                    <p className="text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                        {ctaSections[2].description}
+                                    </p>
+                                    
+                                    <Link 
+                                        href={ctaSections[2].ctaLink}
+                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+                                    >
+                                        {ctaSections[2].ctaText}
+                                        <i className="fas fa-arrow-right"></i>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 {/* Why Choose Our Pixie Cut Filter Section */}
                 <LazySection>
