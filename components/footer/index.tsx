@@ -57,6 +57,11 @@ export default function Footer() {
                                     Pixie Cut Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/short-hair-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Short Hair Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

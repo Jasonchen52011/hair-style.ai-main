@@ -18,27 +18,33 @@
     "images": [
       {
         "src": "/images/fishtail-braid.webp",
-        "alt": "fishtail braid transformation - person before and after with braids"
+        "alt": "fishtail braid transformation - person before and after with braids",
+        "name": "Fishtail Braid"
       },
       {
         "src": "/images/twins-brads.webp",
-        "alt": "twin braid transformation - woman before and after with braids"
+        "alt": "twin braid transformation - woman before and after with braids",
+        "name": "Twin Braids"
       },
       {
         "src": "/images/fishtail-brads2.webp",
-        "alt": "fishtail braid transformation - woman before and after with braids"
+        "alt": "fishtail braid transformation - woman before and after with braids",
+        "name": "Classic Fishtail"
       },
       {
         "src": "/images/dreadlock-braid.webp",
-        "alt": "dreadlock braid transformation - woman before and after with braids"
+        "alt": "dreadlock braid transformation - woman before and after with braids",
+        "name": "Dreadlock Braid"
       },
       {
         "src": "/images/box-braid-child.webp",
-        "alt": "box braid transformation - child before and after with braids"
+        "alt": "box braid transformation - child before and after with braids",
+        "name": "Box Braids"
       },
       {
         "src": "/images/dreadlocks.webp",
-        "alt": "dreadlock braid transformation - man before and after with braids"
+        "alt": "dreadlock braid transformation - man before and after with braids",
+        "name": "Dreadlocks"
       }
       ]
   },
@@ -75,7 +81,7 @@
   "additionalSection": [
     {
       "title": "How to Keep Your Braids Looking Fresh",
-    "textContent": [
+      "textContent": [
       "A braids looks neat—but it needs some love! First, trim your braids every 4–6 weeks. This keeps the ends sharp and the shape clean. Use a light shampoo and a smoothing conditioner to fight frizz, especially if you have wavy or thick hair. ",
       "Can you just let it air-dry? Sure—but it depends. Some hair dries beautifully on its own, especially if it's straight or lightly wavy. If not, a quick blow-dry with a round brush can help your braids sit right. ",
       "Don't forget heat protection! Worried your braids might look too plain or 'old'? Add side bangs, go for layers, or try a fun color. With the right tweaks, your braids can be soft, trendy, or even bold. And hey—if you want to test before you cut, try it on HairstyleAI first!"
@@ -125,8 +131,8 @@
       "title": "Planning Your Next Hair Appointment",
       "description": "Thinking about getting cornrows or box braids but not sure if they suit you? Use Hairstyle AI before heading to the salon. Upload your photo, try different braid styles, and find the one that fits your face best. This way, you avoid hairstyle regret and walk into your appointment with confidence. Plus, you can show the result to your hairstylist for reference — it's like bringing your future hair with you.",
       "image": {
-        "src": "/images/box-braid.webp",
-        "alt": "box braid appointment - braid transformation before and after"
+        "src": "/images/cornrows-braids.webp",
+        "alt": "cornrows braid appointment - braid transformation before and after"
       },
       "ctaText": "Try Braids Filter",
       "ctaLink": "/ai-hairstyle?style=FishtailBraid"
