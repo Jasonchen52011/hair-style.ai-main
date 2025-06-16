@@ -11,6 +11,7 @@ import HowToMaintainSection from '@/components/HowToMaintainSection'
 import HowToUseSection from '@/components/HowToUseSection'
 import UsageScenariosSection from '@/components/UsageScenariosSection'
 import WhyChooseSection from '@/components/WhyChooseSection'
+import HairRegretsSection from '@/components/HairRegretsSection'
 import FAQ from '@/components/faq'
 import CTASection from '@/components/CTASection'
 import configData from './config.json'
@@ -23,6 +24,7 @@ const {
   beforeAfterGallery, 
   isRightSection, 
   additionalSection,
+  regretsSection,
   howToUseSection, 
   ctaSections, 
   whyChooseSection, 
@@ -114,6 +116,11 @@ export default function ShortHairFilterPage() {
                 {/* How to Maintain Section */}
                 <LazySection>
                     <HowToMaintainSection additionalSection={additionalSection} />
+                </LazySection>
+
+                {/* Hair Regrets Section */}
+                <LazySection>
+                    <HairRegretsSection regretsSection={regretsSection} />
                 </LazySection>
 
                 {/* How to Use Section */}

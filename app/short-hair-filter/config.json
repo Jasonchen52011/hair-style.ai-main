@@ -9,7 +9,7 @@
     },
     "imageConfig": {
       "displayHeight": 800,
-      "image": "/images/short-hair-h1.webp",
+      "image": "/images/short-hair-filter-h1.webp",
       "alt": "Short hair transformation result"
     },
     "beforeAfterGallery": {
@@ -92,8 +92,9 @@
       },
       "ctaText": "Try Short Hair Filter",
       "ctaLink": "/ai-hairstyle?style=ShortHair"
-    },
-    {
+    }
+    ],
+    "regretsSection": {
       "title": "Short Hair Regrets? Here's What to Do",
       "textContent": [
         "Feeling unsure after the cut? Totally normal. You can still rock your short hair during the grow-out phase. Try fun accessories and layered cuts to stay stylish.",
@@ -101,13 +102,12 @@
         "Need options now? Use clip-ins, wigs, or switch up your style with Hairstyle AI. Regret is part of the process. But next time, preview your look. With our filter, there's no guesswork. Just smart, stylish choices."
       ],
       "image": {
-        "src": "/images/ai-braids-color.webp",
+        "src": "/images/short-hair-short-pixie.webp",
         "alt": "short hair regrets - styling tips and solutions"
       },
       "ctaText": "Try Short Hair Filter",
       "ctaLink": "/ai-hairstyle?style=ShortHair"
-    }
-    ],
+    },
     "howToUseSection": {
       "title": "Try Short Hair in 1 Minute—No Scissors Needed",
       "description": "It's easy and fun to use our AI-powered short hair filter. You only need a photo and a few clicks. No downloads. No signups. Just you and your future look. Here's how it works:",
@@ -397,7 +397,7 @@
         "type": "website",
                 "images": [
             {
-              "url": "https://hair-style.ai/images/short-hair-h1.webp",
+              "url": "https://hair-style.ai/images/short-hair-filter-h1.webp",
               "width": 1920,
               "height": 1080,
               "alt": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
@@ -410,7 +410,7 @@
         "site": "@hair_styleai",
         "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
         "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. Hairstyle AI lets you try short hairstyles online—free, realistic, and no regrets.",
-        "images": ["https://hair-style.ai/images/short-hair-h1.webp"]
+        "images": ["https://hair-style.ai/images/short-hair-filter-h1.webp"]
       }
     }
   } 

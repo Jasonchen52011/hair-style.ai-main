@@ -50,12 +50,12 @@ export default function HowToUseSection({ howToUseSection }: HowToUseSectionProp
            
        
           <div className="flex justify-center order-1 lg:order-2">
-            <div className="w-full max-w-3xl bg-gray-200 rounded-lg overflow-hidden shadow-lg">
+            <div className="w-full max-w-2xl bg-gray-200 rounded-lg overflow-hidden">
               <Image
                 src={howToUseSection.image.src}
                 alt={howToUseSection.image.alt}
-                width={800}
-                height={900}
+                width={700}
+                height={800}
                 className="w-full h-auto object-contain"
               />
             </div>
