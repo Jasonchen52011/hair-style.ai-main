@@ -1,0 +1,416 @@
+{
+    "heroSection": {
+      "title": "How Would I Look With Short Hair？",
+      "description": "Want a pixie, bob, or buzz but not sure if it'll suit you? With Hairstyle AI , you get realistic short hair looks that match your face—so you can feel confident before the big change.Upload your photo, pick a short hairstyle, and let AI Short Hair filter do the rest —free, fast, and risk-free.",
+      "rating": 4.8,
+      "statsText": "458,000+ virtual hairstyles transformed",
+      "ctaText": "Try Short Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=ShortHair"
+    },
+    "imageConfig": {
+      "displayHeight": 800,
+      "image": "/images/short-hair-h1.webp",
+      "alt": "Short hair transformation result"
+    },
+    "beforeAfterGallery": {
+      "title": "Short Hair Transformations You'll Love",
+      "description": "From unsure to confident in under a minute. These AI-generated short hair looks helped users see their true style, from classic bobs to edgy buzz cuts—no risk, no cut, just real results.",
+      "images": [
+        {
+          "src": "/images/short-hair-bobcut.webp",
+          "alt": "short hair transformation - person before and after with bob cut",
+          "name": "Bob Cut"
+        },
+        {
+          "src": "/images/short-hair-pixie.webp",
+          "alt": "short hair transformation - woman before and after with pixie cut",
+          "name": "Pixie Cut"
+        },
+        {
+          "src": "/images/short-hair-french-bob.webp",
+          "alt": "short hair transformation - woman before and after with french bob cut",
+          "name": "French Bob"
+        },
+        {
+          "src": "/images/short-hair-buzzcut.webp",
+          "alt": "short hair transformation - woman before and after with buzz cut",
+          "name": "Buzz Cut"
+        },
+        {
+          "src": "/images/short-hair-silk-back.webp",
+          "alt": "short hair transformation - child before and after with short bob",
+          "name": "Silk Back"
+        },
+        {
+          "src": "/images/short-hair-pompador.webp",
+          "alt": "short hair transformation - man before and after with pompadour cut",
+          "name": "Pompadour"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Is Short Hair Right for Me?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, Heart, Square"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.8/5.0"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Pixie, Bob, Buzz, Bangs"
+        },
+        {
+          "feature": "Length",
+          "description": "Chin to Ear or Shorter"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Low to Medium"
+        }
+      ],
+      "textContent": [
+        "You've probably wondered, \"Would short hair look good on me?\" Hairstyle AI says—don't guess, try it.",
+        "Here's the truth: short hair suits more people than you think. Bob and pixie styles highlight cheekbones and jawlines. Oval and heart-shaped faces usually match well with most short styles. If your face is round, go for side parts or textured cuts. Got a long face? Short bangs can work wonders.",
+        "Different hair textures? No problem. Fine hair gains body with a layered pixie. Thick hair looks chic in blunt bobs. Curly or kinky hair? Short styles show off natural beauty and personality. But this isn't just about hair. It's about how you feel. Short hair is powerful. It's a look that says you're ready for change, ready to lead, ready to be unapologetically you. Hairstyle AI helps you see that future, before the scissors even touch your head."
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "Keeping Your Short Hair Looking Sharp",
+        "textContent": [
+        "Got fine hair? Use a lightweight mousse or dry shampoo to add volume. For thick hair, regular trims help keep shape and tame puffiness. Curly or kinky hair? Moisturize often, and use leave-in cream to define texture.",
+        "Short hair is easy to manage. Less time blow drying. Less shampoo. Less money at the salon. It's great in summer too—cooler and comfier.",
+        "Worried about how people see you? You're not alone. But remember: short hair is strong. It's bold. It challenges beauty rules. Our filter lets you see how amazing you can look before you cut. Build confidence first. Then go short with zero fear."
+      ],
+      "image": {
+        "src": "/images/short-hair-curls-bob.webp",
+        "alt": "short hair curls bob maintenance tips and styling"
+      },
+      "ctaText": "Try Short Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=ShortHair"
+    },
+    {
+      "title": "Short Hair Regrets? Here's What to Do",
+      "textContent": [
+        "Feeling unsure after the cut? Totally normal. You can still rock your short hair during the grow-out phase. Try fun accessories and layered cuts to stay stylish.",
+        "Most people see growth within weeks. In 6 months, you'll have lots of new length to work with.",
+        "Need options now? Use clip-ins, wigs, or switch up your style with Hairstyle AI. Regret is part of the process. But next time, preview your look. With our filter, there's no guesswork. Just smart, stylish choices."
+      ],
+      "image": {
+        "src": "/images/ai-braids-color.webp",
+        "alt": "short hair regrets - styling tips and solutions"
+      },
+      "ctaText": "Try Short Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=ShortHair"
+    }
+    ],
+    "howToUseSection": {
+      "title": "Try Short Hair in 1 Minute—No Scissors Needed",
+      "description": "It's easy and fun to use our AI-powered short hair filter. You only need a photo and a few clicks. No downloads. No signups. Just you and your future look. Here's how it works:",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Pick a clear photo of your face. Look straight ahead, with no filters or heavy shadows. JPG, JPEG, and PNG formats are all fine. Just keep it under 3MB. This helps our AI get the best results."
+        },
+        {
+          "title": "Step 2: Choose a Short Hair Style",
+          "icon": "fas fa-palette",
+          "description": "Pick from over 60+ hairstyles—bob, pixie, buzz, bangs and more. You can also choose from 19 different hair colors. Want to try purple bangs? You can."
+        },
+        {
+          "title": "Step 3: Generate Your Look",
+          "icon": "fas fa-magic",
+          "description": "Click the \"Generate\" button. Our AI will scan your face, match the hairstyle, and create your new short hair look. It takes about 60 seconds."
+        },
+        {
+          "title": "Step 4: Download or Share",
+          "icon": "fas fa-download",
+          "description": "Love the result? Download it instantly or share it with your friends on Instagram, TikTok, or Snapchat. We don't store your photos. They're auto-deleted after use."
+        }
+      ],
+      "image": {
+        "src": "/images/short-hair-howto.webp",
+        "alt": "How to use short hair filter - step by step demonstration"
+      },
+      "ctaText": "Try Short Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=ShortHair"
+    },
+    "ctaSections": [
+      {
+        "title": "Before You Book the Salon",
+        "description": "Not sure if short hairstyle is your thing? Use Hairstyle AI to try before you cut. Upload your photo, test different short hair styles, and go to your appointment with confidence. It's way better than guessing—and you avoid haircut regret. With our realistic results, you'll know exactly what to ask your stylist. You can even bring your AI-generated photo to the salon and say, \"I want this.\" No surprises. No last-minute panic. Just hair that matches your vision.",
+        "image": {
+          "src": "/images/short-hair-curly-pixie.webp",
+          "alt": "salon appointment - short hair consultation before and after"
+        },
+        "ctaText": "Try Short Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=ShortHair"
+      },
+      {
+        "title": "For a New Look on Social Media",
+        "description": "Want to surprise your followers? Try a bold virtual hair switch-up. Create your AI-generated short hair photo and post it on TikTok or Instagram. Whether it's just for fun or to test the waters, it's a cool conversation starter. See how your friends react before you commit. It's also great for pranks or glow-up edits—no scissors needed, just style and imagination.",
+        "image": {
+          "src": "/images/short-hair-filter-social.webp",
+          "alt": "Social media content - fun short hair transformation for posts"
+        },
+        "ctaText": "Try Short Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=ShortHair"
+      },
+      {
+        "title": "To Match a Bold New Outfit",
+        "description": "Trying a new fashion vibe? A new outfit deserves a new hairstyle. Use our short hair filter to match your style—from edgy to elegant. You can try it instantly and see how it fits the whole look. Going for a vintage dress? Try a 1920s bob. Wearing something sporty? Pixie it up. Hairstyle AI makes it easy to test what works best with your clothes, your mood, your moment.",
+        "image": {
+          "src": "/images/short-hair-pixie-cut.webp",
+          "alt": "Fashion matching - confident person with short hair styles"
+        },
+        "ctaText": "Try Short Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=ShortHair"
+      },
+      {
+        "title": "When You Want to Experiment with Color",
+        "description": "Sometimes it's not about the cut—it's about the color. With Hairstyle AI, you can try 19 different hair shades, from classic black to bold pastels. Curious about rose gold? Wondering if icy blonde fits your skin tone? Try it all with no damage and no commitment. You can mix styles and colors too—like a platinum buzz cut or a purple bob. It's your playground. Explore, compare, and share with zero risk.",
+        "image": {
+          "src": "/images/short-hair-filter-color.webp",
+          "alt": "Hair color experiment - short hair with different colors"
+        },
+        "ctaText": "Try Short Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=ShortHair"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Millions Trust Hairstyle AI",
+      "features": [
+        {
+          "icon": "fas fa-hand-point-up",
+          "title": "Simple & Free to Use",
+          "description": "No sign-up. No hidden cost. You get 5 free tries every day. It's quick and beginner-friendly."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Lots of Haircuts and Colors",
+          "description": "Over 60 hairstyles and 19 hair colors. Try bobs, pixies, buzz cuts—mix and match freely."
+        },
+        {
+          "icon": "fas fa-award",
+          "title": "Realistic Results That Feel Like You",
+          "description": "Our AI blends the new hair with your photo for natural, share-worthy looks. Looks real. Feels right."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Privacy First, Always",
+          "description": "Your photos are never saved. Once you're done, your image is instantly deleted. Safe and secure."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I always wanted to try a bob but was scared it'd look too round on my face. The AI showed me the exact look—and I loved it! I brought the photo to my stylist. Best haircut ever.",
+        "author": "@Emily Johnson",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I have super thick hair. Hairstyle AI helped me preview a layered pixie with bangs. It looked amazing and saved me from making a huge mistake. I use it with my clients too now.",
+        "author": "@Rachel Liu",
+        "title": "Makeup Artist",
+        "rating": 5.0
+      },
+      {
+        "quote": "Tried a platinum pixie look just for a photoshoot. It looked so real that even my followers thought I actually cut it. Loved how smooth and easy the app was.",
+        "author": "@Daniel Harper",
+        "title": "Fashion Blogger",
+        "rating": 4.0
+      },
+      {
+        "quote": "I've had long hair for 20 years. This filter gave me the courage to try something new. It made me feel stylish and confident—without actually cutting anything yet.",
+        "author": "@Olivia Barnes",
+        "title": "Stay-at-Home Mom",
+        "rating": 5.0
+      },
+      {
+        "quote": "I used the AI to test a short style before shaving my head. It really helped with my anxiety. Seeing the preview made the real cut feel less scary. 10/10 would recommend.",
+        "author": "@Tyler Smith",
+        "title": "Software Developer",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "Do men think women with short hair are less attractive?",
+        "answer": "No. Many men find short hair bold, stylish, and confident. Attractiveness isn't about length—it's about how you wear it. If you feel great, you'll look great."
+      },
+      {
+        "question": "How to make short hair feel beautiful and feminine?",
+        "answer": "Step 1: Choose a style that fits your face shape. Step 2: Add soft waves, layers, or bangs for shape. Step 3: Use earrings, makeup, or fashion to highlight your style. Confidence adds femininity."
+      },
+      {
+        "question": "Will short hair make me look less feminine?",
+        "answer": "Not at all. Short hair can be soft, playful, strong, or chic. It's about your attitude, not your length. Short hair can be just as feminine as long hair."
+      },
+      {
+        "question": "How do I know if I'll look good with short hair?",
+        "answer": "Step 1: Try our Short Hair Filter. Step 2: Upload your photo. Step 3: Preview styles in real time. Step 4: Choose what looks and feels right—no guessing needed."
+      },
+      {
+        "question": "Is short hair right for me?",
+        "answer": "Short hair suits all kinds of people. Try our free filter to see what works for your face, hair type, and personality. If it makes you feel confident, it's right for you."
+      },
+      {
+        "question": "What face shapes suit short hair?",
+        "answer": "Short hair looks great on oval, heart, and square faces. Round and long faces can try styles like angled bobs or bangs to balance features. There's a short style for every face."
+      },
+      {
+        "question": "What if I have a high hairline?",
+        "answer": "Short hair can actually work great for high foreheads. Try bangs, layers, or textured pixies. Our AI filter helps you test styles before you decide."
+      },
+      {
+        "question": "How long does it take to grow short hair back?",
+        "answer": "Hair grows about half an inch per month. A pixie can grow into a bob in 4–6 months. In about a year, most people are back to shoulder length."
+      },
+      {
+        "question": "How realistic is the Short Hair Filter?",
+        "answer": "The filter is AI-powered and designed to match your face with precision. It creates realistic styles that blend naturally with your photo for true-to-life results."
+      },
+      {
+        "question": "Is short hair for all ages?",
+        "answer": "Yes! From kids to seniors, short hair fits everyone. Style it cute, edgy, or classic—there's no age limit on feeling confident."
+      },
+      {
+        "question": "Is the AI Short Hair Filter free?",
+        "answer": "Yes! You get 5 free uses per day. No signup required. Just upload a photo and go."
+      },
+      {
+        "question": "Can I try other hairstyles too?",
+        "answer": "Absolutely. We offer 60+ styles including long, medium, bangs, and color options. Mix, match, and explore freely."
+      },
+      {
+        "question": "What if I have thinning hair? Can I still use the Short Hair Filter?",
+        "answer": "Yes. Many users with thinning or patchy hair use the tool to preview buzz cuts, close crops, or textured styles. It helps you choose confidently."
+      },
+      {
+        "question": "Is short hair good for curly hair?",
+        "answer": "Yes. Curly short hair can look bouncy, fun, and stylish. Try layered pixies or tapered cuts that shape curls well."
+      },
+      {
+        "question": "Is short hair good for fine hair?",
+        "answer": "Yes. Short styles like bobs or pixies add volume and shape. Layers can also make fine hair appear fuller."
+      },
+      {
+        "question": "How accurate is it with my hairline?",
+        "answer": "Our AI uses facial landmarks to analyze your hairline and shape the hairstyle naturally around it. The result looks smooth and custom-fit."
+      },
+      {
+        "question": "How accurate is it with my head shape?",
+        "answer": "The AI scans your face and head outline to place hair with proper volume, angle, and proportion. So the result fits your real shape."
+      },
+      {
+        "question": "What are the benefits of short hair? Is it really low maintenance?",
+        "answer": "Yes! Short hair is faster to wash, easier to dry, and takes less time to style. It feels fresh, light, and freeing—especially in summer."
+      },
+      {
+        "question": "How long does it take for short hair to grow out?",
+        "answer": "Most people see 6–12 months between a buzz cut and shoulder-length hair. During that time, layered trims help you stay stylish."
+      },
+      {
+        "question": "How to style and take care of short hair after cutting it?",
+        "answer": "Step 1: Use lightweight products for volume or definition. Step 2: Trim regularly to keep shape. Step 3: Try accessories like clips, hats, or headbands for variety."
+      },
+      {
+        "question": "How to grow out short hair?",
+        "answer": "Step 1: Be patient. Step 2: Trim ends every 6–8 weeks to avoid split ends. Step 3: Try in-between styles like lobs or curtain bangs during the process."
+      }
+    ],
+    "finalCta": {
+      "title": "Your New Haircut Starts Here. Don't Guess. Try It First.",
+      "description": "Find your next bold look today—realistic, customizable, and made just for your face.",
+      "ctaText": "Try Short Hair Filter →",
+      "ctaLink": "/ai-hairstyle?style=ShortHair"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/short-hair-filter",
+      "name": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
+      "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. Hairstyle AI lets you try short hairstyles online—free, realistic, and no regrets.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "26155"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
+          "item": "https://hair-style.ai/short-hair-filter"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
+      "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. Hairstyle AI lets you try short hairstyles online—free, realistic, and no regrets.",
+      "canonical": "https://hair-style.ai/short-hair-filter",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
+        "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. Hairstyle AI lets you try short hairstyles online—free, realistic, and no regrets.",
+        "url": "https://hair-style.ai/short-hair-filter",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/short-hair-h1.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
+        "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. Hairstyle AI lets you try short hairstyles online—free, realistic, and no regrets.",
+        "images": ["https://hair-style.ai/images/short-hair-h1.webp"]
+      }
+    }
+  } 

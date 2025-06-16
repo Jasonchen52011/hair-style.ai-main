@@ -33,6 +33,42 @@ module.exports = {
             lastmod: new Date().toISOString()
         })
         
+        // 添加 hairstyle filter 页面
+        const hairstylePages = [
+            {
+                loc: '/short-hair-filter',
+                priority: 0.9
+            },
+            {
+                loc: '/buzz-cut-filter',
+                priority: 0.9
+            },
+            {
+                loc: '/bob-haircut-filter',
+                priority: 0.9
+            },
+            {
+                loc: '/bangs-filter',
+                priority: 0.9
+            },
+            {
+                loc: '/ai-braids',
+                priority: 0.9
+            },
+            {
+                loc: '/pixie-cut-filter',
+                priority: 0.9
+            }
+        ]
+
+        hairstylePages.forEach(page => {
+            result.push({
+                ...page,
+                changefreq: 'daily',
+                lastmod: new Date().toISOString()
+            })
+        })
+
         // 添加静态页面
         const staticPages = [
             {

@@ -1,0 +1,97 @@
+import Image from 'next/image'
+import Link from 'next/link'
+
+interface HeroSectionProps {
+  heroSection: {
+    title: string
+    description: string
+    rating: number
+    statsText: string
+    ctaText: string
+    ctaLink: string
+  }
+  imageConfig: {
+    displayHeight: number
+    image: string
+    alt: string
+  }
+}
+
+export default function HeroSection({ heroSection, imageConfig }: HeroSectionProps) {
+  return (
+    <section className="bg-white py-2 sm:py-10 mb-10 mt-2 sm:mt-6">
+      <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
+          {/* 左侧内容 */}
+          <div className="pr-8 order-2 lg:order-1">
+            <h1 className="text-2xl sm:text-5xl font-bold mb-6 text-gray-900">
+              {heroSection.title}
+            </h1>
+            <p className="text-lg md:text-xl text-gray-800 mb-4 sm:mb-2">
+              {heroSection.description}
+            </p>
+            
+            {/* 统计数据 */}
+            <div className="flex items-center justify-center lg:justify-start gap-3 mb-8 mt-16">
+              <div className="flex items-center gap-1">
+                {[1, 2, 3, 4, 5].map((star) => {
+                  const rating = heroSection.rating;
+                  if (star <= Math.floor(rating)) {
+                    // 完全填充的星星
+                    return (
+                      <i 
+                        key={star}
+                        className="fas fa-star text-yellow-400 text-sm"
+                      />
+                    );
+                  } else if (star <= rating) {
+                    // 半填充的星星
+                    return (
+                      <i 
+                        key={star}
+                        className="fas fa-star-half text-yellow-400 text-sm"
+                      />
+                    );
+                  } else {
+                    // 空星星
+                    return (
+                      <i 
+                        key={star}
+                        className="fas fa-star text-gray-300 text-sm"
+                      />
+                    );
+                  }
+                })}
+              </div>
+              <span className="text-gray-600 font-medium text-sm sm:text-base">{heroSection.statsText}</span>
+            </div>
+            
+            <div className="flex justify-center lg:justify-start">
+              <Link 
+                href={heroSection.ctaLink}
+                className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+              >
+                {heroSection.ctaText}
+                <i className="fas fa-arrow-right"></i>
+              </Link>
+            </div>
+          </div>
+          
+          {/* 右侧展示图片 */}
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative rounded-lg overflow-hidden ">
+              <Image
+                src={imageConfig.image}
+                alt={imageConfig.alt}
+                width={900}
+                height={imageConfig.displayHeight}
+                className="object-cover rounded-lg"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+} 
