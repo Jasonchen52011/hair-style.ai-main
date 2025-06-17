@@ -8,8 +8,8 @@
       "ctaLink": "/ai-hairstyle?style=LongWavy"
     },
     "imageConfig": {
-      "displayHeight": 800,
-      "image": "/images/long-hair-filter-h1.webp",
+      "displayHeight": 600,
+      "image": "/images/long-hair-filter-hero.webp",
       "alt": "Long hair transformation result"
     },
     "beforeAfterGallery": {
@@ -374,7 +374,7 @@
         "type": "website",
                 "images": [
             {
-              "url": "https://hair-style.ai/images/long-hair-filter-h1.webp",
+              "url": "https://hair-style.ai/images/long-hair-filter-hero.webp",
               "width": 1920,
               "height": 1080,
               "alt": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
@@ -387,7 +387,7 @@
         "site": "@hair_styleai",
         "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
         "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
-        "images": ["https://hair-style.ai/images/long-hair-filter-h1.webp"]
+        "images": ["https://hair-style.ai/images/long-hair-filter-hero.webp"]
       }
     }
   } 

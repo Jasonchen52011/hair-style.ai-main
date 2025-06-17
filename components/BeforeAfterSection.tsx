@@ -36,13 +36,13 @@ export default function BeforeAfterSection({ beforeAfterGallery }: BeforeAfterSe
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
           {beforeAfterGallery.images.map((image, index) => (
-            <div key={index} className="bg-white rounded-lg cursor-pointer hover:shadow-xl transition-shadow duration-300" onClick={scrollToTop}>
+            <div key={index} className="rounded-lg " onClick={scrollToTop}>
               <Image
                 src={image.src}
                 alt={image.alt}
                 width={300}
                 height={300}
-                className="w-full h-auto object-contain"
+                className="w-full h-auto rounded-lg object-contain cursor-pointer hover:shadow-xl transition-shadow duration-300"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-gray-800 text-center">
