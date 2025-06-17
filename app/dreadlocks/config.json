@@ -9,7 +9,7 @@
     },
     "imageConfig": {
       "displayHeight": 600,
-      "image": "/images/dreadlock-h1.webp",
+      "image": "/images/dreadlock-hairs.webp",
       "alt": "Dreadlocks transformation result"
     },
     "beforeAfterGallery": {
@@ -347,7 +347,7 @@
         "type": "website",
                 "images": [
             {
-              "url": "https://hair-style.ai/images/dreadlock-h1.webp",
+              "url": "https://hair-style.ai/images/dreadlock-hairs.webp",
               "width": 1920,
               "height": 1080,
               "alt": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
@@ -360,7 +360,7 @@
         "site": "@hair_styleai",
         "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
         "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
-        "images": ["https://hair-style.ai/images/dreadlock-h1.webp"]
+        "images": ["https://hair-style.ai/images/dreadlock-hairs.webp"]
       }
     }
   } 
