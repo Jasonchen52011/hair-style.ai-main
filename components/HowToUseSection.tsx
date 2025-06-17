@@ -22,7 +22,7 @@ interface HowToUseSectionProps {
 export default function HowToUseSection({ howToUseSection }: HowToUseSectionProps) {
   return (
     <section className="py-10 sm:py-20">
-      <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+      <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
             {howToUseSection.title}

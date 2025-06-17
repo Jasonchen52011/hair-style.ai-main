@@ -1,0 +1,393 @@
+{
+    "heroSection": {
+      "title": "Your Long Hair Look, Just One Click Away",
+      "description": "Long Hair Filter lets you test long hairstyles in seconds—just upload, choose, and generate.Try long hair styles like curls, braids, or layers, and see a real-time AI preview with Hairstyle AI.Find what suits your face shape. Designed to help you feel bold, beautiful, or soft—your choice, your look.All free. No risk, no data kept.",
+      "rating": 4.7,
+      "statsText": "458,000+ virtual hairstyles transformed",
+      "ctaText": "Try Long Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=LongWavy"
+    },
+    "imageConfig": {
+      "displayHeight": 800,
+      "image": "/images/long-hair-filter-h1.webp",
+      "alt": "Long hair transformation result"
+    },
+    "beforeAfterGallery": {
+      "title": "What Would You Look Like with Long Hair?",
+      "description": "These real users tried our long hair simulator before making a real change. Get inspired by their looks—straight, curly, ponytail, and more. Try it for yourself today—free and private.",
+      "images": [
+        {
+          "src": "/images/long-hair-long-wavy.webp",
+          "alt": "long hair transformation - person before and after with layered long hair",
+          "name": "Layered Long"
+        },
+        {
+          "src": "/images/long-hair-long-wavy2.webp",
+          "alt": "long hair transformation - woman before and after with long curls",
+          "name": "Long Curls"
+        },
+        {
+          "src": "/images/long-hair-fish-braid.webp",
+          "alt": "long hair transformation - woman before and after with fish braid",
+          "name": "Fish Braid"
+        },
+        {
+          "src": "/images/long-hair-wavy-shag.webp",
+          "alt": "long hair transformation - before and after with wavy shag",
+          "name": "Wavy Shag"
+        },
+        {
+          "src": "/images/long-hair-textured-fringe.webp",
+          "alt": "long hair transformation - before and after with textured fringe",
+          "name": "Textured Fringe"
+        },
+        {
+          "src": "/images/long-hair-tideup.webp",
+          "alt": "long hair transformation - man before and after with long ponytail",
+          "name": "Long Ponytail"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Is Long Hair a Good Fit for Your Face and Hair?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, heart, oblong; layers help fit round or square faces"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.7/5.0"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Layered, braids, waves, ponytails, long curls"
+        },
+        {
+          "feature": "Length",
+          "description": "Shoulder to lower back"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Moderate to high – requires wash, dry, trim, product"
+        }
+      ],
+      "textContent": [
+        "Long hair can totally change your look—but will it work for your face and hair type?",
+        "Some face shapes like oval, heart, and diamond usually work great with long hairstyles. If you have a round or square face, don't worry! Long layers, side parts, or face-framing bangs can help add length and balance.",
+        "What about your hair texture? Long hair looks amazing on thick, wavy, or curly hair. If your hair is fine or thin, you might want to explore layered cuts or add volume with long waves. Even tightly coiled or Afro-textured hair can rock long braided or protective styles",
+        "But the best part? It's not just about rules. Long hair can feel softer, bolder, or more carefree. It's your choice. And with Hairstyle AI's free, realistic AI long hair filter, you can explore it all—risk-free, private, and totally customizable."
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "How to Keep Long Hair Looking Its Best",
+        "textContent": [
+        "Long hair looks great—but yes, it needs care. You'll need more time for washing, drying, and brushing. Tangles happen. So do split ends. Use a wide-tooth comb, gentle shampoo, and don't skip conditioner.",
+        "Trimming is your friend. Even if you're growing it long, snip the ends every 6–8 weeks. It keeps your hair healthy and gets rid of frizz or dead tips. Want your hair to grow faster? Protect the ends from heat and dryness.",
+        "Go deep. Use a deep conditioner or hair mask every week. Protect your hair at night—sleep with it in a braid or on a silk pillow. And don't forget heat protection if you love straighteners or curlers. Long hair isn't hard—it just needs a little extra love."
+      ],
+              "image": {
+          "src": "/images/long-hair-long-wavy4.webp",
+          "alt": "long hair maintenance tips and styling techniques"
+        },
+        "ctaText": "Try Long Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=LongWavy"
+    }
+    ],
+    "regretsSection": {
+      "title": "How to Get Through the Awkward Stage of Growing Long Hair",
+      "textContent": [
+        "Step 1: Trim only the ends to keep hair healthy. Step 2: Use hats, clips, or headbands to style growing lengths. Step 3: Try layered cuts to reduce bulk. Step 4: Keep your scalp healthy with gentle products. Step 5: Use our filter to stay motivated—visualize the end goal!",
+        "Most people see growth within weeks. In 6 months, you'll have lots of new length to work with.",
+        "Need options now? Use clip-ins, wigs, or switch up your style with Hairstyle AI. Growing out hair is part of the process. But next time, preview your look. With our filter, there's no guesswork. Just smart, stylish choices."
+      ],
+              "image": {
+          "src": "/images/long-hair-textured-fringe.webp",
+          "alt": "long hair growing out - styling tips and solutions"
+        },
+        "ctaText": "Try Long Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=LongWavy"
+    },
+    "howToUseSection": {
+      "title": "How to Try Long Hair with Hairstyle AI",
+      "description": "It only takes a minute to see yourself with beautiful long hair. Just follow these simple steps and get a realistic preview—no download, no sign-up, totally free.",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Choose a clear photo of your face. Make sure your face is facing the camera, and there's good lighting. Avoid blurry shots or sunglasses. You can upload PNG, JPG, or JPEG files, up to 3MB in size. This helps our AI give the best results for your long hair look."
+        },
+        {
+          "title": "Step 2: Pick Your Long Hair Style",
+          "icon": "fas fa-palette",
+          "description": "Browse over 60 long hairstyles—curly, straight, braids, ponytails, and more. You can also choose from 19 hair colors. Try natural browns or go bold with pink or silver. Pick the one you want to see on yourself."
+        },
+        {
+          "title": "Step 3: Click \"Generate\" and Wait",
+          "icon": "fas fa-magic",
+          "description": "Once you've picked your style, click the big \"Generate\" button. Our AI will scan your face, analyze the shape and features, and match your chosen style in a realistic way. It usually takes under 60 seconds."
+        },
+        {
+          "title": "Step 4: Download and Share Your Look",
+          "icon": "fas fa-download",
+          "description": "You'll see your new long hair look right away. Like it? Download it instantly. Want opinions? Share it with your friends on social media. All photos are deleted after processing—your data stays private."
+        }
+      ],
+              "image": {
+          "src": "/images/long-hair-howto.webp",
+          "alt": "How to use long hair filter - step by step demonstration"
+        },
+        "ctaText": "Try Long Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=LongWavy"
+    },
+    "ctaSections": [
+      {
+        "title": "Thinking About a Hair Change?",
+        "description": "Thinking about growing your hair out or trying a new look? Don't guess—test it first with Hairstyle AI. Whether you're unsure about long bangs, soft layers, or straight-down styles, our AI long hair filter shows how each one looks on your real face. No need to wait months or risk a cut you might regret. Just upload your photo, browse 60+ styles, and preview your favorite looks in seconds. You can even switch hair colors to see if brown, auburn, or blonde fits your vibe. Make your next hair decision smarter and totally regret-free.",
+        "image": {
+          "src": "/images/long-hair-long-wavy3.webp",
+          "alt": "hair change consultation - long hair preview before and after"
+        },
+        "ctaText": "Try Long Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=LongWavy"
+      },
+      {
+        "title": "Ready for Reactions?",
+        "description": "Want to go viral with a bold hair change? Use our long hair simulator to prank your friends, test edgy looks, or make fun transformation reels for TikTok and Instagram. You can try sleek ponytails, bouncy curls, braids, or twin tails—and pair them with 19 trendy colors like silver, pink, or warm brown. Your face stays untouched; only your hairstyle changes. Once you're happy with the look, download and post it instantly. It's free, fast, and a perfect way to make your content stand out while staying 100% virtual.",
+        "image": {
+          "src": "/images/long-hair-social.webp",
+          "alt": "Social media content - fun long hair transformation for posts"
+        },
+        "ctaText": "Try Long Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=LongWavy"
+      },
+      {
+        "title": "When You Want to Experiment with Color",
+        "description": "Sometimes it's not about the cut—it's about the color. With Hairstyle AI, you can try 19 different hair shades, from classic black to bold pastels. Curious about rose gold? Wondering if icy blonde fits your skin tone? Try it all with no damage and no commitment. You can mix styles and colors too—like a platinum long wave or a purple layered cut. It's your playground. Explore, compare, and share with zero risk.",
+        "image": {
+          "src": "/images/long-hair-color.webp",
+          "alt": "Hair color experiment - long hair with different colors"
+        },
+        "ctaText": "Try Long Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=LongWavy"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Millions Trust Hairstyle AI",
+      "features": [
+        {
+          "icon": "fas fa-hand-point-up",
+          "title": "Easy and Free to Use",
+          "description": "Just upload, click, and see your look. Try up to 5 long hairstyles per day—completely free. No login, no downloads, no payment. Just a quick, easy, and fun way to explore long hair styles online. Perfect for first-timers, curious users, or anyone planning a change."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Tons of Styles and Colors",
+          "description": "60+ hairstyles. 19 colors. Endless options. From soft curls to sleek ponytails and bold braids, we've got all the trendy long hair looks. Pick natural tones or go wild with pink, lavender, or icy silver. Every style is AI-powered and face-matched for realistic results."
+        },
+        {
+          "icon": "fas fa-award",
+          "title": "Realistic, Face-Preserving Results",
+          "description": "Your face stays you. Just with more hair. Our advanced AI scans your facial structure to make sure your new hair blends perfectly. No warped faces or cartoon filters—just you with beautiful long hair. What you see is a real preview, not a fantasy."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "100% Private, No Data Stored",
+          "description": "Your photo is deleted after use. We don't keep your image or track any info. Your uploaded photo is erased after your style is generated. No account needed, no storage involved—just a fully private, secure, and worry-free way to try long hair online."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I used Hairstyle AI before deciding to grow my hair for my wedding. Seeing myself with soft waves and long bangs made the choice easy. The before-and-after photo looked so real, even my bridesmaids were fooled! It gave me confidence before any scissors were involved.",
+        "author": "@Jessica Ray",
+        "title": "Wedding Photographer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've always wondered what I'd look like with long hair but didn't want the awkward stage. This tool let me try different lengths and colors (yes, I went lavender!) and saved the pics for laughs. As a guy with thick hair, I was surprised how natural it looked.",
+        "author": "@Marcus Blake",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I have super fine, thin hair, and was nervous about going long. Hairstyle AI helped me preview layered and voluminous styles. The side-by-side shot blew me away—it looked like I'd already had a makeover! I even showed it to my clients—it's that accurate.",
+        "author": "@Rachel Moore",
+        "title": "Hair Stylist",
+        "rating": 4.0
+      },
+      {
+        "quote": "I made a \"long hair reveal\" video using Hairstyle AI and it got over 20k views. The photo looked so real, people thought I had extensions. The AI didn't mess up my beard or face at all. I use it now for content testing—it's fast and free.",
+        "author": "@Jason Lee",
+        "title": "TikTok Creator",
+        "rating": 5.0
+      },
+      {
+        "quote": "After postpartum hair thinning, I wasn't sure if I could pull off long hair again. This tool showed me I still could. I tried soft curls and warm brown tones—it gave me hope and a smile. It made me feel like myself again, and that means a lot.",
+        "author": "@Emily Brooks",
+        "title": "New Mom",
+        "rating": 5.0
+      },
+      {
+        "quote": "I used the long hair filter to prep for Fashion Week. I tried tied-up styles and braids that matched my outfits. Seeing myself in different looks helped me choose what to wear. Plus, the fact that no data is saved made it super stress-free.",
+        "author": "@Natalie Perez",
+        "title": "Fashion Intern",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "How realistic is the long hair filter?",
+        "answer": "Our AI long hair filter is designed to be highly realistic. It keeps your face exactly as it is—no weird warping or over-smoothing. The hairstyles match your head shape and lighting, so the result looks like a real photo. Many users say it feels like looking in a mirror!"
+      },
+      {
+        "question": "Is the AI long hair filter free to use?",
+        "answer": "Yes! You can use Hairstyle AI up to 5 times per day completely free. No credit card, no sign-up, no download needed. Just visit the site, upload your photo, and try as many styles and colors as you want within your daily limit. Simple and risk-free."
+      },
+      {
+        "question": "Is the long hair filter suitable for both males and females?",
+        "answer": "Yes, it works for everyone—men, women, and all gender expressions. We offer long hair styles for male and female face shapes, including ponytails, braids, long curls, and tied-up styles that suit a wide range of appearances and style goals."
+      },
+      {
+        "question": "How accurate is it for different face shapes and hair types?",
+        "answer": "The AI analyzes your photo to understand your face shape, skin tone, and natural hairline. It then matches the long hair style to fit these features. Whether you have curly, straight, round, or angular features, the filter adapts to give you the best possible preview."
+      },
+      {
+        "question": "Will long hair make me look younger or older?",
+        "answer": "It depends on the style! Soft waves or side-swept bangs can make you look younger, while sleek straight cuts might appear more mature. Use the filter to try different vibes. It's a safe and fast way to see what enhances your natural look and age confidence."
+      },
+      {
+        "question": "What are the benefits of long hair?",
+        "answer": "Long hair offers endless styling options—braids, buns, waves, ponytails, and more. It's also great for expressing personality and can balance or enhance facial features. Some users feel more confident or elegant with longer hair. Plus, it works with both formal and casual looks."
+      },
+      {
+        "question": "How can I grow and maintain long hair?",
+        "answer": "Step 1: Eat a balanced diet with protein and vitamins. Step 2: Trim split ends every 8–12 weeks. Step 3: Use sulfate-free shampoos and deep conditioners. Step 4: Avoid frequent heat styling. Step 5: Sleep on a silk pillowcase and protect hair when sleeping. Step 6: Be patient—growth takes time!"
+      },
+      {
+        "question": "Will the filter distort my facial features or skin tone?",
+        "answer": "No. Our AI preserves your natural face—no filters or smoothing that change your features or skin color. What you see is your real face, with a realistic hairstyle layered on top. This way, you can trust the preview and imagine how you'd truly look."
+      },
+      {
+        "question": "Can I save and share the generated photo?",
+        "answer": "Yes! Once your hairstyle is generated, you can download it instantly with one click. You're also free to share it on Instagram, TikTok, or send it to friends. The photo is yours—no watermark, no restrictions. It's perfect for fun, feedback, or making a decision."
+      },
+      {
+        "question": "Can I preview hair extensions with this filter?",
+        "answer": "Yes. If you're thinking about extensions, the long hair filter gives you a realistic idea of how you'd look with more length or volume. You can try longer layers, wavy textures, or bold colors to see how they blend with your face shape and style goals."
+      },
+      {
+        "question": "How will others perceive me with long hair?",
+        "answer": "Reactions vary, but long hair often makes people appear more approachable, creative, or stylish. You may get compliments or questions like \"Did you grow it out?\" That's why previewing with the AI helps—so you feel confident before making the change in real life."
+      },
+      {
+        "question": "Can this filter boost my confidence in my appearance?",
+        "answer": "Yes. Many users say it helps them visualize new possibilities and see themselves in a new light. Whether you're recovering from hair loss or just bored with your current style, seeing yourself with beautiful long hair can feel empowering and uplifting."
+      },
+      {
+        "question": "How do I get through the awkward stage of growing long hair?",
+        "answer": "Step 1: Trim only the ends to keep hair healthy. Step 2: Use hats, clips, or headbands to style growing lengths. Step 3: Try layered cuts to reduce bulk. Step 4: Keep your scalp healthy with gentle products. Step 5: Use our filter to stay motivated—visualize the end goal!"
+      },
+      {
+        "question": "Is long hair suitable for professional settings?",
+        "answer": "Absolutely. Long hair can look polished and professional if styled right. Think low buns, sleek ponytails, or clean side parts. The filter helps you try these looks in advance, so you can choose a long hairstyle that fits both your job and personality."
+      },
+      {
+        "question": "What face shapes work best with long hair?",
+        "answer": "Long hair is flexible, but certain styles fit specific face shapes better. Oval faces suit most styles. Round faces benefit from long layers that add length. Heart-shaped faces look great with side bangs or soft curls. Use the filter to find your best match."
+      },
+      {
+        "question": "How to get long fluffy hair?",
+        "answer": "Step 1: Use volumizing shampoo and lightweight conditioner. Step 2: Dry your hair upside-down to lift roots. Step 3: Add a mousse or texturizing spray before styling. Step 4: Use a round brush or diffuser when blow drying. Step 5: Finish with a light hairspray for hold and bounce."
+      }
+    ],
+    "finalCta": {
+      "title": "Try Long Hair Filter Now—Make Your Next Style Decision Easy",
+      "description": "Get a real preview of how long hair fits your face and vibe. Experiment with styles and colors—all free and secure.",
+      "ctaText": "Try Long Hair Filter →",
+      "ctaLink": "/ai-hairstyle?style=LongWavy"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/long-hair-filter",
+      "name": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+      "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.7",
+        "bestRating": "5",
+        "ratingCount": "26155"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+          "item": "https://hair-style.ai/long-hair-filter"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+      "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
+      "canonical": "https://hair-style.ai/long-hair-filter",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+        "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Totally free. Perfect for face shape matching.",
+        "url": "https://hair-style.ai/long-hair-filter",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/long-hair-filter-h1.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+        "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
+        "images": ["https://hair-style.ai/images/long-hair-filter-h1.webp"]
+      }
+    }
+  } 

@@ -62,6 +62,11 @@ export default function Footer() {
                                     Short Hair Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/long-hair-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Long Hair Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
