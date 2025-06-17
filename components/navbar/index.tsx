@@ -172,6 +172,13 @@ export default function Navbar() {
                                         >
                                             Short Hair Filter
                                         </Link>
+                                        <Link
+                                            href="/long-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Long Hair Filter
+                                        </Link>
                                     </div>
                                 </div>
                             )}
