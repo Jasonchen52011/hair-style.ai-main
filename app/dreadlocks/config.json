@@ -1,0 +1,366 @@
+{
+    "heroSection": {
+      "title": "See Yourself With Dreadlocks — Instantly",
+      "description": "Upload your photo and try different dreadlocks styles with AI. From short to long, classic to bold. Hairstyle AI lets you see what fits your face, hairline, and vibe—without cutting a strand. It's risk-free, realistic, and free to use. Feel confident before making the big change.",
+      "rating": 4.7,
+      "statsText": "458,000+ virtual hairstyles transformed",
+      "ctaText": "Try Dreadlocks Filter",
+      "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+    },
+    "imageConfig": {
+      "displayHeight": 600,
+      "image": "/images/dreadlock-h1.webp",
+      "alt": "Dreadlocks transformation result"
+    },
+    "beforeAfterGallery": {
+      "title": "See Dreadlocks Transformations in Action",
+      "description": "Watch how our users explored different dreadlocks styles with just one photo. No edits to the face, just hairstyle changes. All styles. All face shapes. All for free.",
+      "images": [
+        {
+          "src": "/images/dreadlock-female.webp",
+          "alt": "dreadlocks transformation - person before and after with classic dreadlocks"
+        },
+        {
+          "src": "/images/dreadlock-female2.webp",
+          "alt": "dreadlocks transformation - woman before and after with short dreadlocks"
+        },
+        {
+          "src": "/images/dreadlock-male.webp",
+          "alt": "dreadlocks transformation - woman before and after with long dreadlocks"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Will Dreadlocks Suit Me? Let's Find Out",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, Heart, Round"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.7/5.0"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Classic, Freestyle, Protective"
+        },
+        {
+          "feature": "Length",
+          "description": "Short to Long"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Low to Medium"
+        }
+      ],
+      "textContent": [
+        "Wondering if dreadlocks will look good on you? Here's a quick breakdown to help you decide.",
+        "Face shape matters. If you have an oval, round, or heart-shaped face, dreadlocks usually frame your features really well. If your face is more angular or long, don't worry—styles with side parts or volume on top can balance things out nicely. Hairstyle AI gives you plenty of options to explore different looks.",
+        "Hair type also plays a big role. Dreadlocks form best with curly or coily hair. If your hair is straight or fine, it may take more effort or extensions to achieve the right texture. Thin or fragile hair might not hold locs well, so trying them virtually is a smart first step. Most importantly, dreadlocks are about identity and confidence. You're expressing yourself, your roots, your vibe. And here's the good news: they're more versatile than people think. With Hairstyle AI, you get a clear, realistic preview before making any decision. So you can try bold, go natural—or just see what feels right, risk-free."
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "Your Dreadlocks Journey: What to Expect and How to Care",
+        "textContent": [
+        "Dreadlocks don't form overnight—they grow through stages. The first 3–6 months are called the baby stage. Your hair may feel loose, frizzy, and hard to control. That's normal. Keep your scalp clean, don't over-style, and give your hair time to settle.",
+        "The 12–18 month \"ugly phase\" feels messy and unpredictable. Your hair looks wild, and you might second-guess your choice. Don't quit! This is where many give up—but also where real transformation begins. But with the right styles—scarves, headbands, half-updos—you can still look put together while your locs mature. And remember: this phase won't last forever.",
+        "Full maturity takes 18–21 months or more. By then, your Dreadlocks will look solid, neat, and easy to manage. You'll develop a routine that works for you. This journey builds more than a style—it builds identity, pride, and patience. And it's totally worth it."
+      ],
+      "image": {
+        "src": "/images/dreadlock-realuser-female2.webp",
+        "alt": "dreadlocks journey and maintenance tips"
+      },
+      "ctaText": "Try Dreadlocks Filter",
+      "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+    }
+    ],
+    "regretsSection": {
+      "title": "Where Do Dreadlocks Come From?",
+      "textContent": [
+      "Dreadlocks have deep roots. The oldest mentions go back to ancient cave paintings and Hindu texts like the Vedas, where Lord Shiva wore tangled hair called \"jata.\" They've shown up in many religions—Buddhism, Christianity, Islam—and cultures like Egypt, Greece, and Africa.",
+      "Fast forward to modern times: Reggae icons like Bob Marley and the Rastafari movement gave dreadlocks powerful meaning—faith, freedom, and pride. Today, locs are still a strong symbol of cultural identity.",
+      "Fun fact: dreadlocks aren't just from one place. People around the world created similar styles, naturally. That makes them shared, human, and beautiful. Now with Hairstyle AI, you can try these timeless looks on your own face—instantly."
+    ],
+      "image": {
+        "src": "/images/dreadlock-realuser-female.webp",
+        "alt": "dreadlocks styling tips and solutions"
+      },
+      "ctaText": "Try Dreadlocks Filter",
+      "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+    },
+    "howToUseSection": {
+      "title": "Try Dreadlocks with AI in Just a Few Clicks",
+      "description": "Wondering how you'd look with locs? Hairstyle AI makes it super easy to try dreadlocks online — no haircut needed, no risk. Just upload, choose, and let AI do the magic.",
+      "steps": [
+        {
+          "title": "Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Pick a clear photo of your face — front-facing with good lighting works best. We support JPG, JPEG, or PNG files, and the size should be under 3MB. Make sure your hairline is visible for the best result."
+        },
+        {
+          "title": "Choose Your Dreadlocks Style & Color",
+          "icon": "fas fa-palette",
+          "description": "Browse over 60+ dreadlocks styles for men and women — from bold locs to sleek short ones. You can also try 19 different hair colors to match your vibe. Pick your favorite combo!"
+        },
+        {
+          "title": "Click \"Generate\" to Start the Magic",
+          "icon": "fas fa-magic",
+          "description": "Once you're ready, hit the \"Generate\" button. Our AI will analyze your face and hairline, then transform your look with the selected dreadlocks. The process takes about one minute."
+        },
+        {
+          "title": "Download & Share Your New Look",
+          "icon": "fas fa-download",
+          "description": "Done! You can now download your dreadlocks look and share it with friends or post it on TikTok or Instagram. We don't store your photo — it's deleted right after generation, so it's totally private."
+        }
+      ],
+      "image": {
+        "src": "/images/dreadlick-how-to-use.webp",
+        "alt": "How to use dreadlocks filter - step by step demonstration"
+      },
+      "ctaText": "Try Dreadlocks Filter",
+      "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+    },
+    "ctaSections": [
+      {
+        "title": "Try Dreadlocks Without the Commitment",
+        "description": "Want to try dreadlocks but not ready for the time, cost, or maintenance? Hairstyle AI lets you test locs online with zero commitment. Just upload your photo, pick a style, and see how you'd look in seconds. Whether you're exploring starter locs, long twists, or classic rope-style dreads, our tool shows you a realistic result — no filters, no surprises. Perfect if you're unsure how dreadlocks will match your face shape, hairline, or job. Try as many styles as you want for free and make confident choices later, with no regrets.",
+        "image": {
+          "src": "/images/dreadlock-style2.webp",
+          "alt": "virtual dreadlocks try-on without commitment"
+        },
+        "ctaText": "Try Dreadlocks Filter",
+        "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+      },
+      {
+        "title": "Create Fun Looks for Social Media",
+        "description": "Want to stand out on TikTok or Instagram? Try bold, edgy dreadlocks styles without changing a single strand of your real hair. Hairstyle AI helps you generate eye-catching dreadlocks looks in seconds — from rainbow braids to short, sleek styles. Use it for social media profile pics, prank your friends, or run a fun hair challenge with your followers. Great for both men and women who want to play with new vibes and switch things up. Save the look, post it, and get the likes — all risk-free and totally free.",
+        "image": {
+          "src": "/images/dreadlock-social.webp",
+          "alt": "Social media content - fun dreadlocks transformation for posts"
+        },
+        "ctaText": "Try Dreadlocks Filter",
+        "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+      },
+      {
+        "title": "Try Different Dreadlocks Risk-Free",
+        "description": "Not sure if jumbo locs or tiny twists fit your face? Now you can try every dreadlocks style out there — without going to a salon. With Hairstyle AI, you can test long, short, colored, or textured dreadlocks, all virtually. Whether you're aiming for cute black woman dreadlocks styles or male short dreadlocks, you'll see how they look on your actual face. No skin tone changes, no fake edits — just the real you with a different hairstyle. It's fast, fun, and 100% free. No damage, no pressure, and definitely no regrets.",
+        "image": {
+          "src": "/images/dreadlock-style.webp",
+          "alt": "Different various dreadlocks styles - risk-free virtual try-on"
+        },
+        "ctaText": "Try Dreadlocks Filter",
+        "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Millions Trust Hairstyle AI for Virtual Dreadlocks",
+      "features": [
+        {
+          "icon": "fas fa-hand-point-up",
+          "title": "Free and Easy, Always",
+          "description": "We don't charge anything. You get 5 free dreadlocks tries every day. No sign-ups, no hidden fees. Just upload a photo and go — it's fast, fun, and beginner-friendly."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "So Many Styles and Colors",
+          "description": "From short male dreadlocks to colorful loc extensions, we offer 60+ styles and 19 colors. Play with filters, match your vibe, or try bold new hair colors — all in one place."
+        },
+        {
+          "icon": "fas fa-award",
+          "title": "Realistic, Face-Friendly Results",
+          "description": "Our AI blends hairstyles naturally with your real face shape and hairline. No weird edits. We never change your skin tone or facial features. Just a realistic new you."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "100% Private, Zero Risk",
+          "description": "We take your privacy seriously. Your photo is used once and deleted right after. No storage, no tracking, no worries. Your virtual hairstyle is all yours — and only yours."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I always wanted locs but wasn't sure if they fit my job. I uploaded a photo to Hairstyle AI, and it showed me with neat, short dreadlocks. I even downloaded a side-by-side comparison. It looked amazing — my students loved it too!",
+        "author": "@Marcus Taylor",
+        "title": "High School Music Teacher",
+        "rating": 5.0
+      },
+      {
+        "quote": "I have really fine hair and never thought dreadlocks were an option. Hairstyle AI showed me how I'd look with long, thick twists. The before-and-after made me smile. I even shared it on Instagram — my friends thought I actually did it!",
+        "author": "@Jasmine Lee",
+        "title": "Startup Marketing Manager",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've had a buzz cut for years. I used Hairstyle AI just for fun and ended up falling in love with the bold, rope-style locs it showed me. It made me rethink my whole look. Seeing myself with a full head of locs was empowering.",
+        "author": "@Anthony Brooks",
+        "title": "Personal Trainer",
+        "rating": 5.0
+      },
+      {
+        "quote": "As a Black woman exploring my roots, I used Hairstyle AI to test out cultural dreadlocks styles. I tried short starter locs and long braids. The realism shocked me — it helped me connect with my identity before even touching my real hair.",
+        "author": "@Melissa Gordon",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I was doing a photoshoot on Afro hairstyles and used Hairstyle AI to generate sample looks. The quality was incredible. I even used one of the AI locs styles in my concept board. It saved me hours of editing!",
+        "author": "@Tyler Nguyen",
+        "title": "Freelance Photographer",
+        "rating": 5.0
+      },
+      {
+        "quote": "My hairline has been thinning, so I wasn't sure how dreadlocks would look. But Hairstyle AI showed me a natural, beautiful look with medium-length twists. I felt confident again. It gave me a vision of how I could grow into the look.",
+        "author": "@Brianna Jones",
+        "title": "Yoga Instructor",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "How realistic is the filter?",
+        "answer": "Very realistic. The AI blends dreadlocks styles naturally into your photo, matching your face shape, skin tone, and hairline. No weird edits or cartoonish looks — just you, with a real transformation."
+      },
+      {
+        "question": "Is it suitable for all genders and ages?",
+        "answer": "Yes! Hairstyle AI is made for everyone — women, men, and all gender identities. Teens to adults can enjoy trying dreadlocks looks, from cute black woman dreadlocks styles to classic male short dreadlocks."
+      },
+      {
+        "question": "Is the AI dreadlocks filter free?",
+        "answer": "Absolutely. You can try 5 free hairstyle simulations every day. No hidden costs, no subscriptions — totally free."
+      },
+      {
+        "question": "What are the benefits of dreadlocks?",
+        "answer": "Dreadlocks are more than a style — they're a statement. Many people wear them for cultural identity, spiritual reasons, or just because they love the look. They're low-maintenance once matured, don't require daily styling, and help protect natural hair. Dreadlocks can also boost self-confidence and encourage growth. From sleek short locs to bold jumbo twists, they're empowering, personal, and beautiful."
+      },
+      {
+        "question": "How long do dreadlocks take to grow or mature?",
+        "answer": "Dreadlocks usually take about 6 months to start forming and up to 1–2 years to fully mature. It depends on your hair texture, maintenance, and whether you start them twisted, coiled, or freeform. Straight hair takes longer to lock, while kinky or coily hair locks faster. Using products like locking gel and regular palm rolling can help speed up the process. Patience and consistency are key to healthy, well-formed locs."
+      },
+      {
+        "question": "Are dreadlocks high-maintenance?",
+        "answer": "Dreadlocks can be low-maintenance once they're mature, but early on, they need regular care. You'll need to wash your hair with a residue-free shampoo, keep your scalp clean, and re-twist or re-shape your locs every few weeks. Styles like freeform are lower maintenance, while salon-styled locs may need professional retwisting. With the right routine, locs can actually save time compared to daily combing and heat styling."
+      },
+      {
+        "question": "Can dreadlocks cause scalp issues?",
+        "answer": "Not if you care for them properly. Scalp problems can happen when dreadlocks are too tight, too heavy, or not kept clean. To avoid issues like dryness, dandruff, or tension alopecia, make sure you wash your hair regularly, don't pull your roots too tight, and use natural oils to keep your scalp moisturized. Healthy dreadlocks start with a healthy scalp — listen to your body and adjust your routine as needed."
+      },
+      {
+        "question": "Can dreadlocks be removed?",
+        "answer": "Yes, dreadlocks can be removed, but the process takes time and care. If your locs are still new, you can usually comb them out with conditioner and a lot of patience. Mature locs are harder to undo — many people cut them off when they're ready for a new look. Some even combine both methods: cutting most of the loc, then detangling the base. Either way, it's totally possible to go back to loose hair."
+      },
+      {
+        "question": "What should I know about cultural meaning and dreadlocks?",
+        "answer": "Dreadlocks hold deep cultural and spiritual significance, especially in Black, African, and Rastafarian communities. For many, locs are about identity, heritage, and pride. It's important to wear them with respect, not just as a fashion statement. If you're outside those communities, take time to learn about dreadlocks' origin and meaning before wearing them. It shows awareness and honors the history behind the style."
+      },
+      {
+        "question": "Where did dreadlocks originate?",
+        "answer": "Dreadlocks have been worn by cultures around the world for centuries. They're most commonly linked to African and Caribbean roots, especially in Rastafarian culture. But ancient Egyptians, Hindu sages, and even some European groups also wore locs. In each case, they symbolized different things — from religious devotion to strength or rebellion. Today, dreadlocks are both cultural and personal expressions across many communities."
+      },
+      {
+        "question": "How to make dreadlocks?",
+        "answer": "Step-by-step: <br>1. Start with clean, dry hair (no conditioner). <br>2. Section your hair evenly using clips or rubber bands. <br>3. Twist, coil, or backcomb each section tightly. <br>4. Use locking gel or wax if needed (optional). <br>5. Palm roll daily to help form and shape the locs. <br>6. Wash gently and repeat care over time — the locs will form naturally. Dreadlocks take time, but with care, they'll form beautifully."
+      },
+      {
+        "question": "How to start dreadlocks?",
+        "answer": "Step-by-step: <br>1. Choose a method: twist, coil, crochet, or freeform. <br>2. Wash hair with residue-free shampoo and dry completely. <br>3. Part hair into small, even sections. <br>4. Twist or backcomb each section tightly. <br>5. Use a loc-starting product if desired. <br>6. Avoid brushing or combing. <br>7. Maintain the locs by re-twisting, palm rolling, or just letting them grow. Everyone's journey is different — find what works best for your hair type."
+      },
+      {
+        "question": "What are dreadlocks?",
+        "answer": "Dreadlocks are rope-like strands of hair formed when hair mats or locks over time. Dreadlocks can be created by twisting, coiling, or letting hair naturally knot. People wear them for cultural, spiritual, fashion, or personal reasons. There are many types — like freeform, starter twists, or thick rope-style. They can be worn by men and women, and are often tied to identity, community, and expression."
+      },
+      {
+        "question": "How do you wash dreadlocks?",
+        "answer": "Step-by-step: <br>1. Wet your dreadlocks thoroughly under warm water. <br>2. Apply a residue-free shampoo to your scalp and locs. <br>3. Use fingertips to gently scrub the scalp and base of locs. <br>4. Rinse deeply until water runs clear — shampoo build-up can cause issues. <br>5. Gently squeeze out water and pat dry with a towel. <br>6. Let your dreadlocks dry completely — use a dryer if needed to avoid mildew. Clean dreadlocks = healthy dreadlocks!"
+      }
+    ],
+    "finalCta": {
+      "title": "Try Your Dreadlocks Look Now",
+      "description": "Upload a photo and see your new dreadlocks style in just 60 seconds — it's fast, free, and fun!",
+      "ctaText": "Try Dreadlocks Filter →",
+      "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/dreadlocks",
+      "name": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
+      "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.7",
+        "bestRating": "5",
+        "ratingCount": "26155"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
+          "item": "https://hair-style.ai/dreadlocks"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
+      "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+      "canonical": "https://hair-style.ai/dreadlocks",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
+        "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+        "url": "https://hair-style.ai/dreadlocks",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/dreadlock-h1.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
+        "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+        "images": ["https://hair-style.ai/images/dreadlock-h1.webp"]
+      }
+    }
+  } 

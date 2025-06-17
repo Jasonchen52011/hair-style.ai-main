@@ -205,7 +205,7 @@ export default function BobHaircutFilterPage() {
                             {isBobCutRightSection.title}
                         </h2>
                         
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
                             {/* 左侧表格 */}
                             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
                                 <div className="bg-gray-100 px-6 py-4 grid grid-cols-2 gap-4">

@@ -20,11 +20,11 @@ interface HeroSectionProps {
 export default function HeroSection({ heroSection, imageConfig }: HeroSectionProps) {
   return (
     <section className="bg-white py-2 sm:py-10 mb-10 mt-2 sm:mt-6">
-      <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
           {/* 左侧内容 */}
-          <div className="pr-8 order-2 lg:order-1">
-            <h1 className="text-2xl sm:text-5xl font-bold mb-6 text-gray-900">
+          <div className="pr-1 order-2 lg:order-1">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
               {heroSection.title}
             </h1>
             <p className="text-lg md:text-xl text-gray-800 mb-4 sm:mb-2">
@@ -83,7 +83,7 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
               <Image
                 src={imageConfig.image}
                 alt={imageConfig.alt}
-                width={900}
+                width={1000}
                 height={imageConfig.displayHeight}
                 className="object-cover rounded-lg"
                 priority

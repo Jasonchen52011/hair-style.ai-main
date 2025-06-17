@@ -67,6 +67,11 @@ export default function Footer() {
                                     Long Hair Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/dreadlocks" className="text-gray-400 hover:text-white transition-colors">
+                                    Dreadlocks Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
