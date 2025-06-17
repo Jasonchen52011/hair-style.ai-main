@@ -19,9 +19,9 @@ export default function UsageScenariosSection({ ctaSections }: UsageScenariosSec
     <>
       {ctaSections.map((section, index) => (
         <section key={index} className="sm:py-16 py-6 bg-white">
-          <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+          <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
             <div className="max-w-full mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
                 {/* 图片 */}
                 <div className={`flex justify-center ${index % 2 === 0 ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}`}>
                   <div className="w-full max-w-6xl bg-white rounded-xl overflow-hidden">

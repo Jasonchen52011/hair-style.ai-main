@@ -55,9 +55,10 @@ export default function FAQ({ faqs }: FAQProps) {
                   }`}
                 >
                   <div className="px-6 pb-4 pt-0">
-                    <p className="text-gray-600 text-sm sm:text-lg  leading-relaxed">
-                      {faq.answer}
-                    </p>
+                    <p 
+                      className="text-gray-600 text-sm sm:text-lg leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                    />
                   </div>
                 </div>
               </div>

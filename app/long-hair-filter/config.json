@@ -263,7 +263,7 @@
       },
       {
         "question": "How can I grow and maintain long hair?",
-        "answer": "Step 1: Eat a balanced diet with protein and vitamins. Step 2: Trim split ends every 8–12 weeks. Step 3: Use sulfate-free shampoos and deep conditioners. Step 4: Avoid frequent heat styling. Step 5: Sleep on a silk pillowcase and protect hair when sleeping. Step 6: Be patient—growth takes time!"
+        "answer": "Step 1: Eat a balanced diet with protein and vitamins.<br>Step 2: Trim split ends every 8–12 weeks.<br>Step 3: Use sulfate-free shampoos and deep conditioners.<br>Step 4: Avoid frequent heat styling.<br>Step 5: Sleep on a silk pillowcase and protect hair when sleeping.<br>Step 6: Be patient—growth takes time!"
       },
       {
         "question": "Will the filter distort my facial features or skin tone?",
@@ -287,7 +287,7 @@
       },
       {
         "question": "How do I get through the awkward stage of growing long hair?",
-        "answer": "Step 1: Trim only the ends to keep hair healthy. Step 2: Use hats, clips, or headbands to style growing lengths. Step 3: Try layered cuts to reduce bulk. Step 4: Keep your scalp healthy with gentle products. Step 5: Use our filter to stay motivated—visualize the end goal!"
+        "answer": "Step 1: Trim only the ends to keep hair healthy.<br>Step 2: Use hats, clips, or headbands to style growing lengths.<br>Step 3: Try layered cuts to reduce bulk.<br>Step 4: Keep your scalp healthy with gentle products.<br>Step 5: Use our filter to stay motivated—visualize the end goal!"
       },
       {
         "question": "Is long hair suitable for professional settings?",
@@ -299,7 +299,7 @@
       },
       {
         "question": "How to get long fluffy hair?",
-        "answer": "Step 1: Use volumizing shampoo and lightweight conditioner. Step 2: Dry your hair upside-down to lift roots. Step 3: Add a mousse or texturizing spray before styling. Step 4: Use a round brush or diffuser when blow drying. Step 5: Finish with a light hairspray for hold and bounce."
+        "answer": "Step 1: Use volumizing shampoo and lightweight conditioner.<br>Step 2: Dry your hair upside-down to lift roots.<br>Step 3: Add a mousse or texturizing spray before styling.<br>Step 4: Use a round brush or diffuser when blow drying.<br>Step 5: Finish with a light hairspray for hold and bounce."
       }
     ],
     "finalCta": {
@@ -313,7 +313,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "url": "https://hair-style.ai/long-hair-filter",
-      "name": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+      "name": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
       "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
@@ -330,7 +330,7 @@
         "@type": "AggregateRating",
         "ratingValue": "4.7",
         "bestRating": "5",
-        "ratingCount": "26155"
+        "ratingCount": "22155"
       }
     },
     "breadcrumbData": {
@@ -351,7 +351,7 @@
       ]
     },
     "seoConfig": {
-      "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+      "title": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
       "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
       "canonical": "https://hair-style.ai/long-hair-filter",
       "robots": {
@@ -366,7 +366,7 @@
         }
       },
       "openGraph": {
-        "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+        "title": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
         "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Totally free. Perfect for face shape matching.",
         "url": "https://hair-style.ai/long-hair-filter",
         "siteName": "Hair-style.ai",
@@ -377,7 +377,7 @@
               "url": "https://hair-style.ai/images/long-hair-filter-hero.webp",
               "width": 1920,
               "height": 1080,
-              "alt": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+              "alt": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
               "type": "image/webp"
             }
           ]
@@ -385,7 +385,7 @@
       "twitter": {
         "card": "summary_large_image",
         "site": "@hair_styleai",
-        "title": "Free Long Hair Filter online – Try Virtual Styles for Men & Women",
+        "title": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
         "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
         "images": ["https://hair-style.ai/images/long-hair-filter-hero.webp"]
       }
