@@ -1,17 +1,17 @@
 const sharp = require('sharp');
 const fs = require('fs');
 
-// 优化Hero图片
+// optimize Hero image
 async function optimizeHeroImage() {
   try {
-    // 创建优化目录
+    // create optimized directory
     if (!fs.existsSync('public/images/optimized/hero')) {
       fs.mkdirSync('public/images/optimized/hero', { recursive: true });
     }
     
     console.log('🚀 Starting hero image optimization...');
     
-    // 优化hero4.jpg为WebP格式
+    // optimize hero4.jpg to WebP format
     await sharp('public/images/hero/hero4.jpg')
       .resize(700, 700, {
         fit: 'cover',
@@ -22,7 +22,7 @@ async function optimizeHeroImage() {
     
     console.log('✅ Hero image optimized: hero4.webp');
     
-    // 也创建一个更小的版本用于预加载
+    // also create a smaller version for preload
     await sharp('public/images/hero/hero4.jpg')
       .resize(350, 350, {
         fit: 'cover',
@@ -33,7 +33,7 @@ async function optimizeHeroImage() {
     
     console.log('✅ Hero image small version optimized: hero4-small.webp');
     
-    // 检查文件大小对比
+    // check file size comparison
     const originalStats = fs.statSync('public/images/hero/hero4.jpg');
     const optimizedStats = fs.statSync('public/images/optimized/hero/hero4.webp');
     const smallStats = fs.statSync('public/images/optimized/hero/hero4-small.webp');

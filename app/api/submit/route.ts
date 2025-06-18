@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
                     }
                     buffer = Buffer.from(base64Data, 'base64');
                 } else {
-                    // 假设是 base64 字符串（没有 data: 前缀）
+                    // assume it is a base64 string (no data: prefix)
                     buffer = Buffer.from(imageUrl, 'base64');
                 }
                 
@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
                 ...formData.getHeaders()
             },
             data: formData,
-            timeout: 10000 // 保持与 client 配置一致
+            timeout: 10000 // keep consistent with client configuration
         });
 
         const responseData = response.data as any;
@@ -139,7 +139,7 @@ export async function POST(req: NextRequest) {
         });
 
         if (responseData.error_code === 0 && responseData.task_id) {
-            // 只有在成功调用 AI API 后才计数，且只对非白名单IP计数
+            // only count after successfully calling AI API, and only count non-whitelist IP
             if (!isLocalDev && !isWhitelistIP) {
                 if (!currentCount || currentCount.date !== today) {
                     requestCounts.set(ip, { count: 1, date: today });
@@ -158,21 +158,21 @@ export async function POST(req: NextRequest) {
             });
         }
         
-        // 根据不同的错误码提供更具体的错误信息
-        let errorMessage = 'Unable to process this image. Please try a different photo.'; // 更简洁的默认消息
+        // provide more specific error message based on different error codes
+        let errorMessage = 'Unable to process this image. Please try a different photo.'; // more concise default message
         
-        // 只对非常明确的错误进行特殊处理，其他情况使用默认消息
+        // only handle the most critical error, other cases use default message
         if (responseData.error_detail) {
             console.log('API Error Detail:', responseData.error_detail);
             
-            // 确保 error_detail 是字符串类型后再使用 includes 方法
+            // ensure error_detail is a string type before using includes method
             const errorDetail = String(responseData.error_detail);
             
-            // 只保留最关键的错误判断
-            if (errorDetail.includes('人脸') && (errorDetail.includes('检测') || errorDetail.includes('识别'))) {
+            // only keep the most critical error judgment
+            if (errorDetail.includes('face') && (errorDetail.includes('detect') || errorDetail.includes('recognition'))) {
                 errorMessage = 'Please upload a photo with a clear, visible face.';
             }
-            // 其他所有错误都使用默认的简单消息，不进行具体分类
+           
         }
         
         return NextResponse.json({ 
@@ -180,7 +180,7 @@ export async function POST(req: NextRequest) {
             error: errorMessage,
             error_detail: responseData.error_detail,
             error_code: responseData.error_code
-        }, { status: 422 }); // 使用 422 表示请求格式正确但无法处理
+        }, { status: 422 }); 
 
     } catch (error) {
         console.error('Submit error:', error);
@@ -208,12 +208,12 @@ export async function GET(req: NextRequest) {
     if (!taskId) {
       return NextResponse.json({ error: 'taskId is required' }, { status: 400 });
     }
-    // 查询处理结果
+    // query result
     const response = await fetch(
       `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
       {
         headers: {
-          "Content-Type": "application/json",  // GET 请求用 application/json
+          "Content-Type": "application/json",  // GET request use application/json
           "ailabapi-api-key": apiKey
         }
       }

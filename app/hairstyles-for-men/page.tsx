@@ -36,7 +36,7 @@ const {
   seoConfig
 } = config;
 
-// ## Dreadlocks page metadata
+// #men hairstyles page metadata
 export const metadata: Metadata = {
     title: seoConfig.title,
     description: seoConfig.description,
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     },
 }
 
-export default function DreadlocksPage() {
+export default function MenHairstylesPage() {
     return (
         <>        
             <script

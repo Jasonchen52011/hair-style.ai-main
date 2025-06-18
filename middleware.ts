@@ -2,14 +2,14 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-    // 避免重定向循环，跳过静态资源和 API 请求
+    // Avoid redirect loops, skip static resources and API requests
     if (request.nextUrl.pathname.startsWith('/_next') || 
         request.nextUrl.pathname.startsWith('/static') ||
         request.nextUrl.pathname.includes('.')) {
         return NextResponse.next()
     }
 
-    // 只处理 www 到非 www 的重定向
+    // Only handle www to non-www redirects
     const hostname = request.headers.get('host') || ''
     if (hostname === 'www.hair-style.ai') {
         return NextResponse.redirect(

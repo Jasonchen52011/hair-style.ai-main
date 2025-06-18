@@ -61,10 +61,10 @@ export default function HairStyleGenerator({
         if (data.status === 'completed' && data.result) {
           return data.result;
         } else if (data.status === 'failed') {
-          throw new Error(data.message || '任务处理失败');
+          throw new Error(data.message || 'Task processing failed');
         }
         
-        // 等待3秒后再次检查
+   
         await new Promise(resolve => setTimeout(resolve, 3000));
       } catch (error) {
         console.error('Error polling task status:', error);
@@ -153,7 +153,7 @@ export default function HairStyleGenerator({
 
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg p-6">
-      {/* 进度指示器 */}
+      {/* progress indicator */}
       <div className="flex items-center mb-6">
         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
           currentStep === "upload" ? "bg-purple-700 text-white" : "bg-green-500 text-white"
@@ -174,7 +174,7 @@ export default function HairStyleGenerator({
       </div>
 
       {currentStep === "upload" ? (
-        // 照片上传界面
+        // photo upload interface
         <div className="text-center">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">AI Hair Style Generator</h2>
@@ -205,7 +205,7 @@ export default function HairStyleGenerator({
           </div>
         </div>
       ) : (
-        // 发型选择界面
+
         <div>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-800">Choose hairstyle and color</h2>
@@ -217,7 +217,7 @@ export default function HairStyleGenerator({
             </button>
           </div>
 
-          {/* 上传的照片预览 */}
+          {/* uploaded photo preview */}
           {uploadedImageUrl && (
             <div className="mb-6 text-center">
               <img
@@ -228,7 +228,7 @@ export default function HairStyleGenerator({
             </div>
           )}
 
-          {/* 性别选择 */}
+          {/* gender selection */}
           <div className="mb-6 bg-gray-50 p-2 rounded-lg">
             <div className="flex space-x-2">
               <button
@@ -260,7 +260,7 @@ export default function HairStyleGenerator({
             </div>
           </div>
 
-          {/* 发型选择 */}
+          {/* hairstyle selection */}
           <div className="mb-6">
             <h3 className="text-lg font-medium text-gray-800 mb-3">Choose hairstyle</h3>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 max-h-96 overflow-y-auto">
@@ -300,7 +300,7 @@ export default function HairStyleGenerator({
             </div>
           </div>
 
-          {/* 颜色选择 */}
+          {/* color selection */}
           <div className="mb-6">
             <h3 className="text-lg font-medium text-gray-800 mb-3">Choose color</h3>
             <div className="grid grid-cols-7 gap-2">
@@ -337,7 +337,7 @@ export default function HairStyleGenerator({
             </div>
           </div>
 
-          {/* 生成按钮 */}
+          {/* generate button */}
           <button
             onClick={handleGenerate}
             className="w-full py-4 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"

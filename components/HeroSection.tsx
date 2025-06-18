@@ -20,24 +20,24 @@ interface HeroSectionProps {
 export default function HeroSection({ heroSection, imageConfig }: HeroSectionProps) {
   return (
     <section className="bg-white py-2 sm:py-10 mb-10 mt-2 sm:mt-6">
-      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+      <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
-          {/* 左侧内容 */}
+    
           <div className="pr-1 order-2 lg:order-1">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900">
               {heroSection.title}
             </h1>
-            <p className="text-lg md:text-xl text-gray-800 mb-4 sm:mb-2">
+            <p className="text-base md:text-lg text-gray-800 mb-4 sm:mb-2">
               {heroSection.description}
             </p>
             
-            {/* 统计数据 */}
+         
             <div className="flex items-center justify-center lg:justify-start gap-3 mb-8 mt-16">
               <div className="flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((star) => {
                   const rating = heroSection.rating;
                   if (star <= Math.floor(rating)) {
-                    // 完全填充的星星
+                  
                     return (
                       <i 
                         key={star}
@@ -53,7 +53,7 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
                       />
                     );
                   } else {
-                    // 空星星
+                 
                     return (
                       <i 
                         key={star}
@@ -77,7 +77,7 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
             </div>
           </div>
           
-          {/* 右侧展示图片 */}
+          {/* left side show image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="relative rounded-lg overflow-hidden ">
               <Image
