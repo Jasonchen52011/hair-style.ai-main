@@ -1,7 +1,7 @@
 {
     "heroSection": {
       "title": "Find Your Perfect Men's Haircut – Instantly Preview with AI",
-      "description": "Use Hairstyle AI to test popular men's hairstyles in seconds. Try curly shags, slick backs, or undercut long hair. Our tool gives you a realistic preview with no filter tricks. Feel confident trying new styles, hide hair loss, or plan your next transformation — all from your phone. Get 5 free tries every day. It's risk-free.",
+      "description": "Use Hairstyle AI to test popular men's hairstyles in seconds. Try curly shags, slick backs, or undercut long hair. Our tool gives you a realistic preview with no filter tricks. Feel confident trying new styles, hide hair loss, or plan your next transformation — all from your phone.",
       "rating": 4.7,
       "statsText": "580,000+ virtual hairstyles transformed",
       "ctaText": "Try Men's Hairstyles Filter",
@@ -18,27 +18,33 @@
       "images": [
         {
           "src": "/images/man-hair-buzz-cut.webp",
-          "alt": "men's hairstyle transformation - person before and after with buzz cut"
+          "alt": "men's hairstyle transformation - person before and after with buzz cut",
+          "name": "Buzz Cut"
         },
         {
           "src": "/images/man-hair-pompadour.webp",
-          "alt": "men's hairstyle transformation - man before and after with pompadour style"
+          "alt": "men's hairstyle transformation - man before and after with pompadour style",
+          "name": "Pompadour"
         },
         {
           "src": "/images/man-hair-cornrow.webp",
-          "alt": "men's hairstyle transformation - man before and after with cornrow style"
+          "alt": "men's hairstyle transformation - man before and after with cornrow style",
+          "name": "Cornrow"
         },
         {
           "src": "/images/man-hair-hight-tight-fade.webp",
-          "alt": "men's hairstyle transformation - man before and after with high tight fade style"
+          "alt": "men's hairstyle transformation - man before and after with high tight fade style",
+          "name": "High Tight Fade"
         },
         {
           "src": "/images/man-hair-messy.webp",
-          "alt": "men's hairstyle transformation - man before and after with messy style"
+          "alt": "men's hairstyle transformation - man before and after with messy style",
+          "name": "Messy"
         },
         {
           "src": "/images/man-hair-textured-fringe.webp",
-          "alt": "men's hairstyle transformation - man before and after with textured fringe style"
+          "alt": "men's hairstyle transformation - man before and after with textured fringe style",
+          "name": "Textured Fringe"
         }
         ]
     },
@@ -293,7 +299,7 @@
       "@type": "WebApplication",
       "url": "https://hair-style.ai/hairstyles-for-men",
       "name": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
-      "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour, afro, long curly or man buns. Look sharp without the haircut — all in 60 seconds.",
+      "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
       "brand": {
@@ -331,7 +337,7 @@
     },
     "seoConfig": {
       "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
-      "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour, afro, long curly or man buns. Look sharp without the haircut — all in 60 seconds.",
+      "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
       "canonical": "https://hair-style.ai/hairstyles-for-men",
       "robots": {
         "index": true,
@@ -346,7 +352,7 @@
       },
       "openGraph": {
         "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
-        "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour, afro, long curly or man buns. Look sharp without the haircut — all in 60 seconds.",
+        "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
         "url": "https://hair-style.ai/hairstyles-for-men",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
@@ -365,7 +371,7 @@
         "card": "summary_large_image",
         "site": "@hair_styleai",
         "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
-        "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour, afro, long curly or man buns. Look sharp without the haircut — all in 60 seconds.",
+        "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour, afro, long curly or man buns. Look sharp without the haircut.",
         "images": ["https://hair-style.ai/images/man-hair-hero.webp"]
       }
     }
