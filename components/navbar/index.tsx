@@ -22,7 +22,7 @@ export default function Navbar() {
 
         if (typeof window !== 'undefined') {
             window.addEventListener('scroll', handleScroll);
-            handleScroll(); // 初始检查
+            handleScroll(); // Initial check
         }
 
         return () => {
@@ -32,7 +32,7 @@ export default function Navbar() {
         };
     }, []);
 
-    // 点击外部关闭下拉菜单
+    // Click outside to close dropdown menu
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -49,7 +49,7 @@ export default function Navbar() {
         };
     }, [isDropdownOpen]);
 
-    // 如果组件还没有挂载，返回一个占位导航栏
+    // If component is not mounted yet, return a placeholder navbar
     if (!isMounted) {
         return (
             <nav className="w-full relative bg-transparent">
@@ -185,6 +185,13 @@ export default function Navbar() {
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             Dreadlocks Filter
+                                        </Link>
+                                        <Link
+                                            href="/hairstyles-for-men"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Men's Hairstyles
                                         </Link>
                                     </div>
                                 </div>

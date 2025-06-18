@@ -39,8 +39,8 @@ export default {
       {
         light: {
           "primary": "#7c3aed",          // purple-700
-          "primary-focus": "#6b21a8",    // purple-800 (深色)
-          "primary-content": "#ffffff",   // 白色文字
+          "primary-focus": "#6b21a8",    // purple-800 (dark)
+          "primary-content": "#ffffff",   // white text
           "secondary": "#f000b8",
           "accent": "#37cdbe",
           "neutral": "#3d4451",

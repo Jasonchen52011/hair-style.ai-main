@@ -14,7 +14,7 @@ interface LazySectionProps {
   preserveHeight?: boolean
 }
 
-// 优化的骨架屏组件
+// Optimized skeleton screen component
 const OptimizedSkeleton = ({ className }: { className?: string }) => (
   <div className={`animate-pulse bg-gray-200 rounded-lg ${className}`} />
 );
@@ -23,7 +23,7 @@ export default function LazySection({
   children, 
   className = '', 
   threshold = 0.1,
-  rootMargin = '100px', // 增加rootMargin提前加载
+  rootMargin = '100px', // Increase rootMargin for preloading
   fallback,
   id,
   minHeight = 'auto',
@@ -37,7 +37,7 @@ export default function LazySection({
 
   const [contentHeight, setContentHeight] = useState<number | null>(null);
 
-  // 测量内容高度以防止布局偏移
+  // Measure content height to prevent layout shift
   useEffect(() => {
     if (preserveHeight && isLoaded && elementRef.current) {
       const height = elementRef.current.offsetHeight;
@@ -47,7 +47,7 @@ export default function LazySection({
     }
   }, [isLoaded, preserveHeight, elementRef]);
 
-  // 优化的默认fallback，减少布局偏移
+  // optimized default fallback, reduce layout shift
   const defaultFallback = (
     <div 
       className="flex items-center justify-center" 

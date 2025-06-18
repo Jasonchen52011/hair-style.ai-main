@@ -8,12 +8,12 @@ import LazySection from '@/components/LazySection';
 
 type TabType = 'Female' | 'Male' | 'Color';
 
-// 添加图片骨架屏组件
+// Add image skeleton component
 const ImageSkeleton = ({ className = "" }: { className?: string }) => (
     <div className={`animate-pulse bg-gray-200 ${className}`} />
 );
 
-// 添加优化的图片组件
+// Add optimized image component
 const OptimizedImage = ({ 
     src, 
     alt, 
@@ -38,21 +38,21 @@ const OptimizedImage = ({
     const handleLoad = () => setImageLoaded(true);
     const handleError = () => {
         if (imageSrc.endsWith('.webp')) {
-            // 尝试jpg格式
+            // Try jpg format
             const jpgSrc = imageSrc.replace('.webp', '.jpg');
             setImageSrc(jpgSrc);
         } else if (imageSrc.endsWith('.jpg')) {
-            // 尝试webp格式
+            // Try webp format
             const webpSrc = imageSrc.replace('.jpg', '.webp');
             setImageSrc(webpSrc);
         } else {
-            // 如果都失败了，显示错误状态
+            // If both failed, show error state
             setHasError(true);
             setImageLoaded(true);
         }
     };
 
-    // 如果图片加载失败，显示占位符
+            // If image loading failed, show placeholder
     if (hasError) {
         return (
             <div className={`relative ${className} bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center`} style={{ aspectRatio }}>
@@ -95,7 +95,7 @@ export default function Hero() {
     const [error, setError] = useState<Error | null>(null);
     const [expandedFAQs, setExpandedFAQs] = useState(new Set());
 
-    // 将评论数据移到组件内部
+    // Move review data to component internal
     const testimonials = [
         {
             quote: "I've always been hesitant to try on new hairstyles because I wasn't sure how they'd look on me. With this tool, I uploaded my photo and tried out different styles, which gave me the confidence to switch to a modern fade. It's a game-changer for anyone unsure about new looks.",
@@ -180,14 +180,14 @@ export default function Hero() {
         }
     ];
 
-    // 添加图片错误处理函数
+    // Add image error handling function
     const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
         const target = e.target as HTMLImageElement;
-        target.onerror = null; // 防止无限循环
-        target.src = '/images/fallback/hairstyle-placeholder.jpg'; // 使用占位图
+        target.onerror = null; // Prevent infinite loop
+        target.src = '/images/fallback/hairstyle-placeholder.jpg'; // Use placeholder image
     };
 
-    // 定义颜色图片映射
+    // Define color image mapping
     const colorImages = {
         black: "/images/colors/black-hair.jpg",
         red: "/images/colors/red-hair.jpg",
@@ -205,32 +205,32 @@ export default function Hero() {
         lightPurple: "/images/colors/light-purple-hair.jpg"
     };
 
-    // 数据更新函数
+    // Data update function
     const updateDisplayData = (tabType: TabType) => {
         if (tabType === 'Color') {
-            // 只显示有对应图片的颜色选项
+            // Only show color options with corresponding images
             const availableColors = hairColors.filter(color => 
-                // 检查颜色ID是否在 colorImages 中存在
+                // Check if color ID exists in colorImages
                 color.id in colorImages
             );
             setDisplayColors(availableColors);
             setDisplayStyles([]);
-            console.log(`切换到 ${tabType} - 显示 ${availableColors.length} 个颜色选项`);
+            console.log(`Switched to ${tabType} - showing ${availableColors.length} color options`);
         } else {
-            // 对于发型标签，设置所有样式数据
+            // For hairstyle tabs, set all style data
             const styles = tabType === 'Female' ? femaleStyles : maleStyles;
             setDisplayStyles(styles);
             setDisplayColors([]);
-            console.log(`切换到 ${tabType} - 显示 ${styles.length} 个发型选项`, styles.slice(0, 3).map(s => s.description));
+            console.log(`Switched to ${tabType} - showing ${styles.length} hairstyle options`, styles.slice(0, 3).map(s => s.description));
         }
     };
 
     useEffect(() => {
-        // 根据选中的标签获取对应的数据
+        // Get corresponding data based on selected tab
         updateDisplayData(activeTab);
     }, [activeTab]);
 
-    // 评论导航函数
+    // Review navigation functions
     const handlePrevious = () => {
         setCurrentTestimonial(prev => (prev === 0 ? testimonials.length - 1 : prev - 1));
     };
@@ -249,15 +249,15 @@ export default function Hero() {
         setExpandedFAQs(newSet);
     };
 
-    // 添加客户端挂载检查，避免hydration错误
+    // Add client-side mount check to avoid hydration errors
     useEffect(() => {
         setMounted(true);
-        // 组件挂载时立即加载初始数据
+        // Load initial data immediately when component mounts
         updateDisplayData(activeTab);
     }, []);
 
     if (!mounted) {
-        return null; // 避免在客户端挂载前显示内容，防止hydration错误
+        return null; // Avoid showing content before client-side mount, prevent hydration errors
     }
 
     if (error) {
@@ -279,7 +279,7 @@ export default function Hero() {
             <LazySection threshold={0.2}>
                 <div className="container mx-auto px-4 py-8  mb-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-6xl mx-auto ">
-                        {/* 右侧图片 - 移动端优先显示 */}
+                        {/* Right image - mobile first display */}
                         <LazySection className="flex justify-center lg:order-2">
                             <div className="w-full max-w-sm lg:max-w-lg mx-auto" style={{ aspectRatio: '4:3' }}>
                                 <OptimizedImage
@@ -294,7 +294,7 @@ export default function Hero() {
                             </div>
                         </LazySection>
 
-                        {/* 左侧内容 */}
+                        {/* Left content */}
                         <LazySection className="text-center lg:text-left lg:order-1">
                             <h1 className="text-3xl sm:text-4xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
                                 Free AI Hairstyle Changer
@@ -309,7 +309,7 @@ export default function Hero() {
                                 Whether you need an online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
                             </p>
 
-                                {/* 评分 */}
+                                {/* Rating */}
                                 <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
                                     <div className="flex">
                                         {[...Array(5)].map((_, i) => (
@@ -341,11 +341,11 @@ export default function Hero() {
                 </div>
             </LazySection>
 
-            {/* 第二部分：发型展示区域 */}
+            {/* Second section: Hairstyle display area */}
             <LazySection threshold={0.1}>
                 <div className="container mx-auto px-4 pb-20">
                     <div className="max-w-6xl mx-auto">
-                        {/* 标题和描述 */}
+                        {/* Title and description */}
                         <LazySection className="text-center mb-16">
                             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                 Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
@@ -355,7 +355,7 @@ export default function Hero() {
                             </p>
                         </LazySection>
 
-                        {/* 标签切换 */}
+                        {/* Tab switching */}
                         <LazySection className="flex justify-center mb-12">
                             <div className="inline-flex rounded-lg overflow-hidden">
                                 {(['Female', 'Male', 'Color'] as const).map((tab) => (
@@ -363,7 +363,7 @@ export default function Hero() {
                                         key={tab}
                                         onClick={() => {
                                             setActiveTab(tab);
-                                            // 立即更新数据，确保状态同步
+                                            // Update data immediately to ensure state sync
                                             updateDisplayData(tab);
                                         }}
                                         className={`px-16 py-3 text-base font-medium transition-all ${
@@ -379,11 +379,11 @@ export default function Hero() {
                         </LazySection>
 
 
-                        {/* 发型/颜色网格 */}
+                        {/* hairstyle/color grid */}
                         <LazySection className="relative">
                             <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 overflow-hidden">
                                 {activeTab === 'Color' ? (
-                                    // 颜色选项展示
+                                    // color options display
                                     displayColors.map((color, index) => (
                                         <div key={index} className="group transition-all duration-300 hover:scale-105">
                                             <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-3 relative">
@@ -397,7 +397,7 @@ export default function Hero() {
                                                         aspectRatio="4:3"
                                                     />
                                                 ) : (
-                                                    // 如果没有对应的图片，显示颜色块
+                                                    // if no corresponding image, display color block
                                                     <div 
                                                         className="w-full h-full"
                                                         style={{ 
@@ -413,7 +413,7 @@ export default function Hero() {
                                         </div>
                                     ))
                                 ) : (
-                                    // 发型选项展示 - 显示所有样式
+                                    // hairstyle options display - show all styles
                                     displayStyles.map((style, index) => (
                                         <div key={`${activeTab}-${style.description}-${index}`} className="hairstyle-item transition-all duration-300 hover:scale-105">
                                             <div className="aspect-[3/4]  hairstyle-image relative bg-gray-100 rounded-2xl overflow-hidden mb-3">
@@ -437,7 +437,7 @@ export default function Hero() {
 
                         </LazySection>
 
-                        {/* More Style 按钮 */}
+                        {/* More Style button */}
                         <LazySection className="text-center relative">
                             <Link 
                                 href="/ai-hairstyle"
@@ -450,10 +450,10 @@ export default function Hero() {
                 </div>
             </LazySection>
 
-            {/* 第三部分：使用步骤说明 */}
+            {/* third part: how to use */}
             <LazySection className="bg-gray-50 py-2 md:py-20" id="how-to-use">
                 <div className="container mx-auto px-4 max-w-6xl">
-                    {/* 标题和介绍 */}
+                    {/* title and introduction */}
                     <LazySection className="text-center max-w-full mx-auto mb-16">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                             How to Change Hairstyle Online with AI Hairstyle Online Free
@@ -524,7 +524,7 @@ export default function Hero() {
                         </LazySection>
                     </div>
 
-                    {/* 添加底部按钮 */}
+                    {/* add bottom button */}
                     <LazySection className="text-center mt-12">
                         <Link 
                             href="/ai-hairstyle"
@@ -536,12 +536,12 @@ export default function Hero() {
                 </div>
             </LazySection>
 
-            {/* 第四部分：How to try on hairstyles */}
+            {/* fourth part: How to try on hairstyles */}
             <LazySection className="bg-white">
                 <div className="container mx-auto px-4 py-10">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* 图片 - 移动端显示在上方 */}
+                            {/* image - mobile display on the top */}
                             <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
                                 <Image 
                                     src="/images/hero/ba3.jpg" 
@@ -553,7 +553,7 @@ export default function Hero() {
                                     loading="lazy"
                                 />
                             </LazySection>
-                            {/* 内容 - 移动端显示在下方 */}
+                            {/* content - mobile display on the bottom */}
                             <LazySection className="order-1 lg:order-2">
                                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                      How can I try on AI virtual hairstyles on my face?
@@ -576,12 +576,12 @@ export default function Hero() {
                 </div>
             </LazySection>
 
-            {/* 第五部分：What Haircut Fits */}
+            {/* fifth part: What Haircut Fits */}
             <LazySection className="bg-white">
                 <div className="container mx-auto px-4 py-4 sm:py-20">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* 左侧图片 */}
+                            {/* left side image */}
                             <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
                                 <Image 
                                     src="/images/hero/change.jpg" 
@@ -593,7 +593,7 @@ export default function Hero() {
                                     loading="lazy"
                                 />
                             </LazySection>
-                            {/* 右侧内容 */}
+                            {/* right side content */}
                             <LazySection className="order-2 lg:order-1">
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
@@ -622,7 +622,7 @@ export default function Hero() {
                 </div>
             </LazySection>
 
-            {/* 第六部分：What is hairstyle AI changer */}
+            {/* sixth part: What is hairstyle AI changer */}
             <div className="bg-gray-50">
                 <div className="container mx-auto px-4 py-20">
                     <div className="max-w-6xl mx-auto">
@@ -647,7 +647,7 @@ export default function Hero() {
                                     Try on AI Hairstyle Changer Now
                                 </Link>
                             </div>
-                            {/* 右侧图片 */}
+                            {/* right side image */}
                             <div className="bg-gray-50 rounded-xl shadow-lg">
                                 <Image 
                                     src="/images/hero/ba5.jpg" 
@@ -664,7 +664,7 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* 第七部分：用户评价 */}
+            {/* seventh part: user testimonials */}
             <div id="testimonials" className="bg-white py-6 md:py-20 ">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
@@ -679,13 +679,13 @@ export default function Hero() {
                                 "
                             </div>
 
-                            {/* 评价内容 */}
+                            {/* testimonial content */}
                             <div className="relative">
                                 <p className="text-sm md:text-lg text-gray-700 mb-8 italic">
                                     {testimonials[currentTestimonial].quote}
                                 </p>
 
-                                {/* 用户信息 */}
+                                {/* user information */}
                                 <div className="flex items-center gap-4">
                                     <Image
                                         src={`/images/reviewer/${testimonials[currentTestimonial].name.toLowerCase()}.jpg`}
@@ -706,7 +706,7 @@ export default function Hero() {
                                 </div>
                             </div>
 
-                            {/* 导航按钮 */}
+                            {/* navigation buttons */}
                             <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full left-0 px-4">
                                 <button
                                     onClick={handlePrevious}

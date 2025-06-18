@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { hairColors, femaleStyles, maleStyles, type HairStyle } from '@/lib/hairstyles';
 
-// 创建一个包装组件来处理搜索参数
+// create a wrapper component to handle search parameters
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
     const searchParams = useSearchParams();
     return <>{children}</>;
@@ -23,7 +23,7 @@ export default function SelectStylePage() {
     );
 }
 
-// 将原来的组件内容移到这里
+// move the original component content here
 function SelectStylePageContent() {
     const [uploadedImageUrl, setUploadedImageUrl] = useState<string>();
     const [resultImageUrl, setResultImageUrl] = useState<string>();
@@ -31,13 +31,13 @@ function SelectStylePageContent() {
     const searchParams = useSearchParams();
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // 新增的状态 - 合并自 SelectStyle 组件
+    // new state - merged from SelectStyle component
     const [selectedGender, setSelectedGender] = useState<"Female" | "Male">("Female");
     const [selectedStyle, setSelectedStyle] = useState<string>("");
     const [selectedColor, setSelectedColor] = useState<string>("brown");
     const [isLoading, setIsLoading] = useState(false);
 
-    // 从 URL 参数中获取图片 URL 和预设发型
+    // get image URL and preset hairstyle from URL parameters
     useEffect(() => {
         const imageUrl = searchParams.get('image');
         const presetStyle = searchParams.get('style');
@@ -46,11 +46,11 @@ function SelectStylePageContent() {
             setUploadedImageUrl(decodeURIComponent(imageUrl));
         }
         
-        // 处理预设发型
+        // handle preset hairstyle
         if (presetStyle) {
             const decodedStyle = decodeURIComponent(presetStyle);
             
-            // 检查是否是男性发型
+            // check if it is a male hairstyle
             const maleStyle = maleStyles.find(style => 
                 style.style.toLowerCase() === decodedStyle.toLowerCase() || 
                 style.description.toLowerCase() === decodedStyle.toLowerCase()
@@ -63,7 +63,7 @@ function SelectStylePageContent() {
                 return;
             }
             
-            // 检查是否是女性发型
+            // check if it is a female hairstyle
             const femaleStyle = femaleStyles.find(style => 
                 style.style.toLowerCase() === decodedStyle.toLowerCase() || 
                 style.description.toLowerCase() === decodedStyle.toLowerCase()
@@ -77,7 +77,7 @@ function SelectStylePageContent() {
         }
     }, [searchParams]);
 
-    // 初始化默认样式（当没有URL参数时的fallback）
+    // initialize default style (fallback when no URL parameters)
     useEffect(() => {
         if (!searchParams.get('style') && defaultStyle && !selectedStyle && selectedGender === "Female") {
             const femaleStyle = femaleStyles.find(style => style.style === defaultStyle);
@@ -97,7 +97,7 @@ function SelectStylePageContent() {
     const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
     const handleStyleClick = (style: string) => {
-        // 如果点击的是已选中的发型，则取消选中
+        // if click the selected hairstyle, cancel selection
         if (selectedStyle === style) {
             setSelectedStyle("");
         } else {
@@ -105,7 +105,7 @@ function SelectStylePageContent() {
         }
     };
 
-    // 合并自 SelectStyle 组件的轮询函数
+    // merge the polling function from SelectStyle component
     const pollTaskStatus = async (taskId: string, maxAttempts = 20) => {
         console.log(`Starting task polling, taskId: ${taskId}`);
         
@@ -163,7 +163,7 @@ function SelectStylePageContent() {
                     console.error('Task processing failed:', data);
                     const errorDetail = data.error_detail || data.error_msg || '';
                     
-                    if (errorDetail.includes('face') || errorDetail.includes('人脸')) {
+                    if (errorDetail.includes('face') || errorDetail.includes('face')) {
                         throw new Error('No clear face detected in your photo. Please upload a photo with a clearly visible face looking forward.');
                     } else if (errorDetail.includes('quality') || errorDetail.includes('resolution')) {
                         throw new Error('Image quality is too low. Please upload a higher quality photo with better lighting.');
@@ -204,7 +204,7 @@ function SelectStylePageContent() {
         throw new Error('Processing is taking longer than expected. Please try again with a different photo or check your internet connection.');
     };
 
-    // 合并自 SelectStyle 组件的生成函数
+    // merge the generate function from SelectStyle component
     const handleGenerate = async () => {
         if (!uploadedImageUrl) {
             toast.error('Please upload a photo first');
@@ -226,7 +226,7 @@ function SelectStylePageContent() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     imageUrl: uploadedImageUrl,
-                    hairStyle: selectedStyle || "color-only", // 如果没有选中发型，只改变颜色
+                    hairStyle: selectedStyle || "color-only", // if no hairstyle selected, only change color
                     hairColor: finalColor,
                 }),
             });
@@ -412,18 +412,18 @@ function SelectStylePageContent() {
         }
     };
 
-    // 修改下载处理函数
+    // modify the download function
     const handleDownload = async (imageUrl: string) => {
         try {
             const response = await fetch(imageUrl);
             const blob = await response.blob();
             
-            // 获取样式名称
+            // get style name
             const styleMatch = imageUrl.match(/style=([^&]+)/);
             const styleName = styleMatch ? decodeURIComponent(styleMatch[1]).toLowerCase().replace(/\s+/g, '-') : 'hairstyle';
             const fileName = `${styleName}-${new Date().getTime()}.jpg`;
 
-            // 检测是否是 iOS 设备
+            // check if it is a iOS device
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
             
             if (isIOS) {

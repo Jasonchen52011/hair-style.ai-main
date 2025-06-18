@@ -2,7 +2,7 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-// 配置
+// configuration
 const sizes = {
   small: { width: 100, height: 100, quality: 70 },
   medium: { width: 200, height: 200, quality: 75 },
@@ -12,13 +12,13 @@ const sizes = {
 const inputDir = 'public/images/hairstyles';
 const outputDir = 'public/images/optimized/hairstyles';
 
-// 创建输出目录
+// create output directory
 function createDirs() {
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
   
-  // 创建子目录
+  // create subdirectories
   const categories = ['female', 'male'];
   categories.forEach(category => {
     Object.keys(sizes).forEach(size => {
@@ -30,7 +30,7 @@ function createDirs() {
   });
 }
 
-// 优化单个图片
+// optimize single image
 async function optimizeImage(inputPath, outputPath, config) {
   try {
     await sharp(inputPath)
@@ -47,7 +47,7 @@ async function optimizeImage(inputPath, outputPath, config) {
   }
 }
 
-// 处理目录中的所有图片
+// process all images in directory
 async function processDirectory(categoryDir) {
   const files = fs.readdirSync(categoryDir);
   
@@ -57,7 +57,7 @@ async function processDirectory(categoryDir) {
       const fileName = path.parse(file).name;
       const category = path.basename(categoryDir);
       
-      // 为每个尺寸生成优化版本
+      // generate optimized version for each size
       for (const [sizeName, config] of Object.entries(sizes)) {
         const outputPath = path.join(outputDir, category, sizeName, `${fileName}.webp`);
         await optimizeImage(inputPath, outputPath, config);
@@ -66,13 +66,13 @@ async function processDirectory(categoryDir) {
   }
 }
 
-// 主函数
+// main function
 async function main() {
   console.log('🚀 Starting image optimization...');
   
   createDirs();
   
-  // 处理女性和男性发型图片
+  // process female and male hairstyle images
   const categories = ['female', 'male'];
   for (const category of categories) {
     const categoryPath = path.join(inputDir, category);
@@ -85,7 +85,7 @@ async function main() {
   console.log('\n✨ Image optimization completed!');
 }
 
-// 检查 sharp 是否安装
+// check if sharp is installed
 try {
   require('sharp');
   main().catch(console.error);

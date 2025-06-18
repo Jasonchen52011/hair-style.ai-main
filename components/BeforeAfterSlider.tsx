@@ -26,10 +26,10 @@ export default function BeforeAfterSlider({
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 检查是否为移动设备
+  // Check if it's a mobile device
   useEffect(() => {
     const checkMobile = () => {
-      // 更严格的移动设备判断：只基于屏幕宽度
+      // Stricter mobile device detection: based on screen width only
       setIsMobile(window.innerWidth <= 768);
     };
     
@@ -38,7 +38,7 @@ export default function BeforeAfterSlider({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // 处理鼠标移动
+  // Handle mouse movement
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isMobile && isHovered && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
@@ -57,14 +57,14 @@ export default function BeforeAfterSlider({
   const handleMouseLeave = () => {
     if (!isMobile) {
       setIsHovered(false);
-      // 保持在最后位置，不重置
+      // Keep at last position, don't reset
     }
   };
 
-  // 根据设备类型调整高度
+  // Adjust height based on device type
   const responsiveHeight = isMobile ? 342 : height;
   
-  // 预加载图片
+  // Preload images
   useEffect(() => {
     const preloadImages = () => {
       const beforeImg = new window.Image();
@@ -103,7 +103,7 @@ export default function BeforeAfterSlider({
           }}
           currentPercentPosition={position}
           delimiterColor="#ffffff"
-          withResizeFeel={!isHovered || isMobile} // PC端悬停时禁用原生交互
+          withResizeFeel={!isHovered || isMobile} // Disable native interaction on PC when hovering
           feelsOnlyTheDelimiter={false}
           className="before-after-slider"
         />

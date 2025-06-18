@@ -18,7 +18,7 @@ export default function HowToMaintainSection({ additionalSection }: HowToMaintai
   return (
     <section className="py-10 sm:py-20 bg-white">
       <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
           {/* 左侧文本内容 */}
           <div className="space-y-6 order-2 lg:order-1">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">

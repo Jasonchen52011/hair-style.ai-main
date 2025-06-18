@@ -72,6 +72,11 @@ export default function Footer() {
                                     Dreadlocks Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/hairstyles-for-men" className="text-gray-400 hover:text-white transition-colors">
+                                    Men's Hairstyles
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

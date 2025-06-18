@@ -18,7 +18,7 @@ export default function FaceShapesSection({ isRightSection }: FaceShapesSectionP
         </h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-          {/* 左侧表格 */}
+          {/* Left table */}
           <div className="bg-white rounded-lg shadow-sm overflow-hidden">
             <div className="bg-gray-100 px-6 py-4 grid grid-cols-2 gap-4">
               <div className="font-semibold text-gray-800">Feature</div>
@@ -42,7 +42,7 @@ export default function FaceShapesSection({ isRightSection }: FaceShapesSectionP
             ))}
           </div>
           
-          {/* 右侧文本 */}
+          {/* Right text */}
           <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
             {isRightSection.textContent.map((paragraph, index) => (
               <p key={index}>
