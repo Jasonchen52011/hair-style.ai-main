@@ -142,7 +142,7 @@ export default function MenHairstylesPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Buzz Cut Filter", "Dreadlocks Filter", "Short Hair Filter"]} />
+                    <MoreFreeAITools toolNames={["Buzz Cut Filter", "Low Fade Haircut Filter", "Dreadlocks Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}
