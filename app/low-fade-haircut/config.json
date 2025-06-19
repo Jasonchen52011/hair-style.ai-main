@@ -330,7 +330,7 @@
         "type": "website",
                 "images": [
             {
-              "url": "https://hair-style.ai/images/low-fade-hero5.webp",
+              "url": "https://hair-style.ai/images/low-fade-hero3.webp",
               "width": 1920,
               "height": 1080,
               "alt": "Try Low Fade Haircut Online — Risk-Free AI Filter | Hairstyle AI",
@@ -343,7 +343,7 @@
         "site": "@hair_styleai",
         "title": "Try Low Fade Haircut Online — Risk-Free AI Filter | Hairstyle AI",
         "description": "Unsure if a low fade fits your face shape? Hairstyle AI lets you test styles like low skin fade, drop fade, and undercut fade before any real cut. Try free!",
-        "images": ["https://hair-style.ai/images/low-fade-hero5.webp"]
+        "images": ["https://hair-style.ai/images/low-fade-hero3.webp"]
       }
     }
   }

@@ -67,13 +67,13 @@ export default function MoreFreeAITools({ toolNames }: MoreFreeAIToolsProps) {
       link: "/buzz-cut-filter",
       image: "/images/buzz-cut-hero.webp"
     },
-    "Hairstyle for Male": {
+    "Hairstyle Simulator for Male": {
       title: "Hairstyle Simulator for Male",
       description: "Discover Perfect Men's Haircuts",
       link: "/hairstyles-for-men",
       image: "/images/man-hair-hero.webp"
     },
-    "Hairstyle for Female": {
+    "Hairstyle Simulator for Female": {
       title: "Hairstyle for Female",
       description: "Discover Perfect Women's Hairstyles",
       link: "/hairstyles-for-women",
@@ -83,7 +83,7 @@ export default function MoreFreeAITools({ toolNames }: MoreFreeAIToolsProps) {
       title: "Low Fade Haircut Filter",
       description: "Try Low Fade Styles Risk-Free",
       link: "/low-fade-haircut",
-      image: "/images/low-fade-hero5.webp"
+      image: "/images/low-fade-hero3.webp"
     }
   };
 

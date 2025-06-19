@@ -480,7 +480,7 @@ export default function BuzzCutFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Hairstyle Simulator for Male", "Hairstyle for Female"]} />
+                    <MoreFreeAITools toolNames={["Hairstyle for Male", "Low Fade Haircut Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}
