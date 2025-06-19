@@ -187,6 +187,13 @@ export default function Navbar() {
                                             Dreadlocks Filter
                                         </Link>
                                         <Link
+                                            href="/low-fade-haircut"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Low Fade Haircut Filter
+                                        </Link>
+                                        <Link
                                             href="/hairstyles-for-men"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}

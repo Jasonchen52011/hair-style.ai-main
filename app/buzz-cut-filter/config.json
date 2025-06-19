@@ -8,9 +8,8 @@
     "ctaLink": "/ai-hairstyle?style=buzzcut"
   },
   "imageConfig": {
-    "displayHeight": 500,
-    "beforeImage": "/images/buzzcutbefore.jpg",
-    "afterImage": "/images/buzzcutafter.jpg"
+    "displayHeight": 700,
+    "heroImage": "/images/buzz-cut-hero.webp"
   },
   "beforeAfterGallery": {
     "title": "Buzz Cut Transformations",

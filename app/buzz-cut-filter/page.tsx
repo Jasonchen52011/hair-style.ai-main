@@ -6,7 +6,7 @@ import Footer from '@/components/footer'
 import Testimonials from '@/components/testimonials'
 import FAQ from '@/components/faq'
 import LazySection from '@/components/LazySection'
-import BeforeAfterSlider from '@/components/BeforeAfterSlider'
+
 import MoreFreeAITools from '@/components/MoreFreeAITools'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -27,9 +27,7 @@ const {
   breadcrumbData 
 } = config;
 
-const before = imageConfig.beforeImage;
-const after = imageConfig.afterImage;
-const IMAGE_DISPLAY_HEIGHT = imageConfig.displayHeight;
+const heroImage = imageConfig.heroImage;
 
 
 
@@ -57,7 +55,7 @@ export const metadata: Metadata = {
         description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
         images: [
             {
-                url: "https://hair-style.ai/images/buzzcutgirl.jpg",
+                url: "https://hair-style.ai/images/buzz-cut-hero.webp",
                 width: 1920,
                 height: 1080,
                 alt: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
@@ -74,7 +72,7 @@ export const metadata: Metadata = {
         site: "@hair_styleai",
         title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
         description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
-        images: ["https://hair-style.ai/images/buzzcutman1.jpg"]
+        images: ["https://hair-style.ai/images/buzz-cut-hero.webp"]
     },
 
 }
@@ -101,7 +99,7 @@ export default function BuzzCutFilterPage() {
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center ">
                             {/* 左侧内容 */}
-                            <div className="pr-8 order-2 lg:order-1">
+                            <div className="pr-1 order-2 lg:order-1">
                                 <h1 className="text-3xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     {heroSection.title}
                                 </h1>
@@ -153,15 +151,18 @@ export default function BuzzCutFilterPage() {
                                 </Link>
                             </div>
                             
-                            {/* 右侧对比图片 */}
+                            {/* 右侧英雄图片 */}
                             <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-                                <BeforeAfterSlider
-                                    beforeImage={before}
-                                    afterImage={after}
-                                    beforeAlt="Before buzz cut - original hairstyle"
-                                    afterAlt="After buzz cut - transformed hairstyle with short buzz cut"
-                                    height={IMAGE_DISPLAY_HEIGHT}
-                                />
+                                <div className="w-full max-w-lg mx-auto">
+                                    <Image
+                                        src={heroImage}
+                                        alt="Buzz cut hairstyle transformation showcase"
+                                        width={600}
+                                        height={500}
+                                        className="w-full h-auto object-contain rounded-lg"
+                                        priority={true}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>

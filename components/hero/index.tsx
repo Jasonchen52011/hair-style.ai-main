@@ -755,7 +755,7 @@ export default function Hero() {
 
             {/* More Free AI Tools Section */}
             <LazySection>
-                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Long Hair Filter"]} />
+                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Hairstyle for Male", "Hairstyle for Female"]} />
             </LazySection>
 
             {/* FAQ Section */}
