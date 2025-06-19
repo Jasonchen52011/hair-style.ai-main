@@ -12,6 +12,7 @@ import HowToUseSection from '@/components/HowToUseSection'
 import UsageScenariosSection from '@/components/UsageScenariosSection'
 import WhyChooseSection from '@/components/WhyChooseSection'
 import HairRegretsSection from '@/components/HairRegretsSection'
+import MoreFreeAITools from '@/components/MoreFreeAITools'
 import FAQ from '@/components/faq'
 import CTASection from '@/components/CTASection'
 import configData from './config.json'
@@ -137,6 +138,11 @@ export default function ShortHairFilterPage() {
                         whyChooseSection={whyChooseSection}
                         testimonialsConfig={testimonialsConfig}
                     />
+                </LazySection>
+
+                {/* More Free AI Tools Section */}
+                <LazySection>
+                    <MoreFreeAITools toolNames={["Pixie Cut Filter", "Bob Haircut Filter", "Buzz Cut Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}

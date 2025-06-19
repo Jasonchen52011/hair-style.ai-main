@@ -7,6 +7,7 @@ import Testimonials from '@/components/testimonials'
 import FAQ from '@/components/faq'
 import LazySection from '@/components/LazySection'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
+import MoreFreeAITools from '@/components/MoreFreeAITools'
 import Image from 'next/image'
 import Link from 'next/link'
 import config from './config.json'
@@ -535,9 +536,14 @@ export default function BobHaircutFilterPage() {
                 </section>
                 </LazySection>
 
+                {/* More Free AI Tools Section */}
+                <LazySection>
+                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Short Hair Filter", "Buzz Cut Filter"]} />
+                </LazySection>
+
                 {/* FAQ Section */}
                 <LazySection>
-                <section className="py-20 bg-white">
+                <section className="py-2 bg-white mb-10">
                     <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 lg:px-6">
                         
                         <FAQ faqs={faqConfig} />
@@ -546,7 +552,7 @@ export default function BobHaircutFilterPage() {
                 </LazySection>
 
                 {/* CTA Section */}
-                <section className="py-2 sm:py-20 bg-gray-50 mb-10">
+                <section className="py-2 sm:py-20 bg-gray-50">
                     <div className="w-full px-2 sm:px-4 lg:px-6">
                         <div className="max-w-4xl mx-auto text-center">
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">

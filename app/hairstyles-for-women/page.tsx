@@ -37,7 +37,7 @@ const {
   seoConfig
 } = config;
 
-// ## Long Hair Filter 页面 metadata
+// Women hairstyles page metadata
 export const metadata: Metadata = {
     title: seoConfig.title,
     description: seoConfig.description,
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     },
 }
 
-export default function LongHairFilterPage() {
+export default function WomenHairstylesPage() {
     return (
         <>        
             <script
@@ -119,8 +119,6 @@ export default function LongHairFilterPage() {
                     <HowToMaintainSection additionalSection={additionalSection} />
                 </LazySection>
 
-          
-
                 {/* How to Use Section */}
                 <LazySection>
                     <HowToUseSection howToUseSection={howToUseSection} />
@@ -139,7 +137,7 @@ export default function LongHairFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["AI Braids Filter", "Dreadlocks Filter", "Bangs Filter"]} />
+                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Pixie Cut Filter", "Long Hair Filter", "Short Hair Filter", "AI Braids Filter", "Dreadlocks Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}

@@ -11,7 +11,7 @@ interface FaceShapesSectionProps {
 
 export default function FaceShapesSection({ isRightSection }: FaceShapesSectionProps) {
   return (
-    <section className="py-10 sm:py-20 bg-white">
+    <section className="py-10 bg-white">
       <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
           {isRightSection.title}

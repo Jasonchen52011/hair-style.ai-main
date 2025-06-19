@@ -36,6 +36,7 @@ function SelectStylePageContent() {
     const [selectedStyle, setSelectedStyle] = useState<string>("");
     const [selectedColor, setSelectedColor] = useState<string>("brown");
     const [isLoading, setIsLoading] = useState(false);
+    const [styleImageHeight, setStyleImageHeight] = useState<string>("h-32");
 
     // get image URL and preset hairstyle from URL parameters
     useEffect(() => {
@@ -615,7 +616,7 @@ function SelectStylePageContent() {
             
             <div className="max-w-7xl mx-auto">
                 {/* Logo 区域作为 h1 标题 */}
-                <h1 className="flex items-center gap-3 mb-2 h-[48px]">
+                <h1 className="flex items-center mb-4 h-[48px]">
                     <Link 
                         href="/" 
                         className="flex items-center gap-2"
@@ -680,8 +681,8 @@ function SelectStylePageContent() {
                         {!uploadedImageUrl ? (
                             <>
                                 {/* 上传区域 */}
-                                <div className="p-2 rounded-lg h-[400px] flex flex-col items-center justify-center mb-2">
-                                    <div className="w-full max-w-md md:max-w-xl mx-auto px-4">
+                                <div className="rounded-lg h-[400px] flex flex-col items-center justify-center mb-2">
+                                    <div className="w-full max-w-md md:max-w-lg mx-auto px-4">
                                         <UploadArea />
                                     </div>
                                 </div>
@@ -743,9 +744,9 @@ function SelectStylePageContent() {
                             </>
                         ) : (
                             // PC端预览区域
-                            <div className="p-1 sm:p-2 rounded-lg shadow-sm relative h-[700px]  flex flex-col items-center">
+                            <div className="p-1 sm:p-2 rounded-lg shadow-sm relative h-[680px]  flex flex-col items-center">
                                 {/* 顶部按钮区域 */}
-                                <div className="h-[40px] sm:h-[50px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
+                                <div className="h-[40px] sm:h-[10px] flex justify-center items-center gap-2 sm:gap-4 mb-2 sm:mb-4">
                                     {resultImageUrl && (
                                         <button 
                                             onClick={() => handleDownload(resultImageUrl)}
@@ -760,7 +761,7 @@ function SelectStylePageContent() {
                                 </div>
 
                                 {/* 图片显示区域 */}
-                                <div className="flex-grow overflow-hidden mb-2 sm:mb-4 w-full flex items-center justify-center px-2 sm:px-4">
+                                <div className="flex-grow w-full flex items-center justify-center">
                                     {uploadedImageUrl && (
                                         <div className="max-w-md mx-auto w-full">
                                     <Image 
@@ -776,7 +777,7 @@ function SelectStylePageContent() {
                             </div>
 
                                 {/* 底部上传按钮 */}
-                                <div className="flex justify-center mb-2 sm:mb-4">
+                                <div className="flex justify-center mt-2 mb-2 sm:mb-4">
                                     <div>
                                         <input
                                             type="file"
@@ -850,7 +851,7 @@ function SelectStylePageContent() {
                                                     : "border-transparent hover:border-gray-200 bg-gray-100 hover:shadow-sm"
                                             }`}
                                         >
-                                            <div className="w-full h-28 mb-1 overflow-hidden rounded-xl">
+                                            <div className={`w-full ${styleImageHeight} mb-1 overflow-hidden rounded-xl`}>
                                                 <img
                                                     src={style.imageUrl}
                                                     alt={`Trendy ${style.description} hairstyle - a popular modern haircut choice for fashion-forward individuals`}
@@ -1077,13 +1078,18 @@ function SelectStylePageContent() {
                                         <button
                                             key={style.style}
                                             onClick={() => handleStyleClick(style.style)}
-                                            className={`flex-shrink-0 w-18 p-0.5 rounded-lg border transition-all ${
+                                            className={`flex-shrink-0 w-12 p-0.5 rounded-lg border transition-all ${
                                                 selectedStyle === style.style
                                                     ? "border-purple-700 bg-purple-700 shadow-md"
                                                     : "border-transparent bg-gray-100 hover:border-gray-200"
                                             }`}
                                         >
-                                            <div className="w-20 h-24 overflow-hidden rounded-md">
+                                            <div className={`w-12 ${
+                                                styleImageHeight === "h-24" ? "h-12" :
+                                                styleImageHeight === "h-28" ? "h-14" :
+                                                styleImageHeight === "h-32" ? "h-16" :
+                                                styleImageHeight === "h-36" ? "h-18" : "h-14"
+                                            } overflow-hidden rounded-md`}>
                                                 <img
                                                     src={style.imageUrl}
                                                     alt={style.description}
