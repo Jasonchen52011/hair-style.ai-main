@@ -11,7 +11,7 @@ interface CTASectionProps {
 
 export default function CTASection({ finalCta }: CTASectionProps) {
   return (
-    <section className="py-2 sm:py-20 bg-gray-50 mb-10">
+    <section className="py-2 sm:py-20 bg-gray-50">
       <div className="w-full px-2 sm:px-4 lg:px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">

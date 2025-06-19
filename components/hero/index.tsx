@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/lib/hairstyles';
+import MoreFreeAITools from '@/components/MoreFreeAITools';
 import Image from 'next/image';
 import Link from 'next/link';
 import LazySection from '@/components/LazySection';
@@ -751,6 +752,11 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
+
+            {/* More Free AI Tools Section */}
+            <LazySection>
+                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Long Hair Filter"]} />
+            </LazySection>
 
             {/* FAQ Section */}
             <div id="faq" className="bg-gray-50">

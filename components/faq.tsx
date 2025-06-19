@@ -20,7 +20,7 @@ export default function FAQ({ faqs }: FAQProps) {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-2 bg-white mb-10">
       <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="text-center mb-16">
           <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">

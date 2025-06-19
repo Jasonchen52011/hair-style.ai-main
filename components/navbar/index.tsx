@@ -191,7 +191,14 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Men's Hairstyles
+                                            Hairstyle Simulator for Male
+                                        </Link>
+                                        <Link
+                                            href="/hairstyles-for-women"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Hairstyle Simulator for Female
                                         </Link>
                                     </div>
                                 </div>
