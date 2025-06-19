@@ -65,9 +65,9 @@ export default function MoreFreeAITools({ toolNames }: MoreFreeAIToolsProps) {
       title: "Buzz Cut Filter",
       description: "Preview Buzz Cuts Before Big Chop",
       link: "/buzz-cut-filter",
-      image: "/images/buzzcutafter.jpg"
+      image: "/images/buzz-cut-hero.webp"
     },
-    "Hairstyle Simulator for Male": {
+    "Hairstyle for Male": {
       title: "Hairstyle Simulator for Male",
       description: "Discover Perfect Men's Haircuts",
       link: "/hairstyles-for-men",
@@ -78,6 +78,12 @@ export default function MoreFreeAITools({ toolNames }: MoreFreeAIToolsProps) {
       description: "Discover Perfect Women's Hairstyles",
       link: "/hairstyles-for-women",
       image: "/images/hairstyle-for-women-hero.webp"
+    },
+    "Low Fade Haircut Filter": {
+      title: "Low Fade Haircut Filter",
+      description: "Try Low Fade Styles Risk-Free",
+      link: "/low-fade-haircut",
+      image: "/images/low-fade-hero5.webp"
     }
   };
 
