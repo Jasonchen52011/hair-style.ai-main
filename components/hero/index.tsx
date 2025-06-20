@@ -492,6 +492,135 @@ export default function Hero() {
                 </div>
             </LazySection>
 
+            {/* fourth part: How to try on hairstyles */}
+            <LazySection className="bg-white">
+                <div className="container mx-auto px-4 py-10">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            {/* image - mobile display on the top */}
+                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                                <Image 
+                                    src="/images/hero/ba3.jpg" 
+                                    alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
+                                    className="w-[340px] md:w-[440px] h-[350px] md:h-[450px] object-cover rounded-xl"
+                                    width={440}
+                                    height={450}
+                                    onError={handleImageError}
+                                    loading="lazy"
+                                />
+                            </LazySection>
+                            {/* content - mobile display on the bottom */}
+                            <LazySection className="order-1 lg:order-2">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+                                     How can I try on AI virtual hairstyles on my face?
+                                </h2>
+                                <p className="text-sm sm:text-lg text-gray-600 mb-8">
+                                    Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
+                                    Our hairstyle AI tool helps you try on AI virtual hairstyles before making a decision. 
+                                    Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
+                                    Want to test hairstyles on my face? Just upload your image and start exploring!
+                                </p>
+                                <Link 
+                                    href="/ai-hairstyle"
+                                    className="btn bg-purple-700 text-white btn-lg rounded-xl"
+                                >
+                                    Try on Free AI Hairstyle Changer Now
+                                </Link>
+                            </LazySection>
+                        </div>
+                    </div>
+                </div>
+            </LazySection>
+
+            {/* fifth part: What Haircut Fits */}
+            <LazySection className="bg-white">
+                <div className="container mx-auto px-4 py-4 sm:py-20">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            {/* left side image */}
+                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                                <Image 
+                                    src="/images/hero/change.jpg" 
+                                    alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
+                                    className="w-[300px] md:w-[430px] h-[320px] md:h-[470px] object-cover rounded-xl"
+                                    width={430}
+                                    height={470}
+                                    onError={handleImageError}
+                                    loading="lazy"
+                                />
+                            </LazySection>
+                            {/* right side content */}
+                            <LazySection className="order-2 lg:order-1">
+                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
+                                    What Haircut Fits My Face?
+                                </h2>
+                                <div className="space-y-6 text-sm sm:text-lg text-gray-600 ">
+                                    <p>
+                                        Choosing the right hairstyle depends on your face shape and the style you want to express.
+                                    </p>
+                                    <p>
+                                        <Link href="/hairstyles-for-men" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Men</Link> if you have a round face try on a classic pompadour or a side part with a fade. 
+                                        These styles create height and angles, making your face appear more defined. 
+                                        <span className="font-bold">For a square face,</span> a softer, textured crop or quiff can add some flow and balance out sharp features.
+                                    </p>
+                                    <p>
+                                        <Link href="/hairstyles-for-women" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Women</Link> a heart-shaped face suits styles that balance the wider forehead, such as a soft side-swept bang with a long bob or wavy hair. 
+                                        <span className="font-bold">If you have an oval face,</span> almost any hairstyle works, but a sleek pixie cut or a blunt bob can emphasize your facial features beautifully. 
+                                        <span className="font-bold">For a round face,</span> a layered bob or long waves with side-swept bangs can elongate the face, adding sophistication and elegance.
+                                    </p>
+                                    <p>
+                                        If you're still unsure, you can easily find your answer with our online AI haircut simulator.
+                                    </p>
+                                </div>
+                            </LazySection>
+                        </div>
+                    </div>
+                </div>
+            </LazySection>
+
+            {/* sixth part: What is hairstyle AI changer */}
+            <div className="bg-gray-50">
+                <div className="container mx-auto px-4 py-20">
+                    <div className="max-w-6xl mx-auto">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                            {/* 左侧内容 */}
+                            <div className="order-1 lg:order-2">
+                                <h2 className="text-3xl font-bold mb-6 text-gray-800">
+                                    What is AI Hairstyle Changer?
+                                </h2>
+                                <p className="text-sm sm:text-lg text-gray-600 mb-8">
+                                    Are you still unsure about what hairstyle to wear for your next event? 
+                                    Our AI haircut simulator are here to help! Simply upload your photo, 
+                                    choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
+                                    and instantly see how it looks with different hair colors. You can easily experiment with 
+                                    <span className="font-bold"> various styles and colors</span> to find the perfect match for your face and personality. 
+                                    Try on AI versatile hairstyle filters today and discover your ideal hairstyle in just a few clicks!
+                                </p>
+                                <Link 
+                                    href="/ai-hairstyle"
+                                    className="btn bg-purple-700 text-white btn-lg rounded-xl"
+                                >
+                                    Try on AI Hairstyle Changer Now
+                                </Link>
+                            </div>
+                            {/* right side image */}
+                            <div className="bg-gray-50 rounded-xl shadow-lg">
+                                <Image 
+                                    src="/images/hero/ba5.jpg" 
+                                    alt="Side-by-side comparison demonstrating the power of AI haircut simulator technology"
+                                    className="w-[600px] h-[290px] object-cover rounded-xl"
+                                    width={600}
+                                    height={290}
+                                    onError={handleImageError}
+                                    priority
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
             {/* third part: how to use */}
             <LazySection className="bg-gray-50 py-2 md:py-20" id="how-to-use">
                 <div className="container mx-auto px-4 max-w-6xl">
@@ -578,133 +707,12 @@ export default function Hero() {
                 </div>
             </LazySection>
 
-            {/* fourth part: How to try on hairstyles */}
-            <LazySection className="bg-white">
-                <div className="container mx-auto px-4 py-10">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* image - mobile display on the top */}
-                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
-                                <Image 
-                                    src="/images/hero/ba3.jpg" 
-                                    alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
-                                    className="w-[340px] md:w-[440px] h-[350px] md:h-[450px] object-cover rounded-xl"
-                                    width={440}
-                                    height={450}
-                                    onError={handleImageError}
-                                    loading="lazy"
-                                />
-                            </LazySection>
-                            {/* content - mobile display on the bottom */}
-                            <LazySection className="order-1 lg:order-2">
-                                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-                                     How can I try on AI virtual hairstyles on my face?
-                                </h2>
-                                <p className="text-sm md:text-lg text-gray-600 mb-8">
-                                    Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
-                                    Our hairstyle AI tool helps you try on AI virtual hairstyles before making a decision. 
-                                    Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
-                                    Want to test hairstyles on my face? Just upload your image and start exploring!
-                                </p>
-                                <Link 
-                                    href="/ai-hairstyle"
-                                    className="btn bg-purple-700 text-white btn-lg rounded-xl"
-                                >
-                                    Try on Free AI Hairstyle Changer Now
-                                </Link>
-                            </LazySection>
-                        </div>
-                    </div>
-                </div>
+
+            {/* More Free AI Tools Section */}
+            <LazySection>
+                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Hairstyle Simulator for Male", "Hairstyle Simulator for Female"]} />
             </LazySection>
 
-            {/* fifth part: What Haircut Fits */}
-            <LazySection className="bg-white">
-                <div className="container mx-auto px-4 py-4 sm:py-20">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* left side image */}
-                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
-                                <Image 
-                                    src="/images/hero/change.jpg" 
-                                    alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
-                                    className="w-[300px] md:w-[430px] h-[320px] md:h-[470px] object-cover rounded-xl"
-                                    width={430}
-                                    height={470}
-                                    onError={handleImageError}
-                                    loading="lazy"
-                                />
-                            </LazySection>
-                            {/* right side content */}
-                            <LazySection className="order-2 lg:order-1">
-                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
-                                    What Haircut Fits My Face?
-                                </h2>
-                                <div className="space-y-6 text-sm sm:text-lg text-gray-600 ">
-                                    <p>
-                                        Choosing the right hairstyle depends on your face shape and the style you want to express.
-                                    </p>
-                                    <p>
-                                        <Link href="/hairstyles-for-men" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Men</Link> if you have a round face try on a classic pompadour or a side part with a fade. 
-                                        These styles create height and angles, making your face appear more defined. 
-                                        <span className="font-bold">For a square face,</span> a softer, textured crop or quiff can add some flow and balance out sharp features.
-                                    </p>
-                                    <p>
-                                        <Link href="/hairstyles-for-women" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Women</Link> a heart-shaped face suits styles that balance the wider forehead, such as a soft side-swept bang with a long bob or wavy hair. 
-                                        <span className="font-bold">If you have an oval face,</span> almost any hairstyle works, but a sleek pixie cut or a blunt bob can emphasize your facial features beautifully. 
-                                        <span className="font-bold">For a round face,</span> a layered bob or long waves with side-swept bangs can elongate the face, adding sophistication and elegance.
-                                    </p>
-                                    <p>
-                                        If you're still unsure, you can easily find your answer with our online AI haircut simulator.
-                                    </p>
-                                </div>
-                            </LazySection>
-                        </div>
-                    </div>
-                </div>
-            </LazySection>
-
-            {/* sixth part: What is hairstyle AI changer */}
-            <div className="bg-gray-50">
-                <div className="container mx-auto px-4 py-20">
-                    <div className="max-w-6xl mx-auto">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* 左侧内容 */}
-                            <div className="order-1 lg:order-2">
-                                <h2 className="text-3xl font-bold mb-6 text-gray-800">
-                                    What is AI Hairstyle Changer?
-                                </h2>
-                                <p className="text-lg text-gray-600 mb-8">
-                                    Are you still unsure about what hairstyle to wear for your next event? 
-                                    Our AI haircut simulator are here to help! Simply upload your photo, 
-                                    choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
-                                    and instantly see how it looks with different hair colors. You can easily experiment with 
-                                    <span className="font-bold"> various styles and colors</span> to find the perfect match for your face and personality. 
-                                    Try on AI versatile hairstyle filters today and discover your ideal hairstyle in just a few clicks!
-                                </p>
-                                <Link 
-                                    href="/ai-hairstyle"
-                                    className="btn bg-purple-700 text-white btn-lg rounded-xl"
-                                >
-                                    Try on AI Hairstyle Changer Now
-                                </Link>
-                            </div>
-                            {/* right side image */}
-                            <div className="bg-gray-50 rounded-xl shadow-lg">
-                                <Image 
-                                    src="/images/hero/ba5.jpg" 
-                                    alt="Side-by-side comparison demonstrating the power of AI haircut simulator technology"
-                                    className="w-[600px] h-[290px] object-cover rounded-xl"
-                                    width={600}
-                                    height={290}
-                                    onError={handleImageError}
-                                    priority
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {/* seventh part: user testimonials */}
             <div id="testimonials" className="bg-white py-6 md:py-20 ">
@@ -793,11 +801,6 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
-
-            {/* More Free AI Tools Section */}
-            <LazySection>
-                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Hairstyle Simulator for Male", "Hairstyle Simulator for Female"]} />
-            </LazySection>
 
             {/* FAQ Section */}
             <div id="faq" className="bg-gray-50">
@@ -902,6 +905,8 @@ export default function Hero() {
                     </div>
                 </div>
             </div>
+
+            
 
             {/* Call to Action after FAQ */}
             <div className="bg-white py-16 px-4">
