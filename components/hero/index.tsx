@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/lib/hairstyles';
 import MoreFreeAITools from '@/components/MoreFreeAITools';
 import Image from 'next/image';
@@ -95,6 +95,8 @@ export default function Hero() {
     const [expandedFAQ, setExpandedFAQ] = useState<number | null>(0);
     const [error, setError] = useState<Error | null>(null);
     const [expandedFAQs, setExpandedFAQs] = useState(new Set());
+    const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Move review data to component internal
     const testimonials = [
@@ -257,6 +259,35 @@ export default function Hero() {
         updateDisplayData(activeTab);
     }, []);
 
+    // Auto scroll functionality for hairstyle grid
+    useEffect(() => {
+        if (!mounted || activeTab === 'Color' || !isAutoScrolling) return;
+
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const autoScroll = setInterval(() => {
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+            
+            if (container.scrollLeft >= maxScrollLeft) {
+                // If reached the end, scroll back to start
+                container.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                // Scroll right by 200px
+                container.scrollBy({ left: 200, behavior: 'smooth' });
+            }
+        }, 1000); // Auto scroll every 3 seconds
+
+        return () => clearInterval(autoScroll);
+    }, [mounted, activeTab, isAutoScrolling]);
+
+    // Handle user interaction to pause auto scroll
+    const handleScrollInteraction = () => {
+        setIsAutoScrolling(false);
+        // Resume auto scrolling after 5 seconds of no user interaction
+        setTimeout(() => setIsAutoScrolling(true), 5000);
+    };
+
     if (!mounted) {
         return null; // Avoid showing content before client-side mount, prevent hydration errors
     }
@@ -349,7 +380,7 @@ export default function Hero() {
                         {/* Title and description */}
                         <LazySection className="text-center mb-16">
                             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-                                Try on Popular Hairstyles Filters for Men and Women with Hairstyle AI
+                                Try on Popular Hairstyles for Men and Women with Hairstyle AI
                             </h2>
                             <p className="text-sm sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
                                   Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
@@ -357,8 +388,8 @@ export default function Hero() {
                         </LazySection>
 
                         {/* Tab switching */}
-                        <LazySection className="flex justify-center mb-12">
-                            <div className="inline-flex rounded-lg overflow-hidden">
+                        <LazySection className="flex justify-center mb-12 px-4">
+                            <div className="flex rounded-lg overflow-hidden w-full max-w-md">
                                 {(['Female', 'Male', 'Color'] as const).map((tab) => (
                                     <button
                                         key={tab}
@@ -367,7 +398,7 @@ export default function Hero() {
                                             // Update data immediately to ensure state sync
                                             updateDisplayData(tab);
                                         }}
-                                        className={`px-16 py-3 text-base font-medium transition-all ${
+                                        className={`flex-1 py-3 text-sm sm:text-base font-medium transition-all ${
                                             activeTab === tab
                                                 ? 'bg-purple-700 text-white shadow-lg'
                                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-300'
@@ -382,10 +413,10 @@ export default function Hero() {
 
                         {/* hairstyle/color grid */}
                         <LazySection className="relative">
-                            <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 overflow-hidden">
-                                {activeTab === 'Color' ? (
-                                    // color options display
-                                    displayColors.map((color, index) => (
+                            {activeTab === 'Color' ? (
+                                // color options display - keep original grid layout
+                                <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 overflow-hidden">
+                                    {displayColors.map((color, index) => (
                                         <div key={index} className="group transition-all duration-300 hover:scale-105">
                                             <div className="aspect-[3/4] rounded-2xl overflow-hidden mb-3 relative">
                                                 {colorImages[color.id as keyof typeof colorImages] ? (
@@ -412,29 +443,39 @@ export default function Hero() {
                                                 {color.label}
                                             </p>
                                         </div>
-                                    ))
-                                ) : (
-                                    // hairstyle options display - show all styles
-                                    displayStyles.map((style, index) => (
-                                        <div key={`${activeTab}-${style.description}-${index}`} className="hairstyle-item transition-all duration-300 hover:scale-105">
-                                            <div className="aspect-[3/4]  hairstyle-image relative bg-gray-100 rounded-2xl overflow-hidden mb-3">
-                                                <OptimizedImage
-                                                    key={`img-${activeTab}-${style.description}`}
-                                                    src={style.imageUrl}
-                                                    alt={style.description}
-                                                    className="w-full h-full"
-                                                    width={300}
-                                                    height={300}
-                                                    aspectRatio="4:3"
-                                                />
+                                    ))}
+                                </div>
+                            ) : (
+                                // hairstyle options display - show all styles with auto horizontal scroll and 2 rows
+                                <div 
+                                    ref={scrollContainerRef}
+                                    className="overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                                    onMouseEnter={handleScrollInteraction}
+                                    onTouchStart={handleScrollInteraction}
+                                    onScroll={handleScrollInteraction}
+                                >
+                                    <div className="grid grid-rows-2 grid-flow-col gap-4 pb-4 auto-cols-max">
+                                        {displayStyles.map((style, index) => (
+                                            <div key={`${activeTab}-${style.description}-${index}`} className="hairstyle-item transition-all duration-300 hover:scale-105 w-[140px] sm:w-[160px]">
+                                                <div className="aspect-[3/4] hairstyle-image relative bg-gray-100 rounded-2xl overflow-hidden mb-2">
+                                                    <OptimizedImage
+                                                        key={`img-${activeTab}-${style.description}`}
+                                                        src={style.imageUrl}
+                                                        alt={style.description}
+                                                        className="w-full h-full"
+                                                        width={300}
+                                                        height={300}
+                                                        aspectRatio="4:3"
+                                                    />
+                                                </div>
+                                                <h3 className="text-center text-gray-800 font-medium text-xs sm:text-sm leading-tight">
+                                                    {style.description}
+                                                </h3>
                                             </div>
-                                            <h3 className="text-center text-gray-800 font-medium">
-                                                {style.description}
-                                            </h3>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
                         </LazySection>
 
@@ -457,7 +498,7 @@ export default function Hero() {
                     {/* title and introduction */}
                     <LazySection className="text-center max-w-full mx-auto mb-16">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
-                            How to Change Hairstyle Online with AI Hairstyle Online Free
+                            How to Change Hairstyle With Hairstyle AI
                         </h2>
                         <p className="text-sm sm:text-lg text-gray-800">
                             Transform your look with our hairstyle AI-powered changer in just three simple steps. 
@@ -604,12 +645,12 @@ export default function Hero() {
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
                                     <p>
-                                        <span className="font-bold">For men,</span> if you have a round face try on a classic pompadour or a side part with a fade. 
+                                        <Link href="/hairstyles-for-men" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Men</Link> if you have a round face try on a classic pompadour or a side part with a fade. 
                                         These styles create height and angles, making your face appear more defined. 
                                         <span className="font-bold">For a square face,</span> a softer, textured crop or quiff can add some flow and balance out sharp features.
                                     </p>
                                     <p>
-                                        <span className="font-bold">For women,</span> a heart-shaped face suits styles that balance the wider forehead, such as a soft side-swept bang with a long bob or wavy hair. 
+                                        <Link href="/hairstyles-for-women" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Women</Link> a heart-shaped face suits styles that balance the wider forehead, such as a soft side-swept bang with a long bob or wavy hair. 
                                         <span className="font-bold">If you have an oval face,</span> almost any hairstyle works, but a sleek pixie cut or a blunt bob can emphasize your facial features beautifully. 
                                         <span className="font-bold">For a round face,</span> a layered bob or long waves with side-swept bangs can elongate the face, adding sophistication and elegance.
                                     </p>
@@ -755,7 +796,7 @@ export default function Hero() {
 
             {/* More Free AI Tools Section */}
             <LazySection>
-                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Hairstyle for Male", "Hairstyle for Female"]} />
+                <MoreFreeAITools toolNames={["Dreadlocks Filter", "Bob Haircut Filter", "Men's Hairstyles", "Buzz Cut Filter", "Short Hair Filter", "Hairstyle Simulator for Male", "Hairstyle Simulator for Female"]} />
             </LazySection>
 
             {/* FAQ Section */}

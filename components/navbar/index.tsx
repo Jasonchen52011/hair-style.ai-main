@@ -9,8 +9,11 @@ export default function Navbar() {
     const [isSticky, setIsSticky] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isHairstyleDropdownOpen, setIsHairstyleDropdownOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -38,16 +41,19 @@ export default function Navbar() {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setIsDropdownOpen(false);
             }
+            if (hairstyleDropdownRef.current && !hairstyleDropdownRef.current.contains(event.target as Node)) {
+                setIsHairstyleDropdownOpen(false);
+            }
         };
 
-        if (isDropdownOpen) {
+        if (isDropdownOpen || isHairstyleDropdownOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isDropdownOpen]);
+    }, [isDropdownOpen, isHairstyleDropdownOpen]);
 
     // If component is not mounted yet, return a placeholder navbar
     if (!isMounted) {
@@ -61,12 +67,11 @@ export default function Navbar() {
                                 <div className="w-32 h-8 bg-gray-200 rounded" />
                             </div>
                         </div>
-                        <div className="hidden md:flex items-center space-x-1 ml-auto mr-8">
-                            {[1, 2].map((i) => (
+                        <div className="hidden md:flex items-center space-x-1 ml-auto">
+                            {[1, 2, 3].map((i) => (
                                 <div key={i} className="w-24 h-8 bg-gray-200 rounded mx-2" />
                             ))}
                         </div>
-                        <div className="w-32 h-10 bg-gray-200 rounded-full" />
                     </div>
                 </div>
             </nav>
@@ -97,8 +102,8 @@ export default function Navbar() {
                         </Link>
                     </div>
 
-                    {/* Navigation Links */}
-                    <div className="hidden md:flex items-center space-x-1 ml-auto mr-8">
+                    {/* Navigation Links - Desktop */}
+                    <div className="hidden md:flex items-center space-x-1 ml-auto">
                         <Link 
                             href="/" 
                             className={`px-4 py-2 rounded-lg ${
@@ -108,13 +113,54 @@ export default function Navbar() {
                             Home
                         </Link>
                         
+                        {/* Hairstyle Dropdown */}
+                        <div className="relative" ref={hairstyleDropdownRef}>
+                            <button 
+                                onClick={() => setIsHairstyleDropdownOpen(!isHairstyleDropdownOpen)}
+                                className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
+                            >
+                                Hairstyle
+                                <svg 
+                                    className={`ml-1 w-4 h-4 transition-transform duration-200 ${
+                                        isHairstyleDropdownOpen ? 'rotate-180' : ''
+                                    }`} 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            {isHairstyleDropdownOpen && (
+                                <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                    <div className="py-2">
+                                        <Link
+                                            href="/hairstyles-for-men"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsHairstyleDropdownOpen(false)}
+                                        >
+                                            Hairstyle Simulator for Male
+                                        </Link>
+                                        <Link
+                                            href="/hairstyles-for-women"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsHairstyleDropdownOpen(false)}
+                                        >
+                                            Hairstyle Simulator for Female
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        
                         {/* Hairstyle Filter Dropdown */}
                         <div className="relative" ref={dropdownRef}>
                             <button 
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
                             >
-                                Hairstyle Filters
+                                Blog
                                 <svg 
                                     className={`ml-1 w-4 h-4 transition-transform duration-200 ${
                                         isDropdownOpen ? 'rotate-180' : ''
@@ -193,36 +239,132 @@ export default function Navbar() {
                                         >
                                             Low Fade Haircut Filter
                                         </Link>
-                                        <Link
-                                            href="/hairstyles-for-men"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Hairstyle Simulator for Male
-                                        </Link>
-                                        <Link
-                                            href="/hairstyles-for-women"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Hairstyle Simulator for Female
-                                        </Link>
                                     </div>
                                 </div>
                             )}
                         </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex items-center">
-                        <Link 
-                            href="/ai-hairstyle" 
-                            className="px-6 py-2 bg-purple-700 text-white rounded-full hover:bg-purple-800 transition-colors"
-                        >
-                            Start For Free
+                        <Link href="/about" className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700">
+                            About
                         </Link>
                     </div>
+
+                    {/* Mobile Menu Button */}
+                    <div className="md:hidden">
+                        <button
+                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            className="text-gray-700 hover:text-purple-700 p-2"
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                      d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
+
+                {/* Mobile Menu */}
+                {isMobileMenuOpen && (
+                    <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+                        <div className="px-4 py-2 space-y-1">
+                            <Link 
+                                href="/" 
+                                className={`block px-4 py-2 rounded-lg ${
+                                    pathname === '/' ? 'text-purple-700 bg-purple-50' : 'text-gray-700 hover:text-purple-700 hover:bg-purple-50'
+                                }`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                Home
+                            </Link>
+                            
+                            {/* Mobile Hairstyle Menu */}
+                            <div className="space-y-1">
+                                <div className="px-4 py-2 text-gray-900 font-medium">Hairstyle</div>
+                                <Link
+                                    href="/hairstyles-for-men"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Hairstyle Simulator for Male
+                                </Link>
+                                <Link
+                                    href="/hairstyles-for-women"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Hairstyle Simulator for Female
+                                </Link>
+                            </div>
+
+                            {/* Mobile Blog Menu */}
+                            <div className="space-y-1">
+                                <div className="px-4 py-2 text-gray-900 font-medium">Blog</div>
+                                <Link
+                                    href="/buzz-cut-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Buzz Cut Filter
+                                </Link>
+                                <Link
+                                    href="/bob-haircut-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Bob Haircut Filter
+                                </Link>
+                                <Link
+                                    href="/bangs-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Bangs Filter
+                                </Link>
+                                <Link
+                                    href="/ai-braids"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    AI Braids Filter
+                                </Link>
+                                <Link
+                                    href="/pixie-cut-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Pixie Cut Filter
+                                </Link>
+                                <Link
+                                    href="/short-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Short Hair Filter
+                                </Link>
+                                <Link
+                                    href="/long-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Long Hair Filter
+                                </Link>
+                                <Link
+                                    href="/dreadlocks"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Dreadlocks Filter
+                                </Link>
+                                <Link
+                                    href="/low-fade-haircut"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Low Fade Haircut Filter
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </nav>
     );
