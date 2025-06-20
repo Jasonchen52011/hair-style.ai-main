@@ -309,7 +309,7 @@ export default function Hero() {
     return (
         <section className="relative overflow-hidden">
             <LazySection threshold={0.2}>
-                <div className="container mx-auto px-4 py-8  mb-10">
+                <div className="container mx-auto px-4 py-4 md:py-8 mb-6 md:mb-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-6xl mx-auto ">
                         {/* Right image - mobile first display */}
                         <LazySection className="flex justify-center lg:order-2">
@@ -332,12 +332,12 @@ export default function Hero() {
                                 Free AI Hairstyle Changer
                             </h1>
                             
-                            <p className="text-sm sm:text-lg text-gray-800 mb-4">
+                            <p className="text-base sm:text-lg text-gray-800 mb-4">
                                 Not sure which hairstyle suits you best? Upload photo,and let Haistyle.a free AI hairstyle generator help you try on  <span className="font-bold">60+ styles and 19 colors filters</span> in just a few clicks! 
                                 Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, this free AI simulator haircut tool helps you experiment without a trip to the salon.
                             </p>
 
-                            <p className="text-sm sm:text-lg text-gray-800 mb-4">
+                            <p className=" text-gray-800 mb-4">
                                 Whether you need an online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
                             </p>
 
@@ -382,7 +382,7 @@ export default function Hero() {
                             <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                 Try on Popular Hairstyles for Men and Women with Hairstyle AI
                             </h2>
-                            <p className="text-sm sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
+                            <p className="text-base sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
                                   Looking for hairstyle inspiration? Our AI haircut simulator helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, this AI hairstyle filter makes it super easy. No more guessing—just upload your photo, try on different styles, and find your perfect look! Ready for a new hairstyle? Give it a try today!
                             </p>
                         </LazySection>
@@ -398,7 +398,7 @@ export default function Hero() {
                                             // Update data immediately to ensure state sync
                                             updateDisplayData(tab);
                                         }}
-                                        className={`flex-1 py-3 text-sm sm:text-base font-medium transition-all ${
+                                        className={`flex-1 py-3 text-base sm:text-base font-medium transition-all ${
                                             activeTab === tab
                                                 ? 'bg-purple-700 text-white shadow-lg'
                                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-300'
@@ -494,7 +494,7 @@ export default function Hero() {
 
             {/* fourth part: How to try on hairstyles */}
             <LazySection className="bg-white">
-                <div className="container mx-auto px-4 py-10">
+                <div className="container mx-auto px-4 py-4">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* image - mobile display on the top */}
@@ -514,7 +514,7 @@ export default function Hero() {
                                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                      How can I try on AI virtual hairstyles on my face?
                                 </h2>
-                                <p className="text-sm sm:text-lg text-gray-600 mb-8">
+                                <p className="text-base sm:text-lg text-gray-600 mb-8">
                                     Do you worry that after getting a new hairstyle at the salon, it might not suit your face shape or style? 
                                     Our hairstyle AI tool helps you try on AI virtual hairstyles before making a decision. 
                                     Simply upload your photo, choose a popular hairstyle and instantly see how it looks on your face. 
@@ -554,7 +554,7 @@ export default function Hero() {
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
-                                <div className="space-y-6 text-sm sm:text-lg text-gray-600 ">
+                                <div className="space-y-6 text-base sm:text-lg text-gray-600 ">
                                     <p>
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
@@ -588,7 +588,7 @@ export default function Hero() {
                                 <h2 className="text-3xl font-bold mb-6 text-gray-800">
                                     What is AI Hairstyle Changer?
                                 </h2>
-                                <p className="text-sm sm:text-lg text-gray-600 mb-8">
+                                <p className="text-base sm:text-lg text-gray-600 mb-8">
                                     Are you still unsure about what hairstyle to wear for your next event? 
                                     Our AI haircut simulator are here to help! Simply upload your photo, 
                                     choose a popular hairstyle like a sleek bob, trendy pixie cut, or bold pompadour, 
@@ -629,7 +629,7 @@ export default function Hero() {
                         <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                             How to Change Hairstyle With Hairstyle AI
                         </h2>
-                        <p className="text-sm sm:text-lg text-gray-800">
+                        <p className="text-base sm:text-lg text-gray-800">
                             Transform your look with our hairstyle AI-powered changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
@@ -651,7 +651,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
-                            <p className="text-sm md:text-lg text-gray-800">
+                            <p className="text-base md:text-lg text-gray-800">
                                 Upload your photo if you want to change your hairstyle with hairstyle AI changer.
                             </p>
                         </LazySection>
@@ -670,7 +670,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
-                            <p className="text-sm md:text-lg text-gray-800">
+                            <p className=" text-gray-800">
                                 Choose from our hairstyle AI changer, and pick the hairstyle filter and hair color you want to try.
                             </p>
                         </LazySection>
@@ -689,7 +689,7 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
-                            <p className="text-sm md:text-lg text-gray-800">
+                            <p className=" text-gray-800">
                                 Our AI hairstyle generator will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
                         </LazySection>
@@ -731,7 +731,7 @@ export default function Hero() {
 
                             {/* testimonial content */}
                             <div className="relative">
-                                <p className="text-sm md:text-lg text-gray-700 mb-8 italic">
+                                <p className="text-base md:text-lg text-gray-700 mb-8 italic">
                                     {testimonials[currentTestimonial].quote}
                                 </p>
 
@@ -851,7 +851,7 @@ export default function Hero() {
                                                     ? 'translate-y-0 opacity-100' 
                                                     : 'translate-y-4 opacity-0'
                                             }`}>
-                                                <p className="text-gray-600 text-lg leading-relaxed">{item.answer}</p>
+                                                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{item.answer}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -895,7 +895,7 @@ export default function Hero() {
                                                     ? 'translate-y-0 opacity-100' 
                                                     : 'translate-y-4 opacity-0'
                                             }`}>
-                                                <p className="text-gray-600 text-lg leading-relaxed">{item.answer}</p>
+                                                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{item.answer}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -912,7 +912,7 @@ export default function Hero() {
             <div className="bg-white py-16 px-4">
                 <div className="max-w-full mx-auto text-center">
                     <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">Ready to Find Your Perfect Hairstyle?</h2>
-                    <p className="text-sm md:text-xl text-gray-800 mb-10 max-w-3xl mx-auto">
+                    <p className="text-base md:text-xl text-gray-800 mb-10 max-w-3xl mx-auto">
                     Not sure which hairstyle suits you? Try on <span className="font-bold">60+ styles</span> for free with our AI tool—upload your photo and find the perfect look in just a few clicks!
                     </p>
 
