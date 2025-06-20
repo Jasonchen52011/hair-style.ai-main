@@ -13,10 +13,55 @@ interface AiTool {
 
 // 组件参数类型定义
 interface MoreFreeAIToolsProps {
-  toolNames: string[]; // 页面需要传递要显示的工具标题数组（最多3个）
+  moreToolsSection?: {
+    title: string;
+    tools: AiTool[];
+  };
+  toolNames?: string[]; // 保持向后兼容性
 }
 
-export default function MoreFreeAITools({ toolNames }: MoreFreeAIToolsProps) {
+export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFreeAIToolsProps) {
+  // 优先使用配置文件数据，如果没有则使用原来的方式
+  if (moreToolsSection) {
+    return (
+      <section className="max-w-7xl mx-auto mt-12 mb-6 px-4">
+        <div className=" rounded-xl p-6 md:p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 ">{moreToolsSection.title}</h2>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {moreToolsSection.tools.map((tool, index) => (
+              <Link 
+                key={index} 
+                href={tool.link}
+                className="rounded-xl  transition-all duration-300 "
+              >
+                <div className="relative h-60 overflow-hidden rounded-xl">
+                  <Image
+                    src={tool.image}
+                    alt={tool.title}
+                    width={400}
+                    height={300}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                <div className="p-2">
+                  <h3 className="text-gray-800 mt-2 text-lg sm:text-xl font-bold">{tool.description}</h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // 如果没有配置数据但有toolNames，使用原来的方式（向后兼容）
+  if (!toolNames) {
+    return null;
+  }
+
   // 在组件内部维护所有工具的完整数据
   const allToolsData: Record<string, AiTool> = {
     "AI Braids Filter": {
@@ -83,6 +128,12 @@ export default function MoreFreeAITools({ toolNames }: MoreFreeAIToolsProps) {
       title: "Low Fade Haircut Filter",
       description: "Try Low Fade Styles Risk-Free",
       link: "/low-fade-haircut",
+      image: "/images/low-fade-hero3.webp"
+    },
+    "Pompadour Filter": {
+      title: "Pompadour Filter",
+      description: "Try Classic Pompadour Styles Risk-Free",
+      link: "/pompadour",
       image: "/images/low-fade-hero3.webp"
     }
   };

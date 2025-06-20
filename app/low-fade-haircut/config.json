@@ -173,7 +173,7 @@
         {
           "icon": "fas fa-hand-point-up",
           "title": "Easy & Totally Free",
-          "description": "Try up to 5 hairstyles every day—for free. No sign-ups. No hidden costs. Just upload your photo and start exploring your favorite looks right away."
+          "description": "No sign-ups. No hidden costs. Just upload your photo and start exploring your favorite looks right away."
         },
         {
           "icon": "fas fa-palette",
@@ -228,10 +228,6 @@
       {
         "question": "Is the low fade hairstyle filter suitable for all ages?",
         "answer": "Yes, it works for everyone! From young boys to adults and even older users, the low fade style can be previewed on any face. The tool is perfect for all age groups who want to try a modern look without commitment."
-      },
-      {
-        "question": "Is the AI hairstyle filter really free to use?",
-        "answer": "Yes, it's completely free. You can try up to 5 hairstyles every day without paying anything. There are no hidden fees, no sign-ups, and no subscriptions—just upload your photo and experiment with styles instantly."
       },
       {
         "question": "What if I have thinning hair?",
