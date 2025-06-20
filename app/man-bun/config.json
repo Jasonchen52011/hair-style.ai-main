@@ -342,7 +342,7 @@
       "@type": "WebApplication",
       "url": "https://hair-style.ai/man-bun",
       "name": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
-      "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+      "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
       "brand": {
@@ -395,7 +395,7 @@
       },
       "openGraph": {
         "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
-        "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+        "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator.",
         "url": "https://hair-style.ai/man-bun",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
@@ -414,7 +414,7 @@
         "card": "summary_large_image",
         "site": "@hair_styleai",
         "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
-        "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+        "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. ",
         "images": ["https://hair-style.ai/images/man-bun-hero2.webp"]
       }
     }
