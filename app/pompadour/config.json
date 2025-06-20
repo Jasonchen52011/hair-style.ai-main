@@ -1,0 +1,376 @@
+{
+    "heroSection": {
+      "title": "Try Free Pompadour Hairstyle Filter Online",
+      "description": "Test out bold, stylish pompadour hairstyle in seconds. From undercut fades to messy waves, Hairstyle AI makes it easy. Look sharp like Beckham before you even step into a barbershop. No risk, just realistic results.",
+      "rating": 5.0,
+      "statsText": "285,000+ virtual pompadour hairstyles transformed",
+      "ctaText": "Try Pompadour Filter",
+      "ctaLink": "/ai-hairstyle?style=Pompadour"
+    },
+    "imageConfig": {
+      "displayHeight": 600,
+      "image": "/images/pompadour-h1.webp",
+      "alt": "Pompadour haircut transformation result - classic pompadour styling"
+    },
+    "beforeAfterGallery": {
+      "title": "Pompadour Results You Can Trust",
+      "description": "Explore different pompadour versions like undercut fade or curly quiff. See how they match your face shape and hairline before you cut. Our users love the control—and the look.",
+      "images": [
+        {
+          "src": "/images/pompadour-map-20man.webp",
+          "alt": "pompadour transformation - 20 year old man with classic pompadour style"
+        },
+        {
+          "src": "/images/pompadour-map-40man.webp",
+          "alt": "pompadour transformation - 40 year old man with sleek pompadour fade"
+        },
+        {
+          "src": "/images/pompadour-map-50oldman.webp",
+          "alt": "pompadour transformation - 50 year old man with elegant pompadour"
+        },
+        {
+          "src": "/images/pompadour-map-japaneseman.webp",
+          "alt": "pompadour transformation - Japanese man with modern pompadour styling"
+        },
+        {
+          "src": "/images/pompadour-map-us-claasic-man.webp",
+          "alt": "pompadour transformation - American man with classic US pompadour"
+        },
+        {
+          "src": "/images/pompadour-map-female.webp",
+          "alt": "pompadour transformation - female with undercut pompadour style"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Is a Pompadour Right for You?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, heart, square"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "5.0"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Classic, bold, sleek"
+        },
+        {
+          "feature": "Length",
+          "description": "Medium to long on top"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Medium – needs styling products & regular trims"
+        }
+      ],
+      "textContent": [
+        "Wondering if a pompadour fits your face or hair? Let's break it down simply.",
+        "If you have an oval or heart-shaped face, a pompadour will look great—it adds height and balances proportions. Square or long faces? Go for a softer pompadour or shorter volume to avoid exaggerating sharp lines or height.",
+        "Thick or coarse hair holds the style really well. Fine or thin hair? A smaller pompadour with matte wax can work wonders. Got curly hair? Great! Pompadours with curls are super trendy now."
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "Explore the Pompadour Fade – From Classic to Bold",
+        "textContent": [
+        "The pompadour fade comes in many styles. Love clean and sharp? Try a high fade pompadour. Want something more relaxed? Go with a low or mid fade. There's a style for every vibe—from classic Elvis to modern Beckham or K-pop bold. You can even mix it with curly or messy tops.",
+        "Not sure about fade lengths? Here's a quick guide:",
+        "#1: Super short, skin-close.",
+        "#2: Slightly visible but tight.",
+        "#3-4: Balanced look, not too short.",
+        "#5-6: Softer fade, best for beginners.",
+        "And the best part? You don't need to guess. Try all versions with Hairstyle AI. Upload your photo, pick your fade, and preview it before going to the barbershop."
+      ],
+              "image": {
+          "src": "/images/pompadour-coolman.webp",
+          "alt": "pompadour haircut styles and variations guide - cool man with pompadour"
+        },
+        "ctaText": "Try Pompadour Filter",
+        "ctaLink": "/ai-hairstyle?style=Pompadour"
+    }
+    ],
+    "regretsSection": {
+      "title": "Before a Real Haircut",
+      "textContent": [
+        "Thinking about switching to a pompadour but feeling unsure? With Hairstyle AI, you can preview the look on your real face before stepping into the barbershop. Try different versions—high pompadour, low fade, or a short textured top—and see which one suits your face shape and hair type. It's a smart way to avoid regrets and awkward growing-out phases. No need to explain things to your barber with guesswork. Just show them your AI-transformed image. You'll walk in with confidence, knowing exactly what you want—and whether it really works for you.",
+        "Want to surprise your friends or just have fun online? Use Hairstyle AI to try out bold pompadour styles and share your look on social media. Whether it's a slick modern fade or a retro Elvis vibe, the results are super realistic and perfect for laughs or compliments. Post your transformation on TikTok, Instagram, or send it in a group chat. Ask your friends to vote on the best look—or prank them with a fake new haircut! It's a fun, creative way to express your style and test new ideas with zero risk and zero scissors.",
+        "Worried about thinning hair or a receding hairline? Hairstyle AI is here to help. Try pompadour styles that create volume and visually fill in sparse areas. A low fade or messy pompadour can add shape and draw attention upward. You'll see exactly how different versions affect your overall appearance—before making any real changes. It's the easiest way to test what works for your face shape and hairline without a trip to the barber. Gain confidence, explore safe options, and feel good about your hair again—all from one photo upload."
+      ],
+              "image": {
+          "src": "/images/pompadour-hero-2man.webp",
+          "alt": "pompadour haircut - preview before cutting real hair with 2 men styles"
+        },
+        "ctaText": "Try Pompadour Filter",
+        "ctaLink": "/ai-hairstyle?style=Pompadour"
+    },
+    "howToUseSection": {
+      "title": "How to Try a Pompadour Hairstyle with AI in 1 Minute",
+      "description": "No haircut, no guesswork. Just follow these easy steps and see yourself in a brand-new style.",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Choose a clear front-facing photo. Make sure your face is fully visible, with good lighting and no heavy shadows. We support JPG, PNG, and JPEG formats. Max file size is 3MB. Don't worry—your image is not saved."
+        },
+        {
+          "title": "Step 2: Pick Your Pompadour Style and More men's Hairstyle",
+          "icon": "fas fa-palette",
+          "description": "Scroll through 60+ hairstyles and 19 hair colors. Want a short pompadour? A curly one? Or a bold fade? Tap to preview any style that catches your eye. You can try five times a day—for free!"
+        },
+        {
+          "title": "Step 3: Let AI Do the Work",
+          "icon": "fas fa-magic",
+          "description": "Click \"Generate.\" Our smart AI will analyze your face shape, hairline, and texture. In about 30 seconds, you'll see a realistic image of you with the new hairstyle. No weird filters or distorted faces—just you, styled."
+        },
+        {
+          "title": "Step 4: Download or Share Your Look",
+          "icon": "fas fa-download",
+          "description": "Like what you see? Save your new style to your phone or share it with friends on Instagram, TikTok, or anywhere. You'll get one downloadable image per style, no watermark, no fuss."
+        }
+      ],
+              "image": {
+          "src": "/images/pompadour-howto.webp",
+          "alt": "How to use pompadour haircut filter - step by step guide"
+        },
+        "ctaText": "Try Pompadour Filter",
+        "ctaLink": "/ai-hairstyle?style=Pompadour"
+    },
+    "ctaSections": [
+      {
+        "title": "Before a Real Haircut",
+        "description": "Thinking about switching to a pompadour but feeling unsure? With Hairstyle AI, you can preview the look on your real face before stepping into the barbershop. Try different versions—high pompadour, low fade, or a short textured top—and see which one suits your face shape and hair type. It's a smart way to avoid regrets and awkward growing-out phases.",
+        "image": {
+          "src": "/images/pompadour-social.webp",
+          "alt": "pompadour haircut preview - try before cutting real hair"
+        },
+        "ctaText": "Try Pompadour Filter",
+        "ctaLink": "/ai-hairstyle?style=Pompadour"
+      },
+      {
+        "title": "Share Your New Look with Friends",
+        "description": "Want to surprise your friends or just have fun online? Use Hairstyle AI to try out bold pompadour styles and share your look on social media. Whether it's a slick modern fade or a retro Elvis vibe, the results are super realistic and perfect for laughs or compliments. Post your transformation on TikTok, Instagram, or send it in a group chat.",
+        "image": {
+          "src": "/images/pompadour-hero2.webp",
+          "alt": "Social media content - fun pompadour transformation for posts"
+        },
+        "ctaText": "Try Pompadour Filter",
+        "ctaLink": "/ai-hairstyle?style=Pompadour"
+      },
+      {
+        "title": "Exploring Style Changes for Hair Loss",
+        "description": "Worried about thinning hair or a receding hairline? Hairstyle AI is here to help. Try pompadour styles that create volume and visually fill in sparse areas. A low fade or messy pompadour can add shape and draw attention upward. You'll see exactly how different versions affect your overall appearance—before making any real changes.",
+        "image": {
+          "src": "/images/pompadour-hero4.webp",
+          "alt": "Pompadour haircut for men with thinning hair"
+        },
+        "ctaText": "Try Pompadour Filter",
+        "ctaLink": "/ai-hairstyle?style=Pompadour"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Hairstyle AI Is Your Best Pick for Virtual Pompadours",
+      "features": [
+        {
+          "icon": "fas fa-hand-point-up",
+          "title": "Easy & Free to Use",
+          "description": "No sign-ups, no downloads—just upload your photo and click \"Generate.\" Try up to 5 hairstyles daily for free, directly in your browser on mobile or desktop. It's simple, fast, and beginner-friendly for everyone."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Tons of Styles & Colors",
+          "description": "Explore over 60 AI-generated hairstyles and 19 color options. From sleek pompadours to curly fades and edgy undercuts, mix and match styles and shades until you find the perfect look that fits your face and vibe."
+        },
+        {
+          "icon": "fas fa-award",
+          "title": "Realistic, Natural Results",
+          "description": "Our AI keeps your facial features and skin tone untouched. You'll get photo-quality results that look natural—not cartoonish or fake—so you can see how the haircut truly fits before making a real change."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Your Privacy Is Safe",
+          "description": "We never store or share your photos. All images are processed instantly and deleted right after use. You can explore new looks freely, knowing your personal data stays 100% private, safe, and secure every single time."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I always wanted to try a pompadour but wasn't sure if it would suit my face shape. Hairstyle AI showed me exactly how a modern pompadour would look on me. The preview was so realistic, I took it straight to my barber. Now I get compliments everywhere I go!",
+        "author": "@Alex Rodriguez",
+        "title": "Marketing Manager",
+        "rating": 5.0
+      },
+      {
+        "quote": "The pompadour filter changed my whole perspective on hairstyles. I tried the classic Elvis-style and the modern fade version. Seeing both side-by-side helped me choose the perfect look for my professional job. My confidence has never been higher!",
+        "author": "@James Mitchell",
+        "title": "Software Engineer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I have curly hair and thought pompadours were only for straight hair. The AI showed me how amazing a curly pompadour looks on me! It gave me the courage to finally make the change. Best hair decision ever.",
+        "author": "@Carlos Santos",
+        "title": "College Student",
+        "rating": 4.0
+      },
+      {
+        "quote": "My hairline has been receding and I was worried about trying new styles. The pompadour AI filter showed me how the volume on top actually makes my hairline look fuller. It's given me back my confidence to experiment with hairstyles.",
+        "author": "@David Chen",
+        "title": "Real Estate Agent",
+        "rating": 5.0
+      },
+      {
+        "quote": "I used the pompadour filter before my wedding and it was perfect! My fiancé loved the sophisticated look, and I felt like a movie star. The AI made it so easy to visualize different pompadour styles for the big day.",
+        "author": "@Michael Thompson",
+        "title": "Business Owner",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "What is a Pompadour hairstyle?",
+        "answer": "A Pompadour is a classic hairstyle characterized by volume at the front, with the hair swept upward and backward. It can be styled in many variations, from sleek and modern to voluminous and bold."
+      },
+      {
+        "question": "Is the Pompadour suitable for all face shapes and hair types?",
+        "answer": "Yes, the Pompadour is versatile. It works well with most face shapes, such as oval, square, and heart-shaped faces. It can be adapted for different hair textures, including curly, straight, and wavy hair."
+      },
+      {
+        "question": "What if I have thinning hair?",
+        "answer": "The Pompadour style works great for thinning hair as it adds volume and texture. The AI adjusts the hairstyle to ensure it looks natural and full, boosting your confidence."
+      },
+      {
+        "question": "What are the benefits of a Pompadour?",
+        "answer": "The Pompadour adds volume, height, and a bold look. It's a timeless style that can make your face appear more structured and give a sharp, clean-cut appearance. Perfect for professional or casual settings!"
+      },
+      {
+        "question": "How much maintenance does a Pompadour require?",
+        "answer": "The Pompadour requires moderate maintenance to keep it looking sharp and stylish. You'll need to use a high-quality styling product, such as pomade or gel, to maintain the sleek, voluminous look. Regularly blow-drying your hair helps achieve the desired height and structure. Additionally, it's important to trim the sides and back every few weeks to preserve the clean, tapered shape."
+      },
+      {
+        "question": "Will the virtual try-on change my face shape?",
+        "answer": "No, the virtual try-on tool does not alter your face shape. It simply shows how the hairstyle looks on your natural face, allowing you to explore different styles before committing to a haircut."
+      },
+      {
+        "question": "Is using the AI tool safe?",
+        "answer": "Absolutely! Our AI tool is designed with privacy in mind. We don't store your images, and all generated hairstyles are deleted after you download them."
+      },
+      {
+        "question": "Is the Pompadour suitable for me?",
+        "answer": "The Pompadour can suit most people! To find out if it works for your face shape and hair type, simply upload a photo to try it on virtually. The tool will show how it fits your features."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "More Free AI Tools from Hairstyle AI",
+      "tools": [
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "link": "/buzz-cut-filter",
+          "image": "/images/buzz-cut-hero.webp"
+        },
+        {
+          "title": "Hairstyle for Male",
+          "description": "Discover Perfect Men's Haircuts",
+          "link": "/hairstyles-for-men",
+          "image": "/images/man-hair-hero.webp"
+        },
+        {
+          "title": "Low Fade Haircut",
+          "description": "Try Low Fade Haircut Before Big Chop",
+          "link": "/low-fade-haircut",
+          "image": "/images/low-fade-hero3.webp"
+        }
+      
+      ]
+    },
+    "finalCta": {
+      "title": "Transform Your Look Today with a Pompadour!",
+      "description": "Upload your photo, try the Pompadour hairstyle, and see how it transforms your appearance. It's free and easy!",
+      "ctaText": "Try Pompadour Filter →",
+      "ctaLink": "/ai-hairstyle?style=Pompadour"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/pompadour",
+      "name": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
+      "description": "Test different pompadour hairstyles risk-free. Upload your photo, try fades, undercuts, or classic looks instantly. Trusted AI hairstyle changer with 60+ cuts.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "ratingCount": "15680"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
+          "item": "https://hair-style.ai/pompadour"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
+      "description": "Test different pompadour hairstyles risk-free. Upload your photo, try fades, undercuts, or classic looks instantly. Trusted AI hairstyle changer with 60+ cuts.",
+      "canonical": "https://hair-style.ai/pompadour",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
+        "description": "Test different pompadour hairstyles risk-free. Upload your photo, try fades, undercuts, or classic looks instantly. Trusted AI hairstyle changer with 60+ cuts.",
+        "url": "https://hair-style.ai/pompadour",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/pompadour-h1.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
+        "description": "Test different pompadour hairstyles risk-free. Upload your photo, try fades, undercuts, or classic looks instantly. Trusted AI hairstyle changer with 60+ cuts.",
+        "images": ["https://hair-style.ai/images/pompadour-h1.webp"]
+      }
+    }
+  }

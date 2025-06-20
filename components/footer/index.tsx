@@ -51,47 +51,52 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li>
                                 <Link href="/buzz-cut-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Buzz Cut Filter
+                                    Buzz Cut
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/bob-haircut-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Bob Haircut Filter
+                                    Bob Haircut
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/bangs-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Bangs Filter
+                                    Bangs
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/ai-braids" className="text-gray-400 hover:text-white transition-colors">
-                                    AI Braids Filter
+                                    AI Braids
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/pixie-cut-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Pixie Cut Filter
+                                    Pixie Cut
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/short-hair-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Short Hair Filter
+                                    Short Hair
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/long-hair-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Long Hair Filter
+                                    Long Hair
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/dreadlocks" className="text-gray-400 hover:text-white transition-colors">
-                                    Dreadlocks Filter
+                                    Dreadlocks
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/low-fade-haircut" className="text-gray-400 hover:text-white transition-colors">
-                                    Low Fade Haircut Filter
+                                    Low Fade Haircut
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pompadour" className="text-gray-400 hover:text-white transition-colors">
+                                    Pompadour
                                 </Link>
                             </li>
                         </ul>

@@ -1,3 +1,4 @@
+
 import { Metadata } from 'next';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
@@ -31,13 +32,14 @@ const {
   whyChooseSection, 
   testimonialsConfig, 
   faqConfig, 
+  moreToolsSection,
   finalCta, 
   structuredData, 
   breadcrumbData,
   seoConfig
 } = config;
 
-// ## Low Fade Haircut Filter 页面 metadata
+// ## Pompadour Page metadata
 export const metadata: Metadata = {
     title: seoConfig.title,
     description: seoConfig.description,
@@ -81,7 +83,7 @@ export const metadata: Metadata = {
     },
 }
 
-export default function LowFadeHaircutPage() {
+export default function PompadourPage() {
     return (
         <>        
             <script
@@ -98,38 +100,29 @@ export default function LowFadeHaircutPage() {
             <div className="min-h-screen bg-white flex flex-col">
                 <Navbar />
                 
-                {/* Hero Section */}
                 <HeroSection 
                     heroSection={heroSection}
                     imageConfig={imageConfig}
                 />
 
-                {/* Before & After Gallery */}
                 <LazySection>
                     <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
                 </LazySection>
 
-                {/* Face Shapes Section */}
                 <LazySection>
                     <FaceShapesSection isRightSection={isRightSection} />
                 </LazySection>
 
-                {/* How to Maintain Section */}
                 <LazySection>
                     <HowToMaintainSection additionalSection={additionalSection} />
                 </LazySection>
 
-        
-
-                {/* How to Use Section */}
                 <LazySection>
                     <HowToUseSection howToUseSection={howToUseSection} />
                 </LazySection>
 
-                {/* Usage Scenarios Sections */}
                 <UsageScenariosSection ctaSections={ctaSections} />
 
-                {/* Why Choose Section */}
                 <LazySection>
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
@@ -137,17 +130,14 @@ export default function LowFadeHaircutPage() {
                     />
                 </LazySection>
 
-                {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Buzz Cut Filter", "Hairstyle Simulator for Male", "Pompadour Filter"]} />
+                    <MoreFreeAITools moreToolsSection={moreToolsSection} />
                 </LazySection>
 
-                {/* FAQ Section */}
                 <LazySection>
                     <FAQ faqs={faqConfig} />
                 </LazySection>
 
-                {/* CTA Section */}
                 <CTASection finalCta={finalCta} />
 
                 <Footer />
