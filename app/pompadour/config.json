@@ -8,7 +8,7 @@
       "ctaLink": "/ai-hairstyle?style=Pompadour"
     },
     "imageConfig": {
-      "displayHeight": 600,
+      "displayHeight": 450,
       "image": "/images/pompadour-hero.webp",
       "alt": "Pompadour haircut transformation result - classic pompadour styling"
     },
@@ -19,6 +19,7 @@
         {
           "src": "/images/pompadour-map-20man.webp",
           "alt": "pompadour transformation - 20 year old man with classic pompadour style"
+        
         },
         {
           "src": "/images/pompadour-map-40man.webp",
@@ -78,10 +79,8 @@
         "textContent": [
         "The pompadour fade comes in many styles. Love clean and sharp? Try a high fade pompadour. Want something more relaxed? Go with a low or mid fade. There's a style for every vibe—from classic Elvis to modern Beckham or K-pop bold. You can even mix it with curly or messy tops.",
         "Not sure about fade lengths? Here's a quick guide:",
-        "#1: Super short, skin-close.",
-        "#2: Slightly visible but tight.",
-        "#3-4: Balanced look, not too short.",
-        "#5-6: Softer fade, best for beginners.",
+        "#1: Super short, skin-close. #2: Slightly visible but tight.",
+        "#3-4: Balanced look, not too short. #5-6: Softer fade, best for beginners.",
         "And the best part? You don't need to guess. Try all versions with Hairstyle AI. Upload your photo, pick your fade, and preview it before going to the barbershop."
       ],
               "image": {
@@ -89,23 +88,44 @@
           "alt": "pompadour haircut styles and variations guide - cool man with pompadour"
         },
         "ctaText": "Try Pompadour Filter",
-        "ctaLink": "/ai-hairstyle?style=Pompadour"
+        "ctaLink": "/ai-hairstyle?style=Pompadour",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
     }
     ],
-    "regretsSection": {
-      "title": "Before a Real Haircut",
-      "textContent": [
-        "Thinking about switching to a pompadour but feeling unsure? With Hairstyle AI, you can preview the look on your real face before stepping into the barbershop. Try different versions—high pompadour, low fade, or a short textured top—and see which one suits your face shape and hair type. It's a smart way to avoid regrets and awkward growing-out phases. No need to explain things to your barber with guesswork. Just show them your AI-transformed image. You'll walk in with confidence, knowing exactly what you want—and whether it really works for you.",
-        "Want to surprise your friends or just have fun online? Use Hairstyle AI to try out bold pompadour styles and share your look on social media. Whether it's a slick modern fade or a retro Elvis vibe, the results are super realistic and perfect for laughs or compliments. Post your transformation on TikTok, Instagram, or send it in a group chat. Ask your friends to vote on the best look—or prank them with a fake new haircut! It's a fun, creative way to express your style and test new ideas with zero risk and zero scissors.",
-        "Worried about thinning hair or a receding hairline? Hairstyle AI is here to help. Try pompadour styles that create volume and visually fill in sparse areas. A low fade or messy pompadour can add shape and draw attention upward. You'll see exactly how different versions affect your overall appearance—before making any real changes. It's the easiest way to test what works for your face shape and hairline without a trip to the barber. Gain confidence, explore safe options, and feel good about your hair again—all from one photo upload."
-      ],
-              "image": {
-          "src": "/images/pompadour-hero-2man.webp",
-          "alt": "pompadour haircut - preview before cutting real hair with 2 men styles"
-        },
-        "ctaText": "Try Pompadour Filter",
-        "ctaLink": "/ai-hairstyle?style=Pompadour"
-    },
     "howToUseSection": {
       "title": "How to Try a Pompadour Hairstyle with AI in 1 Minute",
       "description": "No haircut, no guesswork. Just follow these easy steps and see yourself in a brand-new style.",
@@ -143,7 +163,7 @@
         "title": "Before a Real Haircut",
         "description": "Thinking about switching to a pompadour but feeling unsure? With Hairstyle AI, you can preview the look on your real face before stepping into the barbershop. Try different versions—high pompadour, low fade, or a short textured top—and see which one suits your face shape and hair type. It's a smart way to avoid regrets and awkward growing-out phases.",
         "image": {
-          "src": "/images/pompadour-social.webp",
+          "src": "/images/pompadour-hero-2man.webp",
           "alt": "pompadour haircut preview - try before cutting real hair"
         },
         "ctaText": "Try Pompadour Filter",
@@ -153,7 +173,7 @@
         "title": "Share Your New Look with Friends",
         "description": "Want to surprise your friends or just have fun online? Use Hairstyle AI to try out bold pompadour styles and share your look on social media. Whether it's a slick modern fade or a retro Elvis vibe, the results are super realistic and perfect for laughs or compliments. Post your transformation on TikTok, Instagram, or send it in a group chat.",
         "image": {
-          "src": "/images/pompadour-hero2.webp",
+          "src": "/images/pompadour-social.webp",
           "alt": "Social media content - fun pompadour transformation for posts"
         },
         "ctaText": "Try Pompadour Filter",

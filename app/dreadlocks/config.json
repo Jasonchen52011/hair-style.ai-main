@@ -5,10 +5,53 @@
       "rating": 4.7,
       "statsText": "458,000+ virtual hairstyles transformed",
       "ctaText": "Try Dreadlocks Filter",
-      "ctaLink": "/ai-hairstyle?style=Dreadlocks"
+      "ctaLink": "/ai-hairstyle?style=Dreadlocks",
+      "styleConfig": {
+        "layout": {
+          "leftRatio": "2",
+          "rightRatio": "3",
+          "gap": "gap-4",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-3xl",
+            "desktop": "text-5xl"
+          },
+          "fontWeight": "font-extrabold",
+          "color": "text-gray-900",
+          "spacing": "mb-8"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-xl"
+          },
+          "color": "text-gray-700",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "fontWeight": "font-medium"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-bold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-2xl"
+        }
+      }
     },
     "imageConfig": {
-      "displayHeight": 600,
+      "displayHeight": 450,
       "image": "/images/dreadlock-hairs.webp",
       "alt": "Dreadlocks transformation result"
     },
@@ -57,8 +100,50 @@
       "textContent": [
         "Wondering if dreadlocks will look good on you? Here's a quick breakdown to help you decide.",
         "Face shape matters. If you have an oval, round, or heart-shaped face, dreadlocks usually frame your features really well. If your face is more angular or long, don't worry—styles with side parts or volume on top can balance things out nicely. Hairstyle AI gives you plenty of options to explore different looks.",
-        "Hair type also plays a big role. Dreadlocks form best with curly or coily hair. If your hair is straight or fine, it may take more effort or extensions to achieve the right texture. Thin or fragile hair might not hold locs well, so trying them virtually is a smart first step. Most importantly, dreadlocks are about identity and confidence. You're expressing yourself, your roots, your vibe. And here's the good news: they're more versatile than people think. With Hairstyle AI, you get a clear, realistic preview before making any decision. So you can try bold, go natural—or just see what feels right, risk-free."
-      ]
+        "Hair type also plays a big role. Dreadlocks form best with curly or coily hair. If your hair is straight or fine, it may take more effort or extensions to achieve the right texture. Thin or fragile hair might not hold locs well, so trying them virtually is a smart first step. Most importantly, dreadlocks are about identity and confidence. You're expressing yourself, your roots, your vibe. And here's the good news: they're more versatile than people think. "
+      ],
+      "styleConfig": {
+        "layout": {
+          "leftRatio": "1",
+          "rightRatio": "1",
+          "gap": "gap-6"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-2xl",
+            "desktop": "text-4xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-800",
+          "spacing": "mb-12"
+        },
+        "tableHeader": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "fontWeight": "font-semibold",
+          "color": "text-gray-800",
+          "background": "bg-gray-100"
+        },
+        "tableContent": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-800",
+          "featureFontWeight": "font-medium"
+        },
+        "textContent": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-700",
+          "lineHeight": "leading-relaxed",
+          "spacing": "space-y-4"
+        }
+      }
     },
     "additionalSection": [
       {

@@ -418,35 +418,6 @@ export default function BuzzCutFilterPage() {
                     </div>
                 </section>
 
-                {/* Before & After Gallery */}
-                <LazySection>
-                    <section className="py-2 sm:py-20 bg-gray-50">
-                        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-                            <div className="text-center mb-16">
-                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
-                                    {beforeAfterGallery.title}
-                                </h2>
-                                <p className="text-lg text-gray-800 max-w-5xl mx-auto">
-                                    {beforeAfterGallery.description}
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-                                {beforeAfterGallery.images.map((image, index) => (
-                                    <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg">
-                                        <Image
-                                            src={image.src}
-                                            alt={image.alt}
-                                            width={400}
-                                            height={300}
-                                            className="w-full h-auto object-contain"
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-                </LazySection>
 
                 {/* Why Choose Our Buzz Cut Simulator Section */}
                 <LazySection>
@@ -480,7 +451,7 @@ export default function BuzzCutFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Hairstyle for Male", "Low Fade Haircut Filter"]} />
+                    <MoreFreeAITools toolNames={["Hairstyle Simulator for Male", "Low Fade Haircut Filter", "Pompadour Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}

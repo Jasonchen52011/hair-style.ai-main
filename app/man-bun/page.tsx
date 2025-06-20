@@ -1,4 +1,3 @@
-
 import { Metadata } from 'next';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
@@ -16,6 +15,7 @@ import MoreFreeAITools from '@/components/MoreFreeAITools'
 import FAQ from '@/components/faq'
 import CTASection from '@/components/CTASection'
 import configData from './config.json'
+import TestimonialsSection from '@/components/testimonials'
 
 const config = configData as any;
 
@@ -38,7 +38,7 @@ const {
   seoConfig
 } = config;
 
-// ## Pompadour Page metadata
+// ## Man Bun Page metadata
 export const metadata: Metadata = {
     title: seoConfig.title,
     description: seoConfig.description,
@@ -80,9 +80,12 @@ export const metadata: Metadata = {
         description: seoConfig.twitter.description,
         images: seoConfig.twitter.images
     },
+    other: {
+        'application-name': structuredData.name,
+    }
 }
 
-export default function PompadourPage() {
+export default function ManBunPage() {
     return (
         <>        
             <script
@@ -129,6 +132,8 @@ export default function PompadourPage() {
                         testimonialsConfig={testimonialsConfig}
                     />
                 </LazySection>
+
+    
 
                 <LazySection>
                     <MoreFreeAITools moreToolsSection={moreToolsSection} />

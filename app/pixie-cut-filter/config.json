@@ -8,7 +8,7 @@
     "ctaLink": "/ai-hairstyle?style=PixieCut"
   },
   "imageConfig": {
-    "displayHeight": 400,
+    "displayHeight": 450,
     "afterImage": "/images/pixie-cut-h1-after.webp",
     "beforeImage": "/images/pixie-cut-h1-before.webp"
   },
