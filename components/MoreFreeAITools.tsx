@@ -134,7 +134,13 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       title: "Pompadour Filter",
       description: "Try Classic Pompadour Styles Risk-Free",
       link: "/pompadour",
-      image: "/images/low-fade-hero3.webp"
+      image: "/images/pompadour-hero-2man.webp"
+    },
+    "Man Bun Filter": {
+      title: "Man Bun Filter",
+      description: "Try Man Bun Hairstyles Online Free",
+      link: "/man-bun",
+      image: "/images/man-bun-hero2.webp"
     }
   };
 

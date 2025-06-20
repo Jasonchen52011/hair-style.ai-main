@@ -19,12 +19,12 @@ export default function UsageScenariosSection({ ctaSections }: UsageScenariosSec
     <>
       {ctaSections.map((section, index) => (
         <section key={index} className="sm:py-16 py-6 bg-white">
-          <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+          <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
             <div className="max-w-full mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-center">
                 {/* Image */}
-                <div className={`flex justify-center ${index % 2 === 0 ? 'order-1 lg:order-1' : 'order-1 lg:order-2'}`}>
-                  <div className="w-full max-w-6xl bg-white rounded-xl overflow-hidden">
+                <div className={`flex justify-center ${index % 2 === 0 ? 'order-1 lg:order-1 lg:col-span-3' : 'order-1 lg:order-2 lg:col-span-3'}`}>
+                  <div className="w-full max-w-6xl bg-white rounded-xl overflow-hidden ">
                     <Image
                       src={section.image.src}
                       alt={section.image.alt}
@@ -36,7 +36,7 @@ export default function UsageScenariosSection({ ctaSections }: UsageScenariosSec
                 </div>
                 
                 {/* Text content */}
-                <div className={`space-y-10 ${index % 2 === 0 ? 'order-2 lg:order-2' : 'order-2 lg:order-1'}`}>
+                <div className={`space-y-10 ${index % 2 === 0 ? 'order-2 lg:order-2 lg:col-span-2' : 'order-2 lg:order-1 lg:col-span-2'}`}>
                   <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                     {section.title}
                   </h2>

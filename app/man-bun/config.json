@@ -1,0 +1,421 @@
+{
+    "heroSection": {
+      "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+      "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+      "rating": 4.8,
+      "statsText": "185,000+ virtual man bun hairstyles transformed",
+      "ctaText": "Try Man Bun Filter",
+      "ctaLink": "/ai-hairstyle?style=Man Bun"
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/man-bun-hero2.webp",
+      "alt": "Man bun hero - modern man with stylish man bun hairstyle"
+    },
+    "beforeAfterGallery": {
+      "title": "See the Real Change: Man Bun Transformations",
+      "description": "Explore before-after results from real users trying man bun hairstyles. From classic to messy buns, see how different face shapes, hair lengths, and textures look with our AI tool. Ready to try your own?",
+      "images": [
+        {
+          "src": "/images/man-bun-english.webp",
+          "alt": "man bun english - English man with classic man bun hairstyle"
+        
+        },
+        {
+          "src": "/images/man-bun-chinese.webp",
+          "alt": "man bun chinese - Chinese man with modern man bun style"
+        },
+        {
+          "src": "/images/man-bun-japanese.webp",
+          "alt": "man bun japanese - Japanese man with sleek man bun styling"
+        },
+        {
+          "src": "/images/man-bun-oldman.webp",
+          "alt": "man bun oldman - mature man with elegant man bun hairstyle"
+        },
+        {
+          "src": "/images/man-bun-englishhanson.webp",
+          "alt": "man bun english hanson - English man with trendy man bun style"
+        },
+        {
+          "src": "/images/man-bun-englisholdman.webp",
+          "alt": "man bun english oldman - older English man with sophisticated man bun"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Is the Man Bun Right for You?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, Square, Heart"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.8 / 5.0"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Classic, Modern, Messy, Faded"
+        },
+        {
+          "feature": "Length",
+          "description": "Medium to Long"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Low to Medium (depends on texture)"
+        }
+      ],
+      "textContent": [
+        "Wondering if a man bun works for your look? Let's break it down.",
+        "Face Shape Guide: Man buns look great on oval, oblong, square, and heart-shaped faces. If you have a long or narrow face, opt for a low or messy man bun to balance proportions. For flat crown or prominent back-of-head shapes, a top-heavy bun can exaggerate those features—try mid-height styles instead.",
+        "Hair Texture Tips: Thick or wavy hair holds a bun easily. Curly hair adds natural volume—just use a serum to reduce frizz. Fine or thin hair? Try a smaller bun or half-up style to avoid tension. If your hair is sparse or you're dealing with hair loss, a man bun can help disguise receding lines, especially paired with a fade.",
+        "Still unsure? Upload your photo to Hairstyle AI and preview your look in seconds. No regrets, no haircut needed."
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "Discover the Man Bun: Style, Ease, Identity",
+        "textContent": [
+        "Trying new looks is exciting, especially when you can preview them risk-free. In 2025, the man bun remains a strong trend across TikTok, Instagram, and real-life style guides. With Hairstyle AI, you can try bold man bun styles virtually and see how they fit your face before ever picking up scissors.",
+        "Once your hair reaches the right length, the man bun becomes a go-to daily style. It's practical, clean, and keeps hair out of the way—perfect for hot days, workouts, or commuting. Minimal products. Quick styling. Big payoff.",
+        "Beyond style, a man bun can reflect confidence and individuality. It breaks old ideas of \"what a guy's hair should look like.\" Many use it to reshape identity after life changes or to creatively hide thinning spots with fades or layers. Whether you're reclaiming control or making a statement, the man bun is more than hair—it's expression."
+      ],
+              "image": {
+          "src": "/images/man-bun-hero.webp",
+          "alt": "man bun hero - stylish man showcasing man bun hairstyle variations"
+        },
+        "ctaText": "Try Man Bun Filter",
+        "ctaLink": "/ai-hairstyle?style=Man Bun",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+    }
+    ],
+    "howToUseSection": {
+      "title": "Try Your Man Bun in 3 Easy Steps",
+      "description": "No haircut. No regrets. Just upload, choose, and preview your man bun instantly with Hairstyle AI. It's fast, simple, and totally risk-free.",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Click the upload button and choose a clear photo of yourself. Make sure your face is visible, well-lit, and front-facing. Supported formats are PNG, JPG, or JPEG, and the image size should be under 3MB. No hats or sunglasses—keep it simple!"
+        },
+        {
+          "title": "Step 2: Pick a Man Bun Style",
+          "icon": "fas fa-palette",
+          "description": "Choose from our growing list of man bun styles—classic, messy, undercut, braided, and more. You can also try different hair colors. The AI will match your face shape and hairline automatically. Want to see how a messy bun looks with a fade? Just click and go."
+        },
+        {
+          "title": "Step 3: Let AI Work Its Magic",
+          "icon": "fas fa-magic",
+          "description": "Hairstyle AI uses advanced face mapping and texture detection to place the man bun perfectly on your head. It takes about 30 seconds to generate a realistic preview. Your skin tone, face shape, and lighting are all preserved. No weird distortions!"
+        },
+        {
+          "title": "Step 4: Download or Share",
+          "icon": "fas fa-download",
+          "description": "Once done, download your image or share it directly to Instagram, TikTok, or send it to friends. Your photo is never saved—we delete it right after generation to protect your privacy."
+        }
+      ],
+              "image": {
+          "src": "/images/man-bun-howto.webp",
+          "alt": "man bun howto - step by step guide on how to use man bun filter"
+        },
+        "ctaText": "Try Man Bun Filter",
+        "ctaLink": "/ai-hairstyle?style=Man Bun"
+    },
+    "ctaSections": [
+      {
+        "title": "For Your Next Haircut Decision",
+        "description": "Thinking about growing your hair long but unsure how it'll look when tied up? The man bun can be a bold move, and Hairstyle AI helps you make that decision with confidence. Whether you're just starting to grow it out or already halfway through the awkward in-between stage, our AI tool gives you a real preview of what you'll look like with different man bun styles—classic, undercut, messy, braided, or low. You no longer have to guess or scroll through random photos hoping to find someone who looks like you.",
+        "image": {
+          "src": "/images/man-bun-hero3.webp",
+          "alt": "man bun hero3 - preview man bun before growing real hair"
+        },
+        "ctaText": "Try Man Bun Filter",
+        "ctaLink": "/ai-hairstyle?style=Man Bun"
+      },
+      {
+        "title": "Social Media Content or Fun Edits",
+        "description": "Not ready to change your look for real, but curious what you'd look like with a man bun? Want to prank your friends or drop a style bomb on Instagram or TikTok? Hairstyle AI makes it easy—and hilarious. Just upload a photo, pick your bun style, and share it instantly. You can go from straight-laced office guy to rugged, messy bun rebel in less than a minute. Perfect for profile pictures, stories, meme edits, and challenge content, the man bun filter is a low-effort, high-impact way to grab attention.Try a smooth undercut, a bold top knot, or even a braided bun—no styling products or salon visits required.",
+        "image": {
+          "src": "/images/man-bun-social.webp",
+          "alt": "man bun social - fun man bun transformation for social media posts"
+        },
+        "ctaText": "Try Man Bun Filter",
+        "ctaLink": "/ai-hairstyle?style=Man Bun"
+      },
+      {
+        "title": "Trying to Cover Hair Loss",
+        "description": "Hair thinning or a receding hairline can affect confidence—but the right hairstyle can make a huge difference. Many users explore man buns not just for fashion, but to smartly conceal sparse areas. Whether you're dealing with male pattern baldness or general thinning, certain styles like low buns or buns with undercut fades can shift attention away from hairlines and toward a cleaner, well-kept profile.",
+        "image": {
+          "src": "/images/man-bun-hero4.webp",
+          "alt": "man bun hero4 - man bun hairstyle for men with thinning hair"
+        },
+        "ctaText": "Try Man Bun Filter",
+        "ctaLink": "/ai-hairstyle?style=Man Bun"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Try Our Man Bun Simulator?",
+      "features": [
+        {
+          "icon": "fas fa-mouse-pointer",
+          "title": "Easy, Free & No Sign-Ups",
+          "description": "Just upload a photo and hit \"Generate.\" That's it. No app downloads, no logins. Whether you're on your phone or computer, our tool works fast and free in your browser—zero tech skills needed."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Tons of Styles & Colors",
+          "description": "Explore 60+ hairstyles and 19 hair colors—including messy man buns, top knots, and low buns. Try classic or modern styles, mix colors, and find the combo that fits your mood, vibe, or next big hair goal."
+        },
+        {
+          "icon": "fas fa-eye",
+          "title": "Real, Natural-Looking Results",
+          "description": "No weird filters or cartoon faces here. Our AI maps your face and blends the style naturally. You'll see exactly how a man bun would look on your head—from angles, light, and even hair texture."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "No Data Stored—Ever",
+          "description": "Your photos are gone the second you're done. We don't save anything. You get privacy, peace of mind, and the freedom to try as many styles as you want—risk-free and judgment-free."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I've always had fine hair and wasn't sure a man bun would work for me. Hairstyle AI showed me exactly how a low bun with an undercut would look. The before-after image blew my mind. I actually took it to my barber—and it worked perfectly!",
+        "author": "@Brandon Lee",
+        "title": "Software Engineer",
+        "rating": 5.0
+      },
+      {
+        "quote": "My hair is super thick and curly. I never thought I could pull off a man bun. The AI filter gave me a realistic look with a messy style. Seeing it made me feel more confident, and now I wear it every day. The before photo doesn't even look like me anymore.",
+        "author": "@Tyler Morgan",
+        "title": "Fitness Coach",
+        "rating": 5.0
+      },
+      {
+        "quote": "I used Hairstyle AI while going through the awkward grow-out phase. It helped me visualize how far I needed to go and which bun styles fit my oval face. The side-by-side preview kept me motivated—and now I'm rocking the bun I always wanted.",
+        "author": "@Jason Carter",
+        "title": "Freelance Designer",
+        "rating": 4.0
+      },
+      {
+        "quote": "My receding hairline made me insecure about growing my hair. I tried the man bun filter and was surprised—certain styles actually balanced my look. I chose a low fade with a half bun, and the change was incredible. Even my friends noticed.",
+        "author": "@Ethan Rivera",
+        "title": "Musician",
+        "rating": 5.0
+      },
+      {
+        "quote": "I used the man bun filter just for fun, but it ended up changing my entire look. The preview felt so real, and I tried three styles before finding the perfect one. Now I've got photos from before and after—and honestly, I look way better now.",
+        "author": "@Noah Patterson",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've always played it safe with short hair. This tool let me try something bold without the risk. I chose a classic man bun with highlights, and the transformation in the AI preview gave me confidence to go for it. Best decision ever.",
+        "author": "@Chris Daniels",
+        "title": "Marketing Consultant",
+        "rating": 4.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "Am I suitable for a man bun?",
+        "answer": "Yes, most people can pull off a man bun—it all depends on your face shape, hair length, and confidence. Oval, square, and heart-shaped faces generally work best, but you can adjust bun height and tightness to flatter different features."
+      },
+      {
+        "question": "Does a man bun cause hair loss?",
+        "answer": "Man buns themselves don't cause hair loss—but wearing them too tightly for long periods can. This leads to a condition called traction alopecia, which happens when constant tension pulls on your hair roots. The good news is, it's easy to prevent. Use soft fabric hair ties, avoid tying your hair in the exact same spot every day, and let your scalp rest by keeping buns loose."
+      },
+      {
+        "question": "What if my hair isn't long enough?",
+        "answer": "If your hair isn't quite long enough for a bun, don't worry—it's part of the process. Most buns need at least 6–8 inches of hair, depending on thickness and style. The awkward middle-length phase can be tough, but Hairstyle AI helps you stay motivated by showing what your future look will be like. Use clips or headbands in the meantime, and experiment with half-up styles. Seeing your goal ahead makes it easier to push through. You'll be surprised how quickly your hair grows when you're excited about what's coming."
+      },
+      {
+        "question": "How do I maintain a man bun?",
+        "answer": "Maintaining a man bun is easier than you think. Start by washing your hair 2–3 times a week using gentle shampoo and conditioner to avoid drying it out. Apply leave-in conditioner or serum to control frizz and keep it healthy. Comb it back gently and tie it with a fabric or spiral hair tie to avoid damage. Trim split ends every 2–3 months to keep your hair looking fresh."
+      },
+      {
+        "question": "How do people perceive this style socially?",
+        "answer": "Perceptions of the man bun vary, but overall it's become widely accepted—especially in urban, creative, and fashion-forward communities. For many, it's a symbol of confidence, individuality, and style freedom. Of course, you may still get mixed reactions depending on your environment or industry."
+      },
+      {
+        "question": "Will the AI hairstyle filter change my face?",
+        "answer": "No. Hairstyle AI does not change your face, skin tone, or facial structure. Our tool uses facial mapping to place the hairstyle naturally over your actual features, preserving your unique look. That means no weird face reshaping or artificial editing—it's you, just with a different hairstyle. This way, you can get a realistic preview of how a man bun fits your face and head shape, helping you make confident, informed decisions. If you like what you see, you'll know it's a good match in real life too."
+      },
+      {
+        "question": "What face shapes work best for a man bun?",
+        "answer": "Man buns tend to look best on oval, square, and heart-shaped faces. These shapes balance the top-heavy volume of a bun well. If you have a long or narrow face, a low bun or loose style is better than a high tight knot, which can make your face look longer. Round faces often work with messy or off-center buns to add visual height."
+      },
+      {
+        "question": "How to get through the awkward hair growth phase?",
+        "answer": "The awkward phase is real—but manageable. Step 1: Use headbands or clips to control unruly strands. Step 2: Avoid trimming the top—focus on shaping the sides if needed. Step 3: Keep your hair moisturized to reduce frizz and dryness. Step 4: Try temporary styles like half buns or low knots."
+      },
+      {
+        "question": "Is a man bun hard to manage?",
+        "answer": "Not at all. Once your hair reaches the right length, a man bun can actually be one of the easiest styles to maintain. Just tie it back and you're good to go. It's great for workouts, hot days, or casual looks. You don't need fancy tools—just a good tie, occasional wash days, and basic trimming. Some users even say it's easier than managing short styles because there's less daily styling required."
+      },
+      {
+        "question": "Can I tie a bun if I have damaged or thin hair?",
+        "answer": "Yes, but you need to be gentle. For damaged or thinning hair, avoid tight buns and heavy styling products. Instead, go for looser buns or half-up styles that reduce tension on your scalp. Use soft ties, and don't pull your hair too tightly when tying it up. The right style can even help mask thinning areas."
+      },
+      {
+        "question": "Will I be judged as too feminine?",
+        "answer": "The man bun used to spark debate—but times have changed. Today, it's seen more as a symbol of confidence and self-expression than anything else. Whether you're into streetwear, fashion, or just want a clean, tied-up look, a man bun fits right in. If you're worried about perception, start with a subtle low bun or pair it with a fade."
+      },
+      {
+        "question": "What is a man bun?",
+        "answer": "A man bun is a hairstyle where long hair is pulled back and tied into a bun at the top, middle, or lower part of the back of the head. It's often worn tight and sleek, or loose and messy depending on the look you're going for. Variations include undercut buns, top knots, and half-up styles. It has evolved into a modern trend that balances style, practicality, and personality. Whether for convenience or bold self-expression, the man bun offers versatility for all kinds of lifestyles and looks."
+      },
+      {
+        "question": "How to tie a man bun?",
+        "answer": "Step-by-step: 1. Brush your hair back—use a comb to smooth out tangles. 2. Gather your hair at the crown or back of your head. 3. Twist it into a circular bun shape using both hands. 4. Secure with a soft elastic band—avoid anything too tight or rough. 5. Adjust for comfort—loosen strands slightly or leave some hair out for a messy effect. This works for medium to long hair. For shorter hair, try a half bun or use pins for support."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "More Free AI Tools from Hairstyle AI",
+      "tools": [
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "link": "/buzz-cut-filter",
+          "image": "/images/buzz-cut-hero.webp"
+        },
+        {
+          "title": "Hairstyle for Male",
+          "description": "Discover Perfect Men's Haircuts",
+          "link": "/hairstyles-for-men",
+          "image": "/images/man-hair-hero.webp"
+        },
+        {
+          "title": "Pompadour Filter",
+          "description": "Try Classic Pompadour Styles Risk-Free",
+          "link": "/pompadour",
+          "image": "/images/pompadour-hero-2man.webp"
+        }
+      
+      ]
+    },
+    "finalCta": {
+      "title": "Explore Man Bun Styles Online for Free",
+      "description": "See what a man bun looks like on you—instantly and risk-free. No edits to your face, no filters, just real results from Hairstyle AI.",
+      "ctaText": "Try Man Bun Filter →",
+      "ctaLink": "/ai-hairstyle?style=Man Bun"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/man-bun",
+      "name": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+      "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "12450"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+          "item": "https://hair-style.ai/man-bun"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+      "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+      "canonical": "https://hair-style.ai/man-bun",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+        "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+        "url": "https://hair-style.ai/man-bun",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/man-bun-hero2.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+        "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
+        "images": ["https://hair-style.ai/images/man-bun-hero2.webp"]
+      }
+    }
+  }

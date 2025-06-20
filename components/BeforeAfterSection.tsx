@@ -45,9 +45,9 @@ export default function BeforeAfterSection({ beforeAfterGallery }: BeforeAfterSe
                 className="w-full h-auto rounded-lg object-contain cursor-pointer hover:shadow-xl transition-shadow duration-300"
               />
               <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800 text-center">
+                <p className="text-lg font-semibold text-gray-800 text-center">
                   {image.name}
-                </h3>
+                </p>
               </div>
             </div>
           ))}

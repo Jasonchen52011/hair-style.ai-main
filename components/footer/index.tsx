@@ -99,6 +99,11 @@ export default function Footer() {
                                     Pompadour
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/man-bun" className="text-gray-400 hover:text-white transition-colors">
+                                    Man Bun
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 
