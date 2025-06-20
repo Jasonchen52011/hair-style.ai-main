@@ -7,7 +7,7 @@ export default function Footer() {
     return (
         <footer className="bg-black text-white py-16">
             <div className="container mx-auto px-4">
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12">
                     {/* Column 1 - Logo and Description */}
                     <div className="space-y-6 text-center md:text-left">
                         <div className="flex items-center gap-3 justify-center md:justify-start">
@@ -28,9 +28,26 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {/* Column 2 - Hairstyle Types */}
+                    {/* Column 2 - Hairstyle */}
                     <div className="text-center md:text-left">
-                        <h3 className="text-xl font-semibold mb-6">Hairstyle Filters</h3>
+                        <h3 className="text-xl font-semibold mb-6">Hairstyle</h3>
+                        <ul className="space-y-4">
+                            <li>
+                                <Link href="/hairstyles-for-men" className="text-gray-400 hover:text-white transition-colors">
+                                    Hairstyle Simulator for Male
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/hairstyles-for-women" className="text-gray-400 hover:text-white transition-colors">
+                                    Hairstyle Simulator for Female
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Column 3 - Blog */}
+                    <div className="text-center md:text-left">
+                        <h3 className="text-xl font-semibold mb-6">Blog</h3>
                         <ul className="space-y-4">
                             <li>
                                 <Link href="/buzz-cut-filter" className="text-gray-400 hover:text-white transition-colors">
@@ -77,20 +94,10 @@ export default function Footer() {
                                     Low Fade Haircut Filter
                                 </Link>
                             </li>
-                            <li>
-                                <Link href="/hairstyles-for-men" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyle Simulator for Male
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/hairstyles-for-women" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyle Simulator for Female
-                                </Link>
-                            </li>
                         </ul>
                     </div>
 
-                    {/* Column 3 - Company Links */}
+                    {/* Column 4 - Company Links */}
                     <div className="text-center md:text-left">
                         <h3 className="text-xl font-semibold mb-6">Company</h3>
                         <ul className="space-y-4">
@@ -112,7 +119,7 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Column 4 - Connect */}
+                    {/* Column 5 - Connect */}
                     <div className="text-center md:text-left">
                         <h3 className="text-xl font-semibold mb-6">Connect With Us</h3>
                         <div className="space-y-4">
