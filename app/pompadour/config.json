@@ -9,7 +9,7 @@
     },
     "imageConfig": {
       "displayHeight": 600,
-      "image": "/images/pompadour-h1.webp",
+      "image": "/images/pompadour-hero.webp",
       "alt": "Pompadour haircut transformation result - classic pompadour styling"
     },
     "beforeAfterGallery": {
@@ -357,7 +357,7 @@
         "type": "website",
                 "images": [
             {
-              "url": "https://hair-style.ai/images/pompadour-h1.webp",
+              "url": "https://hair-style.ai/images/pompadour-hero.webp",
               "width": 1920,
               "height": 1080,
               "alt": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
@@ -370,7 +370,7 @@
         "site": "@hair_styleai",
         "title": "Try the Classic Pompadour Hairstyle with Hairstyle AI",
         "description": "Test different pompadour hairstyles risk-free. Upload your photo, try fades, undercuts, or classic looks instantly. Trusted AI hairstyle changer with 60+ cuts.",
-        "images": ["https://hair-style.ai/images/pompadour-h1.webp"]
+        "images": ["https://hair-style.ai/images/pompadour-hero.webp"]
       }
     }
   }
