@@ -1,0 +1,446 @@
+{
+    "heroSection": {
+      "title": "Undercut Haircut Filter Online for Free",
+      "description": "Preview an edgy undercut in seconds. See yourself with a trendy new look with Hairstyle AI. No risk, no regret—just see what fits your face, style, and vibe before you cut.",
+      "rating": 4.8,
+      "statsText": "245,000+ virtual undercut hairstyles transformed",
+      "ctaText": "Try Undercut Filter",
+      "ctaLink": "/ai-hairstyle?style=Undercut",
+      "styleConfig": {
+        "layout": {
+          "imageRatio": "3/5",
+          "textRatio": "2/5",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-3xl",
+            "desktop": "text-5xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "spacing": "mb-6"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-500",
+          "fontWeight": "font-medium",
+          "spacing": "mb-8"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/undercut-hero.webp",
+      "alt": "Undercut hero - modern person with stylish undercut hairstyle"
+    },
+    "beforeAfterGallery": {
+      "title": "Undercut Transformations: Before & After with AI",
+      "description": "Get a feel for what your own undercut might look like. These user-generated transformations show you how a small haircut change can make a big style difference.",
+      "images": [
+        {
+          "src": "/images/undercut-20oldman.webp",
+          "alt": "undercut 20 oldman - older man with classic undercut hairstyle transformation"
+        },
+        {
+          "src": "/images/undercut-30oldman.webp",
+          "alt": "undercut 30 oldman - 30-year-old man with modern undercut style"
+        },
+        {
+          "src": "/images/undercut-40oldman.webp",
+          "alt": "undercut 40 oldman - 40-year-old man with sleek undercut styling"
+        },
+        {
+          "src": "/images/undercut-50oldfatman.webp",
+          "alt": "undercut 50 oldfatman - mature man with elegant undercut hairstyle"
+        },
+        {
+          "src": "/images/undercut-20women.webp",
+          "alt": "undercut 20 women - young woman with trendy undercut style"
+        },
+        {
+          "src": "/images/undercut-55oldman.webp",
+          "alt": "undercut 55 oldman - older man with sophisticated undercut"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Does the Undercut Fit Your Look?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, Square, Heart"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.8 / 5.0"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Bold, Classic, Edgy"
+        },
+        {
+          "feature": "Length",
+          "description": "Short to Medium Top"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Low to Medium (2–4 week trims)"
+        }
+      ],
+      "textContent": [
+        "Thinking about trying an undercut haircut? Let's talk face shape. Oval and egg-shaped faces are the luckiest—they pull off almost any undercut. Got a square face? Add length on top to soften angles. Heart-shaped faces? Try a longer top and avoid shaving too high. Long faces? Keep it balanced—don't trim the sides too tight.",
+        "Now hair type. Thick hair? You're golden—undercuts look sharp and clean. Fine or thin hair? Go with a messy style or textured crop to add volume. Curly? My barber friend says go bold or go home—curly undercuts pop when shaped right. For sparse hair or receding lines, a low undercut can frame the face just right.",
+        "I've seen so many people light up after seeing themselves with an undercut. I tried it on Hairstyle AI and thought, \"Hey, I actually love this on me.\""
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "What It's Like to Have an Undercut as a Woman",
+        "textContent": [
+        "The first time I shaved part of my head, I didn't do it for fashion. I just wanted to feel lighter. My hair was thick, hot, and hard to deal with. One side undercut, and suddenly I felt cooler—literally and emotionally.",
+        "It gave me space—less hair tugging at me, less heat on my neck. I didn't expect how much I'd like that feeling. It wasn't just about how it looked (though it did look sharp), it was about what it did for me. It made mornings easier. It made me feel brave.",
+        "People stared sometimes. Some liked it. Some didn't. But it was mine. And it felt honest. My mom hated it, my best friend wanted one the next day. Everyone had an opinion. That was part of the fun.",
+        "Undercuts don't ask you to fit in. They ask you if you're okay being seen. I learned I was."
+      ],
+              "image": {
+          "src": "/images/undercut-hero5.webp",
+          "alt": "undercut 20 women - woman with edgy undercut hairstyle showing confidence"
+        },
+        "ctaText": "Try Undercut Filter",
+        "ctaLink": "/ai-hairstyle?style=Undercut",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+    }
+    
+    ],
+    "howToUseSection": {
+      "title": "Try a New Look in Just a Few Steps",
+      "description": "No sign-ups. No downloads. Just upload your photo and let the AI do the rest. In minutes, you'll see a whole new hairstyle on your real face—no filters, no changes to your skin tone or features.",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Pick a clear photo of your face, facing forward. Good lighting helps. Supported formats include JPG, JPEG, and PNG. Max size is 3MB. Make sure your hair is visible and nothing is blocking your face."
+        },
+        {
+          "title": "Step 2: Choose a Hairstyle and Color",
+          "icon": "fas fa-palette",
+          "description": "Browse from 60+ hairstyles, including undercut, buzz, waves, or man bun. Pick your favorite, then try out 19 different hair colors—from natural tones to bold highlights."
+        },
+        {
+          "title": "Step 3: Generate Your Look",
+          "icon": "fas fa-magic",
+          "description": "Click \"Generate\" and the AI goes to work. It matches your face shape, lighting, and angles to apply the hairstyle naturally. Wait about 60 seconds—then boom, your new look is ready."
+        },
+        {
+          "title": "Step 4: Download or Share",
+          "icon": "fas fa-download",
+          "description": "Like the result? Save it right away. You can download the image to your device or send it to friends via social media. Your original and edited photos are not stored—they're deleted after you're done."
+        }
+      ],
+              "image": {
+          "src": "/images/undercut-howto.webp",
+          "alt": "undercut howto - step by step guide on how to use undercut filter"
+        },
+        "ctaText": "Try Undercut Filter",
+        "ctaLink": "/ai-hairstyle?style=Undercut"
+    },
+    "ctaSections": [
+      {
+        "title": "Deciding Before the Barber",
+        "description": "You're thinking about a big haircut change—maybe an undercut, fade, or something shorter. But you're not sure if it fits. Before you make a permanent decision, you try the style virtually. You upload a photo, select a few options, and instantly see how you'd look. That preview gives you the confidence to book the appointment—or rethink it. It's all about avoiding regret.",
+        "image": {
+          "src": "/images/undercut-hero4.webp",
+          "alt": "undercut hero4 - deciding on undercut hairstyle before visiting barber"
+        },
+        "ctaText": "Try Undercut Filter",
+        "ctaLink": "/ai-hairstyle?style=Undercut"
+      },
+      {
+        "title": "Posting for Fun on Social Media",
+        "description": "Sometimes you don't want to actually cut your hair. You just want to play. Maybe you upload a photo, try out a blonde buzz or a long undercut fade, and send the look to your group chat. Friends react with fire emojis or \"OMG is this real?\" You post it to TikTok or Instagram just to see who thinks it's legit.",
+        "image": {
+          "src": "/images/undercut-social.webp",
+          "alt": "undercut social - fun undercut transformation for social media posts"
+        },
+        "ctaText": "Try Undercut Filter",
+        "ctaLink": "/ai-hairstyle?style=Undercut"
+      },
+      {
+        "title": "Trying Something New After a Life Change",
+        "description": "Breakup? New job? Moving to a new city? Those moments often come with the urge to change your look. Hairstyle AI lets you test out styles that match how you feel now. You may go bold with a disconnected undercut or soft with a short textured fringe. Either way, you see it before you live it.",
+        "image": {
+          "src": "/images/undercut-hero2.webp",
+          "alt": "undercut hero5 - new undercut hairstyle for life changes"
+        },
+        "ctaText": "Try Undercut Filter",
+        "ctaLink": "/ai-hairstyle?style=Undercut"
+      },
+      {
+        "title": "Helping with Hair Loss or Confidence",
+        "description": "For people dealing with hair thinning or changes in hair texture, finding the right haircut can be tricky. With Hairstyle AI, they can test cuts that reduce volume or show off shape. Trying a low fade or soft taper virtually helps them find a style that works—without feeling pressured or judged. It's a calm, private way to explore what feels good.",
+        "image": {
+          "src": "/images/undercut-hero3.webp",
+          "alt": "undercut 20 old man hair loss - undercut hairstyle for men with confidence boost"
+        },
+        "ctaText": "Try Undercut Filter",
+        "ctaLink": "/ai-hairstyle?style=Undercut"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why People Choose Hairstyle AI",
+      "features": [
+        {
+          "icon": "fas fa-dollar-sign",
+          "title": "It's Free and Easy to Use",
+          "description": "No need to create an account. Just upload, pick a style, and click generate. Your result is ready in about a minute, and you don't pay a cent."
+        },
+        {
+          "icon": "fas fa-paint-brush",
+          "title": "More Styles, More Colors",
+          "description": "You can try over 60 hairstyles—long, short, curly, sleek—and 19 different hair colors. Want an undercut in ash gray or a bob in copper red? Go for it."
+        },
+        {
+          "icon": "fas fa-user-check",
+          "title": "Realistic Results, No Face Change",
+          "description": "What you see is what you get. The AI doesn't change your skin tone, facial features, or expressions. It only swaps the hair—so it still looks like you."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Privacy First",
+          "description": "Your photos are not stored. After you generate your new look, the images are deleted automatically. Nothing is saved, and no one else sees your photo unless you share it."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I tried the Undercut filter on Hairstyle AI just for fun. I've got thick curly hair and never thought it'd work—but wow! It nailed my look. The \"before\" photo was all poofy and messy. The \"after\"? Super clean with a curly undercut fade. Now I'm actually thinking of bringing this to a barber. I showed my friends, and they thought it was real!",
+        "author": "@Jason Miller",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've always wanted a bold look but was scared to chop my long hair. Hairstyle AI's undercut pixie preview gave me the confidence I needed. Seeing my face with an undercut bob blew my mind—it was edgy, stylish, and totally me. My \"before\" looked shy, my \"after\" screamed confidence. I booked a haircut the same week!",
+        "author": "@Emily Roberts",
+        "title": "Graphic Designer",
+        "rating": 5.0
+      },
+      {
+        "quote": "Short hair fits my lifestyle, but I wanted something cooler than my usual buzz. Hairstyle AI's Undercut filter helped me test a disconnected undercut with a fade. The result? Way better than I expected. It even worked well with my thinning crown—looked sharp and full in the after photo. 10/10 would recommend.",
+        "author": "@Marcus Lee",
+        "title": "Fitness Coach",
+        "rating": 5.0
+      },
+      {
+        "quote": "I used the undercut women filter just to play around, and it ended up changing my whole look! I have wavy hair, and the tool showed how a medium undercut with shaved sides would actually bring out my cheekbones. The contrast was fire. Before: bland. After: badass. I saved the photo and brought it to my stylist.",
+        "author": "@Rachel Thompson",
+        "title": "Tattoo Artist",
+        "rating": 5.0
+      },
+      {
+        "quote": "I'd been rocking long hair forever. Tried the long hair undercut on Hairstyle AI and was shocked. It kept my length but added shape and edge. The simulated photo showed this chill, rockstar vibe. It even showed how it'd fall over my face in real life. Love how real it looked.",
+        "author": "@Chris Evans",
+        "title": "Musician",
+        "rating": 4.0
+      },
+      {
+        "quote": "I used to think undercuts weren't for women like me—curly hair, round face. Hairstyle AI proved me wrong! The curly undercut version looked amazing. It framed my face so well, and the shaved side made my curls pop. I took a screenshot and shared it on TikTok—people went wild!",
+        "author": "@Vanessa Moore",
+        "title": "Content Creator",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "Does the Undercut filter work for all hair types?",
+        "answer": "Yes! The Undercut filter on Hairstyle AI works with straight, wavy, curly, or coily hair. Our AI analyzes your face and hair texture to generate a realistic transformation. Whether you're rocking Type 1 or Type 4 hair, you'll get a preview that fits your style and face shape."
+      },
+      {
+        "question": "Will an Undercut reduce bulk?",
+        "answer": "Yes, an undercut haircut is perfect if you're looking to reduce hair volume. By shaving or trimming the sides or back, it removes bulk and makes your hair feel lighter—especially helpful for thick or heavy hair. It's a great way to keep your style cool and manageable."
+      },
+      {
+        "question": "How do I get through the awkward phase after an Undercut?",
+        "answer": "Here's a step-by-step: 1. Let the shaved area grow out naturally. 2. Trim the top to balance the length difference. 3. Try styles like braids or slick-backs. 4. Use headbands or caps when needed."
+      },
+      {
+        "question": "What is an Undercut?",
+        "answer": "An undercut is a haircut where the sides or back are shaved or clipped short while the top is left longer. It creates a bold contrast and works with many styles—fade, curly, long, or disconnected. It's trendy, edgy, and super customizable for both men and women."
+      },
+      {
+        "question": "Is the Undercut good for women too?",
+        "answer": "Absolutely! The undercut women trend is huge. It's a stylish, confident look that works with all hair lengths—pixie, bob, long layers. You can keep it subtle or go bold with shaved designs. It's not just a guy thing anymore. Many girls love the freedom and edge it brings."
+      },
+      {
+        "question": "How long is Undercut #1 to #6?",
+        "answer": "Each number represents a different guard length used by barbers: #1 = 1/8 inch (3mm), #2 = 1/4 inch (6mm), #3 = 3/8 inch (10mm), #4 = 1/2 inch (13mm), #5 = 5/8 inch (16mm), #6 = 3/4 inch (19mm). The higher the number, the longer the hair left on the sides."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "More Free AI Tools from Hairstyle AI",
+      "tools": [
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "link": "/buzz-cut-filter",
+          "image": "/images/buzz-cut-hero.webp"
+        },
+        {
+          "title": "Hairstyle for Male",
+          "description": "Discover Perfect Men's Haircuts",
+          "link": "/hairstyles-for-men",
+          "image": "/images/man-hair-hero.webp"
+        },
+        {
+          "title": "Pompadour Filter",
+          "description": "Try Classic Pompadour Styles Risk-Free",
+          "link": "/pompadour",
+          "image": "/images/pompadour-hero-2man.webp"
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Try the Undercut Filter for Free",
+      "description": "Upload your photo and test out bold, trendy undercut hairstyles in just one minute—risk-free and totally realistic.",
+      "ctaText": "Try Undercut Filter →",
+      "ctaLink": "/ai-hairstyle?style=Undercut"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/undercut",
+      "name": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
+      "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI in seconds. Try it risk-free with just one photo!",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "18650"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
+          "item": "https://hair-style.ai/undercut"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
+      "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI in seconds. Try it risk-free with just one photo!",
+      "canonical": "https://hair-style.ai/undercut",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
+        "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI in seconds. Try it risk-free with just one photo!",
+        "url": "https://hair-style.ai/undercut",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/undercut-hero.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
+        "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI in seconds. Try it risk-free with just one photo!",
+        "images": ["https://hair-style.ai/images/undercut-hero.webp"]
+      }
+    }
+  }
