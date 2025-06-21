@@ -147,6 +147,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Preview Undercut Styles Risk-Free",
       link: "/undercut",
       image: "/images/undercut-hero.webp"
+    },
+    "Textured Fringe Filter": {
+      title: "Textured Fringe Filter",
+      description: "Try Textured Fringe Styles Risk-Free",
+      link: "/textured-fringe",
+      image: "/images/textured-fringe-hero2.webp"
     }
   };
 
