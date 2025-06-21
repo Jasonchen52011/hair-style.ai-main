@@ -109,6 +109,11 @@ export default function Footer() {
                                     Undercut
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/textured-fringe" className="text-gray-400 hover:text-white transition-colors">
+                                    Textured Fringe
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

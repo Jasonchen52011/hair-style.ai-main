@@ -1,0 +1,512 @@
+{
+    "heroSection": {
+      "title": "Textured Fringe Haircut Try It Before You Cut It",
+      "description": "Hairstyle AI helps you try textured fringe styles on your own face—fast and for free. Upload a photo, pick a style, and see realistic results in under 30 seconds. No need to guess if it fits your face or hair. Our AI hairstyle changer supports 60+ haircuts and 19 colors. Confident, stylish choices—made easy.",
+      "rating": 4.7,
+      "statsText": "190,000+ virtual textured fringe hairstyles transformed",
+      "ctaText": "Try Textured Fringe Filter",
+      "ctaLink": "/ai-hairstyle?style=Textured Fringe"
+    },
+    "heroSectionStyleConfig": {
+      "layout": {
+        "leftRatio": "1",
+        "rightRatio": "1",
+        "gap": "gap-2",
+        "imageOrder": "right",
+        "textOrder": "left"
+      },
+      "title": {
+        "fontSize": {
+          "mobile": "text-3xl",
+          "desktop": "text-5xl"
+        },
+        "fontWeight": "font-extrabold",
+        "color": "text-gray-900",
+        "spacing": "mb-6"
+      },
+      "description": {
+        "fontSize": {
+          "mobile": "text-base",
+          "desktop": "text-lg"
+        },
+        "color": "text-gray-700",
+        "spacing": "mb-6"
+      },
+      "statsText": {
+        "fontSize": {
+          "mobile": "text-sm",
+          "desktop": "text-base"
+        },
+        "color": "text-gray-600",
+        "fontWeight": "font-medium"
+      },
+      "button": {
+        "background": "bg-purple-600",
+        "backgroundHover": "hover:bg-purple-700",
+        "textColor": "text-white",
+        "fontSize": "text-lg",
+        "fontWeight": "font-bold",
+        "padding": "px-8 py-4",
+        "borderRadius": "rounded-xl"
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 380,
+      "image": "/images/textured-fringe-hero.webp",
+      "alt": "Textured fringe hero - modern textured fringe hairstyle transformation"
+    },
+    "beforeAfterGallery": {
+      "title": "More Than Just Textured Fringe",
+      "description": "Play with different fringe haircuts and more: pompadour, comb over, high tight fade, or even cornrow braids. Hairstyle AI puts 60+ looks at your fingertips—plus 19 hair colors. See what suits you before you commit.",
+      "images": [
+        {
+          "src": "/images/textured-fringe-lowfade.webp",
+          "alt": "Textured fringe lowfade - young man with layered textured fringe transformation"
+        },
+        {
+          "src": "/images/textured-fringe-lowfade2.webp",
+          "alt": "Textured fringe lowfade2 - man with side-swept textured fringe transformation"
+        },
+        {
+          "src": "/images/textured-fringe-child.webp",
+          "alt": "Textured fringe highfade - man with choppy textured fringe transformation"
+        },
+        {
+          "src": "/images/textured-fringe-highfade3.webp",
+          "alt": "Textured fringe highfade3 - man with soft textured fringe transformation"
+        },
+        {
+          "src": "/images/textured-fringe-highfade4.webp",
+          "alt": "Textured fringe highfade4 - man with short textured fringe transformation"
+        },
+        {
+          "src": "/images/textured-fringe-culy.webp",
+          "alt": "Textured fringe culy - man with modern curly textured fringe styling transformation"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Is the Textured Fringe Right for My Face Shape?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, heart, long, square"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.7"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Layered, edgy, modern"
+        },
+        {
+          "feature": "Length",
+          "description": "Short to medium"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Medium – needs styling but not high upkeep"
+        }
+      ],
+      "textContent": [
+        "If you've been wondering whether the textured fringe haircut will work for you—good news: it fits more face shapes than you think.",
+        "Oval or egg-shaped faces are a perfect match. Your balanced proportions make it easy to pull off almost any variation—from blunt to layered fringe.",
+        "For square faces, go for a softer, wispy fringe. This helps tone down the sharp jawline and adds softness. Avoid thick or straight-across styles—they may look too harsh.",
+        "Heart-shaped faces look amazing with a light, side-swept fringe. This draws attention away from the wider forehead and balances your chin area.If you have a long face, a deep, piecey fringe that sits just above your eyebrows works best. It visually shortens the face and adds proportion. Avoid fringes that are too short or uneven—they’ll stretch the face even more.",
+        "Round faces benefit from a choppy, voluminous fringe that breaks the circle. Skip heavy, straight bangs—they’ll emphasize roundness."
+      ],
+      "styleConfig": {
+        "layout": {
+          "leftRatio": "2",
+          "rightRatio": "2", 
+          "gap": "gap-4"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-2xl",
+            "desktop": "text-4xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-800",
+          "spacing": "mb-8"
+        },
+        "tableHeader": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "fontWeight": "font-semibold", 
+          "color": "text-gray-800",
+          "background": "bg-purple-50"
+        },
+        "tableContent": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-700",
+          "featureFontWeight": "font-medium"
+        },
+        "textContent": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-700",
+          "lineHeight": "leading-relaxed",
+          "spacing": "space-y-3"
+        }
+      }
+    },
+    "additionalSection": [
+      {
+        "title": "Does the Textured Fringe Work for My Hair Type?",
+        "textContent": [
+          "Absolutely. The textured fringe is surprisingly flexible—you just need to tweak it a bit depending on your hair type.",
+          "Got thick hair? Lucky you. Add texture with layers to take out bulk. My friend Sam (he’s a stylist) always says, “Thick hair? It just wants direction.”",
+          "Coarse or stubborn hair? Use some matte paste or styling clay after a blow-dry. Don’t fight the texture—use it to your advantage.",
+          "Fine or soft hair? Go light on the layers, and don’t overload it with product. A little sea salt spray goes a long way here.",
+          "If your hair’s thinning or sparse, keep the fringe short and feathered. It'll create the illusion of fullness without clumping together.",
+          "Curly hair? Heck yes. A messy textured fringe looks amazing with curls—just use curl cream and let them do their thing.",
+          "I didn’t think my fine hair could pull it off. But once I used a little powder at the roots and fluffed it out... game changer."
+      ],
+              "image": {
+          "src": "/images/textured-fringe-hero2.webp",
+          "alt": "Textured fringe hero2 - different textured fringe styles and variations guide"
+        },
+        "ctaText": "Try Textured Fringe Filter",
+        "ctaLink": "/ai-hairstyle?style=Textured Fringe",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+    }
+    ],
+    "howToUseSection": {
+      "title": "Try Your Textured Fringe in Just a Few Clicks",
+      "description": "Wondering how to see a textured fringe haircut on your face? It's super easy with Hairstyle AI. Just follow these steps—no sign-up, no stress. You'll get a realistic preview in under a minute.",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Pick a clear photo that shows your full face—no sunglasses or filters. Use PNG, JPG, or JPEG formats. Max size: 3MB. Look straight into the camera, good lighting helps a lot. Click the upload button and you're in!"
+        },
+        {
+          "title": "Step 2: Choose a Hairstyle",
+          "icon": "fas fa-palette",
+          "description": "Scroll through the list and select \"Textured Fringe.\" Want to try a different vibe? Pick from over 60+ styles and 19 color options. You can preview short, messy, wavy, or fringe with fade—whatever suits your mood."
+        },
+        {
+          "title": "Step 3: Click \"Generate\"",
+          "icon": "fas fa-magic",
+          "description": "Once you hit generate, the AI analyzes your face shape, hairstyle, and features. It takes about 30 seconds. No filters, no weird distortions—just a realistic look that keeps your face structure and skin tone the same."
+        },
+        {
+          "title": "Step 4: Download and Share",
+          "icon": "fas fa-download",
+          "description": "Like what you see? Download your new look or share it with friends on TikTok, Snapchat, or Instagram. It's private and safe—we never store your image. You can even test a new style before your next cut!"
+        }
+      ],
+              "image": {
+          "src": "/images/textured-fringe-howto.webp",
+          "alt": "Man hair textured fringe - how to use textured fringe filter step by step guide"
+        },
+        "ctaText": "Try Textured Fringe Filter",
+        "ctaLink": "/ai-hairstyle?style=Textured Fringe"
+    },
+    "ctaSections": [
+      {
+        "title": "See It Before You Cut It",
+        "textContent": [
+          "Thinking about getting a textured fringe haircut but still unsure if it's \"you\"? Hairstyle AI lets you try it virtually before you make the cut. Just upload your photo, pick the textured fringe style, and boom—you'll see a realistic version of your new look in seconds. You can test different fringe lengths, face coverage, and even choose colors to match your vibe. No more awkward salon surprises or regretful trims.",
+          "I used it the night before my haircut, just for fun. I showed the result to my stylist, and she said, \"Wow, this makes my job easier.\" I didn't expect the side-swept fringe to look that good on me—but now it's my everyday go-to. Honestly, I never would've tried bangs if not for this!"
+        ],
+        "image": {
+          "src": "/images/textured-fringe-hero3.webp",
+          "alt": "Textured fringe hero3 - textured fringe haircut preview before cutting real hair"
+        },
+        "ctaText": "Try Textured Fringe Filter",
+        "ctaLink": "/ai-hairstyle?style=Textured Fringe"
+      },
+      {
+        "title": "New Look, New Likes",
+        "textContent": [
+          "Need fresh content for TikTok or Instagram? The textured fringe filter on Hairstyle AI is a total game changer. You can try edgy, clean, or messy fringe styles that actually look like real hair—no silly stickers or fake cutouts. It works perfectly for before-after videos, beauty routines, or even reaction posts like “Should I get bangs?”",
+          "Last week I uploaded a fringe selfie from the app and told my followers I’d gotten a makeover. People went wild. My DMs were full of “Where did you get that cut?” and “Link your stylist!” The best part? I never left my house. Hairstyle AI is now part of my weekly content strategy—seriously, I’m obsessed."
+        ],
+        "image": {
+          "src": "/images/textured-fringe-social.webp",
+          "alt": "Textured fringe social - fun textured fringe transformation for social media posts"
+        },
+        "ctaText": "Try Textured Fringe Filter",
+        "ctaLink": "/ai-hairstyle?style=Textured Fringe"
+      },
+      {
+        "title": "Find Your Perfect Textured Fringe Look for Weddings or Prom",
+        "textContent": [
+          "Got a wedding, prom, or graduation coming up? The textured fringe is the perfect hairstyle to elevate your look—and Hairstyle AI helps you find the right version fast. Upload your outfit photo, try different fringe types, and match hair color to your dress or makeup. You can test a long fringe with waves for elegance, or go for a soft messy fringe for casual charm.",
+          "I used it the night before my haircut, just for fun. I showed the result to my stylist, and she said, \"Wow, this makes my job easier.\" I didn't expect the side-swept fringe to look that good on me—but now it's my everyday go-to. Honestly, I never would've tried bangs if not for this!"
+        ],
+        
+        "image": {
+          "src": "/images/textured-fringe-hero4.webp",
+          "alt": "Textured fringe hero4 - textured fringe haircut for special events like weddings and prom"
+        },
+        "ctaText": "Try Textured Fringe Filter",
+        "ctaLink": "/ai-hairstyle?style=Textured Fringe"
+      }
+    ],
+    "ctaSectionsStyleConfig": {
+      "layout": {
+        "imageRatio": "1",
+        "textRatio": "1",
+        "gap": "gap-3",
+        "alternateImageOrder": true
+      },
+      "title": {
+        "fontSize": {
+          "mobile": "text-2xl",
+          "desktop": "text-3xl"
+        },
+        "fontWeight": "font-bold",
+        "color": "text-gray-800",
+        "spacing": "mb-1"
+      },
+      "text": {
+        "fontSize": {
+          "mobile": "text-base",
+          "desktop": "text-base"
+        },
+        "color": "text-gray-700",
+        "lineHeight": "leading-relaxed",
+        "spacing": "space-y-3"
+      },
+      "button": {
+        "background": "bg-purple-600",
+        "backgroundHover": "hover:bg-purple-700",
+        "textColor": "text-white",
+        "fontSize": "text-base",
+        "fontWeight": "font-semibold",
+        "padding": "px-6 py-2",
+        "borderRadius": "rounded-xl"
+      }
+    },
+    "whyChooseSection": {
+      "title": "Why Hairstyle AI Is Your Best Choice for Trying a Textured Fringe",
+      "features": [
+        {
+          "icon": "fas fa-mouse-pointer",
+          "title": "It's Simple and Free",
+          "description": "You don't need an account, and you'll never be charged. Just upload your photo, pick a style, and let AI do the work. No hidden fees, no paywall—just instant results."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Tons of Hairstyles and Colors",
+          "description": "From textured fringe to curly shag and more, explore 60+ styles and 19 colors. Whether you want short, messy, sharp, or soft—there's a look for every mood and vibe."
+        },
+        {
+          "icon": "fas fa-eye",
+          "title": "Realistic Results That Match You",
+          "description": "Our AI keeps your face real. No fake filters, no weird skin tones. It respects your facial features and skin color, so you always see a true-to-you version of the hairstyle."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "We Protect Your Privacy",
+          "description": "Your photo is never stored or shared. Once your hairstyle is generated, the image is auto-deleted. What happens in Hairstyle AI stays with you—and only you."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I used Hairstyle AI to try a textured fringe before chopping off my long straight hair. The before pic looked plain; the after made me feel edgy and bold. I sent it to my stylist, and she copied it exactly. Honestly, it gave me the push I needed—I feel way more confident now.",
+        "author": "@Emily Carter",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've got thick, coarse hair and wasn't sure fringe would work. But I tried the layered textured fringe with fade using the simulator—it looked surprisingly clean. The before image looked bulky, but the after framed my face perfectly. My barber was impressed I came in prepared.",
+        "author": "@Marcus Hill",
+        "title": "Fitness Trainer",
+        "rating": 5.0
+      },
+      {
+        "quote": "My hair's super fine, so most styles fall flat. But the app showed a short textured fringe with soft waves that made my face pop. I was shocked at the difference in the before-after photos! This tool made it feel safe to experiment—and I ended up loving the real cut even more.",
+        "author": "@Rachel Greene",
+        "title": "Makeup Artist",
+        "rating": 4.0
+      },
+      {
+        "quote": "I've always kept my hair long and low maintenance. One day I tried the textured fringe style with blowout taper on Hairstyle AI, just for fun. The look totally changed my vibe. I took a screenshot, showed it to my stylist, and now it's my go-to haircut. Didn't think I'd ever love bangs!",
+        "author": "@Tyler Brooks",
+        "title": "Software Developer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I tried the messy textured fringe with a side part on Hairstyle AI before my friend's wedding. The tool showed how it'd look with my round face and curls. The before pic looked flat—after looked like red carpet! I loved the virtual try-on so much, I made it my TikTok filter review.",
+        "author": "@Jasmine Lee",
+        "title": "Fashion Blogger",
+        "rating": 5.0
+      },
+      {
+        "quote": "My hair is thin and patchy at the sides, so I avoid bangs. But the app's version of a short fringe with taper fade looked way fuller than expected. The before image felt \"meh,\" the after felt fresh. I actually booked a haircut the next day. No regrets!",
+        "author": "@Dylan West",
+        "title": "Photographer",
+        "rating": 4.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "What is a textured fringe?",
+        "answer": "A textured fringe is a type of bang that's cut in a choppy, layered way to create movement and volume. Unlike straight-across blunt bangs, textured fringes look lighter and more relaxed—sometimes even intentionally messy. They work with different hair types and lengths, from soft waves to straight or curly textures. You can style them to fall straight down, slightly swept to the side, or even flipped up for a messy edge. It's the kind of haircut that feels modern without trying too hard."
+      },
+      {
+        "question": "How to get a textured fringe?",
+        "answer": "Getting a textured fringe is easier than you think, especially if you come prepared. Step 1: Bring a clear photo—use Hairstyle AI to preview the exact look. Step 2: Ask your stylist for a layered or \"piece-y\" fringe instead of a blunt one. Step 3: Make sure they cut it dry if you have wavy or curly hair—texture looks different when wet. Step 4: Once it's cut, use a blow dryer and a round brush to shape it, or sea salt spray for a messier look."
+      },
+      {
+        "question": "How do I ask for a textured fringe?",
+        "answer": "When asking your barber or stylist, be direct but specific. Say something like: \"I'd love a fringe with movement and texture, nothing blunt or too heavy.\" Show them a screenshot from Hairstyle AI to remove guesswork. Mention your preferred length—eyebrows, lashes, or cheekbone level—and whether you want it full or feathered. If you have curly or fine hair, ask for a dry cut or light layering to avoid too much bulk or shrinkage."
+      },
+      {
+        "question": "What face shape suits a textured fringe?",
+        "answer": "Textured fringe is super versatile and works for most face shapes—it's all about how it's styled. Oval and egg-shaped faces can wear nearly any version. Square faces do best with a soft, layered fringe that breaks up angular lines. For heart-shaped faces, a side-swept fringe helps balance a wider forehead. Long faces benefit from a thicker, eye-grazing fringe to visually shorten the face. If your face is round, go for a lifted or choppy fringe to add some edge."
+      },
+      {
+        "question": "How long does a textured fringe last?",
+        "answer": "A textured fringe usually holds its shape for 3 to 4 weeks before it needs a trim. Unlike blunt bangs, the layered cut grows out more naturally, often turning into curtain bangs or soft side pieces. If you're okay with a slightly longer look, you can even stretch it to 6 weeks. Just keep in mind: maintenance depends on your hair type and how precise you want it to stay."
+      },
+      {
+        "question": "Will fringe work with my curly hair?",
+        "answer": "Yes—fringe can absolutely work with curly hair! In fact, textured fringes look amazing with natural curls because they enhance movement and frame the face beautifully. The key is getting the right cut. Always ask for a dry cut so the stylist can see the real curl pattern and avoid shrinkage surprises. Keep your curls hydrated with leave-in conditioner or curl cream."
+      },
+      {
+        "question": "How to ask a barber for a textured fringe?",
+        "answer": "When talking to your barber, be clear but chill. Start with, \"I'm thinking of trying a textured fringe—something layered and soft, not blunt or thick.\" Let them know your styling preferences: do you want something low-maintenance or a bit styled? Point to where you want the fringe to land (eyebrow, eye, or cheek). If possible, show a photo from Hairstyle AI—they'll instantly get your vision."
+      }
+    ],
+    "moreToolsSection": [
+      "Man Bun Filter",
+      "Pompadour Filter", 
+      "Low Fade Haircut Filter"
+    ],
+    "finalCta": {
+      "title": "See Your Textured Fringe Look with AI Today",
+      "description": "Discover how the textured fringe haircut really looks on you. Use Hairstyle AI to test styles before your next cut—risk-free and fun!",
+      "ctaText": "Try Textured Fringe Filter →",
+      "ctaLink": "/ai-hairstyle?style=Textured Fringe"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/textured-fringe",
+      "name": "Get Your Perfect Textured Fringe with Hairstyle AI – Free Online Tool",
+      "description": "Test trendy textured fringe cuts on your own face. From straight to curly, low fade to messy fringe—Hairstyle AI shows how it looks on you, instantly and realistically.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.7",
+        "bestRating": "5",
+        "ratingCount": "12450"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Get Your Perfect Textured Fringe with Hairstyle AI – Free Online Tool",
+          "item": "https://hair-style.ai/textured-fringe"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Get Your Perfect Textured Fringe with Hairstyle AI – Free Online Tool",
+      "description": "Test trendy textured fringe cuts on your own face. From straight to curly, low fade to messy fringe—Hairstyle AI shows how it looks on you, instantly and realistically.",
+      "canonical": "https://hair-style.ai/textured-fringe",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Get Your Perfect Textured Fringe with Hairstyle AI – Free Online Tool",
+        "description": "Test trendy textured fringe cuts on your own face. From straight to curly, low fade to messy fringe—Hairstyle AI shows how it looks on you, instantly and realistically.",
+        "url": "https://hair-style.ai/textured-fringe",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+                "images": [
+            {
+              "url": "https://hair-style.ai/images/textured-fringe-hero.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Textured fringe hero - Get Your Perfect Textured Fringe with Hairstyle AI Free Online Tool",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Get Your Perfect Textured Fringe with Hairstyle AI – Free Online Tool",
+        "description": "Test trendy textured fringe cuts on your own face. From straight to curly, low fade to messy fringe—Hairstyle AI shows how it looks on you, instantly and realistically.",
+        "images": ["https://hair-style.ai/images/textured-fringe-hero.webp"]
+      }
+    }
+  }

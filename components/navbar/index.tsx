@@ -260,6 +260,13 @@ export default function Navbar() {
                                         >
                                             Undercut
                                         </Link>
+                                        <Link
+                                            href="/textured-fringe"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Textured Fringe
+                                        </Link>
                                     </div>
                                 </div>
                             )}
@@ -402,6 +409,13 @@ export default function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Undercut
+                                </Link>
+                                <Link
+                                    href="/textured-fringe"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Textured Fringe
                                 </Link>
                             </div>
                         </div>
