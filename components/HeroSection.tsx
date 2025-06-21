@@ -24,14 +24,14 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 items-center">
     
           <div className="pr-1 order-2 lg:order-1 lg:col-span-2">
-            <h1 className="text-4xl sm:text-4xl font-extrabold mb-6 text-gray-900">
+            <h1 className="text-4xl sm:text-5xl font-extrabold mb-6 text-gray-900">
               {heroSection.title}
             </h1>
             <p className="text-base md:text-lg text-gray-800 mb-4 sm:mb-2">
               {heroSection.description}
             </p>
             
-            <div className="flex items-center justify-center lg:justify-start gap-3 mb-8 mt-16">
+            <div className="flex items-center justify-center lg:justify-start gap-3 mb-3 mt-8">
               <div className="flex items-center gap-1">
                 {[1, 2, 3, 4, 5].map((star) => {
                   const rating = heroSection.rating;
@@ -75,17 +75,13 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
           
           {/* right side show image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2 lg:col-span-3">
-            <div className="relative rounded-lg overflow-hidden w-full max-w-sm sm:max-w-md lg:max-w-none" 
-                 style={{ 
-                   height: `${Math.min(imageConfig.displayHeight, 400)}px`,
-                   maxHeight: '400px'
-                 }}>
+            <div className="relative rounded-lg overflow-hidden w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Image
                 src={imageConfig.image}
                 alt={imageConfig.alt}
-                width={900}
+                width={1000}
                 height={imageConfig.displayHeight}
-                className="object-cover rounded-lg w-full h-full"
+                className="object-contain rounded-lg w-full h-auto max-h-80 sm:max-h-96 lg:max-h-none"
                 priority
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />

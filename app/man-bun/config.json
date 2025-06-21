@@ -1,6 +1,6 @@
 {
     "heroSection": {
-      "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
+      "title": "Try Man Bun Hairstyle Online Free with AI",
       "description": "Discover your perfect man bun look with Hairstyle AI. Upload your photo, choose a bun style, and preview your transformation with our realistic hair simulator. No haircut, no regrets.",
       "rating": 4.8,
       "statsText": "185,000+ virtual man bun hairstyles transformed",
@@ -8,7 +8,7 @@
       "ctaLink": "/ai-hairstyle?style=Man Bun"
     },
     "imageConfig": {
-      "displayHeight": 450,
+      "displayHeight": 430,
       "image": "/images/man-bun-hero2.webp",
       "alt": "Man bun hero - modern man with stylish man bun hairstyle"
     },
