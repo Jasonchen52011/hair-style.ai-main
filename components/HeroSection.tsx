@@ -75,7 +75,11 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
           
           {/* right side show image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2 lg:col-span-3">
-            <div className="relative rounded-lg overflow-hidden" style={{ height: `${imageConfig.displayHeight}px` }}>
+            <div className="relative rounded-lg overflow-hidden w-full max-w-sm sm:max-w-md lg:max-w-none" 
+                 style={{ 
+                   height: `${Math.min(imageConfig.displayHeight, 400)}px`,
+                   maxHeight: '400px'
+                 }}>
               <Image
                 src={imageConfig.image}
                 alt={imageConfig.alt}
@@ -83,6 +87,7 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
                 height={imageConfig.displayHeight}
                 className="object-cover rounded-lg w-full h-full"
                 priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
             </div>
           </div>
