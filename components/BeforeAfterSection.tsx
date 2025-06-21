@@ -34,7 +34,7 @@ export default function BeforeAfterSection({ beforeAfterGallery }: BeforeAfterSe
           </p>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
           {beforeAfterGallery.images.map((image, index) => (
             <div key={index} className="rounded-lg " onClick={scrollToTop}>
               <Image
