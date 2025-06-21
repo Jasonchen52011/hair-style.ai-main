@@ -53,7 +53,7 @@
     },
     "imageConfig": {
       "displayHeight": 450,
-      "image": "/images/undercut-hero.webp",
+      "image": "/images/undercut-hero1.webp",
       "alt": "Undercut hero - modern person with stylish undercut hairstyle"
     },
     "beforeAfterGallery": {
@@ -427,7 +427,7 @@
         "type": "website",
                 "images": [
             {
-              "url": "https://hair-style.ai/images/undercut-hero.webp",
+              "url": "https://hair-style.ai/images/undercut-hero1.webp",
               "width": 1920,
               "height": 1080,
               "alt": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
@@ -440,7 +440,7 @@
         "site": "@hair_styleai",
         "title": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
         "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI in seconds. Try it risk-free with just one photo!",
-        "images": ["https://hair-style.ai/images/undercut-hero.webp"]
+        "images": ["https://hair-style.ai/images/undercut-hero1.webp"]
       }
     }
   }
