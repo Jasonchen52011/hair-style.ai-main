@@ -104,6 +104,11 @@ export default function Footer() {
                                     Man Bun
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/undercut" className="text-gray-400 hover:text-white transition-colors">
+                                    Undercut
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

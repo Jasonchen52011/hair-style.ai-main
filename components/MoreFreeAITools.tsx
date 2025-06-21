@@ -141,6 +141,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Try Man Bun Hairstyles Online Free",
       link: "/man-bun",
       image: "/images/man-bun-hero2.webp"
+    },
+    "Undercut Filter": {
+      title: "Undercut Filter",
+      description: "Preview Undercut Styles Risk-Free",
+      link: "/undercut",
+      image: "/images/undercut-hero.webp"
     }
   };
 
