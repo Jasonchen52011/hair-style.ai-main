@@ -124,6 +124,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       link: "/hairstyles-for-women",
       image: "/images/hairstyle-for-women-hero.webp"
     },
+    "Hairstyles for Girls": {
+      title: "Hairstyles for Girls",
+      description: "Discover Trendy Hairstyles for Girls",
+      link: "/hairstyles-for-girls",
+      image: "/images/hairstyle-for-girls-hero5.webp"
+    },
     "Low Fade Haircut Filter": {
       title: "Low Fade Haircut Filter",
       description: "Try Low Fade Styles Risk-Free",
@@ -146,7 +152,7 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       title: "Undercut Filter",
       description: "Preview Undercut Styles Risk-Free",
       link: "/undercut",
-      image: "/images/undercut-hero.webp"
+      image: "/images/undercut-hero1.webp"
     },
     "Textured Fringe Filter": {
       title: "Textured Fringe Filter",

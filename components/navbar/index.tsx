@@ -149,6 +149,13 @@ export default function Navbar() {
                                         >
                                             Hairstyle Simulator for Female
                                         </Link>
+                                        <Link
+                                            href="/hairstyles-for-girls"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsHairstyleDropdownOpen(false)}
+                                        >
+                                            Hairstyles for Girls
+                                        </Link>
                                     </div>
                                 </div>
                             )}
@@ -320,6 +327,13 @@ export default function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Hairstyle Simulator for Female
+                                </Link>
+                                <Link
+                                    href="/hairstyles-for-girls"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Hairstyles for Girls
                                 </Link>
                             </div>
 

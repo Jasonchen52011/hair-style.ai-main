@@ -42,6 +42,11 @@ export default function Footer() {
                                     Hairstyle Simulator for Female
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/hairstyles-for-girls" className="text-gray-400 hover:text-white transition-colors">
+                                    Hairstyles for Girls
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

@@ -264,7 +264,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "url": "https://hair-style.ai/pixie-cut-filter",
-    "name": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
+    "name": "Pixie Cut Filter Online for Free - Realistic Short Hair Styles",
     "description": "Wondering if a pixie cut suits you? Try the pixie cut filter everyone's talking about online! Upload a photo, choose your favorite pixie style, and see your new look.",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
@@ -296,13 +296,13 @@
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
+        "name": "Pixie Cut Filter Online for Free - Realistic Short Hair Styles",
         "item": "https://hair-style.ai/pixie-cut-filter"
       }
     ]
   },
   "seoConfig": {
-    "title": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
+    "title": "Pixie Cut Filter Online for Free - Realistic Short Hair Styles",
     "description": "Wondering if a pixie cut suits you? Try the pixie cut filter everyone's talking about online! Upload a photo, choose your favorite pixie style, and see your new look.",
     "canonical": "https://hair-style.ai/pixie-cut-filter",
     "robots": {
@@ -317,7 +317,7 @@
       }
     },
     "openGraph": {
-      "title": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
+      "title": "Pixie Cut Filter Online for Free - Realistic Short Hair Styles",
       "description": "Wondering if a pixie cut suits you? Try the pixie cut filter everyone's talking about online! Upload a photo, choose your favorite pixie style, and see your new look.",
       "url": "https://hair-style.ai/pixie-cut-filter",
       "siteName": "Hair-style.ai",
@@ -328,7 +328,7 @@
           "url": "https://hair-style.ai/images/pixie-cut-filter9.webp",
           "width": 1920,
           "height": 1080,
-          "alt": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
+          "alt": "Pixie Cut Filter Online for Free - Realistic Short Hair Styles",
           "type": "image/webp"
         }
       ]
@@ -336,7 +336,7 @@
     "twitter": {
       "card": "summary_large_image",
       "site": "@hair_styleai",
-      "title": "Pixie Cut Filter Online for Free | Realistic Short Hair Styles",
+      "title": "Pixie Cut Filter Online for Free - Realistic Short Hair Styles",
       "description": "Wondering if a pixie cut suits you? Try the pixie cut filter everyone's talking about online! Upload a photo, choose your favorite pixie style, and see your new look.",
       "images": ["https://hair-style.ai/images/pixie-cut-filter9.webp"]
     }
