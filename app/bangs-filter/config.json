@@ -316,18 +316,18 @@
       "ctaLink": "/ai-hairstyle?style=bangs"
     },
     "metadata": {
-      "title": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
+      "title": "Free Bangs Filter Online - Try Virtual Bang Hairstyles",
       "description": "Wondering if bangs suit your face? Use our free bangs filter online! Upload your photo, select from realistic bang styles and instantly see your new look!",
       "canonical": "https://hair-style.ai/bangs-filter",
       "openGraph": {
-        "title": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
+        "title": "Free Bangs Filter Online - Try Virtual Bang Hairstyles",
         "description": "Wondering if bangs suit your face? Use our free bangs filter online! Upload your photo, select from realistic bang styles and instantly see your new look!",
         "image": "https://hair-style.ai/images/h1-bangs-a.jpg",
         "imageAlt": "Free Bangs Filter Online - Try Virtual Bang Hairstyles with AI",
         "url": "https://hair-style.ai/bangs-filter"
       },
       "twitter": {
-        "title": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
+        "title": "Free Bangs Filter Online - Try Virtual Bang Hairstyles",
         "description": "Wondering if bangs suit your face? Use Hairstyle AI's free bangs filter online! Upload your photo, select from realistic bang styles like curtain bangs and instantly see your new look—risk-free and no commitment!",
         "image": "https://hair-style.ai/images/h1-bangs-a.jpg"
       }
@@ -337,7 +337,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "url": "https://hair-style.ai/bangs-filter",
-      "name": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
+      "name": "Free Bangs Filter Online - Try Virtual Bang Hairstyles",
       "description": "Wondering if bangs suit your face? Use Hairstyle AI's free bangs filter online! Upload your photo, select from realistic bang styles like curtain bangs and instantly see your new look—risk-free and no commitment!",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
@@ -369,7 +369,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Free Bangs Filter Online | Try Virtual Bang Hairstyles",
+          "name": "Free Bangs Filter Online - Try Virtual Bang Hairstyles",
           "item": "https://hair-style.ai/bangs-filter"
         }
       ]

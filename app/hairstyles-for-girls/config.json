@@ -1,0 +1,582 @@
+{
+    "heroSection": {
+      "title": "Discover the Trendiest Hairstyles for Girls",
+      "description": "Explore a wide range of hairstyles for girls using Hairstyle AI's cutting-edge tool. From short pixie cuts to long waves, find styles that match your unique personality. Our tool helps you preview different looks in seconds, so you can confidently choose a hairstyle that suits your face shape, hair type, and preferences.",
+      "rating": 4.8,
+      "statsText": "250,000+ virtual girl hairstyles transformed",
+      "ctaText": "Try Girl Hairstyles",
+      "ctaLink": "/ai-hairstyle"
+    },
+    "heroSectionStyleConfig": {
+      "layout": {
+        "leftRatio": "1",
+        "rightRatio": "1",
+        "gap": "gap-2",
+        "imageOrder": "right",
+        "textOrder": "left"
+      },
+      "title": {
+        "fontSize": {
+          "mobile": "text-3xl",
+          "desktop": "text-5xl"
+        },
+        "fontWeight": "font-extrabold",
+        "color": "text-gray-900",
+        "spacing": "mb-6"
+      },
+      "description": {
+        "fontSize": {
+          "mobile": "text-base",
+          "desktop": "text-lg"
+        },
+        "color": "text-gray-700",
+        "spacing": "mb-6"
+      },
+      "statsText": {
+        "fontSize": {
+          "mobile": "text-sm",
+          "desktop": "text-base"
+        },
+        "color": "text-gray-600",
+        "fontWeight": "font-medium"
+      },
+      "button": {
+        "background": "bg-purple-600",
+        "backgroundHover": "hover:bg-purple-700",
+        "textColor": "text-white",
+        "fontSize": "text-lg",
+        "fontWeight": "font-bold",
+        "padding": "px-8 py-4",
+        "borderRadius": "rounded-xl"
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 350,
+      "name": "Hero Main",
+      "image": "/images/hairstyle-for-girls-hero.webp",
+      "alt": "Hairstyles for girls hero - trendy girl hairstyle transformations with AI"
+    },
+    "beforeAfterGallery": {
+      "title": "Try on Hairstyles: Short, Long, Curly, or Straight!",
+      "description": "Hairstyle AI offers a variety of styles, including short pixie cuts, curly bobs, long beach waves, and more. Our virtual try-on tool is free, easy to use, and lets you experiment with different looks!",
+      "images": [
+        {
+          "name": "Pixie Cut",
+          "src": "/images/hairstyle-for-gilrs-pixie-cut.webp",
+          "alt": "Pixie cut for girls - stylish short hairstyle transformation"
+        },
+        {
+          "name": "Curly Bob",
+          "src": "/images/hairstyle-for-gilrs-culy-bob.webp",
+          "alt": "Curly bob hairstyle for girls - natural curly hair transformation"
+        },
+        {
+          "name": "Long Curly",
+          "src": "/images/hairstyle-for-gilrs-Long-Curly.webp",
+          "alt": "Long curly hairstyle for girls - beautiful long curly hair transformation"
+        },
+        {
+          "name": "Braids",
+          "src": "/images/hairstyle-for-girl-braids.webp",
+          "alt": "Braided hairstyle for girls - elegant braid transformation"
+        },
+        {
+          "name": "Bob Cut",
+          "src": "/images/hairstyle-for-gilrs-bob-cut.webp",
+          "alt": "Bob cut hairstyle for girls - sleek bob hair transformation"
+        },
+        {
+          "name": "Loose Curly",
+          "src": "/images/hairstyle-for-gilrs-Loose-Curly.webp",
+          "alt": "Loose curly waves for girls - natural wavy hair styling transformation"
+        }
+        ]
+    },
+    "isRightSection": {
+      "title": "Is the Textured Fringe Right for My Face Shape?",
+      "tableData": [
+        {
+          "feature": "Best Face Shapes",
+          "description": "Oval, heart, long, square"
+        },
+        {
+          "feature": "Popularity in 2025",
+          "description": "4.7"
+        },
+        {
+          "feature": "Style Type",
+          "description": "Layered, edgy, modern"
+        },
+        {
+          "feature": "Length",
+          "description": "Short to medium"
+        },
+        {
+          "feature": "Maintenance Level",
+          "description": "Medium – needs styling but not high upkeep"
+        }
+      ],
+      "textContent": [
+        "If you've been wondering whether the textured fringe haircut will work for you—good news: it fits more face shapes than you think.",
+        "Oval or egg-shaped faces are a perfect match. Your balanced proportions make it easy to pull off almost any variation—from blunt to layered fringe.",
+        "For square faces, go for a softer, wispy fringe. This helps tone down the sharp jawline and adds softness. Avoid thick or straight-across styles—they may look too harsh.",
+        "Heart-shaped faces look amazing with a light, side-swept fringe. This draws attention away from the wider forehead and balances your chin area.If you have a long face, a deep, piecey fringe that sits just above your eyebrows works best. It visually shortens the face and adds proportion. Avoid fringes that are too short or uneven—they'll stretch the face even more.",
+        "Round faces benefit from a choppy, voluminous fringe that breaks the circle. Skip heavy, straight bangs—they'll emphasize roundness."
+      ],
+      "styleConfig": {
+        "layout": {
+          "leftRatio": "2",
+          "rightRatio": "2", 
+          "gap": "gap-4"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-2xl",
+            "desktop": "text-4xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-800",
+          "spacing": "mb-8"
+        },
+        "tableHeader": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "fontWeight": "font-semibold", 
+          "color": "text-gray-800",
+          "background": "bg-purple-50"
+        },
+        "tableContent": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-700",
+          "featureFontWeight": "font-medium"
+        },
+        "textContent": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-700",
+          "lineHeight": "leading-relaxed",
+          "spacing": "space-y-3"
+        }
+      }
+    },
+    "additionalSection": [
+      {
+        "title": "Trendy and Cute Hairstyles for Girls: Find Your Perfect Look！",
+        "textContent": [
+          "Whether you have thin, thick, curly, or straight hair, finding the right hairstyle can be tough. If you have fine or thin hair, a chic bob or a short pixie cut is your secret weapon. These cuts work wonders by adding fullness and creating the illusion of volume. \"Pixie cuts really open up the face,\" says my hairstylist friend, and honestly, I couldn't agree more. It's like a little hair miracle! I've tried it myself, and it instantly made my hair feel less flat, and I felt way more confident.",
+          "If you've got thick hair, go for a layered cut or a shag. Layers will chop off some of that bulk, leaving you with a manageable, bouncy look. Thick hair can sometimes feel like a wild jungle, so layers tame the beast while keeping it fun and light. Trust me, it's life-changing!"
+      ],
+              "image": {
+          "name": "Hero Styles",
+          "src": "/images/hairstyle-for-girls-hero2.webp",
+          "alt": "Different hairstyles for girls - various cute girl hairstyle options guide"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-base"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-2"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      },
+      {
+        "title": "Perfect Styles for Curly and Long Hair",
+        "textContent": [
+          "For those with natural curls, embrace them! A curly bob or even adding some braids will show off your curls' texture without fighting them. Curls are like little art pieces, and with the right style, they just shine. My curly-haired friends swear by braids—they keep the curls in check and add a fun twist.",
+          "Lastly, for long hair, nothing beats the classic sleek ponytail or a loose braid. It's the perfect mix of stylish and practical. Plus, braids are great for those days when you're too lazy to wash your hair but still want to look cute. I've literally saved myself on busy mornings by tossing my hair in a braid and calling it a day. It's effortless but still looks put together.",
+          "I'm totally obsessed with braids right now! They're my go-to for school and they stay neat all day long."
+      ],
+              "image": {
+          "name": "Braid Styles",
+          "src": "/images/hairstyle-for-girls-braid.webp",
+          "alt": "Curly and long hairstyles for girls - braids and natural hair styling guide"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "left",
+            "textOrder": "right"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-base"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-2"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+    }
+    ],
+    "howToUseSection": {
+      "title": "How to Try Girl Hairstyles with AI",
+      "description": "It's super easy! Upload your photo, pick a hairstyle, and let AI do the magic. In just a few seconds, you'll see your new look. Download it or show it off to your friends!",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Choose a clear photo where your face is easy to see. Make sure it's JPG, JPEG, or PNG, and under 3MB. Use a front-facing photo without strong shadows. This helps the AI show your new hairstyle more accurately."
+        },
+        {
+          "title": "Step 2: Pick a Hairstyle and Color",
+          "icon": "fas fa-palette",
+          "description": "Scroll through 60+ hairstyles and 19 awesome colors. Like long waves? Pixie cuts? Braids? Just tap the one you want. You can mix and match different styles and shades until you find one you love."
+        },
+        {
+          "title": "Step 3: Generate Your Look",
+          "icon": "fas fa-magic",
+          "description": "Click the \"Generate\" button and wait around 30 seconds. Our AI analyzes your face shape and gives you a hairstyle that fits. No filters or face edits—just your real face, new hair."
+        },
+        {
+          "title": "Step 4: Download or Share",
+          "icon": "fas fa-download",
+          "description": "Love what you see? Hit download to save your new look. You can share it on Instagram, prank a friend, or use it to plan your next haircut. The image is deleted right after. We never keep your data."
+        }
+      ],
+              "image": {
+          "name": "How To Guide",
+          "src": "/images/hairstyle-for-gilr-how-to.webp",
+          "alt": "How to try girl hairstyles with AI - step by step guide for girls hairstyle generator"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle"
+    },
+    "ctaSections": [
+      {
+        "title": "Preparing for a Busy School Day",
+        "textContent": [
+          "The school morning rush is real. You want something quick but stylish, right? For those busy mornings, a cute braided look or simple ponytail will save you time and keep you looking fresh. I love how easy it is to try out a French braid or twin braids using the tool. Braids are perfect for school—stylish and they last all day long. No more fighting with your hair to get it just right! With Hairstyle AI, I can see exactly how those braids or ponytails will look before school even starts.",
+          "I always go for the French braids now, thanks to Hairstyle AI. It's like magic—takes less than a minute and stays neat all day!"
+        ],
+        "image": {
+          "name": "School Ready",
+          "src": "/images/hairstyle-for-girls-hero5.webp",
+          "alt": "School hairstyles for girls - quick and easy twin braids for busy mornings"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle"
+      },
+      {
+        "title": "Sporty and Stylish Haircuts",
+        "textContent": [
+          "For the active girl who's always on the go, comfort and functionality in your hairstyle are key. You need a look that stays put during that jog or yoga session but still keeps you looking cute! Hairstyle AI offers athletic-friendly looks like high buns and sporty braids. Personally, I find a top knot or a sleek braid the best for when I'm working out; they keep everything in place!",
+          "Don't settle for a messy look—get that perfectly sporty, no-fuss hairstyle that complements your workout routine."
+        ],
+        "image": {
+          "name": "Sport Active",
+          "src": "/images/hairstyle-for-girls-sport.webp",
+          "alt": "Sporty hairstyles for girls - athletic friendly hairstyles for active girls"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle"
+      },
+      {
+        "title": "Summer Hair Inspiration",
+        "textContent": [
+          "Summer is here! Time to embrace lighter, breezier haircuts that fit the heat and your fun summer vibes. A cute pixie cut? Love it! It's light and breezy, perfect for those hot days by the pool. Whether it's beachy waves or a cool bob cut, Hairstyle AI lets you explore styles that keep your look fresh and easy to manage all season long. ",
+          "And with the customization options, you can adjust the color to match your summer mood too—think sun-kissed golden highlights!"
+        ],
+        
+        "image": {
+          "name": "Summer Vibes",
+          "src": "/images/hairstyle-for-girls-hero3.webp",
+          "alt": "Summer hairstyles for girls - light and breezy hairstyles perfect for hot weather"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle"
+      },
+      {
+        "title": "Party-Ready Haircuts",
+        "textContent": [
+          "Got a big party to attend? You'll want a hairstyle that turns heads but is still easy to maintain all night. With Hairstyle AI, you can experiment with glamorous looks like loose waves or sleek updos. I'm all about those chic braids or a voluminous curly look—perfect for dancing and socializing without worrying about your hair.",
+          "Just upload a photo, try on a few styles, and you'll be party-ready in no time!"
+        ],
+        
+        "image": {
+          "name": "Party Glam",
+          "src": "/images/hairstyle-for-girls-hero4.webp",
+          "alt": "Party hairstyles for girls - glamorous hairstyles perfect for special events"
+        },
+        "ctaText": "Try Girl Hairstyles",
+        "ctaLink": "/ai-hairstyle"
+      }
+    ],
+    "ctaSectionsStyleConfig": {
+      "layout": {
+        "imageRatio": "1",
+        "textRatio": "1",
+        "gap": "gap-3",
+        "alternateImageOrder": true
+      },
+      "title": {
+        "fontSize": {
+          "mobile": "text-2xl",
+          "desktop": "text-3xl"
+        },
+        "fontWeight": "font-bold",
+        "color": "text-gray-800",
+        "spacing": "mb-1"
+      },
+      "text": {
+        "fontSize": {
+          "mobile": "text-base",
+          "desktop": "text-lg"
+        },
+        "color": "text-gray-700",
+        "lineHeight": "leading-relaxed",
+        "spacing": "space-y-3"
+      },
+      "button": {
+        "background": "bg-purple-600",
+        "backgroundHover": "hover:bg-purple-700",
+        "textColor": "text-white",
+        "fontSize": "text-base",
+        "fontWeight": "font-semibold",
+        "padding": "px-6 py-2",
+        "borderRadius": "rounded-xl"
+      }
+    },
+    "whyChooseSection": {
+      "title": "Why Choose Hairstyle AI",
+      "features": [
+        {
+          "icon": "fas fa-gift",
+          "title": "Free and Easy to Use",
+          "description": "No sign-up, no payments, no tricks. Just upload your photo, pick a style, and go. It's super simple, works on mobile or desktop, and takes less than a minute. You can try again and again—no strings attached."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Tons of Styles and Colors",
+          "description": "Explore over 60 hairstyle designs and 19 color options. From trendy pixie cuts to long wavy hair, there's something for every vibe. Want a new hair color too? No problem—pick, mix, and preview them all."
+        },
+        {
+          "icon": "fas fa-eye",
+          "title": "Realistic Results That Keep Your Face Real",
+          "description": "We don't use filters. Your skin tone, face shape, and features stay exactly the same. The hair just blends in naturally, like it's really growing from your head. So you always see the real you—just with cooler hair."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "100% Safe and Private",
+          "description": "We don't keep your photo. After your image is processed, it's gone. Forever. Your face and data stay yours only. Hairstyle AI is all about fun, not spying. Your privacy is our promise."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I've always struggled to find hairstyles that work with my curly hair. But after trying Hairstyle AI, I was amazed by how well the AI simulated a natural curly bob for me! I felt confident and ready for my school photo day. The tool is easy to use, and the final look was just like the image I uploaded. It's like magic!",
+        "author": "@Emily Carter",
+        "title": "Teacher",
+        "rating": 5.0
+      },
+      {
+        "quote": "I'm always changing my hairstyle for different occasions, but sometimes I'm not sure what will suit me. Hairstyle AI let me experiment with a bob cut, and I was blown away by how it looked! It's the perfect tool for getting new hair inspiration, and it's so fun to use!",
+        "author": "@Olivia Greene",
+        "title": "College Student",
+        "rating": 4.0
+      },
+      {
+        "quote": "As someone always on the move, I need a hairstyle that stays in place, especially when I'm teaching a class. Hairstyle AI helped me choose the perfect braid style that kept my hair secure but stylish throughout my day. It's the only tool I trust now for trying out new looks!",
+        "author": "@Chloe Brooks",
+        "title": "Fitness Coach",
+        "rating": 5.0
+      },
+      {
+        "quote": "Trying to find a style that suits my face shape was always a struggle, but Hairstyle AI made it easy. I tried a sleek straight hair look, and it was exactly what I needed. Now, I can see how each style would look on me before making a decision. So glad I found this tool!",
+        "author": "@Mia Lee",
+        "title": "Photographer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I was nervous about cutting my hair short, but after using Hairstyle AI to try out a pixie cut, I felt confident in making the change. It looks amazing in the simulation, and now I can't wait to see the real thing. This tool is a game-changer for anyone looking for new style ideas!",
+        "author": "@Ava West",
+        "title": "High School Student",
+        "rating": 4.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "How does the AI hairstyle try-on work?",
+        "answer": "The AI hairstyle try-on works by allowing you to upload your photo. The AI tool then analyzes your face shape and applies a variety of hairstyle options based on your preferences. After choosing a style, the tool adjusts the hair to fit your face, giving you a realistic virtual try-on experience. It's quick, simple, and helps you visualize how different styles would look on you!"
+      },
+      {
+        "question": "What hair types are supported?",
+        "answer": "Hairstyle AI supports all hair types, from straight to curly to wavy hair. You can experiment with a variety of styles, from sleek bobs to voluminous curls, and find a look that works for your unique hair texture!"
+      },
+      {
+        "question": "What hairstyles are suitable for school girls?",
+        "answer": "School hairstyles should be practical, cute, and easy to manage. Styles like ponytails, braids, and buns are great because they keep your hair out of your face while still looking stylish. The sleek look of a French braid or a cute high ponytail can make you look effortlessly chic and ready for school!"
+      },
+      {
+        "question": "What hairstyles are suitable for girls who are into sports?",
+        "answer": "For sports, you need hairstyles that keep hair secure and out of the way. High ponytails, tight buns, or sporty braids are all great options. They'll keep you looking stylish while ensuring your hair doesn't get in the way during a workout or game."
+      },
+      {
+        "question": "What are some cute hairstyles for girls?",
+        "answer": "Cute hairstyles for girls include braids, curls, and fun buns. Think twin braids, loose waves, or a messy bun. These styles are easy to create and look super adorable, giving you that youthful charm!"
+      },
+      {
+        "question": "What hairstyles are perfect for girls in summer?",
+        "answer": "In summer, go for light, breezy hairstyles like beachy waves, pixie cuts, or simple ponytails. These styles keep you cool while looking fashionable. You can also add a pop of color to your hairstyle for that sunny summer vibe!"
+      },
+      {
+        "question": "Is my photo safe and private?",
+        "answer": "Absolutely! Your privacy is a top priority. Hairstyle AI does not store your photos. Once you're done using the tool, your image is deleted immediately. We guarantee that your photo is safe and only used for generating your hairstyle simulation."
+      },
+      {
+        "question": "What hairstyles are great for girls attending parties?",
+        "answer": "For parties, go for glamorous hairstyles like sleek updos, voluminous curls, or even a stylish pixie cut. These looks are perfect for any event, ensuring that you stand out and look fabulous. Experiment with different styles on Hairstyle AI to find the one that suits your vibe!"
+      }
+    ],
+    "moreToolsSection": [
+      "AI Braids Filter",
+      "Bob Haircut Filter", 
+      "Pixie Cut Filter"
+    ],
+    "finalCta": {
+      "title": "Find the Perfect Hairstyle for Girls with AI Hairstyle Generator",
+      "description": "Explore endless hairstyle options with Hairstyle AI. Upload your photo and discover the look that suits you best!",
+      "ctaText": "Try Girl Hairstyles →",
+      "ctaLink": "/ai-hairstyle"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/hairstyles-for-girls",
+      "name": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
+      "description": "Discover trendy and easy-to-manage hairstyles for girls with Hairstyle AI's virtual try-on tool. Free and easy to use, try on different hairstyles and find your next look with no risk!",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "15680"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
+          "item": "https://hair-style.ai/hairstyles-for-girls"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
+      "description": "Discover trendy and easy-to-manage hairstyles for girls with Hairstyle AI's virtual try-on tool. Free and easy to use, try on different hairstyles and find your next look with no risk!",
+      "canonical": "https://hair-style.ai/hairstyles-for-girls",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
+        "description": "Discover trendy and easy-to-manage hairstyles for girls with Hairstyle AI's virtual try-on tool. Free and easy to use, try on different hairstyles and find your next look with no risk!",
+        "url": "https://hair-style.ai/hairstyles-for-girls",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+        "images": [
+          {
+            "url": "https://hair-style.ai/images/hairstyle-for-girls-hero.webp",
+            "width": 1920,
+            "height": 1080,
+            "alt": "Trendy hairstyles for girls - Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
+            "type": "image/webp"
+          }
+        ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
+        "description": "Discover trendy and easy-to-manage hairstyles for girls with Hairstyle AI's virtual try-on tool. Free and easy to use, try on different hairstyles and find your next look with no risk!",
+        "images": ["https://hair-style.ai/images/hairstyle-for-girls-hero.webp"]
+      }
+    }
+  }

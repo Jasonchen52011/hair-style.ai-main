@@ -137,7 +137,15 @@ export default function WomenHairstylesPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Pixie Cut Filter", "Long Hair Filter", "Short Hair Filter", "AI Braids Filter", "Dreadlocks Filter"]} />
+                    <MoreFreeAITools toolNames={[
+                        "Hairstyles for Girls",
+                        "Bob Haircut Filter", 
+                        "Pixie Cut Filter", 
+                        "Long Hair Filter", 
+                        "Short Hair Filter", 
+                        "AI Braids Filter", 
+                
+                    ]} />
                 </LazySection>
 
                 {/* FAQ Section */}
