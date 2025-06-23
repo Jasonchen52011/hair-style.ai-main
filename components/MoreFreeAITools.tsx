@@ -112,8 +112,8 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       link: "/buzz-cut-filter",
       image: "/images/buzz-cut-hero.webp"
     },
-    "Hairstyle Simulator for Male": {
-      title: "Hairstyle Simulator for Male",
+    "Hairstyle for Men": {
+      title: "Hairstyle for Men",
       description: "Discover Perfect Men's Haircuts",
       link: "/hairstyles-for-men",
       image: "/images/man-hair-hero.webp"
@@ -159,6 +159,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Try Textured Fringe Styles Risk-Free",
       link: "/textured-fringe",
       image: "/images/textured-fringe-hero2.webp"
+    },
+    "Face Shape Detector": {
+      title: "Face Shape Detector",
+      description: "AI Face Shape Detector - Find Your Perfect Hairstyle",
+      link: "/face-shape-detector",
+      image: "/images/face-shape-hero.webp"
     }
   };
 

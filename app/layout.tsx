@@ -3,6 +3,45 @@ import localFont from 'next/font/local'
 import { Inter } from 'next/font/google'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
 
+// 代理配置
+const PROXY_URL = process.env.PROXY_URL || '';
+
+if (typeof window === 'undefined' && PROXY_URL) {
+  // 服务器端 - 使用 undici 进行代理请求
+  const { ProxyAgent, fetch: undiciFetch } = require('undici');
+  
+  const proxyAgent = new ProxyAgent(PROXY_URL);
+  
+  global.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    console.log("Server fetch with proxy:", input);
+    
+    try {
+      const response = await undiciFetch(input, {
+        ...init,
+        dispatcher: proxyAgent
+      });
+      console.log("Server fetch response:", response.status);
+      return response;
+    } catch (error) {
+      console.error("Server fetch error:", error);
+      throw error;
+    }
+  };
+} else if (typeof window !== 'undefined') {
+  // 客户端
+  const originalFetch = window.fetch;
+  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    console.log("Client fetch:", input);
+    const res = await originalFetch(input, init);
+    console.log("Client fetch response:", res.status);
+    return res;
+  };
+}
+
+//@ts-ignore
+
+
+
 // 优化字体加载策略
 const satoshi = localFont({
   src: [

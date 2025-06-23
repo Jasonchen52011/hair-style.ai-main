@@ -719,8 +719,9 @@ export default function Hero() {
                     "Men's Hairstyles", 
                     "Buzz Cut Filter", 
                     "Short Hair Filter", 
-                    "Hairstyle Simulator for Male", 
-                    "Hairstyle Simulator for Female", "Hairstyle Simulator for Girls"]} />
+                    "Hairstyle for Men", 
+                    "Hairstyle for Women",
+                    "Hairstyle for Girls"]} />
             </LazySection>
 
 

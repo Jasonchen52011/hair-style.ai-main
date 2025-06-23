@@ -142,7 +142,7 @@ export default function DreadlocksPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["AI Braids Filter", "Long Hair Filter", "Hairstyle Simulator for Male"]} />
+                    <MoreFreeAITools toolNames={["AI Braids Filter", "Long Hair Filter", "Hairstyle for Men"]} />
                 </LazySection>
 
                 {/* FAQ Section */}
