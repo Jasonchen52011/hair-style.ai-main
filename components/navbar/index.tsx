@@ -10,10 +10,12 @@ export default function Navbar() {
     const [isMounted, setIsMounted] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isHairstyleDropdownOpen, setIsHairstyleDropdownOpen] = useState(false);
+    const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
+    const otherToolsDropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -44,16 +46,19 @@ export default function Navbar() {
             if (hairstyleDropdownRef.current && !hairstyleDropdownRef.current.contains(event.target as Node)) {
                 setIsHairstyleDropdownOpen(false);
             }
+            if (otherToolsDropdownRef.current && !otherToolsDropdownRef.current.contains(event.target as Node)) {
+                setIsOtherToolsDropdownOpen(false);
+            }
         };
 
-        if (isDropdownOpen || isHairstyleDropdownOpen) {
+        if (isDropdownOpen || isHairstyleDropdownOpen || isOtherToolsDropdownOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isDropdownOpen, isHairstyleDropdownOpen]);
+    }, [isDropdownOpen, isHairstyleDropdownOpen, isOtherToolsDropdownOpen]);
 
     // If component is not mounted yet, return a placeholder navbar
     if (!isMounted) {
@@ -140,14 +145,14 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsHairstyleDropdownOpen(false)}
                                         >
-                                            Hairstyle Simulator for Male
+                                            Hairstyle for Men
                                         </Link>
                                         <Link
                                             href="/hairstyles-for-women"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsHairstyleDropdownOpen(false)}
                                         >
-                                            Hairstyle Simulator for Female
+                                            Hairstyle for Women
                                         </Link>
                                         <Link
                                             href="/hairstyles-for-girls"
@@ -272,12 +277,67 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Textured Fringe
+                                                                                Textured Fringe
+                                </Link>
+                            </div>
+
+                            {/* Mobile Other Tools Menu */}
+                            <div className="space-y-1">
+                                <div className="px-4 py-2 text-gray-900 font-medium">Other Tools</div>
+                                <Link
+                                    href="/face-shape-detector"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Face Shape Detector
+                                </Link>
+                            </div>
+
+                            <Link
+                                href="/about"
+                                className="block px-4 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                About
+                            </Link>
+                        </div>
+                            )}
+                        </div>
+                        
+                        {/* Other Tools Dropdown */}
+                        <div className="relative" ref={otherToolsDropdownRef}>
+                            <button 
+                                onClick={() => setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen)}
+                                className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
+                            >
+                                Other Tools
+                                <svg 
+                                    className={`ml-1 w-4 h-4 transition-transform duration-200 ${
+                                        isOtherToolsDropdownOpen ? 'rotate-180' : ''
+                                    }`} 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            {isOtherToolsDropdownOpen && (
+                                <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                    <div className="py-2">
+                                        <Link
+                                            href="/face-shape-detector"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsOtherToolsDropdownOpen(false)}
+                                        >
+                                            Face Shape Detector
                                         </Link>
                                     </div>
                                 </div>
                             )}
                         </div>
+                        
                         <Link href="/about" className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700">
                             About
                         </Link>
@@ -319,14 +379,14 @@ export default function Navbar() {
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Hairstyle Simulator for Male
+                                    Hairstyle for Men
                                 </Link>
                                 <Link
                                     href="/hairstyles-for-women"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Hairstyle Simulator for Female
+                                    Hairstyle for Women
                                 </Link>
                                 <Link
                                     href="/hairstyles-for-girls"

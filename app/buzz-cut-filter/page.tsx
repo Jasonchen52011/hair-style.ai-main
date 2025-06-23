@@ -451,7 +451,7 @@ export default function BuzzCutFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Hairstyle Simulator for Male", "Low Fade Haircut Filter", "Pompadour Filter"]} />
+                    <MoreFreeAITools toolNames={["Hairstyle for Men", "Low Fade Haircut Filter", "Pompadour Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}

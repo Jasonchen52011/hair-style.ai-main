@@ -1,0 +1,192 @@
+{
+  "heroSection": {
+    "title": "AI Face Shape Detector Online Free - Hairstyle AI",
+    "description": "With our AI-driven face shape detector, get personalized hairstyle suggestions based on your unique facial features. Upload your photo and receive fast, accurate results that will help you pick the perfect style.",
+    "h1": "AI Face Shape Detector Online Free - Find Your Perfect Hairstyle",
+    "longDescription": "With Hairstyle AI's face shape detector, you can find the perfect hairstyle for your face shape in just a few simple steps. Upload your photo and let the AI analyze your face to provide the most flattering style options. Whether you're looking for something bold or classic, we offer tailored recommendations that enhance your unique features and elevate your confidence.",
+    
+    "rating": 4.9,
+    "statsText": "250,000+ face shapes analyzed with AI precision",
+    "ctaText": "Analyze My Face Shape",
+    "ctaLink": "/face-shape-detector"
+  },
+  "imageConfig": {
+    "displayHeight": 800,
+    "image": "/images/face-shape-hero.webp",
+    "alt": "AI Face Shape Detector - Upload photo to analyze your face shape and get personalized hairstyle recommendations"
+  },
+  "howToUseSection": {
+    "title": "How to Use the Face Shape Detector",
+    "description": "Discover how easy it is to use Hairstyle AI's Face Shape Detector to find your perfect hairstyle. Follow these simple steps, and in just a few seconds, you'll get personalized hairstyle recommendations based on your unique face shape. No complicated processes—just a few easy clicks!",
+    "steps": [
+      {
+        "title": "1. Upload Your Photo",
+        "icon": "fas fa-upload",
+        "description": "Start by uploading a clear, high-quality photo of yourself. Ensure that your face is fully visible, with no hats or glasses to get the best results. You can upload images in PNG, JPG, or JPEG formats, with a maximum file size of 5MB. Simple as that!"
+      },
+      {
+        "title": "2. Let AI Analyze Your Face",
+        "icon": "fas fa-magic",
+        "description": "After you upload your photo, Hairstyle AI will immediately analyze your facial features using advanced algorithms. It will determine your face shape—whether oval, round, square, or any other—then provide personalized hairstyle recommendations tailored to your unique features."
+      },
+      {
+        "title": "3. Get Personalized Results",
+        "icon": "fas fa-star",
+        "description": "Within seconds, you'll receive a list of hairstyle suggestions that suit your face shape. The tool will recommend styles that enhance your features, making it easier to find the best look for you. Explore the styles and see how each one would look on your face!"
+      },
+      {
+        "title": "4. Download and Share Your New Look",
+        "icon": "fas fa-download",
+        "description": "Once you're happy with the recommendations, simply download the image or share it directly on your social media profiles. Show off your new style to friends and family and get their opinions. It's fun and easy to experiment with different looks before making a change!"
+      }
+    ],
+    "image": {
+      "src": "/images/face-shape-how-to.webp",
+      "alt": "Step by step guide showing how to use AI face shape detector tool for hairstyle recommendations"
+    },
+    "ctaText": "Try Face Shape Detector",
+    "ctaLink": "/face-shape-detector"
+  },
+  "ctaSections": [
+    {
+      "title": "Everyday Confidence with the Right Hairstyle",
+      "description": "Tired of always settling for the same old style? Let Hairstyle AI help you discover a fresh look that fits your face shape. Upload a photo, and in a few seconds, you'll get a tailored hairstyle recommendation. I love that the Face Shape Detector suggests styles that work naturally with my features—no more guesswork! Whether you're running errands or heading to a meeting, you'll feel confident with a hairstyle designed just for you.",
+      "image": {
+        "src": "/images/face-shape-hero2.webp",
+        "alt": "Professional woman with perfect hairstyle matched to her face shape using AI face shape detector"
+      },
+      "ctaText": "Try Face Shape Detector",
+      "ctaLink": "/face-shape-detector"
+    },
+    {
+      "title": "For Special Occasions, Choose a Flattering Style",
+      "description": "Preparing for a wedding or important event? Hairstyle AI's Face Shape Detector gives you quick, personalized results to find the perfect style for any occasion. Just upload your photo, and within seconds, you'll see hair recommendations that complement your face shape. Personally, I think a voluminous hairstyle works wonders for round faces—it brings balance and makes you look elegant. Why risk a bad hair day when you can try the perfect look first?",
+      "image": {
+        "src": "/images/face-shape-hero3.webp",
+        "alt": "Elegant woman with special occasion hairstyle perfectly matched to her face shape for events and weddings"
+      },
+      "ctaText": "Try Face Shape Detector",
+      "ctaLink": "/face-shape-detector"
+    },
+    {
+      "title": "Get Social Media Ready with the Perfect Look",
+      "description": "Whether it's for Instagram, TikTok, or a casual selfie, you deserve to look your best. Upload your photo to Hairstyle AI's Face Shape Detector and discover how you can transform your look to perfection. For me, experimenting with different styles has never been easier. I got the perfect bob for my square face shape, and it looked amazing in photos! Now, I feel more confident when sharing my style with friends and followers.",
+      "image": {
+        "src": "/images/face-shape-social.webp",
+        "alt": "Young woman taking selfie with perfect hairstyle for her face shape ideal for social media posts"
+      },
+      "ctaText": "Try Face Shape Detector",
+      "ctaLink": "/face-shape-detector"
+    }
+  ],
+  "whyChooseSection": {
+    "title": "Why Choose Us: The Benefits of Hairstyle AI's Face Shape Detector",
+    "features": [
+      {
+        "icon": "fas fa-envelope",
+        "title": "Free to Use, No Hidden Fees",
+        "description": "Hairstyle AI's Face Shape Detector is completely free to use. Simply upload your photo, and you'll receive personalized recommendations without any cost. No subscription, no hidden fees—just an easy, straightforward tool to help you find the perfect style."
+      },
+      {
+        "icon": "fas fa-palette",
+        "title": "Wide Range of Hairstyle & Color Options",
+        "description": "Our tool offers a vast selection of hairstyles and color choices, from classic cuts to trendy styles. Whether you're looking for something bold or subtle, Hairstyle AI gives you the freedom to explore and try on different looks, all tailored to your unique face shape."
+      },
+      {
+        "icon": "fas fa-eye",
+        "title": "Realistic, Natural-Looking Results",
+        "description": "The AI-powered tool ensures that the hairstyle recommendations you receive look realistic and natural. You can trust that the styles suggested will flatter your face shape and enhance your features, giving you a genuine preview of how each style will look in real life."
+      },
+      {
+        "icon": "fas fa-shield-alt",
+        "title": "Your Data Privacy is Our Priority",
+        "description": "At Hairstyle AI, we take your privacy seriously. Your uploaded photo is analyzed securely within your browser and is never stored. Once the analysis is complete, all data is automatically deleted. Enjoy peace of mind knowing your personal information is fully protected."
+      }
+    ]
+  },
+  "moreToolsSection": {
+    "title": "More Free AI Tools from Hairstyle AI",
+    "tools": [
+      {
+        "title": "Hairstyles for Men",
+        "description": "Discover Perfect Men's Haircuts",
+        "image": "/images/man-hair-hero.webp",
+        "link": "/hairstyles-for-men"
+      },
+      {
+        "title": "Hairstyles for Women", 
+        "description": "Discover Perfect Women's Hairstyles",
+        "image": "/images/hairstyle-for-women-hero.webp",
+        "link": "/hairstyles-for-women"
+      },
+      {
+        "title": "Hairstyles for Girls",
+        "description": "Discover Trendy Hairstyles for Girls", 
+        "image": "/images/hairstyle-for-girls-hero.webp",
+        "link": "/hairstyles-for-girls"
+      }
+    ]
+  },
+  "testimonialsConfig": [
+    {
+      "quote": "I never realized how much my face shape affected my confidence until I used the face shape detector. It showed me my natural features in a new light, helping me appreciate my unique look. I felt more comfortable in my skin, and it made a huge difference in how I carry myself every day.",
+      "author": "John",
+      "title": "Software Developer",
+      "rating": 5.0
+    },
+    {
+      "quote": "I've always felt unsure about my facial features, thinking I didn't quite fit the 'standard' beauty ideals. After using the face shape detector, I gained a deeper understanding of my face and began embracing my natural features. It's amazing how a little knowledge can boost your confidence and self-image.",
+      "author": "Jessica",
+      "title": "Teacher",
+      "rating": 5.0
+    },
+    {
+      "quote": "I used the face shape detector before a date, just curious to see what it would suggest. The recommendation surprised me—it picked a relaxed, yet stylish look that really complemented my face shape. I felt great, and it gave me that extra confidence when meeting someone new. I didn't expect the tool to have such a positive impact!",
+      "author": "David",
+      "title": "College Student",
+      "rating": 4.0
+    },
+    {
+      "quote": "I've always struggled with finding the right look for special occasions. I tried the face shape detector the night before a wedding I was attending, and I was shocked by how well the tool nailed a sophisticated updo for me. I felt confident all night, and the compliments just kept coming! It really made me feel like I had the perfect style for the event.",
+      "author": "Olivia",
+      "title": "Wedding Planner",
+      "rating": 5.0
+    }
+  ],
+  "faqConfig": [
+    {
+      "question": "What is face shape detector?",
+      "answer": "A face shape detector is a tool that analyzes your facial features to identify your unique face shape, like oval, round, square, or heart-shaped. Based on this analysis, it provides personalized hairstyle recommendations that are best suited for your facial structure. It's fast, accurate, and easy to use, giving you a clear guide to finding your perfect hairstyle."
+    },
+    {
+      "question": "How does the face shape detector work?",
+      "answer": "To use the face shape detector, simply upload a clear photo of your face. The tool then analyzes your facial features using AI to identify your face shape. It provides personalized hairstyle suggestions based on this analysis, helping you choose styles that best complement your natural features. The process takes just seconds and is done securely and privately."
+    },
+    {
+      "question": "Is the face shape detector free to use?",
+      "answer": "Yes, Hairstyle AI's Face Shape Detector is completely free! You can upload your photo and receive personalized hairstyle suggestions without any cost. Enjoy trying out different looks as much as you like—no hidden fees."
+    },
+    {
+      "question": "Is my photo safe and private?",
+      "answer": "Your privacy is our top priority. Hairstyle AI ensures that all photos uploaded are processed securely and are never stored or shared. Your image is analyzed directly on your browser, and once the analysis is complete, the photo is automatically deleted. We guarantee 100% privacy and security for all users."
+    },
+    {
+      "question": "What are the benefits of knowing my face shape?",
+      "answer": "Understanding your face shape helps you choose hairstyles that flatter your natural features and enhance your overall appearance. By aligning your hairstyle with your face shape, you can avoid styles that might not suit you, giving you more confidence in your look. It also makes the process of finding a new style quicker and easier, saving you time and effort."
+    },
+    {
+      "question": "What hairstyle suits my face shape?",
+      "answer": "The Face Shape Detector provides personalized recommendations based on your specific face shape. Whether you have an oval, round, square, or heart-shaped face, the tool will suggest hairstyles that work best with your features. It helps you select flattering styles that add balance and highlight your best features, ensuring you look your best every time."
+    },
+    {
+      "question": "Can I test a photo with glasses?",
+      "answer": "Yes, you can upload a photo with glasses! The Face Shape Detector analyzes your face shape with the glasses on, so you can see how different hairstyles will work with your frames. This helps you choose the perfect hairstyle that complements your eyewear and gives you a polished look."
+    }
+  ],
+  "finalCta": {
+    "title": "Transform Your Look with AI-Powered Face Shape Detector",
+    "description": "Stop guessing! Let our AI-powered face shape detector help you find the most flattering hairstyle. Upload your photo now and start your style transformation today!",
+    "ctaText": "Analyze My Face Shape Now →",
+    "ctaLink": "/face-shape-detector"
+  }
+}

@@ -34,12 +34,12 @@ export default function Footer() {
                         <ul className="space-y-4">
                             <li>
                                 <Link href="/hairstyles-for-men" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyle Simulator for Male
+                                    Hairstyle for Men
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/hairstyles-for-women" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyle Simulator for Female
+                                    Hairstyle for Women
                                 </Link>
                             </li>
                             <li>
@@ -122,7 +122,19 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Column 4 - Company Links */}
+                    {/* Column 4 - Other Tools */}
+                    <div className="text-center md:text-left">
+                        <h3 className="text-xl font-semibold mb-6">Other Tools</h3>
+                        <ul className="space-y-4">
+                            <li>
+                                <Link href="/face-shape-detector" className="text-gray-400 hover:text-white transition-colors">
+                                    Face Shape Detector
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Column 5 - Company Links */}
                     <div className="text-center md:text-left">
                         <h3 className="text-xl font-semibold mb-6">Company</h3>
                         <ul className="space-y-4">
