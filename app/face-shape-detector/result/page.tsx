@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ChevronsRight, ArrowLeft } from 'lucide-react';
 import { femaleStyles, maleStyles, HairStyle } from '@/lib/hairstyles';
@@ -37,7 +37,8 @@ const getHairstylesByGender = (gender: 'male' | 'female'): HairStyle[] => {
   return gender === 'female' ? femaleStyles : maleStyles;
 };
 
-const ResultPage = () => {
+// Component that uses useSearchParams
+const ResultContent = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -389,6 +390,25 @@ const ResultPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white flex items-center justify-center">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700 mx-auto mb-4"></div>
+      <p className="text-gray-600">Loading your results...</p>
+    </div>
+  </div>
+);
+
+// Main page component with Suspense boundary
+const ResultPage = () => {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <ResultContent />
+    </Suspense>
   );
 };
 
