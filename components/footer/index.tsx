@@ -21,102 +21,85 @@ export default function Footer() {
                                 priority
                             />
                             </div>
-                            <h3 className="text-2xl font-bold text-white">Hairstyle AI</h3>
+                            <h3 className="text-xl font-bold text-white">Hairstyle AI</h3>
                         </div>
                         <p className="text-gray-400 text-lg">
                             Hairstyle AI is a free online hairstyle simulator that lets you try 60+ haircuts and colors on your photo in seconds.
                         </p>
                     </div>
 
-                    {/* Column 2 - Hairstyle */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-semibold mb-6">Hairstyle</h3>
-                        <ul className="space-y-4">
-                            <li>
-                                <Link href="/hairstyles-for-men" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyle for Men
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/hairstyles-for-women" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyle for Women
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/hairstyles-for-girls" className="text-gray-400 hover:text-white transition-colors">
-                                    Hairstyles for Girls
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
                     {/* Column 3 - Blog */}
                     <div className="text-center md:text-left">
-                        <h3 className="text-xl font-semibold mb-6">Blog</h3>
+                        <h3 className="text-xl font-semibold mb-6">Hairstyle Filter</h3>
                         <ul className="space-y-4">
                             <li>
                                 <Link href="/buzz-cut-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Buzz Cut
+                                    Buzz Cut Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/bob-haircut-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Bob Haircut
+                                    Bob Haircut Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/bangs-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Bangs
+                                    Bangs Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/ai-braids" className="text-gray-400 hover:text-white transition-colors">
-                                    AI Braids
+                                    Braids Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/pixie-cut-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Pixie Cut
+                                    Pixie Cut Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/short-hair-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Short Hair
+                                    Short Hair Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/long-hair-filter" className="text-gray-400 hover:text-white transition-colors">
-                                    Long Hair
+                                    Long Hair Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/dreadlocks" className="text-gray-400 hover:text-white transition-colors">
-                                    Dreadlocks
+                                    Dreadlocks Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/low-fade-haircut" className="text-gray-400 hover:text-white transition-colors">
-                                    Low Fade Haircut
+                                    Low Fade Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/pompadour" className="text-gray-400 hover:text-white transition-colors">
-                                    Pompadour
+                                    Pompadour Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/man-bun" className="text-gray-400 hover:text-white transition-colors">
-                                    Man Bun
+                                    Man Bun Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/undercut" className="text-gray-400 hover:text-white transition-colors">
-                                    Undercut
+                                    Undercut Filter
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/textured-fringe" className="text-gray-400 hover:text-white transition-colors">
-                                    Textured Fringe
+                                    Textured Fringe Filter
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/blonde-hair-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Blonde Hair Filter
                                 </Link>
                             </li>
                         </ul>

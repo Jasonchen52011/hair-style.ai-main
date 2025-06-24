@@ -80,7 +80,7 @@ export default function Testimonials({ testimonials = defaultTestimonials }: Tes
               ))}
             </div>
             <div className="text-gray-600 font-medium">
-              {currentTestimonial.rating}
+              {currentTestimonial.rating.toFixed(1)}
             </div>
           </div>
 
@@ -147,7 +147,7 @@ export default function Testimonials({ testimonials = defaultTestimonials }: Tes
               ))}
             </div>
             <div className="text-gray-600 font-medium text-sm">
-              {currentTestimonial.rating}
+              {currentTestimonial.rating.toFixed(1)}
             </div>
           </div>
 

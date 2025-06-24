@@ -113,34 +113,12 @@ export default function BraidsFilterPage() {
                                 {/* 统计数据 */}
                                 <div className="flex items-center gap-3 mb-8 mt-16">
                                     <div className="flex items-center gap-1">
-                                        {[1, 2, 3, 4, 5].map((star) => {
-                                            const rating = heroSection.rating;
-                                            if (star <= Math.floor(rating)) {
-                                                // 完全填充的星星
-                                                return (
-                                                    <i 
-                                                        key={star}
-                                                        className="fas fa-star text-yellow-400 text-sm"
-                                                    />
-                                                );
-                                            } else if (star <= rating) {
-                                                // 半填充的星星
-                                                return (
-                                                    <i 
-                                                        key={star}
-                                                        className="fas fa-star-half text-yellow-400 text-sm"
-                                                    />
-                                                );
-                                            } else {
-                                                // 空星星
-                                                return (
-                                                    <i 
-                                                        key={star}
-                                                        className="fas fa-star text-gray-300 text-sm"
-                                                    />
-                                                );
-                                            }
-                                        })}
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <i 
+                                                key={star}
+                                                className="fas fa-star text-yellow-400 text-sm"
+                                            />
+                                        ))}
                                     </div>
                                     <span className="text-gray-600 font-medium text-sm sm:text-base">{heroSection.statsText}</span>
                                 </div>

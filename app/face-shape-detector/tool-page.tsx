@@ -176,7 +176,7 @@ const ToolPage = () => {
           <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-800 tracking-tight">
           AI Face Shape Detector Online Free
           </h1>
-          <p className="mt-4 max-w-5xl mx-auto text-lg text-gray-600">
+          <p className="mt-4 max-w-5xl mx-auto text-base text-gray-600">
           With Hairstyle AI’s face shape detector, you can find the perfect hairstyle for your face shape in just a few simple steps. Upload your photo and let the AI analyze your face to provide the most flattering style options. Whether you're looking for something bold or classic, we offer tailored recommendations that enhance your unique features and elevate your confidence.
           </p>
         </div>
