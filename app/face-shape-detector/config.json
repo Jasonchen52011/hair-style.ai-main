@@ -11,7 +11,7 @@
     "ctaLink": "/face-shape-detector"
   },
   "imageConfig": {
-    "displayHeight": 800,
+    "displayHeight": 750,
     "image": "/images/face-shape-hero.webp",
     "alt": "AI Face Shape Detector - Upload photo to analyze your face shape and get personalized hairstyle recommendations"
   },
