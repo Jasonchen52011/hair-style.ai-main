@@ -118,53 +118,7 @@ export default function Navbar() {
                             Home
                         </Link>
                         
-                        {/* Hairstyle Dropdown */}
-                        <div className="relative" ref={hairstyleDropdownRef}>
-                            <button 
-                                onClick={() => setIsHairstyleDropdownOpen(!isHairstyleDropdownOpen)}
-                                className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
-                            >
-                                Hairstyle
-                                <svg 
-                                    className={`ml-1 w-4 h-4 transition-transform duration-200 ${
-                                        isHairstyleDropdownOpen ? 'rotate-180' : ''
-                                    }`} 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            
-                            {isHairstyleDropdownOpen && (
-                                <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-                                    <div className="py-2">
-                                        <Link
-                                            href="/hairstyles-for-men"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsHairstyleDropdownOpen(false)}
-                                        >
-                                            Hairstyle for Men
-                                        </Link>
-                                        <Link
-                                            href="/hairstyles-for-women"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsHairstyleDropdownOpen(false)}
-                                        >
-                                            Hairstyle for Women
-                                        </Link>
-                                        <Link
-                                            href="/hairstyles-for-girls"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsHairstyleDropdownOpen(false)}
-                                        >
-                                            Hairstyles for Girls
-                                        </Link>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                        
                         
                         {/* Hairstyle Filter Dropdown */}
                         <div className="relative" ref={dropdownRef}>
@@ -172,7 +126,7 @@ export default function Navbar() {
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                 className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
                             >
-                                Blog
+                                Hairstyle Filter
                                 <svg 
                                     className={`ml-1 w-4 h-4 transition-transform duration-200 ${
                                         isDropdownOpen ? 'rotate-180' : ''
@@ -193,150 +147,106 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Buzz Cut
+                                            Buzz Cut Filter
                                         </Link>
                                         <Link
                                             href="/bob-haircut-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Bob Haircut
+                                            Bob Haircut Filter
                                         </Link>
                                         <Link
                                             href="/bangs-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Bangs
+                                            Bangs Filter
                                         </Link>
                                         <Link
                                             href="/ai-braids"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            AI Braids
+                                            Braids Filter
                                         </Link>
                                         <Link
                                             href="/pixie-cut-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Pixie Cut
+                                            Pixie Cut Filter
                                         </Link>
                                         <Link
                                             href="/short-hair-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Short Hair
+                                            Short Hair Filter
                                         </Link>
                                         <Link
                                             href="/long-hair-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Long Hair
+                                            Long Hair Filter
                                         </Link>
-                                        <Link
-                                            href="/dreadlocks"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Dreadlocks
-                                        </Link>
+                                                                <Link
+                            href="/dreadlocks"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Dreadlocks Filter
+                        </Link>
+                        <Link
+                            href="/blonde-hair-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Blonde Hair Filter
+                        </Link>
                                         <Link
                                             href="/low-fade-haircut"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Low Fade Haircut
+                                            Low Fade Filter
                                         </Link>
                                         <Link
                                             href="/pompadour"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Pompadour
+                                            Pompadour Filter
                                         </Link>
                                         <Link
                                             href="/man-bun"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Man Bun
+                                            Man Bun Filter
                                         </Link>
                                         <Link
                                             href="/undercut"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Undercut
+                                            Undercut Filter
                                         </Link>
                                         <Link
                                             href="/textured-fringe"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                                                                Textured Fringe
+                                           Textured Fringe Filter
                                 </Link>
                             </div>
 
-                            {/* Mobile Other Tools Menu */}
-                            <div className="space-y-1">
-                                <div className="px-4 py-2 text-gray-900 font-medium">Other Tools</div>
-                                <Link
-                                    href="/face-shape-detector"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Face Shape Detector
-                                </Link>
-                            </div>
-
-                            <Link
-                                href="/about"
-                                className="block px-4 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                About
-                            </Link>
+                
                         </div>
                             )}
                         </div>
-                        
-                        {/* Other Tools Dropdown */}
-                        <div className="relative" ref={otherToolsDropdownRef}>
-                            <button 
-                                onClick={() => setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen)}
-                                className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
-                            >
-                                Other Tools
-                                <svg 
-                                    className={`ml-1 w-4 h-4 transition-transform duration-200 ${
-                                        isOtherToolsDropdownOpen ? 'rotate-180' : ''
-                                    }`} 
-                                    fill="none" 
-                                    stroke="currentColor" 
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </button>
-                            
-                            {isOtherToolsDropdownOpen && (
-                                <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-                                    <div className="py-2">
-                                        <Link
-                                            href="/face-shape-detector"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsOtherToolsDropdownOpen(false)}
-                                        >
-                                            Face Shape Detector
-                                        </Link>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                    
                         
                         <Link href="/about" className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700">
                             About
@@ -371,125 +281,99 @@ export default function Navbar() {
                                 Home
                             </Link>
                             
-                            {/* Mobile Hairstyle Menu */}
-                            <div className="space-y-1">
-                                <div className="px-4 py-2 text-gray-900 font-medium">Hairstyle</div>
-                                <Link
-                                    href="/hairstyles-for-men"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Hairstyle for Men
-                                </Link>
-                                <Link
-                                    href="/hairstyles-for-women"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Hairstyle for Women
-                                </Link>
-                                <Link
-                                    href="/hairstyles-for-girls"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Hairstyles for Girls
-                                </Link>
-                            </div>
-
                             {/* Mobile Blog Menu */}
                             <div className="space-y-1">
-                                <div className="px-4 py-2 text-gray-900 font-medium">Blog</div>
+                                <div className="px-4 py-2 text-gray-900 font-medium">Hairstyle Filter</div>
                                 <Link
                                     href="/buzz-cut-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Buzz Cut
+                                    Buzz Cut Filter
                                 </Link>
                                 <Link
                                     href="/bob-haircut-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Bob Haircut
+                                    Bob Haircut Filter
                                 </Link>
                                 <Link
                                     href="/bangs-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Bangs
+                                    Bangs Filter
                                 </Link>
                                 <Link
                                     href="/ai-braids"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    AI Braids
+                                    Braids Filter
                                 </Link>
                                 <Link
                                     href="/pixie-cut-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Pixie Cut
+                                    Pixie Cut Filter
                                 </Link>
                                 <Link
                                     href="/short-hair-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Short Hair
+                                    Short Hair Filter
                                 </Link>
                                 <Link
                                     href="/long-hair-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Long Hair
+                                    Long Hair Filter
                                 </Link>
                                 <Link
                                     href="/dreadlocks"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Dreadlocks
+                                    Dreadlocks Filter
                                 </Link>
                                 <Link
                                     href="/low-fade-haircut"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Low Fade Haircut
+                                    Low Fade Filter
                                 </Link>
                                 <Link
                                     href="/pompadour"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Pompadour
+                                    Pompadour Filter
                                 </Link>
                                 <Link
                                     href="/man-bun"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Man Bun
+                                    Man Bun Filter
                                 </Link>
                                 <Link
                                     href="/undercut"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Undercut
+                                    Undercut Filter
                                 </Link>
                                 <Link
                                     href="/textured-fringe"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Textured Fringe
+                                    Textured Fringe Filter
                                 </Link>
                             </div>
                         </div>

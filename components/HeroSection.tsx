@@ -33,31 +33,12 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
             
             <div className="flex items-center justify-center lg:justify-start gap-3 mb-3 mt-8">
               <div className="flex items-center gap-1">
-                {[1, 2, 3, 4, 5].map((star) => {
-                  const rating = heroSection.rating;
-                  if (star <= Math.floor(rating)) {
-                    return (
-                      <i 
-                        key={star}
-                        className="fas fa-star text-yellow-400 text-sm"
-                      />
-                    );
-                  } else if (star <= rating) {
-                    return (
-                      <i 
-                        key={star}
-                        className="fas fa-star-half text-yellow-400 text-sm"
-                      />
-                    );
-                  } else {
-                    return (
-                      <i 
-                        key={star}
-                        className="fas fa-star text-gray-300 text-sm"
-                      />
-                    );
-                  }
-                })}
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <i 
+                    key={star}
+                    className="fas fa-star text-yellow-400 text-sm"
+                  />
+                ))}
               </div>
               <span className="text-gray-600 font-medium text-sm sm:text-base">{heroSection.statsText}</span>
             </div>

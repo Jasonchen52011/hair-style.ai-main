@@ -47,7 +47,8 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
                 <div className="p-2">
-                  <h3 className="text-gray-800 mt-2 text-lg sm:text-xl font-bold">{tool.description}</h3>
+                  <h3 className="text-gray-800 mt-2 text-lg sm:text-xl font-bold">{tool.title}</h3>
+                  <p className="text-gray-600 text-sm sm:text-base mt-1">{tool.description}</p>
                 </div>
               </Link>
             ))}
@@ -165,6 +166,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "AI Face Shape Detector - Find Your Perfect Hairstyle",
       link: "/face-shape-detector",
       image: "/images/face-shape-hero.webp"
+    },
+    "Blonde Hair Filter": {
+      title: "Blonde Hair Filter",
+      description: "Try Blonde Hair Colors Risk-Free",
+      link: "/blonde-hair-filter",
+      image: "/images/blonde-filter-hero.webp"
     }
   };
 
@@ -175,7 +182,7 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
     <section className="max-w-7xl mx-auto mt-12 mb-6 px-4">
       <div className=" rounded-xl p-6 md:p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 ">More Free AI Tools from Hairstyle AI</h2>
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 ">Try More Virtual Hair Filters</h2>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {toolsToDisplay.map((tool, index) => (
@@ -195,7 +202,8 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
               <div className="p-2">
-                <h3 className="text-gray-800 mt-2 text-lg sm:text-xl font-bold">{tool.description}</h3>
+                <h3 className="text-gray-800 mt-2 text-lg sm:text-xl font-bold">{tool.title}</h3>
+                <p className="text-gray-600 text-sm sm:text-base mt-1">{tool.description}</p>
               </div>
             </Link>
           ))}
