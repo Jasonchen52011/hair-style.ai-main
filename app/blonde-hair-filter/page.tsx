@@ -123,16 +123,14 @@ export default function BlondeHairFilterPage() {
                 <UsageScenariosSection ctaSections={ctaSections} />
 
                 <LazySection>
+                    <MoreFreeAITools moreToolsSection={moreToolsSection} />
+                </LazySection>
+
+                <LazySection>
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
                         testimonialsConfig={testimonialsConfig}
                     />
-                </LazySection>
-
-    
-
-                <LazySection>
-                    <MoreFreeAITools moreToolsSection={moreToolsSection} />
                 </LazySection>
 
                 <LazySection>

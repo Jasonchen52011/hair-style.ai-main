@@ -31,6 +31,7 @@ const {
   whyChooseSection, 
   testimonialsConfig, 
   faqConfig, 
+  moreToolsSection,
   finalCta, 
   structuredData, 
   breadcrumbData,
@@ -132,17 +133,17 @@ export default function ShortHairFilterPage() {
                 {/* Usage Scenarios Sections */}
                 <UsageScenariosSection ctaSections={ctaSections} />
 
+                {/* More Free AI Tools Section */}
+                <LazySection>
+                    <MoreFreeAITools moreToolsSection={moreToolsSection} />
+                </LazySection>
+
                 {/* Why Choose Section */}
                 <LazySection>
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
                         testimonialsConfig={testimonialsConfig}
                     />
-                </LazySection>
-
-                {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={["Pixie Cut Filter", "Bob Haircut Filter", "Buzz Cut Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}

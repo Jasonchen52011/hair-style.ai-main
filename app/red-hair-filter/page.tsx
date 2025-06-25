@@ -6,16 +6,16 @@ import Footer from '@/components/footer'
 import LazySection from '@/components/LazySection'
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
-import FaceShapesSection from '@/components/FaceShapesSection'
+
 import HowToMaintainSection from '@/components/HowToMaintainSection'
 import HowToUseSection from '@/components/HowToUseSection'
 import UsageScenariosSection from '@/components/UsageScenariosSection'
 import WhyChooseSection from '@/components/WhyChooseSection'
-import HairRegretsSection from '@/components/HairRegretsSection'
 import MoreFreeAITools from '@/components/MoreFreeAITools'
 import FAQ from '@/components/faq'
 import CTASection from '@/components/CTASection'
 import configData from './config.json'
+import TestimonialsSection from '@/components/testimonials'
 
 const config = configData as any;
 
@@ -23,9 +23,7 @@ const {
   imageConfig, 
   heroSection, 
   beforeAfterGallery, 
-  isRightSection, 
   additionalSection,
-  regretsSection,
   howToUseSection, 
   ctaSections, 
   whyChooseSection, 
@@ -38,7 +36,7 @@ const {
   seoConfig
 } = config;
 
-// ## Long Hair Filter 页面 metadata
+// ## Red Hair Filter Page metadata
 export const metadata: Metadata = {
     title: seoConfig.title,
     description: seoConfig.description,
@@ -80,10 +78,13 @@ export const metadata: Metadata = {
         description: seoConfig.twitter.description,
         images: seoConfig.twitter.images
     },
+    other: {
+        'application-name': structuredData.name,
+    }
 }
 
-export default function LongHairFilterPage() {
-    return (
+export default function RedHairFilterPage() {
+  return (
         <>        
             <script
                 type="application/ld+json"
@@ -99,43 +100,32 @@ export default function LongHairFilterPage() {
             <div className="min-h-screen bg-white flex flex-col">
                 <Navbar />
                 
-                {/* Hero Section */}
                 <HeroSection 
                     heroSection={heroSection}
                     imageConfig={imageConfig}
                 />
 
-                {/* Before & After Gallery */}
                 <LazySection>
                     <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
                 </LazySection>
 
-                {/* Face Shapes Section */}
-                <LazySection>
-                    <FaceShapesSection isRightSection={isRightSection} />
-                </LazySection>
 
-                {/* How to Maintain Section */}
+
                 <LazySection>
                     <HowToMaintainSection additionalSection={additionalSection} />
                 </LazySection>
 
-          
-
-                {/* How to Use Section */}
                 <LazySection>
                     <HowToUseSection howToUseSection={howToUseSection} />
                 </LazySection>
 
-                {/* Usage Scenarios Sections */}
+
                 <UsageScenariosSection ctaSections={ctaSections} />
 
-                {/* More Free AI Tools Section */}
                 <LazySection>
                     <MoreFreeAITools moreToolsSection={moreToolsSection} />
                 </LazySection>
 
-                {/* Why Choose Section */}
                 <LazySection>
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
@@ -143,12 +133,10 @@ export default function LongHairFilterPage() {
                     />
                 </LazySection>
 
-                {/* FAQ Section */}
                 <LazySection>
                     <FAQ faqs={faqConfig} />
                 </LazySection>
 
-                {/* CTA Section */}
                 <CTASection finalCta={finalCta} />
 
                 <Footer />
