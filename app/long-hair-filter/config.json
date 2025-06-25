@@ -350,6 +350,29 @@
         }
       ]
     },
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "AI Braids Filter",
+          "description": "Try Braids Instantly, Avoid Styling Regrets",
+          "link": "/ai-braids",
+          "image": "/images/fishtail-braid-after-h1.webp"
+        },
+        {
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
+        },
+        {
+          "title": "Blonde Hair Filter",
+          "description": "Try Blonde Hair Colors Risk-Free",
+          "link": "/blonde-hair-filter",
+          "image": "/images/blonde-filter-hero.webp"
+        }
+      ]
+    },
     "seoConfig": {
       "title": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
       "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",

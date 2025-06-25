@@ -1,0 +1,472 @@
+{
+    "heroSection": {
+      "title": "Discover Your Red Hair Look with the Free Red Hair Filter",
+      "description": "Curious about red hair but hesitant to commit? Use Hairstyle AI's Red Hair Filter to try on various shades of red. With realistic results, you'll know exactly how you'd look before making any decisions. Try it for free and get inspired!",
+      "rating": 4.8,
+      "statsText": "285,000+ virtual red hair transformations created",
+      "ctaText": "Try Red Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=Red",
+      "styleConfig": {
+        "layout": {
+          "imageRatio": "3/5",
+          "textRatio": "2/5",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-3xl",
+            "desktop": "text-5xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "spacing": "mb-6"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-500",
+          "fontWeight": "font-medium",
+          "spacing": "mb-8"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/red-hair-filter-hero.webp",
+      "alt": "Red hair filter hero - woman with stunning red hair transformation"
+    },
+    "beforeAfterGallery": {
+      "title": "Transform Your Style with the Red Hair Filter",
+      "description": "See how red hair can look on you with Hairstyle AI's Red Hair Filter. Try different shades like ginger, auburn, and cherry red instantly. Explore your bold new look with no risk – just a click away!",
+      "images": [
+        {
+          "src": "/images/red-hair-filter-cherry-red.webp",
+          "alt": "Red filter cherry red - cherry red hair transformation"
+        },
+        {
+          "src": "/images/red-hair-filter-ginger-red.webp",
+          "alt": "Red filter ginger red - ginger red hair transformation"
+        },
+        {
+          "src": "/images/red-hair-filter-copper.webp",
+          "alt": "Red filter copper - copper red hair transformation"
+        },
+        {
+          "src": "/images/red-hair-filter-deep-burgundy.webp",
+          "alt": "Red filter deep burgundy - deep burgundy hair transformation"
+        },
+        {
+          "src": "/images/red-hair-filter-russet.webp",
+          "alt": "Red filter russet - russet red hair transformation"
+        },
+        {
+          "src": "/images/red-hair-filter-deep-red-pixie-hair.webp",
+          "alt": "Red filter deep red pixie - deep red pixie hair transformation"
+        }
+        ]
+    },
+    "additionalSection": [
+      {
+        "title": "Finding the Perfect Red Hair Shade for Your Skin Tone",
+        "textContent": [
+        "Choosing the right red hair color is all about matching it to your skin tone. If you have fair skin, a bright cherry red or ginger shade will add warmth and complement your complexion. For medium skin tones, a rich auburn or copper hue will bring out the natural glow. Darker skin tones can rock deep, bold reds like burgundy or dark red—super chic and stunning.",
+        "Trust me, I love how vibrant my hair looks when I tried the deep auburn shade! My hairstylist buddy says this hue brings out my eyes perfectly. Want to see how you'd look with red hair? Try it out on Hairstyle AI's free Red Hair Filter today!"
+        ],
+        "image": {
+          "src": "/images/red-hair-filter-hero3.webp",
+          "alt": "Red hair filter skin tones - how red hair works with different skin tones"
+        },
+        "ctaText": "Try Red Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Red",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      },
+      {
+        "title": "How to Care for Your Red Hair and Keep the Color Vibrant",
+        "textContent": [
+        "Keeping your red hair vibrant is easier than you think, but it does require a little extra care! To maintain that bold red shade, always use a shampoo that's specially formulated for color-treated hair. I personally use a color-lock shampoo that's worked wonders for my ginger hue—it helps keep the color bright and prevents it from fading.",
+        "My hairstylist friend also gave me a great tip: avoid using hot water when washing your hair. Hot water opens up the hair cuticle, causing the color to fade faster, so I've switched to lukewarm water, and it's made a huge difference!",
+        "Don't forget to keep your hair moisturized with a deep conditioning treatment at least once a week—it keeps my red hair soft, shiny, and hydrated, while helping preserve the vibrancy. If you're unsure about which red shade suits you, use Hairstyle AI's Red Hair Filter for a free trial and experiment with different colors before making a decision!"
+        ],
+        "image": {
+          "src": "/images/red-hair-filter-hero4.webp",
+          "alt": "Red hair filter care - red hair maintenance and care tips"
+        },
+        "ctaText": "Try Red Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Red",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "left",
+            "textOrder": "right"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      }
+    ],
+    "howToUseSection": {
+      "title": "How to Try the Red Hair Filter: A Simple Step-by-Step Guide",
+      "description": "Wondering how to see yourself with a stunning red hair makeover? It's super easy with Hairstyle AI! Follow these simple steps to upload your photo, try on red shades, and download your results. Ready to transform your look? Let's get started!",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Start by uploading a clear photo of yourself. Make sure the image shows your face clearly—this helps the AI give the best red hair transformation possible. (Supported formats: PNG, JPG, JPEG, up to 3MB)."
+        },
+        {
+          "title": "Step 2: Choose Your Red Hair Shade",
+          "icon": "fas fa-palette",
+          "description": "Select from a range of stunning red shades—whether you want fiery ginger or deep auburn, there's a color for every personality! Choose your favorite and get ready to see the magic unfold."
+        },
+        {
+          "title": "Step 3: Let the AI Work Its Magic",
+          "icon": "fas fa-magic",
+          "description": "Hit the \"Generate\" button, and let Hairstyle AI's advanced AI technology analyze your photo. It will apply your chosen red hair shade in a few seconds. Watch the transformation!"
+        },
+        {
+          "title": "Step 4: Download and Share",
+          "icon": "fas fa-download",
+          "description": "Once your new red hair is ready, download the image and share it with friends on social media. Show off your bold new look and get ready for compliments!"
+        }
+      ],
+      "image": {
+        "src": "/images/red-hair-filter-how-to.webp",
+        "alt": "Red hair filter how to - step by step guide on how to use red hair filter"
+      },
+      "ctaText": "Try Red Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=Red"
+    },
+    "ctaSections": [
+      {
+        "title": "Transform Your Look for Instagram or TikTok",
+        "description": "Red hair is all about making a statement, especially on social media. Imagine posting a picture with vibrant red hair on Instagram or TikTok—you'll definitely grab some attention! I remember trying the bright cherry red shade for my TikTok video, and it got so many likes. Red hair is perfect for social media—it's bold and never goes unnoticed. The Red Hair Filter lets you test out any shade without the commitment. You can experiment until you find the perfect one! Once you're happy, share it instantly and watch your followers go wild.",
+        "image": {
+          "src": "/images/red-hair-filter-social.webp",
+          "alt": "Red hair filter social media - perfect red look for social media posts"
+        },
+        "ctaText": "Try Red Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Red"
+      },
+      {
+        "title": "Try Red Hair Before You Dye It",
+        "description": "Red hair can be a bold move, but you don't have to take the leap without knowing what it'll look like first! Before committing to dyeing your hair, try out different red shades with the Red Hair Filter. I used the filter before my salon appointment to decide between ginger and auburn, and it made my decision so much easier. The Red Hair Filter helped me pick the perfect color for my skin tone. Plus, it's a great way to avoid any potential regrets! Try it for free and see your transformation before the dye hits your hair.",
+        "image": {
+          "src": "/images/red-hair-filter-hero5.webp",
+          "alt": "Red hair filter planning - planning new red look with confidence"
+        },
+        "ctaText": "Try Red Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Red"
+      },
+      {
+        "title": "Perfect Your Professional Look with Subtle Red Hues",
+        "description": "Red hair doesn't always have to be bold—it can be professional too! Whether you're prepping for a big presentation or an important interview, a subtle red tone can give your look a fresh twist without being too over-the-top. I recently tried a deep auburn shade that looked polished but still gave off a confident, bold vibe. Need to see how you'd look with professional red hues? Use the Red Hair Filter today to find the perfect shade for work and beyond.",
+        "image": {
+          "src": "/images/red-hair-filter-hero2.webp",
+          "alt": "Red hair filter professional - testing red hair for professional events"
+        },
+        "ctaText": "Try Red Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Red"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Hairstyle AI's Red Hair Filter is Your Best Choice",
+      "features": [
+        {
+          "icon": "fas fa-heart",
+          "title": "Simple & Free to Use",
+          "description": "Trying out your new red hair color has never been easier! With Hairstyle AI, uploading your photo and experimenting with red shades is free and effortless. No sign-ups, no hidden fees—just pure fun!"
+        },
+        {
+          "icon": "fas fa-fire",
+          "title": "Wide Range of Hair Shades",
+          "description": "From bold cherry red to deep auburn, Hairstyle AI offers a variety of stunning red hair colors. You can experiment with different tones to find the perfect shade that suits your skin tone and style."
+        },
+        {
+          "icon": "fas fa-gem",
+          "title": "Realistic & Natural Effects",
+          "description": "The AI behind Hairstyle AI ensures that your red hair transformation looks realistic. It analyzes your face shape and applies the color naturally, giving you a flawless preview of how the red hair will look on you."
+        },
+        {
+          "icon": "fas fa-lock",
+          "title": "Privacy & Security",
+          "description": "Your data privacy is our priority! Hairstyle AI doesn't store your photo or personal data. Once you've generated your red hair look, your image is instantly deleted, ensuring complete privacy and security."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I've always wondered how I'd look with red hair but never had the guts to dye it. I tried the Red Hair Filter on Hairstyle AI, and I loved it! I went for a fiery ginger shade, and it looked amazing on my skin tone. I feel so confident now and can't wait to show my friends!",
+        "author": "Emily Roberts",
+        "title": "Marketing Manager",
+        "rating": 5
+      },
+      {
+        "quote": "As someone who works in a creative field, I'm always experimenting with new looks. The Red Hair Filter on Hairstyle AI is perfect for me! I tried out a bold cherry red, and it was so realistic. My coworkers were impressed by how accurate it was. I feel more daring now!",
+        "author": "Jack Miller",
+        "title": "Graphic Designer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I was nervous about trying red hair, but Hairstyle AI's filter gave me the confidence I needed. I tested out a deep auburn color, and the results were stunning! It matched my complexion perfectly. It was so fun sharing my new look with friends on Instagram.",
+        "author": "Sarah Bennett",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've always wanted to go for a more edgy look with red hair, but I wasn't sure which shade would suit me best. Hairstyle AI's filter let me experiment with different reds, from ginger to dark red. The results were spot on! It's a game-changer for making decisions before committing.",
+        "author": "Kevin White",
+        "title": "Entrepreneur",
+        "rating": 4.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "How Realistic Is the Red Hair Filter?",
+        "answer": "The Red Hair Filter by Hairstyle AI delivers a stunningly realistic result. It uses advanced AI to ensure that the red hair color looks natural, blending seamlessly with your facial features and skin tone. Whether you're trying a fiery ginger or a deep auburn, the AI analyzes your photo and applies the chosen color in a way that mirrors a true hair transformation. The results are lifelike and free from the \"uncanny valley\" effect, making it a great way to preview red hair before committing."
+      },
+      {
+        "question": "Is the Red Hair Filter Free?",
+        "answer": "Yes, the Red Hair Filter is completely free to use! You can upload your photo, try out different red shades, and get a realistic preview of your new look without spending a dime. The tool allows up to five free uses per day, giving you plenty of opportunities to experiment with different colors. There are no hidden fees or subscriptions—just fun, risk-free exploration of your red hair transformation!"
+      },
+      {
+        "question": "Is my photo safe/secure?",
+        "answer": "Absolutely! Your privacy is our priority. Hairstyle AI does not store your photos or personal data. Once you've tried out your red hair look, the image is deleted immediately. We don't retain any of your information to ensure your full privacy and security. You can confidently upload your photo, knowing that it won't be used for any purpose other than providing you with the best possible red hair filter experience."
+      },
+      {
+        "question": "Which Red Hair Color Suits My Skin Tone?",
+        "answer": "Choosing the right red hair color depends on your skin tone. For fair skin, vibrant shades like cherry red or ginger can complement your complexion, making your features pop. If you have medium or olive skin, auburn or deep copper tones will add warmth and bring out the richness of your skin. Darker skin tones look stunning with deeper reds like burgundy or wine red, creating a striking contrast that exudes confidence. If you're unsure, try different colors with Hairstyle AI's Red Hair Filter to find the shade that suits you best!"
+      },
+      {
+        "question": "What Would I Look Like with Red Hair?",
+        "answer": "If you've been curious about how red hair would look on you, the Red Hair Filter is the perfect tool to find out! By uploading your photo and choosing from various red shades, you can instantly see how different tones will look on your face shape and skin tone. It's the easiest and safest way to visualize your bold new look without any commitment or risk of dye damage."
+      },
+      {
+        "question": "Can I Try Other Hairstyles on Hairstyle AI?",
+        "answer": "Yes! Hairstyle AI offers over 60+ hairstyles for you to try, including various red hair colors and styles. You can experiment with different haircuts, lengths, and textures to find the perfect look. Whether you're going for a short bob or long waves, Hairstyle AI lets you try on different styles to match your red hair transformation or explore a completely new look!"
+      },
+      {
+        "question": "Does Dyeing My Hair Red Damage It?",
+        "answer": "While dyeing hair red can cause some dryness or damage over time, it doesn't have to be severe if you take proper care of your hair. Red dye can be drying, so it's important to use color-safe shampoo and deep conditioning treatments regularly. The Red Hair Filter lets you experiment with red hair shades before making the commitment to dye, so you can see how it looks without worrying about any potential hair damage."
+      },
+      {
+        "question": "Does Dyeing Red Hair Cause Cancer?",
+        "answer": "No, there is no conclusive evidence that dyeing your hair red—or any other color—directly causes cancer. However, some hair dyes contain chemicals that can irritate your skin or hair, so it's always a good idea to choose ammonia-free or natural dyes and follow the instructions carefully. If you have concerns about hair dye, trying a virtual red hair transformation with the Red Hair Filter is a safe and risk-free way to explore the color."
+      },
+      {
+        "question": "Will Red Hair Make Me Look Different?",
+        "answer": "Yes! Red hair is a bold and striking change, and it can make a big difference in how you look. Whether you choose a vibrant ginger or a deep burgundy, red hair often highlights your features and adds a touch of fierceness. If you're wondering how you'd look, try out the Red Hair Filter on Hairstyle AI to preview your new look instantly!"
+      },
+      {
+        "question": "What Are the Best Apps to Try Red Hair Virtually?",
+        "answer": "Hairstyle AI is one of the best apps to try red hair virtually! With a variety of red shades and realistic results, you can experiment freely without commitment. Other apps like Fotor and YouCam Makeup also offer virtual try-ons, but Hairstyle AI stands out for its precision and ease of use, ensuring you get the most accurate preview of your new red hair look."
+      },
+      {
+        "question": "How to Maintain Red Hair Color After Dyeing?",
+        "answer": "Maintaining red hair color can be tricky since red shades tend to fade quickly. After dyeing, use sulfate-free shampoo and avoid washing your hair with hot water. To keep your hair vibrant, use deep conditioning treatments once a week to lock in moisture and prevent color fading. You can also try the Red Hair Filter to test how your hair would look with different shades of red before dyeing it!"
+      },
+      {
+        "question": "What Is the Cultural Significance of Red Hair?",
+        "answer": "Red hair has been culturally significant for centuries, often symbolizing boldness, power, and uniqueness. In many cultures, red hair has been seen as a sign of passion and beauty. It's often associated with fiery personalities and strong-willed individuals. In modern times, red hair continues to be a symbol of individuality, and choosing red hair is a powerful way to express confidence and self-expression."
+      },
+      {
+        "question": "What Hair Color Looks Best on Me?",
+        "answer": "The best hair color for you depends on your skin tone, eye color, and personal style. For fair skin, red tones like ginger and strawberry blonde are great. For medium or olive skin, shades like auburn or copper bring out the natural warmth of your complexion. Dark skin tones can pull off deep reds like burgundy or wine red. Use Hairstyle AI's Red Hair Filter to experiment with different colors and find the perfect shade for you!"
+      },
+      {
+        "question": "What If I Regret Changing to Red Hair?",
+        "answer": "If you regret dyeing your hair red, don't worry! With Hairstyle AI's Red Hair Filter, you can easily experiment with different shades of red and see how each one looks on you before making a decision. That way, you can confidently choose the perfect red shade for your style without any risk of regret."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
+        },
+        {
+          "title": "Blonde Hair Filter",
+          "description": "Test Blonde Shades Instantly",
+          "link": "/blonde-hair-filter",
+          "image": "/images/blonde-filter-hero.webp"
+        },
+        {
+          "title": "Long Hair Filter",
+          "description": "Try Long Styles Instantly",
+          "link": "/long-hair-filter",
+          "image": "/images/long-hair-filter-hero.webp"
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Ready to Try Your Red Hair Transformation?",
+      "description": "See yourself with a bold new red hair color using Hairstyle AI's Red Hair Filter. Upload your photo, choose your shade, and get instant results—try it now for free!",
+      "ctaText": "Try Red Hair Filter →",
+      "ctaLink": "/ai-hairstyle?style=Red"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/red-hair-filter",
+      "name": "Try on Red Hair Instantly with Our Free Red Hair Filter",
+      "description": "Transform your look with Hairstyle AI's Red Hair Filter. Upload a photo, choose your favorite shade, and see how red hair can change your style – all for free!",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "18650"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Try on Red Hair Instantly with Our Free Red Hair Filter",
+          "item": "https://hair-style.ai/red-hair-filter"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Try on Red Hair Instantly with Our Free Red Hair Filter",
+      "description": "Transform your look with Hairstyle AI's Red Hair Filter. Upload a photo, choose your favorite shade, and see how red hair can change your style – all for free!",
+      "canonical": "https://hair-style.ai/red-hair-filter",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Try on Red Hair Instantly with Our Free Red Hair Filter",
+        "description": "Transform your look with Hairstyle AI's Red Hair Filter. Upload a photo, choose your favorite shade, and see how red hair can change your style – all for free!",
+        "url": "https://hair-style.ai/red-hair-filter",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+        "images": [
+            {
+              "url": "https://hair-style.ai/images/red-hair-filter-hero.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Try on Red Hair Instantly with Our Free Red Hair Filter",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Try on Red Hair Instantly with Our Free Red Hair Filter",
+        "description": "Transform your look with Hairstyle AI's Red Hair Filter. Upload a photo, choose your favorite shade, and see how red hair can change your style – all for free!",
+        "images": ["https://hair-style.ai/images/red-hair-filter-hero.webp"]
+      }
+    }
+  }

@@ -335,22 +335,22 @@
       "title": "Try More Virtual Hair Filters",
       "tools": [
         {
-          "title": "Buzz Cut Filter",
-          "description": "Preview Buzz Cuts Before Big Chop",
-          "link": "/buzz-cut-filter",
-          "image": "/images/buzz-cut-hero.webp"
-        },
-        {
-          "title": "Hairstyle for Women",
-          "description": "Discover Perfect Women's Hairstyles",
-          "link": "/hairstyles-for-women",
-          "image": "/images/hairstyle-for-women-hero.webp"
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
         },
         {
           "title": "Long Hair Filter",
           "description": "Test Long Styles Instantly",
           "link": "/long-hair-filter",
           "image": "/images/long-hair-filter-hero.webp"
+        },
+        {
+          "title": "Short Hair Filter",
+          "description": "Preview Short Cuts, Make Confident Choices",
+          "link": "/short-hair-filter",
+          "image": "/images/short-hair-filter-h1.webp"
         }
       ]
     },

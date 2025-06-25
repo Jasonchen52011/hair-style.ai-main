@@ -107,6 +107,11 @@ export default function Footer() {
                                     Black Hair Filter
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/red-hair-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Red Hair Filter
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

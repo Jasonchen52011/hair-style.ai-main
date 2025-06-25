@@ -373,6 +373,29 @@
         }
       ]
     },
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "Pixie Cut Filter",
+          "description": "See Short Pixie Looks, Boost Confidence",
+          "link": "/pixie-cut-filter",
+          "image": "/images/pixie-cut-h1-after.webp"
+        },
+        {
+          "title": "Bob Haircut Filter",
+          "description": "Preview Bob Cuts Before Salon Visit",
+          "link": "/bob-haircut-filter",
+          "image": "/images/bob-cut-after.webp"
+        },
+        {
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
+        }
+      ]
+    },
     "seoConfig": {
       "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
       "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. Hairstyle AI lets you try short hairstyles online—free, realistic, and no regrets.",

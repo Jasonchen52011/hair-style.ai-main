@@ -1,6 +1,6 @@
 {
     "heroSection": {
-      "title": "Instantly Preview Black Hair with AI Black Hair Filter",
+      "title": "Preview Stunning Black Hair Instantly with the AI Black Hair Filter",
       "description": "Hairstyle AI's Black Hair Filter allows you to quickly and easily see how different shades of black hair would look on you. Whether you're after a jet black or a softer black tone, Hairstyle AI lets you experiment with no commitment and no regrets. Get instant, realistic results and find your perfect look!",
       "rating": 4.8,
       "statsText": "280,000+ virtual black hair transformations created",
@@ -320,19 +320,19 @@
         "answer": "With the Black Hair Filter, you can easily visualize how you would look with black hair. The tool uses AI to accurately apply various black hair shades to your photo, giving you an instant preview. You can experiment with different styles, from jet black to softer shades, to find the perfect match for your personality and style. It's a great way to see a transformation before making a permanent decision."
       },
       {
-        "question": "Best black hair color for my skin tone",
-        "answer": "The best black hair color depends on your skin tone. For fair skin, jet black creates a bold contrast, while medium or olive skin tones are complemented by a rich, warm black. Darker skin tones look fantastic with blue-black or deep raven shades. If you're unsure, try using the Black Hair Filter to experiment with different black shades that match your complexion and personal style."
+        "question": "Which Black Hair Color Best Suits My Skin Tone?",
+        "answer": "For fair skin, jet black creates a bold contrast, while medium or olive skin tones are complemented by a rich, warm black. Darker skin tones look fantastic with blue-black or deep raven shades. If you're unsure, try using the Black Hair Filter to experiment with different black shades that match your complexion and personal style."
       },
       {
         "question": "How to maintain black hair color?",
         "answer": "To maintain black hair color, follow these steps: 1. Use sulfate-free shampoo to protect the color from fading. 2. Deep condition your hair regularly to keep it hydrated and shiny. 3. Avoid excessive heat styling, as it can dry out and fade the color. 4. Protect your hair from the sun with UV-protecting products. This routine will keep your black hair vibrant and healthy for longer."
       },
       {
-        "question": "Black hair in professional settings",
+        "question": "Does Black Hair Shine in Professional Settings?",
         "answer": "Black hair can look stunning and polished in professional settings. Whether you're going for jet black or a softer black, this color exudes confidence and sophistication. It complements formal wear and is perfect for job interviews, professional photos, or business meetings. To see how different shades look, try the Black Hair Filter and visualize the perfect professional style for you."
       },
       {
-        "question": "Black hair and makeup combinations",
+        "question": "Which Makeup Styles Pair Best with Black Hair?",
         "answer": "Black hair pairs beautifully with various makeup styles. For a classic look, bold brows and red lips work perfectly with jet black hair. If you prefer a more subtle look, soft tones like nude lipstick and neutral eyeshadow complement soft black hair. The Hairstyle AI Black Hair Filter lets you experiment with different shades and see how they align with your makeup style, helping you create the perfect look for any occasion."
       },
       {
@@ -352,22 +352,22 @@
       "title": "Try More Virtual Hair Filters",
       "tools": [
         {
-          "title": "Buzz Cut Filter",
-          "description": "Preview Buzz Cuts Before Big Chop",
-          "link": "/buzz-cut-filter",
-          "image": "/images/buzz-cut-hero.webp"
-        },
-        {
-          "title": "Hairstyle for Women",
-          "description": "Discover Perfect Women's Hairstyles",
-          "link": "/hairstyles-for-women",
-          "image": "/images/hairstyle-for-women-hero.webp"
+          "title": "Blonde Hair Filter",
+          "description": "Try Blonde Hair Colors Risk-Free",
+          "link": "/blonde-hair-filter",
+          "image": "/images/blonde-filter-hero.webp"
         },
         {
           "title": "Long Hair Filter",
           "description": "Test Long Styles Instantly",
           "link": "/long-hair-filter",
           "image": "/images/long-hair-filter-hero.webp"
+        },
+        {
+          "title": "Short Hair Filter",
+          "description": "Preview Short Cuts, Make Confident Choices",
+          "link": "/short-hair-filter",
+          "image": "/images/short-hair-filter-h1.webp"
         }
       ]
     },
