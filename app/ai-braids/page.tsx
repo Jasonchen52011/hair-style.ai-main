@@ -106,7 +106,7 @@ export default function BraidsFilterPage() {
                                 <h1 className="text-2xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-lg md:text-xl text-gray-800 mb-4 sm:mb-2 ">
+                                <p className="text-base md:text-xl text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.description}
                                 </p>
                                 
