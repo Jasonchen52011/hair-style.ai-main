@@ -219,8 +219,11 @@
     },
     "ctaSections": [
       {
-        "title": "Transform Your Look for Instagram or TikTok",
-        "description": "Red hair is all about making a statement, especially on social media. Imagine posting a picture with vibrant red hair on Instagram or TikTok—you'll definitely grab some attention! I remember trying the bright cherry red shade for my TikTok video, and it got so many likes. Red hair is perfect for social media—it's bold and never goes unnoticed. The Red Hair Filter lets you test out any shade without the commitment. You can experiment until you find the perfect one! Once you're happy, share it instantly and watch your followers go wild.",
+        "title": "Transform Your Look with Red Hair for Instagram or TikTok",
+        "textContent": [
+          "Red hair is all about making a statement, especially on social media. Imagine posting a picture with vibrant red hair on Instagram or TikTok—you'll definitely grab some attention! I remember trying the bright cherry red shade for my TikTok video, and it got so many likes.",
+          "Red hair is perfect for social media—it's bold and never goes unnoticed. The Red Hair Filter lets you test out any shade without the commitment. You can experiment until you find the perfect one! Once you're happy, share it instantly and watch your followers go wild."
+        ],
         "image": {
           "src": "/images/red-hair-filter-social.webp",
           "alt": "Red hair filter social media - perfect red look for social media posts"
@@ -230,7 +233,10 @@
       },
       {
         "title": "Try Red Hair Before You Dye It",
-        "description": "Red hair can be a bold move, but you don't have to take the leap without knowing what it'll look like first! Before committing to dyeing your hair, try out different red shades with the Red Hair Filter. I used the filter before my salon appointment to decide between ginger and auburn, and it made my decision so much easier. The Red Hair Filter helped me pick the perfect color for my skin tone. Plus, it's a great way to avoid any potential regrets! Try it for free and see your transformation before the dye hits your hair.",
+        "textContent": [
+          "Red hair can be a bold move, but you don't have to take the leap without knowing what it'll look like first! Before committing to dyeing your hair, try out different red shades with the Red Hair Filter. I used the filter before my salon appointment to decide between ginger and auburn, and it made my decision so much easier.",
+          "The Red Hair Filter helped me pick the perfect color for my skin tone. Plus, it's a great way to avoid any potential regrets! Try it for free and see your transformation before the dye hits your hair."
+        ],
         "image": {
           "src": "/images/red-hair-filter-hero5.webp",
           "alt": "Red hair filter planning - planning new red look with confidence"
@@ -240,7 +246,10 @@
       },
       {
         "title": "Perfect Your Professional Look with Subtle Red Hues",
-        "description": "Red hair doesn't always have to be bold—it can be professional too! Whether you're prepping for a big presentation or an important interview, a subtle red tone can give your look a fresh twist without being too over-the-top. I recently tried a deep auburn shade that looked polished but still gave off a confident, bold vibe. Need to see how you'd look with professional red hues? Use the Red Hair Filter today to find the perfect shade for work and beyond.",
+        "textContent": [
+          "Red hair doesn't always have to be bold—it can be professional too! Whether you're prepping for a big presentation or an important interview, a subtle red tone can give your look a fresh twist without being too over-the-top.",
+          "I recently tried a deep auburn shade that looked polished but still gave off a confident, bold vibe. Need to see how you'd look with professional red hues? Use the Red Hair Filter today to find the perfect shade for work and beyond."
+        ],
         "image": {
           "src": "/images/red-hair-filter-hero2.webp",
           "alt": "Red hair filter professional - testing red hair for professional events"
@@ -297,7 +306,7 @@
         "quote": "I've always wanted to go for a more edgy look with red hair, but I wasn't sure which shade would suit me best. Hairstyle AI's filter let me experiment with different reds, from ginger to dark red. The results were spot on! It's a game-changer for making decisions before committing.",
         "author": "Kevin White",
         "title": "Entrepreneur",
-        "rating": 4.0
+        "rating": 4.8
       }
     ],
     "faqConfig": [
@@ -310,7 +319,7 @@
         "answer": "Yes, the Red Hair Filter is completely free to use! You can upload your photo, try out different red shades, and get a realistic preview of your new look without spending a dime. The tool allows up to five free uses per day, giving you plenty of opportunities to experiment with different colors. There are no hidden fees or subscriptions—just fun, risk-free exploration of your red hair transformation!"
       },
       {
-        "question": "Is my photo safe/secure?",
+        "question": "Is my photo safe?",
         "answer": "Absolutely! Your privacy is our priority. Hairstyle AI does not store your photos or personal data. Once you've tried out your red hair look, the image is deleted immediately. We don't retain any of your information to ensure your full privacy and security. You can confidently upload your photo, knowing that it won't be used for any purpose other than providing you with the best possible red hair filter experience."
       },
       {
