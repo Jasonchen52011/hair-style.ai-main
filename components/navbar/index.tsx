@@ -205,6 +205,13 @@ export default function Navbar() {
                         >
                             Blonde Hair Filter
                         </Link>
+                        <Link
+                            href="/black-hair-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Black Hair Filter
+                        </Link>
                                         <Link
                                             href="/low-fade-haircut"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
@@ -339,6 +346,20 @@ export default function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Dreadlocks Filter
+                                </Link>
+                                <Link
+                                    href="/blonde-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Blonde Hair Filter
+                                </Link>
+                                <Link
+                                    href="/black-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Black Hair Filter
                                 </Link>
                                 <Link
                                     href="/low-fade-haircut"
