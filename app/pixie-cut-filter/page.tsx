@@ -99,7 +99,7 @@ export default function BobHaircutFilterPage() {
                                 <h1 className="text-3xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-base md:text-xl text-gray-600 mb-4 sm:mb-8 ">
+                                <p className="text-base md:text-lg text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.description}
                                 </p>
                                 
@@ -144,7 +144,7 @@ export default function BobHaircutFilterPage() {
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
-                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
+                                <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800">
                                     {beforeAfterGallery.title}
                                 </h2>
                                 <p className="text-lg text-gray-600 max-w-5xl mx-auto">
@@ -364,45 +364,7 @@ export default function BobHaircutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* Not Sure If a Pixie Cut Suits Your Face Shape Section */}
-                <section className="py-20 bg-white">
-                    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-                        <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                                {/* 图片 */}
-                                <div className="flex justify-center order-1 lg:order-1">
-                                    <div className="w-full max-w-3xl rounded-lg">
-                                        <Image
-                                            src={ctaSections[0].image.src}
-                                            alt={ctaSections[0].image.alt}
-                                            width={800}
-                                            height={600}
-                                            className="w-full h-auto object-contain"
-                                        />
-                                    </div>
-                                </div>
-                                
-                                {/* 文本内容 */}
-                                <div className="space-y-6 order-2 lg:order-2">
-                                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-                                        {ctaSections[0].title}
-                                    </h2>
-                                    <p className="text-gray-800 text-sm sm:text-lg leading-relaxed">
-                                        {ctaSections[0].description}
-                                    </p>
-                                    
-                                    <Link 
-                                        href={ctaSections[0].ctaLink}
-                                        className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
-                                    >
-                                        {ctaSections[0].ctaText}
-                                        <i className="fas fa-arrow-right"></i>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+            
 
                 {/* Fun with Friends on Social Media Section */}
                 <section className="py-20">
@@ -484,6 +446,12 @@ export default function BobHaircutFilterPage() {
                     </div>
                 </section>
 
+                     {/* More Free AI Tools Section */}
+                     <LazySection>
+                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Short Hair Filter", "Buzz Cut Filter"]} />
+                </LazySection>
+
+
                 {/* Why Choose Our Pixie Cut Filter Section */}
                 <LazySection>
                 <section className="py-10 mt-10 bg-white">
@@ -514,11 +482,7 @@ export default function BobHaircutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Short Hair Filter", "Buzz Cut Filter"]} />
-                </LazySection>
-
+           
                 {/* FAQ Section */}
                 <LazySection>
                 <section className="py-2 bg-white mb-10">

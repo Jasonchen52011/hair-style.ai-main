@@ -106,7 +106,7 @@ export default function BangsFilterPage() {
                                 <h1 className="text-3xl sm:text-5xl font-bold sm:mb-10 mb-4 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-base md:text-xl text-gray-600 mb-4 sm:mb-8 ">
+                                <p className="text-base md:text-lg text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.textcontent}
                                 </p>
                                 
@@ -499,6 +499,13 @@ export default function BangsFilterPage() {
                     </div>
                 </section>
 
+
+                {/* More Free AI Tools Section */}
+                <LazySection>
+                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Long Hair Filter", "Pixie Cut Filter"]} />
+                </LazySection>
+
+
                 {/* Why Choose Section */}
                 <LazySection>
                 <section className="py-10 mt-10 bg-white">
@@ -527,11 +534,6 @@ export default function BangsFilterPage() {
                 </div>
                     </div>
                 </section>
-                </LazySection>
-
-                {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Long Hair Filter", "Pixie Cut Filter"]} />
                 </LazySection>
 
                 {/* FAQ Section */}

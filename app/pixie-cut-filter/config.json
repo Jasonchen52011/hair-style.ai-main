@@ -1,7 +1,7 @@
 {
   "heroSection": {
-    "title": "See Your Pixie Look in Seconds with Hairstyle AI",
-    "description": "Our AI-powered pixie cut filter shows you a realistic short hairstyle on your face in just 1 minute. With Hairstyle AI, you get confidence before the haircut, and fun transformations for social media too!",
+    "title": "See Your Pixie Look in Seconds with the AI Pixie Cut Filter",
+    "description": "Our AI-powered pixie cut filter shows you a realistic short hairstyle on your face in just 1 minute. With Hairstyle AI Pixie Cut Filter, you get confidence before the haircut, and fun transformations for social media too!",
     "rating": 4.8,
     "statsText": "138,000+ virtual hairstyles transformed",
     "ctaText": "Try Pixie Cut Filter",
@@ -13,8 +13,8 @@
     "beforeImage": "/images/pixie-cut-h1-before.webp"
   },
   "beforeAfterGallery": {
-    "title": "From Long to Pixie: AI Hair Transformations",
-    "description": "Explore amazing before-and-after results. Our users went from long hair to short pixie styles with just a click. It's all free and 100% virtual.",
+    "title": "From Long to Pixie: Transform Your Look with the AI Pixie Cut Filter",
+    "description": "Discover stunning before-and-after transformations with the Hairstyle AI Pixie Cut Filter. Our users have switched from long hair to chic pixie cuts in seconds. Try it free and 100% virtually to see how a pixie cut—or even a vibrant braided look.",
     "images": [
       {
         "src": "/images/pixie-cut-filter9.webp",
@@ -54,7 +54,8 @@
       "Thinking about going for a pixie cut? Great choice! But not every style fits every face. Here's what to know:",
       "Your face shape and hairline play a big role. Pixie cuts look amazing on oval, heart, and square-shaped faces. If you have a rounder face or high hairline, it can still work—just choose the right pixie style.",
       "Think about your hair texture and thickness. Pixies are awesome for thick, straight, or wavy hair. Thin or curly hair? No worries—a layered or longer pixie might work better.",
-      "Pixie cuts are super low-maintenance. You save time, money, and effort. No long blow-dries. No product overload. And in hot weather? Total comfort. Cool neck, cool head."
+      "Pixie cuts are super low-maintenance. You save time, money, and effort. No long blow-dries. No product overload. And in hot weather? Total comfort. Cool neck, cool head.",
+      "Before you commit to a new style, try our AI Pixie Cut Filter from Hairstyle AI to preview your pixie or braided hair look instantly."
     ]
   },
   "additionalSection": [
@@ -78,7 +79,7 @@
         "Feeling weird after your pixie cut? You're not alone. The 'in-between' phase is awkward for many. Try headbands, clips, or even a fun hat to get through it in style.",
         "Hair grows about half an inch each month. Within 3–4 months, you can shape it into a bob. In under a year, you'll be back to shoulder length.",
         "Need options during the grow-out? Go for layers, soft bangs, or short shags. These help your hair look styled—even while it's growing.",
-        "And next time? Use Hairstyle AI to preview a new cut before you commit. It's free, fast, and lets you try over 60 styles with zero risk."
+        "And next time? Use Hairstyle AI Pixie Cut Filter to preview a new cut before you commit. It's free, fast, and lets you try over 60 styles with zero risk."
       ],
       "image": {
         "src": "/images/pixie-cut-filter3.webp",
@@ -89,7 +90,7 @@
     }
   ],
   "howToUseSection": {
-    "title": "How to Try a Pixie Cut with Hairstyle AI",
+    "title": "How to Use the AI Pixie Cut Filter",
     "description": "It's super easy! Just upload your photo, choose your style, and let AI do the work. Try as many pixie cuts as you like, totally free.",
     "steps": [
       {
@@ -100,7 +101,7 @@
       {
         "title": "Step 2: Choose Your Cut and Color",
         "icon": "fas fa-palette",
-        "description": "Select the pixie cut style you want to try. You can go bold, soft, edgy, or classic. Pick a color you love—or test a few."
+        "description": "Select the pixie cut hairstyle you want to try. You can go bold, soft, edgy, or classic. Pick a color you love—or test a few."
       },
       {
         "title": "Step 3: Generate Your New Look",
@@ -133,7 +134,7 @@
     },
     {
       "title": "Fun with Friends on Social Media",
-      "description": "Want to prank your bestie or just try a fun new look for TikTok? Our pixie cut AI filter makes it easy. Upload your photo and instantly see yourself with short hair. You can try bold styles, funny cuts, or even look like a celebrity. Then download and share your new look on Instagram, Snapchat, or wherever you hang out online. It's a great way to get your friends' reactions—or even ask what they think before making a real hair change. Whether it's for fun, laughs, or serious style planning, you'll love seeing yourself with a fresh pixie vibe.",
+      "description": "Want to prank your bestie or just try a fun new look for TikTok? Our AI Pixie Cut Filter makes it easy. Upload your photo and instantly see yourself with short hair. You can try bold styles, funny cuts, or even look like a celebrity. Then download and share your new look on Instagram, Snapchat, or wherever you hang out online. It's a great way to get your friends' reactions—or even ask what they think before making a real hair change. Whether it's for fun, laughs, or serious style planning, you'll love seeing yourself with a fresh pixie vibe.",
       "image": {
         "src": "/images/pixie-cut-social.webp",
         "alt": "Social media content - fun pixie cut transformation for posts"
@@ -163,17 +164,17 @@
       {
         "icon": "fas fa-palette",
         "title": "Tons of Styles and Colors",
-        "description": "With 60+ hairstyle options and 19 color choices, there's always something new to try. Curly, sleek, bold—mix and match to find your perfect combo."
+        "description": "With 60+ hairstyle options and 19 color choices, there's always something new to try. Curly pixie cut, short pixie cut, classic pixie cut, and match to find your perfect combo."
       },
       {
         "icon": "fas fa-award",
         "title": "Realistic and Natural Results",
-        "description": "Our AI is trained to match your face shape and features, so every filter looks real. It's like looking in the mirror, but with a fresh cut."
+        "description": "Our AI Pixie Cut Filter is trained to match your face shape and features, so every filter looks real. It's like looking in the mirror, but with a fresh cut."
       },
       {
         "icon": "fas fa-shield-alt",
         "title": "Privacy Comes First",
-        "description": "We never store your photos. All images are deleted right after your new look is generated. Your data stays private and safe."
+        "description": "Hairstyle AI never stores your photos. All images are deleted right after your new look is generated. Your data stays private and safe."
       }
     ]
   },
@@ -185,19 +186,13 @@
       "rating": 5.0
     },
     {
-      "quote": "Did it as a joke with friends on Snapchat, but the look turned out great! The AI matched my face perfectly. Now I'm thinking about actually cutting it. The whole process took like a minute—it was that fast.",
+      "quote": "Did it as a joke with friends on Snapchat, but the look turned out great! The AI Pixie Cut Filter matched my face perfectly. Now I'm thinking about actually cutting it. The whole process took like a minute—it was that fast.",
       "author": "@Mike Anderson",
       "title": "Software Engineer",
       "rating": 4.0
     },
     {
-      "quote": "I tried so many colors—rose gold, ash blonde, dark brown. It's addicting! The best part is it doesn't damage my real hair. I keep coming back to try different combos. It's such a fun and safe way to test looks.",
-      "author": "@Lily Parker",
-      "title": "Fashion Blogger",
-      "rating": 5.0
-    },
-    {
-      "quote": "I have thin hair, so I was nervous. But the filter showed styles that work for my hair type. Super helpful and fun to try out styles I wouldn't normally consider. I even showed it to my wife, and she loved it too.",
+      "quote": "I have thin hair, so I was nervous. But the AI Pixie Cut Filter showed styles that work for my hair type. Super helpful and fun to try out styles I wouldn't normally consider. I even showed it to my wife, and she loved it too.",
       "author": "@Jason Lee",
       "title": "Stay-at-Home Dad",
       "rating": 4.0
@@ -210,7 +205,7 @@
     },
     {
       "question": "Is a pixie cut right for my face shape?",
-      "answer": "Pixie cuts look good on almost every face shape—oval, heart, round, and square. Our AI face analyzer checks your features and helps suggest styles that bring out your best look. You can try multiple pixie styles online before making a decision."
+      "answer": "Pixie cuts look good on almost every face shape—oval, heart, round, and square. Our <strong><u><a href=\"/face-shape-detector\">AI face analyzer</a></u></strong> checks your features and helps suggest styles that bring out your best look. You can try multiple pixie styles online before making a decision."
     },
     {
       "question": "How realistic is the pixie cut filter?",
@@ -246,11 +241,11 @@
     },
     {
       "question": "How does a pixie cut look on fine curly hair?",
-      "answer": "Pixie cuts can look amazing on fine curly hair if styled right. Go for soft layers or a side-swept shape to bring volume and bounce. It helps define curls without making them flat or frizzy."
+      "answer": "Pixie cuts can look amazing on fine curly hair if styled right. Go for soft layers or a side-swept shape to bring volume and bounce. It helps define curls without making them flat or frizzy. Use Hairstyle AI's Pixie Cut Filter to experiment with this playful and stylish look before you commit to the cut!"
     },
     {
       "question": "How does a pixie cut look on thick curly hair?",
-      "answer": "On thick curly hair, pixie cuts give a bold, full look. Tapered sides or undercuts help reduce bulk, while leaving texture on top. It keeps curls defined while making the style easier to manage and style daily."
+      "answer": "On thick curly hair, pixie cuts give a bold, full look. Tapered sides or undercuts help reduce bulk, while leaving texture on top. It keeps curls defined while making the style easier to manage and style daily. Try pixie cut filter to experiment with this fun, trendy style before making the cut!"
     }
   ],
   "finalCta": {
