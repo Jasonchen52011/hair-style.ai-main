@@ -13,7 +13,7 @@
     "afterImage": "/images/bob-cut-after.webp"
   },
   "beforeAfterGallery": {
-    "title": "Bob Cut Makeovers You'll Love",
+    "title": "Bob Haircut Makeovers You'll Love",
     "description": "From long hair to short bob in seconds—see how this bold cut reshapes your whole look. Our virtual bob haircut filter helps you test the change before making the chop. Totally free, totally you.",
     "images": [
       {
@@ -65,8 +65,8 @@
     ]
   },
   "howToUseSection": {
-    "title": "See Yourself with a Bob Cut in Just 4 Easy Steps",
-    "description": "You don't need scissors to try a bob cut. Just follow these steps to get a realistic, virtual bob cut with HairstyleAI—free, fast, and fun!",
+    "title": "See Yourself with a Bob Haircut in Just 4 Easy Steps",
+    "description": "You don't need scissors to try a bob haircut. Just follow these steps to get a realistic, virtual bob haircut with HairstyleAI—free, fast, and fun!",
     "steps": [
       {
         "title": "Step 1: Upload Your Photo",
@@ -74,9 +74,9 @@
         "description": "Choose a front-facing photo where your whole face is visible. Make sure your forehead isn't covered by hair. Good lighting helps! We accept PNG, JPG, or JPEG formats, up to 3MB. A clear photo gives the best bob cut result."
       },
       {
-        "title": "Step 2: Pick Your Bob Cut Style",
+        "title": "Step 2: Pick Your Bob Haircut Style",
         "icon": "fas fa-palette",
-        "description": "Scroll through our bob cut styles—neat bob, curly bob, pixie bob, bob with bangs, French bob, and more. Want to stand out? Try a bold hair color too. You can mix and match over 60+ haircut styles and 19+ colors to fit your vibe."
+        "description": "Scroll through our bob haircut styles—neat bob, curly bob, pixie bob, bob with bangs, French bob, and more. Want to stand out? Try a bold hair color too. You can mix and match over 60+ haircut styles and 19+ colors to fit your vibe."
       },
       {
         "title": "Step 3: Click Generate",

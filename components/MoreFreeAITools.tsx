@@ -172,6 +172,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Try Blonde Hair Colors Risk-Free",
       link: "/blonde-hair-filter",
       image: "/images/blonde-filter-hero.webp"
+    },
+    "Black Hair Filter": {
+      title: "Black Hair Filter",
+      description: "Try Black Hair Colors Risk-Free",
+      link: "/black-hair-filter",
+      image: "/images/black-hair-filter-hero.webp"
     }
   };
 

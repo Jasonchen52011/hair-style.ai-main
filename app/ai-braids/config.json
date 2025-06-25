@@ -1,10 +1,10 @@
 {
   "heroSection": {
     "title": "How Would I Look With Braids Filter?     Try AI Braids Before You Braid",
-    "description": "Braids are bold, protective, and full of meaning—but are they right for you? Hairstyle AI helps you find your perfect braid look with real-time, face-specific previews. See how your photo could turn into a fresh, styled braid look. It's free, fun, and surprisingly accurate.",
+    "description": "Braids are bold, protective, and full of meaning—but are they right for you? Hairstyle AI braids filter helps you find your perfect braids hairstyles look with real-time, face-specific previews. It's free, fun, and surprisingly accurate.",
     "rating": 4.8,
     "statsText": "158,000+ virtual hairstyles transformed",
-    "ctaText": "Try Braids Filter",
+    "ctaText": "Try AI Braids Filter",
     "ctaLink": "/ai-hairstyle?style=FishtailBraid"
   },
   "imageConfig": {
@@ -13,8 +13,8 @@
     "afterImage": "/images/fishtail-braid-after-h1.webp"
   },
   "beforeAfterGallery": {
-    "title": "Before & After: AI Braid Makeovers",
-    "description": "See how people transformed their look with our AI braid styles. From bold cornrows to soft twin braids, you can preview your perfect look in just seconds—without touching your real hair.",
+    "title": "Before & After: AI Braids Filter Transformations",
+    "description": "See how people transformed their look with our AI braids filter. From bold cornrows to soft twin braids, you can preview your perfect look in just seconds—without touching your real hair.",
     "images": [
       {
         "src": "/images/fishtail-braid.webp",
@@ -49,7 +49,7 @@
       ]
   },
   "isRightSection": {
-    "title": "Are Braids a Good Match for Your Hair & Face?",
+    "title": "Are Braided Hairstyles the Perfect Fit for Your Hair & Face?",
     "tableData": [
       {
         "feature": "Best Face Shapes",
@@ -74,87 +74,87 @@
     ],
     "textContent": [
       "Wondering if braided hairstyles are right for you? Let's find out. The shape of your skull and your hairline play a big part in how braids look on you. For instance, round or oval faces usually rock box braids and cornrows. Braids also work differently depending on your hair type and density—fine hair might feel heavy with thick braids, while curly, thick, or afro-textured hair thrives in protective braids like dreadlocks or fishtail braids.",
-      "Braids aren't just trendy; they help protect your hair, keep it neat, and showcase your personality. Still worried? With Hairstyle AI, you can try realistic braids before you commit. You won't have to stress about styling or upkeep before you know it's the right fit.",
+      "Braids aren't just trendy; they help protect your hair, keep it neat, and showcase your personality. Still worried? With Hairstyle AI braids filter, you can try realistic braids before you commit. You won't have to stress about styling or upkeep before you know it's the right fit.",
       "Say goodbye to guesswork and hello to confidence."
     ]
   },
   "additionalSection": [
     {
-      "title": "How to Keep Your Braids Looking Fresh",
+      "title": "How to Keep Your Braided Hair Looking Fresh",
       "textContent": [
-      "A braids looks neat—but it needs some love! First, trim your braids every 4–6 weeks. This keeps the ends sharp and the shape clean. Use a light shampoo and a smoothing conditioner to fight frizz, especially if you have wavy or thick hair. ",
-      "Can you just let it air-dry? Sure—but it depends. Some hair dries beautifully on its own, especially if it's straight or lightly wavy. If not, a quick blow-dry with a round brush can help your braids sit right. ",
-      "Don't forget heat protection! Worried your braids might look too plain or 'old'? Add side bangs, go for layers, or try a fun color. With the right tweaks, your braids can be soft, trendy, or even bold. And hey—if you want to test before you cut, try it on HairstyleAI first!"
+      "Braided hair looks sleek and stunning—but it needs care to stay fresh! Start by trimming the ends of your braided hair every 6–8 weeks, depending on the style, to prevent fraying and maintain a crisp look. Use a lightweight, sulfate-free shampoo and a smoothing conditioner to tame frizz, perfect for wavy, curly, or afro-textured hair.",
+      "Can you air-dry your braided hair? Absolutely, especially for straight or lightly wavy hair, which dries naturally with minimal frizz. For thicker or afro-textured hair, air-drying may take longer, so a low-heat blow-dry with a diffuser can reduce frizz and ensure your braided hair looks polished. Always use a heat protectant spray when styling with heat!",
+      "Concerned your braided hair might look too simple? Elevate it with accessories like beads or cuffs, or experiment with vibrant colors like ombre or pastel shades. These touches can make your braided hair stylish, expressive, or boldly unique. Want to preview your look first? Try the AI Braided Hair Filter from Hairstyle AI to test box braids, faux locs, or colorful patterns risk-free before committing."
     ],
     "image": {
       "src": "/images/box-braid.webp",
       "alt": "box braid maintenance tips and styling"
     },
-    "ctaText": "Try Box Braid Filter",
+    "ctaText": "Try AI Braids Filter",
     "ctaLink": "/ai-hairstyle?style=BoxBraid"
   }
   ],
   "howToUseSection": {
-    "title": "How to Try Braids with Hairstyle AI",
+    "title": "How to Try Braided Hair with AI Braids Filter",
     "description": "It only takes a minute to see how braids look on you. Just follow these simple steps. No downloads, no sign-ups, no worries. Try it out — risk-free and totally free.",
     "steps": [
       {
         "title": "Step 1: Upload Your Photo",
         "icon": "fas fa-upload",
-        "description": "Choose a clear photo with your face visible. Make sure your face is centered, facing forward, and well-lit. Supported formats include PNG, JPG, or JPEG. The image size must be under 3MB. No filters, no sunglasses — the more natural, the better. Hairstyle AI needs a clean view to give you the most accurate braid look."
+        "description": "Choose a clear photo with your face visible. Make sure your face is centered, facing forward, and well-lit. Supported formats include PNG, JPG, or JPEG. The image size must be under 3MB. No filters, no sunglasses — the more natural, the better. Hairstyle AI needs a clean view to give you the most accurate braided hair look."
       },
       {
-        "title": "Step 2: Pick Your Braid Style & Color",
+        "title": "Step 2: Pick Your AI Braids Filter & Color",
         "icon": "fas fa-palette",
         "description": "Try various braided hairstyles like box braids, cornrows, or fishtail braids. You can also try 19 different hair colors — from natural tones to bold shades. Tap to preview each style. Choose what feels right for your face shape and mood."
       },
       {
         "title": "Step 3: Generate with AI",
         "icon": "fas fa-magic",
-        "description": "Click the \"Generate\" button and let the AI do the magic. Our AI-powered face analyzer maps your hairline, face shape, and features to apply the braid realistically. This step takes about 1 minute — grab a snack and come back to your new look."
+        "description": "Click the \"Generate\" button and let the AI do the magic. Our AI-powered face analyzer maps your hairline, face shape, and features to apply the braids hairstyles realistically. This step takes about 1 minute — grab a snack and come back to your new look."
       },
       {
         "title": "Step 4: Download & Share",
         "icon": "fas fa-download",
-        "description": "Once it's ready, download your new braid look straight to your device. Want to show it off? Share it with your friends, post it on Instagram or TikTok, or just save it for your next salon visit. Your photo will be deleted immediately after processing — we don't store your data."
+        "description": "Once it's ready, download your new braids hairstyles look straight to your device. Want to show it off? Share it with your friends, post it on Instagram or TikTok, or just save it for your next salon visit. Your photo will be deleted immediately after processing — we don't store your data."
       }
     ],
     "image": {
       "src": "/images/how-to-change-braid-hairstyle.webp",
       "alt": "How to use braids filter - step by step demonstration"
     },
-    "ctaText": "Try Braids Filter",
+    "ctaText": "Try AI Braids Filter",
     "ctaLink": "/ai-hairstyle?style=FishtailBraid"
   },
   "ctaSections": [
     {
-      "title": "Planning Your Next Hair Appointment",
-      "description": "Thinking about getting cornrows or box braids but not sure if they suit you? Use Hairstyle AI before heading to the salon. Upload your photo, try different braid styles, and find the one that fits your face best. This way, you avoid hairstyle regret and walk into your appointment with confidence. Plus, you can show the result to your hairstylist for reference — it's like bringing your future hair with you.",
+      "title": "Planning Your Next Braided Hair Appointment",
+      "description": "Thinking about getting cornrows or box braids but not sure if they suit you? Use Hairstyle AI braids filter before heading to the salon. Upload your photo, try different braids hairstyles, and find the one that fits your face best. This way, you avoid hairstyle regret and walk into your appointment with confidence. Plus, you can show the result to your braids hairstylist for reference — it's like bringing your future hair with you.",
       "image": {
         "src": "/images/cornrows-braids.webp",
         "alt": "cornrows braid appointment - braid transformation before and after"
       },
-      "ctaText": "Try Braids Filter",
+      "ctaText": "Try AI Braids Filter",
       "ctaLink": "/ai-hairstyle?style=FishtailBraid"
     },
     {
       "title": "Creating Social Media Content",
-      "description": "Want a new look for your profile pic or a fun reel without actually changing your hair? Hairstyle AI is perfect for content creators. Try on braids, snap a screenshot, and post it to Instagram, Snapchat, or TikTok. Whether it's a joke, a challenge, or a transformation post, your followers will love it — and you stay totally commitment-free.",
+      "description": "Want a new look for your profile pic or a fun reel without actually changing your hair? Hairstyle AI braids filter is perfect for content creators. Try on braids hairstyles, snap a screenshot, and post it to Instagram, Snapchat, or TikTok. Whether it's a joke, a challenge, or a transformation post, your followers will love it — and you stay totally commitment-free.",
       "image": {
         "src": "/images/ai-brads-social.webp",
         "alt": "Social media content - fun braid transformation for posts"
       },
-      "ctaText": "Try Braids Filter",
+      "ctaText": "Try AI Braids Filter",
       "ctaLink": "/ai-hairstyle?style=FishtailBraid"
     },
     {
-      "title": "Exploring Styles for Hair Loss Recovery",
-      "description": "Going through hair thinning or regrowth? You might be unsure which style helps you feel your best. Braids can be protective and empowering—but only if they work for your current hair situation. Use our AI braids filter to explore what's possible and find a look that makes you feel confident. Play with 19 different braid colors — from natural blacks to vibrant reds or soft blondes. You might be surprised what color brings out your confidence. No pressure, no risk, and totally private.",
+      "title": "Exploring Braids Hairstyles for Hair Loss Recovery",
+      "description": "Going through hair thinning or regrowth? You might be unsure which style helps you feel your best. Braided hair can be protective and empowering—but only if they work for your current hair situation. Use our AI braids filter to explore what's possible and find a look that makes you feel confident. Play with 19 different braid colors — from natural blacks to vibrant reds or soft blondes. You might be surprised what color brings out your confidence. No pressure, no risk, and totally private.",
       "image": {
         "src": "/images/ai-braids-color.webp",
         "alt": "Hair loss recovery - confident person with braids"
       },
-      "ctaText": "Try Braids Filter",
+      "ctaText": "Try AI Braids Filter",
       "ctaLink": "/ai-hairstyle?style=FishtailBraid"
     }
   ],
@@ -169,7 +169,7 @@
       {
         "icon": "fas fa-palette",
         "title": "Tons of Styles & Colors",
-        "description": "Try over 60 AI hairstyles — from box braids to cornrows — and 19 color options. Whether you're bold, classic, or curious, there's a perfect braid filter waiting for your face."
+        "description": "Try over 60 AI hairstyles — from box braids to cornrows — and 19 color options. Whether you're bold, classic, or curious, there's a perfect AI braids filter waiting for your face."
       },
       {
         "icon": "fas fa-award",
@@ -179,37 +179,37 @@
       {
         "icon": "fas fa-shield-alt",
         "title": "Private & Safe",
-        "description": "Your photo is never saved. Once the braid is generated and shown to you, the image is instantly deleted. No data storage. No risk. Just a safe, secure style test."
+        "description": "Your photo is never saved. Once the braids hairstyle is generated and shown to you, the image is instantly deleted. No data storage. No risk. Just a safe, secure style test."
       }
     ]
   },
   "testimonialsConfig": [
     {
-      "quote": "I wanted to try box braids but wasn't sure if they'd suit me. Hairstyle AI showed me exactly how I'd look. The results were super real and helped me decide before booking a salon!",
+      "quote": "I wanted to try box braids but wasn't sure if they'd suit me. Hairstyle AI braids filter showed me exactly how I'd look. The results were super real and helped me decide before booking a salon!",
       "author": "@Emily Carter",
       "title": "College Student",
       "rating": 5.0
     },
     {
-      "quote": "I used the braid filter to test cornrows for a new album shoot. It looked amazing! The face fit and shading were spot on. Loved how fast and smooth the process was.",
+      "quote": "I used the AI braids filter to test cornrows for a new album shoot. It looked amazing! The face fit and shading were spot on. Loved how fast and smooth the process was.",
       "author": "@Marcus Jones",
       "title": "Music Artist",
       "rating": 4.0
     },
     {
-      "quote": "As a guy with thinning hair, I was nervous to try braids. This tool let me explore different styles before committing. It felt empowering and private.",
+      "quote": "As a guy with thinning hair, I was nervous to try braids. This tool let me explore different AI braids hairstyles before committing. It felt empowering and private.",
       "author": "@Jason Miller",
       "title": "Fitness Trainer",
       "rating": 5.0
     },
     {
-      "quote": "I use Hairstyle AI to show clients how different braid types would look on them. It's such a game-changer, especially for visualizing styles on unique face shapes.",
+      "quote": "I use Hairstyle AI braids filter to show clients how different braid types would look on them. It's such a game-changer, especially for visualizing styles on unique face shapes.",
       "author": "@Aaliyah Brooks",
       "title": "Hairstylist",
       "rating": 4.0
     },
     {
-      "quote": "I tried fishtail and twin braids just for fun. Posted them on TikTok and my followers thought it was real! Best prank ever. And now I'm considering doing it for real!",
+      "quote": "I tried fishtail and twin braids hairstyles just for fun. Posted them on TikTok and my followers thought it was real! Best prank ever. And now I'm considering doing it for real!",
       "author": "@Logan Wright",
       "title": "TikTok Creator",
       "rating": 5.0
@@ -221,12 +221,12 @@
       "answer": "You can change the braid style and color with Hairstyle AI, but not the size of a specific braid. Each style comes with a preset size designed for realistic fit. Just pick a different braid type or color before clicking \"Generate.\""
     },
     {
-      "question": "What if the braids don't look right on my photo?",
+      "question": "What if the braids hairstyles don't look right on my photo?",
       "answer": "Try uploading a clearer photo with good lighting and no filters. Our AI works best with front-facing, natural images."
     },
     {
-      "question": "Can I try more than one braid style on the same photo?",
-      "answer": "Yes! After generating your first look, just go back, select a different braid style, and hit \"Generate\" again. You can reuse the same photo as long as it's still within the 5 free tries per day. It's a fun way to explore multiple braid looks without re-uploading each time."
+      "question": "Can I try more braids hairstyles on the same photo?",
+      "answer": "Yes! After generating your first look, just go back, select a different braids hairstyles, and hit \"Generate\" again. You can reuse the same photo as long as it's still within the 5 free tries per day. It's a fun way to explore multiple braid looks without re-uploading each time."
     },
     {
       "question": "Is the AI Braids Filter available on mobile devices?",
@@ -257,12 +257,12 @@
       "answer": "Very accurate. Our AI maps your face landmarks, including your hairline, cheekbones, and forehead shape. That's why braids appear naturally placed—even around uneven or unique hairlines. The result is a look that feels tailored to your actual head shape."
     },
     {
-      "question": "Are braids protective hairstyles?",
-      "answer": "Yes, braids are considered a protective hairstyle. They help reduce hair breakage, limit daily manipulation, and keep moisture sealed in. Many people with textured or curly hair choose braids to support healthy hair growth while staying stylish."
+      "question": "Are braided hair protective hairstyles?",
+      "answer": "Yes, braided hair are considered a protective hairstyle. They help reduce hair breakage, limit daily manipulation, and keep moisture sealed in. Many people with textured or curly hair choose braids to support healthy hair growth while staying stylish."
     },
     {
-      "question": "How long do braids last and when will my hair grow back?",
-      "answer": "Braids usually last 4 to 8 weeks depending on care and style. Your natural hair grows about ½ inch per month, so after removing the braids, you'll likely see noticeable growth. Just remember to moisturize and avoid pulling too tightly during the grow-out phase."
+      "question": "How long do braided hair last and when will my hair grow back?",
+      "answer": "Braided hair usually last 4 to 8 weeks depending on care and style. Your natural hair grows about ½ inch per month, so after removing the braids, you'll likely see noticeable growth. Just remember to moisturize and avoid pulling too tightly during the grow-out phase."
     },
     {
       "question": "Does 'AI Braids' mean anything else?",
@@ -270,9 +270,9 @@
     }
   ],
   "finalCta": {
-    "title": "Try AI Braids Now — No Risk, All Style",
-    "description": "Pick a braid, click generate, and watch the transformation. It's that easy. No downloads. No regrets.",
-    "ctaText": "Try Braids Filter →",
+    "title": "Try AI Braids Filter Now — No Risk, All Style",
+    "description": "Pick a braids filter, click generate, and watch the transformation. It's that easy. No downloads. No regrets.",
+    "ctaText": "Try AI Braids Filter",
     "ctaLink": "/ai-hairstyle?style=FishtailBraid"
   },
   "structuredData": {
