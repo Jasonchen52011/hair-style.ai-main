@@ -97,13 +97,13 @@ export default function BuzzCutFilterPage() {
                 {/* Hero Section */}
                 <section className="bg-white py-2 sm:py-10  mb-10 mt-2 sm:mt-6">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center ">
+                        <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 items-center ">
                             {/* 左侧内容 */}
-                            <div className="pr-1 order-2 lg:order-1">
+                            <div className="pr-1 order-2 lg:order-1 lg:col-span-2">
                                 <h1 className="text-3xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-base md:text-xl text-gray-600 mb-4 sm:mb-8 ">
+                                <p className="text-base md:text-lg text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.description}
                                 </p>
                                 
@@ -130,13 +130,13 @@ export default function BuzzCutFilterPage() {
                             </div>
                             
                             {/* 右侧英雄图片 */}
-                            <div className="flex justify-center lg:justify-end order-1 lg:order-2">
-                                <div className="w-full max-w-lg mx-auto">
+                            <div className="flex justify-center lg:justify-end order-1 lg:order-2 lg:col-span-3">
+                                <div className="w-full mx-auto">
                                     <Image
                                         src={heroImage}
                                         alt="Buzz cut hairstyle transformation showcase"
-                                        width={600}
-                                        height={500}
+                                        width={800}
+                                        height={600}
                                         className="w-full h-auto object-contain rounded-lg"
                                         priority={true}
                                     />

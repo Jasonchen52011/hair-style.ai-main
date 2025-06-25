@@ -106,7 +106,7 @@ export default function BobHaircutFilterPage() {
                                 <h1 className="text-3xl sm:text-5xl font-bold mb-6 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-base md:text-xl text-gray-600 mb-4 sm:mb-8 ">
+                                <p className="text-base md:text-lg text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.description}
                                 </p>
                                 
@@ -497,6 +497,11 @@ export default function BobHaircutFilterPage() {
                 </section>
 
 
+                {/* More Free AI Tools Section */}
+                <LazySection>
+                    <MoreFreeAITools toolNames={["Pixie Cut Filter", "Short Hair Filter", "Bangs Filter"]} />
+                </LazySection>
+
                 {/* Why Choose Our Bob Cut Simulator Section */}
                 <LazySection>
                 <section className="py-10 mt-10 bg-white">
@@ -527,10 +532,6 @@ export default function BobHaircutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={["Pixie Cut Filter", "Short Hair Filter", "Bangs Filter"]} />
-                </LazySection>
 
                 {/* FAQ Section */}
                 <LazySection>
