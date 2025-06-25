@@ -106,7 +106,7 @@ export default function BangsFilterPage() {
                                 <h1 className="text-3xl sm:text-5xl font-bold sm:mb-10 mb-4 text-gray-900">
                                     {heroSection.title}
                                 </h1>
-                                <p className="text-lg sm:text-2xl text-gray-800 mb-4 sm:mb-8 ">
+                                <p className="text-base md:text-xl text-gray-600 mb-4 sm:mb-8 ">
                                     {heroSection.textcontent}
                                 </p>
                                 
