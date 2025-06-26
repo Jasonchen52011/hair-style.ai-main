@@ -10,11 +10,13 @@ export default function Navbar() {
     const [isMounted, setIsMounted] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isHairstyleDropdownOpen, setIsHairstyleDropdownOpen] = useState(false);
+    const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
     const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
+    const colorDropdownRef = useRef<HTMLDivElement>(null);
     const otherToolsDropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -46,19 +48,22 @@ export default function Navbar() {
             if (hairstyleDropdownRef.current && !hairstyleDropdownRef.current.contains(event.target as Node)) {
                 setIsHairstyleDropdownOpen(false);
             }
+            if (colorDropdownRef.current && !colorDropdownRef.current.contains(event.target as Node)) {
+                setIsColorDropdownOpen(false);
+            }
             if (otherToolsDropdownRef.current && !otherToolsDropdownRef.current.contains(event.target as Node)) {
                 setIsOtherToolsDropdownOpen(false);
             }
         };
 
-        if (isDropdownOpen || isHairstyleDropdownOpen || isOtherToolsDropdownOpen) {
+        if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isDropdownOpen, isHairstyleDropdownOpen, isOtherToolsDropdownOpen]);
+    }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen]);
 
     // If component is not mounted yet, return a placeholder navbar
     if (!isMounted) {
@@ -191,34 +196,13 @@ export default function Navbar() {
                                         >
                                             Long Hair Filter
                                         </Link>
-                                                                <Link
-                            href="/dreadlocks"
-                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                            onClick={() => setIsDropdownOpen(false)}
-                        >
-                            Dreadlocks Filter
-                        </Link>
-                        <Link
-                            href="/blonde-hair-filter"
-                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                            onClick={() => setIsDropdownOpen(false)}
-                        >
-                            Blonde Hair Filter
-                        </Link>
-                        <Link
-                            href="/black-hair-filter"
-                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                            onClick={() => setIsDropdownOpen(false)}
-                        >
-                            Black Hair Filter
-                        </Link>
-                        <Link
-                            href="/red-hair-filter"
-                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                            onClick={() => setIsDropdownOpen(false)}
-                        >
-                            Red Hair Filter
-                        </Link>
+                                        <Link
+                                            href="/dreadlocks"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Dreadlocks Filter
+                                        </Link>
                                         <Link
                                             href="/low-fade-haircut"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
@@ -253,11 +237,71 @@ export default function Navbar() {
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                            Textured Fringe Filter
-                                </Link>
-                            </div>
-
-                
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
                         </div>
+
+                        {/* Color Filter Dropdown */}
+                        <div className="relative" ref={colorDropdownRef}>
+                            <button 
+                                onClick={() => setIsColorDropdownOpen(!isColorDropdownOpen)}
+                                className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700"
+                            >
+                                Color Filter
+                                <svg 
+                                    className={`ml-1 w-4 h-4 transition-transform duration-200 ${
+                                        isColorDropdownOpen ? 'rotate-180' : ''
+                                    }`} 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            {isColorDropdownOpen && (
+                                <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                                    <div className="py-2">
+                                        <Link
+                                            href="/blonde-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            Blonde Hair Filter
+                                        </Link>
+                                        <Link
+                                            href="/black-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            Black Hair Filter
+                                        </Link>
+                                        <Link
+                                            href="/red-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            Red Hair Filter
+                                        </Link>
+                                        <Link
+                                            href="/white-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            White Hair Filter
+                                        </Link>
+                                        <Link
+                                            href="/gray-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            Gray Hair Filter
+                                        </Link>
+                                    </div>
+                                </div>
                             )}
                         </div>
                     
@@ -295,7 +339,7 @@ export default function Navbar() {
                                 Home
                             </Link>
                             
-                            {/* Mobile Blog Menu */}
+                            {/* Mobile Hairstyle Filter Menu */}
                             <div className="space-y-1">
                                 <div className="px-4 py-2 text-gray-900 font-medium">Hairstyle Filter</div>
                                 <Link
@@ -355,27 +399,6 @@ export default function Navbar() {
                                     Dreadlocks Filter
                                 </Link>
                                 <Link
-                                    href="/blonde-hair-filter"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Blonde Hair Filter
-                                </Link>
-                                <Link
-                                    href="/black-hair-filter"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Black Hair Filter
-                                </Link>
-                                <Link
-                                    href="/red-hair-filter"
-                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    Red Hair Filter
-                                </Link>
-                                <Link
                                     href="/low-fade-haircut"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
@@ -409,6 +432,46 @@ export default function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Textured Fringe Filter
+                                </Link>
+                            </div>
+
+                            {/* Mobile Color Filter Menu */}
+                            <div className="space-y-1">
+                                <div className="px-4 py-2 text-gray-900 font-medium">Color Filter</div>
+                                <Link
+                                    href="/blonde-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Blonde Hair Filter
+                                </Link>
+                                <Link
+                                    href="/black-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Black Hair Filter
+                                </Link>
+                                <Link
+                                    href="/red-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Red Hair Filter
+                                </Link>
+                                <Link
+                                    href="/white-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    White Hair Filter
+                                </Link>
+                                <Link
+                                    href="/gray-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Gray Hair Filter
                                 </Link>
                             </div>
                         </div>

@@ -170,20 +170,32 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
     "Blonde Hair Filter": {
       title: "Blonde Hair Filter",
       description: "Try Blonde Hair Colors Risk-Free",
-      link: "/blonde-hair-filter",
+      link: "/ai-hairstyle?style=Blonde",
       image: "/images/blonde-filter-hero.webp"
     },
     "Black Hair Filter": {
       title: "Black Hair Filter",
       description: "Try Black Hair Colors Risk-Free",
-      link: "/black-hair-filter",
+      link: "/ai-hairstyle?style=Black",
       image: "/images/black-hair-filter-hero.webp"
     },
     "Red Hair Filter": {
       title: "Red Hair Filter",
       description: "Try Red Hair Colors Risk-Free",
-      link: "/red-hair-filter",
+      link: "/ai-hairstyle?style=Red",
       image: "/images/red-hair-filter-hero.webp"
+    },
+    "White Hair Filter": {
+      title: "White Hair Filter",
+      description: "Try White Hair Colors Risk-Free",
+      link: "/ai-hairstyle?style=White",
+      image: "/images/white-hair-hero.webp"
+    },
+    "Gray Hair Filter": {
+      title: "Gray Hair Filter",
+      description: "Try Gray Hair Colors Risk-Free",
+      link: "/ai-hairstyle?style=Gray",
+      image: "/images/gray-hair-hero.webp"
     }
   };
 

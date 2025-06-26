@@ -372,7 +372,7 @@
       "@type": "WebApplication",
       "url": "https://hair-style.ai/dreadlocks",
       "name": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
-      "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+      "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes.",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
       "brand": {
@@ -410,7 +410,7 @@
     },
     "seoConfig": {
       "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
-      "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+      "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes.",
       "canonical": "https://hair-style.ai/dreadlocks",
       "robots": {
         "index": true,
@@ -425,7 +425,7 @@
       },
       "openGraph": {
         "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
-        "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+        "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes.",
         "url": "https://hair-style.ai/dreadlocks",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
@@ -444,7 +444,7 @@
         "card": "summary_large_image",
         "site": "@hair_styleai",
         "title": "Try Dreadlocks Online Free for Men & Women with Hairstyle AI – No Regrets",
-        "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes – online, fast, and free.",
+        "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types and face shapes.",
         "images": ["https://hair-style.ai/images/dreadlock-hairs.webp"]
       }
     }
