@@ -1,0 +1,442 @@
+{
+    "heroSection": {
+      "title": "Explore Pink Hair with Hairstyle AI's Virtual Try-On",
+      "description": "Looking to try pink hair? With Hairstyle AI's Pink Hair Filter, you can instantly preview how different pink shades will look on you. It's easy to use, no sign-up required, and free!",
+      "rating": 4.9,
+      "statsText": "320,000+ virtual pink hair transformations created",
+      "ctaText": "Try Pink Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=Pink",
+      "styleConfig": {
+        "layout": {
+          "imageRatio": "3/5",
+          "textRatio": "2/5",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-3xl",
+            "desktop": "text-5xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "spacing": "mb-6"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-500",
+          "fontWeight": "font-medium",
+          "spacing": "mb-8"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/pink-hair-hero.webp",
+      "alt": "Pink hair filter hero - woman with stunning pink hair transformation"
+    },
+    "beforeAfterGallery": {
+      "title": "Try on Pink Hair and Show Your Dreamy Style",
+      "description": "Pink hair is the ultimate way to express individuality. Whether you have curly, straight, short, or long hair, Hairstyle AI's Pink Hair Filter provides a realistic preview of how pink will look on you.",
+      "images": [
+        {
+          "src": "/images/pink-hair-long-curly.webp",
+          "alt": "Pink hair long curly - long curly pink hair transformation"
+        },
+        {
+          "src": "/images/pink-hair-short-bob.webp",
+          "alt": "Pink hair short bob - short bob pink hair transformation"
+        },
+        {
+          "src": "/images/pink-hair-long-wavy.webp",
+          "alt": "Pink hair long wavy - long wavy pink hair transformation"
+        },
+        {
+          "src": "/images/pink-hair-short-pixie.webp",
+          "alt": "Pink hair short pixie - short pixie pink hair transformation"
+        },
+        {
+          "src": "/images/pink-hair-long.webp",
+          "alt": "Pink hair long - long straight pink hair transformation"
+        },
+        {
+          "src": "/images/pink-hair-short-curly.webp",
+          "alt": "Pink hair short curly - short curly pink hair transformation"
+        }
+        ]
+    },
+    "additionalSection": [
+      {
+        "title": "Choosing the Right Pink Hair Color for Your Skin Tone",
+        "textContent": [
+        "Pink hair is a fantastic way to express individuality, but finding the right tone is key. Fair skin looks amazing with soft, pale pinks, giving you a subtle, sweet look. If you have medium skin, shades like rose gold or coral pink can brighten your complexion and give off a fresh, radiant glow.",
+        "For those with darker skin, bold shades like hot pink or electric pink create a striking effect. I love how these shades feel both trendy and timeless. My hairstylist suggests trying a few shades to see how they complement your unique features. Experiment with Hairstyle AI's Pink Hair Filter to see how these shades will look on you!"
+        ],
+        "image": {
+          "src": "/images/pink-hair-hero2.webp",
+          "alt": "Pink hair hero2 - pink hair color matching with different skin tones"
+        },
+        "ctaText": "Try Pink Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Pink",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      },
+      {
+        "title": "How to Maintain Your Vibrant Pink Hair",
+        "textContent": [
+        "Pink hair is stunning, but it requires a little extra care to keep it vibrant and healthy. Since pink tones tend to fade quicker than others, using sulfate-free, color-safe shampoo is essential. For me, keeping the pink fresh means avoiding too much sun exposure and using deep conditioning treatments regularly to restore moisture.",
+        "My hairstylist recommends purple shampoo to maintain the cool undertones and prevent yellowing. I adore the vibrancy of pink hair—it's such a statement look!"
+        ],
+        "image": {
+          "src": "/images/pink-hair-hero3.webp",
+          "alt": "Pink hair hero3 - pink hair maintenance and care tips"
+        },
+        "ctaText": "Try Pink Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Pink",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "left",
+            "textOrder": "right"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      }
+    ],
+    "howToUseSection": {
+      "title": "How to Use the Pink Hair Filter with Hairstyle AI",
+      "description": "Ready to try a pink hair look? Follow these simple steps to see how pink hair will look on you instantly with Hairstyle AI's Pink Hair Filter!",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Click the \"Upload Photo\" button and select a clear, high-quality image of yourself. Make sure your face is visible and your photo is in PNG, JPG, or JPEG format with a file size of up to 3MB. This is the base for your transformation."
+        },
+        {
+          "title": "Step 2: Select Your Pink Hair Shade",
+          "icon": "fas fa-palette",
+          "description": "Choose pink color. Hairstyle AI's Pink Hair Filter gives you the freedom to experiment with different shades and find the one that suits you best."
+        },
+        {
+          "title": "Step 3: Generate the Pink Hair Look",
+          "icon": "fas fa-magic",
+          "description": "Hit the \"Generate\" button and let the AI do its magic. Within seconds, Hairstyle AI will transform your photo with the chosen pink shade, giving you a realistic preview of how the hair color would look on you."
+        },
+        {
+          "title": "Step 4: Download and Share",
+          "icon": "fas fa-download",
+          "description": "Once you're happy with your new look, click \"Download\" to save your transformed photo. You can also share it directly on social media to showcase your fun new pink hair. No sign-up required—just upload, try, and share!"
+        }
+      ],
+      "image": {
+        "src": "/images/pink-hair-how-to.webp",
+        "alt": "Pink hair how to - step by step guide on how to use pink hair filter"
+      },
+      "ctaText": "Try Pink Hair Filter",
+      "ctaLink": "/ai-hairstyle?style=Pink"
+    },
+    "ctaSections": [
+      {
+        "title": "Explore Your Bold Side with Pink Hair",
+        "textContent": [
+          "Pink hair is a perfect way to express your individuality and elevate your style. Whether you're experimenting with pastel pink for a soft, dreamy vibe or rocking neon pink for a more edgy look, pink hair adds a fun twist to your wardrobe. It's ideal for those who want to stand out and make a statement, especially if you're preparing for a special event like a party or holiday celebration.",
+          "I personally love how a fresh pink look can instantly change the whole vibe of your outfit and make you feel more confident. Try Hairstyle AI's Pink Hair Filter to experiment and explore your style without permanent changes!"
+        ],
+        "image": {
+          "src": "/images/pink-hair-hero4.webp",
+          "alt": "Pink hair hero4 - exploring bold pink hair for fashion and style"
+        },
+        "ctaText": "Try Pink Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Pink"
+      },
+      {
+        "title": "Transform Your Cosplay Look with Pink Hair",
+        "textContent": [
+          "If you're into cosplay or makeup experimentation, pink hair can be the perfect finishing touch for your character. From soft pastel pinks to bold hot pinks, experimenting with pink hair allows you to explore different characters and styles before committing. It's a fun way to test how a new character's look will work on you.",
+          "I love how the Pink Hair Filter from Hairstyle AI lets me play around with my cosplay looks without any pressure. Whether you're becoming a magical character or trying out a new look for your next event, the filter gives you an instant preview of how the pink shade will look with your costume. It's a creative tool to help you bring your ideas to life and make sure your look is exactly what you envision!"
+        ],
+        "image": {
+          "src": "/images/pink-hair-hero5.webp",
+          "alt": "Pink hair hero5 - pink hair for cosplay and character transformation"
+        },
+        "ctaText": "Try Pink Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Pink"
+      },
+      {
+        "title": "Try Pink Hair for Your Next Social Media Post",
+        "textContent": [
+          "Looking to add something fun and bold to your social media feed? Pink hair is the perfect trend to experiment with, and Hairstyle AI's Pink Hair Filter lets you preview various shades in no time. Whether you want to go for a soft pastel pink for a gentle, charming look or a neon pink for an eye-catching pop, pink hair is sure to grab attention.",
+          "I've used this filter for some of my posts, and it's amazing how it makes my photos stand out! With the ability to try on different styles and colors instantly, you can transform your profile and share your new look with your friends or followers. It's a fun, no-commitment way to keep your social media fresh and exciting!"
+        ],
+        "image": {
+          "src": "/images/pink-hair-hero6.webp",
+          "alt": "Pink hair hero6 - pink hair for social media posts and content creation"
+        },
+        "ctaText": "Try Pink Hair Filter",
+        "ctaLink": "/ai-hairstyle?style=Pink"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Choose Hairstyle AI for Your Pink Hair Transformation?",
+      "features": [
+        {
+          "icon": "fas fa-smile",
+          "title": "Easy, No-Commitment Experimentation",
+          "description": "Hairstyle AI's Pink Hair Filter is incredibly easy to use. Simply upload your photo, choose your pink shade, and see your new look in seconds—all for free. No sign-up or commitment required, just fun experimentation!"
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Multiple Pink Shades to Choose From",
+          "description": "Whether you're looking for soft pastel pink or a bold neon pink, Hairstyle AI offers a wide variety of pink shades to suit your personal style. Experiment with different tones and find the one that's perfect for you."
+        },
+        {
+          "icon": "fas fa-eye",
+          "title": "Get Realistic Pink Hair Transformations",
+          "description": "The Pink Hair Filter uses AI to deliver realistic results that blend perfectly with your natural features. See how different shades of pink look on you, with a lifelike preview that mimics actual hair color changes."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Your Privacy Is Our Priority",
+          "description": "At Hairstyle AI, we take your privacy seriously. We never store or share your photos. After use, they're immediately deleted, ensuring your data stays secure. Try our Pink Hair Filter with confidence!"
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "As a photographer, I wanted to try something bold for my next photo shoot. The Pink Hair Filter gave me a preview of how different shades would look on my short hair. The results were so realistic, and I loved how quickly I could change my look without any commitment!",
+        "author": "Alex Thompson",
+        "title": "Photographer",
+        "rating": 5
+      },
+      {
+        "quote": "I always wanted to experiment with pink hair but wasn't sure if it would suit me. With Hairstyle AI, I tried different shades and found the perfect one that matched my personality. The tool is super easy to use, and the results were surprisingly natural!",
+        "author": "Sarah Miller",
+        "title": "Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I decided to try pink hair for my next TikTok video but wasn't sure which shade would look best. Hairstyle AI's filter let me test everything from soft pink to bold neon pink. I ended up choosing the perfect shade, and my followers loved it!",
+        "author": "Brian Lewis",
+        "title": "Social Media Influencer",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "How realistic is the Pink Hair Filter?",
+        "answer": "The Pink Hair Filter provides incredibly realistic results. Our AI-powered tool analyzes your photo and adapts the color to your natural hair texture, blending the pink shade seamlessly with your features. Whether you choose a soft pastel pink or a vibrant neon pink, the filter ensures a lifelike preview of your transformation. It's a fun and accurate way to experiment with pink hair before making a permanent change. Try it today with Hairstyle AI!"
+      },
+      {
+        "question": "Is the Pink Hair Filter free?",
+        "answer": "Yes, the Pink Hair Filter is completely free to use! You can upload your photo, experiment with various pink shades, and preview the results without any cost."
+      },
+      {
+        "question": "Is my photo safe?",
+        "answer": "Absolutely! Your privacy is a top priority for us. Any photo you upload is processed securely, and we immediately delete it after use. We do not store or share your images, so you can experiment with pink hair worry-free. Your data is fully protected when using Hairstyle AI."
+      },
+      {
+        "question": "What hair color looks best on me?",
+        "answer": "The best hair color for you depends on your skin tone and personal style. If you have fair skin, lighter shades like pastel pinks or rose gold work great. For medium skin tones, try deeper shades like fuchsia or salmon pink for a bold look. Darker skin tones shine with vibrant, neon pinks that create a stunning contrast. Experiment with different shades using Hairstyle AI's Pink Hair Filter to see which one suits you best!"
+      },
+      {
+        "question": "What are some tips for maintaining pink hair?",
+        "answer": "Pink hair requires extra care to keep it vibrant. Use a sulfate-free, color-safe shampoo to preserve the pink tone. Avoid excessive sun exposure, as it can cause the color to fade quickly. Deep conditioning treatments are essential to keep your hair hydrated, as pink dye can make your hair drier. Purple shampoo can help maintain the cool tones and prevent yellowing. To make sure pink hair suits your lifestyle, try different shades with Hairstyle AI's Pink Hair Filter!"
+      },
+      {
+        "question": "What pink hair styles are available?",
+        "answer": "There are several pink hair styles you can experiment with! Whether you prefer a soft pastel pink for a subtle and delicate look, a rose gold for a warm and trendy vibe, or a bold neon pink for a statement style, there's something for everyone. Pink hair also works with a variety of cuts—pixie cuts, bobs, long waves, or even a sleek straight look. Use Hairstyle AI's Pink Hair Filter to try out different styles and find the one that suits your personality!"
+      }
+    ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
+        },
+        {
+          "title": "Blonde Hair Filter",
+          "description": "Test Blonde Shades Instantly",
+          "link": "/blonde-hair-filter",
+          "image": "/images/blonde-filter-hero.webp"
+        },
+        {
+          "title": "Red Hair Filter",
+          "description": "Try Red Styles Instantly",
+          "link": "/red-hair-filter",
+          "image": "/images/red-hair-filter-hero.webp"
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Explore Your Pink Hair Transformation Now",
+      "description": "Want to go pink? Use Hairstyle AI's Pink Hair Filter to try different shades and see the results instantly. No sign-up needed, and it's free—start experimenting with your pink hair look today!",
+      "ctaText": "Try Pink Hair Filter →",
+      "ctaLink": "/ai-hairstyle?style=Pink"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/pink-hair-filter",
+      "name": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
+      "description": "See how pink hair looks on you with Hairstyle AI's Pink Hair Filter. From pastel pink to vivid shades, experiment with free, realistic results. Try it now and share your new look!",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "ratingCount": "21400"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
+          "item": "https://hair-style.ai/pink-hair-filter"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
+      "description": "See how pink hair looks on you with Hairstyle AI's Pink Hair Filter. From pastel pink to vivid shades, experiment with free, realistic results. Try it now and share your new look!",
+      "canonical": "https://hair-style.ai/pink-hair-filter",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
+        "description": "See how pink hair looks on you with Hairstyle AI's Pink Hair Filter. From pastel pink to vivid shades, experiment with free, realistic results. Try it now and share your new look!",
+        "url": "https://hair-style.ai/pink-hair-filter",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+        "images": [
+            {
+              "url": "https://hair-style.ai/images/pink-hair-hero.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
+        "description": "See how pink hair looks on you with Hairstyle AI's Pink Hair Filter. From pastel pink to vivid shades, experiment with free, realistic results. Try it now and share your new look!",
+        "images": ["https://hair-style.ai/images/pink-hair-hero.webp"]
+      }
+    }
+  }
