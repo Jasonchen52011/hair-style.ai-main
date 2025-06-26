@@ -179,7 +179,7 @@ export default function BangsFilterPage() {
 
                 {/* Do Bangs Suit Your Face? Section */}
                 <LazySection>
-                <section className="py-10 sm:py-20 bg-white">
+                <section className="py-10 sm:py-16 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
                             {isBangsRightSection.title}
@@ -211,7 +211,7 @@ export default function BangsFilterPage() {
                             </div>
                             
                             {/* 右侧文本 */}
-                            <div className="space-y-6 text-gray-800 text-sm sm:text-lg leading-relaxed lg:col-span-3">
+                            <div className="space-y-6 text-gray-800 text-sm sm:text-lg leading-normal lg:col-span-3">   
                                 {isBangsRightSection.textContent.map((paragraph, index) => (
                                     <p key={index}>
                                         {paragraph}
@@ -233,7 +233,7 @@ export default function BangsFilterPage() {
                                     <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                         {ctaSections[3].title}
                                     </h2>
-                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[3].textcontent.map((paragraph, index) => (
                                             <p key={index}>
                                                 {paragraph}
@@ -291,7 +291,7 @@ export default function BangsFilterPage() {
                                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
                                         {ctaSections[4].title}
                                     </h2>
-                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[4].textcontent.map((paragraph, index) => (
                                             <p key={index}>
                                                 {paragraph}
@@ -334,7 +334,7 @@ export default function BangsFilterPage() {
                                             <i className={`${step.icon} mr-2 text-purple-600`}></i>
                                             {step.title}
                                         </h3>
-                                        <p className="text-gray-800 text-sm sm:text-base leading-relaxed">
+                                        <p className="text-gray-800 text-sm sm:text-base leading-normal">
                                             {step.textcontent}
                                         </p>
                                     </div>
@@ -390,7 +390,7 @@ export default function BangsFilterPage() {
                                 <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                     {ctaSections[0].title}    
                                     </h2>
-                                    <div className="space-y-4  text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                    <div className="space-y-4  text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[0].textcontent.map((paragraph, index) => (
                                             <p key={index}>
                                                 {paragraph}
@@ -415,13 +415,13 @@ export default function BangsFilterPage() {
                 <section className="py-2 sm:py-20  bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center">
                                 {/* 左侧文本内容 */}
-                                <div className="space-y-6 order-2 lg:order-1 lg:col-span-2">
+                                <div className="space-y-3 order-2 lg:order-1 lg:col-span-2">
                                     <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                         {ctaSections[1].title}
                                     </h2>
-                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[1].textcontent.map((paragraph, index) => (
                                             <p key={index}>
                                                 {paragraph}
@@ -478,7 +478,7 @@ export default function BangsFilterPage() {
                                     <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
                                             {ctaSections[2].title}
                                     </h2>
-                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
+                                    <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[2].textcontent.map((paragraph, index) => (
                                             <p key={index}>
                                                 {paragraph}
@@ -521,7 +521,7 @@ export default function BangsFilterPage() {
                                 <div key={index} className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
                                     <i className={`${feature.icon} text-4xl text-purple-600 mb-6`}></i>
                                     <h3 className="text-lg font-bold text-gray-800 mb-3">{feature.title}</h3>
-                                    <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                                    <p className="text-gray-600 text-sm sm:text-base leading-normal">
                                         {feature.textcontent}
                                     </p>
                                 </div>

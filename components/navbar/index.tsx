@@ -300,6 +300,13 @@ export default function Navbar() {
                                         >
                                             Gray Hair Filter
                                         </Link>
+                                        <Link
+                                            href="/pink-hair-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            Pink Hair Filter
+                                        </Link>
                                     </div>
                                 </div>
                             )}
@@ -472,6 +479,13 @@ export default function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Gray Hair Filter
+                                </Link>
+                                <Link
+                                    href="/pink-hair-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Pink Hair Filter
                                 </Link>
                             </div>
                         </div>
