@@ -108,10 +108,10 @@
     "title": "Try More Virtual Hair Filters",
     "tools": [
       {
-        "title": "Hairstyles for Men",
-        "description": "Discover Perfect Men's Haircuts",
-        "image": "/images/man-hair-hero.webp",
-        "link": "/hairstyles-for-men"
+        "title": "AI Hairstyle Changer",
+        "description": "Try 60+ Hairstyles with Free AI Generator",
+        "image": "/images/hero/ba3.jpg",
+        "link": "/"
       },
       {
         "title": "Hairstyles for Women", 
@@ -120,10 +120,10 @@
         "link": "/hairstyles-for-women"
       },
       {
-        "title": "Hairstyles for Girls",
-        "description": "Discover Trendy Hairstyles for Girls", 
-        "image": "/images/hairstyle-for-girls-hero.webp",
-        "link": "/hairstyles-for-girls"
+        "title": "AI Braids Filter",
+        "description": "Try Braids Instantly, Avoid Styling Regrets",
+        "image": "/images/fishtail-braid-after-h1.webp",
+        "link": "/ai-braids"
       }
     ]
   },

@@ -369,6 +369,29 @@
         "answer": "Step-by-step: <br>1. Wet your dreadlocks thoroughly under warm water. <br>2. Apply a residue-free shampoo to your scalp and locs. <br>3. Use fingertips to gently scrub the scalp and base of locs. <br>4. Rinse deeply until water runs clear — shampoo build-up can cause issues. <br>5. Gently squeeze out water and pat dry with a towel. <br>6. Let your dreadlocks dry completely — use a dryer if needed to avoid mildew. Clean dreadlocks = healthy dreadlocks!"
       }
     ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "AI Hairstyle Changer",
+          "description": "Try 60+ Hairstyles with Free AI Generator",
+          "image": "/images/hero/ba3.jpg",
+          "link": "/"
+        },
+        {
+          "title": "AI Braids Filter",
+          "description": "Try Braids Instantly, Avoid Styling Regrets",
+          "image": "/images/fishtail-braid-after-h1.webp",
+          "link": "/ai-braids"
+        },
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "image": "/images/buzz-cut-hero.webp",
+          "link": "/buzz-cut-filter"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Try Your Dreadlocks Look Now",
       "description": "Upload a photo and see your new dreadlocks style in just 60 seconds — it's fast, free, and fun!",

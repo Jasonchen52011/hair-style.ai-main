@@ -301,6 +301,29 @@
       "answer": "Bob cuts are stylish, cool, and easy to manage. They frame your face, dry quickly, and look great in photos. Whether you want a professional vibe or a fun new look, the bob cut is a go-to option for many women and men."
     }
   ],
+  "moreToolsSection": {
+    "title": "Try More Virtual Hair Filters",
+    "tools": [
+      {
+        "title": "AI Hairstyle Changer",
+        "description": "Try 60+ Hairstyles with Free AI Generator",
+        "image": "/images/hero/ba3.jpg",
+        "link": "/"
+      },
+      {
+        "title": "Face Shape Detector",
+        "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
+        "image": "/images/face-shape-hero.webp",
+        "link": "/face-shape-detector"
+      },
+      {
+        "title": "AI Braids Filter",
+        "description": "Try Braids Instantly, Avoid Styling Regrets",
+        "image": "/images/fishtail-braid-after-h1.webp",
+        "link": "/ai-braids"
+      }
+    ]
+  },
   "finalCta": {
     "title": "Try Your Bob Cut Now",
     "description": "Want a bob but not sure how it looks on you? Preview it online first—risk-free and realistic.",

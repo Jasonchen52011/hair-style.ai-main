@@ -310,7 +310,7 @@ export default function Hero() {
         <section className="relative overflow-hidden">
             <LazySection threshold={0.2}>
                 <div className="container mx-auto px-4 py-4 md:py-8 mb-6 md:mb-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 items-center max-w-6xl mx-auto ">
+                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-2 items-center max-w-6xl mx-auto ">
                         {/* Right image - mobile first display */}
                         <LazySection className="flex justify-center lg:order-2">
                             <div className="w-full max-w-sm lg:max-w-lg mx-auto" style={{ aspectRatio: '4:3' }}>
@@ -328,7 +328,7 @@ export default function Hero() {
 
                         {/* Left content */}
                         <LazySection className="text-center lg:text-left lg:order-1">
-                            <h1 className="text-3xl sm:text-4xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
+                            <h1 className="text-3xl sm:text-5xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
                                 Free AI Hairstyle Changer
                             </h1>
                             

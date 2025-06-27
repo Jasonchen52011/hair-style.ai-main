@@ -25,7 +25,8 @@ const {
   finalCta, 
   metadata: metadataConfig,
   structuredData, 
-  breadcrumbData 
+  breadcrumbData,
+  moreToolsSection
 } = config;
 
 const before = imageConfig.beforeImage;
@@ -499,7 +500,7 @@ export default function BobHaircutFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 <LazySection>
-                    <MoreFreeAITools toolNames={["Pixie Cut Filter", "Short Hair Filter", "Bangs Filter"]} />
+                    <MoreFreeAITools moreToolsSection={moreToolsSection} />
                 </LazySection>
 
                 {/* Why Choose Our Bob Cut Simulator Section */}

@@ -176,6 +176,13 @@ export default function Navbar() {
                                             Braids Filter
                                         </Link>
                                         <Link
+                                            href="/perm-filter"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            Perm Filter
+                                        </Link>
+                                        <Link
                                             href="/pixie-cut-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
@@ -425,6 +432,13 @@ export default function Navbar() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Man Bun Filter
+                                </Link>
+                                <Link
+                                    href="/perm-filter"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    Perm Filter
                                 </Link>
                                 <Link
                                     href="/undercut"

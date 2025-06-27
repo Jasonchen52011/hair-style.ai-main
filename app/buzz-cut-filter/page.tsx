@@ -397,6 +397,11 @@ export default function BuzzCutFilterPage() {
                 </section>
 
 
+                {/* More Free AI Tools Section */}
+                <LazySection>
+                    <MoreFreeAITools toolNames={["Hairstyle for Men", "Low Fade Haircut Filter", "Pompadour Filter"]} />
+                </LazySection>
+
                 {/* Why Choose Our Buzz Cut Simulator Section */}
                 <LazySection>
                 <section className="py-10 mt-10 bg-white">
@@ -427,10 +432,6 @@ export default function BuzzCutFilterPage() {
                 </section>
                 </LazySection>
 
-                {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={["Hairstyle for Men", "Low Fade Haircut Filter", "Pompadour Filter"]} />
-                </LazySection>
 
                 {/* FAQ Section */}
                 <LazySection>

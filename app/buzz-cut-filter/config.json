@@ -232,6 +232,29 @@
       "answer": "Absolutely. Hairstyle AI never stores your photos. Images are processed instantly and deleted right after. Your personal data is not saved or shared with anyone, so your privacy stays fully protected at all times."
     }
   ],
+  "moreToolsSection": {
+    "title": "Try More Virtual Hair Filters",
+    "tools": [
+      {
+        "title": "AI Hairstyle Changer",
+        "description": "Try 60+ Hairstyles with Free AI Generator",
+        "image": "/images/hero/ba3.jpg",
+        "link": "/"
+      },
+      {
+        "title": "Bob Haircut Filter",
+        "description": "Preview Bob Cuts Before Salon Visit",
+        "image": "/images/bob-cut-after.webp",
+        "link": "/bob-haircut-filter"
+      },
+      {
+        "title": "Face Shape Detector",
+        "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
+        "image": "/images/face-shape-hero.webp",
+        "link": "/face-shape-detector"
+      }
+    ]
+  },
   "finalCta": {
     "title": "How Would I Look With a Buzz Cut?",
     "description": "Upload your photo and try our free AI buzz cut filter—realistic, fast, and totally risk-free.",
