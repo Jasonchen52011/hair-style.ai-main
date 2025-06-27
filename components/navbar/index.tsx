@@ -208,7 +208,7 @@ export default function Navbar() {
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
-                                            Low Fade Filter
+                                            Low Fade Haircut Filter
                                         </Link>
                                         <Link
                                             href="/pompadour"
@@ -410,7 +410,7 @@ export default function Navbar() {
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Low Fade Filter
+                                    Low Fade Haircut Filter
                                 </Link>
                                 <Link
                                     href="/pompadour"

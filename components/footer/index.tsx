@@ -74,7 +74,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link href="/low-fade-haircut" className="text-gray-400 hover:text-white transition-colors">
-                                    Low Fade Filter
+                                    Low Fade Haircut Filter
                                 </Link>
                             </li>
                             <li>
