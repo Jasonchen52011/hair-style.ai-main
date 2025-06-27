@@ -269,6 +269,29 @@
         "answer": "Yes, it's totally safe. No photos are stored. Your image is deleted right after processing. We don't collect or share your data. Privacy is built into everything we do."
       }
     ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "AI Hairstyle Changer",
+          "description": "Try 60+ Hairstyles with Free AI Generator",
+          "image": "/images/hero/ba3.jpg",
+          "link": "/"
+        },
+        {
+          "title": "Hairstyles for Men",
+          "description": "Discover Perfect Men's Haircuts",
+          "image": "/images/man-hair-hero.webp",
+          "link": "/hairstyles-for-men"
+        },
+        {
+          "title": "Face Shape Detector",
+          "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
+          "image": "/images/face-shape-hero.webp",
+          "link": "/face-shape-detector"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Ready to See Your New Style?",
       "description": "Whether you're exploring new looks or planning for a big change, Hairstyle AI helps you visualize your next hairstyle instantly. Upload your photo and try our free, AI-driven tool now!",

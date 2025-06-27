@@ -1,0 +1,359 @@
+{
+    "heroSection": {
+      "title": "See Yourself with a Gorgeous Perm – Try Our Free Perm Filter!",
+      "description": "Want to try a perm but unsure how it'll look? Our AI-powered Perm Filter lets you preview different perm styles quickly. Upload your photo, choose your style, and instantly transform your look! Feel confident and stylish with Hairstyle AI.",
+      "rating": 4.9,
+      "statsText": "195,000+ virtual perm transformations created",
+      "ctaText": "Try Perm Filter",
+      "ctaLink": "/ai-hairstyle?style=Perm",
+      "styleConfig": {
+        "layout": {
+          "imageRatio": "3/5",
+          "textRatio": "2/5",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-3xl",
+            "desktop": "text-5xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "spacing": "mb-6"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-500",
+          "fontWeight": "font-medium",
+          "spacing": "mb-8"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/perm-filter-hero.webp",
+      "alt": "Perm filter hero - woman with stunning perm hairstyle transformation"
+    },
+    "beforeAfterGallery": {
+      "title": "Transform Your Hair with the Best Perm Filter – Feel the Confidence!",
+      "description": "Discover the power of a perm look with Hairstyle AI's AI-powered Perm Filter. Explore a variety of perm styles and find the one that boosts your confidence. Change your hairstyle and feel fresh – it's quick, fun, and free!",
+      "images": [
+        {
+          "src": "/images/perm-filter-bob.webp",
+          "alt": "Perm filter curly bob - stylish curly bob perm transformation"
+        },
+        {
+          "src": "/images/perm-filter-curly-bob.webp",
+          "alt": "Perm filter curly bob - stylish curly bob perm transformation"
+        },
+        {
+          "src": "/images/perm-filter-long-curly.webp",
+          "alt": "Perm filter long curly - gorgeous long curly perm hairstyle"
+        },
+        {
+          "src": "/images/perm-filter-meduim-curly.webp",
+          "alt": "Perm filter medium curly - medium length curly perm style"
+        },
+        {
+          "src": "/images/perm-filter-gray-curly.webp",
+          "alt": "Perm filter gray curly - gray curly perm transformation"
+        },
+        {
+          "src": "/images/perm-filter-pink-curly.webp",
+          "alt": "Perm filter pink curly - pink curly perm hairstyle"
+        }
+        ]
+    },
+
+    "howToUseSection": {
+      "title": "How to Use the Perm Filter – Easy, Fast & Fun with Hairstyle AI",
+      "description": "Transform your look with our step-by-step guide. It's simple, quick, and fun to try different perm styles with Hairstyle AI!",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "To begin, upload a clear image of yourself where your face is visible. Make sure the photo is in JPG, PNG, or JPEG format, and the size doesn't exceed 3MB. This is the first step in transforming your hairstyle with the AI-powered Perm Filter!"
+        },
+        {
+          "title": "Step 2: Choose Your Style & Perm Filter",
+          "icon": "fas fa-magic",
+          "description": "Once your photo is uploaded, select the \"Perm Filter\" from the available options. You can also experiment with different hair colors to match your personal style. After selecting, simply click the \"Generate\" button and let Hairstyle AI work its magic."
+        },
+        {
+          "title": "Step 3: Wait for Your New Hairstyle",
+          "icon": "fas fa-clock",
+          "description": "Sit tight for about one minute while Hairstyle AI analyzes your photo. The system will automatically apply the perm effect to your hair, making it look realistic and stylish. You can track the process while it works to give you the best result."
+        },
+        {
+          "title": "Step 4: Download and Share Your New Look",
+          "icon": "fas fa-download",
+          "description": "Once the perm effect is applied, your new hairstyle is ready! You can download the image and share it with friends on social media like Instagram or Snapchat. Show off your new look and enjoy your bold, trendy transformation!"
+        }
+      ],
+      "image": {
+        "src": "/images/perm-filter-how-to.webp",
+        "alt": "Perm filter how to - step by step guide on how to use perm filter"
+      },
+      "ctaText": "Try Perm Filter",
+      "ctaLink": "/ai-hairstyle?style=Perm"
+    },
+    "ctaSections": [
+      {
+        "title": "Social Media Fun: A Surprise Perm Makeover with perm filter",
+        "textContent": [
+          "Looking for a fun way to spice up your social media feed or prank your friends? Why not surprise them with a virtual perm transformation? Hairstyle AI lets you try out a new perm and share the results on Instagram, TikTok, or Snapchat.",
+          "I decided to give it a go recently—tried a cute, curly bob with the perm filter, and posted it on Instagram. My friends totally didn't see it coming! One of them commented, \"Wow, you look so much softer!\" and I couldn't help but smile. It really changed my whole vibe—what was once a more serious, polished look turned into something warm and playful. The best part? I didn't even have to commit to the change. I had so much fun with it, and it was an effortless way to add some personality to my feed!"
+        ],
+        "image": {
+          "src": "/images/perm-filter-social.webp",
+          "alt": "Perm filter social media - perfect perm look for social media posts"
+        },
+        "ctaText": "Try Perm Filter",
+        "ctaLink": "/ai-hairstyle?style=Perm"
+      },
+      {
+        "title": "Experimenting with Hair Color: A Bold New Hue",
+        "textContent": [
+          "Ever thought about changing your hair color but unsure about the outcome? Hairstyle AI perm filter lets you try out different shades before making a decision. I recently tried a bold purple hue using the color filter, and let me tell you, it was a total game-changer. I was a little nervous at first, but once I saw how cool the color looked on me, I was hooked. It felt like I was stepping into a totally new persona—fun, adventurous, and a bit daring. Why not try out a new color and surprise yourself? You never know, you might just love it!"
+        ],
+        "image": {
+          "src": "/images/perm-filter-color.webp",
+          "alt": "Perm filter color - exploring different perm styles and looks"
+        },
+        "ctaText": "Try Perm Filter",
+        "ctaLink": "/ai-hairstyle?style=Perm"
+      },
+      {
+        "title": "Preparing for Special Events ：Parties or Holidays",
+        "textContent": [
+          "Got an upcoming party or celebration? The Perm Filter can help you find the perfect style for your special day. Try out a chic, voluminous perm and impress your friends with your fabulous new look. ",
+          "I remember the first time I used the perm filter for a holiday party. I was unsure about how I’d look with curly hair since my natural texture is pretty straight. But after just a few tries, I found this fun, voluminous perm style that made me feel like a completely new version of myself. I got so many compliments, and the best part? I didn’t even have to commit to the style before the event. It was like a little transformation that added so much flair to my outfit, making me feel both confident and festive!"
+        ],
+        "image": {
+          "src": "/images/perm-filter-hero2.webp",
+          "alt": "Perm filter long curly - gorgeous long curly perm hairstyle"
+        },
+        "ctaText": "Try Perm Filter",
+        "ctaLink": "/ai-hairstyle?style=Perm"
+      }
+      
+    ],
+    "whyChooseSection": {
+      "title": "Why Choose Hairstyle AI's Perm Filter",
+      "features": [
+        {
+          "icon": "fas fa-eye",
+          "title": "Realistic Results, No Change to Your Features",
+          "description": "Our AI technology creates realistic perm effects while keeping your face shape and features unchanged. You'll see exactly how a perm would look on you, but with no surprises. It's a perfect way to experiment without altering your natural features."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "A Wide Range of Hairstyles and Colors",
+          "description": "Hairstyle AI offers a broad selection of perms and colors. Whether you're going for a voluminous curly bob or a more subtle wave, you can easily customize your look. Plus, with over 60 styles and 19 color choices, you're sure to find the perfect match for your vibe."
+        },
+        {
+          "icon": "fas fa-gift",
+          "title": "Free and Risk-Free",
+          "description": "We're committed to making your experience fun and accessible. Hairstyle AI is completely free to use, and we ensure there's no hidden charge. Try as many styles as you want with no commitment, no cost, and no strings attached."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Your Privacy is Our Priority",
+          "description": "We care about your privacy. Hairstyle AI doesn't store any of your photos. After you've finished using the perm filter, your image is immediately erased. Your data stays private, and you can enjoy experimenting with different looks stress-free."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I tried Hairstyle AI's perm filter before a big event. I'm always hesitant about big hair changes, but this tool helped me visualize how I would look with a curly perm. The result was amazing—I loved how real it looked! I didn't have to commit, but I definitely got the boost I needed for my confidence!",
+        "author": "Emily Johnson",
+        "title": "Marketing Manager",
+        "rating": 5
+      },
+      {
+        "quote": "Being a guy, I wasn't sure how a perm would look on me. But Hairstyle AI made it so easy! I tried different styles, and the results were surprisingly realistic. The curly look I tried made me feel bolder than usual, and I had so much fun playing around with the styles. Highly recommend for anyone unsure about big hair changes!",
+        "author": "Mark Davis",
+        "title": "Software Engineer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I was so skeptical about whether a perm would suit my round face. But after using the perm filter on Hairstyle AI, I saw a version of myself with soft curls that totally matched my face shape! It was the perfect way to experiment without the fear of regretting a permanent change.",
+        "author": "Ava Martinez",
+        "title": "College Student",
+        "rating": 5.0
+      },
+      {
+        "quote": "I'm always experimenting with my hair for content, but I was unsure about a perm. Hairstyle AI's perm filter made it so easy to test out different looks. The curls were bouncy and fun, and I felt confident sharing the results on my blog. It's a fantastic way to test out styles before actually going for them!",
+        "author": "Liam Carter",
+        "title": "Fashion Blogger",
+        "rating": 4.9
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "What would I look like with a perm filter?",
+        "answer": "The \"Perm Filter\" lets you visualize how you'd look with a perm hairstyle without any commitment. You can try different curly styles to see how they suit your face shape. It's a fun, no-risk way to experiment and discover the perfect curly look for you."
+      },
+      {
+        "question": "Is the perm filter free to use?",
+        "answer": "Yes, Hairstyle AI's perm filter is completely free to use. You can try as many perm styles as you like without any charge. There are no hidden fees, so you can enjoy experimenting with your look as much as you want!"
+      },
+      {
+        "question": "Is my photo safe when using the perm filter?",
+        "answer": "Absolutely! Your photo is safe when using Hairstyle AI. We do not store any of your images, and once you're done using the perm filter, your photo is automatically deleted. We value your privacy, ensuring your data remains secure and confidential."
+      },
+      {
+        "question": "What other perm filters can I try?",
+        "answer": "In addition to the classic perm looks, Hairstyle AI offers a variety of perm filters in different styles, including voluminous curls, soft waves, and curly bobs. Each filter is customizable to match your desired look and can be adjusted to suit your hair type or preference."
+      },
+      {
+        "question": "How realistic are the perm filter results?",
+        "answer": "Hairstyle AI's perm filter uses advanced AI technology to create highly realistic results. The filter analyzes your facial features and hair texture to apply perm effects that look natural and authentic. You'll get a true-to-life preview of how you'd look with a perm hairstyle."
+      },
+      {
+        "question": "Can I try different perm styles and colors together?",
+        "answer": "Yes! Hairstyle AI allows you to experiment with both perm styles and different hair colors simultaneously. You can try various combinations to find the perfect look that matches your personal style and preferences."
+      },
+      {
+        "question": "How long does it take to generate a perm filter result?",
+        "answer": "The perm filter typically takes about one minute to process your photo and generate realistic results. Our AI technology works quickly to analyze your features and apply the perm effect while maintaining high quality and accuracy."
+      },
+      {
+        "question": "What file formats are supported for photo uploads?",
+        "answer": "Hairstyle AI's perm filter supports JPG, PNG, and JPEG file formats. Make sure your photo is clear, shows your face well, and doesn't exceed 3MB in size for the best results."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "AI Hairstyle Changer",
+          "description": "Try 60+ Hairstyles with Free AI Generator",
+          "image": "/images/hero/ba3.jpg",
+          "link": "/"
+        },
+        {
+          "title": "Bob Haircut Filter",
+          "description": "Try Stylish Bob Cuts Instantly",
+          "link": "/bob-haircut-filter",
+          "image": "/images/bob-cut.webp"
+        },
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Test Bold Buzz Cut Styles",
+          "link": "/buzz-cut-filter",
+          "image": "/images/buzz-cut-hero.webp"
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Ready to Try Your Perm Transformation?",
+      "description": "See yourself with beautiful curly hair using Hairstyle AI's Perm Filter. Upload your photo, choose your style, and get instant results—try it now for free!",
+      "ctaText": "Try Perm Filter →",
+      "ctaLink": "/ai-hairstyle?style=Perm"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/perm-filter",
+      "name": "Free Perm Filter Online – Explore personalized perm looks",
+      "description": "Want a stunning perm hairstyle? Use Hairstyle AI's Perm Filter to explore personalized perm looks in just minutes! Upload your photo and see realistic results for free.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "ratingCount": "15420"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free Perm Filter Online – Explore personalized perm looks",
+          "item": "https://hair-style.ai/perm-filter"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Free Perm Filter Online – Explore personalized perm looks",
+      "description": "Want a stunning perm hairstyle? Use Hairstyle AI's Perm Filter to explore personalized perm looks in just minutes! Upload your photo and see realistic results for free.",
+      "canonical": "https://hair-style.ai/perm-filter",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Free Perm Filter Online – Explore personalized perm looks",
+        "description": "Want a stunning perm hairstyle? Use Hairstyle AI's Perm Filter to explore personalized perm looks in just minutes! Upload your photo and see realistic results for free.",
+        "url": "https://hair-style.ai/perm-filter",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+        "images": [
+            {
+              "url": "https://hair-style.ai/images/perm-filter-hero.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Free Perm Filter Online – Explore personalized perm looks",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Free Perm Filter Online – Explore personalized perm looks",
+        "description": "Want a stunning perm hairstyle? Use Hairstyle AI's Perm Filter to explore personalized perm looks in just minutes! Upload your photo and see realistic results for free.",
+        "images": ["https://hair-style.ai/images/perm-filter-hero.webp"]
+      }
+    }
+  }

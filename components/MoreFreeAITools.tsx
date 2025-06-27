@@ -65,6 +65,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
 
   // 在组件内部维护所有工具的完整数据
   const allToolsData: Record<string, AiTool> = {
+    "AI Hairstyle Changer": {
+      title: "AI Hairstyle Changer",
+      description: "Try 60+ Hairstyles with Free AI Generator",
+      link: "/",
+      image: "/images/hero/ba3.jpg"
+    },
     "AI Braids Filter": {
       title: "AI Braids Filter",
       description: "Try Braids Instantly, Avoid Styling Regrets",
@@ -148,6 +154,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Try Man Bun Hairstyles Online Free",
       link: "/man-bun",
       image: "/images/man-bun-hero2.webp"
+    },
+    "Perm Filter": {
+      title: "Perm Filter",
+      description: "Try Perm Hairstyles Risk-Free",
+      link: "/perm-filter",
+      image: "/images/perm-filter-hero.webp"
     },
     "Undercut Filter": {
       title: "Undercut Filter",

@@ -88,6 +88,11 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/perm-filter" className="text-gray-400 hover:text-white transition-colors">
+                                    Perm Filter
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/undercut" className="text-gray-400 hover:text-white transition-colors">
                                     Undercut Filter
                                 </Link>

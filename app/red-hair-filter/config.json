@@ -371,10 +371,10 @@
       "title": "Try More Virtual Hair Filters",
       "tools": [
         {
-          "title": "Black Hair Filter",
-          "description": "Try Black Hair Colors Risk-Free",
-          "link": "/black-hair-filter",
-          "image": "/images/black-hair-filter-hero.webp"
+          "title": "AI Hairstyle Changer",
+          "description": "Try 60+ Hairstyles with Free AI Generator",
+          "image": "/images/hero/ba3.jpg",
+          "link": "/"
         },
         {
           "title": "Blonde Hair Filter",
@@ -383,10 +383,10 @@
           "image": "/images/blonde-filter-hero.webp"
         },
         {
-          "title": "Long Hair Filter",
-          "description": "Try Long Styles Instantly",
-          "link": "/long-hair-filter",
-          "image": "/images/long-hair-filter-hero.webp"
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
         }
       ]
     },
