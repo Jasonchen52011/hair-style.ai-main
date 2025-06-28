@@ -839,7 +839,6 @@ function SelectStylePageContent() {
                                         </button>
                                     </div>
                                 </div>
-
                                 <div className="grid grid-cols-3 lg:grid-cols-3 gap-2 mb-4 overflow-y-auto h-[380px]">
                                     {currentStyles.map((style) => (
                                         <button
@@ -934,7 +933,7 @@ function SelectStylePageContent() {
                                     ) : !uploadedImageUrl ? (
                                         "Upload Photo"
                                     ) : !selectedStyle ? (
-                                        "Change Color Only"
+                                        `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
                                     ) : (
                                         "Generate"
                                     )}
@@ -1175,7 +1174,7 @@ function SelectStylePageContent() {
                             ) : !uploadedImageUrl ? (
                                 "Upload Photo First"
                             ) : !selectedStyle ? (
-                                "Change Color Only"
+                                `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
                             ) : (
                                 "Generate"
                             )}
