@@ -333,11 +333,11 @@ export default function Hero() {
                             </h1>
                             
                             <p className="text-base sm:text-lg text-gray-800 mb-4">
-                                Not sure which hairstyle suits you best? Upload photo,and let our free AI hairstyle generator help you try on  <span className="font-bold">60+ hairstyles and 19 colors filters</span> in just a few clicks! 
-                                Whether you want short, curly, wavy, or bold styles like buzz cuts and braids, Hairstyle AI helps you experiment without a trip to the salon.
+                                Not sure which hairstyle suits you best? Upload photo, let our free AI hairstyle changer help you try on  <span className="font-bold">60+ hairstyles and 19 colors filters</span> in just a few clicks! 
+                                Whether you want short, curly, wavy or bold hairstyles like buzz cuts and braids, Hairstyle AI helps you experiment without a trip to the salon.
                             </p>
 
-                            <p className=" text-gray-800 mb-4">
+                            <p className=" text-gray-800 text-lg mb-4">
                                 Whether you need online hairstyles for <span className="font-bold">men or women</span>, this tool has it all. Hairstyle try on has never been easier – upload your photo and explore the best styles!
                             </p>
 
