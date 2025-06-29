@@ -168,13 +168,13 @@ export default function Navbar() {
                                         >
                                             Bangs Filter
                                         </Link>
-                                        <Link
-                                            href="/ai-braids"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Braids Filter
-                                        </Link>
+                                                                <Link
+                            href="/ai-braids-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Braids Filter
+                        </Link>
                                         <Link
                                             href="/perm-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
@@ -203,48 +203,48 @@ export default function Navbar() {
                                         >
                                             Long Hair Filter
                                         </Link>
-                                        <Link
-                                            href="/dreadlocks"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Dreadlocks Filter
-                                        </Link>
-                                        <Link
-                                            href="/low-fade-haircut"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Low Fade Haircut Filter
-                                        </Link>
-                                        <Link
-                                            href="/pompadour"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Pompadour Filter
-                                        </Link>
-                                        <Link
-                                            href="/man-bun"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Man Bun Filter
-                                        </Link>
-                                        <Link
-                                            href="/undercut"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                            Undercut Filter
-                                        </Link>
-                                        <Link
-                                            href="/textured-fringe"
-                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
-                                            onClick={() => setIsDropdownOpen(false)}
-                                        >
-                                           Textured Fringe Filter
-                                        </Link>
+                                                                <Link
+                            href="/dreadlocks-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Dreadlocks Filter
+                        </Link>
+                                                                <Link
+                            href="/low-fade-haircut-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Low Fade Haircut Filter
+                        </Link>
+                                                                <Link
+                            href="/pompadour-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Pompadour Filter
+                        </Link>
+                                                                <Link
+                            href="/man-bun-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Man Bun Filter
+                        </Link>
+                                                                <Link
+                            href="/undercut-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                            Undercut Filter
+                        </Link>
+                                                                <Link
+                            href="/textured-fringe-filter"
+                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                            onClick={() => setIsDropdownOpen(false)}
+                        >
+                           Textured Fringe Filter
+                        </Link>
                                     </div>
                                 </div>
                             )}
@@ -378,7 +378,7 @@ export default function Navbar() {
                                     Bangs Filter
                                 </Link>
                                 <Link
-                                    href="/ai-braids"
+                                    href="/ai-braids-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -406,28 +406,28 @@ export default function Navbar() {
                                     Long Hair Filter
                                 </Link>
                                 <Link
-                                    href="/dreadlocks"
+                                    href="/dreadlocks-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Dreadlocks Filter
                                 </Link>
                                 <Link
-                                    href="/low-fade-haircut"
+                                    href="/low-fade-haircut-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Low Fade Haircut Filter
                                 </Link>
                                 <Link
-                                    href="/pompadour"
+                                    href="/pompadour-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Pompadour Filter
                                 </Link>
                                 <Link
-                                    href="/man-bun"
+                                    href="/man-bun-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
@@ -441,14 +441,14 @@ export default function Navbar() {
                                     Perm Filter
                                 </Link>
                                 <Link
-                                    href="/undercut"
+                                    href="/undercut-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Undercut Filter
                                 </Link>
                                 <Link
-                                    href="/textured-fringe"
+                                    href="/textured-fringe-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >

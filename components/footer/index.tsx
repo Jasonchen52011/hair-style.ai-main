@@ -48,7 +48,7 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/ai-braids" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/ai-braids-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Braids Filter
                                 </Link>
                             </li>
@@ -68,22 +68,22 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/dreadlocks" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/dreadlocks-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Dreadlocks Filter
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/low-fade-haircut" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/low-fade-haircut-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Low Fade Haircut Filter
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/pompadour" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/pompadour-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Pompadour Filter
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/man-bun" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/man-bun-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Man Bun Filter
                                 </Link>
                             </li>
@@ -93,12 +93,12 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/undercut" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/undercut-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Undercut Filter
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/textured-fringe" className="text-gray-400 hover:text-white transition-colors">
+                                <Link href="/textured-fringe-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Textured Fringe Filter
                                 </Link>
                             </li>

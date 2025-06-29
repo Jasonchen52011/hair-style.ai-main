@@ -52,7 +52,7 @@ module.exports = {
                 priority: 0.9
             },
             {
-                loc: '/ai-braids',
+                loc: '/ai-braids-filter',
                 priority: 0.9
             },
             {

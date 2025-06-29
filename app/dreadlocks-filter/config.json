@@ -382,7 +382,7 @@
           "title": "AI Braids Filter",
           "description": "Try Braids Instantly, Avoid Styling Regrets",
           "image": "/images/fishtail-braid-after-h1.webp",
-          "link": "/ai-braids"
+          "link": "/ai-braids-filter"
         },
         {
           "title": "Buzz Cut Filter",
@@ -402,7 +402,7 @@
       "metadataBase": "https://hair-style.ai",
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "url": "https://hair-style.ai/dreadlocks",
+      "url": "https://hair-style.ai/dreadlocks-filter",
       "name": "Try Dreadlock Filter Online Free for Men & Women with Hairstyle AI",
       "description": "Test how dreadlocks look on your face before trying the real thing. Hairstyle AI shows you realistic dreadlock styles for all hair types.",
       "applicationCategory": "UtilitiesApplication",
@@ -436,14 +436,14 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Try Dreadlock Filter Online Free for Men & Women with Hairstyle AI",
-          "item": "https://hair-style.ai/dreadlocks"
+          "item": "https://hair-style.ai/dreadlocks-filter"
         }
       ]
     },
     "seoConfig": {
       "title": "Try Dreadlock Filter Online Free for Men & Women with Hairstyle AI",
       "description": "Test How Dreadlocks Look on Your Face Before Trying the Real Thing with Our Dreadlock Filter. Hairstyle AI Shows You Realistic Dreadlock Styles for All Hair Types.",
-      "canonical": "https://hair-style.ai/dreadlocks",
+      "canonical": "https://hair-style.ai/dreadlocks-filter",
       "robots": {
         "index": true,
         "follow": true,
@@ -458,7 +458,7 @@
       "openGraph": {
         "title": "Try Dreadlock Filter Online Free for Men & Women with Hairstyle AI",
         "description": "Test How Dreadlocks Look on Your Face Before Trying the Real Thing with Our Dreadlock Filter. Hairstyle AI Shows You Realistic Dreadlock Styles for All Hair Types.",
-        "url": "https://hair-style.ai/dreadlocks",
+        "url": "https://hair-style.ai/dreadlocks-filter",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
         "type": "website",

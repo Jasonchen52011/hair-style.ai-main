@@ -14,7 +14,7 @@
     },
     "beforeAfterGallery": {
       "title": "Pompadour Filter Showcase: Men’s and Women’s Style Inspirations",
-      "description": "Explore different pompadour versions like undercut fade or curly quiff. See how they match your face shape and hairline before you cut. Our users love the control—and the look.",
+      "description": "Explore different pompadour versions like undercut fade or curly quiff with pompadour filter. See how they match your face shape and hairline before you cut. Our users love the control—and the look.",
       "images": [
         {
           "src": "/images/pompadour-map-20man.webp",
@@ -82,7 +82,7 @@
         "Not sure about fade lengths? Here's a quick guide:",
         "#1: Super short, skin-close. #2: Slightly visible but tight.",
         "#3-4: Balanced look, not too short. #5-6: Softer fade, best for beginners.",
-        "And the best part? You don't need to guess. Try all versions with Hairstyle AI. Upload your photo, pick your fade, and preview it before going to the barbershop."
+        "And the best part? You don't need to guess. Try all versions with Hairstyle AI pompadour filter. Upload your photo, pick your fade, and preview it before going to the barbershop."
       ],
               "image": {
           "src": "/images/pompadour-coolman.webp",
@@ -129,7 +129,7 @@
     ],
     "howToUseSection": {
       "title": "How to Try a Pompadour Hairstyle with Hairstyle AI",
-      "description": "No haircut, no guesswork. Just follow these easy steps and see yourself in a brand-new style.",
+      "description": "No haircut, no guesswork. Just follow these easy steps and see yourself with pompadour filter in a brand-new style.",
       "steps": [
         {
           "title": "Step 1: Upload Your Photo",
@@ -144,7 +144,7 @@
         {
           "title": "Step 3: Let AI Do the Work",
           "icon": "fas fa-magic",
-          "description": "Click \"Generate.\" Our smart AI will analyze your face shape, hairline, and texture. In about 30 seconds, you'll see a realistic image of you with the new hairstyle. No weird filters or distorted faces—just you, styled."
+          "description": "Click \"Generate.\" AI pompadour filter will analyze your face shape, hairline, and texture. In about 30 seconds, you'll see a realistic image of you with the new hairstyle. No weird filters or distorted faces—just you, styled."
         },
         {
           "title": "Step 4: Download or Share Your Look",
@@ -161,7 +161,7 @@
     },
     "ctaSections": [
       {
-        "title": "Before a Real Haircut",
+        "title": "Before a Real Haircut with Pompadour Filter",
         "description": "Thinking about switching to a pompadour but feeling unsure? With Hairstyle AI Pompadour Filter, you can preview the look on your real face before stepping into the barbershop. Try different versions—high pompadour, low fade, or a short textured top—and see which one suits your face shape and hair type. It's a smart way to avoid regrets and awkward growing-out phases.",
         "image": {
           "src": "/images/pompadour-hero-2man.webp",
@@ -207,12 +207,12 @@
         {
           "icon": "fas fa-award",
           "title": "Realistic, Natural Results",
-          "description": "With Hairstyle AI, your facial features and skin tone remain untouched, ensuring that the results are photo-quality and realistic—not cartoonish or artificial. See how the hairstyle, including the Pompadour, truly fits you before making the change for real."
+          "description": "With Hairstyle AI pompadour filter, your facial features and skin tone remain untouched, ensuring that the results are photo-quality and realistic—not cartoonish or artificial. See how the hairstyle, including the Pompadour, truly fits you before making the change for real."
         },
         {
           "icon": "fas fa-shield-alt",
           "title": "Your Privacy Is Safe",
-          "description": "We never store or share your photos. All images are processed instantly and deleted right after use. You can explore new looks freely, knowing your personal data stays 100% private, safe, and secure every single time."
+          "description": "Pompadour filter never store or share your photos. All images are processed instantly and deleted right after use. You can explore new looks freely, knowing your personal data stays 100% private, safe, and secure every single time."
         }
       ]
     },
@@ -300,7 +300,7 @@
         {
           "title": "Low Fade Haircut",
           "description": "Try Low Fade Haircut Before Big Chop",
-          "link": "/low-fade-haircut",
+          "link": "/low-fade-haircut-filter",
           "image": "/images/low-fade-hero3.webp"
         }
       
@@ -316,7 +316,7 @@
       "metadataBase": "https://hair-style.ai",
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "url": "https://hair-style.ai/pompadour",
+      "url": "https://hair-style.ai/pompadour-filter",
       "name": "Free Pompadour Filter Online - Explore Timeless Pompadour",
       "description": "Test different pompadour hairstyles risk-free with our Pompadour filter. Upload your photo, try fades, undercuts, or classic looks—instant results with 60+ cuts powered by AI!",
       "applicationCategory": "UtilitiesApplication",
@@ -350,14 +350,14 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Free Pompadour Filter Online - Explore Timeless Pompadour",
-          "item": "https://hair-style.ai/pompadour"
+          "item": "https://hair-style.ai/pompadour-filter"
         }
       ]
     },
     "seoConfig": {
       "title": "Free Pompadour Filter Online - Explore Timeless Pompadour",
       "description": "Test different pompadour hairstyles risk-free with our Pompadour Filter. Upload your photo, try fades, undercuts, or classic looks—instant results with 60+ cuts powered by AI!",
-      "canonical": "https://hair-style.ai/pompadour",
+      "canonical": "https://hair-style.ai/pompadour-filter",
       "robots": {
         "index": true,
         "follow": true,
@@ -372,7 +372,7 @@
       "openGraph": {
         "title": "Free Pompadour Filter Online - Explore Timeless Pompadour",
         "description": "Test different pompadour hairstyles risk-free with our Pompadour Filter. Upload your photo, try fades, undercuts, or classic looks—instant results with 60+ cuts powered by AI!",
-        "url": "https://hair-style.ai/pompadour",
+        "url": "https://hair-style.ai/pompadour-filter",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
         "type": "website",

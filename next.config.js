@@ -221,6 +221,42 @@ const nextConfig = {
                 source: '/zh',
                 destination: '/',
                 permanent: true,
+            },
+            // 页面重命名的301重定向
+            {
+                source: '/dreadlocks',
+                destination: '/dreadlocks-filter',
+                permanent: true,
+            },
+            {
+                source: '/low-fade-haircut',
+                destination: '/low-fade-haircut-filter',
+                permanent: true,
+            },
+            {
+                source: '/pompadour',
+                destination: '/pompadour-filter',
+                permanent: true,
+            },
+            {
+                source: '/man-bun',
+                destination: '/man-bun-filter',
+                permanent: true,
+            },
+            {
+                source: '/undercut',
+                destination: '/undercut-filter',
+                permanent: true,
+            },
+            {
+                source: '/textured-fringe',
+                destination: '/textured-fringe-filter',
+                permanent: true,
+            },
+            {
+                source: '/ai-braids',
+                destination: '/ai-braids-filter',
+                permanent: true,
             }
         ]
     },
