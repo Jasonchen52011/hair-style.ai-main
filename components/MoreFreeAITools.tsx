@@ -71,10 +71,10 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       link: "/",
       image: "/images/hero/ba3.jpg"
     },
-    "AI Braids Filter": {
+        "AI Braids Filter": {
       title: "AI Braids Filter",
       description: "Try Braids Instantly, Avoid Styling Regrets",
-      link: "/ai-braids",  
+      link: "/ai-braids-filter",
       image: "/images/fishtail-braid-after-h1.webp"
     },
     "Bob Haircut Filter": {
@@ -92,7 +92,7 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
     "Dreadlocks Filter": {
       title: "Dreadlocks Filter",
       description: "Try Dreadlock Styles Risk-Free",
-      link: "/dreadlocks",
+      link: "/dreadlocks-filter",
       image: "/images/dreadlock-hairs.webp"
     },
     "Short Hair Filter": {
@@ -140,19 +140,19 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
     "Low Fade Haircut Filter": {
       title: "Low Fade Haircut Filter",
       description: "Try Low Fade Styles Risk-Free",
-      link: "/low-fade-haircut",
+      link: "/low-fade-haircut-filter",
       image: "/images/low-fade-hero3.webp"
     },
     "Pompadour Filter": {
       title: "Pompadour Filter",
       description: "Try Classic Pompadour Styles Risk-Free",
-      link: "/pompadour",
+      link: "/pompadour-filter",
       image: "/images/pompadour-hero-2man.webp"
     },
     "Man Bun Filter": {
       title: "Man Bun Filter",
       description: "Try Man Bun Hairstyles Online Free",
-      link: "/man-bun",
+      link: "/man-bun-filter",
       image: "/images/man-bun-hero2.webp"
     },
     "Perm Filter": {
@@ -164,13 +164,13 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
     "Undercut Filter": {
       title: "Undercut Filter",
       description: "Preview Undercut Styles Risk-Free",
-      link: "/undercut",
+      link: "/undercut-filter",
       image: "/images/undercut-hero1.webp"
     },
     "Textured Fringe Filter": {
       title: "Textured Fringe Filter",
       description: "Try Textured Fringe Styles Risk-Free",
-      link: "/textured-fringe",
+      link: "/textured-fringe-filter",
       image: "/images/textured-fringe-hero2.webp"
     },
     "Face Shape Detector": {
