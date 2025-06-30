@@ -1,0 +1,400 @@
+{
+    "heroSection": {
+      "title": "Free AI Hair Color Changer Online with Hairstyle AI",
+      "description": "Want to try on hair color? AI hair color changer filter lets you switch shades in seconds. from beachy waves to buzz cuts. Upload your photo and explore new looks. Try it now on Hairstyle AI.",
+      "rating": 4.8,
+      "statsText": "285,000+ virtual hair color transformations created",
+      "ctaText": "Try AI Hair Color Changer",
+      "ctaLink": "/ai-hairstyle",
+      "styleConfig": {
+        "layout": {
+          "imageRatio": "3/5",
+          "textRatio": "2/5",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-3xl",
+            "desktop": "text-5xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "spacing": "mb-6"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-500",
+          "fontWeight": "font-medium",
+          "spacing": "mb-8"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/hair-color-hero.webp",
+      "alt": "AI Hair Color Changer hero - virtual hair color try-on transformation"
+    },
+    "beforeAfterGallery": {
+      "title": "Virtual Hair Color Try-On case with Hairstyle AI",
+      "description": "AI Hair Color Changer Online hugs every texture, from tight curls to glass-straight strands. Watch blonde pop on a buzz cut, see pastel melt into long waves, or test blue on a lob. Endless style swaps, zero mess.",
+      "images": [
+        {
+          "src": "/images/hair-color-blonde.webp",
+          "alt": "Hair color changer blonde - blonde hair color transformation"
+        },
+        {
+          "src": "/images/hair-color-brown.webp",
+          "alt": "Hair color changer brown - brown hair color transformation"
+        },
+        {
+          "src": "/images/hair-color-red.webp",
+          "alt": "Hair color changer red - red hair color transformation"
+        },
+        {
+          "src": "/images/hair-color-blue.webp",
+          "alt": "Hair color changer blue - blue hair color transformation"
+        },
+        {
+          "src": "/images/hair-color-pink.webp",
+          "alt": "Hair color changer pink - pink hair color transformation"
+        },
+        {
+          "src": "/images/hair-color-white.webp",
+          "alt": "Hair color changer white - white hair color transformation"
+        }
+        ]
+    },
+    "additionalSection": [
+      {
+        "title": "What Color Should I Dye My Hair？- Best Hair Colors for Your Skin Tone",
+        "textContent": [
+        "Picking the right color can make your whole face glow. Warm skin tones love golden blonde, caramel, or copper—these add warmth and brighten your complexion. Cool skin tones pop with ash, icy silver, or deep espresso—they balance redness and make skin look smoother.",
+        "I've got olive skin, and deep chestnut makes my eyes stand out—it's wild how the right shade changes everything. Our AI helps match tones so you don't have to guess. You'll see side-by-side previews with zero risk.",
+        "It's not just about looking good—it's about feeling sure, glowing from within, and owning your style. Try it yourself on AI Hair Color Changer and see what lights you up."
+        ],
+        "image": {
+          "src": "/images/hair-color-hero2.webp",
+          "alt": "Hair color skin tones - best hair colors for different skin tones"
+        },
+        "ctaText": "Try AI Hair Color Changer",
+        "ctaLink": "/ai-hairstyle",
+        "styleConfig": {
+          "layout": {
+            "imageRatio": "2/5",
+            "textRatio": "2/5",
+            "imageOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      }
+    ],
+    "howToUseSection": {
+      "title": "How to Try On Hair Colors in 4 Easy Steps",
+      "description": "Follow these simple steps to upload your photo, pick your shade, and get a brand-new hair look with AI Hair Color Changer. No downloads. No stress. Just fun.",
+      "steps": [
+        {
+          "title": "Step 1 – Upload Your Photo",
+          "icon": "fas fa-upload",
+          "description": "Tap the upload button and choose a photo with your face clearly visible. Make sure it's JPG, PNG, or JPEG format and under 3MB. Good lighting helps! The better the image, the better your hair preview will be."
+        },
+        {
+          "title": "Step 2 – Choose Your Hair Color and Style",
+          "icon": "fas fa-palette",
+          "description": "Browse over 60 hairstyles and 19 shades with AI Hair Color Changer. Pick a classic brunette or go bold with pink. You can try on fades, highlights, or even a whole new vibe. Play with options until you find what clicks."
+        },
+        {
+          "title": "Step 3 – Click \"Generate\" and Let AI Work",
+          "icon": "fas fa-magic",
+          "description": "Once you hit Generate, the AI maps your hair area using facial analysis and creates your look. Give it about 60 seconds. You'll see your image transform with the new hair color in a snap."
+        },
+        {
+          "title": "Step 4 – Download and Share",
+          "icon": "fas fa-download",
+          "description": "If you love your new style, save it or share it. You can post it on Instagram, Snapchat, or send it to a friend for a second opinion. Don't worry—your photo is never stored."
+        }
+      ],
+      "image": {
+        "src": "/images/hair-color-how-to.webp",
+        "alt": "Hair color changer how to - step by step guide on how to use AI hair color changer"
+      },
+      "ctaText": "Try AI Hair Color Changer",
+      "ctaLink": "/ai-hairstyle"
+    },
+    "ctaSections": [
+      {
+        "title": "Find a Shade That Boosts Confidence",
+        "description": "Feeling stuck in the same old style? Try on fresh looks to find the one that makes you feel great. Our hair color changer lets you explore safely. I never knew chestnut brown would look so good on me—it just makes me feel polished. Use AI Hair Color Changer and discover your bold side.",
+        "image": {
+          "src": "/images/hair-color-hero3.webp",
+          "alt": "Hair color confidence - find a shade that boosts confidence"
+        },
+        "ctaText": "Try AI Hair Color Changer",
+        "ctaLink": "/ai-hairstyle"
+      },
+      {
+        "title": "Get Ready for Big Events in Style with AI Hair Color Changer",
+        "description": "Got a party, wedding, or holiday celebration coming up? Try on new hair colors ahead of time and see which shade fits the vibe. From sleek black for a classy night to bold red for a wild celebration—Hairstyle AI helps you test them all. I once matched my dress to a honey blonde look I found here, and it totally made my New Year's Eve feel extra special.",
+        "image": {
+          "src": "/images/hair-color-hero5.webp",
+          "alt": "Hair color events - get ready for big events in style"
+        },
+        "ctaText": "Try AI Hair Color Changer",
+        "ctaLink": "/ai-hairstyle"
+      },
+      {
+        "title": "Create Eye-Catching Social Media Posts",
+        "description": "Want to glow up your Instagram feed or make your TikTok pop? Try out bold hair colors like lavender or silver, and show off your new look before you ever visit a salon. I posted a split-pic of my natural vs. bright red bob, and my DMs lit up. AI Hair Color Changer makes it super easy to try, download, and share trendy hair color edits that get attention—no editing apps needed.",
+        "image": {
+          "src": "/images/hair-color-social.webp",
+          "alt": "Hair color social media - create eye-catching social media posts"
+        },
+        "ctaText": "Try AI Hair Color Changer",
+        "ctaLink": "/ai-hairstyle"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "What Makes Hairstyle AI Your Best Choice?",
+      "features": [
+        {
+          "icon": "fas fa-hand-sparkles",
+          "title": "Easy, Free & No Sign-Up",
+          "description": "No account, no app, no payment. Just upload, try, and play. You get 5 free uses daily with zero strings attached. Quick and beginner-friendly."
+        },
+        {
+          "icon": "fas fa-palette",
+          "title": "Tons of Styles & Shades",
+          "description": "Pick from 60+ hairstyles and 19 hair colors with ai hair color changer. From sleek blondes to edgy fades, there's a look for everyone. You're not just stuck with one vibe."
+        },
+        {
+          "icon": "fas fa-eye",
+          "title": "Realistic Results, No Weird Filters",
+          "description": "This isn't a sticker-on-head trick. AI hair color changer maps your head shape and blends color into your actual hair for natural, share-worthy images."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Your Privacy, Always",
+          "description": "Your photo is never saved. Once you're done, it's deleted. No tracking, no storage, just style. We believe great tools shouldn't come at a cost to your data."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I had no idea what hair color to try for prom. My natural hair is super curly and hard to visualize in different shades. Hairstyle AI showed me how auburn would look, and wow—it just worked. The preview felt so real I showed it to my hairdresser. The prom photos turned out amazing.",
+        "author": "Emily Carter",
+        "title": "College Student",
+        "rating": 5
+      },
+      {
+        "quote": "I was doing a branding refresh and wanted a clean, edgy style. I used the AI hair color changer to preview platinum on my buzz cut. The contrast with my skin was striking. I felt confident enough to go for it. My portfolio headshots now look 10x cooler.",
+        "author": "Michael Grant",
+        "title": "Photographer",
+        "rating": 5.0
+      },
+      {
+        "quote": "After years of the same look, I felt invisible. I uploaded my photo to Hairstyle AI and tried dark chestnut with soft waves. The before-and-after was a total glow-up. It made me feel younger and more energetic. Even my clients noticed.",
+        "author": "Lisa Thompson",
+        "title": "Real Estate Agent",
+        "rating": 5.0
+      },
+      {
+        "quote": "Post-baby I needed a change but had zero time or energy for salon regrets. AI hair color changer let me test colors while nursing! I landed on caramel blonde, which brought out my eyes. The transformation gave me back a little spark.",
+        "author": "Jasmine Reed",
+        "title": "New Mom & Blogger",
+        "rating": 5.0
+      },
+      {
+        "quote": "I'm losing some hair and was unsure what worked on thinner hair. I uploaded a photo and tested clean short styles with darker tones. AI hair color changer helped me see that a cool ash gray made my features stand out. No guesswork. Just clarity.",
+        "author": "David Brooks",
+        "title": "Software Engineer",
+        "rating": 4.0
+      },
+      {
+        "quote": "I always tell my clients: hair color changes your whole face. I used AI hair color changer to demo a bold magenta look for my Instagram. The preview was spot-on. I got so many likes and a few DMs asking where I dyed it. (I hadn't—yet!)",
+        "author": "Rachel Nguyen",
+        "title": "Makeup Artist",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "What hair color looks best on me?",
+        "answer": "The best hair color for you depends on your skin tone, eye color, and personal style. AI hair color changer uses face analysis to match your features with colors that enhance your natural look. For example, warm skin tones look great with golden and copper shades, while cool tones suit ash and icy hues. You can test different colors side-by-side and find the perfect match without the risk."
+      },
+      {
+        "question": "How do I change my hair color with AI hair color changer?",
+        "answer": "Step 1: Upload a clear photo of your face (JPG, PNG, or JPEG under 3MB). Step 2: Choose a hairstyle and hair color from 60+ options. Step 3: Click \"Generate.\" The AI maps your hair and applies the new color. Step 4: Download your image or share it. AI hair color changer makes it super easy and totally free to test before you dye."
+      },
+      {
+        "question": "Is AI hair color changer free?",
+        "answer": "Yes! AI hair color changer is completely free to use. You get 5 free tries every day, no sign-up or credit card needed. Just upload your photo, try out different hair colors, and download your favorite looks. It's the best way to test styles without spending a dime."
+      },
+      {
+        "question": "Is my photo safe when using AI hair color changer?",
+        "answer": "Absolutely. Your photo is never saved or stored. Once your hair color is generated, the image is deleted from our system. We don't track, share, or keep any of your data. Your privacy matters as much as your style."
+      },
+      {
+        "question": "How do I know what hair color suits me?",
+        "answer": "Figuring out your ideal hair color can be tricky, but AI hair color changer makes it easy. The tool analyzes your face shape, skin tone, and features, then helps you try on shades like chocolate brown, icy blonde, or bold red to see what fits. It's risk-free and totally visual—what you see is what you'll likely get."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "Blonde Hair Filter",
+          "description": "Try Blonde Hair Colors Risk-Free",
+          "link": "/blonde-hair-filter",
+          "image": "/images/blonde-filter-hero.webp"
+        },
+        {
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
+        },
+        {
+          "title": "Short Hair Filter",
+          "description": "Preview Short Cuts, Make Confident Choices",
+          "link": "/short-hair-filter",
+          "image": "/images/short-hair-filter-h1.webp"
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Try AI Hair Color Changer Free Today",
+      "description": "Upload your photo and explore 60+ styles and 19 shades. Find your best look in minutes with Hairstyle AI.",
+      "ctaText": "Try AI Hair Color Changer →",
+      "ctaLink": "/ai-hairstyle"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/ai-hair-color-changer",
+      "name": "Free AI Hair Color Changer Online with Hairstyle AI",
+      "description": "Virtual Hair Color Try-On with our AI hair color changer online free. Upload photo, test colors, and get realistic looks instantly. Just click and transform at Hairstyle AI.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "18350"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Free AI Hair Color Changer Online with Hairstyle AI",
+          "item": "https://hair-style.ai/ai-hair-color-changer"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Free AI Hair Color Changer Online with Hairstyle AI",
+      "description": "Virtual Hair Color Try-On with our AI hair color changer online free. Upload photo, test colors, and get realistic looks instantly. Just click and transform at Hairstyle AI.",
+      "canonical": "https://hair-style.ai/ai-hair-color-changer",
+      "robots": {
+        "index": true,
+        "follow": true,
+        "googleBot": {
+          "index": true,
+          "follow": true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1
+        }
+      },
+      "openGraph": {
+        "title": "Free AI Hair Color Changer Online with Hairstyle AI",
+        "description": "Virtual Hair Color Try-On with our AI hair color changer online free. Upload photo, test colors, and get realistic looks instantly. Just click and transform at Hairstyle AI.",
+        "url": "https://hair-style.ai/ai-hair-color-changer",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+        "images": [
+            {
+              "url": "https://hair-style.ai/images/hair-color-hero.webp",
+              "width": 1920,
+              "height": 1080,
+              "alt": "Free AI Hair Color Changer Online with Hairstyle AI",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Free AI Hair Color Changer Online with Hairstyle AI",
+        "description": "Virtual Hair Color Try-On with our AI hair color changer online free. Upload photo, test colors, and get realistic looks instantly. Just click and transform at Hairstyle AI.",
+        "images": ["https://hair-style.ai/images/hair-color-hero.webp"]
+      }
+    }
+  }

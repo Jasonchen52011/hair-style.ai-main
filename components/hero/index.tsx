@@ -342,20 +342,46 @@ export default function Hero() {
                             </p>
 
                                 {/* Rating */}
-                                <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
-                                    <div className="flex">
-                                        {[...Array(5)].map((_, i) => (
-                                            <svg 
-                                                key={i}
-                                                className="w-5 h-5 text-yellow-400" 
-                                                fill="currentColor" 
-                                                viewBox="0 0 20 20"
-                                            >
-                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                            </svg>
+                                {/* 用户头像和统计文本 */}
+                                <div className="flex items-start justify-center lg:justify-start gap-3 mb-6">
+                                    {/* 随机用户头像 */}
+                                    <div className="flex items-center -space-x-2">
+                                        {[
+                                            '/images/review/review1.webp',
+                                            '/images/review/review2.webp', 
+                                            '/images/review/review3.webp',
+                                            '/images/review/review4.webp'
+                                        ].map((image, index) => (
+                                            <div key={index} className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white">
+                                                <Image
+                                                    src={image}
+                                                    alt={`User review ${index + 1}`}
+                                                    width={32}
+                                                    height={32}
+                                                    className="object-cover w-full h-full"
+                                                />
+                                            </div>
                                         ))}
                                     </div>
-                                    <span className="text-base text-gray-800">4.9/5 from 50k+ users</span>
+                                    
+                                    {/* 星星和统计文本的垂直布局 */}
+                                    <div className="flex flex-col">
+                                        {/* 星星评分 */}
+                                        <div className="flex items-center gap-1 mb-1">
+                                            {[...Array(5)].map((_, i) => (
+                                                <svg 
+                                                    key={i}
+                                                    className="w-5 h-5 text-yellow-400" 
+                                                    fill="currentColor" 
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                            ))}
+                                        </div>
+                                        {/* 统计文本 */}
+                                        <span className="text-base text-gray-800">4.9/5 from 50k+ users</span>
+                                    </div>
                                 </div>
 
                             <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start gap-6 mt-6">

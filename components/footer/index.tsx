@@ -110,6 +110,11 @@ export default function Footer() {
                         <h3 className="text-xl font-semibold mb-6">Color Filter</h3>
                         <ul className="space-y-4">
                             <li>
+                                <Link href="/ai-hair-color-changer" className="text-gray-400 hover:text-white transition-colors">
+                                    AI Hair Color Changer
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/blonde-hair-filter" className="text-gray-400 hover:text-white transition-colors">
                                     Blonde Hair Filter
                                 </Link>

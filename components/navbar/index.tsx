@@ -273,6 +273,13 @@ export default function Navbar() {
                                 <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
                                     <div className="py-2">
                                         <Link
+                                            href="/ai-hair-color-changer"
+                                            className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
+                                            onClick={() => setIsColorDropdownOpen(false)}
+                                        >
+                                            AI Hair Color Changer
+                                        </Link>
+                                        <Link
                                             href="/blonde-hair-filter"
                                             className="block px-4 py-2 text-gray-700 hover:bg-purple-50 hover:text-purple-700"
                                             onClick={() => setIsColorDropdownOpen(false)}
@@ -459,6 +466,13 @@ export default function Navbar() {
                             {/* Mobile Color Filter Menu */}
                             <div className="space-y-1">
                                 <div className="px-4 py-2 text-gray-900 font-medium">Color Filter</div>
+                                <Link
+                                    href="/ai-hair-color-changer"
+                                    className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    AI Hair Color Changer
+                                </Link>
                                 <Link
                                     href="/blonde-hair-filter"
                                     className="block px-6 py-2 text-gray-700 hover:text-purple-700 hover:bg-purple-50 rounded-lg"

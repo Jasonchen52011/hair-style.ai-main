@@ -33,6 +33,10 @@ axiosRetry(client, {
 const requestCounts = new Map<string, { count: number; date: string }>();
 const DAILY_LIMIT = 5;
 
+// 使用 Map 存储每个 taskId 的422错误计数
+const taskErrorCount = new Map<string, number>();
+const MAX_ERROR_COUNT = 5;
+
 // 本地开发白名单IP
 const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
 
@@ -308,10 +312,41 @@ export async function GET(req: NextRequest) {
     );
 
     if (!response.ok) {
+      // 如果是422状态码，记录错误次数
+      if (response.status === 422) {
+        const currentErrorCount = taskErrorCount.get(taskId) || 0;
+        const newErrorCount = currentErrorCount + 1;
+        taskErrorCount.set(taskId, newErrorCount);
+        
+        console.log(`Task ${taskId} received 422 error, count: ${newErrorCount}/${MAX_ERROR_COUNT}`);
+        
+        // 如果错误次数超过限制，返回友好提示并停止重试
+        if (newErrorCount >= MAX_ERROR_COUNT) {
+          // 清理错误计数
+          taskErrorCount.delete(taskId);
+          
+          console.log(`Task ${taskId} exceeded max error count, returning timeout message`);
+          
+          return NextResponse.json({
+            success: false,
+            error: "We've been actively processing your image and found that your image might not be suitable for hairstyle changes. Please try with a photo that has better lighting and is taken closer. We'll give you a bonus try, hope you enjoy!",
+            isTimeout: true,
+            shouldStopPolling: true
+          }, { status: 408 });
+        }
+      }
+      
       throw new Error(`Status check failed with status ${response.status}`);
     }
 
     const statusData = await response.json();
+    
+    // 如果查询成功，清理该taskId的错误计数
+    if (statusData && (statusData.task_status === 'SUCCESS' || statusData.task_status === 'FAILED')) {
+      taskErrorCount.delete(taskId);
+      console.log(`Task ${taskId} completed, cleared error count`);
+    }
+    
     return NextResponse.json(statusData);
   } catch (error) {
     console.error('Query Error:', error);

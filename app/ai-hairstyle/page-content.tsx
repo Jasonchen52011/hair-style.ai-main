@@ -107,7 +107,7 @@ function SelectStylePageContent() {
     };
 
     // merge the polling function from SelectStyle component
-    const pollTaskStatus = async (taskId: string, maxAttempts = 20) => {
+    const pollTaskStatus = async (taskId: string, maxAttempts = 5) => {
         console.log(`Starting task polling, taskId: ${taskId}`);
         
         for (let i = 0; i < maxAttempts; i++) {
@@ -121,6 +121,18 @@ function SelectStylePageContent() {
                     // Handle different HTTP error types
                     if (response.status === 404) {
                         throw new Error('Task not found. Please try uploading a new image.');
+                    } else if (response.status === 408) {
+                        // Handle timeout - check if we should stop polling
+                        try {
+                            const errorData = await response.json();
+                            if (errorData.shouldStopPolling) {
+                                console.log('Received shouldStopPolling flag, stopping polling');
+                                throw new Error(errorData.error || 'Processing timeout. Please try with a different photo.');
+                            }
+                        } catch (parseError) {
+                            console.log('Failed to parse 408 response, treating as timeout');
+                            throw new Error('Processing timeout. Please try with a different photo.');
+                        }
                     } else if (response.status >= 500) {
                         console.log('Server error, retrying...');
                         await new Promise(resolve => setTimeout(resolve, 5000));
@@ -190,7 +202,9 @@ function SelectStylePageContent() {
                     (error.message.includes('face detected') || 
                      error.message.includes('quality') || 
                      error.message.includes('format') || 
-                     error.message.includes('Task not found'))) {
+                     error.message.includes('Task not found') ||
+                     error.message.includes('Processing timeout') ||
+                     error.message.includes('not be suitable for hairstyle changes'))) {
                     throw error;
                 }
                 // For other errors, continue trying if not the last attempt
@@ -202,7 +216,7 @@ function SelectStylePageContent() {
         }
         
         console.error('Polling timeout - task may still be processing');
-        throw new Error('Processing is taking longer than expected. Please try again with a different photo or check your internet connection.');
+        throw new Error('After we have actively processed the picture failed, please change the picture to a better lighted, closer picture.');
     };
 
     // merge the generate function from SelectStyle component
