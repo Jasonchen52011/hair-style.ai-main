@@ -130,16 +130,42 @@ export default function HairstylesForGirlsPage() {
                                     {heroSection.description}
                                 </p>
                                 
-                                <div className="flex items-center justify-center lg:justify-start gap-3 mb-3 mt-8">
-                                    <div className="flex items-center gap-1">
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <i 
-                                                key={star}
-                                                className="fas fa-star text-yellow-400 text-sm"
-                                            />
+                                {/* 用户头像和统计文本 */}
+                                <div className="flex items-start justify-center lg:justify-start gap-3 mb-3 mt-8">
+                                    {/* 随机用户头像 */}
+                                    <div className="flex items-center -space-x-2">
+                                        {[
+                                            '/images/review/review1.webp',
+                                            '/images/review/review2.webp', 
+                                            '/images/review/review3.webp',
+                                            '/images/review/review4.webp'
+                                        ].map((image, index) => (
+                                            <div key={index} className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-white">
+                                                <Image
+                                                    src={image}
+                                                    alt={`User review ${index + 1}`}
+                                                    width={32}
+                                                    height={32}
+                                                    className="object-cover w-full h-full"
+                                                />
+                                            </div>
                                         ))}
                                     </div>
-                                    <span className="text-gray-600 font-medium text-sm sm:text-base">{heroSection.statsText}</span>
+                                    
+                                    {/* 星星和统计文本的垂直布局 */}
+                                    <div className="flex flex-col">
+                                        {/* 星星评分 */}
+                                        <div className="flex items-center gap-1 mb-1">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <i 
+                                                    key={star}
+                                                    className="fas fa-star text-yellow-400 text-sm"
+                                                />
+                                            ))}
+                                        </div>
+                                        {/* 统计文本 */}
+                                        <span className="text-gray-600 font-medium text-sm sm:text-base">{heroSection.statsText}</span>
+                                    </div>
                                 </div>
                                 
                                 <div className="flex justify-center lg:justify-start">

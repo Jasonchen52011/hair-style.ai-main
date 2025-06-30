@@ -71,6 +71,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       link: "/",
       image: "/images/hero/ba3.jpg"
     },
+    "AI Hair Color Changer": {
+      title: "AI Hair Color Changer",
+      description: "Virtual Hair Color Try-On, Risk-Free",
+      link: "/ai-hair-color-changer",
+      image: "/images/hair-color-hero.webp"
+    },
         "AI Braids Filter": {
       title: "AI Braids Filter",
       description: "Try Braids Instantly, Avoid Styling Regrets",
