@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
+
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import FaceShapesSection from '@/components/FaceShapesSection'
@@ -182,38 +182,25 @@ export default function HairstylesForGirlsPage() {
                     </div>
                 </section>
 
-                <LazySection>
-                    <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
-                </LazySection>
+                <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
 
-                <LazySection>
-                    <HowToMaintainSection additionalSection={additionalSection} />
-                </LazySection>
+                <HowToMaintainSection additionalSection={additionalSection} />
 
-                <LazySection>
-                    <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
-
+                <HowToUseSection howToUseSection={howToUseSection} />
 
                 <UsageScenariosSection 
                     ctaSections={ctaSections} 
                     styleConfig={ctaSectionsStyleConfig}
                 />
 
-                <LazySection>
-                    <WhyChooseSection 
-                        whyChooseSection={whyChooseSection}
-                        testimonialsConfig={testimonialsConfig}
-                    />
-                </LazySection>
+                <WhyChooseSection 
+                    whyChooseSection={whyChooseSection}
+                    testimonialsConfig={testimonialsConfig}
+                />
 
-                <LazySection>
-                    <MoreFreeAITools toolNames={moreToolsSection} />
-                </LazySection>
+                <MoreFreeAITools toolNames={moreToolsSection} />
 
-                <LazySection>
-                    <FAQ faqs={faqConfig} />
-                </LazySection>
+                <FAQ faqs={faqConfig} />
 
                 <CTASection finalCta={finalCta} />
 

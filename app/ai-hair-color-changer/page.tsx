@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
+
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 
@@ -105,37 +105,35 @@ export default function AIHairColorChangerPage() {
                     imageConfig={imageConfig}
                 />
 
-                <LazySection>
+                
                     <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
-                </LazySection>
+                
 
-
-
-                <LazySection>
+                
                     <HowToMaintainSection additionalSection={additionalSection} />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
+                
 
 
                 <UsageScenariosSection ctaSections={ctaSections} />
 
-                <LazySection>
+                
                     <MoreFreeAITools moreToolsSection={moreToolsSection} />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
                         testimonialsConfig={testimonialsConfig}
                     />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <FAQ faqs={faqConfig} />
-                </LazySection>
+                
 
                 <CTASection finalCta={finalCta} />
 

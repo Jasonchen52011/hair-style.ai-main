@@ -6,7 +6,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import FaceShapesSection from '@/components/FaceShapesSection'
@@ -20,7 +19,6 @@ import CTASection from '@/components/CTASection'
 import configData from './config.json'
 
 const config = configData as any;
-
 const { 
   imageConfig, 
   heroSection,
@@ -201,46 +199,21 @@ export default function TexturedFringePage() {
                         </div>
                     </div>
                 </section>
-
-                <LazySection>
-                    <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
-                </LazySection>
-
-                <LazySection>
-                    <FaceShapesSection isRightSection={isRightSection} />
-                </LazySection>
-
-                <LazySection>
-                    <HowToMaintainSection additionalSection={additionalSection} />
-                </LazySection>
-
-                <LazySection>
-                    <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
-
-
+                <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
+                <FaceShapesSection isRightSection={isRightSection} />
+                <HowToMaintainSection additionalSection={additionalSection} />
+                <HowToUseSection howToUseSection={howToUseSection} />
                 <UsageScenariosSection 
                     ctaSections={ctaSections} 
                     styleConfig={ctaSectionsStyleConfig}
                 />
-
-                <LazySection>
-                    <WhyChooseSection 
-                        whyChooseSection={whyChooseSection}
-                        testimonialsConfig={testimonialsConfig}
-                    />
-                </LazySection>
-
-                <LazySection>
-                    <MoreFreeAITools toolNames={moreToolsSection} />
-                </LazySection>
-
-                <LazySection>
-                    <FAQ faqs={faqConfig} />
-                </LazySection>
-
+                <WhyChooseSection 
+                    whyChooseSection={whyChooseSection}
+                    testimonialsConfig={testimonialsConfig}
+                />
+                <MoreFreeAITools toolNames={moreToolsSection} />
+                <FAQ faqs={faqConfig} />
                 <CTASection finalCta={finalCta} />
-
                 <Footer />
             </div>
         </>

@@ -5,14 +5,12 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import Testimonials from '@/components/testimonials'
 import FAQ from '@/components/faq'
-import LazySection from '@/components/LazySection'
+
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import MoreFreeAITools from '@/components/MoreFreeAITools'
 import Image from 'next/image'
 import Link from 'next/link'
 import config from './config.json'
-
-
 const { 
   imageConfig, 
   heroSection, 
@@ -33,8 +31,6 @@ const {
 const before = imageConfig.beforeImage;
 const after = imageConfig.afterImage;
 const IMAGE_DISPLAY_HEIGHT = imageConfig.displayHeight;
-
-
 
 // AI Braids 页面 metadata
 export const metadata: Metadata = {
@@ -173,7 +169,7 @@ export default function BraidsFilterPage() {
                 </section>
 
                 {/* Before & After Gallery */}
-                <LazySection>
+                
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
@@ -200,10 +196,10 @@ export default function BraidsFilterPage() {
                             </div>
                         </div>
                     </section>
-                </LazySection>
+                
 
                 {/* Are Braids a Good Match for Your Hair & Face? Section */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
@@ -246,10 +242,10 @@ export default function BraidsFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* Additional Section - How to Keep Your Braids Looking Fresh */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center">
@@ -290,10 +286,10 @@ export default function BraidsFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* How to Try Braids with Hairstyle AI Section */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
                         <div className="text-center mb-12">
@@ -344,7 +340,7 @@ export default function BraidsFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* Planning Your Next Hair App Sections */}
                 {ctaSections.map((section, index) => (
@@ -389,7 +385,7 @@ export default function BraidsFilterPage() {
                 ))}
 
                 {/* Why Choose Our Braids Simulator Section */}
-                <LazySection>
+                
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="text-center mb-16">
@@ -416,21 +412,21 @@ export default function BraidsFilterPage() {
                 </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* More Free AI Tools Section */}
-                <LazySection>
+                
                     <MoreFreeAITools toolNames={["Dreadlocks Filter", "Long Hair Filter", "Short Hair Filter"]} />
-                </LazySection>
+                
 
                 {/* FAQ Section */}
-                <LazySection>
+                
                 <section className="py-2 bg-white mb-10">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <FAQ faqs={faqConfig} />
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* CTA Section */}
                 <section className="py-2 sm:py-20 bg-gray-50">

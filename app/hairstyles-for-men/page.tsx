@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
+
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import FaceShapesSection from '@/components/FaceShapesSection'
@@ -105,57 +105,41 @@ export default function MenHairstylesPage() {
                 />
 
                 {/* Before & After Gallery */}
-                <LazySection>
-                    <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
-                </LazySection>
+                <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
 
                 {/* Face Shapes Section */}
-                <LazySection>
-                    <FaceShapesSection isRightSection={isRightSection} />
-                </LazySection>
+                <FaceShapesSection isRightSection={isRightSection} />
 
                 {/* How to Maintain Section */}
-                <LazySection>
-                    <HowToMaintainSection additionalSection={additionalSection} />
-                </LazySection>
+                <HowToMaintainSection additionalSection={additionalSection} />
 
                 {/* Hair Regrets Section */}
-                <LazySection>
-                    <HairRegretsSection regretsSection={regretsSection} />
-                </LazySection>
+                <HairRegretsSection regretsSection={regretsSection} />
 
                 {/* How to Use Section */}
-                <LazySection>
-                    <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
+                <HowToUseSection howToUseSection={howToUseSection} />
 
                 {/* Usage Scenarios Sections */}
                 <UsageScenariosSection ctaSections={ctaSections} />
 
                 {/* Why Choose Section */}
-                <LazySection>
-                    <WhyChooseSection 
-                        whyChooseSection={whyChooseSection}
-                        testimonialsConfig={testimonialsConfig}
-                    />
-                </LazySection>
+                <WhyChooseSection 
+                    whyChooseSection={whyChooseSection}
+                    testimonialsConfig={testimonialsConfig}
+                />
 
                 {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={[
-                        "Buzz Cut Filter", 
-                        "Low Fade Haircut Filter", 
-                        "Man Bun Filter",
-                        "Textured Fringe Filter",
-                        "Undercut Filter",
-                        "Pompadour Filter", 
-                    ]} />
-                </LazySection>
+                <MoreFreeAITools toolNames={[
+                    "Buzz Cut Filter", 
+                    "Low Fade Haircut Filter", 
+                    "Man Bun Filter",
+                    "Textured Fringe Filter",
+                    "Undercut Filter",
+                    "Pompadour Filter", 
+                ]} />
 
                 {/* FAQ Section */}
-                <LazySection>
-                    <FAQ faqs={faqConfig} />
-                </LazySection>
+                <FAQ faqs={faqConfig} />
 
                 {/* CTA Section */}
                 <CTASection finalCta={finalCta} />

@@ -5,7 +5,6 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import Testimonials from '@/components/testimonials'
 import FAQ from '@/components/faq'
-import LazySection from '@/components/LazySection'
 
 import MoreFreeAITools from '@/components/MoreFreeAITools'
 import Image from 'next/image'
@@ -173,37 +172,34 @@ export default function BuzzCutFilterPage() {
                 </section>
 
                 {/* Before & After Gallery */}
-                <LazySection>
-                    <section className="py-2 sm:py-20 bg-gray-50">
-                        <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
-                            <div className="text-center mb-16">
-                                <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
-                                    {beforeAfterGallery.title}
-                                </h2>
-                                <p className="text-lg text-gray-600 max-w-5xl mx-auto">
-                                    {beforeAfterGallery.description}
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-                                {beforeAfterGallery.images.map((image, index) => (
-                                    <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg">
-                                        <Image
-                                            src={image.src}
-                                            alt={image.alt}
-                                            width={400}
-                                            height={300}
-                                            className="w-full h-auto object-contain"
-                                        />
-                                    </div>
-                                ))}
-                            </div>
+                <section className="py-2 sm:py-20 bg-gray-50">
+                    <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
+                        <div className="text-center mb-16">
+                            <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
+                                {beforeAfterGallery.title}
+                            </h2>
+                            <p className="text-lg text-gray-600 max-w-5xl mx-auto">
+                                {beforeAfterGallery.description}
+                            </p>
                         </div>
-                    </section>
-                </LazySection>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+                            {beforeAfterGallery.images.map((image, index) => (
+                                <div key={index} className="bg-white rounded-lg overflow-hidden shadow-lg">
+                                    <Image
+                                        src={image.src}
+                                        alt={image.alt}
+                                        width={400}
+                                        height={300}
+                                        className="w-full h-auto object-contain"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
                 {/* Is Buzz Cut Right for Me Section */}
-                <LazySection>
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
@@ -246,10 +242,8 @@ export default function BuzzCutFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
 
                 {/* How to Use Buzz Cut Filter Section */}
-                <LazySection>
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
                         <div className="text-center mb-12">
@@ -300,7 +294,6 @@ export default function BuzzCutFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
 
                 {/* First CTA Section */}
                 <section className="py-20 bg-white">
@@ -424,12 +417,9 @@ export default function BuzzCutFilterPage() {
 
 
                 {/* More Free AI Tools Section */}
-                <LazySection>
-                    <MoreFreeAITools toolNames={["Hairstyle for Men", "Low Fade Haircut Filter", "Pompadour Filter"]} />
-                </LazySection>
+                <MoreFreeAITools toolNames={["Hairstyle for Men", "Low Fade Haircut Filter", "Pompadour Filter"]} />
 
                 {/* Why Choose Our Buzz Cut Simulator Section */}
-                <LazySection>
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="text-center mb-16">
@@ -456,18 +446,15 @@ export default function BuzzCutFilterPage() {
                 </div>
                     </div>
                 </section>
-                </LazySection>
 
 
                 {/* FAQ Section */}
-                <LazySection>
                 <section className="py-2 bg-white mb-10">
                     <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 lg:px-6">
                         
                         <FAQ faqs={faqConfig} />
                     </div>
                 </section>
-                </LazySection>
 
                 {/* CTA Section */}
                 <section className="py-2 sm:py-20 bg-gray-50">
