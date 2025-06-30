@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
+
 import HowToUseSection from '@/components/HowToUseSection'
 import UsageScenariosSection from '@/components/UsageScenariosSection'
 import WhyChooseSection from '@/components/WhyChooseSection'
@@ -79,30 +79,22 @@ export default function FaceShapeDetectorPage() {
                 <ToolPage />
 
                 {/* How to Use Section */}
-                <LazySection>
-                    <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
+                <HowToUseSection howToUseSection={howToUseSection} />
 
                 {/* Usage Scenarios */}
                 <UsageScenariosSection ctaSections={ctaSections} />
 
                 {/* Why Choose Us + Testimonials */}
-                <LazySection>
-                    <WhyChooseSection 
-                        whyChooseSection={whyChooseSection}
-                        testimonialsConfig={testimonialsConfig}
-                    />
-                </LazySection>
+                <WhyChooseSection 
+                    whyChooseSection={whyChooseSection}
+                    testimonialsConfig={testimonialsConfig}
+                />
 
                 {/* FAQ Section */}
-                <LazySection>
-                    <FAQ faqs={faqConfig} />
-                </LazySection>
+                <FAQ faqs={faqConfig} />
 
                 {/* More Free AI Tools */}
-                <LazySection>
-                    <MoreFreeAITools moreToolsSection={moreToolsSection} />
-                </LazySection>
+                <MoreFreeAITools moreToolsSection={moreToolsSection} />
 
                 {/* Final CTA */}
                 <CTASection finalCta={finalCta} />

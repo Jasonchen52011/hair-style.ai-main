@@ -5,7 +5,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import Testimonials from '@/components/testimonials'
 import FAQ from '@/components/faq'
-import LazySection from '@/components/LazySection'
+
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import MoreFreeAITools from '@/components/MoreFreeAITools'
 import Image from 'next/image'
@@ -32,8 +32,6 @@ const {
 const before = imageConfig.beforeImage;
 const after = imageConfig.afterImage;
 const IMAGE_DISPLAY_HEIGHT = imageConfig.displayHeight;
-
-
 
 // Bob Haircut Filter 页面 metadata
 export const metadata: Metadata = {
@@ -166,7 +164,7 @@ export default function BobHaircutFilterPage() {
                 </section>
 
                 {/* Before & After Gallery */}
-                <LazySection rootMargin="200px">
+                
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
@@ -194,13 +192,11 @@ export default function BobHaircutFilterPage() {
                             </div>
                         </div>
                     </section>
-                </LazySection>
+                
          
 
-
-
                 {/* Is Pixie Cut Right for Me? Section */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
@@ -243,10 +239,10 @@ export default function BobHaircutFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* How to Keep Your Pixie Cut Looking Fresh Section */}
-                <LazySection>
+                
                     <section className="py-10 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -288,10 +284,10 @@ export default function BobHaircutFilterPage() {
                             </div>
                         </div>
                     </section>
-                </LazySection>
+                
 
                 {/* What If I Don't Like My Pixie Cut Section */}
-                <LazySection>
+                
                     <section className="py-10 sm:py-20 bg-white">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -333,10 +329,10 @@ export default function BobHaircutFilterPage() {
                             </div>
                         </div>
                     </section>
-                </LazySection>
+                
 
                 {/* How to Try Pixie Cut with Hairstyle AI Section */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
                         <div className="text-center mb-12">
@@ -388,7 +384,7 @@ export default function BobHaircutFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
             
 
@@ -473,13 +469,13 @@ export default function BobHaircutFilterPage() {
                 </section>
 
                      {/* More Free AI Tools Section */}
-                     <LazySection>
+                     
                     <MoreFreeAITools toolNames={["Bob Haircut Filter", "Short Hair Filter", "Buzz Cut Filter"]} />
-                </LazySection>
+                
 
 
                 {/* Why Choose Our Pixie Cut Filter Section */}
-                <LazySection>
+                
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="text-center mb-16">
@@ -506,18 +502,18 @@ export default function BobHaircutFilterPage() {
                 </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
            
                 {/* FAQ Section */}
-                <LazySection>
+                
                 <section className="py-2 bg-white mb-10">
                     <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 lg:px-6">
                         
                         <FAQ faqs={faqConfig} />
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* CTA Section */}
                 <section className="py-2 sm:py-20 bg-gray-50">

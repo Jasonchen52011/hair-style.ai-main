@@ -5,7 +5,7 @@ import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/lib/hairstyle
 import MoreFreeAITools from '@/components/MoreFreeAITools';
 import Image from 'next/image';
 import Link from 'next/link';
-import LazySection from '@/components/LazySection';
+
 
 type TabType = 'Female' | 'Male' | 'Color';
 
@@ -308,26 +308,25 @@ export default function Hero() {
 
     return (
         <section className="relative overflow-hidden">
-            <LazySection threshold={0.2}>
-                <div className="container mx-auto px-4 py-4 md:py-8 mb-6 md:mb-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2  gap-2 items-center max-w-6xl mx-auto ">
-                        {/* Right image - mobile first display */}
-                        <LazySection className="flex justify-center lg:order-2">
-                            <div className="w-full max-w-sm lg:max-w-lg mx-auto" style={{ aspectRatio: '4:3' }}>
-                                <OptimizedImage
-                                    src="/images/optimized/hero/hero4.webp"
-                                    alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
-                                    className="w-full h-full"
-                                    width={700}
-                                    height={700}
-                                    priority={true}
-                                    aspectRatio="4:3"
-                                />
-                            </div>
-                        </LazySection>
+            <div className="container mx-auto px-4 py-4 md:py-8 mb-6 md:mb-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2  gap-2 items-center max-w-6xl mx-auto ">
+                    {/* Right image - mobile first display */}
+                    <div className="flex justify-center lg:order-2">
+                        <div className="w-full max-w-sm lg:max-w-lg mx-auto" style={{ aspectRatio: '4:3' }}>
+                            <OptimizedImage
+                                src="/images/optimized/hero/hero4.webp"
+                                alt="AI Hairstyle Preview - Showcase of before and after hairstyle transformations using artificial intelligence"
+                                className="w-full h-full"
+                                width={700}
+                                height={700}
+                                priority={true}
+                                aspectRatio="4:3"
+                            />
+                        </div>
+                    </div>
 
-                        {/* Left content */}
-                        <LazySection className="text-center lg:text-left lg:order-1">
+                    {/* Left content */}
+                    <div className="text-center lg:text-left lg:order-1">
                             <h1 className="text-3xl sm:text-5xl font-bold mb-3 lg:mb-6 mt-1 lg:mt-10 text-gray-800">
                                 Free AI Hairstyle Changer Online - for Men and Women
                             </h1>
@@ -391,54 +390,52 @@ export default function Hero() {
                                 >
                                     Try on Now
                                 </Link>
-                            </div>
-                        </LazySection>
-
-
+                        </div>
                     </div>
+
+
                 </div>
-            </LazySection>
+            </div>
 
             {/* Second section: Hairstyle display area */}
-            <LazySection threshold={0.1}>
-                <div className="container mx-auto px-4 pb-20">
-                    <div className="max-w-6xl mx-auto">
-                        {/* Title and description */}
-                        <LazySection className="text-center mb-16">
-                            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-                                Try on Popular Hairstyles for Men and Women with Hairstyle AI
-                            </h2>
-                            <p className="text-base sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
-                                  Looking for hairstyle inspiration? Our AI hairstyle changer helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, AI hairstyle changer makes it super easy. No more guessing—just upload your photo, try on different AI hairstyle simulators, and find your perfect look! Ready for a new hairstyle? Give it a try today!
-                            </p>
-                        </LazySection>
+            <div className="container mx-auto px-4 pb-20">
+                <div className="max-w-6xl mx-auto">
+                    {/* Title and description */}
+                    <div className="text-center mb-16">
+                        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+                            Try on Popular Hairstyles for Men and Women with Hairstyle AI
+                        </h2>
+                        <p className="text-base sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
+                              Looking for hairstyle inspiration? Our AI hairstyle changer helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, AI hairstyle changer makes it super easy. No more guessing—just upload your photo, try on different AI hairstyle simulators, and find your perfect look! Ready for a new hairstyle? Give it a try today!
+                        </p>
+                    </div>
 
-                        {/* Tab switching */}
-                        <LazySection className="flex justify-center mb-12 px-4">
-                            <div className="flex rounded-lg overflow-hidden w-full max-w-md">
-                                {(['Female', 'Male', 'Color'] as const).map((tab) => (
-                                    <button
-                                        key={tab}
-                                        onClick={() => {
-                                            setActiveTab(tab);
-                                            // Update data immediately to ensure state sync
-                                            updateDisplayData(tab);
-                                        }}
-                                        className={`flex-1 py-3 text-base sm:text-base font-medium transition-all ${
-                                            activeTab === tab
-                                                ? 'bg-purple-700 text-white shadow-lg'
-                                                : 'bg-gray-100 text-gray-600 hover:bg-gray-300'
-                                        }`}
-                                    >
-                                        {tab}
-                                    </button>
-                                ))}
-                            </div>
-                        </LazySection>
+                    {/* Tab switching */}
+                    <div className="flex justify-center mb-12 px-4">
+                        <div className="flex rounded-lg overflow-hidden w-full max-w-md">
+                            {(['Female', 'Male', 'Color'] as const).map((tab) => (
+                                <button
+                                    key={tab}
+                                    onClick={() => {
+                                        setActiveTab(tab);
+                                        // Update data immediately to ensure state sync
+                                        updateDisplayData(tab);
+                                    }}
+                                    className={`flex-1 py-3 text-base sm:text-base font-medium transition-all ${
+                                        activeTab === tab
+                                            ? 'bg-purple-700 text-white shadow-lg'
+                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-300'
+                                    }`}
+                                >
+                                    {tab}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
 
 
-                        {/* hairstyle/color grid */}
-                        <LazySection className="relative">
+                    {/* hairstyle/color grid */}
+                    <div className="relative">
                             {activeTab === 'Color' ? (
                                 // color options display - keep original grid layout
                                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 overflow-hidden">
@@ -503,28 +500,27 @@ export default function Hero() {
                                 </div>
                             )}
 
-                        </LazySection>
+                    </div>
 
-                        {/* More Style button */}
-                        <LazySection className="text-center relative">
-                            <Link 
-                                href="/ai-hairstyle"
-                                className="btn bg-purple-700 text-white btn-lg rounded-xl mt-4"
-                            >
-                                Try on Free AI Hairstyle Changer Now
-                            </Link>
-                        </LazySection>
+                    {/* More Style button */}
+                    <div className="text-center relative">
+                        <Link 
+                            href="/ai-hairstyle"
+                            className="btn bg-purple-700 text-white btn-lg rounded-xl mt-4"
+                        >
+                            Try on Free AI Hairstyle Changer Now
+                        </Link>
                     </div>
                 </div>
-            </LazySection>
+            </div>
 
             {/* fourth part: How to try on hairstyles */}
-            <LazySection className="bg-white">
+            <div className="bg-white">
                 <div className="container mx-auto px-4 py-4">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* image - mobile display on the top */}
-                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                            <div className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
                                 <Image 
                                     src="/images/hero/ba3.jpg" 
                                     alt="Before and after comparison of hairstyle AI transformation showing dramatic style change"
@@ -534,9 +530,9 @@ export default function Hero() {
                                     onError={handleImageError}
                                     loading="lazy"
                                 />
-                            </LazySection>
+                            </div>
                             {/* content - mobile display on the bottom */}
-                            <LazySection className="order-1 lg:order-2">
+                            <div className="order-1 lg:order-2">
                                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
                                      How can I try on AI virtual hairstyles on my face?
                                 </h2>
@@ -552,19 +548,19 @@ export default function Hero() {
                                 >
                                     Try on Free AI Hairstyle Changer Now
                                 </Link>
-                            </LazySection>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </LazySection>
+            </div>
 
             {/* fifth part: What Haircut Fits */}
-            <LazySection className="bg-white">
+            
                 <div className="container mx-auto px-4 py-4 sm:py-20">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             {/* left side image */}
-                            <LazySection className="bg-white p-4 rounded-2xl shadow-sm order-1 lg:order-2">
+                            
                                 <Image 
                                     src="/images/hero/change.jpg" 
                                     alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
@@ -574,9 +570,9 @@ export default function Hero() {
                                     onError={handleImageError}
                                     loading="lazy"
                                 />
-                            </LazySection>
+                            
                             {/* right side content */}
-                            <LazySection className="order-2 lg:order-1">
+                            
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
@@ -598,11 +594,11 @@ export default function Hero() {
                                         If you're still unsure, you can easily find your answer with our online AI hairstyle changer.
                                     </p>
                                 </div>
-                            </LazySection>
+                            
                         </div>
                     </div>
                 </div>
-            </LazySection>
+            
 
             {/* sixth part: What is hairstyle AI changer */}
             <div className="bg-gray-50">
@@ -648,10 +644,10 @@ export default function Hero() {
             
 
             {/* third part: how to use */}
-            <LazySection className="bg-gray-50 py-2 md:py-20" id="how-to-use">
+            
                 <div className="container mx-auto px-4 max-w-6xl">
                     {/* title and introduction */}
-                    <LazySection className="text-center max-w-full mx-auto mb-16">
+                    
                         <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                             How to Change Hairstyle With Hairstyle AI
                         </h2>
@@ -659,12 +655,12 @@ export default function Hero() {
                             Transform your hairstyle look with our AI hairstyle changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
-                    </LazySection>
+                    
 
                     {/* 步骤说明卡片 */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-full mx-auto mb-12">
                         {/* Step 1 */}
-                        <LazySection className="text-center">
+                        
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/upload.jpg" 
@@ -680,10 +676,10 @@ export default function Hero() {
                             <p className="text-base md:text-lg text-gray-800">
                                 Upload your photo if you want to change your hairstyle with AI hairstyle changer.
                             </p>
-                        </LazySection>
+                        
 
                         {/* Step 2 */}
-                        <LazySection className="text-center">
+                        
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/choose.jpg" 
@@ -699,10 +695,10 @@ export default function Hero() {
                             <p className=" text-gray-800">
                                 Choose from our AI hairstyle changer, and pick the hairstyle filter and hair color you want to try.
                             </p>
-                        </LazySection>
+                        
 
                         {/* Step 3 */}
-                        <LazySection className="text-center">
+                        
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/download.jpg" 
@@ -718,24 +714,24 @@ export default function Hero() {
                             <p className=" text-gray-800">
                                 Our AI hairstyle changer will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
-                        </LazySection>
+                        
                     </div>
 
                     {/* add bottom button */}
-                    <LazySection className="text-center mt-12">
+                    
                         <Link 
                             href="/ai-hairstyle"
                             className="btn bg-purple-700 text-white btn-lg rounded-xl"
                         >
                             Try on Free Hairstyle AI Changer Now
                         </Link>
-                    </LazySection>
+                    
                 </div>
-            </LazySection>
+            
 
 
             {/* More Free AI Tools Section */}
-            <LazySection>
+            
                 <MoreFreeAITools toolNames={[
                     "Man Bun Filter",
                     "Textured Fringe Filter",
@@ -748,7 +744,7 @@ export default function Hero() {
                     "Hairstyle for Men", 
                     "Hairstyle for Women",
                     "Hairstyle for Girls"]} />
-            </LazySection>
+            
 
 
             {/* seventh part: user testimonials */}

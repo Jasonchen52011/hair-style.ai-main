@@ -5,7 +5,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import Testimonials from '@/components/testimonials'
 import FAQ from '@/components/faq'
-import LazySection from '@/components/LazySection'
+
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import MoreFreeAITools from '@/components/MoreFreeAITools'
 import Image from 'next/image'
@@ -173,7 +173,7 @@ export default function BangsFilterPage() {
                 </section>
 
                 {/* Before & After Gallery */}
-                <LazySection>
+                
                     <section className="py-2 sm:py-20 bg-gray-50">
                         <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                             <div className="text-center mb-16">
@@ -201,10 +201,10 @@ export default function BangsFilterPage() {
                             </div>
                         </div>
                     </section>
-                </LazySection>
+                
 
                 {/* Do Bangs Suit Your Face? Section */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-16 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <h2 className="text-2xl sm:text-4xl font-bold mb-12 text-center text-gray-800">
@@ -247,7 +247,7 @@ export default function BangsFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* How to Keep Your Bangs Section */}
                 <section className="py-2 sm:py-20 bg-white">
@@ -339,7 +339,7 @@ export default function BangsFilterPage() {
                 </section>
 
                 {/* How to Use the Hairstyle AI Bang Filter Section */}
-                <LazySection>
+                
                 <section className="py-10 sm:py-20 bg-gray-50">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 ">
                      <div className="text-center mb-12">
@@ -390,7 +390,7 @@ export default function BangsFilterPage() {
                         </div>
                     </div>
                 </section>
-                </LazySection>
+                
            
 
                 {/* Thinking of Getting Bangs? Section */}
@@ -527,13 +527,13 @@ export default function BangsFilterPage() {
 
 
                 {/* More Free AI Tools Section */}
-                <LazySection>
+                
                     <MoreFreeAITools toolNames={["Bob Haircut Filter", "Long Hair Filter", "Pixie Cut Filter"]} />
-                </LazySection>
+                
 
 
                 {/* Why Choose Section */}
-                <LazySection>
+                
                 <section className="py-10 mt-10 bg-white">
                     <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="text-center mb-16">
@@ -560,16 +560,16 @@ export default function BangsFilterPage() {
                 </div>
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* FAQ Section */}
-                <LazySection>
+                
                 <section className="py-2 bg-white mb-10">
                     <div className="w-full max-w-3xl mx-auto px-2 sm:px-4 lg:px-6">
                         <FAQ faqs={faqConfig} />
                     </div>
                 </section>
-                </LazySection>
+                
 
                 {/* CTA Section */}
                 <section className="py-2 sm:py-20 bg-gray-50">

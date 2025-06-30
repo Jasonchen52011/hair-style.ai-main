@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
+
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import FaceShapesSection from '@/components/FaceShapesSection'
@@ -104,39 +104,39 @@ export default function PompadourPage() {
                     imageConfig={imageConfig}
                 />
 
-                <LazySection>
+                
                     <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <FaceShapesSection isRightSection={isRightSection} />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <HowToMaintainSection additionalSection={additionalSection} />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
+                
 
 
                 <UsageScenariosSection ctaSections={ctaSections} />
 
-                <LazySection>
+                
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
                         testimonialsConfig={testimonialsConfig}
                     />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <MoreFreeAITools moreToolsSection={moreToolsSection} />
-                </LazySection>
+                
 
-                <LazySection>
+                
                     <FAQ faqs={faqConfig} />
-                </LazySection>
+                
 
                 <CTASection finalCta={finalCta} />
 

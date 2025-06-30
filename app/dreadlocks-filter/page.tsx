@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'react-before-after-slider-component/dist/build.css'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
-import LazySection from '@/components/LazySection'
+
 import HeroSection from '@/components/HeroSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import FaceShapesSection from '@/components/FaceShapesSection'
@@ -105,50 +105,50 @@ export default function DreadlocksPage() {
                 />
 
                 {/* Before & After Gallery */}
-                <LazySection>
+                
                     <BeforeAfterSection beforeAfterGallery={beforeAfterGallery} />
-                </LazySection>
+                
 
                 {/* Face Shapes Section */}
-                <LazySection>
+                
                     <FaceShapesSection isRightSection={isRightSection} />
-                </LazySection>
+                
 
                 {/* How to Maintain Section */}
-                <LazySection>
+                
                     <HowToMaintainSection additionalSection={additionalSection} />
-                </LazySection>
+                
 
                 {/* Hair Regrets Section */}
-                <LazySection>
+                
                     <HairRegretsSection regretsSection={regretsSection} />
-                </LazySection>
+                
 
                 {/* How to Use Section */}
-                <LazySection>
+                
                     <HowToUseSection howToUseSection={howToUseSection} />
-                </LazySection>
+                
 
                 {/* Usage Scenarios Sections */}
                 <UsageScenariosSection ctaSections={ctaSections} />
 
                 {/* Why Choose Section */}
-                <LazySection>
+                
                     <WhyChooseSection 
                         whyChooseSection={whyChooseSection}
                         testimonialsConfig={testimonialsConfig}
                     />
-                </LazySection>
+                
 
                 {/* More Free AI Tools Section */}
-                <LazySection>
+                
                     <MoreFreeAITools toolNames={["AI Braids Filter", "Long Hair Filter", "Hairstyle for Men"]} />
-                </LazySection>
+                
 
                 {/* FAQ Section */}
-                <LazySection>
+                
                     <FAQ faqs={faqConfig} />
-                </LazySection>
+                
 
                 {/* CTA Section */}
                 <CTASection finalCta={finalCta} />
