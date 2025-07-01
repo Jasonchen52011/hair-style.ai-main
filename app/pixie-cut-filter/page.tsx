@@ -231,9 +231,10 @@ export default function BobHaircutFilterPage() {
                             {/* 右侧文本 */}
                             <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                 {isRightSection.textContent.map((paragraph, index) => (
-                                    <p key={index}>
-                                        {paragraph}
-                                    </p>
+                                    <p 
+                                        key={index}
+                                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -267,9 +268,11 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4">
                                         {additionalSection[0].textContent.map((paragraph: string, pIndex: number) => (
-                                            <p key={pIndex} className="text-gray-800 text-sm sm:text-lg leading-relaxed">
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={pIndex} 
+                                                className="text-gray-800 text-sm sm:text-lg leading-relaxed"
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -312,9 +315,11 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4">
                                         {additionalSection[1].textContent.map((paragraph: string, pIndex: number) => (
-                                            <p key={pIndex} className="text-gray-800 text-sm sm:text-lg leading-relaxed">
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={pIndex} 
+                                                className="text-gray-800 text-sm sm:text-lg leading-relaxed"
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     

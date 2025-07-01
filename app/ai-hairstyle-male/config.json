@@ -76,7 +76,7 @@
         "You've probably wondered: \"Can I really pull off a slick back or a man bun?\" The answer depends on more than taste. That's why AI Hairstyle Male gives you the right advice before you hit the barbershop.",
         "Short, tight styles (buzz cut, fade) look great on square or oval faces. If your face is round, go with something with height like a faux hawk. Long face? Add balance with curtain bangs or messy waves. Head shape also matters—if you have a flat crown or round skull, styles with more volume in the back help a lot.",
         "Curly or kinky? Try afro or short dread styles. Straight and thick? You'll love the slick back or textured fringe. Fine hair? Avoid long cuts—they show scalp. Go shorter and keep it clean. Waves? Super flexible—many styles work well.",
-        "Try 60+ hairstyles virtually, risk-free. Haistyle Changer give you a real preview, so you can see the style on your actual face—before making a decision. No data saved. Just try, smile, share."
+        "Try 60+ hairstyles virtually. AI hairstyle male give you a real preview, so you can see the style on your actual face—before making a decision."
       ]
     },
     "additionalSection": [
@@ -101,7 +101,7 @@
       "Thinking of growing out your buzz cut or fade? Get ready for the \"awkward phase.\" That stage when your sides stick out. To smooth the ride, try in-between styles like curtain bangs, messy fringe, or a layered top with tapered sides. Use hats or headbands to shape things daily while your hair gets longer.",
       "Short hair? Use wax or pomade for shape. Long hair? Try sea salt spray or light oil. Wavy or curly hair loves mousse or curl cream. Wake up, apply a dime-sized product, and finger-style. Simple, clean, done.",
       "Trim often to avoid split ends. Don't over-wash. Moisturize your scalp, especially if you use buzz cuts or fades. Avoid heat tools when you can. Keep your hairline neat with regular touch-ups.",
-      "Whether you're leveling up for a date, a job, or just yourself, the right cut changes everything. Hairstyle changer lets you test looks, see yourself differently, and walk away more confident than ever."
+      "Whether you're leveling up for a date, a job, or just yourself, the right cut changes everything. <a href='/' style='color: #1f2937; text-decoration: underline; font-weight: 600;'>Hairstyle changer</a> lets you test looks, see yourself differently, and walk away more confident than ever."
     ],
       "image": {
         "src": "/images/man-hair-user-scenarios.webp",
@@ -145,7 +145,11 @@
     "ctaSections": [
       {
         "title": "Test It Before You Cut",
-        "description": "Not sure if a fade or mullet fits you? Don't guess—preview it first. Haistyle Changer helps you test haircuts virtually before stepping into a barbershop. Teens use it to avoid regret. Adults use it to explore styles they've never tried. Older users enjoy the fun of imagining new looks without any pressure. It's quick, visual, and totally risk-free. With Haistyle Changer, you can try before you trim.",
+        "textContent": [
+          "Not sure if a fade or mullet fits you? Don't guess—preview it first. Hairstyle Changer helps you test haircuts virtually before stepping into a barbershop.",
+          "Teens use it to avoid regret. Adults use it to explore styles they've never tried. Want to check your face shape first? Try our <a href='/face-shape-detector' style='color: #1f2937; text-decoration: underline; font-weight: 600;'>Face Shape Detector</a> for personalized recommendations.",
+          "It's quick, visual, and totally risk-free. With Hairstyle Changer, you can try before you trim."
+        ],
         "image": {
           "src": "/images/man-hair-hero3.webp",
           "alt": "virtual men's hairstyle try-on before haircut"
@@ -301,7 +305,7 @@
       "metadataBase": "https://hair-style.ai",
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "url": "https://hair-style.ai/hairstyles-for-men",
+      "url": "https://hair-style.ai/ai-hairstyle-male",
       "name": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
       "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
       "applicationCategory": "UtilitiesApplication",
@@ -335,14 +339,14 @@
           "@type": "ListItem",
           "position": 2,
           "name": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
-          "item": "https://hair-style.ai/hairstyles-for-men"
+          "item": "https://hair-style.ai/ai-hairstyle-male"
         }
       ]
     },
     "seoConfig": {
       "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
       "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
-      "canonical": "https://hair-style.ai/hairstyles-for-men",
+      "canonical": "https://hair-style.ai/ai-hairstyle-male",
       "robots": {
         "index": true,
         "follow": true,
@@ -357,7 +361,7 @@
       "openGraph": {
         "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
         "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
-        "url": "https://hair-style.ai/hairstyles-for-men",
+        "url": "https://hair-style.ai/ai-hairstyle-male",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
         "type": "website",

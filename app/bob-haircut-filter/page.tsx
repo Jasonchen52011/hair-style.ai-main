@@ -235,9 +235,10 @@ export default function BobHaircutFilterPage() {
                             {/* 右侧文本 */}
                             <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                 {isBobCutRightSection.textContent.map((paragraph, index) => (
-                                    <p key={index}>
-                                        {paragraph}
-                                    </p>
+                                    <p 
+                                        key={index}
+                                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -322,9 +323,10 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                         {ctaSections[0].textContent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -353,9 +355,10 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                         {ctaSections[1].textContent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -410,9 +413,10 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                         {ctaSections[2].textContent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -441,9 +445,10 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-relaxed">
                                         {ctaSections[3].textContent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -498,9 +503,10 @@ export default function BobHaircutFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-lg leading-relaxed">
                                         {ctaSections[4].textContent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     

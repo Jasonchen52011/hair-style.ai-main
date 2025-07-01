@@ -239,9 +239,10 @@ export default function BangsFilterPage() {
                             {/* 右侧文本 */}
                             <div className="space-y-6 text-gray-800 text-sm sm:text-lg leading-normal lg:col-span-3">   
                                 {isBangsRightSection.textContent.map((paragraph, index) => (
-                                    <p key={index}>
-                                        {paragraph}
-                                    </p>
+                                    <p 
+                                        key={index}
+                                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                                    />
                                 ))}
                             </div>
                         </div>
@@ -261,9 +262,10 @@ export default function BangsFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[3].textcontent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -319,9 +321,10 @@ export default function BangsFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[4].textcontent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -418,9 +421,10 @@ export default function BangsFilterPage() {
                                     </h2>
                                     <div className="space-y-4  text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[0].textcontent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -449,9 +453,10 @@ export default function BangsFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[1].textcontent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     
@@ -506,9 +511,10 @@ export default function BangsFilterPage() {
                                     </h2>
                                     <div className="space-y-4 text-gray-800 text-sm sm:text-lg leading-normal">
                                         {ctaSections[2].textcontent.map((paragraph, index) => (
-                                            <p key={index}>
-                                                {paragraph}
-                                            </p>
+                                            <p 
+                                                key={index}
+                                                dangerouslySetInnerHTML={{ __html: paragraph }}
+                                            />
                                         ))}
                                     </div>
                                     

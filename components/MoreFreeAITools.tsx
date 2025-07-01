@@ -125,16 +125,16 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       link: "/buzz-cut-filter",
       image: "/images/buzz-cut-hero.webp"
     },
-    "Hairstyle for Men": {
-      title: "Hairstyle for Men",
+    "AI Hairstyle Male": {
+      title: "AI Hairstyle Male Online Free",
       description: "Discover Perfect Men's Haircuts",
-      link: "/hairstyles-for-men",
+      link: "/ai-hairstyle-male",
       image: "/images/man-hair-hero.webp"
     },
-    "Hairstyle Simulator for Female": {
-      title: "Hairstyle for Female",
+    "AI Hairstyle Online Free Female": {
+      title: "AI Hairstyle Online Free Female",
       description: "Discover Perfect Women's Hairstyles",
-      link: "/hairstyles-for-women",
+      link: "/ai-hairstyle-online-free-female",
       image: "/images/hairstyle-for-women-hero.webp"
     },
     "Hairstyles for Girls": {

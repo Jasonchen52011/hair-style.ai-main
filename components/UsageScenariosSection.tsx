@@ -128,9 +128,11 @@ export default function UsageScenariosSection({ ctaSections, styleConfig }: Usag
                       {section.textContent ? (
                         <div className={config.text.spacing}>
                           {section.textContent.map((paragraph, pIndex) => (
-                            <p key={pIndex} className={`${config.text.color} ${config.text.fontSize.mobile} sm:${config.text.fontSize.desktop} ${config.text.lineHeight}`}>
-                              {paragraph}
-                            </p>
+                            <p 
+                              key={pIndex} 
+                              className={`${config.text.color} ${config.text.fontSize.mobile} sm:${config.text.fontSize.desktop} ${config.text.lineHeight}`}
+                              dangerouslySetInnerHTML={{ __html: paragraph }}
+                            />
                           ))}
                         </div>
                       ) : (
