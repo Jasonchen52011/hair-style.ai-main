@@ -1,4 +1,3 @@
-
 // 定义 API 响应类型
 export interface ApiResponse {
   request_id: string;
@@ -26,4 +25,23 @@ export interface ApiResponse {
       y: number;
     }>;
   };
+}
+
+// Google Identity Services types
+declare global {
+  interface Window {
+    google?: {
+      accounts: {
+        id: {
+          initialize: (config: {
+            client_id: string;
+            callback: (response: { credential: string }) => void;
+            auto_select?: boolean;
+            context?: string;
+          }) => void;
+          prompt: () => void;
+        };
+      };
+    };
+  }
 }

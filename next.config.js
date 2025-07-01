@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
+
+// 配置代理环境变量
+if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
+  process.env.UNDICI_PROXY_URL = process.env.HTTPS_PROXY;
+}
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -10,6 +16,8 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '10mb'
         },
+        // 启用服务器代理支持
+        serverComponentsExternalPackages: ['https-proxy-agent'],
     },
     compiler: {
         styledComponents: true,
@@ -270,6 +278,12 @@ const nextConfig = {
                 permanent: true,
             }
         ]
+    },
+    // 环境变量配置
+    env: {
+        HTTPS_PROXY: process.env.HTTPS_PROXY,
+        HTTP_PROXY: process.env.HTTP_PROXY,
+        UNDICI_PROXY_URL: process.env.HTTPS_PROXY,
     },
 }
 

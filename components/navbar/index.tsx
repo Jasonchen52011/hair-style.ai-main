@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import LoginButton from '../LoginButton';
 
 export default function Navbar() {
     const [isSticky, setIsSticky] = useState(false);
@@ -330,6 +331,9 @@ export default function Navbar() {
                         <Link href="/about" className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700">
                             About
                         </Link>
+                        
+                        {/* Google Login Button */}
+                        <LoginButton />
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -515,6 +519,11 @@ export default function Navbar() {
                                 >
                                     Pink Hair Filter
                                 </Link>
+                            </div>
+                            
+                            {/* Mobile Google Login */}
+                            <div className="px-4 py-2">
+                                <LoginButton />
                             </div>
                         </div>
                     </div>
