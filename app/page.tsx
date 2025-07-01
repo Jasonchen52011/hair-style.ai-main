@@ -7,9 +7,9 @@ import { publicDecrypt } from "crypto";
 
 
 export const metadata: Metadata = {
-    title: 'Free AI Hairstyle Changer Online - for Men and Women with 60+ Styles',
+    title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
     metadataBase: new URL('https://hair-style.ai'),
-    description: 'Test hairstyles on my face free with AI hairstyle changer! Choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids, and more.',
+    description: 'Test hairstyles on my face free with AI hairstyle changer! Haistyle AI choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids and more.',
     alternates: {
         canonical: 'https://hair-style.ai'
     },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: 'https://hair-style.ai',
     },
     openGraph: {
-        title: 'Free AI Hairstyle Changer Online - for Men and Women with 60+ Styles',
+        title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
         type: 'website',
         url: 'https://hair-style.ai',
         images: [
@@ -34,18 +34,18 @@ export const metadata: Metadata = {
               type: 'image/jpeg',
               width: 1920,
               height: 1080,
-              alt: 'Free AI Hairstyle Changer Online - for Men and Women with 60+ Styles'    
+              alt: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles'    
             }
           ],
         siteName: 'Hairstyle AI',
-        description: 'Test hairstyles on my face free with AI hairstyle changer! Choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids, and more.',
+        description: 'Test hairstyles on my face free with AI hairstyle changer! Haistyle AI choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids and more.',
         locale: 'en_US',
       
     },
     twitter: {
         card: 'summary_large_image',
         site: '@hair_styleai',
-        title: 'Free AI Hairstyle Changer Online - for Men and Women with 60+ Styles',
+        title: 'AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles',
         description: 'Test hairstyles on my face free with AI hairstyle changer! Choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids, and more.',
         images: ['https://hair-style.ai/images/hero/ba3.jpg'],
         creator: '@hair_styleai',
@@ -71,7 +71,7 @@ const structuredData = {
         name: "Hairstyle AI",
         applicationCategory: 'UtilitiesApplication',
         url: "https://hair-style.ai",
-        description: "Test hairstyles on my face free with AI hairstyle changer! Choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids, and more.",
+        description: "Test hairstyles on my face free with AI hairstyle changer! Haistyle AI choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids and more.",
         operatingSystem: 'Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS',
         ImageObject: "https://hair-style.ai/images/hero/ba3.jpg",
         offers: {
