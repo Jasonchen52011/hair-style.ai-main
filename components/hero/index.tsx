@@ -503,10 +503,10 @@ export default function Hero() {
                     </div>
 
                     {/* More Style button */}
-                    <div className="text-center relative">
+                    <div className="flex justify-center items-center relative mt-4">
                         <Link 
                             href="/ai-hairstyle"
-                            className="btn bg-purple-700 text-white btn-lg rounded-xl mt-4"
+                            className="btn bg-purple-700 text-white btn-lg rounded-xl"
                         >
                             Try on Free AI Hairstyle Changer Now
                         </Link>
@@ -569,12 +569,12 @@ export default function Hero() {
                                         Choosing the right hairstyle depends on your face shape and the style you want to express.
                                     </p>
                                     <p>
-                                        <Link href="/hairstyles-for-men" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Men</Link> if you have a round face try on a classic pompadour hairstyle or a side part with a fade. 
+                                        <Link href="/ai-hairstyle-male" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Men</Link> if you have a round face try on a classic pompadour hairstyle or a side part with a fade. 
                                         These hairstyles create height and angles, making your face appear more defined. 
                                         For a square face, a softer, textured crop or quiff can add some flow and balance out sharp features.
                                     </p>
                                     <p>
-                                        <Link href="/hairstyles-for-women" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Women</Link> a heart-shaped face suits hairstyles that balance the wider forehead, such as a soft side-swept bang with a long bob or wavy hair. 
+                                        <Link href="/ai-hairstyle-online-free-female" className="font-bold text-purple-700 hover:text-purple-900 transition-colors">For Women</Link> a heart-shaped face suits hairstyles that balance the wider forehead, such as a soft side-swept bang with a long bob or wavy hair. 
                                         If you have an oval face, almost any hairstyle works, but a sleek pixie cut or a blunt bob can emphasize your facial features beautifully. 
                                         For a round face, a layered bob or long waves with side-swept bangs can elongate the face, adding sophistication and elegance.
                                     </p>
@@ -649,10 +649,10 @@ export default function Hero() {
                 <div className="container mx-auto px-4 max-w-6xl">
                     {/* title and introduction */}
                     
-                        <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
+                        <h2 className="text-2xl sm:text-4xl text-center font-bold mb-6 text-gray-800">
                             How to Change Hairstyle With Hairstyle AI
                         </h2>
-                        <p className="text-base sm:text-lg text-gray-800">
+                        <p className="text-base sm:text-lg text-gray-800 text-center mb-12">
                             Transform your hairstyle look with our AI hairstyle changer in just three simple steps. 
                             Upload your photo, choose from our diverse collection of hairstyles, and instantly see yourself with a new look!
                         </p>
@@ -720,12 +720,14 @@ export default function Hero() {
 
                     {/* add bottom button */}
                     
+                    <div className="flex justify-center items-center relative mt-4">
                         <Link 
                             href="/ai-hairstyle"
                             className="btn bg-purple-700 text-white btn-lg rounded-xl"
                         >
-                            Try on Free Hairstyle AI Changer Now
+                            Try on Free AI Hairstyle Changer Now
                         </Link>
+                    </div>
                     
                 </div>
             
@@ -742,8 +744,8 @@ export default function Hero() {
                     "Men's Hairstyles", 
                     "Buzz Cut Filter", 
                     "Short Hair Filter", 
-                    "Hairstyle for Men", 
-                    "Hairstyle for Women",
+                    "AI Hairstyle Male", 
+                    "AI Hairstyle Online Free Female",
                     "Hairstyle for Girls"]} />
             
 

@@ -134,9 +134,11 @@ export default function HowToMaintainSection({ additionalSection }: HowToMaintai
                   </h2>
                   <div className={`${styles.text.spacing} ${styles.text.color} ${styles.text.lineHeight}`}>
                     {config.textContent.map((paragraph: string, pIndex: number) => (
-                      <p key={pIndex} className={`${styles.text.fontSize.mobile} sm:${styles.text.fontSize.desktop}`}>
-                        {paragraph}
-                      </p>
+                      <p 
+                        key={pIndex} 
+                        className={`${styles.text.fontSize.mobile} sm:${styles.text.fontSize.desktop}`}
+                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                      />
                     ))}
                   </div>
                   

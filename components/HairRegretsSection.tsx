@@ -131,9 +131,11 @@ export default function HairRegretsSection({ regretsSection }: HairRegretsSectio
             
             <div className={styles.text.spacing}>
               {config.textContent.map((paragraph, index) => (
-                <p key={index} className={`${styles.text.color} ${styles.text.fontSize.mobile} sm:${styles.text.fontSize.desktop} ${styles.text.lineHeight}`}>
-                  {paragraph}
-                </p>
+                <p 
+                  key={index} 
+                  className={`${styles.text.color} ${styles.text.fontSize.mobile} sm:${styles.text.fontSize.desktop} ${styles.text.lineHeight}`}
+                  dangerouslySetInnerHTML={{ __html: paragraph }}
+                />
               ))}
             </div>
             

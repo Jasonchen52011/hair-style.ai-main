@@ -140,9 +140,10 @@ export default function FaceShapesSection({ isRightSection }: FaceShapesSectionP
           {/* Right text */}
           <div className={`${config.textContent.spacing} ${config.textContent.color} ${config.textContent.fontSize.mobile} sm:${config.textContent.fontSize.desktop} ${config.textContent.lineHeight} lg:col-span-${config.layout.rightRatio}`}>
             {isRightSection.textContent.map((paragraph, index) => (
-              <p key={index}>
-                {paragraph}
-              </p>
+              <p 
+                key={index}
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
             ))}
           </div>
         </div>

@@ -234,9 +234,10 @@ export default function BuzzCutFilterPage() {
                             {/* 右侧文本 */}
                             <div className="space-y-4 text-gray-600 text-base leading-relaxed">
                                 {isBuzzCutRightSection.textContent.map((paragraph, index) => (
-                                    <p key={index}>
-                                        {paragraph}
-                                    </p>
+                                    <p 
+                                        key={index}
+                                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                                    />
                                 ))}
                             </div>
                         </div>

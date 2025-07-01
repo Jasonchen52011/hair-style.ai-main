@@ -257,6 +257,17 @@ const nextConfig = {
                 source: '/ai-braids',
                 destination: '/ai-braids-filter',
                 permanent: true,
+            },
+            // 页面重命名的301重定向
+            {
+                source: '/hairstyles-for-women',
+                destination: '/ai-hairstyle-online-free-female',
+                permanent: true,
+            },
+            {
+                source: '/hairstyles-for-men',
+                destination: '/ai-hairstyle-male',
+                permanent: true,
             }
         ]
     },
