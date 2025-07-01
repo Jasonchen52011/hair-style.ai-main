@@ -559,20 +559,8 @@ export default function Hero() {
                 <div className="container mx-auto px-4 py-4 sm:py-20">
                     <div className="max-w-6xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                            {/* left side image */}
-                            
-                                <Image 
-                                    src="/images/hero/change.jpg" 
-                                    alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
-                                    className="w-[300px] md:w-[430px] h-[320px] md:h-[470px] object-cover rounded-xl"
-                                    width={430}
-                                    height={470}
-                                    onError={handleImageError}
-                                    loading="lazy"
-                                />
-                            
-                            {/* right side content */}
-                            
+                            {/* left side content */}
+                            <div>
                                 <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
                                     What Haircut Fits My Face?
                                 </h2>
@@ -594,7 +582,20 @@ export default function Hero() {
                                         If you're still unsure, you can easily find your answer with our online AI hairstyle changer.
                                     </p>
                                 </div>
+                            </div>
                             
+                            {/* right side image */}
+                            <div className="flex justify-center lg:justify-end">
+                                <Image 
+                                    src="/images/hero/change.jpg" 
+                                    alt="Multiple hairstyle options showcasing different looks on the same person using hairstyle AI technology"
+                                    className="w-[300px] md:w-[430px] h-[320px] md:h-[470px] object-cover rounded-xl"
+                                    width={430}
+                                    height={470}
+                                    onError={handleImageError}
+                                    loading="lazy"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -660,7 +661,7 @@ export default function Hero() {
                     {/* 步骤说明卡片 */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-full mx-auto mb-12">
                         {/* Step 1 */}
-                        
+                        <div className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/upload.jpg" 
@@ -676,10 +677,10 @@ export default function Hero() {
                             <p className="text-base md:text-lg text-gray-800">
                                 Upload your photo if you want to change your hairstyle with AI hairstyle changer.
                             </p>
-                        
+                        </div>
 
                         {/* Step 2 */}
-                        
+                        <div className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/choose.jpg" 
@@ -692,13 +693,13 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
-                            <p className=" text-gray-800">
+                            <p className="text-base md:text-lg text-gray-800">
                                 Choose from our AI hairstyle changer, and pick the hairstyle filter and hair color you want to try.
                             </p>
-                        
+                        </div>
 
                         {/* Step 3 */}
-                        
+                        <div className="text-center">
                             <div className="aspect-video mb-6 rounded-lg overflow-hidden">
                                 <Image 
                                     src="/images/steps/download.jpg" 
@@ -711,10 +712,10 @@ export default function Hero() {
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
-                            <p className=" text-gray-800">
+                            <p className="text-base md:text-lg text-gray-800">
                                 Our AI hairstyle changer will change your hairstyle. Once complete, download the photo with your new AI virtual hairstyle and see how the transformation suits you.
                             </p>
-                        
+                        </div>
                     </div>
 
                     {/* add bottom button */}
