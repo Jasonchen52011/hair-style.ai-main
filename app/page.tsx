@@ -3,7 +3,6 @@ import Footer from "@/components/footer";
 import { Metadata } from 'next'
 import Script from 'next/script';
 import Navbar from '@/components/navbar';
-import { publicDecrypt } from "crypto";
 
 
 export const metadata: Metadata = {

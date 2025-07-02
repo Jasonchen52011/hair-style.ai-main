@@ -8,39 +8,29 @@ import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Script from "next/script"
 import React from 'react'
 
-// 代理配置
+// 简化的代理配置，仅在服务器端使用
 const PROXY_URL = process.env.PROXY_URL || '';
 
 if (typeof window === 'undefined' && PROXY_URL) {
-  // 服务器端 - 使用 undici 进行代理请求
-  const { ProxyAgent, fetch: undiciFetch } = require('undici');
-  
-  const proxyAgent = new ProxyAgent(PROXY_URL);
-  
-  global.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-    console.log("Server fetch with proxy:", input);
+  try {
+    const { ProxyAgent, fetch: undiciFetch } = require('undici');
+    const proxyAgent = new ProxyAgent(PROXY_URL);
     
-    try {
-      const response = await undiciFetch(input, {
-        ...init,
-        dispatcher: proxyAgent
-      });
-      console.log("Server fetch response:", response.status);
-      return response;
-    } catch (error) {
-      console.error("Server fetch error:", error);
-      throw error;
-    }
-  };
-} else if (typeof window !== 'undefined') {
-  // 客户端
-  const originalFetch = window.fetch;
-  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-    console.log("Client fetch:", input);
-    const res = await originalFetch(input, init);
-    console.log("Client fetch response:", res.status);
-    return res;
-  };
+    // 只在服务器端覆盖 fetch
+    global.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+      try {
+        return await undiciFetch(input, {
+          ...init,
+          dispatcher: proxyAgent
+        });
+      } catch (error) {
+        console.error("Server fetch error:", error);
+        throw error;
+      }
+    };
+  } catch (error) {
+    console.warn("Proxy setup failed:", error);
+  }
 }
 
 // 优化字体加载策略
@@ -78,9 +68,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // 只有在有有效密钥时才启用 Clerk
+  // 简化 Clerk 配置检查
   const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  const hasValidClerkKey = clerkPublishableKey && clerkPublishableKey.startsWith('pk_');
+  const hasValidClerkKey = clerkPublishableKey && clerkPublishableKey.trim().length > 0;
 
   const htmlContent = (
     <html lang="en" data-theme="light" suppressHydrationWarning className={`${satoshi.variable}`}>
