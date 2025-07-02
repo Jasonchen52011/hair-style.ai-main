@@ -8,29 +8,39 @@ import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Script from "next/script"
 import React from 'react'
 
-// 简化的代理配置，仅在服务器端使用
+// 代理配置
 const PROXY_URL = process.env.PROXY_URL || '';
 
 if (typeof window === 'undefined' && PROXY_URL) {
-  try {
-    const { ProxyAgent, fetch: undiciFetch } = require('undici');
-    const proxyAgent = new ProxyAgent(PROXY_URL);
+  // 服务器端 - 使用 undici 进行代理请求
+  const { ProxyAgent, fetch: undiciFetch } = require('undici');
+  
+  const proxyAgent = new ProxyAgent(PROXY_URL);
+  
+  global.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    console.log("Server fetch with proxy:", input);
     
-    // 只在服务器端覆盖 fetch
-    global.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
-      try {
-        return await undiciFetch(input, {
-          ...init,
-          dispatcher: proxyAgent
-        });
-      } catch (error) {
-        console.error("Server fetch error:", error);
-        throw error;
-      }
-    };
-  } catch (error) {
-    console.warn("Proxy setup failed:", error);
-  }
+    try {
+      const response = await undiciFetch(input, {
+        ...init,
+        dispatcher: proxyAgent
+      });
+      console.log("Server fetch response:", response.status);
+      return response;
+    } catch (error) {
+      console.error("Server fetch error:", error);
+      throw error;
+    }
+  };
+} else if (typeof window !== 'undefined') {
+  // 客户端
+  const originalFetch = window.fetch;
+  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    console.log("Client fetch:", input);
+    const res = await originalFetch(input, init);
+    console.log("Client fetch response:", res.status);
+    return res;
+  };
 }
 
 // 优化字体加载策略
@@ -68,99 +78,109 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // 简化 Clerk 配置检查
-  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || '';
-
-  const htmlContent = (
-    <html lang="en" data-theme="light" suppressHydrationWarning className={`${satoshi.variable}`}>
-      <head>
-        {/* 最重要的资源预加载 - 为LCP优化 */}
-        <link rel="preload" href="/images/optimized/hero/hero4.webp" as="image" type="image/webp" />
-        <link rel="preload" href="/fonts/satoshi-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
-        <link rel="preload" href="/fonts/satoshi-medium.woff2" as="font" type="font/woff2" crossOrigin="" />
-        
-        {/* 预连接到外部域名 */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google.com" />
-        <link rel="preconnect" href="https://accounts.google.com" />
-        
-        {/* Critical CSS for Hero section - LCP optimization */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-            .hero-section { min-height: 60vh; contain: layout style paint; }
-            .hero-image { aspect-ratio: 1 / 1; max-width: 500px; width: 100%; }
-            .prevent-layout-shift { contain: layout; }
-            .skeleton { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background-color: #e5e7eb; }
-            @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-          `
-        }} />
-        
-        {/* 基本元数据 */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className={`${satoshi.variable} antialiased`}>
-        <PerformanceMonitor />
-        <div id="root" style={{ minHeight: '100vh' }}>
-          {children}
-        </div>
-
-        {/* Google Identity Services SDK */}
-        <Script 
-          src="https://accounts.google.com/gsi/client" 
-          strategy="afterInteractive"
-        />
-        {/* 使用Script组件来替代内联脚本，避免CSP问题 */}
-        <Script
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Clarity
-              setTimeout(function() {
-                (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                })(window, document, "clarity", "script", "r341ayxao1");
-              }, 2000);
-            `
-          }}
-        />
-        
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6"
-          strategy="afterInteractive"
-        />
-        <Script strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-SQ0ZZ6EFP6');
-          `}
-        </Script>
-        
-        {/* Google CSE and Ahrefs */}
-        <Script
-          src="https://cse.google.com/cse.js?cx=c2e98ada1f90c4fda"
-          strategy="lazyOnload"
-        />
-        <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="pzQdswZNDZJoi+e1uLS3jg"
-          strategy="lazyOnload"
-        />
-      </body>
-    </html>
-  );
-
-  // 总是使用 ClerkProvider 包装，避免组件错误
   return (
-    <ClerkProvider publishableKey={clerkPublishableKey}>
-      {htmlContent}
+    <ClerkProvider>
+      <html lang="en" data-theme="light" suppressHydrationWarning className={`${satoshi.variable}`}>
+        <head>
+          {/* 最重要的资源预加载 - 为LCP优化 */}
+          <link rel="preload" href="/images/optimized/hero/hero4.webp" as="image" type="image/webp" />
+          <link rel="preload" href="/fonts/satoshi-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
+          <link rel="preload" href="/fonts/satoshi-medium.woff2" as="font" type="font/woff2" crossOrigin="" />
+          
+          {/* 预连接到外部域名 */}
+          <link rel="preconnect" href="https://www.googletagmanager.com" />
+          <link rel="preconnect" href="https://www.google.com" />
+          <link rel="preconnect" href="https://accounts.google.com" />
+          
+          {/* Critical CSS for Hero section - LCP optimization */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              .hero-section { min-height: 60vh; contain: layout style paint; }
+              .hero-image { aspect-ratio: 1 / 1; max-width: 500px; width: 100%; }
+              .prevent-layout-shift { contain: layout; }
+              .skeleton { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; background-color: #e5e7eb; }
+              @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+            `
+          }} />
+          
+          {/* 基本元数据 */}
+          <link rel="icon" href="/favicon.ico" sizes="any" />
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="manifest" href="/manifest.json" />
+        </head>
+        <body className={`${satoshi.variable} antialiased`}>
+          <PerformanceMonitor />
+          <div id="root" style={{ minHeight: '100vh' }}>
+            {children}
+          </div>
+
+          {/* Google Identity Services SDK */}
+          <Script 
+            src="https://accounts.google.com/gsi/client" 
+            strategy="afterInteractive"
+          />
+          <script
+            id="clarity-script"
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Clarity
+                setTimeout(function() {
+                  (function(c,l,a,r,i,t,y){
+                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                  })(window, document, "clarity", "script", "r341ayxao1");
+                }, 2000);
+              `
+            }}
+          />
+          
+          {/* 延迟加载Google Analytics */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                setTimeout(function() {
+                  var script = document.createElement('script');
+                  script.async = true;
+                  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6';
+                  document.head.appendChild(script);
+                  
+                  script.onload = function() {
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-SQ0ZZ6EFP6');
+                  };
+                }, 3000);
+              `,
+            }}
+          />
+          
+          {/* 延迟加载其他分析脚本 */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                setTimeout(function() {
+                  // Google CSE
+                  var cseScript = document.createElement('script');
+                  cseScript.async = true;
+                  cseScript.src = 'https://cse.google.com/cse.js?cx=c2e98ada1f90c4fda';
+                  document.head.appendChild(cseScript);
+                  
+                  // Ahrefs Analytics
+                  var ahrefsScript = document.createElement('script');
+                  ahrefsScript.async = true;
+                  ahrefsScript.src = 'https://analytics.ahrefs.com/analytics.js';
+                  ahrefsScript.setAttribute('data-key', 'pzQdswZNDZJoi+e1uLS3jg');
+                  document.head.appendChild(ahrefsScript);
+                }, 5000);
+              `,
+            }}
+          />
+        </body>
+      </html>
     </ClerkProvider>
-  );
+  )
 }
