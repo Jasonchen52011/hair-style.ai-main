@@ -11,14 +11,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
     reactStrictMode: false,
-    // 启用Next.js的实验性优化功能
+    // 简化实验性功能配置
     experimental: {
         serverActions: {
             bodySizeLimit: '10mb'
         },
     },
-    // 启用服务器代理支持 (使用新的配置名称)
-    serverExternalPackages: ['https-proxy-agent'],
+    // 简化外部包配置
+    serverComponentsExternalPackages: ['https-proxy-agent'],
     compiler: {
         styledComponents: true,
         // 移除console.log以减少包大小
