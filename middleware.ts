@@ -2,7 +2,11 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { clerkMiddleware } from '@clerk/nextjs/server';
 
-export default clerkMiddleware((auth, req) => {
+// 检查是否有有效的 Clerk 密钥
+const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+const hasValidClerkKey = clerkPublishableKey && clerkPublishableKey.startsWith('pk_');
+
+function handleRequest(req: NextRequest) {
   // 避免重定向循环，跳过静态资源和API请求
   if (req.nextUrl.pathname.startsWith('/_next') || 
       req.nextUrl.pathname.startsWith('/static') ||
@@ -19,7 +23,12 @@ export default clerkMiddleware((auth, req) => {
   }
 
   return NextResponse.next()
-});
+}
+
+// 根据是否有有效的 Clerk 密钥来决定使用哪个中间件
+export default hasValidClerkKey 
+  ? clerkMiddleware((auth, req) => handleRequest(req))
+  : handleRequest;
 
 export const config = {
   matcher: [
