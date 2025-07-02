@@ -16,9 +16,9 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '10mb'
         },
-        // 启用服务器代理支持
-        serverComponentsExternalPackages: ['https-proxy-agent'],
     },
+    // 启用服务器代理支持 (使用新的配置名称)
+    serverExternalPackages: ['https-proxy-agent'],
     compiler: {
         styledComponents: true,
         // 移除console.log以减少包大小
@@ -137,8 +137,12 @@ const nextConfig = {
         // 暂时忽略类型错误，让构建能够继续
         ignoreBuildErrors: true
     },
+
     // 添加静态导出配置
     // output: 'standalone', // 暂时注释掉
+    // 修复构建问题的配置
+    poweredByHeader: false,
+    trailingSlash: false,
     // 添加webpack优化
     webpack: (config, { isServer, dev }) => {
         // 修复 self is not defined 错误
