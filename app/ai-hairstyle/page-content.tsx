@@ -6,6 +6,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
 import { hairColors, femaleStyles, maleStyles, type HairStyle } from '@/lib/hairstyles';
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
 
 // create a wrapper component to handle search parameters
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
@@ -630,7 +637,7 @@ function SelectStylePageContent() {
             
             <div className="max-w-7xl mx-auto">
                 {/* Logo 区域作为 h1 标题 */}
-                <h1 className="flex items-center mb-4 h-[48px]">
+                <div className="flex items-center justify-between mb-4 h-[48px]">
                     <Link 
                         href="/" 
                         className="flex items-center gap-2"
@@ -643,10 +650,29 @@ function SelectStylePageContent() {
                             height={32}
                             priority
                         />
-                        <span className="text-xl  hidden lg:inline   md:text-2xl font-semibold hover:text-purple-700 transition-colors">
-                            Hair Style AI
-                        </span>
+                        <h1 className="text-xl  hidden lg:inline   md:text-2xl font-semibold hover:text-purple-700 transition-colors">
+                            HairStyle AI
+                        </h1>
                     </Link>
+
+                    {/* Auth Buttons - 桌面端显示 */}
+                    <div className="hidden lg:flex items-center gap-2">
+                        <SignedOut>
+                            <SignInButton>
+                                <button className="border border-purple-700 text-purple-700 hover:bg-purple-100 hover:text-purple-900 rounded-xl font-medium text-sm h-8 px-8 cursor-pointer transition-colors">
+                                    Sign In
+                                </button>
+                            </SignInButton>
+                            <SignUpButton>
+                                <button className="bg-purple-700 text-white rounded-xl font-medium text-sm h-8 px-8 cursor-pointer hover:bg-purple-800 transition-colors">
+                                    Sign Up
+                                </button>
+                            </SignUpButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <UserButton />
+                        </SignedIn>
+                    </div>
 
                           {/* 浮动按钮 - 移动端只显示图标，PC端隐藏 */}
                           {uploadedImageUrl && (
@@ -685,7 +711,32 @@ function SelectStylePageContent() {
                                         </div>
                                     </div>
                           )}
-                </h1>
+
+                          {/* Auth Buttons - 移动端显示在右上角 */}
+                          <div className="lg:hidden absolute top-2 right-2 flex gap-2">
+                                <SignedOut>
+                                    <SignInButton>
+                                        <button className="w-8 h-8 border border-[#6c47ff] text-[#6c47ff] hover:bg-[#6c47ff] hover:text-white rounded-full font-medium text-xs cursor-pointer transition-colors flex items-center justify-center">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                            </svg>
+                                        </button>
+                                    </SignInButton>
+                                    <SignUpButton>
+                                        <button className="w-8 h-8 bg-[#6c47ff] text-white rounded-full font-medium text-xs cursor-pointer hover:bg-[#5a3de6] transition-colors flex items-center justify-center">
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                            </svg>
+                                        </button>
+                                    </SignUpButton>
+                                </SignedOut>
+                                <SignedIn>
+                                    <div className="w-8 h-8">
+                                        <UserButton />
+                                    </div>
+                                </SignedIn>
+                          </div>
+                </div>
                 
                 {/* PC端布局 - 使用响应式网格布局 */}
                 <div className="hidden lg:grid lg:grid-cols-12 gap-2 md:gap-3">
