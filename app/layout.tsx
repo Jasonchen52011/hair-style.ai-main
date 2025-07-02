@@ -69,8 +69,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   // 简化 Clerk 配置检查
-  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  const hasValidClerkKey = clerkPublishableKey && clerkPublishableKey.trim().length > 0;
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || '';
 
   const htmlContent = (
     <html lang="en" data-theme="light" suppressHydrationWarning className={`${satoshi.variable}`}>
@@ -113,16 +112,16 @@ export default function RootLayout({
           src="https://accounts.google.com/gsi/client" 
           strategy="afterInteractive"
         />
-        <script
-          id="clarity-script"
-          type="text/javascript"
+        {/* 使用Script组件来替代内联脚本，避免CSP问题 */}
+        <Script
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               // Clarity
               setTimeout(function() {
                 (function(c,l,a,r,i,t,y){
                   c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
                   y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                 })(window, document, "clarity", "script", "r341ayxao1");
               }, 2000);
@@ -130,61 +129,38 @@ export default function RootLayout({
           }}
         />
         
-        {/* 延迟加载Google Analytics */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              setTimeout(function() {
-                var script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6';
-                document.head.appendChild(script);
-                
-                script.onload = function() {
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-SQ0ZZ6EFP6');
-                };
-              }, 3000);
-            `,
-          }}
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6"
+          strategy="afterInteractive"
         />
+        <Script strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SQ0ZZ6EFP6');
+          `}
+        </Script>
         
-        {/* 延迟加载其他分析脚本 */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              setTimeout(function() {
-                // Google CSE
-                var cseScript = document.createElement('script');
-                cseScript.async = true;
-                cseScript.src = 'https://cse.google.com/cse.js?cx=c2e98ada1f90c4fda';
-                document.head.appendChild(cseScript);
-                
-                // Ahrefs Analytics
-                var ahrefsScript = document.createElement('script');
-                ahrefsScript.async = true;
-                ahrefsScript.src = 'https://analytics.ahrefs.com/analytics.js';
-                ahrefsScript.setAttribute('data-key', 'pzQdswZNDZJoi+e1uLS3jg');
-                document.head.appendChild(ahrefsScript);
-              }, 5000);
-            `,
-          }}
+        {/* Google CSE and Ahrefs */}
+        <Script
+          src="https://cse.google.com/cse.js?cx=c2e98ada1f90c4fda"
+          strategy="lazyOnload"
+        />
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="pzQdswZNDZJoi+e1uLS3jg"
+          strategy="lazyOnload"
         />
       </body>
     </html>
   );
 
-  // 根据是否有有效的 Clerk 密钥来决定是否包装 ClerkProvider
-  if (hasValidClerkKey) {
-    return (
-      <ClerkProvider publishableKey={clerkPublishableKey}>
-        {htmlContent}
-      </ClerkProvider>
-    );
-  }
-
-  // 如果没有有效的 Clerk 密钥，直接返回内容
-  return htmlContent;
+  // 总是使用 ClerkProvider 包装，避免组件错误
+  return (
+    <ClerkProvider publishableKey={clerkPublishableKey}>
+      {htmlContent}
+    </ClerkProvider>
+  );
 }
