@@ -78,8 +78,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // 获取 Clerk 配置
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || '';
+
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={clerkPublishableKey}>
       <html lang="en" data-theme="light" suppressHydrationWarning className={`${satoshi.variable}`}>
         <head>
           {/* 最重要的资源预加载 - 为LCP优化 */}

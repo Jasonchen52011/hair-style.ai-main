@@ -12,9 +12,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
     reactStrictMode: false,
 
-    // 简化外部包配置 - Next.js 15+ 使用新的配置名称
+    // Next.js 15+ 配置
+    serverExternalPackages: ['https-proxy-agent'],
     experimental: {
-        serverComponentsExternalPackages: ['https-proxy-agent'],
         serverActions: {
             bodySizeLimit: '10mb'
         },
