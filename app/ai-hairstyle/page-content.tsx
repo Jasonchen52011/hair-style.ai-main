@@ -868,8 +868,7 @@ function SelectStylePageContent() {
                             </div>
                         )}
                     </section>
-
-                    {/* PC端右侧区域 */}
+                    {/* PC Right side */}
                     <section className="lg:col-span-3" aria-label="Style Selection">
                         <h2 className="sr-only">Select Hairstyle</h2>
                         <div className="w-full lg:w-[340px] mx-auto">
