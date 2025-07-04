@@ -79,7 +79,6 @@ const OptimizedImage = ({
                 onLoad={handleLoad}
                 onError={handleError}
                 priority={priority}
-                loading={priority ? undefined : "lazy"}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
         </div>
@@ -528,7 +527,7 @@ export default function Hero() {
                                     width={440}
                                     height={450}
                                     onError={handleImageError}
-                                    loading="lazy"
+                                   
                                 />
                             </div>
                             {/* content - mobile display on the bottom */}
@@ -593,7 +592,7 @@ export default function Hero() {
                                     width={430}
                                     height={470}
                                     onError={handleImageError}
-                                    loading="lazy"
+                                 
                                 />
                             </div>
                         </div>
@@ -670,7 +669,7 @@ export default function Hero() {
                                     width={400}
                                     height={300}
                                     onError={handleImageError}
-                                    loading="lazy"
+                                  
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step1: Upload Image</h3>
@@ -689,7 +688,7 @@ export default function Hero() {
                                     width={400}
                                     height={300}
                                     onError={handleImageError}
-                                    loading="lazy"
+                                   
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step2: Choose Hairstyle Filter and Hair Color</h3>
@@ -708,7 +707,7 @@ export default function Hero() {
                                     width={400}
                                     height={300}
                                     onError={handleImageError}
-                                    loading="lazy"
+                                  
                                 />
                             </div>
                             <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Step3: Download Photo!</h3>
