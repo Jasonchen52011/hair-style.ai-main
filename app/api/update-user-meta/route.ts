@@ -26,6 +26,15 @@ export async function POST(request: NextRequest) {
   if (!data?.order?.id || data?.order?.id !== paymentParams.order_id) {
     return NextResponse.json({ message: "Invalid order" }, { status: 400 });
   }
+  if (
+    data?.subscription?.id &&
+    data?.subscription?.id !== paymentParams.subscription_id
+  ) {
+    return NextResponse.json(
+      { message: "Invalid subscription" },
+      { status: 400 },
+    );
+  }
   const clerkClient = createClerkClient({
     secretKey: process.env.CLERK_SECRET_KEY,
   });

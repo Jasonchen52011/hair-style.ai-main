@@ -1,8 +1,6 @@
 "use client"
 
-import { generateSignature } from "@/lib/util";
 import { useUser } from "@clerk/nextjs";
-import { sign } from "crypto";
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react";
 
