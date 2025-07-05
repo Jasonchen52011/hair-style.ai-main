@@ -35,3 +35,5 @@ next-env.d.ts
 
 # 测试覆盖率
 coverage/ 
+# clerk configuration (can include secrets)
+/.clerk/
