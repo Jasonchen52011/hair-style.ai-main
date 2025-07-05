@@ -1,6 +1,8 @@
 "use client"
 
+import { generateSignature } from "@/lib/util";
 import { useUser } from "@clerk/nextjs";
+import { sign } from "crypto";
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react";
 
@@ -14,7 +16,7 @@ export default function PaymentSuccess () {
   const balance = user?.publicMetadata?.balance as number | undefined || 0;
 
   useEffect(() => {
-    if (order_id && user?.id) {
+    if (order_id && user?.id && user?.publicMetadata.lastOrder !== order_id) {
       // Update user metadata with the payment details
       fetch('/api/update-user-meta', {
         method: 'POST',
@@ -23,6 +25,8 @@ export default function PaymentSuccess () {
         },
         body: JSON.stringify({
           userId: user?.id,
+          paymentParams: Object.fromEntries(search.entries().filter(([key]) => key !== 'signature')),
+          signature: search.get('signature'),
           meta: {
             membership: 'onetime',
             balance: 100,
