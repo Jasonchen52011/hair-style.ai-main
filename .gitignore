@@ -6,6 +6,7 @@ node_modules/
 .env.local
 .env.production
 
+scripts/
 
 # 构建输出
 build/

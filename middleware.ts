@@ -14,14 +14,6 @@ function handleRequest(req: NextRequest) {
       return NextResponse.next()
   }
 
-  // 只处理www到非www的重定向
-  const hostname = req.headers.get('host') || ''
-  if (hostname === 'www.hair-style.ai') {
-      return NextResponse.redirect(
-          `https://hair-style.ai${req.nextUrl.pathname}${req.nextUrl.search}`
-      )
-  }
-
   return NextResponse.next()
 }
 
