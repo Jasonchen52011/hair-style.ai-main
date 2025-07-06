@@ -43,15 +43,13 @@ const nextConfig = {
                         key: 'X-XSS-Protection',
                         value: '1; mode=block',
                     },
-                    // 添加预加载关键资源 - LCP优化
                     {
                         key: 'Link',
                         value: '</images/optimized/hero/hero4.webp>; rel=preload; as=image; type=image/webp, </fonts/satoshi-regular.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/satoshi-medium.woff2>; rel=preload; as=font; type=font/woff2; crossorigin'
                     },
-                    // 确保所有页面都允许索引
                     {
                         key: 'X-Robots-Tag',
-                        value: 'all'
+                        value: 'index, follow'
                     }
                 ],
             },
@@ -121,6 +119,7 @@ const nextConfig = {
             'ailab-result-rapidapi.oss-accelerate.aliyuncs.com',
             'hair-style.ai',
             'www.hair-style.ai',
+            'pub-static.aiease.ai'
         ],
         unoptimized: true, // 启用Next.js图片优化
         formats: ['image/webp', 'image/avif'], // 优先使用现代格式
@@ -198,6 +197,25 @@ const nextConfig = {
     
     async redirects() {
         return [
+            // WWW to non-WWW redirect
+            {
+                source: '/',
+                has: [{
+                    type: 'host',
+                    value: 'www.hair-style.ai',
+                }],
+                destination: 'https://hair-style.ai',
+                permanent: true,
+            },
+            {
+                source: '/:path*',
+                has: [{
+                    type: 'host',
+                    value: 'www.hair-style.ai',
+                }],
+                destination: 'https://hair-style.ai/:path*',
+                permanent: true,
+            },
             // 删除的页面重定向到主页或相应页面
             {
                 source: '/en/:path*',
