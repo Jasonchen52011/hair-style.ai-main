@@ -3,6 +3,7 @@
 > hair-style.ai is a free AI Hairstyle Changer,discover your perfect look! Choose from over 60+ hairstyles, including bob, wavy curls, buzz cut, bald, slicked back, braids, and more
 
 - [product](https://hair-style.ai/)
+- [product](https://hair-style.ai/face-shape-detector)
 - [services](https://hair-style.ai/ai-hairstyle)
 - [faq](https://hair-style.ai/#faq)
 - [about us](https://hair-style.ai/about)
