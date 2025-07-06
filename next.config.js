@@ -47,6 +47,11 @@ const nextConfig = {
                     {
                         key: 'Link',
                         value: '</images/optimized/hero/hero4.webp>; rel=preload; as=image; type=image/webp, </fonts/satoshi-regular.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/satoshi-medium.woff2>; rel=preload; as=font; type=font/woff2; crossorigin'
+                    },
+                    // 确保所有页面都允许索引
+                    {
+                        key: 'X-Robots-Tag',
+                        value: 'all'
                     }
                 ],
             },
