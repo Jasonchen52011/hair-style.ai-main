@@ -1,8 +1,5 @@
 import './globals.css'
 import { type Metadata } from 'next'
-import {
-  ClerkProvider,
-} from '@clerk/nextjs'
 import localFont from 'next/font/local'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Script from "next/script"
@@ -82,7 +79,7 @@ export default function RootLayout({
   const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || '';
 
   return (
-    <ClerkProvider publishableKey={clerkPublishableKey}>
+    
       <html lang="en" data-theme="light" suppressHydrationWarning className={`${satoshi.variable}`}>
         <head>
           {/* 最重要的资源预加载 - 为LCP优化 */}
@@ -184,6 +181,5 @@ export default function RootLayout({
           />
         </body>
       </html>
-    </ClerkProvider>
   )
 }
