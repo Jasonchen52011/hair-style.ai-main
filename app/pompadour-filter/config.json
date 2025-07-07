@@ -358,17 +358,6 @@
       "title": "Free Pompadour Filter Online - Explore Timeless Pompadour",
       "description": "Test different pompadour hairstyles risk-free with our Pompadour Filter. Upload your photo, try fades, undercuts, or classic looks—instant results with 60+ cuts powered by AI!",
       "canonical": "https://hair-style.ai/pompadour-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free Pompadour Filter Online - Explore Timeless Pompadour",
         "description": "Test different pompadour hairstyles risk-free with our Pompadour Filter. Upload your photo, try fades, undercuts, or classic looks—instant results with 60+ cuts powered by AI!",

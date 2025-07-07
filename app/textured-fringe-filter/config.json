@@ -483,17 +483,6 @@
       "title": "Free Textured Fringe Filter Online - Get your Younger, Fresh Look!",
       "description": "Test trendy textured fringe cuts on your own face with Textured Fringe Filter. From straight to curly, low fade to messy fringe — instantly and realistically.",
       "canonical": "https://hair-style.ai/textured-fringe-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free Textured Fringe Filter Online - Get your Younger, Fresh Look!",
         "description": "Test trendy textured fringe cuts on your own face with Textured Fringe Filter. From straight to curly, low fade to messy fringe — instantly and realistically.",

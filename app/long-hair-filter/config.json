@@ -371,17 +371,6 @@
       "title": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
       "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Perfect for face shape matching.",
       "canonical": "https://hair-style.ai/long-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free Long Hair Filter Online – Try Virtual Styles for Men & Women",
         "description": "See your long hair look in seconds with our Long Hair Filter for free. Upload a photo, try on layered, straight, or wavy styles. Totally free. Perfect for face shape matching.",

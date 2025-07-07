@@ -423,17 +423,6 @@
       "title": "Get the Perfect Black Hair with Free Black Hair Filter Online",
       "description": "Want to see how you'd look with black hair? Try Hairstyle AI's Black Hair Filter for a realistic, instant preview. Test different shades and see which black suits you best.",
       "canonical": "https://hair-style.ai/black-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Get the Perfect Black Hair with Free Black Hair Filter Online",
         "description": "Want to see how you'd look with black hair? Try Hairstyle AI's Black Hair Filter for a realistic, instant preview. Test different shades and see which black suits you best.",

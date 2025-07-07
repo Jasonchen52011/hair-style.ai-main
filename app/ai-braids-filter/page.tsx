@@ -39,17 +39,6 @@ export const metadata: Metadata = {
     alternates: {
         canonical: seoConfig.canonical
     },
-    robots: {
-        index: seoConfig.robots.index,
-        follow: seoConfig.robots.follow,
-        googleBot: {
-            index: seoConfig.robots.googleBot.index,
-            follow: seoConfig.robots.googleBot.follow,
-            'max-video-preview': seoConfig.robots.googleBot['max-video-preview'],
-            'max-image-preview': 'large' as const,
-            'max-snippet': seoConfig.robots.googleBot['max-snippet'],
-        },
-    },
     openGraph: {
         title: seoConfig.openGraph.title,
         description: seoConfig.openGraph.description,

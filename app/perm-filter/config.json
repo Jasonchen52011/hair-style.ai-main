@@ -320,17 +320,6 @@
       "title": "Free Perm Filter Online – Explore personalized perm looks",
       "description": "Want a stunning perm hairstyle? Use Hairstyle AI's Perm Filter to explore personalized perm looks in just minutes! Upload your photo and see realistic results for free.",
       "canonical": "https://hair-style.ai/perm-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free Perm Filter Online – Explore personalized perm looks",
         "description": "Want a stunning perm hairstyle? Use Hairstyle AI's Perm Filter to explore personalized perm looks in just minutes! Upload your photo and see realistic results for free.",

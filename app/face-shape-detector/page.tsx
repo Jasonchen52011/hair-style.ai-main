@@ -30,19 +30,7 @@ export const metadata: Metadata = {
     title: "AI Face Shape Detector Online Free - Hairstyle AI",
     description: "With our AI-driven face shape detector, get personalized hairstyle suggestions based on your unique facial features. Upload your photo and receive fast, accurate results.",
     alternates: {
-        canonical: "https://hair-style.ai/face-shape-detector"
-    },
-    robots: {
-        index: true,
-        follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            'max-video-preview': -1,
-            'max-image-preview': 'large' as const,
-            'max-snippet': -1,
-        },
-    },
+        canonical: "https://hair-style.ai/face-shape-detector"},
     openGraph: {
         title: "AI Face Shape Detector Online Free - Hairstyle AI",
         description: "With our AI-driven face shape detector, get personalized hairstyle suggestions based on your unique facial features. Upload your photo and receive fast, accurate results.",

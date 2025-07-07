@@ -306,17 +306,7 @@
       "title": "Try Free Low Fade Haircut Filter Online - Instantly Look Handsome",
       "description": "Unsure if a low fade fits your face shape? Low Fade Haircut Filter lets you test styles like low skin fade, drop fade, and undercut fade before any real cut. Try free!",
       "canonical": "https://hair-style.ai/low-fade-haircut-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
+
       "openGraph": {
         "title": "Try Free Low Fade Haircut Filter Online - Instantly Look Handsome",
         "description": "Unsure if a low fade fits your face shape? Low Fade Haircut Filter lets you test styles like low skin fade, drop fade, and undercut fade before any real cut. Try free!",

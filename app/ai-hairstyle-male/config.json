@@ -347,17 +347,6 @@
       "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
       "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",
       "canonical": "https://hair-style.ai/ai-hairstyle-male",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "AI Hairstyle Simulator for Men – Free, Fast, Realistic",
         "description": "Try the most popular hairstyles for men with Hairstyle AI. Instantly preview styles like buzz cuts, fades, pompadour or man buns. Look sharp without the haircut for free.",

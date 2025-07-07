@@ -543,17 +543,6 @@
       "title": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
       "description": "Discover trendy and easy-to-manage hairstyles for girls with Hairstyle AI's virtual try-on tool. Free and easy to use, try on different hairstyles and find your next look with no risk!",
       "canonical": "https://hair-style.ai/hairstyles-for-girls",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Discover the Trendiest Hairstyles for Girls with Hairstyle AI",
         "description": "Discover trendy and easy-to-manage hairstyles for girls with Hairstyle AI's virtual try-on tool. Free and easy to use, try on different hairstyles and find your next look with no risk!",

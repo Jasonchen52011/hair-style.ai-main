@@ -452,17 +452,6 @@
       "title": "Free White Hair Filter - Explore Stunning White Hair Styles",
       "description": "Change your look with our White Hair Filter. Upload your photo, try on white hair, and share with friends. Free to use at Hairstyle AI!",
       "canonical": "https://hair-style.ai/white-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free White Hair Filter - Explore Stunning White Hair Styles",
         "url": "https://hair-style.ai/white-hair-filter",
