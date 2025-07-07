@@ -36,17 +36,6 @@ export const metadata: Metadata = {
     alternates: {
         canonical: 'https://hair-style.ai/ai-hairstyle'
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
     openGraph: {
         title: "AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles",
         description: "Experience instant hairstyle transformations with our AI-powered tool. Upload your photo and explore endless style possibilities. Free, easy to use.",
