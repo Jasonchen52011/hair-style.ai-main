@@ -35,20 +35,7 @@ export const metadata: Metadata = {
     title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
     description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",
     alternates: {
-        canonical: 'https://hair-style.ai/buzz-cut-filter'
-    },
-
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
+        canonical: 'https://hair-style.ai/buzz-cut-filter'},
     openGraph: {
         title: "Free Buzz Cut Filter Online Tool – Virtual Haircut Generator for Men & Women",
         description: "Wonder how you'd look with a buzz cut? Use our free AI buzz cut filter to transform your hairstyle in seconds. Try it risk-free with just one photo!",

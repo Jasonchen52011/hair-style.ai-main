@@ -403,17 +403,6 @@
       "title": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
       "description": "See how pink hair looks on you with Hairstyle AI's Pink Hair Filter. From pastel pink to vivid shades, experiment with free, realistic results. Try it now and share your new look!",
       "canonical": "https://hair-style.ai/pink-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free Pink Hair Filter – Bold New Look with Hairstyle AI",
         "description": "See how pink hair looks on you with Hairstyle AI's Pink Hair Filter. From pastel pink to vivid shades, experiment with free, realistic results. Try it now and share your new look!",

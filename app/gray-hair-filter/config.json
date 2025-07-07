@@ -427,17 +427,6 @@
       "title": "Try the Best Gray Hair Filter for a Stunning Look",
       "description": "Explore how different shades of gray hair look on you with our free Gray Hair Filter. Realistic results, no sign-up required! Try it today at Hairstyle AI.",
       "canonical": "https://hair-style.ai/gray-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Try the Best Gray Hair Filter for a Stunning Look",
         "description": "Explore how different shades of gray hair look on you with our free Gray Hair Filter. Realistic results, no sign-up required! Try it today at Hairstyle AI.",

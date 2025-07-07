@@ -414,17 +414,6 @@
       "title": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
       "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI Undercut Filter in seconds. Try it risk-free with just one photo!",
       "canonical": "https://hair-style.ai/undercut-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free Undercut Filter Online – Realistic Virtual Try-On for Men & Women",
         "description": "Curious about getting an undercut? Preview your new look with Hairstyle AI Undercut Filter in seconds. Try it risk-free with just one photo!",

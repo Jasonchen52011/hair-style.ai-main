@@ -442,17 +442,6 @@
       "title": "Try on Red Hair Instantly with Our Free Red Hair Filter",
       "description": "Transform your look with Hairstyle AI's Red Hair Filter. Upload a photo, choose your favorite shade, and see how red hair can change your style – all for free!",
       "canonical": "https://hair-style.ai/red-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Try on Red Hair Instantly with Our Free Red Hair Filter",
         "description": "Transform your look with Hairstyle AI's Red Hair Filter. Upload a photo, choose your favorite shade, and see how red hair can change your style – all for free!",

@@ -361,17 +361,6 @@
       "title": "Free AI Hair Color Changer Online with Hairstyle AI",
       "description": "Virtual Hair Color Try-On with our AI hair color changer online free. Upload photo, test colors, and get realistic looks instantly. Just click and transform at Hairstyle AI.",
       "canonical": "https://hair-style.ai/ai-hair-color-changer",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Free AI Hair Color Changer Online with Hairstyle AI",
         "description": "Virtual Hair Color Try-On with our AI hair color changer online free. Upload photo, test colors, and get realistic looks instantly. Just click and transform at Hairstyle AI.",

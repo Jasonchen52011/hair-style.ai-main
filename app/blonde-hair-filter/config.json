@@ -406,17 +406,6 @@
       "title": "Try Blonde Hair Filter Online – Explore Stunning Hair Colors Instantly",
       "description": "Transform your look with the Blonde Hair Filter. Try a variety of blonde shades like platinum, honey, or strawberry blonde instantly. Get a realistic preview with Hairstyle AI and discover your new style– no risk, no commitment, just fun!",
       "canonical": "https://hair-style.ai/blonde-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Try Blonde Hair Filter Online – Explore Stunning Hair Colors Instantly",
         "description": "Transform your look with the Blonde Hair Filter. Try a variety of blonde shades like platinum, honey, or strawberry blonde instantly. Get a realistic preview with Hairstyle AI and discover your new style– no risk, no commitment, just fun!",

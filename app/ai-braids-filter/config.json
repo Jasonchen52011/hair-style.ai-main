@@ -321,17 +321,6 @@
     "title": "Free AI Braids Hair Filter online- Hairstyle AI",
     "description": "Want new braids? Use our free AI braid filter to try various braided hairstyles instantly. Change braid types, adjust colors, and get your new look in seconds.",
     "canonical": "https://hair-style.ai/ai-braids-filter",
-    "robots": {
-      "index": true,
-      "follow": true,
-      "googleBot": {
-        "index": true,
-        "follow": true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1
-      }
-    },
     "openGraph": {
       "title": "Free AI Braids Hair Filter Online- Hairstyle AI",
       "description": "Want new braids? Use our free AI braid filter to try various braided hairstyles instantly. Change braid types, adjust colors, and get your new look in seconds.",

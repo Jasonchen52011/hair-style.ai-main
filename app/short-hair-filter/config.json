@@ -350,7 +350,7 @@
       "@type": "WebApplication",
       "url": "https://hair-style.ai/short-hair-filter",
       "name": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
-      "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. With Hairstyle AI’s Short Hair Filter, you can try on short hairstyles online—free, realistic, and no regrets. Experiment with different looks and find your perfect short style, all without any commitment!",
+      "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. With Hairstyle AI’s Short Hair Filter, you can try on short hairstyles online—free, realistic!",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
       "brand": {
@@ -413,17 +413,6 @@
       "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
       "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. With Hairstyle AI’s Short Hair Filter, you can try on short hairstyles online—free, realistic, and no regrets. Experiment with different looks and find your perfect short style, all without any commitment!",
       "canonical": "https://hair-style.ai/short-hair-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Try Short Hair Instantly with Our Free AI Short Hair Filter",
         "description": "See how you'd look with a bob, pixie, or buzz cut in just one click. With Hairstyle AI’s Short Hair Filter, you can try on short hairstyles online—free, realistic, and no regrets. Experiment with different looks and find your perfect short style, all without any commitment!",
