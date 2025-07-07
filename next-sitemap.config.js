@@ -1,24 +1,15 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
     siteUrl: 'https://hair-style.ai',
-    generateRobotsTxt: true,
-    generateIndexSitemap: false,
     sitemapSize: 50000,
     outDir: 'public',
     changefreq: 'daily',
     priority: 0.7,
-    exclude: ['/api/*', '/404', '/500'],
     robotsTxtOptions: {
         policies: [
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: [
-                    '/api/*',
-                    '/admin/*',
-                    '/404',
-                    '/500'
-                ]
             }
         ],
     },
@@ -29,7 +20,7 @@ module.exports = {
         result.push({
             loc: '/ai-hairstyle',
             changefreq: 'daily',
-            priority: 1.0,
+            priority: 0.9,
             lastmod: new Date().toISOString()
         })
         
