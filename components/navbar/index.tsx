@@ -338,23 +338,7 @@ export default function Navbar() {
                         <Link href="/about" className="flex items-center px-4 py-2 rounded-lg text-gray-700 hover:text-purple-700">
                             About
                         </Link>
-                        
-                        {/* Auth Buttons */}
-                        <SignedOut>
-                            <SignInButton>
-                            <button className="border border-purple-700 text-purple-700 hover:bg-purple-100 hover:text-purple-900 rounded-full font-medium text-sm h-8 px-4 cursor-pointer transition-colors">
-                                    Sign In
-                                </button>
-                            </SignInButton>
-                            <SignUpButton>
-                                <button className="bg-purple-700 text-white rounded-full font-medium text-sm h-8 px-4 cursor-pointer hover:bg-purple-900 transition-colors">
-                                    Sign Up
-                                </button>
-                            </SignUpButton>
-                        </SignedOut>
-                        <SignedIn>
-                        <UserButton />
-                        </SignedIn>
+            
                 
                     </div>
 
@@ -543,27 +527,7 @@ export default function Navbar() {
                                 </Link>
                             </div>
                             
-                            {/* Mobile Auth Buttons */}
-                            <div className="px-4 py-2 space-y-2">
-                                <SignedOut>
-                                    <SignInButton>
-                                    <button className="border border-[#6c47ff] text-[#6c47ff] hover:bg-[#6c47ff] hover:text-white rounded-full font-medium text-sm h-8 px-4 cursor-pointer transition-colors">
-                                    Sign In
-                                </button>
-                            </SignInButton>
-                            <SignUpButton>
-                                <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm h-8 px-4 cursor-pointer hover:bg-[#5a3de6] transition-colors">
-                                    Sign Up
-                                </button>
-                                    </SignUpButton>
-                                </SignedOut>
-                                <SignedIn>
-                                    <div className="flex items-center px-4 py-2">
-                                        <UserButton />
-                                        <span className="ml-2 text-gray-700">Profile</span>
-                                    </div>
-                                </SignedIn>
-                            </div>
+    
                      
                         </div>
                     </div>
