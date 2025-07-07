@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap",
     "optimize-images": "node scripts/optimize-images.js",
     "analyze-images": "npm run optimize-images && echo 'Image analysis complete'",
     "analyze": "ANALYZE=true npm run build",
