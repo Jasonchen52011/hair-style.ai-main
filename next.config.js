@@ -119,7 +119,6 @@ const nextConfig = {
             'ailab-result-rapidapi.oss-accelerate.aliyuncs.com',
             'hair-style.ai',
             'www.hair-style.ai',
-            'pub-static.aiease.ai'
         ],
         unoptimized: true, // 启用Next.js图片优化
         formats: ['image/webp', 'image/avif'], // 优先使用现代格式
@@ -197,6 +196,17 @@ const nextConfig = {
     
     async redirects() {
         return [
+            // HTTP to HTTPS redirect
+            {
+                source: '/:path*',
+                has: [{
+                    type: 'header',
+                    key: 'x-forwarded-proto',
+                    value: 'http',
+                }],
+                destination: 'https://hair-style.ai/:path*',
+                permanent: true,
+            },
             // WWW to non-WWW redirect
             {
                 source: '/',
