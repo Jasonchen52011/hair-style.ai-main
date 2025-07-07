@@ -16,7 +16,6 @@ import FAQ from '@/components/faq'
 import CTASection from '@/components/CTASection'
 import configData from './config.json'
 import TestimonialsSection from '@/components/testimonials'
-
 const config = configData as any;
 
 const { 
@@ -44,17 +43,6 @@ export const metadata: Metadata = {
     description: seoConfig.description,
     alternates: {
         canonical: seoConfig.canonical
-    },
-    robots: {
-        index: seoConfig.robots.index,
-        follow: seoConfig.robots.follow,
-        googleBot: {
-            index: seoConfig.robots.googleBot.index,
-            follow: seoConfig.robots.googleBot.follow,
-            'max-video-preview': seoConfig.robots.googleBot['max-video-preview'],
-            'max-image-preview': 'large' as const,
-            'max-snippet': seoConfig.robots.googleBot['max-snippet'],
-        },
     },
     openGraph: {
         title: seoConfig.openGraph.title,

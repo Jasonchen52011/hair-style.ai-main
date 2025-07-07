@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-// 配置代理环境变量
-if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
-  process.env.UNDICI_PROXY_URL = process.env.HTTPS_PROXY;
-}
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -13,7 +8,6 @@ const nextConfig = {
     reactStrictMode: false,
 
     // Next.js 15+ 配置
-    serverExternalPackages: ['https-proxy-agent'],
     experimental: {
         serverActions: {
             bodySizeLimit: '10mb'
@@ -46,10 +40,6 @@ const nextConfig = {
                     {
                         key: 'Link',
                         value: '</images/optimized/hero/hero4.webp>; rel=preload; as=image; type=image/webp, </fonts/satoshi-regular.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/satoshi-medium.woff2>; rel=preload; as=font; type=font/woff2; crossorigin'
-                    },
-                    {
-                        key: 'X-Robots-Tag',
-                        value: 'index, follow'
                     }
                 ],
             },
@@ -114,10 +104,6 @@ const nextConfig = {
                         key: 'Cache-Control',
                         value: 'public, max-age=31536000, immutable',
                     },
-                    {
-                        key: 'X-Robots-Tag',
-                        value: 'all',
-                    },
                 ],
             },
             {
@@ -126,10 +112,6 @@ const nextConfig = {
                     {
                         key: 'Cache-Control',
                         value: 'public, max-age=31536000, immutable',
-                    },
-                    {
-                        key: 'X-Robots-Tag',
-                        value: 'all',
                     },
                 ],
             },
@@ -173,22 +155,12 @@ const nextConfig = {
                     },
                 ],
             },
-            {
-                source: '/cdn-cgi/:path*',
-                headers: [
-                    {
-                        key: 'X-Robots-Tag',
-                        value: 'all',
-                    },
-                ],
-            },
+
         ]
     },
     images: {
         domains: [
-            'ailab-result-rapidapi.oss-accelerate.aliyuncs.com',
             'hair-style.ai',
-            'www.hair-style.ai',
         ],
         unoptimized: true, // 启用Next.js图片优化
         formats: ['image/webp', 'image/avif'], // 优先使用现代格式
@@ -263,115 +235,7 @@ const nextConfig = {
     assetPrefix: '',
     // 排除静态文件被当作页面处理
     pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-    
-    async redirects() {
-        return [
-            // HTTP to HTTPS redirect
-            {
-                source: '/:path*',
-                has: [{
-                    type: 'header',
-                    key: 'x-forwarded-proto',
-                    value: 'http',
-                }],
-                destination: 'https://hair-style.ai/:path*',
-                permanent: true,
-            },
-            // WWW to non-WWW redirect
-            {
-                source: '/',
-                has: [{
-                    type: 'host',
-                    value: 'www.hair-style.ai',
-                }],
-                destination: 'https://hair-style.ai',
-                permanent: true,
-            },
-            {
-                source: '/:path*',
-                has: [{
-                    type: 'host',
-                    value: 'www.hair-style.ai',
-                }],
-                destination: 'https://hair-style.ai/:path*',
-                permanent: true,
-            },
-            // 删除的页面重定向到主页或相应页面
-            {
-                source: '/en/:path*',
-                destination: '/:path*',
-                permanent: true,
-            },
-            {
-                source: '/zh/:path*',
-                destination: '/:path*',
-                permanent: true,
-            },
-            {
-                source: '/en',
-                destination: '/',
-                permanent: true,
-            },
-            {
-                source: '/zh',
-                destination: '/',
-                permanent: true,
-            },
-            // 页面重命名的301重定向
-            {
-                source: '/dreadlocks',
-                destination: '/dreadlocks-filter',
-                permanent: true,
-            },
-            {
-                source: '/low-fade-haircut',
-                destination: '/low-fade-haircut-filter',
-                permanent: true,
-            },
-            {
-                source: '/pompadour',
-                destination: '/pompadour-filter',
-                permanent: true,
-            },
-            {
-                source: '/man-bun',
-                destination: '/man-bun-filter',
-                permanent: true,
-            },
-            {
-                source: '/undercut',
-                destination: '/undercut-filter',
-                permanent: true,
-            },
-            {
-                source: '/textured-fringe',
-                destination: '/textured-fringe-filter',
-                permanent: true,
-            },
-            {
-                source: '/ai-braids',
-                destination: '/ai-braids-filter',
-                permanent: true,
-            },
-            // 页面重命名的301重定向
-            {
-                source: '/hairstyles-for-women',
-                destination: '/ai-hairstyle-online-free-female',
-                permanent: true,
-            },
-            {
-                source: '/hairstyles-for-men',
-                destination: '/ai-hairstyle-male',
-                permanent: true,
-            }
-        ]
-    },
-    // 环境变量配置
-    env: {
-        HTTPS_PROXY: process.env.HTTPS_PROXY,
-        HTTP_PROXY: process.env.HTTP_PROXY,
-        UNDICI_PROXY_URL: process.env.HTTPS_PROXY,
-    },
+
 }
 
 module.exports = withBundleAnalyzer(nextConfig) 
