@@ -444,17 +444,6 @@
       "title": "Try Dreadlock Filter Online Free for Men & Women with Hairstyle AI",
       "description": "Test How Dreadlocks Look on Your Face Before Trying the Real Thing with Our Dreadlock Filter. Hairstyle AI Shows You Realistic Dreadlock Styles for All Hair Types.",
       "canonical": "https://hair-style.ai/dreadlocks-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Try Dreadlock Filter Online Free for Men & Women with Hairstyle AI",
         "description": "Test How Dreadlocks Look on Your Face Before Trying the Real Thing with Our Dreadlock Filter. Hairstyle AI Shows You Realistic Dreadlock Styles for All Hair Types.",

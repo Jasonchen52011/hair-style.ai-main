@@ -395,17 +395,6 @@
       "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
       "description": "Discover your perfect man bun look with our free man bun filter. Upload your photo, choose a bun style, and preview your transformation with Hairstyle AI.",
       "canonical": "https://hair-style.ai/man-bun-filter",
-      "robots": {
-        "index": true,
-        "follow": true,
-        "googleBot": {
-          "index": true,
-          "follow": true,
-          "max-video-preview": -1,
-          "max-image-preview": "large",
-          "max-snippet": -1
-        }
-      },
       "openGraph": {
         "title": "Try Man Bun Hairstyle Online Free with Hairstyle AI",
         "description": "Discover your perfect man bun look with our free man bun filter. Upload your photo, choose a bun style, and preview your transformation with Hairstyle AI.",
