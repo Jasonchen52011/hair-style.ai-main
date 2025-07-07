@@ -10,6 +10,7 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from '@clerk/nextjs'
 
 
@@ -21,6 +22,8 @@ export default function Navbar() {
     const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
     const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [userCredits, setUserCredits] = useState<number>(0);
+    const { user } = useUser();
     const pathname = usePathname();
     const dropdownRef = useRef<HTMLDivElement>(null);
     const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
@@ -46,6 +49,31 @@ export default function Navbar() {
             }
         };
     }, []);
+
+    // Fetch user credits when user is logged in
+    useEffect(() => {
+        const fetchUserCredits = async () => {
+            if (user?.id) {
+                try {
+                    const response = await fetch(`/api/user-credits?userId=${user.id}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        setUserCredits(data.balance || 0);
+                        
+                        // 如果积分被刷新了，显示提示
+                        if (data.dailyRefreshed) {
+                            // 使用简单的浏览器通知，而不是toast
+                            console.log('Daily credits refreshed! You now have 50 credits.');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch user credits:', error);
+                }
+            }
+        };
+
+        fetchUserCredits();
+    }, [user]);
 
     // Click outside to close dropdown menu
     useEffect(() => {
@@ -353,7 +381,18 @@ export default function Navbar() {
                             </SignUpButton>
                         </SignedOut>
                         <SignedIn>
-                        <UserButton />
+                            <div className="flex items-center space-x-3">
+                                {user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' ? (
+                                    <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                        ✨ PRO
+                                    </div>
+                                ) : (
+                                    <div className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
+                                        💎 {userCredits} credits
+                                    </div>
+                                )}
+                                <UserButton />
+                            </div>
                         </SignedIn>
                 
                     </div>
@@ -558,9 +597,20 @@ export default function Navbar() {
                                     </SignUpButton>
                                 </SignedOut>
                                 <SignedIn>
-                                    <div className="flex items-center px-4 py-2">
-                                        <UserButton />
-                                        <span className="ml-2 text-gray-700">Profile</span>
+                                    <div className="flex items-center justify-between px-4 py-2">
+                                        <div className="flex items-center space-x-3">
+                                            <UserButton />
+                                            <span className="text-gray-700">Profile</span>
+                                        </div>
+                                        {user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' ? (
+                                            <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                                ✨ PRO
+                                            </div>
+                                        ) : (
+                                            <div className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
+                                                💎 {userCredits} credits
+                                            </div>
+                                        )}
                                     </div>
                                 </SignedIn>
                             </div>

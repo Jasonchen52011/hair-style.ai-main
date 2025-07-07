@@ -53,6 +53,46 @@ const nextConfig = {
                     }
                 ],
             },
+            // 为 HTML 页面添加缓存策略
+            {
+                source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=3600, stale-while-revalidate=86400',
+                    },
+                ],
+            },
+            // API 路由缓存策略 - 一般 API
+            {
+                source: '/api/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=300, stale-while-revalidate=600',
+                    },
+                ],
+            },
+            // 动态内容 API 路由 - 较短缓存时间
+            {
+                source: '/api/(submit|user-credits|update-user-meta)/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'private, max-age=60, must-revalidate',
+                    },
+                ],
+            },
+            // 相对静态的 API 路由 - 较长缓存时间
+            {
+                source: '/api/(pricing|face-shape-detector)/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=1800, stale-while-revalidate=3600',
+                    },
+                ],
+            },
             // 字体文件缓存优化
             {
                 source: '/fonts/:path*',
@@ -96,6 +136,36 @@ const nextConfig = {
             // 优化图片缓存
             {
                 source: '/images/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=86400, stale-while-revalidate=604800',
+                    },
+                ],
+            },
+            // 静态资源缓存策略
+            {
+                source: '/public/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=31536000, immutable',
+                    },
+                ],
+            },
+            // 为 Next.js 静态资源添加长期缓存
+            {
+                source: '/_next/static/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=31536000, immutable',
+                    },
+                ],
+            },
+            // 为 manifest 和 robots.txt 添加缓存
+            {
+                source: '/(robots\\.txt|manifest\\.json|sitemap\\.xml)',
                 headers: [
                     {
                         key: 'Cache-Control',

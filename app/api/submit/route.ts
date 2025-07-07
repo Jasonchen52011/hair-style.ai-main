@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
 import axiosRetry from 'axios-retry';
-import { headers } from 'next/headers';
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
@@ -87,40 +86,68 @@ async function detectGender(imageBuffer: Buffer): Promise<'male' | 'female'> {
 
 export async function POST(req: NextRequest) {
     try {
-        // 获取客户端 IP
-        const headersList = await headers();
-        const forwardedFor = headersList.get('x-forwarded-for');
-        const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
-
-        // 检查是否为本地开发环境或白名单IP
-        const isLocalDev = process.env.NODE_ENV === 'development';
-        const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
-        
-        // IP 限制检查变量
-        let currentCount;
-        let today = new Date().toISOString().split('T')[0]; // 总是初始化today变量
-        
-        // 只在非本地开发环境且非白名单IP时进行限制检查
-        if (!isLocalDev && !isWhitelistIP) {
-            // IP 限制检查 - 先检查是否超限，但不立即计数
-            currentCount = requestCounts.get(ip);
-
-            // 检查是否已达到每日限制
-            if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
-                return NextResponse.json({
-                    success: false,
-                    error: 'You have reached your daily limit of 5 free generations. Please try again tomorrow.'
-                }, { status: 429 });
-            }
-        }
-
-        const { imageUrl, hairStyle, hairColor } = await req.json();
+        const { imageUrl, hairStyle, hairColor, userId } = await req.json();
         
         if (!imageUrl || !hairColor) {
             return NextResponse.json({
                 success: false,
                 error: "Please make sure you've uploaded an image and selected a hair color."
             }, { status: 400 });
+        }
+
+        // 检查是否为本地开发环境
+        const isLocalDev = process.env.NODE_ENV === 'development';
+        
+        if (!userId) {
+            // 未登录用户的处理逻辑
+            if (isLocalDev) {
+                // 本地开发环境：无限制使用
+                console.log('Local development: unlimited usage for non-logged users');
+            } else {
+                // 生产环境：IP限制检查
+                const headersList = await (await import('next/headers')).headers();
+                const forwardedFor = headersList.get('x-forwarded-for');
+                const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
+                
+                const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
+                if (!isWhitelistIP) {
+                    const today = new Date().toISOString().split('T')[0];
+                    const currentCount = requestCounts.get(ip);
+
+                    // 检查是否已达到每日限制
+                    if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
+                        return NextResponse.json({
+                            success: false,
+                            error: 'You have reached your daily limit of 5 free generations. Please sign in for more generations or try again tomorrow.'
+                        }, { status: 429 });
+                    }
+                }
+            }
+        } else {
+            // 登录用户：检查积分
+            try {
+                const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+                const response = await fetch(`${baseUrl}/api/user-credits?userId=${userId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to check user credits');
+                }
+                const creditData = await response.json();
+                
+                if (creditData.balance < 10) {
+                    return NextResponse.json({
+                        success: false,
+                        error: "Not enough credits. Please purchase more credits to continue.",
+                        creditsRequired: 10,
+                        currentBalance: creditData.balance
+                    }, { status: 402 });
+                }
+            } catch (error) {
+                console.error('Error checking credits:', error);
+                return NextResponse.json({
+                    success: false,
+                    error: "Unable to verify credits. Please try again."
+                }, { status: 500 });
+            }
         }
 
         // 处理发型选择逻辑
@@ -231,17 +258,30 @@ export async function POST(req: NextRequest) {
         });
 
         if (responseData.error_code === 0 && responseData.task_id) {
-            // only count after successfully calling AI API, and only count non-whitelist IP
-            if (!isLocalDev && !isWhitelistIP) {
-                if (!currentCount || currentCount.date !== today) {
-                    requestCounts.set(ip, { count: 1, date: today });
-                } else {
-                    requestCounts.set(ip, {
-                        count: currentCount.count + 1,
-                        date: today
-                    });
+            // 根据用户状态进行不同的处理
+            if (!userId && !isLocalDev) {
+                // 未登录用户且非本地开发环境：进行IP计数
+                const headersList = await (await import('next/headers')).headers();
+                const forwardedFor = headersList.get('x-forwarded-for');
+                const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
+                
+                const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
+                if (!isWhitelistIP) {
+                    const today = new Date().toISOString().split('T')[0];
+                    const currentCount = requestCounts.get(ip);
+                    
+                    if (!currentCount || currentCount.date !== today) {
+                        requestCounts.set(ip, { count: 1, date: today });
+                    } else {
+                        requestCounts.set(ip, {
+                            count: currentCount.count + 1,
+                            date: today
+                        });
+                    }
+                    console.log(`IP ${ip} usage count updated: ${currentCount ? currentCount.count + 1 : 1}/${DAILY_LIMIT}`);
                 }
             }
+            // 登录用户：积分扣除在前端生成成功后进行
             
             return NextResponse.json({ 
                 success: true,

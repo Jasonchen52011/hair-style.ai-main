@@ -12,7 +12,9 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
+  useUser,
 } from '@clerk/nextjs';
+import CreditModal from '@/components/ui/credit-modal';
 
 // create a wrapper component to handle search parameters
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
@@ -37,6 +39,7 @@ function SelectStylePageContent() {
     const [defaultStyle, setDefaultStyle] = useState<string>("PixieCut");
     const searchParams = useSearchParams();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { user } = useUser();
 
     // new state - merged from SelectStyle component
     const [selectedGender, setSelectedGender] = useState<"Female" | "Male">("Female");
@@ -44,6 +47,11 @@ function SelectStylePageContent() {
     const [selectedColor, setSelectedColor] = useState<string>("brown");
     const [isLoading, setIsLoading] = useState(false);
     const [styleImageHeight, setStyleImageHeight] = useState<string>("h-32");
+    
+    // Credit system state
+    const [userCredits, setUserCredits] = useState<number>(0);
+    const [showCreditModal, setShowCreditModal] = useState(false);
+    const requiredCredits = 10;
 
     // get image URL and preset hairstyle from URL parameters
     useEffect(() => {
@@ -85,6 +93,31 @@ function SelectStylePageContent() {
         }
     }, [searchParams]);
 
+        // Fetch user credits when user is logged in
+        useEffect(() => {
+            const fetchUserCredits = async () => {
+                if (user?.id) {
+                    try {
+                        const response = await fetch(`/api/user-credits?userId=${user.id}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            setUserCredits(data.balance || 0);
+                            
+                            // 如果积分被刷新了，显示提示
+                            if (data.dailyRefreshed) {
+                                // 使用简单的浏览器通知，而不是toast
+                                console.log('Daily credits refreshed! You now have 50 credits.');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Failed to fetch user credits:', error);
+                    }
+                }
+            };
+    
+            fetchUserCredits();
+        }, [user]);
+
     // initialize default style (fallback when no URL parameters)
     useEffect(() => {
         if (!searchParams.get('style') && defaultStyle && !selectedStyle && selectedGender === "Female") {
@@ -101,6 +134,25 @@ function SelectStylePageContent() {
             }
         }
     }, [defaultStyle, searchParams]);
+
+    // Fetch user credits
+    useEffect(() => {
+        const fetchUserCredits = async () => {
+            if (user?.id) {
+                try {
+                    const response = await fetch(`/api/user-credits?userId=${user.id}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        setUserCredits(data.balance || 0);
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch user credits:', error);
+                }
+            }
+        };
+
+        fetchUserCredits();
+    }, [user]);
 
     const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
@@ -233,6 +285,28 @@ function SelectStylePageContent() {
             return;
         }
 
+        // 检查用户状态和积分
+        if (user) {
+            // 订阅用户：无需检查积分
+            const isSubscribed = user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly';
+            if (!isSubscribed && userCredits < requiredCredits) {
+                setShowCreditModal(true);
+                return;
+            }
+        } else {
+            // 未登录用户：提示登录可获得更多使用次数
+            const isLocalDev = process.env.NODE_ENV === 'development';
+            if (!isLocalDev) {
+                toast('💡 Sign in to get 50 daily credits (5 generations) and unlimited access!', {
+                    duration: 4000,
+                    style: {
+                        background: '#1F2937',
+                        color: '#fff',
+                    },
+                });
+            }
+        }
+
         try {
             setIsLoading(true);
             console.log('Starting hairstyle generation:', { selectedStyle, selectedColor });
@@ -250,6 +324,7 @@ function SelectStylePageContent() {
                     imageUrl: uploadedImageUrl,
                     hairStyle: selectedStyle || "color-only", // if no hairstyle selected, only change color
                     hairColor: finalColor,
+                    userId: user?.id, // 如果用户未登录，userId为undefined
                 }),
             });
 
@@ -309,6 +384,35 @@ function SelectStylePageContent() {
                         }
                         
                         console.log('Generation successful, image URL:', imageUrl);
+                        
+                        // 只对非订阅用户扣除积分
+                        if (user && user.id) {
+                            const isSubscribed = user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly';
+                            if (!isSubscribed) {
+                                try {
+                                    const creditResponse = await fetch('/api/user-credits', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            userId: user.id,
+                                            action: 'subtract',
+                                            amount: requiredCredits,
+                                            reason: 'hairstyle_generation'
+                                        }),
+                                    });
+                                    
+                                    if (creditResponse.ok) {
+                                        const creditData = await creditResponse.json();
+                                        setUserCredits(creditData.balance);
+                                        console.log('Credits deducted successfully. New balance:', creditData.balance);
+                                    }
+                                } catch (creditError) {
+                                    console.error('Failed to deduct credits:', creditError);
+                                }
+                            }
+                        }
                         
                         const currentStyle = currentStyles.find(style => style.style === selectedStyle);
                         const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
@@ -637,7 +741,7 @@ function SelectStylePageContent() {
             
             <div className="max-w-7xl mx-auto">
                 {/* Logo 区域作为 h1 标题 */}
-                <div className="flex items-center justify-between mb-4 h-[48px]">
+                <div className="flex items-center justify-between mb-10 p=10 h-[48px]">
                     <Link 
                         href="/" 
                         className="flex items-center gap-2"
@@ -657,21 +761,34 @@ function SelectStylePageContent() {
 
                     {/* Auth Buttons - 桌面端显示 */}
                     <div className="hidden lg:flex items-center gap-2">
+
                         <SignedOut>
                             <SignInButton>
-                                <button className="border border-purple-700 text-purple-700 hover:bg-purple-100 hover:text-purple-900 rounded-xl font-medium text-sm h-8 px-8 cursor-pointer transition-colors">
+                            <button className="border border-purple-700 text-purple-700 hover:bg-purple-100 hover:text-purple-900 rounded-full font-medium text-sm h-8 px-4 cursor-pointer transition-colors">
                                     Sign In
                                 </button>
                             </SignInButton>
                             <SignUpButton>
-                                <button className="bg-purple-700 text-white rounded-xl font-medium text-sm h-8 px-8 cursor-pointer hover:bg-purple-800 transition-colors">
+                                <button className="bg-purple-700 text-white rounded-full font-medium text-sm h-8 px-4 cursor-pointer hover:bg-purple-900 transition-colors">
                                     Sign Up
                                 </button>
                             </SignUpButton>
                         </SignedOut>
                         <SignedIn>
-                            <UserButton />
+                            <div className="flex items-center space-x-3">
+                                {user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' ? (
+                                    <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                        ✨ PRO
+                                    </div>
+                                ) : (
+                                    <div className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
+                                        💎 {userCredits} credits
+                                    </div>
+                                )}
+                                <UserButton />
+                            </div>
                         </SignedIn>
+                
                     </div>
 
                           {/* 浮动按钮 - 移动端只显示图标，PC端隐藏 */}
@@ -714,27 +831,37 @@ function SelectStylePageContent() {
 
                           {/* Auth Buttons - 移动端显示在右上角 */}
                           <div className="lg:hidden absolute top-2 right-2 flex gap-2">
+                
+                             <div className="px-4 py-2 space-y-2">
                                 <SignedOut>
                                     <SignInButton>
-                                        <button className="w-8 h-8 border border-[#6c47ff] text-[#6c47ff] hover:bg-[#6c47ff] hover:text-white rounded-full font-medium text-xs cursor-pointer transition-colors flex items-center justify-center">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                                            </svg>
-                                        </button>
-                                    </SignInButton>
-                                    <SignUpButton>
-                                        <button className="w-8 h-8 bg-[#6c47ff] text-white rounded-full font-medium text-xs cursor-pointer hover:bg-[#5a3de6] transition-colors flex items-center justify-center">
-                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                                            </svg>
-                                        </button>
+                                    <button className="border border-[#6c47ff] text-[#6c47ff] hover:bg-[#6c47ff] hover:text-white rounded-full font-medium text-sm h-8 px-4 cursor-pointer transition-colors">
+                                    Sign In
+                                </button>
+                            </SignInButton>
+                            <SignUpButton>
+                                <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm h-8 px-4 cursor-pointer hover:bg-[#5a3de6] transition-colors">
+                                    Sign Up
+                                </button>
                                     </SignUpButton>
                                 </SignedOut>
                                 <SignedIn>
-                                    <div className="w-8 h-8">
-                                        <UserButton />
+                                    <div className="flex items-center justify-between px-4 py-2">
+                                        {user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' ? (
+                                            <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white px-3 py-2 rounded-full text-sm font-medium">
+                                                ✨ PRO
+                                            </div>
+                                        ) : (
+                                            <div className="bg-purple-100 text-purple-700 px-3 py-2 rounded-full text-sm font-medium">
+                                                💎 {userCredits} credits
+                                            </div>
+                                        )}
+                                        <div className="flex items-center space-x-4">
+                                            <UserButton />
+                                        </div>
                                     </div>
                                 </SignedIn>
+                             </div>
                           </div>
                 </div>
                 
@@ -829,17 +956,17 @@ function SelectStylePageContent() {
                                 <div className="flex-grow w-full flex items-center justify-center">
                                     {uploadedImageUrl && (
                                         <div className="max-w-md mx-auto w-full">
-                                    <Image 
-                                        src={uploadedImageUrl} 
-                                        alt="Original" 
-                                        width={1024}
-                                        height={1024}
-                                        className="w-full h-full object-contain rounded-lg"
-                                        unoptimized
-                                    />
+                                            <Image 
+                                                src={uploadedImageUrl} 
+                                                alt="Original" 
+                                                width={1024}
+                                                height={1024}
+                                                className="w-full h-full object-contain rounded-lg"
+                                                unoptimized
+                                            />
                                         </div>
                                     )}
-                            </div>
+                                </div>
 
                                 {/* 底部上传按钮 */}
                                 <div className="flex justify-center mt-2 mb-2 sm:mb-4">
@@ -858,10 +985,10 @@ function SelectStylePageContent() {
                                             htmlFor="photo-upload-new-pc" 
                                             className="h-8 sm:h-10 bg-white text-gray-800 hover:bg-gray-50 px-4 sm:px-6 rounded-lg text-sm border border-gray-300 flex items-center justify-center gap-1 sm:gap-2 shadow-sm cursor-pointer"
                                         >
-                                                <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                                    </svg>
-                                                    Upload new
+                                            <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                            </svg>
+                                            Upload new
                                         </label>
                                     </div>
                                 </div>
@@ -997,9 +1124,15 @@ function SelectStylePageContent() {
                                     ) : !uploadedImageUrl ? (
                                         "Upload Photo"
                                     ) : !selectedStyle ? (
-                                        `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
+                                        user 
+                                        ? (user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' 
+                                            ? `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
+                                            : `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"} (${requiredCredits} credits)`)
+                                        : `Try ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"} Style`
                                     ) : (
-                                        "Generate"
+                                        user ? (user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' 
+                                            ? "Generate" 
+                                            : `Generate (${requiredCredits} credits)`) : "Generate Style"
                                     )}
                                 </button>
                             </div>
@@ -1238,9 +1371,15 @@ function SelectStylePageContent() {
                             ) : !uploadedImageUrl ? (
                                 "Upload Photo First"
                             ) : !selectedStyle ? (
-                                `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
+                                user 
+                                ? (user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' 
+                                    ? `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
+                                    : `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"} (${requiredCredits} credits)`)
+                                : `Try ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"} Style`
                             ) : (
-                                "Generate"
+                                user ? (user?.publicMetadata?.membership === 'monthly' || user?.publicMetadata?.membership === 'yearly' 
+                                    ? "Generate" 
+                                    : `Generate (${requiredCredits} credits)`) : "Generate Style"
                             )}
                         </button>
                     </section>
@@ -1287,6 +1426,14 @@ function SelectStylePageContent() {
                     }
                 `
             }} />
+            
+            {/* Credit Modal */}
+            <CreditModal
+                isOpen={showCreditModal}
+                onClose={() => setShowCreditModal(false)}
+                currentCredits={userCredits}
+                requiredCredits={requiredCredits}
+            />
         </div>
     );
 } 

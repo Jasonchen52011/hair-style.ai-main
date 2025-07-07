@@ -1,3 +1,13 @@
+# *
 User-agent: *
 Allow: /
+
+
+Disallow: /_next/static/
+
+
+# Host
+Host: https://hair-style.ai
+
+# Sitemaps
 Sitemap: https://hair-style.ai/sitemap.xml
