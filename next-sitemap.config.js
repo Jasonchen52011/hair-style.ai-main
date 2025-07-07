@@ -1,10 +1,12 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
     siteUrl: 'https://hair-style.ai',
+    generateRobotsTxt: true,
+    generateIndexSitemap: false,
     sitemapSize: 50000,
     outDir: 'public',
     changefreq: 'daily',
-    priority: 0.7,
+    priority: 1.0,
     robotsTxtOptions: {
         policies: [
             {
