@@ -1,5 +1,3 @@
-
-
 import Hero from "@/components/hero";
 import Footer from "@/components/footer";
 import { Metadata } from 'next'
@@ -50,8 +48,7 @@ export const metadata: Metadata = {
         description: 'Test hairstyles on my face free with AI hairstyle changer! Choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids, and more.',
         images: ['https://hair-style.ai/images/hero/ba3.jpg'],
         creator: '@hair_styleai',
-    }
-
+    },
 }
 
 const structuredData = {
@@ -203,7 +200,7 @@ const structuredData = {
     organization: {
         '@context': "https://schema.org",
         '@type': "Organization",
-        'name': "Hair Style AI",
+        'name': "Hairstyle AI",
         'url': "https://hair-style.ai",
         'logo': {
             '@type': "ImageObject",
@@ -216,7 +213,7 @@ const structuredData = {
         publisher: {
           '@type': 'Organization',
           '@id': "https://hair-style.ai/#organization",
-          name: 'Hair Style AI',
+          name: 'Hairstyle AI',
           url: 'https://hair-style.ai'
         },
     
@@ -224,7 +221,7 @@ const structuredData = {
     website: {
         '@type': "WebSite",
         'url': "https://hair-style.ai",
-        'name': "Hair Style AI",
+        'name': "Hairstyle AI",
     }
 };
 
@@ -254,6 +251,4 @@ export default function Home() {
         </>
     )
 }
-
-
 
