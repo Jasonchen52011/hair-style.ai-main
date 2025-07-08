@@ -100,7 +100,7 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
                   headers: [
                       {
                           key: 'X-Robots-Tag',
-                          value: 'noindex', //do not delete this line
+                          value: 'index', //do not delete this line
                       },
                   ],
               },
