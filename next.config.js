@@ -44,6 +44,10 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
                           value: '1; mode=block',
                       },
                       {
+                          key: 'X-Robots-Tag',
+                          value: 'index,follow',
+                      },
+                      {
                           key: 'Link',
                           value: '</images/optimized/hero/hero4.webp>; rel=preload; as=image; type=image/webp, </fonts/satoshi-regular.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/satoshi-medium.woff2>; rel=preload; as=font; type=font/woff2; crossorigin'
                       }
@@ -96,7 +100,7 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
                   headers: [
                       {
                           key: 'X-Robots-Tag',
-                          value: 'all', //do not delete this line
+                          value: 'noindex', //do not delete this line
                       },
                   ],
               },
@@ -105,9 +109,7 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
       images: {
           domains: [
               'ailab-result-rapidapi.oss-accelerate.aliyuncs.com',
-              'hair-style.ai',
-              'www.hair-style.ai',
-              'pub-static.aiease.ai'
+              'hair-style.ai'
           ],
           unoptimized: true, // 启用Next.js图片优化
           formats: ['image/webp', 'image/avif'], // 优先使用现代格式

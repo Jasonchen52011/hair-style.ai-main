@@ -5,6 +5,7 @@ import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Script from "next/script"
 import React from 'react'
 
+
 // 代理配置
 const PROXY_URL = process.env.PROXY_URL || '';
 
@@ -39,6 +40,8 @@ if (typeof window === 'undefined' && PROXY_URL) {
     return res;
   };
 }
+
+//@ts-ignore
 
 // 优化字体加载策略
 const satoshi = localFont({
@@ -75,8 +78,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // 获取 Clerk 配置
-  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || '';
+
 
   return (
     
