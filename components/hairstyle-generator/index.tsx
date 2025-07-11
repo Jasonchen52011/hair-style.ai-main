@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import toast from 'react-hot-toast';
-import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/lib/hairstyles';
-
+import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/libs/hairstyles';
+import { triggerCreditsUpdate } from '@/lib/credits-utils';
 
 
 interface HairStyleGeneratorProps {
@@ -55,16 +55,21 @@ export default function HairStyleGenerator({
   const pollTaskStatus = async (taskId: string, maxAttempts = 12) => {
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const response = await fetch(`/api/task-status?taskId=${taskId}`);
+        const response = await fetch(`/api/submit?taskId=${taskId}`);
         const data = await response.json();
         
-        if (data.status === 'completed' && data.result) {
-          return data.result;
-        } else if (data.status === 'failed') {
-          throw new Error(data.message || 'Task processing failed');
+        // 检查任务完成状态
+        if (data.task_status === 2 || data.task_status === 'SUCCESS') {
+          if (data.data?.images) {
+            return data;
+          } else {
+            throw new Error('Task completed but no images returned');
+          }
+        } else if (data.task_status === 3 || data.task_status === 'FAILED') {
+          throw new Error(data.error_detail || 'Task processing failed');
         }
         
-   
+        // 等待下一次轮询
         await new Promise(resolve => setTimeout(resolve, 3000));
       } catch (error) {
         console.error('Error polling task status:', error);
@@ -106,7 +111,7 @@ export default function HairStyleGenerator({
       
       if (data.status === 'processing' && data.taskId) {
         const result = await pollTaskStatus(data.taskId);
-        if (result.data.images) {
+        if (result.data?.images) {
           const firstStyle = Object.keys(result.data.images)[0];
           const imageUrl = result.data.images[firstStyle][0];
           
@@ -114,6 +119,9 @@ export default function HairStyleGenerator({
           const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
           
           onStyleGenerated?.(imageUrlWithStyle);
+          
+          // 触发积分更新（不提供具体积分值，让系统自动刷新）
+          triggerCreditsUpdate();
           
           toast.success('Generation successful!', {
             duration: 3000,
@@ -177,7 +185,7 @@ export default function HairStyleGenerator({
         // photo upload interface
         <div className="text-center">
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">AI Hair Style Generator</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">AI Hairstyle Generator</h2>
             <p className="text-gray-600">Upload your photo, let AI recommend the most suitable hairstyle for you</p>
           </div>
           

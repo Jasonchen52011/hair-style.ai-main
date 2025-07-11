@@ -2,6 +2,7 @@ import './globals.css'
 import { type Metadata } from 'next'
 import localFont from 'next/font/local'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
+import Providers from '@/components/Providers'
 import Script from "next/script"
 import React from 'react'
 
@@ -112,10 +113,12 @@ export default function RootLayout({
           <link rel="manifest" href="/manifest.json" />
         </head>
         <body className={`${satoshi.variable} antialiased`}>
-          <PerformanceMonitor />
-          <div id="root" style={{ minHeight: '100vh' }}>
-            {children}
-          </div>
+          <Providers>
+            <PerformanceMonitor />
+            <div id="root" style={{ minHeight: '100vh' }}>
+              {children}
+            </div>
+          </Providers>
 
           {/* Google Identity Services SDK */}
           <Script 

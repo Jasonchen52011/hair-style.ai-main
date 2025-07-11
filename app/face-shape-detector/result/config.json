@@ -1,14 +1,14 @@
 {
   "seoConfig": {
-    "title": "Face Shape Analysis Results | Hair Style AI",
+    "title": "Face Shape Analysis Results | Hairstyle AI",
     "description": "Get personalized hairstyle recommendations based on your face shape analysis. Discover the perfect haircut that complements your unique facial features.",
     "canonical": "https://hair-style.ai/face-shape-detector/result"
   },
   "openGraph": {
-    "title": "Face Shape Analysis Results | Hair Style AI",
+    "title": "Face Shape Analysis Results | Hairstyle AI",
     "description": "Get personalized hairstyle recommendations based on your face shape analysis.",
     "url": "https://hair-style.ai/face-shape-detector/result",
-    "siteName": "Hair Style AI",
+    "siteName": "Hairstyle AI",
     "type": "website",
     "image": {
       "url": "https://hair-style.ai/images/face-shape-social.webp",
@@ -19,7 +19,7 @@
   },
   "twitter": {
     "card": "summary_large_image",
-    "title": "Face Shape Analysis Results | Hair Style AI",
+    "title": "Face Shape Analysis Results | Hairstyle AI",
     "description": "Get personalized hairstyle recommendations based on your face shape analysis.",
     "image": "https://hair-style.ai/images/face-shape-social.webp"
   }

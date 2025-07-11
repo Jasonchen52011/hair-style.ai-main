@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
-import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/lib/hairstyles';
+import { femaleStyles, maleStyles, hairColors, HairStyle } from '@/libs/hairstyles';
 import MoreFreeAITools from '@/components/MoreFreeAITools';
 import Image from 'next/image';
 import Link from 'next/link';
