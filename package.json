@@ -16,10 +16,11 @@
     "lcp-test": "npm run build && npm run dev & sleep 15 && echo 'Testing LCP optimizations...' && curl -I http://localhost:3000"
   },
   "dependencies": {
-
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@google/generative-ai": "^0.24.1",
     "@headlessui/react": "^2.2.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/supabase-js": "^2.50.3",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@types/axios": "^0.9.36",
     "axios": "^1.7.9",

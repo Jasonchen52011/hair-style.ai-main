@@ -6,6 +6,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import React from 'react';
+import { CreditsProvider } from '@/contexts/CreditsContext';
 
 // Define the props for the Providers component, specifying that children should be a React node.
 // 定义 Providers 组件的 props，指明 children 应该是一个 React 节点。
@@ -18,7 +19,9 @@ interface ProvidersProps {
 export default function Providers({ children }: ProvidersProps) {
   return (
     <SessionProvider>
-      {children}
+      <CreditsProvider>
+        {children}
+      </CreditsProvider>
     </SessionProvider>
   );
 }

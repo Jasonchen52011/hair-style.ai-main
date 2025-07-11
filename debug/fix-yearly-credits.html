@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>年费积分诊断工具</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007cba;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #005a8b;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        .credit-summary {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .action-button {
+            background-color: #28a745;
+            margin: 5px 0;
+        }
+        .action-button:hover {
+            background-color: #218838;
+        }
+        .danger-button {
+            background-color: #dc3545;
+        }
+        .danger-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 年费积分诊断工具</h1>
+        
+        <div class="form-group">
+            <label for="userId">用户ID:</label>
+            <input type="text" id="userId" placeholder="请输入您的用户ID">
+            <small style="color: #666;">您可以在浏览器开发者工具的Application > Local Storage中找到用户ID</small>
+        </div>
+
+        <button onclick="diagnoseCredits()">🔍 诊断积分问题</button>
+        
+        <div id="result"></div>
+        
+        <div id="actions" style="display: none;">
+            <h3>🛠️ 修复操作</h3>
+            <button class="action-button" onclick="fixYearlyCredits()">
+                ➕ 添加年费初始积分 (1000积分)
+            </button>
+            <button class="action-button" onclick="triggerMonthlyDistribution()">
+                📅 触发月度积分分发
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentUserId = '';
+        let diagnosisData = null;
+
+        async function diagnoseCredits() {
+            const userId = document.getElementById('userId').value.trim();
+            if (!userId) {
+                showResult('请输入用户ID', 'error');
+                return;
+            }
+
+            currentUserId = userId;
+            showResult('正在诊断积分问题...', 'info');
+
+            try {
+                const response = await fetch('/api/debug/user-credits-diagnosis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId: userId })
+                });
+
+                const data = await response.json();
+                diagnosisData = data;
+
+                if (!response.ok) {
+                    throw new Error(data.error || '诊断失败');
+                }
+
+                displayDiagnosis(data);
+                
+            } catch (error) {
+                showResult(`诊断失败: ${error.message}`, 'error');
+            }
+        }
+
+        function displayDiagnosis(data) {
+            let result = `📊 积分诊断报告\n`;
+            result += `⏰ 诊断时间: ${new Date(data.timestamp).toLocaleString()}\n`;
+            result += `👤 用户ID: ${data.userId}\n\n`;
+
+            // 当前积分状态
+            if (data.diagnosis.credits?.success) {
+                result += `💰 当前积分状态:\n`;
+                result += `   • 当前有效积分: ${data.diagnosis.credits.currentCredits}\n`;
+                result += `   • 总积分记录: ${data.diagnosis.credits.totalRecords}\n`;
+                result += `   • 有效记录数: ${data.diagnosis.credits.validRecords}\n`;
+                result += `   • 历史总积分: ${data.diagnosis.credits.allTimeCredits}\n\n`;
+            }
+
+            // 订阅状态
+            if (data.diagnosis.subscriptions?.success) {
+                result += `📋 订阅状态:\n`;
+                result += `   • 总订阅数: ${data.diagnosis.subscriptions.totalSubscriptions}\n`;
+                result += `   • 活跃订阅数: ${data.diagnosis.subscriptions.activeSubscriptions}\n\n`;
+            }
+
+            // 年费分析
+            if (data.diagnosis.yearlyAnalysis) {
+                result += `📅 年费订阅分析:\n`;
+                result += `   • 年费订阅总数: ${data.diagnosis.yearlyAnalysis.totalYearlySubscriptions}\n`;
+                result += `   • 活跃年费订阅: ${data.diagnosis.yearlyAnalysis.activeYearlySubscriptions}\n`;
+                if (data.diagnosis.yearlyAnalysis.latestYearlySub) {
+                    result += `   • 最新年费订阅: ${new Date(data.diagnosis.yearlyAnalysis.latestYearlySub.created_at).toLocaleString()}\n`;
+                }
+                result += `\n`;
+            }
+
+            // 年费积分分析
+            if (data.diagnosis.yearlyCreditsAnalysis) {
+                result += `💳 年费积分分析:\n`;
+                result += `   • 年费购买积分记录: ${data.diagnosis.yearlyCreditsAnalysis.yearlyPurchaseCredits}\n`;
+                result += `   • 月度分发记录: ${data.diagnosis.yearlyCreditsAnalysis.monthlyDistributions}\n\n`;
+            }
+
+            // 建议
+            if (data.recommendations && data.recommendations.length > 0) {
+                result += `⚠️ 发现的问题:\n`;
+                data.recommendations.forEach(rec => {
+                    result += `   • ${rec.message}\n`;
+                });
+                result += `\n`;
+            }
+
+            showResult(result, data.recommendations.length > 0 ? 'warning' : 'success');
+            
+            // 显示操作按钮
+            if (data.recommendations.length > 0) {
+                document.getElementById('actions').style.display = 'block';
+            }
+        }
+
+        async function fixYearlyCredits() {
+            if (!currentUserId) {
+                showResult('请先进行积分诊断', 'error');
+                return;
+            }
+
+            showResult('正在添加年费初始积分...', 'info');
+
+            try {
+                const response = await fetch('/api/creem/fix-credits', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId: currentUserId,
+                        amount: 1000,
+                        transType: 'purchase',
+                        reason: '年费订阅初始积分补偿'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || '修复失败');
+                }
+
+                showResult(`✅ 积分修复成功!\n\n` +
+                    `添加积分: ${data.data.creditsAdded}\n` +
+                    `修复前积分: ${data.data.previousCredits}\n` +
+                    `修复后积分: ${data.data.newTotal}\n` +
+                    `交易号: ${data.data.transactionNo}\n\n` +
+                    `建议您刷新页面查看最新积分`, 'success');
+                
+            } catch (error) {
+                showResult(`修复失败: ${error.message}`, 'error');
+            }
+        }
+
+        async function triggerMonthlyDistribution() {
+            showResult('月度积分分发需要管理员权限，请联系技术支持', 'warning');
+        }
+
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = message;
+            resultDiv.className = `result ${type}`;
+        }
+
+        // 自动获取用户ID（如果可能）
+        window.onload = function() {
+            // 尝试从localStorage获取用户信息
+            try {
+                const supabaseSession = localStorage.getItem('supabase.auth.token');
+                if (supabaseSession) {
+                    const session = JSON.parse(supabaseSession);
+                    if (session.user && session.user.id) {
+                        document.getElementById('userId').value = session.user.id;
+                    }
+                }
+            } catch (e) {
+                // 忽略错误，手动输入
+            }
+        };
+    </script>
+</body>
+</html> 

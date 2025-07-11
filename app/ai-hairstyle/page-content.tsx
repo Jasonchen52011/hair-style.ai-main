@@ -2,10 +2,14 @@
 
 import { useState, useEffect, Suspense, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
 import Link from 'next/link';
-import { hairColors, femaleStyles, maleStyles, type HairStyle } from '@/lib/hairstyles';
+import { hairColors, femaleStyles, maleStyles } from '@/libs/hairstyles';
+import type { HairStyle } from '@/libs/hairstyles';
+import ButtonSignin from '@/components/navbar/ButtonSignin';
+import { useCredits } from '@/contexts/CreditsContext';
 
 // create a wrapper component to handle search parameters
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
@@ -25,6 +29,8 @@ export default function SelectStylePage() {
 
 // move the original component content here
 function SelectStylePageContent() {
+    const supabase = createClientComponentClient();
+    const { credits, hasActiveSubscription, user, refreshCredits } = useCredits();
     const [uploadedImageUrl, setUploadedImageUrl] = useState<string>();
     const [resultImageUrl, setResultImageUrl] = useState<string>();
     const [defaultStyle, setDefaultStyle] = useState<string>("PixieCut");
@@ -248,13 +254,53 @@ function SelectStylePageContent() {
 
             if (response.status === 429) {
                 toast.dismiss('generation-status');
-                toast.error('You have reached your daily limit of 5 free generations. Please try again tomorrow.', {
-                    duration: 5000,
-                    style: {
-                        background: '#1F2937',
-                        color: '#fff',
-                    },
-                });
+                const errorData = await response.json().catch(() => ({}));
+                
+                if (errorData.errorType === 'daily_limit') {
+                    // 显示友好的订阅提示框
+                    const confirmSubscribe = window.confirm(
+                        `${errorData.error}\n\nWould you like to go to the pricing page to subscribe now?`
+                    );
+                    
+                    if (confirmSubscribe) {
+                        window.location.href = '/pricing';
+                        return;
+                    }
+                } else {
+                    toast.error(errorData.error || 'You have reached your daily limit. Please try again tomorrow.', {
+                        duration: 5000,
+                        style: {
+                            background: '#1F2937',
+                            color: '#fff',
+                        },
+                    });
+                }
+                return;
+            }
+
+            if (response.status === 402) {
+                toast.dismiss('generation-status');
+                const errorData = await response.json().catch(() => ({}));
+                
+                if (errorData.errorType === 'insufficient_credits') {
+                    // 显示友好的充值提示框
+                    const confirmTopUp = window.confirm(
+                        `You need at least 10 credits to generate a hairstyle, but you only have ${errorData.currentCredits} credits.\n\nWould you like to go to the pricing page to top up your credits?`
+                    );
+                    
+                    if (confirmTopUp) {
+                        window.location.href = '/pricing';
+                        return;
+                    }
+                } else {
+                    toast.error(errorData.error || 'Insufficient credits. Please top up your credits.', {
+                        duration: 5000,
+                        style: {
+                            background: '#1F2937',
+                            color: '#fff',
+                        },
+                    });
+                }
                 return;
             }
 
@@ -307,6 +353,9 @@ function SelectStylePageContent() {
                         const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
                         
                         handleStyleSelect(imageUrlWithStyle);
+                        
+                        // 刷新积分显示
+                        await refreshCredits();
                         
                         toast.success('Hairstyle generated successfully! 🎉', {
                             duration: 3000,
@@ -647,11 +696,15 @@ function SelectStylePageContent() {
                             HairStyle AI
                         </h1>
                     </Link>
-
-
-                          {/* 浮动按钮 - 移动端只显示图标，PC端隐藏 */}
-                          {uploadedImageUrl && (
-                          <div className="lg:hidden absolute top-2 left-1/2 -translate-x-1/2 flex flex-row gap-2">
+              
+                    <ButtonSignin />
+                               
+                    
+                </div>
+                
+                {/* 浮动按钮 - 移动端只显示图标，PC端隐藏 */}
+                {uploadedImageUrl && (
+                <div className="lg:hidden absolute top-2 left-1/2 -translate-x-1/2 flex flex-row gap-2">
                                         {resultImageUrl && (
                                             <button 
                                                 onClick={() => handleDownload(resultImageUrl)}
@@ -685,10 +738,7 @@ function SelectStylePageContent() {
                                             </label>
                                         </div>
                                     </div>
-                          )}
-
-                
-                </div>
+                )}
                 
                 {/* PC端布局 - 使用响应式网格布局 */}
                 <div className="hidden lg:grid lg:grid-cols-12 gap-2 md:gap-3">

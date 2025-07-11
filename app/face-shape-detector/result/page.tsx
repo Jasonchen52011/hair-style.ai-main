@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { ChevronsRight, ArrowLeft } from 'lucide-react';
-import { femaleStyles, maleStyles, HairStyle } from '@/lib/hairstyles';
+import { femaleStyles, maleStyles, HairStyle } from '@/libs/hairstyles';
 
 // 图片尺寸配置
 const IMAGE_CONFIG = {

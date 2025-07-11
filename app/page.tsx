@@ -192,7 +192,7 @@ const structuredData = {
             {
                 '@type': "ListItem",
                 position: 2,
-                name: "Hair Style AI Tools",
+                name: "Hairstyle AI Tools",
                 item: "https://hair-style.ai/ai-hairstyle"
             }
         ]
@@ -208,7 +208,7 @@ const structuredData = {
             'url': "https://hair-style.ai/images/logo/logo-192x192.png",
             'width': 192,
             'height': 192,
-            'caption': "Hair Style AI Logo"
+            'caption': "Hairstyle AI Logo"
         },
         publisher: {
           '@type': 'Organization',

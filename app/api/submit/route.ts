@@ -3,9 +3,18 @@ import axios from "axios";
 import FormData from "form-data";
 import axiosRetry from 'axios-retry';
 import { headers } from 'next/headers';
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from '@supabase/supabase-js';
+import { cookies } from "next/headers";
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
+
+// 创建管理员客户端（绕过RLS）
+const adminSupabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 // 创建统一的 axios 实例
 const client = axios.create({
@@ -31,11 +40,14 @@ axiosRetry(client, {
 
 // 使用 Map 在内存中存储请求计数
 const requestCounts = new Map<string, { count: number; date: string }>();
-const DAILY_LIMIT = 5;
+const DAILY_LIMIT = 3; // 修改为3次免费
 
 // 使用 Map 存储每个 taskId 的422错误计数
 const taskErrorCount = new Map<string, number>();
 const MAX_ERROR_COUNT = 5;
+
+// 已扣费的任务追踪
+const chargedTasks = new Set<string>();
 
 // 本地开发白名单IP
 const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
@@ -96,21 +108,88 @@ export async function POST(req: NextRequest) {
         const isLocalDev = process.env.NODE_ENV === 'development';
         const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
         
-        // IP 限制检查变量
-        let currentCount;
-        let today = new Date().toISOString().split('T')[0]; // 总是初始化today变量
+        // 用户认证检查
+        const supabase = createRouteHandlerClient({ cookies });
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
         
-        // 只在非本地开发环境且非白名单IP时进行限制检查
-        if (!isLocalDev && !isWhitelistIP) {
-            // IP 限制检查 - 先检查是否超限，但不立即计数
-            currentCount = requestCounts.get(ip);
+        let hasActiveSubscription = false;
+        let userCredits = 0;
+        
+        if (user) {
+            // 直接获取用户积分和订阅信息，避免内部 HTTP 调用
+            // 现在可以使用普通客户端，因为RLS策略已经允许用户读取自己的积分
+            try {
+                // 检查用户的活跃订阅 - 订阅表仍需要管理员权限
+                const { data: subscriptions, error: subscriptionError } = await adminSupabase
+                    .from('subscriptions')
+                    .select('*')
+                    .eq('user_id', user.id)
+                    .eq('status', 'active')
+                    .gte('end_date', new Date().toISOString());
 
-            // 检查是否已达到每日限制
-            if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
+                if (!subscriptionError && subscriptions && subscriptions.length > 0) {
+                    hasActiveSubscription = true;
+                }
+
+                // 获取用户积分 - 现在可以使用普通客户端，因为RLS策略已修复
+                const { data: creditRecords, error: creditsError } = await supabase
+                    .from('credits')
+                    .select('credits')
+                    .eq('user_uuid', user.id)
+                    .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+
+                if (!creditsError && creditRecords) {
+                    userCredits = creditRecords.reduce((sum, record) => sum + (record.credits || 0), 0);
+                    console.log(`User ${user.id} has ${userCredits} credits (via RLS)`);
+                } else {
+                    console.error('Credits query error:', creditsError);
+                    // 如果RLS还有问题，回退到管理员客户端
+                    const { data: fallbackCredits, error: fallbackError } = await adminSupabase
+                        .from('credits')
+                        .select('credits')
+                        .eq('user_uuid', user.id)
+                        .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+                    
+                    if (!fallbackError && fallbackCredits) {
+                        userCredits = fallbackCredits.reduce((sum, record) => sum + (record.credits || 0), 0);
+                        console.log(`User ${user.id} has ${userCredits} credits (via admin fallback)`);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+        
+        // 限制检查逻辑
+        let today = new Date().toISOString().split('T')[0];
+        
+        if (!user || !hasActiveSubscription) {
+            // 未登录用户或非订阅会员：每天3次免费
+            if (!isLocalDev && !isWhitelistIP) {
+                const currentCount = requestCounts.get(ip);
+                
+                // 检查是否已达到每日免费限制
+                if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
+                    return NextResponse.json({
+                        success: false,
+                        error: user 
+                            ? 'You have reached your daily limit of 3 free generations. Please subscribe to continue unlimited generation!' 
+                            : 'You have reached your daily limit of 3 free generations. Please sign in and subscribe to continue unlimited generation!',
+                        errorType: 'daily_limit',
+                        requiresSubscription: true
+                    }, { status: 429 });
+                }
+            }
+        } else {
+            // 订阅会员：检查积分是否足够
+            if (userCredits < 10) {
                 return NextResponse.json({
                     success: false,
-                    error: 'You have reached your daily limit of 5 free generations. Please try again tomorrow.'
-                }, { status: 429 });
+                    error: 'You need at least 10 credits to generate a hairstyle. Please top up your credits!',
+                    errorType: 'insufficient_credits',
+                    currentCredits: userCredits,
+                    requiredCredits: 10
+                }, { status: 402 });
             }
         }
 
@@ -231,17 +310,22 @@ export async function POST(req: NextRequest) {
         });
 
         if (responseData.error_code === 0 && responseData.task_id) {
-            // only count after successfully calling AI API, and only count non-whitelist IP
-            if (!isLocalDev && !isWhitelistIP) {
-                if (!currentCount || currentCount.date !== today) {
-                    requestCounts.set(ip, { count: 1, date: today });
-                } else {
-                    requestCounts.set(ip, {
-                        count: currentCount.count + 1,
-                        date: today
-                    });
+            // 成功调用AI API后的处理
+            if (!user || !hasActiveSubscription) {
+                // 未登录用户或非订阅会员：计数免费使用次数
+                if (!isLocalDev && !isWhitelistIP) {
+                    const currentCount = requestCounts.get(ip);
+                    if (!currentCount || currentCount.date !== today) {
+                        requestCounts.set(ip, { count: 1, date: today });
+                    } else {
+                        requestCounts.set(ip, {
+                            count: currentCount.count + 1,
+                            date: today
+                        });
+                    }
                 }
             }
+            // 注意：积分扣费现在移到生成成功时进行，避免生成失败时用户损失积分
             
             return NextResponse.json({ 
                 success: true,
@@ -341,10 +425,86 @@ export async function GET(req: NextRequest) {
 
     const statusData = await response.json();
     
+    // 增加调试日志
+    console.log(`Task ${taskId} status data:`, {
+      task_status: statusData.task_status,
+      type: typeof statusData.task_status,
+      hasChargedBefore: chargedTasks.has(taskId)
+    });
+    
     // 如果查询成功，清理该taskId的错误计数
-    if (statusData && (statusData.task_status === 'SUCCESS' || statusData.task_status === 'FAILED')) {
+    if (statusData && (statusData.task_status === 2 || statusData.task_status === 'SUCCESS' || statusData.task_status === 3 || statusData.task_status === 'FAILED')) {
       taskErrorCount.delete(taskId);
       console.log(`Task ${taskId} completed, cleared error count`);
+      
+      // 如果生成成功且尚未扣费，执行积分扣费
+      if ((statusData.task_status === 2 || statusData.task_status === 'SUCCESS') && !chargedTasks.has(taskId)) {
+        console.log(`Attempting to consume credits for successful task ${taskId}`);
+        try {
+          // 获取当前用户信息
+          const supabase = createRouteHandlerClient({ cookies });
+          const { data: { user }, error: userError } = await supabase.auth.getUser();
+          
+          if (user) {
+            console.log(`Found user ${user.id} for task ${taskId}, checking credits`);
+            // 直接检查用户当前积分，避免内部 HTTP 调用
+            try {
+              const { data: creditRecords, error: creditsError } = await supabase
+                .from('credits')
+                .select('credits')
+                .eq('user_uuid', user.id)
+                .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+
+              if (!creditsError && creditRecords) {
+                const userCredits = creditRecords.reduce((sum, record) => sum + (record.credits || 0), 0);
+                console.log(`User ${user.id} has ${userCredits} credits for task ${taskId}`);
+                
+                // 如果用户有足够积分（至少10积分），执行扣费
+                if (userCredits >= 10) {
+                  console.log(`Attempting to consume 10 credits for user ${user.id}, task ${taskId}`);
+                  
+                  // 生成交易编号
+                  const timestamp = Date.now();
+                  const random = Math.random().toString(36).substring(2, 8);
+                  const transactionNo = `TXN_${timestamp}_${random}`.toUpperCase();
+
+                  // 使用普通客户端插入积分扣费记录（已通过RLS策略允许用户插入自己的积分）
+                  const { error: insertError } = await supabase
+                    .from('credits')
+                    .insert({
+                      user_uuid: user.id,
+                      trans_type: 'hairstyle',
+                      trans_no: transactionNo,
+                      order_no: null,
+                      credits: -10, // 负数表示消费
+                      expired_at: null,
+                      created_at: new Date().toISOString()
+                    });
+
+                  if (!insertError) {
+                    chargedTasks.add(taskId);
+                    console.log(`Successfully consumed 10 credits for task ${taskId}, user: ${user.id}, transaction: ${transactionNo}`);
+                  } else {
+                    console.error(`Failed to consume credits for task ${taskId}:`, insertError);
+                  }
+                } else {
+                  console.log(`User ${user.id} has insufficient credits (${userCredits}) for task ${taskId}, skipping charge`);
+                }
+              } else {
+                console.error(`Failed to check credits for task ${taskId}:`, creditsError);
+              }
+            } catch (error) {
+              console.error(`Error checking/consuming credits for task ${taskId}:`, error);
+            }
+          } else {
+            console.log(`No user found for task ${taskId}`);
+          }
+        } catch (error) {
+          console.error(`Error processing credits for task ${taskId}:`, error);
+        }
+      } else {
+        console.log(`Skipping credit consumption for task ${taskId}: status=${statusData.task_status}, alreadyCharged=${chargedTasks.has(taskId)}`);
+      }
     }
     
     return NextResponse.json(statusData);
