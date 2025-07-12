@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 更新用户profile（使用正确的字段名）
+    // 更新用户profile（使用正确的字段名和时间格式）
     const now = new Date();
     const { error: profileError } = await supabase
       .from('profiles')
@@ -118,7 +118,8 @@ export async function POST(request: NextRequest) {
         customer_id: paymentParams?.customer_id || null,
         product_id: null, // 可以存储产品ID
         has_access: true, // 支付成功后给予访问权限
-        created_at: now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' }), // 使用时间格式
+        created_at: now.toISOString(), // 修复：使用完整的ISO时间戳
+        updated_at: now.toISOString(), // 添加更新时间
       }, {
         onConflict: 'id'
       });
@@ -163,6 +164,8 @@ export async function POST(request: NextRequest) {
           end_date: endDate.toISOString(),
           creem_subscription_id: subscriptionIdentifier,
           credits: parseInt((meta.credits || 0).toString()),
+          created_at: startDate.toISOString(), // 添加创建时间
+          updated_at: startDate.toISOString(), // 添加更新时间
         });
 
       if (subscriptionError) {
@@ -183,11 +186,15 @@ export async function POST(request: NextRequest) {
         product_name: `${membershipType} subscription`,
         plan_type: membershipType,
         amount: null,
+        currency: null, // 添加货币字段
         status: 'completed',
         checkout_id: paymentParams?.checkout_id,
         subscription_id: subscriptionIdentifier,
         credits_granted: parseInt((meta.credits || 0).toString()),
+        payment_method: null, // 添加支付方式字段
         payment_date: startDate.toISOString(),
+        created_at: startDate.toISOString(), // 添加创建时间
+        updated_at: startDate.toISOString(), // 添加更新时间
       })
       .select();
 

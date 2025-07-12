@@ -7,6 +7,8 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+//用户取消和续费
+
 // 从配置文件获取产品映射
 const PRODUCT_CREDITS_MAP = getProductCreditsMap();
 const PRODUCT_PLAN_MAP = getProductPlanMap();
@@ -30,25 +32,112 @@ export async function POST(req: Request) {
   try {
     console.log(`🔔 Webhook received at ${new Date().toISOString()}`);
     
+    // 基础安全验证
+    const userAgent = req.headers.get('user-agent') || '';
+    const contentType = req.headers.get('content-type') || '';
+    
+    // 验证Content-Type
+    if (!contentType.includes('application/json')) {
+      console.warn('❌ Invalid Content-Type:', contentType);
+      return NextResponse.json({ error: 'Invalid Content-Type' }, { status: 400 });
+    }
+    
+    // 验证User-Agent（Creem webhook应该有特定的User-Agent）
+    if (userAgent && !userAgent.toLowerCase().includes('creem') && !userAgent.toLowerCase().includes('webhook')) {
+      console.warn('⚠️ Suspicious User-Agent:', userAgent);
+      // 注意：这里只是警告，不拒绝请求，因为User-Agent可能变化
+    }
+    
     const body = await req.json();
     console.log('📦 Webhook body:', JSON.stringify(body, null, 2));
 
-    // 验证必要的数据
-    const { event, data } = body;
-    if (!event || !data) {
-      console.error('❌ Missing event or data in webhook body');
-      return NextResponse.json({ error: 'Missing event or data' }, { status: 400 });
+    // 验证必要的数据 - 根据Creem文档调整
+    const { eventType, object } = body;
+    if (!eventType || !object) {
+      console.error('❌ Missing eventType or object in webhook body');
+      return NextResponse.json({ error: 'Missing eventType or object' }, { status: 400 });
     }
 
-    // 提取关键信息
-    const userId = data.customer_id;
-    const planId = data.product_id;
-    const subscriptionId = data.subscription_id || null;
-    const orderId = data.order_id || null;
-    const checkoutId = data.checkout_id || null;
+        // 提取关键信息 - 根据Creem文档精确提取数据
+    let userId, planId, subscriptionId, orderId, checkoutId;
+    
+    switch (eventType) {
+      case 'checkout.completed':
+        // 从checkout.completed事件的object中提取
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.subscription?.id;
+        orderId = object.order?.id;
+        checkoutId = object.id;
+        break;
+      
+      case 'subscription.active':
+        // subscription.active事件只有subscription对象，没有order或checkout
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.id;
+        orderId = null; // subscription.active没有order字段
+        checkoutId = null; // subscription.active没有checkout字段
+        break;
+      
+      case 'subscription.paid':
+        // subscription.paid事件包含order和checkout
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.id;
+        orderId = object.order?.id;
+        checkoutId = object.checkout?.id;
+        break;
+      
+      case 'subscription.update':
+        // subscription.update事件只有subscription对象，没有order或checkout
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.id;
+        orderId = null; // subscription.update没有order字段
+        checkoutId = null; // subscription.update没有checkout字段
+        break;
+      
+      case 'subscription.trialing':
+        // subscription.trialing事件只有subscription对象，没有order或checkout
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.id;
+        orderId = null; // subscription.trialing没有order字段
+        checkoutId = null; // subscription.trialing没有checkout字段
+        break;
+      
+      case 'subscription.cancelled':
+      case 'subscription.expired':
+        // 注意：这些事件类型在Creem文档中没有提供示例
+        // 假设结构与其他subscription事件类似
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.id;
+        orderId = null;
+        checkoutId = null;
+        break;
+      
+      case 'refund.created':
+      case 'dispute.created':
+        // 注意：这些事件类型在Creem文档中提到但没有提供示例
+        // 根据常见的事件结构推测字段位置
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.subscription?.id;
+        orderId = object.order?.id;
+        checkoutId = object.checkout?.id;
+        break;
+      
+      default:
+        console.warn(`⚠️ Unhandled event type: ${eventType}`);
+        return NextResponse.json({ 
+          message: `Event type ${eventType} acknowledged but not processed` 
+        }, { status: 200 });
+    }
 
     console.log(`📊 Extracted data:`, {
-      event,
+      eventType,
       userId,
       planId,
       subscriptionId,
@@ -98,22 +187,50 @@ export async function POST(req: Request) {
 
     // 根据事件类型处理
     let result;
-    switch (body.event) {
-      case 'payment.success':
-      case 'subscription.created':
+    switch (eventType) {
+      case 'checkout.completed':
+        // checkout.completed 意味着结账完成，包含订单和订阅信息
+        result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
+        break;
+      
+      case 'subscription.active':
+        // subscription.active 意味着订阅激活，通常是首次创建
+        result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
+        break;
+      
+      case 'subscription.paid':
+        // subscription.paid 意味着订阅付款成功，包含订单信息
         result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
         break;
       
       case 'subscription.cancelled':
+      case 'subscription.expired':
+        // 订阅取消或过期
         result = await handleSubscriptionCancelled(userId, subscriptionId);
         break;
       
-      case 'subscription.updated':
-        result = await handleSubscriptionUpdated(userId, planId, subscriptionId, body.data);
+      case 'subscription.update':
+        // 订阅更新（计划变更等）
+        result = await handleSubscriptionUpdated(userId, planId, subscriptionId, object);
+        break;
+      
+      case 'subscription.trialing':
+        // 订阅试用期开始
+        result = await handleSubscriptionTrialing(userId, planId, subscriptionId, object);
+        break;
+      
+      case 'refund.created':
+        // 退款创建
+        result = await handleRefundCreated(userId, planId, subscriptionId, orderId, object);
+        break;
+      
+      case 'dispute.created':
+        // 争议创建
+        result = await handleDisputeCreated(userId, planId, subscriptionId, orderId, object);
         break;
       
       default:
-        throw new Error(`Unsupported event type: ${body.event}`);
+        throw new Error(`Unsupported event type: ${eventType}`);
     }
 
     const processingTime = Date.now() - startTime;
@@ -451,7 +568,7 @@ async function handleDowngradeLogic(
 // 抽取用户profile处理逻辑
 async function ensureUserProfile(userId: string, checkoutId: string | null) {
   const now = new Date();
-  const timeString = now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+  const timeString = now.toISOString();
   
   // 首先检查用户是否已存在
   const { data: existingProfile, error: checkProfileError } = await supabase
@@ -529,7 +646,7 @@ async function handlePaymentSuccess(
   try {
     // 确保用户profile存在
     const now = new Date();
-    const timeString = now.toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+    const timeString = now.toISOString();
     
     // 首先检查用户是否已存在
     const { data: existingProfile, error: checkProfileError } = await supabase
@@ -843,6 +960,180 @@ async function handleSubscriptionUpdated(
 
   } catch (error) {
     console.error('❌ Error in handleSubscriptionUpdated:', error);
+    throw error;
+  }
+}
+
+async function handleSubscriptionTrialing(
+  userId: string, 
+  planId: string, 
+  subscriptionId: string,
+  data: any
+) {
+  console.log(`🔄 Processing subscription trial for user ${userId}, subscription ${subscriptionId}`);
+
+  if (!subscriptionId) {
+    console.error('❌ Missing subscription_id for trial');
+    return { error: 'Missing subscription_id' };
+  }
+
+  try {
+    const credits = PRODUCT_CREDITS_MAP[planId] || 0;
+    const planType = PRODUCT_PLAN_MAP[planId] || 'onetime';
+    
+    // 试用期通常不计算结束日期，使用试用期间
+    const startDate = new Date();
+    const endDate = new Date(startDate);
+    
+    if (planType === 'monthly') {
+      endDate.setMonth(endDate.getMonth() + 1);
+    } else if (planType === 'yearly') {
+      endDate.setFullYear(endDate.getFullYear() + 1);
+    }
+
+    const { data: updatedData, error } = await supabase
+      .from('subscriptions')
+      .update({
+        plan_id: planType,
+        plan_name: planType,
+        status: 'trialing',
+        credits: credits,
+        end_date: endDate.toISOString(),
+      })
+      .eq('user_id', userId)
+      .eq('creem_subscription_id', subscriptionId)
+      .select();
+
+    if (error) {
+      console.error('❌ Error updating subscription to trialing:', error);
+      throw new Error(`Failed to update subscription to trialing: ${error.message}`);
+    }
+
+    console.log('✅ Subscription trial updated:', updatedData);
+    return { trialing: true, data: updatedData };
+
+  } catch (error) {
+    console.error('❌ Error in handleSubscriptionTrialing:', error);
+    throw error;
+  }
+}
+
+async function handleRefundCreated(
+  userId: string,
+  planId: string,
+  subscriptionId: string | null,
+  orderId: string | null,
+  data: any
+) {
+  console.log(`💰 Processing refund created for user ${userId}, order ${orderId}`);
+
+  try {
+    const credits = PRODUCT_CREDITS_MAP[planId] || 0;
+    const transactionNo = generateTransactionNo();
+
+    // 记录退款事件
+    const { error: refundError } = await supabase
+      .from('credits')
+      .insert({
+        user_uuid: userId,
+        trans_type: 'refund',
+        trans_no: transactionNo,
+        order_no: orderId,
+        credits: -credits, // 负数表示扣除积分
+        expired_at: null,
+        created_at: new Date().toISOString()
+      });
+
+    if (refundError) {
+      console.error('❌ Error recording refund:', refundError);
+      throw new Error(`Failed to record refund: ${refundError.message}`);
+    }
+
+    // 如果有订阅，标记为已取消
+    if (subscriptionId) {
+      const { error: subscriptionError } = await supabase
+        .from('subscriptions')
+        .update({
+          status: 'cancelled',
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', userId)
+        .eq('creem_subscription_id', subscriptionId);
+
+      if (subscriptionError) {
+        console.error('❌ Error cancelling subscription for refund:', subscriptionError);
+      }
+    }
+
+    console.log(`✅ Refund processed: ${credits} credits deducted from user ${userId}`);
+    return { 
+      refund: true, 
+      creditsDeducted: credits,
+      transactionNo: transactionNo 
+    };
+
+  } catch (error) {
+    console.error('❌ Error in handleRefundCreated:', error);
+    throw error;
+  }
+}
+
+async function handleDisputeCreated(
+  userId: string,
+  planId: string,
+  subscriptionId: string | null,
+  orderId: string | null,
+  data: any
+) {
+  console.log(`⚠️ Processing dispute created for user ${userId}, order ${orderId}`);
+
+  try {
+    const credits = PRODUCT_CREDITS_MAP[planId] || 0;
+    const transactionNo = generateTransactionNo();
+
+    // 记录争议事件
+    const { error: disputeError } = await supabase
+      .from('credits')
+      .insert({
+        user_uuid: userId,
+        trans_type: 'dispute',
+        trans_no: transactionNo,
+        order_no: orderId,
+        credits: -credits, // 负数表示扣除积分
+        expired_at: null,
+        created_at: new Date().toISOString()
+      });
+
+    if (disputeError) {
+      console.error('❌ Error recording dispute:', disputeError);
+      throw new Error(`Failed to record dispute: ${disputeError.message}`);
+    }
+
+    // 如果有订阅，标记为争议中
+    if (subscriptionId) {
+      const { error: subscriptionError } = await supabase
+        .from('subscriptions')
+        .update({
+          status: 'disputed',
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', userId)
+        .eq('creem_subscription_id', subscriptionId);
+
+      if (subscriptionError) {
+        console.error('❌ Error marking subscription as disputed:', subscriptionError);
+      }
+    }
+
+    console.log(`✅ Dispute processed: ${credits} credits deducted from user ${userId}`);
+    return { 
+      dispute: true, 
+      creditsDeducted: credits,
+      transactionNo: transactionNo 
+    };
+
+  } catch (error) {
+    console.error('❌ Error in handleDisputeCreated:', error);
     throw error;
   }
 }

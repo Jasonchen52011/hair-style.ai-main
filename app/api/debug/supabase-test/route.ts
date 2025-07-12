@@ -8,7 +8,7 @@ const supabase = createClient(
 
 // 创建统一的时间格式函数
 function getSupabaseTimeString(): string {
-  return new Date().toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+  return new Date().toISOString();
 }
 
 export async function GET() {

@@ -62,13 +62,13 @@ export async function GET(request: NextRequest) {
     if (currentSubscriptionType) {
       if (productId === config.creem.products.monthly.id && currentSubscriptionType === 'monthly') {
         return NextResponse.json({
-          error: "您已经是月费用户，无法再购买月套餐。",
+          error: "You are already a monthly user, you cannot purchase the monthly package again.",
           duplicateSubscription: true
         }, { status: 403 });
       }
       if (productId === config.creem.products.yearly.id && currentSubscriptionType === 'yearly') {
         return NextResponse.json({
-          error: "您已经是年费用户，无法再购买年套餐。",
+          error: "You are already a yearly user, you cannot purchase the yearly package again.",
           duplicateSubscription: true
         }, { status: 403 });
       }
