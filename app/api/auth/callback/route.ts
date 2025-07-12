@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 // 创建统一的时间格式函数
 function getSupabaseTimeString(): string {
-  return new Date().toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+  return new Date().toISOString();
 }
 
 // This route is called after a successful login. It exchanges the code for a session and redirects to the callback URL (see config.js).

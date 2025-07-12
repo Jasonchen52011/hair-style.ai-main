@@ -11,24 +11,97 @@ function PaymentSuccessContent() {
   const [loading, setLoading] = useState(false);
   const search = useSearchParams();
   const order_id = search.get("order_id");
+  const checkout_id = search.get("checkout_id");
 
-  // 简化的积分刷新逻辑，只依赖CreditsContext
+  // 直接写入积分数据，不依赖webhook
   const handlePaymentSuccess = async () => {
     if (!user?.id || !order_id) return;
     
     setLoading(true);
     try {
-      // 直接刷新积分状态，让CreditsContext处理所有逻辑
-      await refreshCredits();
-      toast.success(`Payment successful! Your credits have been updated.`, {
-        id: 'payment-update',
-        duration: 4000
+      console.log('🎯 Processing payment success directly...');
+      
+      // 直接调用API添加积分，从URL参数获取product_id
+      const urlParams = new URLSearchParams(window.location.search);
+      let product_id = urlParams.get('product_id');
+      
+      // 如果没有product_id，从checkout_id获取产品信息
+      if (!product_id && checkout_id) {
+        try {
+          const checkoutResponse = await fetch(`/api/creem/get-checkout-info?checkout_id=${checkout_id}`, {
+            method: 'GET',
+            credentials: 'include'
+          });
+          
+          if (checkoutResponse.ok) {
+            const checkoutData = await checkoutResponse.json();
+            if (checkoutData.success && checkoutData.data.product_id) {
+              product_id = checkoutData.data.product_id;
+              console.log('✅ Retrieved product_id from checkout:', product_id);
+            }
+          }
+        } catch (error) {
+          console.error('❌ Error fetching checkout info:', error);
+        }
+      }
+      
+      // 如果还是没有product_id，使用默认值
+      if (!product_id) {
+        product_id = 'prod_7kbzeBzBsEnWbRA0iTh7wf'; // 默认使用一次性购买
+        console.warn('No product_id found, using default:', product_id);
+      }
+      
+      const directResponse = await fetch('/api/creem/direct-add-credits', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          order_id: order_id,
+          user_id: user.id,
+          product_id: product_id,
+          checkout_id: checkout_id
+        })
       });
+
+      if (directResponse.ok) {
+        const directData = await directResponse.json();
+        
+        if (directData.success) {
+          // 直接添加成功，刷新积分显示
+          await refreshCredits();
+          
+          if (directData.alreadyProcessed) {
+            toast.success(`Payment confirmed! Your credits are already in your account.`, {
+              id: 'payment-update',
+              duration: 4000
+            });
+          } else {
+            toast.success(`Payment successful! ${directData.creditsAdded} credits have been added to your account.`, {
+              id: 'payment-update',
+              duration: 5000
+            });
+          }
+        } else {
+          toast.error(`Failed to add credits: ${directData.error}`, {
+            id: 'payment-update',
+            duration: 6000
+          });
+        }
+      } else {
+        const errorData = await directResponse.json();
+        toast.error(`Payment processed but failed to add credits: ${errorData.error}`, {
+          id: 'payment-update',
+          duration: 6000
+        });
+      }
+      
     } catch (error) {
-      console.error('Error refreshing credits:', error);
-      toast.error('Payment processed but failed to refresh credits. Please refresh the page.', {
+      console.error('Error processing payment success:', error);
+      toast.error('Payment processed but failed to add credits. Please refresh the page or contact support.', {
         id: 'payment-update',
-        duration: 5000
+        duration: 6000
       });
     } finally {
       setLoading(false);
