@@ -251,6 +251,93 @@ export async function POST(req: Request) {
       });
     }
 
+    if (action === 'create_test_profile') {
+      // 创建测试用户profile
+      const { userId, email, name } = body;
+      
+      if (!userId) {
+        return NextResponse.json({ error: 'userId is required' }, { status: 400 });
+      }
+
+      const currentTime = getSupabaseTimeString();
+      
+      // 检查用户是否已经存在
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (existingProfile) {
+        return NextResponse.json({
+          message: 'User already exists',
+          userId: userId,
+          email: existingProfile.email,
+          name: existingProfile.name,
+          credits: existingProfile.current_credits || 0,
+          existing: true
+        });
+      }
+
+      // 创建新的测试用户profile
+      const { data, error } = await supabase
+        .from('profiles')
+        .insert({
+          id: userId,
+          email: email || `test-${userId.substring(0, 8)}@example.com`,
+          name: name || `Test User ${userId.substring(0, 8)}`,
+          current_credits: 0,
+          has_access: true,
+          created_at: currentTime,
+          updated_at: currentTime
+        })
+        .select()
+        .single();
+
+      if (error) {
+        return NextResponse.json({
+          error: 'Failed to create test profile',
+          message: error.message
+        }, { status: 500 });
+      }
+
+      return NextResponse.json({
+        message: 'Test profile created successfully',
+        userId: userId,
+        email: data.email,
+        name: data.name,
+        credits: data.current_credits || 0,
+        created: true
+      });
+    }
+
+    if (action === 'get_user_credits') {
+      // 获取用户积分
+      const { userId } = body;
+      
+      if (!userId) {
+        return NextResponse.json({ error: 'userId is required' }, { status: 400 });
+      }
+
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('current_credits')
+        .eq('id', userId)
+        .single();
+
+      if (error) {
+        return NextResponse.json({
+          error: 'User not found',
+          message: error.message
+        }, { status: 404 });
+      }
+
+      return NextResponse.json({
+        userId: userId,
+        credits: profile.current_credits || 0
+      });
+    }
+
     return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
 
   } catch (error) {

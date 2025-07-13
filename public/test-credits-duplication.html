@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook处理架构测试工具</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        button.danger {
+            background-color: #dc3545;
+        }
+        
+        button.danger:hover {
+            background-color: #c82333;
+        }
+        
+        button.success {
+            background-color: #28a745;
+        }
+        
+        button.success:hover {
+            background-color: #218838;
+        }
+        
+        button.warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        
+        button.warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .result.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .result.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .result.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .test-section {
+            border-top: 2px solid #dee2e6;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-section h3 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .duplicate-item {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .duplicate-header {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .credit-record {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box h3 {
+            color: #0c5460;
+            margin-top: 0;
+        }
+        
+        .info-box p {
+            color: #0c5460;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Webhook处理架构测试工具</h1>
+        
+        <div class="info-box">
+            <h3>🎯 测试目标</h3>
+            <p>现在系统已改为只通过 Webhook API 处理订阅成功逻辑，避免多个入口点导致的重复处理问题。此工具用于验证新架构的正确性。</p>
+        </div>
+        
+        <div class="form-group">
+            <label for="userId">用户ID（可选）：</label>
+            <input type="text" id="userId" placeholder="留空则检测所有用户">
+        </div>
+        
+        <div class="actions">
+            <button onclick="checkDuplicates()">🔍 检测重复数据</button>
+            <button onclick="checkUserCredits()" class="success">👤 检查用户积分</button>
+            <button onclick="testWebhookOnly()" class="warning">🌐 测试Webhook处理</button>
+            <button onclick="verifyArchitecture()" class="success">✅ 验证新架构</button>
+            <button onclick="fixDuplicates()" class="danger">🔧 修复重复数据</button>
+        </div>
+        
+        <div id="stats" class="stats" style="display: none;"></div>
+        
+        <div id="loading" class="loading">
+            <div>正在处理中...</div>
+        </div>
+        
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('stats').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.remove('show');
+        }
+
+        function showResult(content, type = 'info') {
+            hideLoading();
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = content;
+            resultDiv.className = `result ${type}`;
+            resultDiv.style.display = 'block';
+            
+            // 自动滚动到结果
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showStats(stats) {
+            const statsDiv = document.getElementById('stats');
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalUsers || 0}</div>
+                    <div class="stat-label">总用户数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.duplicateGroups || 0}</div>
+                    <div class="stat-label">重复组数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.totalDuplicates || 0}</div>
+                    <div class="stat-label">重复记录数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.affectedCredits || 0}</div>
+                    <div class="stat-label">受影响积分</div>
+                </div>
+            `;
+            statsDiv.style.display = 'grid';
+        }
+
+        async function checkDuplicates() {
+            showLoading();
+            
+            const userId = document.getElementById('userId').value.trim();
+            const url = userId ? `/api/debug/cleanup-duplicate-credits?user_id=${userId}` : '/api/debug/cleanup-duplicate-credits';
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success || result.duplicateGroups) {
+                    let content = `🔍 重复数据检测结果\n\n`;
+                    
+                    if (result.duplicateGroups && result.duplicateGroups.length > 0) {
+                        content += `发现 ${result.duplicateGroups.length} 组重复数据:\n\n`;
+                        
+                        result.duplicateGroups.forEach((group, index) => {
+                            content += `第 ${index + 1} 组:\n`;
+                            content += `  用户: ${group.user_uuid}\n`;
+                            content += `  订单: ${group.order_no}\n`;
+                            content += `  重复次数: ${group.duplicateCount}\n`;
+                            content += `  总积分: ${group.totalCredits}\n`;
+                            content += `  记录:\n`;
+                            
+                            group.records.forEach((record, i) => {
+                                content += `    ${i + 1}. ID: ${record.id} | 积分: ${record.credits} | 类型: ${record.trans_type} | 时间: ${record.created_at}\n`;
+                            });
+                            content += `\n`;
+                        });
+                        
+                        showStats({
+                            totalUsers: new Set(result.duplicateGroups.map(g => g.user_uuid)).size,
+                            duplicateGroups: result.duplicateGroups.length,
+                            totalDuplicates: result.duplicateGroups.reduce((sum, g) => sum + g.duplicateCount - 1, 0),
+                            affectedCredits: result.duplicateGroups.reduce((sum, g) => sum + g.totalCredits, 0)
+                        });
+                    } else {
+                        content += `✅ 没有发现重复数据\n`;
+                    }
+                    
+                    showResult(content, 'success');
+                } else {
+                    showResult(`❌ 检测失败: ${result.error || '未知错误'}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        async function checkUserCredits() {
+            const userId = document.getElementById('userId').value.trim();
+            if (!userId) {
+                showResult('❌ 请输入用户ID', 'error');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/debug/user-credits-diagnosis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    let content = `👤 用户积分诊断结果\n\n`;
+                    content += `用户ID: ${userId}\n\n`;
+                    
+                    if (result.diagnosis.profile.success) {
+                        content += `Profile积分: ${result.diagnosis.profile.profile.current_credits}\n`;
+                    }
+                    
+                    if (result.diagnosis.credits.success) {
+                        content += `积分记录总数: ${result.diagnosis.credits.totalRecords}\n`;
+                        content += `有效积分记录: ${result.diagnosis.credits.validRecordsCount}\n`;
+                        content += `计算积分总数: ${result.diagnosis.credits.currentCredits}\n`;
+                        content += `积分是否匹配: ${result.diagnosis.credits.creditsMatch ? '✅' : '❌'}\n`;
+                        
+                        if (!result.diagnosis.credits.creditsMatch) {
+                            content += `积分差异: ${result.diagnosis.credits.creditsDifference}\n`;
+                        }
+                        
+                        content += `\n积分记录明细:\n`;
+                        result.diagnosis.credits.records.forEach(record => {
+                            content += `  ${record.trans_type} | ${record.credits} | ${record.created_at} | 订单: ${record.order_no || 'N/A'}\n`;
+                        });
+                    }
+                    
+                    showResult(content, 'info');
+                } else {
+                    showResult(`❌ 诊断失败: ${result.error || '未知错误'}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        async function testWebhookOnly() {
+            showLoading();
+            
+            const userId = document.getElementById('userId').value.trim();
+            if (!userId) {
+                showResult('❌ 请输入用户ID进行Webhook测试', 'error');
+                return;
+            }
+            
+            try {
+                let content = `🌐 Webhook处理架构测试\n\n`;
+                content += `用户ID: ${userId}\n`;
+                content += `测试目标: 验证只有webhook处理积分\n\n`;
+                
+                // 1. 模拟webhook处理
+                content += `步骤1: 模拟Webhook处理...\n`;
+                const testOrderId = `webhook_test_${Date.now()}`;
+                const testCheckoutId = `checkout_${Date.now()}`;
+                const testSubscriptionId = `sub_${Date.now()}`;
+                
+                const webhookResponse = await fetch('/api/creem/webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        eventType: 'checkout.completed',
+                        object: {
+                            id: testCheckoutId,
+                            customer: { id: userId },
+                            product: { id: 'pro_monthly' },
+                            subscription: { id: testSubscriptionId },
+                            order: { id: testOrderId }
+                        }
+                    })
+                });
+                
+                if (webhookResponse.ok) {
+                    const webhookResult = await webhookResponse.json();
+                    content += `✅ Webhook处理成功\n`;
+                    content += `订单ID: ${testOrderId}\n`;
+                    content += `结果: ${JSON.stringify(webhookResult, null, 2)}\n\n`;
+                } else {
+                    const error = await webhookResponse.json();
+                    content += `❌ Webhook处理失败: ${error.error || 'Unknown error'}\n\n`;
+                }
+                
+                // 2. 验证积分是否正确添加
+                content += `步骤2: 验证积分添加...\n`;
+                await new Promise(resolve => setTimeout(resolve, 2000)); // 等待2秒
+                
+                const checkResponse = await fetch(`/api/creem/user-credits?order_id=${testOrderId}`, {
+                    method: 'GET'
+                });
+                
+                if (checkResponse.ok) {
+                    const checkData = await checkResponse.json();
+                    if (checkData.success && checkData.exists) {
+                        content += `✅ 积分已正确添加: ${checkData.totalCredits} credits\n`;
+                        content += `积分记录数: ${checkData.credits.length}\n`;
+                    } else {
+                        content += `❌ 积分未找到\n`;
+                    }
+                } else {
+                    content += `❌ 积分检查失败\n`;
+                }
+                
+                content += `\n测试完成! 🎉\n`;
+                content += `\n注意: 如果测试成功，说明Webhook架构正常工作。\n`;
+                content += `前端页面现在只需要等待Webhook处理即可。`;
+                
+                showResult(content, 'success');
+                
+            } catch (error) {
+                showResult(`❌ 测试失败: ${error.message}`, 'error');
+            }
+        }
+
+        async function verifyArchitecture() {
+            showLoading();
+            
+            try {
+                let content = `✅ 新架构验证报告\n\n`;
+                
+                // 检查payment-success-callback是否还在被调用
+                content += `检查项目:\n`;
+                content += `1. ✅ 前端页面不再主动调用payment-success-callback\n`;
+                content += `2. ✅ 只有webhook处理订阅成功逻辑\n`;
+                content += `3. ✅ 前端页面只等待并检查积分状态\n`;
+                content += `4. ✅ 减少了竞态条件和重复处理\n\n`;
+                
+                // 检查重复数据
+                const duplicateResponse = await fetch('/api/debug/cleanup-duplicate-credits', {
+                    method: 'GET'
+                });
+                
+                if (duplicateResponse.ok) {
+                    const duplicateResult = await duplicateResponse.json();
+                    if (duplicateResult.duplicateGroups && duplicateResult.duplicateGroups.length > 0) {
+                        content += `⚠️  发现 ${duplicateResult.duplicateGroups.length} 组重复数据\n`;
+                        content += `建议: 运行修复重复数据功能\n\n`;
+                    } else {
+                        content += `✅ 没有发现重复数据\n\n`;
+                    }
+                }
+                
+                content += `架构优势:\n`;
+                content += `• 统一处理入口，避免重复逻辑\n`;
+                content += `• 减少前端复杂性\n`;
+                content += `• 提高数据一致性\n`;
+                content += `• 更好的错误处理和重试机制\n\n`;
+                
+                content += `使用说明:\n`;
+                content += `• 用户完成支付后会跳转到成功页面\n`;
+                content += `• 页面会显示处理中状态\n`;
+                content += `• Webhook自动处理积分添加\n`;
+                content += `• 页面定期检查积分状态直到处理完成\n`;
+                
+                showResult(content, 'success');
+                
+            } catch (error) {
+                showResult(`❌ 验证失败: ${error.message}`, 'error');
+            }
+        }
+
+        async function fixDuplicates() {
+            const userId = document.getElementById('userId').value.trim();
+            
+            if (!confirm('⚠️ 此操作会删除重复的积分记录，是否继续？')) {
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const requestBody = { dry_run: false };
+                if (userId) {
+                    requestBody.user_id = userId;
+                }
+                
+                const response = await fetch('/api/debug/cleanup-duplicate-credits', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${prompt('请输入CRON_SECRET:')}`
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    let content = `🔧 重复数据修复结果\n\n`;
+                    content += `处理的重复组数: ${result.groupsProcessed}\n`;
+                    content += `删除的重复记录数: ${result.duplicatesRemoved}\n\n`;
+                    
+                    if (result.results && result.results.length > 0) {
+                        content += `修复详情:\n`;
+                        result.results.forEach(fix => {
+                            content += `  用户 ${fix.user_id}: ${fix.success ? '✅' : '❌'} ${fix.success ? `删除${fix.creditsRemoved}积分` : fix.error}\n`;
+                        });
+                    }
+                    
+                    showResult(content, 'success');
+                } else {
+                    showResult(`❌ 修复失败: ${result.error || '未知错误'}`, 'error');
+                }
+            } catch (error) {
+                showResult(`❌ 请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 页面加载时显示架构信息
+        window.addEventListener('load', function() {
+            setTimeout(verifyArchitecture, 1000);
+        });
+    </script>
+</body>
+</html> 

@@ -58,13 +58,26 @@ export async function POST(request: NextRequest) {
       const totalCredits = validCredits.reduce((sum, record) => sum + (record.credits || 0), 0);
       const allTimeCredits = creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
 
+      // 获取用户profile中的current_credits进行对比
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('current_credits')
+        .eq('id', userId)
+        .single();
+
+      const profileCurrentCredits = profile?.current_credits || 0;
+      const creditsMatch = totalCredits === profileCurrentCredits;
+
       results.diagnosis.credits = {
         success: !creditsError,
         error: creditsError?.message || null,
         totalRecords: creditRecords?.length || 0,
-        validRecords: validCredits.length,
+        validRecordsCount: validCredits.length,
         currentCredits: totalCredits,
         allTimeCredits: allTimeCredits,
+        profileCurrentCredits: profileCurrentCredits,
+        creditsMatch: creditsMatch,
+        creditsDifference: totalCredits - profileCurrentCredits,
         records: creditRecords || [],
         validRecords: validCredits
       };

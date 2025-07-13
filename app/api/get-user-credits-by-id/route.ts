@@ -32,34 +32,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 从credits表中计算用户总积分
-    const { data: creditRecords, error: creditsError } = await supabase
-      .from('credits')
-      .select('credits')
-      .eq('user_uuid', userId)
-      .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
-
-    if (creditsError) {
-      console.error("Error fetching credits:", creditsError);
-      return NextResponse.json(
-        { message: "Failed to fetch credits data" },
-        { status: 500 }
-      );
-    }
-
-    // 计算总积分（正数表示获得，负数表示消费）
-    const totalCredits = creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
-
-    // 获取用户profile信息
+    // 获取用户profile信息（包括current_credits）
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('id, email, name, image')
+      .select('id, email, name, image, current_credits')
       .eq('id', userId)
       .single();
 
+    // 直接使用current_credits字段
+    const currentCredits = profile?.current_credits || 0;
+
     return NextResponse.json({
       profile: profile || { id: userId, email: null, name: null, image: null },
-      credits: Math.max(0, totalCredits),
+      credits: Math.max(0, currentCredits),
       subscriptions: subscriptions || [],
       hasActiveSubscription: subscriptions && subscriptions.length > 0
     });

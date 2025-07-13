@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付成功模拟测试 & Webhook测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .secondary-btn {
+            background-color: #6c757d;
+        }
+        .secondary-btn:hover {
+            background-color: #545b62;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .result.success {
+            border-left-color: #28a745;
+            background-color: #d4edda;
+        }
+        .result.error {
+            border-left-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+        }
+        .product-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .product-info h3 {
+            margin: 0 0 10px 0;
+            color: #495057;
+        }
+        .product-info p {
+            margin: 5px 0;
+            color: #6c757d;
+        }
+        #webhookTestForm {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        #webhookTestForm h2 {
+            color: #495057;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .webhook-btn {
+            background-color: #17a2b8;
+        }
+        .webhook-btn:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 支付成功模拟测试 & Webhook测试</h1>
+        
+        <div class="product-info">
+            <h3>产品信息</h3>
+            <p><strong>一次性购买:</strong> 500 积分 - $6.9</p>
+            <p><strong>月度订阅:</strong> 500 积分/月 - $7.9</p>
+            <p><strong>年度订阅:</strong> 1000 积分/月 - $5.8</p>
+            <p><strong>用户ID格式:</strong> 必须是UUID格式（如：12345678-1234-4567-8901-123456789012）</p>
+        </div>
+
+        <form id="testForm">
+            <div class="form-group">
+                <label for="productType">产品类型：</label>
+                <select id="productType" name="productType">
+                    <option value="onetime">一次性购买 (500积分)</option>
+                    <option value="monthly">月度订阅 (500积分/月)</option>
+                    <option value="yearly">年度订阅 (1000积分/月)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="userId">用户ID (可选)：</label>
+                <input type="text" id="userId" name="userId" placeholder="留空则自动生成">
+            </div>
+
+            <div class="form-group">
+                <label for="orderId">订单ID (可选)：</label>
+                <input type="text" id="orderId" name="orderId" placeholder="留空则自动生成">
+            </div>
+
+            <button type="submit">🚀 模拟支付成功</button>
+        </form>
+
+        <form id="webhookTestForm">
+            <h2>📡 Webhook测试</h2>
+            <div class="form-group">
+                <label for="webhookEventType">Webhook事件类型：</label>
+                <select id="webhookEventType" name="webhookEventType">
+                    <option value="checkout.completed">结账完成 (checkout.completed)</option>
+                    <option value="subscription.active">订阅激活 (subscription.active)</option>
+                    <option value="subscription.paid">订阅付费 (subscription.paid)</option>
+                    <option value="subscription.cancelled">订阅取消 (subscription.cancelled)</option>
+                    <option value="subscription.expired">订阅过期 (subscription.expired)</option>
+                    <option value="subscription.update">订阅更新 (subscription.update)</option>
+                    <option value="subscription.trialing">订阅试用 (subscription.trialing)</option>
+                    <option value="refund.created">退款创建 (refund.created)</option>
+                    <option value="dispute.created">争议创建 (dispute.created)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="webhookProductType">产品类型：</label>
+                <select id="webhookProductType" name="webhookProductType">
+                    <option value="onetime">一次性购买 (500积分)</option>
+                    <option value="monthly">月度订阅 (500积分/月)</option>
+                    <option value="yearly">年度订阅 (1000积分/月)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="webhookUserId">用户ID (可选)：</label>
+                <input type="text" id="webhookUserId" name="webhookUserId" placeholder="留空则自动生成">
+            </div>
+
+            <div class="form-group">
+                <label for="webhookSubscriptionId">订阅ID (可选)：</label>
+                <input type="text" id="webhookSubscriptionId" name="webhookSubscriptionId" placeholder="留空则自动生成">
+            </div>
+
+            <div class="form-group">
+                <label for="webhookOrderId">订单ID (可选)：</label>
+                <input type="text" id="webhookOrderId" name="webhookOrderId" placeholder="留空则自动生成">
+            </div>
+
+            <button type="submit" class="webhook-btn">🌐 模拟Webhook事件</button>
+        </form>
+
+        <button type="button" id="viewTestData" class="secondary-btn">📊 查看测试数据</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = '';
+        
+        // 生成UUID函数
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        
+        // 验证UUID格式
+        function isValidUUID(uuid) {
+            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+            return uuidRegex.test(uuid);
+        }
+        
+        // 模拟支付成功
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const productType = document.getElementById('productType').value;
+            let userId = document.getElementById('userId').value;
+            const orderId = document.getElementById('orderId').value;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loading">⏳ 正在模拟支付成功...</div>';
+            
+            // 禁用按钮防止重复点击
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '⏳ 处理中...';
+            
+            try {
+                // 如果用户提供了用户ID，验证格式；否则不传递，让API自动生成UUID
+                if (userId && !isValidUUID(userId)) {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ 用户ID格式错误</h3>
+                            <p>用户ID必须是有效的UUID格式，例如：${generateUUID()}</p>
+                            <p>如果留空，系统会自动生成UUID格式的用户ID。</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const params = new URLSearchParams({
+                    product_type: productType
+                });
+                
+                if (userId) params.append('user_id', userId);
+                if (orderId) params.append('order_id', orderId);
+                
+                const response = await fetch(`${API_BASE}/api/debug/simulate-payment-success?${params}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ 支付成功模拟完成</h3>
+                            <p><strong>用户ID:</strong> ${data.testData.userId}</p>
+                            <p><strong>订单ID:</strong> ${data.testData.orderId}</p>
+                            <p><strong>产品类型:</strong> ${data.testData.productType}</p>
+                            <p><strong>积分数:</strong> ${data.testData.credits}</p>
+                            <p><strong>交易号:</strong> ${data.paymentResult.transactionNo}</p>
+                            <p><strong>当前积分:</strong> ${data.dataFeedback.statistics.currentCredits}</p>
+                            <p><strong>活跃订阅:</strong> ${data.dataFeedback.statistics.activeSubscriptions}</p>
+                            <p><strong>完成订单:</strong> ${data.dataFeedback.statistics.completedOrders}</p>
+                            
+                            <details>
+                                <summary>📋 详细数据反馈</summary>
+                                <pre>${JSON.stringify(data, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ 模拟失败</h3>
+                            <p><strong>错误:</strong> ${data.error}</p>
+                            <p><strong>消息:</strong> ${data.message}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ 请求失败</h3>
+                        <p><strong>错误:</strong> ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                // 恢复按钮状态
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+        
+        // 模拟Webhook事件
+        document.getElementById('webhookTestForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const eventType = document.getElementById('webhookEventType').value;
+            const productType = document.getElementById('webhookProductType').value;
+            const userId = document.getElementById('webhookUserId').value;
+            const subscriptionId = document.getElementById('webhookSubscriptionId').value;
+            const orderId = document.getElementById('webhookOrderId').value;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loading">⏳ 正在模拟Webhook事件...</div>';
+            
+            // 禁用按钮防止重复点击
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '⏳ 处理中...';
+            
+            try {
+                // 验证用户ID格式
+                if (userId && !isValidUUID(userId)) {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ 用户ID格式错误</h3>
+                            <p>用户ID必须是有效的UUID格式，例如：${generateUUID()}</p>
+                            <p>如果留空，系统会自动生成UUID格式的用户ID。</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // 生成默认值
+                const finalUserId = userId || generateUUID();
+                const finalSubscriptionId = subscriptionId || `sub_${Date.now()}`;
+                const finalOrderId = orderId || `order_${Date.now()}`;
+                const finalCheckoutId = `checkout_${Date.now()}`;
+                
+                // 根据产品类型获取产品ID
+                const productIdMap = {
+                    onetime: 'prod_7kbzeBzBsEnWbRA0iTh7wf',
+                    monthly: 'prod_6OoADdBXIm16LRR6TN6sFw',
+                    yearly: 'prod_6N9SkBhig3ofomadscbGr7'
+                };
+                
+                // 构建webhook请求数据
+                const webhookData = {
+                    eventType: eventType,
+                    object: {
+                        id: eventType.startsWith('subscription.') ? finalSubscriptionId : finalCheckoutId,
+                        customer: {
+                            id: finalUserId
+                        },
+                        product: {
+                            id: productIdMap[productType]
+                        }
+                    }
+                };
+                
+                // 为不同事件类型添加特定字段
+                if (eventType === 'checkout.completed') {
+                    webhookData.object.subscription = { id: finalSubscriptionId };
+                    webhookData.object.order = { id: finalOrderId };
+                } else if (eventType.startsWith('subscription.')) {
+                    webhookData.object.id = finalSubscriptionId;
+                    if (eventType === 'subscription.paid') {
+                        webhookData.object.order = { id: finalOrderId };
+                        webhookData.object.checkout = { id: finalCheckoutId };
+                    }
+                } else if (eventType === 'refund.created' || eventType === 'dispute.created') {
+                    webhookData.object.subscription = { id: finalSubscriptionId };
+                    webhookData.object.order = { id: finalOrderId };
+                    webhookData.object.checkout = { id: finalCheckoutId };
+                }
+                
+                const response = await fetch(`${API_BASE}/api/creem/webhook`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Creem-Webhook-Test/1.0'
+                    },
+                    body: JSON.stringify(webhookData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>✅ Webhook事件处理成功</h3>
+                            <p><strong>事件类型:</strong> ${eventType}</p>
+                            <p><strong>用户ID:</strong> ${finalUserId}</p>
+                            <p><strong>产品类型:</strong> ${productType}</p>
+                            <p><strong>订阅ID:</strong> ${finalSubscriptionId}</p>
+                            <p><strong>订单ID:</strong> ${finalOrderId}</p>
+                            <p><strong>处理时间:</strong> ${data.processingTime}</p>
+                            
+                            <details>
+                                <summary>📋 Webhook响应详情</summary>
+                                <pre>${JSON.stringify(data, null, 2)}</pre>
+                            </details>
+                            
+                            <details>
+                                <summary>📤 发送的Webhook数据</summary>
+                                <pre>${JSON.stringify(webhookData, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ Webhook事件处理失败</h3>
+                            <p><strong>错误:</strong> ${data.error}</p>
+                            <p><strong>消息:</strong> ${data.message}</p>
+                            <p><strong>处理时间:</strong> ${data.processingTime}</p>
+                            
+                            <details>
+                                <summary>📤 发送的Webhook数据</summary>
+                                <pre>${JSON.stringify(webhookData, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ 请求失败</h3>
+                        <p><strong>错误:</strong> ${error.message}</p>
+                    </div>
+                `;
+            } finally {
+                // 恢复按钮状态
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+        
+        // 查看测试数据
+        document.getElementById('viewTestData').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="loading">⏳ 正在获取测试数据...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/debug/simulate-payment-success`, {
+                    method: 'GET'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <h3>📊 最近的测试数据</h3>
+                            <p><strong>总积分记录:</strong> ${data.summary.totalCredits}</p>
+                            <p><strong>用户数:</strong> ${data.summary.totalProfiles}</p>
+                            <p><strong>订阅数:</strong> ${data.summary.totalSubscriptions}</p>
+                            <p><strong>订单数:</strong> ${data.summary.totalOrders}</p>
+                            
+                            <details>
+                                <summary>📋 详细数据</summary>
+                                <pre>${JSON.stringify(data.data, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <h3>❌ 获取数据失败</h3>
+                            <p><strong>错误:</strong> ${data.error}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ 请求失败</h3>
+                        <p><strong>错误:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html> 

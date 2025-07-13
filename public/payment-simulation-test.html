@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付模拟测试 - Webhook Only</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+        .btn-success {
+            background-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .webhook-data {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+        .api-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status-enabled {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .status-disabled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .credits-info {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .credits-before, .credits-after {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .credits-before {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .credits-after {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+        .steps li {
+            counter-increment: step-counter;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .steps li::before {
+            content: counter(step-counter);
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+            margin-right: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 支付模拟测试工具 - Webhook Only</h1>
+        
+        <div class="info result">
+            <strong>📋 测试说明：</strong><br>
+            • 此工具只测试Webhook API（其他支付API已禁用）<br>
+            • 自动生成UUID格式的测试用户ID<br>
+            • 模拟Creem发送的各种webhook事件<br>
+            • 测试积分添加、重复检查、幂等性保护<br>
+            • 验证订阅和订单记录创建
+        </div>
+
+        <div class="warning result">
+            <strong>⚠️ 重要提醒：</strong><br>
+            • 现在会自动生成UUID格式的用户ID<br>
+            • 必须先创建测试用户，否则webhook会失败<br>
+            • 测试用户只存在于数据库中，不是真实登录用户<br>
+            • 请按照测试步骤顺序操作
+        </div>
+
+        <h2>🔧 API状态</h2>
+        <div class="api-status status-enabled">
+            <span>✅ Webhook API</span>
+            <span>活跃</span>
+        </div>
+        <div class="api-status status-disabled">
+            <span>❌ Payment Success Callback</span>
+            <span>已禁用</span>
+        </div>
+        <div class="api-status status-disabled">
+            <span>❌ Update User Meta</span>
+            <span>已禁用</span>
+        </div>
+        <div class="api-status status-disabled">
+            <span>❌ Subscription Conflict Handler</span>
+            <span>已禁用</span>
+        </div>
+    </div>
+
+    <div class="test-grid">
+        <!-- 左侧：测试参数 -->
+        <div class="test-section">
+            <h2>🎯 测试参数</h2>
+            
+            <div class="form-group">
+                <label for="userId">用户ID</label>
+                <input type="text" id="userId" value="" placeholder="将自动生成UUID格式用户ID">
+            </div>
+
+            <div class="form-group">
+                <label for="productId">产品ID</label>
+                <select id="productId">
+                    <option value="prod_7kbzeBzBsEnWbRA0iTh7wf">一次性积分包 (500积分)</option>
+                    <option value="prod_6OoADdBXIm16LRR6TN6sFw">月度订阅 (500积分/月)</option>
+                    <option value="prod_6N9SkBhig3ofomadscbGr7">年度订阅 (1000积分/年)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="eventType">Webhook事件类型</label>
+                <select id="eventType">
+                    <option value="checkout.completed">checkout.completed - 结账完成</option>
+                    <option value="subscription.active">subscription.active - 订阅激活</option>
+                    <option value="subscription.paid">subscription.paid - 订阅付费</option>
+                    <option value="subscription.cancelled">subscription.cancelled - 订阅取消</option>
+                    <option value="subscription.update">subscription.update - 订阅更新</option>
+                    <option value="subscription.trialing">subscription.trialing - 试用期</option>
+                    <option value="refund.created">refund.created - 退款创建</option>
+                    <option value="dispute.created">dispute.created - 争议创建</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="orderId">订单ID</label>
+                <input type="text" id="orderId" value="" placeholder="自动生成">
+            </div>
+
+            <div class="form-group">
+                <label for="subscriptionId">订阅ID</label>
+                <input type="text" id="subscriptionId" value="" placeholder="自动生成">
+            </div>
+
+            <div class="form-group">
+                <label for="checkoutId">结账ID</label>
+                <input type="text" id="checkoutId" value="" placeholder="自动生成">
+            </div>
+
+            <button onclick="generateIds()">🔄 生成随机ID</button>
+            <button onclick="createTestUser()">👤 创建测试用户</button>
+            <button onclick="sendWebhook()" class="btn-success">🚀 发送Webhook</button>
+            <button onclick="sendDuplicateTest()" class="btn-warning">🔁 重复测试</button>
+            <button onclick="checkUserCredits()" class="btn-info">💰 查看用户积分</button>
+            <button onclick="clearTestResults()" class="btn-danger">🗑️ 清除结果</button>
+        </div>
+
+        <!-- 右侧：测试结果 -->
+        <div class="test-section">
+            <h2>📊 测试结果</h2>
+            
+            <div id="creditsInfo" class="credits-info" style="display: none;">
+                <h4>积分变化</h4>
+                <div>
+                    <span class="credits-before">测试前: <span id="creditsBefore">-</span></span>
+                    <span class="credits-after">测试后: <span id="creditsAfter">-</span></span>
+                </div>
+            </div>
+
+            <div id="testResults" class="result" style="display: none;">
+                <h4>测试结果</h4>
+                <div id="testResultsContent"></div>
+            </div>
+
+            <div id="webhookData" class="webhook-data" style="display: none;">
+                <h4>发送的Webhook数据</h4>
+                <div id="webhookDataContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>📋 测试流程</h2>
+        <ol class="steps">
+            <li><strong>设置测试参数</strong> - 选择产品类型和事件类型</li>
+            <li><strong>生成ID</strong> - 点击"生成随机ID"按钮（生成UUID格式用户ID）</li>
+            <li><strong>创建测试用户</strong> - 点击"创建测试用户"按钮确保用户存在</li>
+            <li><strong>查看初始积分</strong> - 点击"查看用户积分"</li>
+            <li><strong>发送Webhook</strong> - 点击"发送Webhook"按钮</li>
+            <li><strong>检查结果</strong> - 查看积分变化和API响应</li>
+            <li><strong>重复测试</strong> - 点击"重复测试"验证幂等性</li>
+        </ol>
+
+        <h2>🔍 预期行为</h2>
+        <div class="info result">
+            <strong>✅ 正常情况：</strong><br>
+            • 测试用户创建成功（UUID格式）<br>
+            • 首次webhook调用成功添加积分<br>
+            • 创建订阅和订单记录<br>
+            • 返回成功响应<br><br>
+            
+            <strong>🔁 重复调用：</strong><br>
+            • 系统检测到重复订单<br>
+            • 返回"已处理"响应<br>
+            • 不会重复添加积分<br><br>
+            
+            <strong>❌ 异常情况：</strong><br>
+            • 无效的产品ID或用户ID格式<br>
+            • 缺少必要参数<br>
+            • 数据库错误或用户不存在
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        let currentCredits = 0;
+        let testOrderId = null;
+
+        // 生成随机ID
+        function generateIds() {
+            const timestamp = Date.now();
+            const random = Math.random().toString(36).substring(2, 8);
+            
+            testOrderId = `order_${timestamp}_${random}`;
+            document.getElementById('orderId').value = testOrderId;
+            document.getElementById('subscriptionId').value = `sub_${timestamp}_${random}`;
+            document.getElementById('checkoutId').value = `checkout_${timestamp}_${random}`;
+            
+            // 生成有效的UUID格式用户ID
+            const userId = generateUUID();
+            document.getElementById('userId').value = userId;
+            
+            showInfo('已生成新的测试ID（包含UUID格式用户ID）');
+        }
+
+        // 生成UUID
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // 发送Webhook
+        async function sendWebhook() {
+            const userId = document.getElementById('userId').value;
+            const productId = document.getElementById('productId').value;
+            const eventType = document.getElementById('eventType').value;
+            const orderId = document.getElementById('orderId').value;
+            const subscriptionId = document.getElementById('subscriptionId').value;
+            const checkoutId = document.getElementById('checkoutId').value;
+
+            if (!userId || !productId || !eventType) {
+                showError('请填写必要的测试参数');
+                return;
+            }
+
+            // 先获取当前积分
+            const creditsResponse = await fetchUserCredits(userId);
+            const creditsBefore = creditsResponse.success ? creditsResponse.credits : 0;
+            currentCredits = creditsBefore;
+
+            // 构造webhook数据
+            const webhookData = {
+                eventType: eventType,
+                object: {
+                    customer: { id: userId },
+                    product: { id: productId },
+                    id: subscriptionId || checkoutId,
+                    order: orderId ? { id: orderId } : undefined,
+                    subscription: subscriptionId ? { id: subscriptionId } : undefined,
+                    checkout: checkoutId ? { id: checkoutId } : undefined
+                }
+            };
+
+            // 根据事件类型调整数据结构
+            if (eventType === 'checkout.completed') {
+                webhookData.object.subscription = subscriptionId ? { id: subscriptionId } : undefined;
+                webhookData.object.order = orderId ? { id: orderId } : undefined;
+            } else if (eventType.startsWith('subscription.')) {
+                webhookData.object.id = subscriptionId;
+                if (eventType === 'subscription.paid') {
+                    webhookData.object.order = orderId ? { id: orderId } : undefined;
+                    webhookData.object.checkout = checkoutId ? { id: checkoutId } : undefined;
+                }
+            }
+
+            // 显示webhook数据
+            document.getElementById('webhookDataContent').textContent = JSON.stringify(webhookData, null, 2);
+            document.getElementById('webhookData').style.display = 'block';
+
+            try {
+                showInfo('正在发送Webhook...');
+                
+                const response = await fetch(`${API_BASE}/api/creem/webhook`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Creem-Webhook-Test/1.0'
+                    },
+                    body: JSON.stringify(webhookData)
+                });
+
+                const result = await response.json();
+
+                // 获取处理后的积分
+                const creditsAfterResponse = await fetchUserCredits(userId);
+                const creditsAfter = creditsAfterResponse.success ? creditsAfterResponse.credits : creditsBefore;
+
+                // 显示积分变化
+                document.getElementById('creditsBefore').textContent = creditsBefore;
+                document.getElementById('creditsAfter').textContent = creditsAfter;
+                document.getElementById('creditsInfo').style.display = 'block';
+
+                // 显示结果
+                if (response.ok) {
+                    showSuccess('Webhook发送成功', result);
+                } else {
+                    showError('Webhook发送失败', result);
+                }
+
+            } catch (error) {
+                showError('网络错误', { error: error.message });
+            }
+        }
+
+        // 发送重复测试
+        async function sendDuplicateTest() {
+            if (!testOrderId) {
+                showError('请先发送一次正常的Webhook');
+                return;
+            }
+
+            showInfo('正在发送重复Webhook测试...');
+            
+            // 使用相同的参数再次发送
+            await sendWebhook();
+        }
+
+        // 获取用户积分
+        async function fetchUserCredits(userId) {
+            try {
+                // 对于测试用户，我们需要使用不同的方法获取积分
+                if (userId) {
+                    // 直接查询数据库获取测试用户积分
+                    const response = await fetch(`${API_BASE}/api/debug/supabase-test`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: 'get_user_credits',
+                            userId: userId
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        return {
+                            success: true,
+                            credits: data.credits || 0
+                        };
+                    }
+                }
+
+                // 对于已登录用户，使用原来的方法
+                const response = await fetch(`${API_BASE}/api/creem/user-credits`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return {
+                        success: true,
+                        credits: data.credits || 0
+                    };
+                } else {
+                    return {
+                        success: false,
+                        credits: 0
+                    };
+                }
+            } catch (error) {
+                return {
+                    success: false,
+                    credits: 0
+                };
+            }
+        }
+
+        // 创建测试用户
+        async function createTestUser() {
+            const userId = document.getElementById('userId').value;
+            
+            if (!userId) {
+                showError('请先生成用户ID');
+                return;
+            }
+
+            try {
+                showInfo('正在创建测试用户...');
+                
+                // 使用Supabase Auth API创建测试用户
+                const response = await fetch(`${API_BASE}/api/debug/supabase-test`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'create_test_profile',
+                        userId: userId,
+                        email: `test-${userId.substring(0, 8)}@example.com`,
+                        name: `Test User ${userId.substring(0, 8)}`
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    showSuccess('测试用户创建成功', {
+                        userId: userId,
+                        email: result.email || `test-${userId.substring(0, 8)}@example.com`,
+                        name: result.name || `Test User ${userId.substring(0, 8)}`,
+                        credits: result.credits || 0
+                    });
+                } else {
+                    const error = await response.json();
+                    showError('创建测试用户失败', error);
+                }
+            } catch (error) {
+                showError('创建用户错误', { error: error.message });
+            }
+        }
+
+        // 检查用户积分
+        async function checkUserCredits() {
+            const userId = document.getElementById('userId').value;
+            
+            if (!userId) {
+                showError('请输入用户ID');
+                return;
+            }
+
+            try {
+                showInfo('正在查询用户积分...');
+                
+                const result = await fetchUserCredits(userId);
+                
+                if (result.success) {
+                    showSuccess('积分查询成功', {
+                        userId: userId,
+                        credits: result.credits
+                    });
+                } else {
+                    showError('积分查询失败', {
+                        userId: userId,
+                        error: '用户不存在或未登录'
+                    });
+                }
+            } catch (error) {
+                showError('查询错误', { error: error.message });
+            }
+        }
+
+        // 显示结果函数
+        function showResult(type, title, data) {
+            const resultsDiv = document.getElementById('testResults');
+            const resultsContent = document.getElementById('testResultsContent');
+            
+            resultsDiv.className = `result ${type}`;
+            resultsDiv.style.display = 'block';
+            
+            resultsContent.innerHTML = `
+                <h4>${title}</h4>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        function showSuccess(title, data) {
+            showResult('success', '✅ ' + title, data);
+        }
+
+        function showError(title, data) {
+            showResult('error', '❌ ' + title, data);
+        }
+
+        function showInfo(title, data) {
+            showResult('info', '📋 ' + title, data || '');
+        }
+
+        // 清除测试结果
+        function clearTestResults() {
+            document.getElementById('testResults').style.display = 'none';
+            document.getElementById('webhookData').style.display = 'none';
+            document.getElementById('creditsInfo').style.display = 'none';
+            currentCredits = 0;
+            testOrderId = null;
+            showInfo('测试结果已清除');
+        }
+
+        // 页面加载时自动生成ID
+        document.addEventListener('DOMContentLoaded', function() {
+            generateIds();
+        });
+    </script>
+</body>
+</html> 

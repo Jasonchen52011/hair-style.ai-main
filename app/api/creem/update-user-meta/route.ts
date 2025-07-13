@@ -17,6 +17,16 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
+  // 🚫 API已禁用 - 所有支付处理现在通过webhook进行
+  console.log('🚫 Update user meta API is disabled. All payment processing is now handled through webhook.');
+  
+  return NextResponse.json({
+    success: false,
+    message: 'This API has been disabled. All payment processing is now handled through webhook.',
+    disabled: true
+  }, { status: 410 }); // 410 Gone - 资源已被永久移除
+
+  /* 原有代码已禁用
   const payload = await request.json();
   const userId = payload.userId;
   const meta = payload.meta;
@@ -220,22 +230,44 @@ export async function POST(request: NextRequest) {
       }
       // 年度订阅和一次性购买不设置过期时间（年度订阅通过月度分配管理）
 
-      const { error: creditError } = await supabase
-        .from('credits')
-        .insert({
-          user_uuid: userId,
-          trans_type: 'purchase',
-          trans_no: transactionNo,
-          order_no: paymentParams?.order_id || `${membershipType}_${Date.now()}`,
-          credits: creditsAmount, // 正数表示获得积分
-          expired_at: expiredAt,
-          created_at: new Date().toISOString()
-        });
+      // 获取当前积分
+      const { data: currentProfile, error: currentProfileError } = await supabase
+        .from('profiles')
+        .select('current_credits')
+        .eq('id', userId)
+        .single();
 
-      if (creditError) {
-        console.error("Error adding credits:", creditError);
+      const currentCredits = currentProfile?.current_credits || 0;
+
+      // 同时更新credits表和profiles表
+      const [creditResult, profileUpdateResult] = await Promise.all([
+        supabase
+          .from('credits')
+          .insert({
+            user_uuid: userId,
+            trans_type: 'purchase',
+            trans_no: transactionNo,
+            order_no: paymentParams?.order_id || `${membershipType}_${Date.now()}`,
+            credits: creditsAmount, // 正数表示获得积分
+            expired_at: expiredAt,
+            created_at: new Date().toISOString()
+          }),
+        supabase
+          .from('profiles')
+          .update({
+            current_credits: currentCredits + creditsAmount,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', userId)
+      ]);
+
+      if (creditResult.error) {
+        console.error("Error adding credits record:", creditResult.error);
         // 不要因为积分记录失败而让整个流程失败，但要记录错误
-        console.error(`Failed to add ${creditsAmount} credits for user ${userId}, transaction: ${transactionNo}`);
+        console.error(`Failed to add ${creditsAmount} credits record for user ${userId}, transaction: ${transactionNo}`);
+      } else if (profileUpdateResult.error) {
+        console.error("Error updating profile credits:", profileUpdateResult.error);
+        console.error(`Failed to update profile credits for user ${userId}, transaction: ${transactionNo}`);
       } else {
         console.log(`✅ Successfully added ${creditsAmount} credits for user ${userId}, transaction: ${transactionNo}`);
       }
@@ -256,4 +288,6 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+*/
 }
