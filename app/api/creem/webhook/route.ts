@@ -125,11 +125,11 @@ export async function POST(req: Request) {
         checkoutId = null; // subscription.trialing没有checkout字段
         break;
 
-      case "subscription.cancelled":
+      case "subscription.canceled":
       case "subscription.expired":
         // 注意：这些事件类型在Creem文档中没有提供示例
         // 假设结构与其他subscription事件类似
-        userId = object.customer?.id;
+        userId = object.metadata?.user_id;
         planId = object.product?.id;
         subscriptionId = object.id;
         orderId = null;
@@ -304,7 +304,7 @@ export async function POST(req: Request) {
         );
         break;
 
-      case "subscription.cancelled":
+      case "subscription.canceled":
       case "subscription.expired":
         // 订阅取消或过期
         result = await handleSubscriptionCancelled(userId, subscriptionId);
@@ -1238,6 +1238,9 @@ async function handlePaymentSuccess(
     console.log(
       `✅ Credits added: ${credits} credits for user ${userId}, transaction: ${transactionNo}`,
     );
+
+    const { data: creditsData } = await supabase.from("credits").select("*");
+    console.log("📊 Current credits data:", creditsData);
 
     return {
       success: true,
