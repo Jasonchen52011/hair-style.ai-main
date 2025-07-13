@@ -131,27 +131,27 @@ export async function POST(req: NextRequest) {
                     hasActiveSubscription = true;
                 }
 
-                // 获取用户积分 - 现在可以使用普通客户端，因为RLS策略已修复
-                const { data: creditRecords, error: creditsError } = await supabase
-                    .from('credits')
-                    .select('credits')
-                    .eq('user_uuid', user.id)
-                    .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+                // 获取用户积分 - 直接从profiles表获取current_credits
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('current_credits')
+                    .eq('id', user.id)
+                    .single();
 
-                if (!creditsError && creditRecords) {
-                    userCredits = creditRecords.reduce((sum, record) => sum + (record.credits || 0), 0);
-                    console.log(`User ${user.id} has ${userCredits} credits (via RLS)`);
+                if (!profileError && profile) {
+                    userCredits = profile.current_credits || 0;
+                    console.log(`User ${user.id} has ${userCredits} credits (from profile)`);
                 } else {
-                    console.error('Credits query error:', creditsError);
-                    // 如果RLS还有问题，回退到管理员客户端
-                    const { data: fallbackCredits, error: fallbackError } = await adminSupabase
-                        .from('credits')
-                        .select('credits')
-                        .eq('user_uuid', user.id)
-                        .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+                    console.error('Profile query error:', profileError);
+                    // 如果查询失败，回退到管理员客户端
+                    const { data: fallbackProfile, error: fallbackError } = await adminSupabase
+                        .from('profiles')
+                        .select('current_credits')
+                        .eq('id', user.id)
+                        .single();
                     
-                    if (!fallbackError && fallbackCredits) {
-                        userCredits = fallbackCredits.reduce((sum, record) => sum + (record.credits || 0), 0);
+                    if (!fallbackError && fallbackProfile) {
+                        userCredits = fallbackProfile.current_credits || 0;
                         console.log(`User ${user.id} has ${userCredits} credits (via admin fallback)`);
                     }
                 }
@@ -447,16 +447,16 @@ export async function GET(req: NextRequest) {
           
           if (user) {
             console.log(`Found user ${user.id} for task ${taskId}, checking credits`);
-            // 直接检查用户当前积分，避免内部 HTTP 调用
+            // 直接检查用户当前积分，使用current_credits字段
             try {
-              const { data: creditRecords, error: creditsError } = await supabase
-                .from('credits')
-                .select('credits')
-                .eq('user_uuid', user.id)
-                .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+              const { data: profile, error: profileError } = await supabase
+                .from('profiles')
+                .select('current_credits')
+                .eq('id', user.id)
+                .single();
 
-              if (!creditsError && creditRecords) {
-                const userCredits = creditRecords.reduce((sum, record) => sum + (record.credits || 0), 0);
+              if (!profileError && profile) {
+                const userCredits = profile.current_credits || 0;
                 console.log(`User ${user.id} has ${userCredits} credits for task ${taskId}`);
                 
                 // 如果用户有足够积分（至少10积分），执行扣费
@@ -468,30 +468,39 @@ export async function GET(req: NextRequest) {
                   const random = Math.random().toString(36).substring(2, 8);
                   const transactionNo = `TXN_${timestamp}_${random}`.toUpperCase();
 
-                  // 使用普通客户端插入积分扣费记录（已通过RLS策略允许用户插入自己的积分）
-                  const { error: insertError } = await supabase
-                    .from('credits')
-                    .insert({
-                      user_uuid: user.id,
-                      trans_type: 'hairstyle',
-                      trans_no: transactionNo,
-                      order_no: null,
-                      credits: -10, // 负数表示消费
-                      expired_at: null,
-                      created_at: new Date().toISOString()
-                    });
+                  // 使用事务同时更新两个表
+                  const [insertResult, updateResult] = await Promise.all([
+                    supabase
+                      .from('credits')
+                      .insert({
+                        user_uuid: user.id,
+                        trans_type: 'hairstyle',
+                        trans_no: transactionNo,
+                        order_no: null,
+                        credits: -10, // 负数表示消费
+                        expired_at: null,
+                        created_at: new Date().toISOString()
+                      }),
+                    supabase
+                      .from('profiles')
+                      .update({
+                        current_credits: userCredits - 10,
+                        updated_at: new Date().toISOString()
+                      })
+                      .eq('id', user.id)
+                  ]);
 
-                  if (!insertError) {
+                  if (!insertResult.error && !updateResult.error) {
                     chargedTasks.add(taskId);
                     console.log(`Successfully consumed 10 credits for task ${taskId}, user: ${user.id}, transaction: ${transactionNo}`);
                   } else {
-                    console.error(`Failed to consume credits for task ${taskId}:`, insertError);
+                    console.error(`Failed to consume credits for task ${taskId}:`, insertResult.error || updateResult.error);
                   }
                 } else {
                   console.log(`User ${user.id} has insufficient credits (${userCredits}) for task ${taskId}, skipping charge`);
                 }
               } else {
-                console.error(`Failed to check credits for task ${taskId}:`, creditsError);
+                console.error(`Failed to check credits for task ${taskId}:`, profileError);
               }
             } catch (error) {
               console.error(`Error checking/consuming credits for task ${taskId}:`, error);

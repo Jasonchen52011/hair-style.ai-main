@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
     if (productId === config.creem.products.oneTime.id) {
       if (!hasActiveSubscription) {
         return NextResponse.json({
-          error: "您需要先订阅月度或年度套餐才能购买额外积分。请先选择订阅套餐。",
+          error: "please subscribe to the monthly or yearly package first.",
           requiresSubscription: true
         }, { status: 403 });
       }
@@ -75,16 +75,25 @@ export async function GET(request: NextRequest) {
     }
 
     // 创建支付checkout
+    const checkoutData = {
+      product_id: productId,
+      metadata: {
+        user_id: user.id
+      },
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hair-style.ai'}/payment-success?order_id={{order.order_no}}&checkout_id={{checkout.id}}&product_id=${productId}`
+    };
+
+    console.log("Creating checkout with data:", JSON.stringify(checkoutData, null, 2));
+    console.log("API Key available:", !!apiKey);
+
     const result = await axios.post(
       `https://api.creem.io/v1/checkouts`,
+      checkoutData,
       {
-        product_id: productId,
-        metadata: {
-          user_id: userId
-        }
-      },
-      {
-        headers: { "x-api-key": apiKey },
+        headers: { 
+          "x-api-key": apiKey,
+          "Content-Type": "application/json"
+        },
       },
     );
     
@@ -92,10 +101,27 @@ export async function GET(request: NextRequest) {
     console.log("Checkout created:", redirectData);
     return NextResponse.json({ redirectData: redirectData });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating checkout:", error);
+    
+    // 如果是 axios 错误，显示更详细的信息
+    if (error.response) {
+      console.error("Axios error details:", {
+        status: error.response.status,
+        statusText: error.response.statusText,
+        data: error.response.data,
+        headers: error.response.headers
+      });
+      
+      return NextResponse.json({ 
+        error: "Failed to create payment session",
+        details: error.response.data || error.message
+      }, { status: 500 });
+    }
+    
     return NextResponse.json({ 
-      error: "Failed to create payment session" 
+      error: "Failed to create payment session",
+      details: error.message || "Unknown error"
     }, { status: 500 });
   }
 }

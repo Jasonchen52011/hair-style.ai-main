@@ -4,7 +4,6 @@
 'use client'; // This directive marks the component as a Client Component.
               // 这个指令将该组件标记为客户端组件。
 
-import { SessionProvider } from 'next-auth/react';
 import React from 'react';
 import { CreditsProvider } from '@/contexts/CreditsContext';
 
@@ -14,14 +13,13 @@ interface ProvidersProps {
   children: React.ReactNode;
 }
 
-// This is a wrapper component that provides the session context to its children.
-// 这是一个包装组件，它为其子组件提供 session 上下文。
+// This is a wrapper component that provides the context to its children.
+// 这是一个包装组件，它为其子组件提供上下文。
+// 注意：我们移除了NextAuth SessionProvider，因为它与Supabase Auth产生冲突
 export default function Providers({ children }: ProvidersProps) {
   return (
-    <SessionProvider>
-      <CreditsProvider>
-        {children}
-      </CreditsProvider>
-    </SessionProvider>
+    <CreditsProvider>
+      {children}
+    </CreditsProvider>
   );
 }

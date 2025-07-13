@@ -197,20 +197,47 @@ async function addCredits(
   orderId: string,
   expiredAt: string | null
 ): Promise<void> {
-  const { error } = await supabase
-    .from('credits')
-    .insert({
-      user_uuid: userId,
-      trans_type: transType,
-      trans_no: transactionNo,
-      order_no: orderId,
-      credits: credits,
-      expired_at: expiredAt,
-      created_at: new Date().toISOString()
-    });
+  // 获取当前积分
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('current_credits')
+    .eq('id', userId)
+    .single();
 
-  if (error) {
-    throw new Error(`Failed to add credits: ${error.message}`);
+  if (profileError) {
+    throw new Error(`Failed to fetch user profile: ${profileError.message}`);
+  }
+
+  const currentCredits = profile?.current_credits || 0;
+
+  // 同时更新credits表和profiles表
+  const [creditsResult, profileResult] = await Promise.all([
+    supabase
+      .from('credits')
+      .insert({
+        user_uuid: userId,
+        trans_type: transType,
+        trans_no: transactionNo,
+        order_no: orderId || `credit_${transactionNo}`,
+        credits: credits,
+        expired_at: expiredAt,
+        created_at: new Date().toISOString()
+      }),
+    supabase
+      .from('profiles')
+      .update({
+        current_credits: currentCredits + credits,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', userId)
+  ]);
+
+  if (creditsResult.error) {
+    throw new Error(`Failed to add credits record: ${creditsResult.error.message}`);
+  }
+
+  if (profileResult.error) {
+    throw new Error(`Failed to update profile credits: ${profileResult.error.message}`);
   }
 }
 
@@ -218,17 +245,17 @@ async function addCredits(
  * 获取用户当前积分
  */
 export async function getUserCurrentCredits(userId: string): Promise<number> {
-  const { data: creditRecords, error } = await supabase
-    .from('credits')
-    .select('credits')
-    .eq('user_uuid', userId)
-    .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select('current_credits')
+    .eq('id', userId)
+    .single();
 
   if (error) {
-    throw new Error(`Failed to fetch credits: ${error.message}`);
+    throw new Error(`Failed to fetch user profile: ${error.message}`);
   }
 
-  return creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
+  return profile?.current_credits || 0;
 }
 
 /**

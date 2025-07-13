@@ -88,25 +88,66 @@ export async function POST(request: NextRequest) {
           nextMonth.setMonth(nextMonth.getMonth() + 1);
           nextMonth.setHours(0, 0, 0, 0);
 
-          const { error: creditError } = await supabase
-            .from('credits')
-            .insert({
-              user_uuid: subscription.user_id,
-              trans_type: TRANS_TYPE.ACTIVATION,
-              trans_no: transactionNo,
-              order_no: `activation_${subscription.id}`,
-              credits: 500, // 月度订阅初始积分
-              expired_at: nextMonth.toISOString(),
-              created_at: now.toISOString()
-            });
+          // 获取当前积分
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('current_credits')
+            .eq('id', subscription.user_id)
+            .single();
 
-          if (creditError) {
-            console.error(`❌ Failed to add activation credits for subscription ${subscription.id}:`, creditError);
+          if (profileError) {
+            console.error(`❌ Failed to fetch profile for subscription ${subscription.id}:`, profileError);
             results.push({
               subscriptionId: subscription.id,
               userId: subscription.user_id,
               success: false,
-              error: `Subscription activated but failed to add credits: ${creditError.message}`
+              error: `Failed to fetch user profile: ${profileError.message}`
+            });
+            continue;
+          }
+
+          const currentCredits = profile?.current_credits || 0;
+
+          // 同时更新credits表和profiles表
+          const [creditResult, profileResult] = await Promise.all([
+            supabase
+              .from('credits')
+              .insert({
+                user_uuid: subscription.user_id,
+                trans_type: TRANS_TYPE.ACTIVATION,
+                trans_no: transactionNo,
+                order_no: `activation_${subscription.id}`,
+                credits: 500, // 月度订阅初始积分
+                expired_at: nextMonth.toISOString(),
+                created_at: now.toISOString()
+              }),
+            supabase
+              .from('profiles')
+              .update({
+                current_credits: currentCredits + 500,
+                updated_at: now.toISOString()
+              })
+              .eq('id', subscription.user_id)
+          ]);
+
+          if (creditResult.error) {
+            console.error(`❌ Failed to add activation credits for subscription ${subscription.id}:`, creditResult.error);
+            results.push({
+              subscriptionId: subscription.id,
+              userId: subscription.user_id,
+              success: false,
+              error: `Subscription activated but failed to add credits: ${creditResult.error.message}`
+            });
+            continue;
+          }
+
+          if (profileResult.error) {
+            console.error(`❌ Failed to update profile credits for subscription ${subscription.id}:`, profileResult.error);
+            results.push({
+              subscriptionId: subscription.id,
+              userId: subscription.user_id,
+              success: false,
+              error: `Subscription activated but failed to update profile credits: ${profileResult.error.message}`
             });
             continue;
           }

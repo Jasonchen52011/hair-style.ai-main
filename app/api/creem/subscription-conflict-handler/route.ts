@@ -26,7 +26,33 @@ function generateTransactionNo(): string {
   return `TXN_${timestamp}_${random}`.toUpperCase();
 }
 
+// 生成fallback的order_no
+function generateFallbackOrderNo(
+  orderId: string | null,
+  prefix: string,
+  subscriptionId?: string | null,
+  checkoutId?: string | null
+): string {
+  if (orderId) {
+    return orderId;
+  }
+  
+  // 按优先级选择fallback值
+  const fallbackValue = subscriptionId || checkoutId || Date.now().toString();
+  return `${prefix}_${fallbackValue}`;
+}
+
 export async function POST(request: NextRequest) {
+  // 🚫 API已禁用 - 所有支付处理现在通过webhook进行
+  console.log('🚫 Subscription conflict handler API is disabled. All payment processing is now handled through webhook.');
+  
+  return NextResponse.json({
+    success: false,
+    message: 'This API has been disabled. All payment processing is now handled through webhook.',
+    disabled: true
+  }, { status: 410 }); // 410 Gone - 资源已被永久移除
+
+  /* 原有代码已禁用
   try {
     const { 
       userId, 
@@ -96,6 +122,7 @@ export async function POST(request: NextRequest) {
       error: error instanceof Error ? error.message : 'Unknown error occurred'
     }, { status: 500 });
   }
+  */
 }
 
 // 检查冲突
@@ -135,17 +162,17 @@ async function handleUpgrade(
 
   try {
     // 1. 获取用户当前积分
-    const { data: creditRecords, error: creditsError } = await supabase
-      .from('credits')
-      .select('credits')
-      .eq('user_uuid', userId)
-      .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('current_credits')
+      .eq('id', userId)
+      .single();
 
-    if (creditsError) {
-      throw new Error(`Failed to fetch current credits: ${creditsError.message}`);
+    if (profileError) {
+      throw new Error(`Failed to fetch user profile: ${profileError.message}`);
     }
 
-    const currentCredits = creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
+    const currentCredits = profile?.current_credits || 0;
 
     // 2. 立即取消当前月度订阅
     const { error: cancelError } = await supabase
@@ -188,20 +215,36 @@ async function handleUpgrade(
 
     // 4. 添加年度订阅的积分（立即发放1000积分）
     const transactionNo = generateTransactionNo();
-    const { error: creditError } = await supabase
-      .from('credits')
-      .insert({
-        user_uuid: userId,
-        trans_type: TRANS_TYPE.PURCHASE,
-        trans_no: transactionNo,
-        order_no: orderId,
-        credits: PRODUCT_CREDITS_MAP[newPlanId], // 年度订阅立即获得1000积分
-        expired_at: null, // 年度订阅积分通过月度分配管理
-        created_at: new Date().toISOString()
-      });
+    const creditsToAdd = PRODUCT_CREDITS_MAP[newPlanId];
+    
+    // 同时更新credits表和profiles表
+    const [creditResult, profileResult] = await Promise.all([
+      supabase
+        .from('credits')
+        .insert({
+          user_uuid: userId,
+          trans_type: TRANS_TYPE.PURCHASE,
+          trans_no: transactionNo,
+          order_no: generateFallbackOrderNo(orderId, 'upgrade', newSubscriptionId, checkoutId),
+          credits: creditsToAdd, // 年度订阅立即获得1000积分
+          expired_at: null, // 年度订阅积分通过月度分配管理
+          created_at: new Date().toISOString()
+        }),
+      supabase
+        .from('profiles')
+        .update({
+          current_credits: currentCredits + creditsToAdd,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId)
+    ]);
 
-    if (creditError) {
-      throw new Error(`Failed to add credits: ${creditError.message}`);
+    if (creditResult.error) {
+      throw new Error(`Failed to add credits record: ${creditResult.error.message}`);
+    }
+
+    if (profileResult.error) {
+      throw new Error(`Failed to update profile credits: ${profileResult.error.message}`);
     }
 
     // 5. 创建升级订单记录
@@ -320,7 +363,7 @@ async function handleDowngrade(
         user_uuid: userId,
         trans_type: TRANS_TYPE.TRANSFER,
         trans_no: transactionNo,
-        order_no: orderId,
+        order_no: generateFallbackOrderNo(orderId, 'downgrade', newSubscriptionId, checkoutId),
         credits: 0, // 不添加积分
         expired_at: null,
         created_at: new Date().toISOString()
@@ -405,20 +448,47 @@ async function handleNewSubscription(
     expiredAt = nextMonth.toISOString();
   }
 
-  const { error: creditError } = await supabase
-    .from('credits')
-    .insert({
-      user_uuid: userId,
-      trans_type: TRANS_TYPE.PURCHASE,
-      trans_no: transactionNo,
-      order_no: orderId,
-      credits: credits,
-      expired_at: expiredAt,
-      created_at: new Date().toISOString()
-    });
+  // 获取当前积分
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('current_credits')
+    .eq('id', userId)
+    .single();
 
-  if (creditError) {
-    throw new Error(`Failed to add credits: ${creditError.message}`);
+  if (profileError) {
+    throw new Error(`Failed to fetch user profile: ${profileError.message}`);
+  }
+
+  const currentCredits = profile?.current_credits || 0;
+
+  // 同时更新credits表和profiles表
+  const [creditResult, profileResult] = await Promise.all([
+    supabase
+      .from('credits')
+      .insert({
+        user_uuid: userId,
+        trans_type: TRANS_TYPE.PURCHASE,
+        trans_no: transactionNo,
+        order_no: generateFallbackOrderNo(orderId, 'new', newSubscriptionId, checkoutId),
+        credits: credits,
+        expired_at: expiredAt,
+        created_at: new Date().toISOString()
+      }),
+    supabase
+      .from('profiles')
+      .update({
+        current_credits: currentCredits + credits,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', userId)
+  ]);
+
+  if (creditResult.error) {
+    throw new Error(`Failed to add credits record: ${creditResult.error.message}`);
+  }
+
+  if (profileResult.error) {
+    throw new Error(`Failed to update profile credits: ${profileResult.error.message}`);
   }
 
   // 创建新订阅订单记录

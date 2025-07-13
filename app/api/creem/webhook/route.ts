@@ -26,6 +26,22 @@ function generateTransactionNo(): string {
   return `TXN_${timestamp}_${random}`.toUpperCase();
 }
 
+// 生成fallback的order_no
+function generateFallbackOrderNo(
+  orderId: string | null,
+  prefix: string,
+  subscriptionId?: string | null,
+  checkoutId?: string | null
+): string {
+  if (orderId) {
+    return orderId;
+  }
+  
+  // 按优先级选择fallback值
+  const fallbackValue = subscriptionId || checkoutId || Date.now().toString();
+  return `${prefix}_${fallbackValue}`;
+}
+
 export async function POST(req: Request) {
   const startTime = Date.now();
   
@@ -157,13 +173,38 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid product_id' }, { status: 400 });
     }
 
-    // 幂等性检查 - 检查是否已经处理过这个订单
+    // 🔒 强化的幂等性检查 - 检查是否已经处理过这个订单
     if (orderId) {
       try {
         const subscriptionIdentifier = subscriptionId || `onetime_${orderId}`;
+        
+        // 检查1: 基于order_id的积分记录是否存在（最强的幂等性保护）
+        const { data: existingCredit, error: creditCheckError } = await supabase
+          .from('credits')
+          .select('trans_no, credits, created_at')
+          .eq('user_uuid', userId)
+          .eq('order_no', orderId)
+          .eq('trans_type', 'purchase')
+          .single();
+
+        if (creditCheckError && creditCheckError.code !== 'PGRST116') {
+          console.error('❌ Error checking existing credit:', creditCheckError);
+        }
+
+        if (existingCredit) {
+          console.log(`✅ Order ${orderId} already processed for user ${userId} (credit exists)`, existingCredit);
+          return NextResponse.json({ 
+            message: 'Order already processed - credit exists',
+            orderId,
+            alreadyProcessed: true,
+            existingCredit: existingCredit
+          }, { status: 200 });
+        }
+
+        // 检查2: 订阅记录是否存在
         const { data: existingSubscription, error: checkError } = await supabase
           .from('subscriptions')
-          .select('creem_subscription_id')
+          .select('creem_subscription_id, created_at')
           .eq('user_id', userId)
           .eq('creem_subscription_id', subscriptionIdentifier)
           .single();
@@ -173,13 +214,38 @@ export async function POST(req: Request) {
         }
 
         if (existingSubscription) {
-          console.log(`✅ Order ${orderId} already processed for user ${userId}`);
+          console.log(`✅ Order ${orderId} already processed for user ${userId} (subscription exists)`, existingSubscription);
           return NextResponse.json({ 
-            message: 'Order already processed',
+            message: 'Order already processed - subscription exists',
             orderId,
-            alreadyProcessed: true
+            alreadyProcessed: true,
+            existingSubscription: existingSubscription
           }, { status: 200 });
         }
+
+        // 检查3: 订单记录是否存在
+        const { data: existingOrder, error: orderCheckError } = await supabase
+          .from('orders')
+          .select('order_id, status, created_at')
+          .eq('user_id', userId)
+          .eq('order_id', orderId)
+          .eq('status', 'completed')
+          .single();
+
+        if (orderCheckError && orderCheckError.code !== 'PGRST116') {
+          console.error('❌ Error checking existing order:', orderCheckError);
+        }
+
+        if (existingOrder) {
+          console.log(`✅ Order ${orderId} already processed for user ${userId} (order exists)`, existingOrder);
+          return NextResponse.json({ 
+            message: 'Order already processed - order exists',
+            orderId,
+            alreadyProcessed: true,
+            existingOrder: existingOrder
+          }, { status: 200 });
+        }
+
       } catch (error) {
         console.error('❌ Error in idempotency check:', error);
       }
@@ -270,7 +336,62 @@ async function handlePaymentSuccessWithConflictHandling(
     // 确保用户profile存在
     await ensureUserProfile(userId, checkoutId);
 
-    // 检查订阅冲突
+    // 🔍 检查是否为续费：查看用户是否已有相同类型的活跃订阅
+    const newPlanType = PRODUCT_PLAN_MAP[planId];
+    
+    if (newPlanType === 'monthly') {
+      // 检查是否已有月度订阅
+      const { data: existingMonthlySubscriptions, error: monthlyError } = await supabase
+        .from('subscriptions')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('plan_name', 'monthly')
+        .eq('status', 'active')
+        .gte('end_date', new Date().toISOString());
+
+      if (monthlyError) {
+        console.error('❌ Error checking existing monthly subscriptions:', monthlyError);
+        throw new Error(`Failed to check existing subscriptions: ${monthlyError.message}`);
+      }
+
+      if (existingMonthlySubscriptions && existingMonthlySubscriptions.length > 0) {
+        console.log(`🔄 Detected monthly subscription renewal for user ${userId}`);
+        // 这是续费，应该由定时任务处理，webhook不处理
+        return {
+          success: true,
+          isRenewal: true,
+          message: 'Monthly subscription renewal detected, will be handled by scheduled task',
+          skipWebhookProcessing: true
+        };
+      }
+    } else if (newPlanType === 'yearly') {
+      // 检查是否已有年度订阅
+      const { data: existingYearlySubscriptions, error: yearlyError } = await supabase
+        .from('subscriptions')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('plan_name', 'yearly')
+        .eq('status', 'active')
+        .gte('end_date', new Date().toISOString());
+
+      if (yearlyError) {
+        console.error('❌ Error checking existing yearly subscriptions:', yearlyError);
+        throw new Error(`Failed to check existing subscriptions: ${yearlyError.message}`);
+      }
+
+      if (existingYearlySubscriptions && existingYearlySubscriptions.length > 0) {
+        console.log(`🔄 Detected yearly subscription renewal for user ${userId}`);
+        // 年度订阅续费，应该由定时任务处理
+        return {
+          success: true,
+          isRenewal: true,
+          message: 'Yearly subscription renewal detected, will be handled by scheduled task',
+          skipWebhookProcessing: true
+        };
+      }
+    }
+
+    // 检查订阅冲突（升级/降级场景）
     const { data: currentSubscriptions, error: subscriptionError } = await supabase
       .from('subscriptions')
       .select('*')
@@ -284,7 +405,6 @@ async function handlePaymentSuccessWithConflictHandling(
       throw new Error(`Failed to fetch current subscriptions: ${subscriptionError.message}`);
     }
 
-    const newPlanType = PRODUCT_PLAN_MAP[planId];
     const hasActiveSubscription = currentSubscriptions && currentSubscriptions.length > 0;
 
     if (hasActiveSubscription && newPlanType !== 'onetime') {
@@ -307,7 +427,8 @@ async function handlePaymentSuccessWithConflictHandling(
       }
     }
 
-    // 如果没有冲突，使用原有逻辑
+    // 如果没有冲突且不是续费，处理为新订阅
+    console.log(`🆕 Processing new ${newPlanType} subscription for user ${userId}`);
     return await handlePaymentSuccess(userId, planId, subscriptionId, orderId, checkoutId);
 
   } catch (error) {
@@ -329,17 +450,17 @@ async function handleUpgradeLogic(
 
   try {
     // 1. 获取用户当前积分
-    const { data: creditRecords, error: creditsError } = await supabase
-      .from('credits')
-      .select('credits')
-      .eq('user_uuid', userId)
-      .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('current_credits')
+      .eq('id', userId)
+      .single();
 
-    if (creditsError) {
-      throw new Error(`Failed to fetch current credits: ${creditsError.message}`);
+    if (profileError) {
+      throw new Error(`Failed to fetch user profile: ${profileError.message}`);
     }
 
-    const currentCredits = creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
+    const currentCredits = profile?.current_credits || 0;
 
     // 2. 立即取消当前月度订阅
     const { error: cancelError } = await supabase
@@ -382,20 +503,48 @@ async function handleUpgradeLogic(
 
     // 4. 添加年度订阅的积分（立即发放1000积分）
     const transactionNo = generateTransactionNo();
-    const { error: creditError } = await supabase
-      .from('credits')
-      .insert({
-        user_uuid: userId,
-        trans_type: TRANS_TYPE.PURCHASE,
-        trans_no: transactionNo,
-        order_no: orderId,
-        credits: PRODUCT_CREDITS_MAP[newPlanId], // 年度订阅立即获得1000积分
-        expired_at: null, // 年度订阅积分通过月度分配管理
-        created_at: new Date().toISOString()
-      });
+    const creditsToAdd = PRODUCT_CREDITS_MAP[newPlanId];
+    
+    // 同时更新credits表和profiles表
+    const [creditResult, profileResult] = await Promise.all([
+      supabase
+        .from('credits')
+        .insert({
+          user_uuid: userId,
+          trans_type: TRANS_TYPE.PURCHASE,
+          trans_no: transactionNo,
+          order_no: generateFallbackOrderNo(orderId, 'upgrade', newSubscriptionId, checkoutId),
+          credits: creditsToAdd, // 年度订阅立即获得1000积分
+          expired_at: null, // 年度订阅积分通过月度分配管理
+          created_at: new Date().toISOString()
+        }),
+      supabase
+        .from('profiles')
+        .update({
+          current_credits: currentCredits + creditsToAdd,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId)
+    ]);
 
-    if (creditError) {
-      throw new Error(`Failed to add credits: ${creditError.message}`);
+    if (creditResult.error) {
+      // 🔒 检查是否为数据库约束违反错误（重复插入）
+      if (creditResult.error.code === '23505' && creditResult.error.message.includes('unique_user_order')) {
+        console.log(`✅ Credits already exist for upgrade order ${orderId}, skipping duplicate insertion`);
+        return {
+          success: true,
+          conflictHandled: true,
+          transitionType: 'upgrade',
+          creditsAdded: 0,
+          message: 'Credits already exist - duplicate prevented by database constraint',
+          alreadyProcessed: true
+        };
+      }
+      throw new Error(`Failed to add credits record: ${creditResult.error.message}`);
+    }
+
+    if (profileResult.error) {
+      throw new Error(`Failed to update profile credits: ${profileResult.error.message}`);
     }
 
     // 5. 创建升级订单记录
@@ -453,17 +602,17 @@ async function handleDowngradeLogic(
 
   try {
     // 1. 获取用户当前积分
-    const { data: creditRecords, error: creditsError } = await supabase
-      .from('credits')
-      .select('credits')
-      .eq('user_uuid', userId)
-      .or('expired_at.is.null,expired_at.gte.' + new Date().toISOString());
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('current_credits')
+      .eq('id', userId)
+      .single();
 
-    if (creditsError) {
-      throw new Error(`Failed to fetch current credits: ${creditsError.message}`);
+    if (profileError) {
+      throw new Error(`Failed to fetch user profile: ${profileError.message}`);
     }
 
-    const currentCredits = creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
+    const currentCredits = profile?.current_credits || 0;
 
     // 2. 创建待激活的月度订阅（在年度订阅结束后生效）
     const currentEndDate = new Date(currentSubscription.end_date);
@@ -537,7 +686,7 @@ async function handleDowngradeLogic(
         user_uuid: userId,
         trans_type: 'transfer',
         trans_no: transactionNo,
-        order_no: orderId,
+        order_no: generateFallbackOrderNo(orderId, 'downgrade', newSubscriptionId, checkoutId),
         credits: 0, // 不添加积分
         expired_at: null,
         created_at: new Date().toISOString()
@@ -578,12 +727,37 @@ async function ensureUserProfile(userId: string, checkoutId: string | null) {
     .single();
 
   if (checkProfileError && checkProfileError.code === 'PGRST116') {
-    // 用户不存在，创建新用户
-    console.log(`👤 Creating new user profile for ${userId}`);
+    // 用户不存在，先创建auth用户，然后创建profile
+    console.log(`👤 Creating new auth user and profile for ${userId}`);
     
+    // 创建auth用户
+    try {
+      const { data: authUser, error: authUserError } = await supabase.auth.admin.createUser({
+        id: userId,
+        email: `user_${userId.substring(0, 8)}@hairsystem.temp`,
+        password: 'temp-password-123',
+        email_confirm: true,
+        user_metadata: {
+          full_name: `User ${userId.substring(0, 8)}`,
+          avatar_url: null
+        }
+      });
+
+      if (authUserError && !authUserError.message.includes('already exists')) {
+        console.error('❌ Error creating auth user:', authUserError);
+        throw new Error(`Failed to create auth user: ${authUserError.message}`);
+      }
+
+      console.log('✅ Auth user created or already exists:', authUser?.user?.id || userId);
+    } catch (authError) {
+      console.error('❌ Auth user creation failed:', authError);
+      // 不要让auth用户创建失败阻止整个流程，继续尝试profile创建
+    }
+    
+    // 创建profile，使用 upsert 避免重复键错误
     const { data: newProfile, error: createError } = await supabase
       .from('profiles')
-      .insert({
+      .upsert({
         id: userId,
         email: `user_${userId.substring(0, 8)}@hairsystem.temp`, // 临时邮箱，后续可更新
         name: `User ${userId.substring(0, 8)}`,
@@ -591,16 +765,19 @@ async function ensureUserProfile(userId: string, checkoutId: string | null) {
         has_access: true,
         created_at: timeString,
         updated_at: timeString,
+      }, {
+        onConflict: 'id',
+        ignoreDuplicates: false
       })
       .select()
       .single();
     
     if (createError) {
-      console.error('❌ Error creating user profile:', createError);
-      throw new Error(`Failed to create user profile: ${createError.message}`);
+      console.error('❌ Error creating/updating user profile:', createError);
+      throw new Error(`Failed to create/update user profile: ${createError.message}`);
     }
     
-    console.log('✅ User profile created:', newProfile);
+    console.log('✅ User profile created/updated:', newProfile);
   } else if (checkProfileError) {
     console.error('❌ Error checking user profile:', checkProfileError);
     throw new Error(`Failed to check user profile: ${checkProfileError.message}`);
@@ -644,69 +821,19 @@ async function handlePaymentSuccess(
   console.log(`💰 Credits to add: ${credits}, Plan type: ${planType}`);
 
   try {
-    // 确保用户profile存在
-    const now = new Date();
-    const timeString = now.toISOString();
-    
-    // 首先检查用户是否已存在
-    const { data: existingProfile, error: checkProfileError } = await supabase
+    // 获取用户profile（假设已经通过ensureUserProfile创建）
+    const { data: profileData, error: profileError } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
       .single();
 
-    let profileData;
-    if (checkProfileError && checkProfileError.code === 'PGRST116') {
-      // 用户不存在，创建新用户
-      console.log(`👤 Creating new user profile for ${userId}`);
-      
-      const { data: newProfile, error: createError } = await supabase
-        .from('profiles')
-        .insert({
-          id: userId,
-          email: `user_${userId.substring(0, 8)}@hairsystem.temp`, // 临时邮箱，后续可更新
-          name: `User ${userId.substring(0, 8)}`,
-          customer_id: checkoutId,
-          has_access: true,
-          created_at: timeString,
-          updated_at: timeString,
-        })
-        .select()
-        .single();
-      
-      if (createError) {
-        console.error('❌ Error creating user profile:', createError);
-        throw new Error(`Failed to create user profile: ${createError.message}`);
-      }
-      
-      profileData = newProfile;
-    } else if (checkProfileError) {
-      console.error('❌ Error checking user profile:', checkProfileError);
-      throw new Error(`Failed to check user profile: ${checkProfileError.message}`);
-    } else {
-      // 用户已存在，更新信息
-      console.log(`👤 Updating existing user profile for ${userId}`);
-      
-      const { data: updatedProfile, error: updateError } = await supabase
-        .from('profiles')
-        .update({
-          customer_id: checkoutId,
-          has_access: true,
-          updated_at: timeString,
-        })
-        .eq('id', userId)
-        .select()
-        .single();
-      
-      if (updateError) {
-        console.error('❌ Error updating user profile:', updateError);
-        throw new Error(`Failed to update user profile: ${updateError.message}`);
-      }
-      
-             profileData = updatedProfile;
-     }
+    if (profileError) {
+      console.error('❌ Error fetching user profile:', profileError);
+      throw new Error(`Failed to fetch user profile: ${profileError.message}`);
+    }
 
-    console.log('✅ User profile processed:', profileData);
+    console.log('✅ User profile fetched:', profileData);
 
     // 处理订阅记录（包括一次性购买）
     const startDate = new Date();
@@ -845,21 +972,50 @@ async function handlePaymentSuccess(
     }
     // 年度订阅积分通过月度分配，这里不设置过期时间
     
-    const { error: creditsError } = await supabase
-      .from('credits')
-      .insert({
-        user_uuid: userId,
-        trans_type: TRANS_TYPE.PURCHASE,
-        trans_no: transactionNo,
-        order_no: orderId,
-        credits: credits, // 正数表示获得积分
-        expired_at: expiredAt,
-        created_at: new Date().toISOString()
-      });
+    // 获取当前积分
+    const currentCredits = profileData?.current_credits || 0;
 
-    if (creditsError) {
-      console.error('❌ Error adding credits:', creditsError);
-      throw new Error(`Failed to add credits: ${creditsError.message}`);
+    // 同时更新credits表和profiles表
+    const [creditsResult, profileUpdateResult] = await Promise.all([
+      supabase
+        .from('credits')
+        .insert({
+          user_uuid: userId,
+          trans_type: TRANS_TYPE.PURCHASE,
+          trans_no: transactionNo,
+          order_no: generateFallbackOrderNo(orderId, 'payment', subscriptionId, checkoutId),
+          credits: credits, // 正数表示获得积分
+          expired_at: expiredAt,
+          created_at: new Date().toISOString()
+        }),
+      supabase
+        .from('profiles')
+        .update({
+          current_credits: currentCredits + credits,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId)
+    ]);
+
+    if (creditsResult.error) {
+      // 🔒 检查是否为数据库约束违反错误（重复插入）
+      if (creditsResult.error.code === '23505' && creditsResult.error.message.includes('unique_user_order')) {
+        console.log(`✅ Credits already exist for order ${orderId}, skipping duplicate insertion`);
+        return { 
+          success: true, 
+          subscriptionCreated: true, 
+          creditsAdded: 0,
+          message: 'Credits already exist - duplicate prevented by database constraint',
+          alreadyProcessed: true
+        };
+      }
+      console.error('❌ Error adding credits record:', creditsResult.error);
+      throw new Error(`Failed to add credits record: ${creditsResult.error.message}`);
+    }
+
+    if (profileUpdateResult.error) {
+      console.error('❌ Error updating profile credits:', profileUpdateResult.error);
+      throw new Error(`Failed to update profile credits: ${profileUpdateResult.error.message}`);
     }
 
     console.log(`✅ Credits added: ${credits} credits for user ${userId}, transaction: ${transactionNo}`);
@@ -1038,7 +1194,7 @@ async function handleRefundCreated(
         user_uuid: userId,
         trans_type: 'refund',
         trans_no: transactionNo,
-        order_no: orderId,
+        order_no: generateFallbackOrderNo(orderId, 'refund', subscriptionId, null),
         credits: -credits, // 负数表示扣除积分
         expired_at: null,
         created_at: new Date().toISOString()
@@ -1098,7 +1254,7 @@ async function handleDisputeCreated(
         user_uuid: userId,
         trans_type: 'dispute',
         trans_no: transactionNo,
-        order_no: orderId,
+        order_no: generateFallbackOrderNo(orderId, 'dispute', subscriptionId, null),
         credits: -credits, // 负数表示扣除积分
         expired_at: null,
         created_at: new Date().toISOString()
