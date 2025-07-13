@@ -228,7 +228,8 @@ async function handleUpgrade(
           order_no: generateFallbackOrderNo(orderId, 'upgrade', newSubscriptionId, checkoutId),
           credits: creditsToAdd, // 年度订阅立即获得1000积分
           expired_at: null, // 年度订阅积分通过月度分配管理
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          event_type: 'subscription_upgrade'
         }),
       supabase
         .from('profiles')
@@ -472,7 +473,8 @@ async function handleNewSubscription(
         order_no: generateFallbackOrderNo(orderId, 'new', newSubscriptionId, checkoutId),
         credits: credits,
         expired_at: expiredAt,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        event_type: 'new_subscription'
       }),
     supabase
       .from('profiles')

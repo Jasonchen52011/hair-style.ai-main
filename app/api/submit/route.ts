@@ -479,7 +479,8 @@ export async function GET(req: NextRequest) {
                         order_no: null,
                         credits: -10, // 负数表示消费
                         expired_at: null,
-                        created_at: new Date().toISOString()
+                        created_at: new Date().toISOString(),
+                        event_type: 'hairstyle_usage'
                       }),
                     supabase
                       .from('profiles')

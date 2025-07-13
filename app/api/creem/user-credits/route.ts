@@ -267,7 +267,8 @@ export async function POST(request: NextRequest) {
         amount: amount,
         trans_type: trans_type,
         trans_no: transactionNo,
-        order_no: order_no || null
+        order_no: order_no || null,
+        event_type: 'credit_consumption'
       });
 
       if (transactionError) {
@@ -284,7 +285,8 @@ export async function POST(request: NextRequest) {
               order_no: order_no || null,
               credits: -amount, // 负数表示消费
               expired_at: null,
-              created_at: new Date().toISOString()
+              created_at: new Date().toISOString(),
+              event_type: 'credit_consumption'
             }),
           adminSupabase
             .from('profiles')
@@ -347,7 +349,8 @@ export async function POST(request: NextRequest) {
         amount: amount,
         trans_type: trans_type,
         trans_no: transactionNo,
-        order_no: order_no || null
+        order_no: order_no || null,
+        event_type: 'manual_addition'
       });
 
       if (transactionError) {
@@ -364,7 +367,8 @@ export async function POST(request: NextRequest) {
               order_no: order_no || null,
               credits: amount, // 正数表示获得
               expired_at: null, // 手动添加的积分默认不过期
-              created_at: new Date().toISOString()
+              created_at: new Date().toISOString(),
+              event_type: 'manual_addition'
             }),
           adminSupabase
             .from('profiles')

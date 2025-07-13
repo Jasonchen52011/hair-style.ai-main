@@ -438,7 +438,8 @@ async function simulatePaymentSuccess(
           order_no: orderId,
           credits: credits,
           expired_at: expiredAt,
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          event_type: 'payment_simulation'
         }),
       adminSupabase
         .from('profiles')

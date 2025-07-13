@@ -499,7 +499,8 @@ async function fixMissingCredits(userId: string | null, subscriptionId: string |
           order_no: `fix_${issue.subscriptionId}`,
           credits: 500,
           expired_at: nextMonth.toISOString(),
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          event_type: 'manual_fix'
         });
 
       if (creditError) {

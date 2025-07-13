@@ -170,7 +170,8 @@ async function processYearlySubscriptions(now: Date, currentMonth: number, curre
             order_no: `monthly_${currentYear}_${currentMonth.toString().padStart(2, '0')}`,
             credits: 1000, // 正数表示获得积分
             expired_at: nextMonthExpiry.toISOString(),
-            created_at: now.toISOString()
+            created_at: now.toISOString(),
+            event_type: 'monthly_distribution'
           }),
         supabase
           .from('profiles')
@@ -340,7 +341,8 @@ async function processMonthlySubscriptions(now: Date, currentMonth: number, curr
           order_no: `monthly_renewal_${currentYear}_${currentMonth.toString().padStart(2, '0')}`,
           credits: 500, // 月度订阅续费积分
           expired_at: nextMonthExpiry.toISOString(),
-          created_at: now.toISOString()
+          created_at: now.toISOString(),
+          event_type: 'monthly_renewal'
         });
 
       if (creditsError) {
