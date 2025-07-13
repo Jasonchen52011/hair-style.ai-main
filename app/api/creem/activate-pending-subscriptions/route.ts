@@ -119,7 +119,8 @@ export async function POST(request: NextRequest) {
                 order_no: `activation_${subscription.id}`,
                 credits: 500, // 月度订阅初始积分
                 expired_at: nextMonth.toISOString(),
-                created_at: now.toISOString()
+                created_at: now.toISOString(),
+                event_type: 'subscription_activation'
               }),
             supabase
               .from('profiles')

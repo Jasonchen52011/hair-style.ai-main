@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventType字段测试 - 订阅支付成功</title>
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-success { background: #27ae60; }
+        .status-error { background: #e74c3c; }
+        .status-pending { background: #f39c12; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 EventType字段测试</h1>
+        <p style="text-align: center; color: #7f8c8d; font-size: 18px;">
+            测试订阅支付成功时是否正确写入包含eventType字段的credits数据
+        </p>
+    </div>
+
+    <div class="grid">
+        <div class="container">
+            <h2>📝 Webhook测试</h2> 
+            <form id="webhookForm">
+                <div class="form-group">
+                    <label for="eventType">事件类型:</label>
+                    <select id="eventType" required>
+                        <option value="subscription.paid">subscription.paid</option>
+                        <option value="checkout.completed">checkout.completed</option>
+                        <option value="subscription.update">subscription.update</option>
+                        <option value="subscription.trialing">subscription.trialing</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userId">用户ID:</label>
+                    <input type="text" id="userId" placeholder="e.g., test-user-123" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="planId">产品ID:</label>
+                    <select id="planId" required>
+                        <option value="prod_6OoADdBXIm16LRR6TN6sFw">prod_6OoADdBXIm16LRR6TN6sFw (月度订阅 - 500积分)</option>
+                        <option value="prod_6N9SkBhig3ofomadscbGr7">prod_6N9SkBhig3ofomadscbGr7 (年度订阅 - 1000积分)</option>
+                        <option value="prod_7kbzeBzBsEnWbRA0iTh7wf">prod_7kbzeBzBsEnWbRA0iTh7wf (一次性购买 - 500积分)</option>
+                    </select>
+                    <small style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
+                        ⚠️ 请使用上述正确的产品ID，不要使用 pro_monthly, pro_yearly 等无效值
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subscriptionId">订阅ID:</label>
+                    <input type="text" id="subscriptionId" placeholder="e.g., sub_123">
+                </div>
+                
+                <div class="form-group">
+                    <label for="orderId">订单ID:</label>
+                    <input type="text" id="orderId" placeholder="e.g., order_123" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="checkoutId">结账ID:</label>
+                    <input type="text" id="checkoutId" placeholder="e.g., checkout_123">
+                </div>
+                
+                <button type="submit" class="btn">🚀 发送Webhook测试</button>
+                <button type="button" class="btn btn-warning" onclick="generateTestData()">🎲 生成测试数据</button>
+                <button type="button" class="btn btn-success" onclick="validateProductConfig()">✅ 验证产品配置</button>
+            </form>
+            
+            <div id="webhookResult"></div>
+        </div>
+
+        <div class="container">
+            <h2>🔍 Credits数据验证</h2>
+            <div class="form-group">
+                <label for="searchUserId">查询用户ID:</label>
+                <input type="text" id="searchUserId" placeholder="输入用户ID查询credits记录">
+            </div>
+            
+            <button type="button" class="btn btn-success" onclick="queryCredits()">📊 查询Credits记录</button>
+            <button type="button" class="btn btn-success" onclick="queryLatestCredits()">⏰ 查询最近记录</button>
+            <button type="button" class="btn btn-success" onclick="queryEventTypes()">📈 EventType统计</button>
+            
+            <div id="creditsResult"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>📋 测试步骤说明</h2>
+        <ol style="line-height: 1.8;">
+            <li><strong>生成测试数据:</strong> 点击"生成测试数据"按钮自动填充表单</li>
+            <li><strong>发送Webhook:</strong> 点击"发送Webhook测试"模拟支付成功</li>
+            <li><strong>验证数据:</strong> 使用相同的用户ID查询Credits记录</li>
+            <li><strong>检查EventType:</strong> 确认返回的记录包含正确的event_type字段</li>
+        </ol>
+        
+        <div class="info result">
+💡 预期结果：
+- Webhook调用成功返回success: true
+- Credits表中新增一条记录
+- 记录包含event_type字段，值为对应的事件类型
+- 用户积分余额正确增加
+        </div>
+        
+        <div class="error result" style="margin-top: 20px;">
+⚠️ 常见问题：
+- 如果看到"Invalid product_id"错误，请确保使用正确的产品ID
+- 不要使用 pro_monthly, pro_yearly 等无效值
+- 有效产品ID必须是以 "prod_" 开头的完整字符串
+        </div>
+    </div>
+
+    <script>
+        // API基础URL
+        const API_BASE = '';
+        
+        // 生成测试数据
+        function generateTestData() {
+            const timestamp = Date.now();
+            document.getElementById('userId').value = `test-user-${timestamp}`;
+            document.getElementById('subscriptionId').value = `sub_${timestamp}`;
+            document.getElementById('orderId').value = `order_${timestamp}`;
+            document.getElementById('checkoutId').value = `checkout_${timestamp}`;
+        }
+        
+        // 验证产品配置
+        async function validateProductConfig() {
+            showResult('webhookResult', '⏳ 验证产品配置中...', 'info');
+            
+            try {
+                const response = await fetch('/api/debug/product-config');
+                const result = await response.json();
+                
+                if (response.ok) {
+                    const configInfo = `✅ 产品配置验证成功！
+
+📋 有效的产品ID:
+${result.validProductIds.join('\n')}
+
+💰 产品积分映射:
+${JSON.stringify(result.productCreditsMap, null, 2)}
+
+📦 产品计划映射:
+${JSON.stringify(result.productPlanMap, null, 2)}
+
+🕒 验证时间: ${result.timestamp}
+
+💡 使用说明:
+- 只有上述产品ID在webhook中有效
+- 使用其他ID会导致 "Invalid product_id" 错误`;
+                    
+                    showResult('webhookResult', configInfo, 'success');
+                } else {
+                    showResult('webhookResult', `❌ 配置验证失败: ${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult('webhookResult', `❌ 配置验证错误: ${error.message}`, 'error');
+            }
+        }
+        
+        // 显示结果
+        function showResult(elementId, content, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="result ${type}">${content}</div>`;
+        }
+        
+        // 发送Webhook测试
+        document.getElementById('webhookForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const eventType = document.getElementById('eventType').value;
+            const userId = document.getElementById('userId').value;
+            const planId = document.getElementById('planId').value;
+            const subscriptionId = document.getElementById('subscriptionId').value;
+            const orderId = document.getElementById('orderId').value;
+            const checkoutId = document.getElementById('checkoutId').value;
+            
+            // 验证产品ID格式
+            const validProductIds = [
+                'prod_6OoADdBXIm16LRR6TN6sFw',
+                'prod_6N9SkBhig3ofomadscbGr7',
+                'prod_7kbzeBzBsEnWbRA0iTh7wf'
+            ];
+            
+            if (!validProductIds.includes(planId)) {
+                showResult('webhookResult', `❌ 无效的产品ID: ${planId}\n\n请使用以下有效的产品ID之一:\n${validProductIds.join('\n')}`, 'error');
+                return;
+            }
+            
+            // 构造Webhook payload
+            const webhookPayload = {
+                eventType: eventType,
+                object: {
+                    customer: { id: userId },
+                    product: { id: planId },
+                    subscription: subscriptionId ? { id: subscriptionId } : null,
+                    order: orderId ? { id: orderId } : null,
+                    id: checkoutId,
+                    checkout: checkoutId ? { id: checkoutId } : null
+                }
+            };
+            
+            showResult('webhookResult', '⏳ 发送Webhook请求中...', 'info');
+            
+            try {
+                const response = await fetch('/api/creem/webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Creem-Webhook-Test'
+                    },
+                    body: JSON.stringify(webhookPayload)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    const successMessage = `✅ Webhook调用成功！
+
+🔍 请求数据:
+${JSON.stringify(webhookPayload, null, 2)}
+
+📝 响应结果:
+${JSON.stringify(result, null, 2)}
+
+⏭️ 下一步: 使用用户ID "${userId}" 查询Credits记录验证数据`;
+                    
+                    showResult('webhookResult', successMessage, 'success');
+                    
+                    // 自动填充查询用户ID
+                    document.getElementById('searchUserId').value = userId;
+                } else {
+                    showResult('webhookResult', `❌ Webhook调用失败: ${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                showResult('webhookResult', `❌ 请求错误: ${error.message}`, 'error');
+            }
+        });
+        
+        // 查询用户Credits记录
+        async function queryCredits() {
+            const userId = document.getElementById('searchUserId').value;
+            if (!userId) {
+                showResult('creditsResult', '❌ 请输入用户ID', 'error');
+                return;
+            }
+            
+            showResult('creditsResult', '⏳ 查询Credits记录中...', 'info');
+            
+            try {
+                // 这里需要调用一个查询API，我们先模拟
+                const response = await fetch(`/api/debug/check-credits?user_id=${userId}`);
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showResult('creditsResult', `📊 用户 ${userId} 的Credits记录:
+
+${JSON.stringify(result, null, 2)}`, 'success');
+                } else {
+                    showResult('creditsResult', `❌ 查询失败: ${JSON.stringify(result, null, 2)}`, 'error');
+                }
+            } catch (error) {
+                // 如果API不存在，提供手动查询指导
+                const manualQuery = `🔍 手动查询Credits记录:
+
+请在数据库中执行以下SQL查询:
+
+SELECT 
+    id,
+    user_uuid,
+    trans_type,
+    trans_no,
+    order_no,
+    credits,
+    event_type,
+    created_at,
+    expired_at
+FROM credits 
+WHERE user_uuid = '${userId}'
+ORDER BY created_at DESC
+LIMIT 10;
+
+🔎 检查要点:
+✅ 是否有新记录
+✅ event_type字段是否正确
+✅ credits数值是否正确
+✅ trans_type是否为'purchase'`;
+                
+                showResult('creditsResult', manualQuery, 'info');
+            }
+        }
+        
+        // 查询最近的Credits记录
+        async function queryLatestCredits() {
+            showResult('creditsResult', '⏳ 查询最近的Credits记录...', 'info');
+            
+            const manualQuery = `📋 最近的Credits记录查询:
+
+请在数据库中执行以下SQL:
+
+-- 查询最近10条记录
+SELECT 
+    id,
+    user_uuid,
+    trans_type,
+    trans_no,
+    order_no,
+    credits,
+    event_type,
+    created_at
+FROM credits 
+ORDER BY created_at DESC 
+LIMIT 10;
+
+-- 查询最近1小时的记录
+SELECT 
+    COUNT(*) as total_records,
+    COUNT(CASE WHEN event_type IS NOT NULL THEN 1 END) as with_event_type,
+    COUNT(CASE WHEN event_type IS NULL THEN 1 END) as without_event_type
+FROM credits 
+WHERE created_at >= NOW() - INTERVAL '1 hour';`;
+            
+            showResult('creditsResult', manualQuery, 'info');
+        }
+        
+        // 查询EventType统计
+        async function queryEventTypes() {
+            showResult('creditsResult', '⏳ 生成EventType统计查询...', 'info');
+            
+            const statsQuery = `📈 EventType统计查询:
+
+请在数据库中执行以下SQL:
+
+-- EventType分布统计
+SELECT 
+    event_type,
+    trans_type,
+    COUNT(*) as count,
+    SUM(credits) as total_credits,
+    MIN(created_at) as earliest,
+    MAX(created_at) as latest
+FROM credits 
+GROUP BY event_type, trans_type
+ORDER BY count DESC;
+
+-- 今日EventType统计
+SELECT 
+    event_type,
+    COUNT(*) as count,
+    SUM(credits) as total_credits
+FROM credits 
+WHERE DATE(created_at) = CURRENT_DATE
+GROUP BY event_type
+ORDER BY count DESC;
+
+-- 检查缺失EventType的记录
+SELECT COUNT(*) as missing_event_type_count
+FROM credits 
+WHERE event_type IS NULL;`;
+            
+            showResult('creditsResult', statsQuery, 'info');
+        }
+        
+        // 页面加载时生成测试数据
+        window.addEventListener('load', () => {
+            generateTestData();
+        });
+    </script>
+</body>
+</html> 

@@ -69,6 +69,7 @@ export async function POST(req: Request) {
 
     // 验证必要的数据 - 根据Creem文档调整
     const { eventType, object } = body;
+    console.log('🔍 Event Type:', eventType);
     if (!eventType || !object) {
       console.error('❌ Missing eventType or object in webhook body');
       return NextResponse.json({ error: 'Missing eventType or object' }, { status: 400 });
@@ -86,15 +87,7 @@ export async function POST(req: Request) {
         orderId = object.order?.id;
         checkoutId = object.id;
         break;
-      
-      case 'subscription.active':
-        // subscription.active事件只有subscription对象，没有order或checkout
-        userId = object.customer?.id;
-        planId = object.product?.id;
-        subscriptionId = object.id;
-        orderId = null; // subscription.active没有order字段
-        checkoutId = null; // subscription.active没有checkout字段
-        break;
+    
       
       case 'subscription.paid':
         // subscription.paid事件包含order和checkout
@@ -254,19 +247,19 @@ export async function POST(req: Request) {
     // 根据事件类型处理
     let result;
     switch (eventType) {
-      case 'checkout.completed':
-        // checkout.completed 意味着结账完成，包含订单和订阅信息
-        result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
-        break;
+      // case 'checkout.completed':
+      //   // checkout.completed 意味着结账完成，包含订单和订阅信息
+      //   result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
+      //   break;
       
-      case 'subscription.active':
-        // subscription.active 意味着订阅激活，通常是首次创建
-        result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
-        break;
+      // // case 'subscription.active':
+      // //   // subscription.active 意味着订阅激活，通常是首次创建
+      // //   result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
+      // //   break;
       
       case 'subscription.paid':
         // subscription.paid 意味着订阅付款成功，包含订单信息
-        result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
+        result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId, eventType);
         break;
       
       case 'subscription.cancelled':
@@ -328,7 +321,8 @@ async function handlePaymentSuccessWithConflictHandling(
   planId: string,
   subscriptionId: string | null,
   orderId: string | null,
-  checkoutId: string | null
+  checkoutId: string | null,
+  eventType: string = 'subscription.paid'
 ) {
   console.log(`🎉 Processing payment success with conflict handling for user ${userId}, plan ${planId}`);
 
@@ -420,16 +414,16 @@ async function handlePaymentSuccessWithConflictHandling(
         
         // 使用本地冲突处理逻辑（避免内部HTTP调用）
         if (isUpgrade) {
-          return await handleUpgradeLogic(userId, currentSubscription, planId, subscriptionId, orderId, checkoutId);
+          return await handleUpgradeLogic(userId, currentSubscription, planId, subscriptionId, orderId, checkoutId, eventType);
         } else {
-          return await handleDowngradeLogic(userId, currentSubscription, planId, subscriptionId, orderId, checkoutId);
+          return await handleDowngradeLogic(userId, currentSubscription, planId, subscriptionId, orderId, checkoutId, eventType);
         }
       }
     }
 
     // 如果没有冲突且不是续费，处理为新订阅
     console.log(`🆕 Processing new ${newPlanType} subscription for user ${userId}`);
-    return await handlePaymentSuccess(userId, planId, subscriptionId, orderId, checkoutId);
+    return await handlePaymentSuccess(userId, planId, subscriptionId, orderId, checkoutId, eventType);
 
   } catch (error) {
     console.error('❌ Error in handlePaymentSuccessWithConflictHandling:', error);
@@ -444,7 +438,8 @@ async function handleUpgradeLogic(
   newPlanId: string,
   newSubscriptionId: string | null,
   orderId: string | null,
-  checkoutId: string | null
+  checkoutId: string | null,
+  eventType: string = 'subscription.paid'
 ) {
   console.log(`⬆️ Processing upgrade from monthly to yearly for user ${userId}`);
 
@@ -516,7 +511,8 @@ async function handleUpgradeLogic(
           order_no: generateFallbackOrderNo(orderId, 'upgrade', newSubscriptionId, checkoutId),
           credits: creditsToAdd, // 年度订阅立即获得1000积分
           expired_at: null, // 年度订阅积分通过月度分配管理
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          event_type: eventType
         }),
       supabase
         .from('profiles')
@@ -596,7 +592,8 @@ async function handleDowngradeLogic(
   newPlanId: string,
   newSubscriptionId: string | null,
   orderId: string | null,
-  checkoutId: string | null
+  checkoutId: string | null,
+  eventType: string
 ) {
   console.log(`⬇️ Processing downgrade from yearly to monthly for user ${userId}`);
 
@@ -810,7 +807,8 @@ async function handlePaymentSuccess(
   planId: string, 
   subscriptionId: string | null,
   orderId: string | null,
-  checkoutId: string | null
+  checkoutId: string | null,
+  eventType: string = 'subscription.paid'
 ) {
   console.log(`🎉 Processing payment success for user ${userId}, plan ${planId}`);
 
@@ -986,7 +984,8 @@ async function handlePaymentSuccess(
           order_no: generateFallbackOrderNo(orderId, 'payment', subscriptionId, checkoutId),
           credits: credits, // 正数表示获得积分
           expired_at: expiredAt,
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          event_type: eventType
         }),
       supabase
         .from('profiles')
@@ -1197,7 +1196,8 @@ async function handleRefundCreated(
         order_no: generateFallbackOrderNo(orderId, 'refund', subscriptionId, null),
         credits: -credits, // 负数表示扣除积分
         expired_at: null,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        event_type: 'refund.created'
       });
 
     if (refundError) {
@@ -1257,7 +1257,8 @@ async function handleDisputeCreated(
         order_no: generateFallbackOrderNo(orderId, 'dispute', subscriptionId, null),
         credits: -credits, // 负数表示扣除积分
         expired_at: null,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        event_type: 'dispute.created'
       });
 
     if (disputeError) {

@@ -221,7 +221,8 @@ async function addCredits(
         order_no: orderId || `credit_${transactionNo}`,
         credits: credits,
         expired_at: expiredAt,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        event_type: transType === 'purchase' ? 'subscription.paid' : 'subscription.transfer'
       }),
     supabase
       .from('profiles')
