@@ -17,16 +17,6 @@ import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  // 🚫 API已禁用 - 所有支付处理现在通过webhook进行
-  console.log('🚫 Update user meta API is disabled. All payment processing is now handled through webhook.');
-  
-  return NextResponse.json({
-    success: false,
-    message: 'This API has been disabled. All payment processing is now handled through webhook.',
-    disabled: true
-  }, { status: 410 }); // 410 Gone - 资源已被永久移除
-
-  /* 原有代码已禁用
   const payload = await request.json();
   const userId = payload.userId;
   const meta = payload.meta;
@@ -288,6 +278,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-*/
 }

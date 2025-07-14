@@ -190,7 +190,7 @@ export default function PricingPage() {
                   <>
                     <button 
                       disabled
-                      className="w-full bg-gray-600 text-white font-medium py-3 px-6 rounded-lg cursor-not-allowed"
+                      className="w-full bg-purple-700 text-white font-medium py-3 px-6 rounded-lg cursor-not-allowed"
                     >
                       Requires Subscription
                     </button>

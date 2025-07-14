@@ -23,16 +23,6 @@ function generateTransactionNo(): string {
 }
 
 export async function POST(request: NextRequest) {
-  // 🚫 API已禁用 - 所有支付处理现在通过webhook进行
-  console.log('🚫 Payment success callback API is disabled. All payment processing is now handled through webhook.');
-  
-  return NextResponse.json({
-    success: false,
-    message: 'This API has been disabled. All payment processing is now handled through webhook.',
-    disabled: true
-  }, { status: 410 }); // 410 Gone - 资源已被永久移除
-
-  /* 原有代码已禁用
   try {
     console.log('🔔 Payment success callback received');
     
@@ -512,6 +502,4 @@ async function handlePaymentSuccess(
     console.error('❌ Error in handlePaymentSuccess:', error);
     throw error;
   }
-}
-*/
 }
