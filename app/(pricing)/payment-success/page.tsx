@@ -251,63 +251,6 @@ function PaymentSuccessContent() {
           </div>
         )}
 
-        {/* 手动刷新积分按钮 - 只在处理中或出现问题时显示 */}
-        {(processing || (!creditsProcessed && checkCountRef.current > 0)) && (
-          <div className="bg-yellow-50 rounded-lg p-4 mb-6 text-center">
-            <p className="text-yellow-800 mb-3">
-              {processing ? '积分正在处理中...' : '积分处理似乎遇到了问题'}
-            </p>
-            <button 
-              onClick={async () => {
-                console.log('🔄 Manual refresh triggered');
-                await checkCreditsStatus();
-              }}
-              className="bg-yellow-500 text-white px-4 py-2 rounded font-medium hover:bg-yellow-600 transition-colors mr-3"
-              disabled={creditsLoading}
-            >
-              {creditsLoading ? '刷新中...' : '手动刷新积分'}
-            </button>
-            <button 
-              onClick={async () => {
-                if (user?.id) {
-                  console.log('🔍 Manual diagnosis triggered');
-                  const diagnosisResponse = await fetch(`/api/debug/credits-diagnosis?userId=${user.id}`, {
-                    method: 'GET',
-                    headers: { 'Cache-Control': 'no-cache' }
-                  });
-                  
-                  if (diagnosisResponse.ok) {
-                    const result = await diagnosisResponse.json();
-                    console.log('🔍 Manual diagnosis result:', result);
-                    
-                    if (result.success && result.diagnosis && !result.diagnosis.consistency.isConsistent) {
-                      // 尝试修复
-                      const fixResponse = await fetch('/api/debug/credits-diagnosis', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ userId: user.id, action: 'fix_credits' })
-                      });
-                      
-                      if (fixResponse.ok) {
-                        const fixResult = await fixResponse.json();
-                        if (fixResult.success) {
-                          await refreshCredits();
-                          toast.success(`积分已修复！您现在有 ${fixResult.correctedCredits} 积分。`);
-                          setCreditsProcessed(true);
-                          setProcessing(false);
-                        }
-                      }
-                    }
-                  }
-                }
-              }}
-              className="bg-blue-500 text-white px-4 py-2 rounded font-medium hover:bg-blue-600 transition-colors"
-            >
-              诊断并修复
-            </button>
-          </div>
-        )}
-
         {/* 操作按钮 */}
         <div className="text-center">
           <button 
