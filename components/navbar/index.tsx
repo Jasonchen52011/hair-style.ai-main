@@ -11,7 +11,7 @@ const NavLink = memo(({ href, children, isActive }: { href: string; children: Re
   <Link 
     href={href}
     className={`px-4 py-2 rounded-lg transition-colors duration-200 ${
-      isActive ? 'text-purple-700 bg-purple-50' : 'text-gray-700 hover:text-purple-700 hover:bg-purple-50'
+      isActive ? 'text-purple-700 bg-white' : 'text-gray-700 hover:text-purple-700 hover:bg-purple-50'
     }`}
   >
     {children}
@@ -323,9 +323,7 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
-            <Link href="/pricing" className="px-4 py-1 bg-orange-100 rounded-3xl transition-colors duration-200 text-orange-600 hover:text-orange-700 hover:bg-orange-200">
-              Upgrade
-            </Link>
+
 
             <ButtonSignin />
           </div>

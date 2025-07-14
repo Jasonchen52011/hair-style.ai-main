@@ -11,6 +11,7 @@ export default function PricingPage() {
   const [currentSubscriptionType, setCurrentSubscriptionType] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState<{[key: string]: boolean}>({});
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const supabase = createClientComponentClient();
 
   useEffect(() => {
@@ -162,10 +163,10 @@ export default function PricingPage() {
     <section className="bg-gray-50 overflow-hidden min-h-screen" id="pricing">
       <div className="py-10 px-8 max-w-6xl mx-auto">
         <div className="flex flex-col text-center w-full mb-10">
-          <h2 className="font-bold text-3xl lg:text-6xl tracking-tight text-gray-900">
+          <h2 className="font-bold text-4xl lg:text-5xl tracking-tight text-gray-900">
             Pricing
           </h2>
-          <p className="font-medium text-xl text-gray-500 mb-4 mt-6">
+          <p className="font-medium text-lg text-gray-500 mb-4 mt-6">
             Discover your hair inspiration with Hairstyle AI Pro.
           </p>
         </div>
@@ -196,20 +197,13 @@ export default function PricingPage() {
               </div>
               <ul className="space-y-2.5 leading-relaxed text-base flex-1">
                 {config.creem.products.oneTime.features.map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="w-[18px] h-[18px] text-purple-700 shrink-0"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    <span className="text-gray-700">{feature}</span>
+                    <li key={i} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-gray-700 font-medium">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -228,6 +222,15 @@ export default function PricingPage() {
                   </>
                 ) : (
                   <>
+                                      <p className="flex items-center justify-center gap-2 text-sm text-center text-gray-600 font-medium relative">
+                      <span className="group relative">
+                        Pay once. Credits expire monthly.
+                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap mb-1">
+                          Monthly users: expires with subscription<br/>
+                          Yearly users: expires end of month
+                        </span>
+                      </span>
+                    </p>
                     <button 
                       onClick={() => handlePurchase(config.creem.products.oneTime.id)}
                       disabled={buttonLoading[config.creem.products.oneTime.id]}
@@ -241,15 +244,7 @@ export default function PricingPage() {
                       )}
                       Get Started
                     </button>
-                    <p className="flex items-center justify-center gap-2 text-sm text-center text-gray-600 font-medium relative">
-                      <span className="group relative">
-                        Pay once. Credits expire monthly.
-                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap mb-1">
-                          Monthly users: expires with subscription<br/>
-                          Yearly users: expires end of month
-                        </span>
-                      </span>
-                    </p>
+
                   </>
                 )}
               </div>
@@ -263,7 +258,7 @@ export default function PricingPage() {
                   Most Popular
                 </div>
               </div>
-              <div className="relative flex flex-col h-full gap-5 lg:gap-8 z-10 bg-white p-8 rounded-lg shadow-lg ring-2 ring-purple-600">
+              <div className="relative flex flex-col h-full gap-5 lg:gap-8 z-10 bg-white p-8 rounded-lg shadow-lg ring-2 ring-purple-500">
                 <div className="flex justify-between items-center gap-4">
                   <div>
                     <p className="text-lg lg:text-xl font-bold text-gray-900">
@@ -286,21 +281,14 @@ export default function PricingPage() {
                 </div>
                 <ul className="space-y-2.5 leading-relaxed text-base flex-1">
                   {config.creem.products.monthly.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="w-[18px] h-[18px] text-purple-700 shrink-0"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                          clipRule="evenodd"
-                        />
+                    <li key={i} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
+                    </div>
+                    <span className="text-gray-700 font-medium">{feature}</span>
+                  </li>
                   ))}
                 </ul>
                 <div className="space-y-2">
@@ -331,9 +319,6 @@ export default function PricingPage() {
                         )}
                         Subscribe Monthly
                       </button>
-                      <p className="flex items-center justify-center gap-2 text-sm text-center text-gray-600 font-medium relative">
-                        Cancel anytime
-                      </p>
                     </>
                   )}
                 </div>
@@ -424,9 +409,6 @@ export default function PricingPage() {
                         )}
                         Subscribe Yearly
                       </button>
-                      <p className="text-center text-sm text-gray-500 font-medium">
-                        Cancel anytime
-                      </p>
                     </>
                   )}
                 </div>
@@ -435,15 +417,82 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* 用户状态提示 */}
+        {/* User status prompt */}
         {!user && (
-          <div className="mt-12 text-center">
+          <div className="mt-2 text-center">
             <p className="text-gray-600 mb-4">
               Need to sign in first? 
               <a href="/signin" className="text-purple-700 hover:text-purple-800 font-medium ml-1">
                 Sign in here
               </a>
             </p>
+          </div>
+        )}
+
+        {/* Cancel subscription/refund link */}
+        <div className="mt-2 text-center">
+          <button
+            onClick={() => setShowCancelModal(true)}
+            className="text-gray-500 hover:text-gray-700 text-sm underline transition-colors"
+          >
+            Cancel subscription
+          </button>
+        </div>
+
+        {/* Cancel/refund modal */}
+        {showCancelModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg max-w-md w-full p-6 relative">
+              {/* Close button */}
+              <button
+                onClick={() => setShowCancelModal(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"
+              >
+                ×
+              </button>
+              
+              {/* Modal content */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  Do you want to cancel your subscription?
+                </h3>
+                
+                <div className="text-gray-700 space-y-3">
+                  <p>
+                    If you want to cancel your subscription, please contact us by email, and please note:
+                  </p>
+                  
+                  <ul className="list-disc pl-6 space-y-1">
+                    <li>Your email address</li>
+                    <li>Reason for cancellation</li>
+                  </ul>
+                  
+                  <p>
+                    We will contact you as soon as possible.
+                  </p>
+                  
+                  <div className="bg-gray-50 p-3 rounded-lg">
+                    <p className="font-medium text-gray-900">Our contact email:</p>
+                    <a 
+                      href="mailto:hello@hair-style.ai"
+                      className="text-purple-600 hover:text-purple-800 font-medium"
+                    >
+                      hello@hair-style.ai
+                    </a>
+                  </div>
+                </div>
+                
+                {/* Confirm button */}
+                <div className="flex justify-end pt-4">
+                  <button
+                    onClick={() => setShowCancelModal(false)}
+                    className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                  >
+                    I know
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

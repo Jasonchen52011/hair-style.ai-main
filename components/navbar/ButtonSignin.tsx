@@ -12,13 +12,14 @@ const CreditsDisplay = memo(({ credits, hasActiveSubscription }: { credits: numb
   <div className="flex items-center space-x-2">
     <Link
       href="/pricing"
-      className="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-purple-200 transition-colors cursor-pointer"
+      className="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-sm font-medium hover:bg-purple-200 transition-colors"
     >
       {credits} Credits
     </Link>
     {hasActiveSubscription && (
-      <div className="flex items-center gap-1">
-      </div>
+      <Link href="/pricing" className="px-4 py-2 bg-orange-100 rounded-full text-sm font-medium transition-colors text-orange-600 hover:text-orange-700 hover:bg-orange-200">
+     Upgrade
+     </Link>
     )}
   </div>
 ));
@@ -29,7 +30,7 @@ CreditsDisplay.displayName = 'CreditsDisplay';
 const UserAvatar = memo(({ user, onClick }: { user: any; onClick: () => void }) => (
   <button
     onClick={onClick}
-    className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+    className="flex items-center gap-1 hover:opacity-80 transition-opacity"
   >
     {user.user_metadata?.avatar_url ? (
       <img
@@ -87,6 +88,7 @@ const UserDropdown = memo(({ user, credits, hasActiveSubscription, onSignOut }: 
     {/* 积分信息 */}
     <div className="px-4 py-2 border-b border-gray-100">
       <div className="flex items-center justify-between">
+        
         <span className="text-xs text-gray-600">Credits</span>
         <span className="font-medium text-purple-600 text-xs">{credits}Credits</span>
       </div>
@@ -99,6 +101,7 @@ const UserDropdown = memo(({ user, credits, hasActiveSubscription, onSignOut }: 
         </div>
       )}
     </div>
+
 
     {/* 菜单选项 */}
     <div className="py-1">
