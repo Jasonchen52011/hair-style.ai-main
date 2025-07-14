@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import config from "@/config";
+import Navbar from "@/components/navbar";
 
 export default function PricingPage() {
   const [user, setUser] = useState<any>(null);
@@ -160,6 +161,8 @@ export default function PricingPage() {
   
 
   return (
+    <>
+    <Navbar />
     <section className="bg-gray-50 overflow-hidden min-h-screen" id="pricing">
       <div className="py-10 px-8 max-w-6xl mx-auto">
         <div className="flex flex-col text-center w-full mb-10">
@@ -497,5 +500,6 @@ export default function PricingPage() {
         )}
       </div>
     </section>
+    </>
   );
 }
