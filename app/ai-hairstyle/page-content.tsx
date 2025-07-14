@@ -43,6 +43,23 @@ function SelectStylePageContent() {
     const [selectedColor, setSelectedColor] = useState<string>("brown");
     const [isLoading, setIsLoading] = useState(false);
     const [styleImageHeight, setStyleImageHeight] = useState<string>("h-32");
+    
+    // 未登录用户使用次数限制
+    const [guestUsageCount, setGuestUsageCount] = useState<number>(5);
+
+    // 初始化未登录用户使用次数
+    useEffect(() => {
+        if (!user) {
+            const storedCount = localStorage.getItem('guest_hairstyle_usage_count');
+            if (storedCount) {
+                const count = parseInt(storedCount);
+                setGuestUsageCount(Math.max(0, count));
+            } else {
+                setGuestUsageCount(5);
+                localStorage.setItem('guest_hairstyle_usage_count', '5');
+            }
+        }
+    }, [user]);
 
     // get image URL and preset hairstyle from URL parameters
     useEffect(() => {
@@ -232,6 +249,20 @@ function SelectStylePageContent() {
             return;
         }
 
+        // 检查未登录用户使用次数限制
+        if (!user && guestUsageCount <= 0) {
+            const confirmSubscribe = window.confirm(
+                '🎉 You have used up your free attempts!\n\n' +
+                'Sign up get Pro now to unlock unlimited hairstyle generations and explore more amazing styles!\n\n' +
+                'Ready to discover your perfect look?'
+            );
+            
+            if (confirmSubscribe) {
+                window.location.href = '/signin';
+            }
+            return;
+        }
+
         try {
             setIsLoading(true);
             console.log('Starting hairstyle generation:', { selectedStyle, selectedColor });
@@ -356,6 +387,13 @@ function SelectStylePageContent() {
                         
                         // 刷新积分显示
                         await refreshCredits();
+                        
+                        // 更新未登录用户使用次数
+                        if (!user) {
+                            const newCount = Math.max(0, guestUsageCount - 1);
+                            setGuestUsageCount(newCount);
+                            localStorage.setItem('guest_hairstyle_usage_count', newCount.toString());
+                        }
                         
                         toast.success('Hairstyle generated successfully! 🎉', {
                             duration: 3000,
@@ -969,7 +1007,11 @@ function SelectStylePageContent() {
 
                                 <button
                                     onClick={handleGenerate}
-                                    className="w-full mt-8 py-4 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                                    className={`w-full mt-8 py-4 rounded-lg font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
+                                        (!user && guestUsageCount <= 0) 
+                                            ? "bg-purple-900 text-white hover:bg-purple-800" 
+                                            : "bg-purple-700 text-white hover:bg-purple-800"
+                                    }`}
                                     disabled={!uploadedImageUrl || isLoading}
                                 >
                                     {isLoading ? (
@@ -998,10 +1040,16 @@ function SelectStylePageContent() {
                                         </div>
                                     ) : !uploadedImageUrl ? (
                                         "Upload Photo"
+                                    ) : (!user && guestUsageCount <= 0) ? (
+                                        "Sign up for more tries"
                                     ) : !selectedStyle ? (
-                                        `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
+                                        user ? 
+                                            `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}` :
+                                            `Generate (${guestUsageCount} tries left)`
                                     ) : (
-                                        "Generate"
+                                        user ? 
+                                            "Generate" :
+                                            `Generate (${guestUsageCount} tries left)`
                                     )}
                                 </button>
                             </div>
@@ -1210,7 +1258,11 @@ function SelectStylePageContent() {
                         {/* 生成按钮 - 更紧凑 */}
                         <button
                             onClick={handleGenerate}
-                            className="w-full py-2.5 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed mb-4"
+                            className={`w-full py-2.5 rounded-lg font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed mb-4 ${
+                                (!user && guestUsageCount <= 0) 
+                                    ? "bg-purple-700 text-white hover:bg-purple-800" 
+                                    : "bg-purple-700 text-white hover:bg-purple-800"
+                            }`}
                             disabled={!uploadedImageUrl || isLoading}
                         >
                             {isLoading ? (
@@ -1239,10 +1291,16 @@ function SelectStylePageContent() {
                                 </div>
                             ) : !uploadedImageUrl ? (
                                 "Upload Photo First"
+                            ) : (!user && guestUsageCount <= 0) ? (
+                                "Sign up for more tries"
                             ) : !selectedStyle ? (
-                                `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}`
+                                user ? 
+                                    `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}` :
+                                    `Generate (${guestUsageCount} left)`
                             ) : (
-                                "Generate"
+                                user ? 
+                                    "Generate" :
+                                    `Generate (${guestUsageCount} left)`
                             )}
                         </button>
                     </section>
