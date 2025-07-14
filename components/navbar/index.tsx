@@ -109,20 +109,35 @@ export default function Navbar() {
   const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
   const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
   const colorDropdownRef = useRef<HTMLDivElement>(null);
   const otherToolsDropdownRef = useRef<HTMLDivElement>(null);
 
-  // 优化的滚动处理
+  // 优化的滚动处理 - 添加滚动阈值和防止顶部继续滚动
   useEffect(() => {
     let ticking = false;
+    const SCROLL_THRESHOLD = 10; // 设置滚动阈值
     
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          setIsSticky(window.scrollY > 0);
+          const currentScrollY = window.scrollY;
+          
+          // 只有当滚动位置大于阈值且确实发生了滚动变化时才更新状态
+          if (currentScrollY > SCROLL_THRESHOLD) {
+            if (!isSticky) {
+              setIsSticky(true);
+            }
+          } else if (currentScrollY <= SCROLL_THRESHOLD) {
+            if (isSticky) {
+              setIsSticky(false);
+            }
+          }
+          
+          setLastScrollY(currentScrollY);
           ticking = false;
         });
         ticking = true;
@@ -140,7 +155,7 @@ export default function Navbar() {
         window.removeEventListener('scroll', handleScroll);
       }
     };
-  }, []);
+  }, [isSticky]);
 
   // 优化的外部点击处理
   useEffect(() => {
@@ -175,8 +190,8 @@ export default function Navbar() {
     return (
       <nav className="w-full relative bg-transparent">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex items-center h-22">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center h-16">
               <Logo />
             </div>
             <div className="hidden md:flex items-center space-x-1 ml-auto">
@@ -198,8 +213,8 @@ export default function Navbar() {
         : 'relative bg-transparent'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center h-22">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center h-16">
             <Logo />
           </div>
 
