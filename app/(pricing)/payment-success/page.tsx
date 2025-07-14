@@ -40,45 +40,106 @@ function PaymentSuccessContent() {
     return 'Monthly';
   };
 
-  // 检查积分是否已被webhook处理
+  // 检查积分状态
   const checkCreditsStatus = async () => {
-    if (!user?.id || !order_id || checkingRef.current || creditsProcessed) {
-      return;
-    }
+    if (checkingRef.current || !user?.id) return;
     
     checkingRef.current = true;
     checkCountRef.current += 1;
-    
-    try {
-      console.log(`🔍 Checking credits status (attempt ${checkCountRef.current}/${maxChecks}) for order:`, order_id);
-      
-      const checkResponse = await fetch(`/api/creem/user-credits?order_id=${order_id}`, {
-        method: 'GET',
-        credentials: 'include'
-      });
 
-      if (checkResponse.ok) {
-        const checkData = await checkResponse.json();
-        console.log('✅ Credits check result:', checkData);
+    try {
+      console.log(`🔍 Checking credits status (attempt ${checkCountRef.current}/${maxChecks})`);
+      console.log(`📊 Current credits before refresh: ${credits}`);
+      
+      // 刷新积分
+      await refreshCredits();
+      
+      // 稍等一下让状态更新
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      console.log(`📊 Current credits after refresh: ${credits}`);
+      
+      // 检查积分是否已增加 (考虑一次性购买的情况，预期积分大于等于1000)
+      const expectedCredits = getExpectedCredits();
+      
+      if (credits > 0) {
+        console.log('💡 Credits found, marking as processed...');
+        setCreditsProcessed(true);
+        setProcessing(false);
         
-        if (checkData.success && checkData.exists && checkData.totalCredits > 0) {
-          // Credits已被webhook处理
-          console.log('💡 Credits processed by webhook, refreshing display...');
-          await refreshCredits();
-          setCreditsProcessed(true);
-          setProcessing(false);
-          
-          toast.success(`Payment processed! ${checkData.totalCredits} credits have been added to your account by our system.`, {
-            id: 'payment-processed',
-            duration: 5000
-          });
-          return;
-        }
+        toast.success(`Payment processed! You now have ${credits} credits.`, {
+          id: 'payment-processed',
+          duration: 5000
+        });
+        return;
       }
       
-      // 如果达到最大检查次数，停止检查并显示联系支持的信息
+      // 如果达到最大检查次数，停止检查并尝试诊断问题
       if (checkCountRef.current >= maxChecks) {
-        console.log('⏰ Reached maximum check attempts');
+        console.log('⏰ Reached maximum check attempts, trying diagnosis...');
+        
+        // 尝试使用诊断API检查数据一致性
+        try {
+          const diagnosisResponse = await fetch(`/api/debug/credits-diagnosis?userId=${user.id}`, {
+            method: 'GET',
+            headers: {
+              'Cache-Control': 'no-cache'
+            }
+          });
+          
+          if (diagnosisResponse.ok) {
+            const diagnosisResult = await diagnosisResponse.json();
+            console.log('🔍 Credits diagnosis result:', diagnosisResult);
+            
+            if (diagnosisResult.success && diagnosisResult.diagnosis) {
+              const diagnosis = diagnosisResult.diagnosis;
+              
+              // 如果发现数据不一致，尝试修复
+              if (!diagnosis.consistency.isConsistent && diagnosis.creditsRecords.totalCredits > 0) {
+                console.log('🔧 Attempting to fix credits inconsistency...');
+                
+                const fixResponse = await fetch('/api/debug/credits-diagnosis', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    userId: user.id,
+                    action: 'fix_credits'
+                  })
+                });
+                
+                if (fixResponse.ok) {
+                  const fixResult = await fixResponse.json();
+                  console.log('✅ Credits fix result:', fixResult);
+                  
+                  if (fixResult.success) {
+                    // 修复成功，再次刷新积分
+                    await refreshCredits();
+                    
+                    toast.success(`Credits fixed! You now have ${fixResult.correctedCredits} credits.`, {
+                      id: 'credits-fixed',
+                      duration: 5000
+                    });
+                    
+                    setCreditsProcessed(true);
+                    setProcessing(false);
+                    return;
+                  }
+                }
+              } else if (diagnosis.creditsRecords.totalCredits === 0) {
+                // 没有积分记录，可能是webhook问题
+                toast.error('No credit records found. The payment webhook may not have processed correctly. Please contact support.', {
+                  id: 'no-credits-found',
+                  duration: 10000
+                });
+              }
+            }
+          }
+        } catch (diagnosisError) {
+          console.error('Error during diagnosis:', diagnosisError);
+        }
+        
         setProcessing(false);
         toast.error('Credits are taking longer than expected to process. Please contact support if they don\'t appear soon.', {
           id: 'payment-timeout',
@@ -93,26 +154,11 @@ function PaymentSuccessContent() {
     }
   };
 
-  // 手动刷新积分
-  const handleRefreshCredits = async () => {
-    try {
-      await refreshCredits();
-      toast.success('Credits refreshed successfully!', {
-        id: 'credits-refresh',
-        duration: 3000
-      });
-    } catch (error) {
-      console.error('Failed to refresh credits:', error);
-      toast.error('Failed to refresh credits', {
-        id: 'credits-refresh-error',
-        duration: 3000
-      });
-    }
-  };
+
 
   // 定期检查积分状态
   useEffect(() => {
-    if (!user?.id || !order_id || creditsProcessed) {
+    if (!user?.id || creditsProcessed) {
       return;
     }
 
@@ -129,7 +175,7 @@ function PaymentSuccessContent() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [user?.id, order_id, creditsProcessed]);
+  }, [user?.id, creditsProcessed]);
 
   return (
     <div className="min-h-screen bg-white p-20">
@@ -144,27 +190,7 @@ function PaymentSuccessContent() {
           <p className="text-gray-600">Thank you for your purchase. Your credits are being processed.</p>
         </div>
 
-  
-
-        {/* 处理完成状态 */}
-        {creditsProcessed && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-            <div className="flex items-center">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-green-800 font-medium">Credits Added Successfully!</h3>
-                <p className="text-green-700 text-sm">
-                  Your {getExpectedCredits()} credits have been processed and added to your account.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
+ 
 
         {/* 用户积分状态 */}
         {user && (
@@ -176,40 +202,12 @@ function PaymentSuccessContent() {
                   Current Credits: {creditsLoading ? (
                     <span className="inline-flex items-center">
                       <div className="animate-spin w-4 h-4 border-2 border-purple-500 border-t-transparent rounded-full mr-2"></div>
-                      Loading...
+                      
                     </span>
                   ) : credits}
                 </p>
                 <div className="mt-3 flex gap-3">
-                  <button
-                    onClick={handleRefreshCredits}
-                    disabled={creditsLoading}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors disabled:opacity-50"
-                  >
-                    {creditsLoading ? (
-                      <span className="flex items-center">
-                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-                        Refreshing...
-                      </span>
-                    ) : (
-                      'Refresh Credits'
-                    )}
-                  </button>
-                  <button
-                    onClick={() => window.location.href = 'mailto:support@hair-style.ai?subject=Credits Not Updated&body=' + encodeURIComponent(`
-Order ID: ${order_id || 'N/A'}
-Checkout ID: ${checkout_id || 'N/A'}
-Product ID: ${product_id || 'N/A'}
-Expected Credits: ${getExpectedCredits()}
-Current Credits: ${credits}
-User ID: ${user.id}
-
-Please help me check why my credits haven't been updated after successful payment.
-`)}
-                    className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
-                  >
-                    Contact Support
-                  </button>
+                 
                 </div>
               </div>
               {user.user_metadata?.avatar_url && (
@@ -223,7 +221,6 @@ Please help me check why my credits haven't been updated after successful paymen
             </div>
           </div>
         )}
-
 
         {/* 订阅详情 */}
         {(product_id || order_id) && (
@@ -254,6 +251,63 @@ Please help me check why my credits haven't been updated after successful paymen
           </div>
         )}
 
+        {/* 手动刷新积分按钮 - 只在处理中或出现问题时显示 */}
+        {(processing || (!creditsProcessed && checkCountRef.current > 0)) && (
+          <div className="bg-yellow-50 rounded-lg p-4 mb-6 text-center">
+            <p className="text-yellow-800 mb-3">
+              {processing ? '积分正在处理中...' : '积分处理似乎遇到了问题'}
+            </p>
+            <button 
+              onClick={async () => {
+                console.log('🔄 Manual refresh triggered');
+                await checkCreditsStatus();
+              }}
+              className="bg-yellow-500 text-white px-4 py-2 rounded font-medium hover:bg-yellow-600 transition-colors mr-3"
+              disabled={creditsLoading}
+            >
+              {creditsLoading ? '刷新中...' : '手动刷新积分'}
+            </button>
+            <button 
+              onClick={async () => {
+                if (user?.id) {
+                  console.log('🔍 Manual diagnosis triggered');
+                  const diagnosisResponse = await fetch(`/api/debug/credits-diagnosis?userId=${user.id}`, {
+                    method: 'GET',
+                    headers: { 'Cache-Control': 'no-cache' }
+                  });
+                  
+                  if (diagnosisResponse.ok) {
+                    const result = await diagnosisResponse.json();
+                    console.log('🔍 Manual diagnosis result:', result);
+                    
+                    if (result.success && result.diagnosis && !result.diagnosis.consistency.isConsistent) {
+                      // 尝试修复
+                      const fixResponse = await fetch('/api/debug/credits-diagnosis', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: user.id, action: 'fix_credits' })
+                      });
+                      
+                      if (fixResponse.ok) {
+                        const fixResult = await fixResponse.json();
+                        if (fixResult.success) {
+                          await refreshCredits();
+                          toast.success(`积分已修复！您现在有 ${fixResult.correctedCredits} 积分。`);
+                          setCreditsProcessed(true);
+                          setProcessing(false);
+                        }
+                      }
+                    }
+                  }
+                }
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded font-medium hover:bg-blue-600 transition-colors"
+            >
+              诊断并修复
+            </button>
+          </div>
+        )}
+
         {/* 操作按钮 */}
         <div className="text-center">
           <button 
@@ -269,8 +323,6 @@ Please help me check why my credits haven't been updated after successful paymen
             Back to Home
           </button>
         </div>
-
- 
       </div>
       
       {/* Toast Container */}

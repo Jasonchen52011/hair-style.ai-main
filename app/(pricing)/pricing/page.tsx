@@ -20,30 +20,58 @@ export default function PricingPage() {
         setUser(data.user);
         
         if (data.user) {
-          // 获取用户profile信息
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', data.user.id)
-            .single();
-          setUserProfile(profile);
+          try {
+            // 获取用户profile信息
+            const { data: profile } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', data.user.id)
+              .single();
+            setUserProfile(profile);
 
-          // 检查用户是否有有效的订阅
-          const { data: activeSubscriptions } = await supabase
-            .from('subscriptions')
-            .select('plan_name, status, end_date')
-            .eq('user_id', data.user.id)
-            .eq('status', 'active')
-            .gte('end_date', new Date().toISOString())
-            .in('plan_name', ['monthly', 'yearly']);
-          
-          const hasSubscription = Boolean(activeSubscriptions && activeSubscriptions.length > 0);
-          setHasActiveSubscription(hasSubscription);
-          
-          // 设置当前订阅类型
-          if (hasSubscription && activeSubscriptions && activeSubscriptions.length > 0) {
-            setCurrentSubscriptionType(activeSubscriptions[0].plan_name);
-          } else {
+            // 通过API获取用户积分和订阅信息（使用简化API）
+            const response = await fetch('/api/user-credits-simple', {
+              method: 'GET',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-user-id': data.user.id
+              },
+            });
+
+            if (response.ok) {
+              const creditsData = await response.json();
+              if (creditsData.success && creditsData.user) {
+                setHasActiveSubscription(creditsData.user.hasActiveSubscription || false);
+                // 根据订阅信息确定订阅类型
+                const subscriptions = creditsData.user.subscriptions || [];
+                const activeSubscription = subscriptions.find((sub: any) => sub.status === 'active');
+                if (activeSubscription) {
+                  // 根据产品ID判断订阅类型
+                  if (activeSubscription.product_id === config.creem.products.monthly.id) {
+                    setCurrentSubscriptionType('monthly');
+                  } else if (activeSubscription.product_id === config.creem.products.yearly.id) {
+                    setCurrentSubscriptionType('yearly');
+                  } else {
+                    setCurrentSubscriptionType(null);
+                  }
+                } else {
+                  setCurrentSubscriptionType(null);
+                }
+              } else {
+                console.error('API returned error:', creditsData.error);
+                setHasActiveSubscription(false);
+                setCurrentSubscriptionType(null);
+              }
+            } else {
+              console.error('Failed to fetch user credits and subscriptions:', response.status);
+              // 降级处理，设置默认值
+              setHasActiveSubscription(false);
+              setCurrentSubscriptionType(null);
+            }
+          } catch (error) {
+            console.error('Error fetching user subscription data:', error);
+            setHasActiveSubscription(false);
             setCurrentSubscriptionType(null);
           }
         }
@@ -66,7 +94,7 @@ export default function PricingPage() {
 
     // 检查是否是按次购买且用户没有有效订阅
     if (productId === config.creem.products.oneTime.id && !hasActiveSubscription) {
-      alert('您需要先订阅月度或年度套餐才能购买额外积分。请先选择订阅套餐。');
+      alert('You need to subscribe to the monthly or yearly plan first to purchase additional credits.');
       return;
     }
 
@@ -293,7 +321,7 @@ export default function PricingPage() {
                       <button 
                         onClick={() => handlePurchase(config.creem.products.monthly.id)}
                         disabled={buttonLoading[config.creem.products.monthly.id]}
-                        className="w-full bg-purple-700 hover:bg-purple-800 disabled:bg-purple-400 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+                        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-purple-400 disabled:to-pink-400 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg flex items-center justify-center gap-2"
                       >
                         {buttonLoading[config.creem.products.monthly.id] && (
                           <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">

@@ -23,7 +23,8 @@ const config = {
     products: {
       // 按次订阅
       oneTime: {
-        id: "prod_7kbzeBzBsEnWbRA0iTh7wf",
+        id: "prod_7kbzeBzBsEnWbRA0iTh7wf", //正式
+        // id: "prod_1UR1iOgtJhpsM6H3xJh8Ka", //测试
         name: "One Time Purchase",
         price: 6.9,
         credits: 500,
@@ -36,7 +37,8 @@ const config = {
       },
       // 月度订阅
       monthly: {
-        id: "prod_6OoADdBXIm16LRR6TN6sFw",
+        // id: "prod_6Ut3912M1Qe4fRTCAkErfm",
+        id: "prod_6OoADdBXIm16LRR6TN6sFw",// 正式
         name: "Pro Monthly",
         price: 7.9,
         credits: 500,

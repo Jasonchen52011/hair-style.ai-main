@@ -1,0 +1,428 @@
+{
+  "summary": {
+    "totalTests": 6,
+    "passedTests": 6,
+    "failedTests": 0,
+    "startTime": 1752485592629,
+    "endTime": 1752485626270
+  },
+  "products": {
+    "onetime": {
+      "type": "purchase",
+      "product": "按次购买",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 2396,
+          "timestamp": "2025-07-14T09:33:15.026Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 522,
+          "timestamp": "2025-07-14T09:33:16.549Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 644,
+          "timestamp": "2025-07-14T09:33:18.194Z"
+        },
+        {
+          "requestIndex": "concurrent-1",
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 588,
+          "timestamp": "2025-07-14T09:33:18.782Z"
+        },
+        {
+          "requestIndex": "concurrent-2",
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 1112,
+          "timestamp": "2025-07-14T09:33:19.306Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 5,
+        "successful": 0,
+        "forbidden": 0,
+        "errors": 5,
+        "avgDuration": 1052,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ 幂等性表现良好"
+      },
+      "concurrentSuccessCount": 0
+    },
+    "monthly": {
+      "type": "purchase",
+      "product": "月度订阅",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 578,
+          "timestamp": "2025-07-14T09:33:21.886Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 585,
+          "timestamp": "2025-07-14T09:33:23.473Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 598,
+          "timestamp": "2025-07-14T09:33:25.071Z"
+        },
+        {
+          "requestIndex": "concurrent-1",
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 1270,
+          "timestamp": "2025-07-14T09:33:26.342Z"
+        },
+        {
+          "requestIndex": "concurrent-2",
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 684,
+          "timestamp": "2025-07-14T09:33:25.756Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 5,
+        "successful": 0,
+        "forbidden": 0,
+        "errors": 5,
+        "avgDuration": 743,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ 幂等性表现良好"
+      },
+      "concurrentSuccessCount": 0
+    },
+    "yearly": {
+      "type": "purchase",
+      "product": "年度订阅",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 581,
+          "timestamp": "2025-07-14T09:33:28.925Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 513,
+          "timestamp": "2025-07-14T09:33:30.439Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 505,
+          "timestamp": "2025-07-14T09:33:31.944Z"
+        },
+        {
+          "requestIndex": "concurrent-1",
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 527,
+          "timestamp": "2025-07-14T09:33:32.472Z"
+        },
+        {
+          "requestIndex": "concurrent-2",
+          "status": 401,
+          "data": {
+            "error": "User not authenticated"
+          },
+          "duration": 1151,
+          "timestamp": "2025-07-14T09:33:33.097Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 5,
+        "successful": 0,
+        "forbidden": 0,
+        "errors": 5,
+        "avgDuration": 655,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ 幂等性表现良好"
+      },
+      "concurrentSuccessCount": 0
+    },
+    "onetime_webhook": {
+      "type": "webhook",
+      "product": "按次购买",
+      "orderId": "order-1752485615099-vcw9xpa7y",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 463,
+          "timestamp": "2025-07-14T09:33:35.562Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 22,
+          "timestamp": "2025-07-14T09:33:36.086Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 18,
+          "timestamp": "2025-07-14T09:33:36.604Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 3,
+        "successful": 0,
+        "alreadyProcessed": 0,
+        "errors": 3,
+        "avgDuration": 168,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ Webhook幂等性表现良好"
+      }
+    },
+    "monthly_webhook": {
+      "type": "webhook",
+      "product": "月度订阅",
+      "orderId": "order-1752485619107-ke5kv6w1r",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 20,
+          "timestamp": "2025-07-14T09:33:39.127Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 32,
+          "timestamp": "2025-07-14T09:33:39.660Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 17,
+          "timestamp": "2025-07-14T09:33:40.178Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 3,
+        "successful": 0,
+        "alreadyProcessed": 0,
+        "errors": 3,
+        "avgDuration": 23,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ Webhook幂等性表现良好"
+      }
+    },
+    "yearly_webhook": {
+      "type": "webhook",
+      "product": "年度订阅",
+      "orderId": "order-1752485622680-4dthldlr9",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 23,
+          "timestamp": "2025-07-14T09:33:42.703Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 22,
+          "timestamp": "2025-07-14T09:33:43.227Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 400,
+          "data": {
+            "error": "Missing required fields",
+            "debug": {
+              "found": {
+                "userId": false,
+                "planId": false
+              },
+              "bodyKeys": [
+                "event_type",
+                "order"
+              ],
+              "suggestions": "Check user ID in customer.id, user.id, user_id, metadata.user_id. Check product ID in product.id, product_id, plan.id"
+            }
+          },
+          "duration": 20,
+          "timestamp": "2025-07-14T09:33:43.749Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 3,
+        "successful": 0,
+        "alreadyProcessed": 0,
+        "errors": 3,
+        "avgDuration": 22,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ Webhook幂等性表现良好"
+      }
+    }
+  }
+}

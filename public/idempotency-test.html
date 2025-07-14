@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幂等性测试 - Hair Style AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .log-entry {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .warning { color: #f59e0b; }
+        .info { color: #3b82f6; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen py-8">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">
+            三种产品幂等性测试
+        </h1>
+        
+        <!-- 产品配置显示 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">产品配置</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="border rounded p-4">
+                    <h3 class="font-semibold text-green-600">按次购买</h3>
+                    <p class="text-sm text-gray-600">ID: <span id="onetime-id" class="font-mono"></span></p>
+                    <p class="text-sm text-gray-600">价格: $6.9</p>
+                    <p class="text-sm text-gray-600">积分: 500</p>
+                </div>
+                <div class="border rounded p-4">
+                    <h3 class="font-semibold text-blue-600">月度订阅</h3>
+                    <p class="text-sm text-gray-600">ID: <span id="monthly-id" class="font-mono"></span></p>
+                    <p class="text-sm text-gray-600">价格: $7.9</p>
+                    <p class="text-sm text-gray-600">积分: 500</p>
+                </div>
+                <div class="border rounded p-4">
+                    <h3 class="font-semibold text-purple-600">年度订阅</h3>
+                    <p class="text-sm text-gray-600">ID: <span id="yearly-id" class="font-mono"></span></p>
+                    <p class="text-sm text-gray-600">价格: $5.8</p>
+                    <p class="text-sm text-gray-600">积分: 1000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 测试控制面板 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">测试控制面板</h2>
+            
+            <!-- 用户模拟 -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">测试用户ID:</label>
+                <input type="text" id="test-user-id" placeholder="输入测试用户ID" 
+                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <p class="text-xs text-gray-500 mt-1">如果为空，将使用模拟用户ID</p>
+            </div>
+
+            <!-- 测试配置 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">重复次数:</label>
+                    <input type="number" id="repeat-count" value="5" min="1" max="20"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">并发请求:</label>
+                    <input type="checkbox" id="concurrent" class="mr-2">
+                    <span class="text-sm text-gray-600">同时发送请求</span>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">请求间隔 (ms):</label>
+                    <input type="number" id="delay" value="1000" min="0" max="5000"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <!-- 测试按钮 -->
+            <div class="flex flex-wrap gap-3 mb-4">
+                <button onclick="testIdempotency('onetime')" 
+                        class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-colors">
+                    测试按次购买幂等性
+                </button>
+                <button onclick="testIdempotency('monthly')" 
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors">
+                    测试月度订阅幂等性
+                </button>
+                <button onclick="testIdempotency('yearly')" 
+                        class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-md transition-colors">
+                    测试年度订阅幂等性
+                </button>
+                <button onclick="testAllProducts()" 
+                        class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition-colors">
+                    测试所有产品
+                </button>
+                <button onclick="clearLogs()" 
+                        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition-colors">
+                    清除日志
+                </button>
+            </div>
+
+            <!-- Webhook 测试 -->
+            <div class="border-t pt-4">
+                <h3 class="text-lg font-semibold mb-3">Webhook 幂等性测试</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">订单ID:</label>
+                        <input type="text" id="webhook-order-id" placeholder="order_123456" 
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">产品ID:</label>
+                        <select id="webhook-product-id" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">选择产品</option>
+                            <option value="onetime">按次购买</option>
+                            <option value="monthly">月度订阅</option>
+                            <option value="yearly">年度订阅</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="testWebhookIdempotency()" 
+                        class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-md transition-colors">
+                    测试 Webhook 幂等性
+                </button>
+            </div>
+        </div>
+
+        <!-- 日志显示 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">测试日志</h2>
+            <div id="log-container" 
+                 class="bg-gray-900 text-white p-4 rounded-md h-96 overflow-y-auto log-entry">
+                <div class="info">等待开始测试...</div>
+            </div>
+        </div>
+
+        <!-- 测试结果统计 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+            <h2 class="text-xl font-semibold mb-4">测试结果统计</h2>
+            <div id="test-results" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- 结果将通过JavaScript动态添加 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 产品配置
+        const PRODUCTS = {
+            onetime: {
+                id: 'prod_7kbzeBzBsEnWbRA0iTh7wf',
+                name: '按次购买',
+                price: 6.9,
+                credits: 500,
+                color: 'green'
+            },
+            monthly: {
+                id: 'prod_6OoADdBXIm16LRR6TN6sFw',
+                name: '月度订阅', 
+                price: 7.9,
+                credits: 500,
+                color: 'blue'
+            },
+            yearly: {
+                id: 'prod_6N9SkBhig3ofomadscbGr7',
+                name: '年度订阅',
+                price: 5.8,
+                credits: 1000,
+                color: 'purple'
+            }
+        };
+
+        // 测试统计
+        let testStats = {
+            onetime: { success: 0, error: 0, duplicate: 0 },
+            monthly: { success: 0, error: 0, duplicate: 0 },
+            yearly: { success: 0, error: 0, duplicate: 0 }
+        };
+
+        // 初始化页面
+        function initPage() {
+            document.getElementById('onetime-id').textContent = PRODUCTS.onetime.id;
+            document.getElementById('monthly-id').textContent = PRODUCTS.monthly.id;
+            document.getElementById('yearly-id').textContent = PRODUCTS.yearly.id;
+            
+            log('系统初始化完成', 'info');
+            log(`产品配置加载完成: ${Object.keys(PRODUCTS).length} 个产品`, 'info');
+        }
+
+        // 日志函数
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logContainer = document.getElementById('log-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.innerHTML = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // 清除日志
+        function clearLogs() {
+            document.getElementById('log-container').innerHTML = '<div class="info">日志已清除，等待新的测试...</div>';
+            // 重置统计
+            testStats = {
+                onetime: { success: 0, error: 0, duplicate: 0 },
+                monthly: { success: 0, error: 0, duplicate: 0 },
+                yearly: { success: 0, error: 0, duplicate: 0 }
+            };
+            updateTestResults();
+        }
+
+        // 获取测试用户ID
+        function getTestUserId() {
+            const inputId = document.getElementById('test-user-id').value.trim();
+            return inputId || `test-user-${Date.now()}`;
+        }
+
+        // 生成唯一订单ID
+        function generateOrderId() {
+            return `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        }
+
+        // 测试单个产品的幂等性
+        async function testIdempotency(productType) {
+            const product = PRODUCTS[productType];
+            const repeatCount = parseInt(document.getElementById('repeat-count').value);
+            const concurrent = document.getElementById('concurrent').checked;
+            const delay = parseInt(document.getElementById('delay').value);
+            const userId = getTestUserId();
+
+            log(`开始测试 ${product.name} 幂等性`, 'info');
+            log(`配置: 重复${repeatCount}次, 并发=${concurrent}, 延迟=${delay}ms`, 'info');
+            log(`测试用户: ${userId}`, 'info');
+
+            if (concurrent) {
+                // 并发测试
+                const promises = [];
+                for (let i = 0; i < repeatCount; i++) {
+                    promises.push(makePurchaseRequest(productType, userId, i + 1));
+                }
+                
+                try {
+                    const results = await Promise.allSettled(promises);
+                    log(`并发测试完成: ${results.length} 个请求`, 'info');
+                    analyzeResults(results, productType);
+                } catch (error) {
+                    log(`并发测试错误: ${error.message}`, 'error');
+                }
+            } else {
+                // 顺序测试
+                for (let i = 0; i < repeatCount; i++) {
+                    await makePurchaseRequest(productType, userId, i + 1);
+                    if (i < repeatCount - 1 && delay > 0) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            }
+
+            updateTestResults();
+            log(`${product.name} 测试完成`, 'success');
+        }
+
+        // 发送购买请求
+        async function makePurchaseRequest(productType, userId, requestIndex) {
+            const product = PRODUCTS[productType];
+            
+            try {
+                log(`[${requestIndex}] 发送 ${product.name} 购买请求...`, 'info');
+                
+                const response = await fetch(`/api/creem/buy-product?productId=${product.id}&userId=${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    if (result.redirectData) {
+                        testStats[productType].success++;
+                        log(`[${requestIndex}] ✅ ${product.name} 请求成功`, 'success');
+                    } else {
+                        testStats[productType].duplicate++;
+                        log(`[${requestIndex}] ⚠️ ${product.name} 可能重复处理`, 'warning');
+                    }
+                } else {
+                    if (response.status === 403 && (result.duplicateSubscription || result.requiresSubscription)) {
+                        testStats[productType].duplicate++;
+                        log(`[${requestIndex}] ⚠️ ${product.name} 重复购买被阻止: ${result.error}`, 'warning');
+                    } else {
+                        testStats[productType].error++;
+                        log(`[${requestIndex}] ❌ ${product.name} 请求失败: ${result.error}`, 'error');
+                    }
+                }
+
+                return { status: response.status, result, requestIndex };
+            } catch (error) {
+                testStats[productType].error++;
+                log(`[${requestIndex}] ❌ ${product.name} 网络错误: ${error.message}`, 'error');
+                return { error: error.message, requestIndex };
+            }
+        }
+
+        // 分析并发测试结果
+        function analyzeResults(results, productType) {
+            const product = PRODUCTS[productType];
+            const successful = results.filter(r => r.status === 'fulfilled' && r.value.status === 200).length;
+            const failed = results.filter(r => r.status === 'rejected' || (r.status === 'fulfilled' && r.value.status !== 200)).length;
+            
+            log(`${product.name} 并发分析: 成功=${successful}, 失败=${failed}`, 'info');
+            
+            if (successful <= 1) {
+                log(`✅ ${product.name} 幂等性测试通过: 只有${successful}个请求成功`, 'success');
+            } else {
+                log(`⚠️ ${product.name} 幂等性测试警告: 有${successful}个请求都成功了`, 'warning');
+            }
+        }
+
+        // 测试所有产品
+        async function testAllProducts() {
+            log('开始测试所有产品...', 'info');
+            
+            for (const productType of ['onetime', 'monthly', 'yearly']) {
+                await testIdempotency(productType);
+                // 在产品测试之间稍作延迟
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+            
+            log('所有产品测试完成!', 'success');
+        }
+
+        // 测试Webhook幂等性
+        async function testWebhookIdempotency() {
+            const orderId = document.getElementById('webhook-order-id').value.trim() || generateOrderId();
+            const productType = document.getElementById('webhook-product-id').value;
+            
+            if (!productType) {
+                log('请选择要测试的产品', 'error');
+                return;
+            }
+
+            const product = PRODUCTS[productType];
+            const userId = getTestUserId();
+            const repeatCount = parseInt(document.getElementById('repeat-count').value);
+
+            log(`开始测试 Webhook 幂等性`, 'info');
+            log(`订单ID: ${orderId}`, 'info');
+            log(`产品: ${product.name} (${product.id})`, 'info');
+
+            // 模拟webhook数据
+            const webhookData = {
+                event_type: 'payment.succeeded',
+                order: {
+                    id: orderId,
+                    product_id: product.id,
+                    status: 'paid',
+                    customer: {
+                        id: userId
+                    }
+                }
+            };
+
+            // 发送多次相同的webhook
+            for (let i = 0; i < repeatCount; i++) {
+                try {
+                    log(`[${i + 1}] 发送 Webhook 请求...`, 'info');
+                    
+                    const response = await fetch('/api/creem/webhook', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(webhookData)
+                    });
+
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        if (result.alreadyProcessed) {
+                            log(`[${i + 1}] ✅ Webhook 幂等性正确: 订单已处理，跳过`, 'success');
+                        } else {
+                            log(`[${i + 1}] ✅ Webhook 处理成功`, 'success');
+                        }
+                    } else {
+                        log(`[${i + 1}] ❌ Webhook 处理失败: ${result.error}`, 'error');
+                    }
+                } catch (error) {
+                    log(`[${i + 1}] ❌ Webhook 网络错误: ${error.message}`, 'error');
+                }
+
+                // 请求间隔
+                if (i < repeatCount - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+            }
+
+            log('Webhook 幂等性测试完成', 'success');
+        }
+
+        // 更新测试结果统计
+        function updateTestResults() {
+            const resultsContainer = document.getElementById('test-results');
+            resultsContainer.innerHTML = '';
+
+            Object.entries(testStats).forEach(([productType, stats]) => {
+                const product = PRODUCTS[productType];
+                const total = stats.success + stats.error + stats.duplicate;
+                
+                const resultCard = document.createElement('div');
+                resultCard.className = 'border rounded-lg p-4';
+                resultCard.innerHTML = `
+                    <h3 class="font-semibold text-${product.color}-600 mb-2">${product.name}</h3>
+                    <div class="space-y-1 text-sm">
+                        <div class="flex justify-between">
+                            <span>总请求:</span>
+                            <span class="font-mono">${total}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-green-600">成功:</span>
+                            <span class="font-mono text-green-600">${stats.success}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-orange-600">重复/阻止:</span>
+                            <span class="font-mono text-orange-600">${stats.duplicate}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-red-600">错误:</span>
+                            <span class="font-mono text-red-600">${stats.error}</span>
+                        </div>
+                        <div class="mt-2 pt-2 border-t">
+                            <div class="text-xs ${stats.duplicate + stats.success <= 1 ? 'text-green-600' : 'text-orange-600'}">
+                                ${stats.duplicate + stats.success <= 1 ? '✅ 幂等性良好' : '⚠️ 需要检查'}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                resultsContainer.appendChild(resultCard);
+            });
+        }
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html> 

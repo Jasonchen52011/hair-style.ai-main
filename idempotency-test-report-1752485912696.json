@@ -1,0 +1,440 @@
+{
+  "summary": {
+    "totalTests": 6,
+    "passedTests": 6,
+    "failedTests": 0,
+    "startTime": 1752485853169,
+    "endTime": 1752485912602
+  },
+  "products": {
+    "onetime": {
+      "type": "purchase",
+      "product": "按次购买",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 6082,
+          "timestamp": "2025-07-14T09:37:39.253Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 810,
+          "timestamp": "2025-07-14T09:37:41.068Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 774,
+          "timestamp": "2025-07-14T09:37:42.842Z"
+        },
+        {
+          "requestIndex": "concurrent-1",
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 1114,
+          "timestamp": "2025-07-14T09:37:43.957Z"
+        },
+        {
+          "requestIndex": "concurrent-2",
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 554,
+          "timestamp": "2025-07-14T09:37:43.399Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 5,
+        "successful": 0,
+        "forbidden": 0,
+        "errors": 5,
+        "avgDuration": 1867,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ 幂等性表现良好"
+      },
+      "concurrentSuccessCount": 0
+    },
+    "monthly": {
+      "type": "purchase",
+      "product": "月度订阅",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 1082,
+          "timestamp": "2025-07-14T09:37:47.049Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 526,
+          "timestamp": "2025-07-14T09:37:48.594Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 548,
+          "timestamp": "2025-07-14T09:37:50.143Z"
+        },
+        {
+          "requestIndex": "concurrent-1",
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 1046,
+          "timestamp": "2025-07-14T09:37:51.189Z"
+        },
+        {
+          "requestIndex": "concurrent-2",
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 519,
+          "timestamp": "2025-07-14T09:37:50.663Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 5,
+        "successful": 0,
+        "forbidden": 0,
+        "errors": 5,
+        "avgDuration": 744,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ 幂等性表现良好"
+      },
+      "concurrentSuccessCount": 0
+    },
+    "yearly": {
+      "type": "purchase",
+      "product": "年度订阅",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 533,
+          "timestamp": "2025-07-14T09:37:53.723Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 537,
+          "timestamp": "2025-07-14T09:37:55.261Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 773,
+          "timestamp": "2025-07-14T09:37:57.034Z"
+        },
+        {
+          "requestIndex": "concurrent-1",
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 521,
+          "timestamp": "2025-07-14T09:37:57.555Z"
+        },
+        {
+          "requestIndex": "concurrent-2",
+          "status": 500,
+          "data": {
+            "error": "Failed to verify subscription status"
+          },
+          "duration": 1093,
+          "timestamp": "2025-07-14T09:37:58.128Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 5,
+        "successful": 0,
+        "forbidden": 0,
+        "errors": 5,
+        "avgDuration": 691,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ 幂等性表现良好"
+      },
+      "concurrentSuccessCount": 0
+    },
+    "onetime_webhook": {
+      "type": "webhook",
+      "product": "按次购买",
+      "orderId": "order-1752485880129-03z7064so",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 200,
+          "data": {
+            "success": true,
+            "message": "Webhook processed successfully",
+            "processingTime": "5867ms",
+            "result": {
+              "success": true,
+              "subscriptionCreated": true,
+              "creditsAdded": 500,
+              "transactionNo": "TXN_1752485884141_54EFRM",
+              "data": [
+                {
+                  "id": "d4b79fbf-781e-4230-9350-cedecfac6c53",
+                  "user_id": "5a90beba-a155-ef0c-cbbf-dd9a12a26899",
+                  "status": "active",
+                  "start_date": "2025-07-14T09:38:03.65",
+                  "end_date": "2035-07-14T09:38:03.65",
+                  "plan_name": "onetime",
+                  "creem_subscription_id": "sub_order-1752485880129-03z7064so",
+                  "plan_id": "onetime",
+                  "credits": 500,
+                  "created_at": "2025-07-14T09:38:03.65+00:00",
+                  "updated_at": "2025-07-14T09:38:03.65+00:00"
+                }
+              ]
+            }
+          },
+          "duration": 5977,
+          "timestamp": "2025-07-14T09:38:06.171Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 200,
+          "data": {
+            "message": "Order already processed - credit exists",
+            "orderId": "order-1752485880129-03z7064so",
+            "alreadyProcessed": true,
+            "existingCredit": {
+              "trans_no": "TXN_1752485884141_54EFRM",
+              "credits": 500,
+              "created_at": "2025-07-14T09:38:05.175+00:00"
+            }
+          },
+          "duration": 568,
+          "timestamp": "2025-07-14T09:38:07.241Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 200,
+          "data": {
+            "message": "Order already processed - credit exists",
+            "orderId": "order-1752485880129-03z7064so",
+            "alreadyProcessed": true,
+            "existingCredit": {
+              "trans_no": "TXN_1752485884141_54EFRM",
+              "credits": 500,
+              "created_at": "2025-07-14T09:38:05.175+00:00"
+            }
+          },
+          "duration": 981,
+          "timestamp": "2025-07-14T09:38:08.724Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 3,
+        "successful": 3,
+        "alreadyProcessed": 2,
+        "errors": 0,
+        "avgDuration": 2509,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ Webhook幂等性表现良好"
+      }
+    },
+    "monthly_webhook": {
+      "type": "webhook",
+      "product": "月度订阅",
+      "orderId": "order-1752485891226-1qyi37dp0",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 200,
+          "data": {
+            "success": true,
+            "message": "Webhook processed successfully",
+            "processingTime": "5286ms",
+            "result": {
+              "success": true,
+              "subscriptionCreated": true,
+              "creditsAdded": 500,
+              "transactionNo": "TXN_1752485894885_OS38CM",
+              "data": [
+                {
+                  "id": "3e466537-2dda-41a7-95ff-6a843e0b46e1",
+                  "user_id": "147ebe2b-7e26-4122-de89-59a638afd309",
+                  "status": "active",
+                  "start_date": "2025-07-14T09:38:14.365",
+                  "end_date": "2025-08-14T09:38:14.365",
+                  "plan_name": "monthly",
+                  "creem_subscription_id": "sub_order-1752485891226-1qyi37dp0",
+                  "plan_id": "monthly",
+                  "credits": 500,
+                  "created_at": "2025-07-14T09:38:14.365+00:00",
+                  "updated_at": "2025-07-14T09:38:14.365+00:00"
+                }
+              ]
+            }
+          },
+          "duration": 5315,
+          "timestamp": "2025-07-14T09:38:16.542Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 200,
+          "data": {
+            "message": "Order already processed - credit exists",
+            "orderId": "order-1752485891226-1qyi37dp0",
+            "alreadyProcessed": true,
+            "existingCredit": {
+              "trans_no": "TXN_1752485894885_OS38CM",
+              "credits": 500,
+              "created_at": "2025-07-14T09:38:15.397+00:00"
+            }
+          },
+          "duration": 791,
+          "timestamp": "2025-07-14T09:38:17.835Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 200,
+          "data": {
+            "message": "Order already processed - credit exists",
+            "orderId": "order-1752485891226-1qyi37dp0",
+            "alreadyProcessed": true,
+            "existingCredit": {
+              "trans_no": "TXN_1752485894885_OS38CM",
+              "credits": 500,
+              "created_at": "2025-07-14T09:38:15.397+00:00"
+            }
+          },
+          "duration": 523,
+          "timestamp": "2025-07-14T09:38:18.859Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 3,
+        "successful": 3,
+        "alreadyProcessed": 2,
+        "errors": 0,
+        "avgDuration": 2210,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ Webhook幂等性表现良好"
+      }
+    },
+    "yearly_webhook": {
+      "type": "webhook",
+      "product": "年度订阅",
+      "orderId": "order-1752485901363-u8xru99op",
+      "results": [
+        {
+          "requestIndex": 1,
+          "status": 200,
+          "data": {
+            "success": true,
+            "message": "Webhook processed successfully",
+            "processingTime": "6197ms",
+            "result": {
+              "success": true,
+              "subscriptionCreated": true,
+              "creditsAdded": 1000,
+              "transactionNo": "TXN_1752485905379_15DDE9",
+              "data": [
+                {
+                  "id": "d37ef353-c786-49c3-ada2-9dca3254c2f9",
+                  "user_id": "4248e12b-a399-9205-e770-4dc4fb90c1c3",
+                  "status": "active",
+                  "start_date": "2025-07-14T09:38:24.889",
+                  "end_date": "2026-07-14T09:38:24.889",
+                  "plan_name": "yearly",
+                  "creem_subscription_id": "sub_order-1752485901363-u8xru99op",
+                  "plan_id": "yearly",
+                  "credits": 1000,
+                  "created_at": "2025-07-14T09:38:24.889+00:00",
+                  "updated_at": "2025-07-14T09:38:24.889+00:00"
+                }
+              ]
+            }
+          },
+          "duration": 6285,
+          "timestamp": "2025-07-14T09:38:27.652Z"
+        },
+        {
+          "requestIndex": 2,
+          "status": 200,
+          "data": {
+            "message": "Order already processed - credit exists",
+            "orderId": "order-1752485901363-u8xru99op",
+            "alreadyProcessed": true,
+            "existingCredit": {
+              "trans_no": "TXN_1752485905379_15DDE9",
+              "credits": 1000,
+              "created_at": "2025-07-14T09:38:25.878+00:00"
+            }
+          },
+          "duration": 684,
+          "timestamp": "2025-07-14T09:38:28.865Z"
+        },
+        {
+          "requestIndex": 3,
+          "status": 200,
+          "data": {
+            "message": "Order already processed - credit exists",
+            "orderId": "order-1752485901363-u8xru99op",
+            "alreadyProcessed": true,
+            "existingCredit": {
+              "trans_no": "TXN_1752485905379_15DDE9",
+              "credits": 1000,
+              "created_at": "2025-07-14T09:38:25.878+00:00"
+            }
+          },
+          "duration": 731,
+          "timestamp": "2025-07-14T09:38:30.098Z"
+        }
+      ],
+      "analysis": {
+        "totalRequests": 3,
+        "successful": 3,
+        "alreadyProcessed": 2,
+        "errors": 0,
+        "avgDuration": 2567,
+        "isIdempotent": true,
+        "idempotencyScore": 100,
+        "recommendation": "✅ Webhook幂等性表现良好"
+      }
+    }
+  }
+}

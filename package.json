@@ -13,7 +13,11 @@
     "perf-audit": "lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html --chrome-flags='--headless'",
     "build:analyze": "cross-env ANALYZE=true next build",
     "type-check": "tsc --noEmit",
-    "lcp-test": "npm run build && npm run dev & sleep 15 && echo 'Testing LCP optimizations...' && curl -I http://localhost:3000"
+    "lcp-test": "npm run build && npm run dev & sleep 15 && echo 'Testing LCP optimizations...' && curl -I http://localhost:3000",
+    "test:idempotency": "node test-idempotency.js",
+    "test:idempotency:quick": "node test-idempotency.js --repeat 3 --concurrent 2",
+    "test:idempotency:stress": "node test-idempotency.js --repeat 20 --concurrent 10",
+    "test:idempotency:prod": "TEST_BASE_URL=https://hair-style.ai node test-idempotency.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
