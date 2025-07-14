@@ -161,15 +161,15 @@ export default function PricingPage() {
   
 
   return (
-    <>
-    <Navbar />
-    <section className="bg-gray-50 overflow-hidden min-h-screen" id="pricing">
-      <div className="py-10 px-8 max-w-6xl mx-auto">
-        <div className="flex flex-col text-center w-full mb-10">
+   <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
+      <Navbar />
+      <section className="bg-gray-50 overflow-hidden flex-1" id="pricing">
+      <div className="py-2 px-4 sm:px-8 max-w-6xl mx-auto">
+        <div className="flex flex-col text-center w-full mb-6">
           <h2 className="font-bold text-4xl lg:text-5xl tracking-tight text-gray-900">
             Pricing
           </h2>
-          <p className="font-medium text-lg text-gray-500 mb-4 mt-6">
+          <p className="font-medium text-lg text-gray-500 mb-1 mt-2">
             Discover your hair inspiration with Hairstyle AI Pro.
           </p>
         </div>
@@ -420,17 +420,6 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* User status prompt */}
-        {!user && (
-          <div className="mt-2 text-center">
-            <p className="text-gray-600 mb-4">
-              Need to sign in first? 
-              <a href="/signin" className="text-purple-700 hover:text-purple-800 font-medium ml-1">
-                Sign in here
-              </a>
-            </p>
-          </div>
-        )}
 
         {/* Cancel subscription/refund link */}
         <div className="mt-2 text-center">
@@ -500,6 +489,6 @@ export default function PricingPage() {
         )}
       </div>
     </section>
-    </>
+    </div>
   );
 }
