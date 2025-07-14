@@ -233,18 +233,65 @@ export async function POST(req: NextRequest) {
 
         // 🔥 使用简化方式扣除积分
         if (finalUserId && hasActiveSubscription) {
+            console.log(`🔄 Starting credit deduction for user ${finalUserId}, task ${taskId}`);
+            console.log(`📊 User current credits: ${userCredits}, required: 10`);
+            
             try {
+                // 先检查是否已经为这个taskId扣除过积分（幂等性检查）
+                const supabase = getSimpleDbClient();
+                const { data: existingCredit, error: checkError } = await supabase
+                    .from('credits')
+                    .select('trans_no, credits, created_at')
+                    .eq('user_uuid', finalUserId)
+                    .eq('order_no', taskId)
+                    .eq('trans_type', 'hairstyle')
+                    .single();
+
+                if (checkError && checkError.code !== 'PGRST116') {
+                    console.error('❌ Error checking existing credit:', checkError);
+                    console.error('❌ Database error details:', {
+                        code: checkError.code,
+                        message: checkError.message,
+                        details: checkError.details,
+                        hint: checkError.hint
+                    });
+                    return NextResponse.json({
+                        success: false,
+                        error: 'Failed to check existing credits. Please try again.',
+                        errorType: 'database_error'
+                    }, { status: 500 });
+                }
+
+                if (existingCredit) {
+                    console.log(`✅ Credits already deducted for task ${taskId}, user ${finalUserId}`, existingCredit);
+                    return NextResponse.json({
+                        success: true,
+                        taskId: taskId,
+                        message: 'Hairstyle generation started successfully',
+                        creditsUsed: 10,
+                        remainingCredits: userCredits - 10,
+                        alreadyProcessed: true
+                    });
+                }
+
+                console.log(`🔄 No existing credit found, proceeding with deduction`);
+                
                 const newCredits = userCredits - 10;
+                console.log(`🔄 Updating user credits from ${userCredits} to ${newCredits}`);
+                
                 await updateUserCredits(finalUserId, newCredits);
+                console.log(`✅ User credits updated successfully`);
                 
                 // 记录积分使用
-                const supabase = getSimpleDbClient();
-                await supabase
+                const transactionNo = `TXN_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`.toUpperCase();
+                console.log(`🔄 Inserting credit record with transaction: ${transactionNo}`);
+                
+                const { error: creditsInsertError } = await supabase
                     .from('credits')
                     .insert({
                         user_uuid: finalUserId,
                         trans_type: 'hairstyle',
-                        trans_no: `TXN_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`.toUpperCase(),
+                        trans_no: transactionNo,
                         order_no: taskId,
                         credits: -10,
                         expired_at: null,
@@ -252,19 +299,64 @@ export async function POST(req: NextRequest) {
                         event_type: 'hairstyle_usage'
                     });
                 
+                if (creditsInsertError) {
+                    console.error('❌ Error inserting credits record:', creditsInsertError);
+                    console.error('❌ Credits insert error details:', {
+                        code: creditsInsertError.code,
+                        message: creditsInsertError.message,
+                        details: creditsInsertError.details,
+                        hint: creditsInsertError.hint
+                    });
+                    
+                    // 积分记录插入失败，需要回滚积分更新
+                    console.log(`🔄 Attempting to rollback credits update for user ${finalUserId}`);
+                    try {
+                        await updateUserCredits(finalUserId, userCredits);
+                        console.log(`✅ Credits rollback successful for user ${finalUserId}`);
+                    } catch (rollbackError) {
+                        console.error('❌ Credits rollback failed:', rollbackError);
+                        console.error('❌ CRITICAL: User credits may be in inconsistent state!');
+                    }
+                    
+                    return NextResponse.json({
+                        success: false,
+                        error: 'Failed to process credits. Please try again.',
+                        errorType: 'credits_processing_error'
+                    }, { status: 500 });
+                }
+                
+                console.log(`✅ Credit record inserted successfully`);
                 console.log(`✅ Credits deducted: ${userCredits} -> ${newCredits} for user ${finalUserId}`);
+                console.log(`✅ Transaction completed: ${transactionNo}`);
+                
             } catch (error) {
-                console.error('Error deducting credits:', error);
-                // 不影响主流程，但记录错误
+                console.error('❌ Error deducting credits:', error);
+                console.error('❌ Error stack:', error instanceof Error ? error.stack : 'No stack available');
+                
+                // 积分扣除失败，返回错误响应
+                return NextResponse.json({
+                    success: false,
+                    error: 'Failed to deduct credits. Please try again.',
+                    errorType: 'credits_deduction_error',
+                    details: error instanceof Error ? error.message : 'Unknown error'
+                }, { status: 500 });
             }
         } else {
+            if (finalUserId && !hasActiveSubscription) {
+                console.log(`⏭️  User ${finalUserId} has no active subscription, skipping credit deduction`);
+            } else if (!finalUserId) {
+                console.log(`⏭️  No user ID provided, skipping credit deduction`);
+            }
+            
             // 更新免费用户的请求计数
             if (!isLocalDev && !isWhitelistIP) {
                 const currentCount = requestCounts.get(ip);
                 if (currentCount && currentCount.date === today) {
                     currentCount.count += 1;
+                    console.log(`📊 Free user request count updated: ${currentCount.count}/${DAILY_LIMIT} for IP ${ip}`);
                 } else {
                     requestCounts.set(ip, { count: 1, date: today });
+                    console.log(`📊 Free user request count initialized: 1/${DAILY_LIMIT} for IP ${ip}`);
                 }
             }
         }

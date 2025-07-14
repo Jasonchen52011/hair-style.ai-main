@@ -323,9 +323,9 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
-            <NavLink href="/pricing" isActive={pathname === '/pricing'}>
-              Pricing
-            </NavLink>
+            <Link href="/pricing" className="px-4 py-1 bg-orange-100 rounded-3xl transition-colors duration-200 text-orange-600 hover:text-orange-700 hover:bg-orange-200">
+              Upgrade
+            </Link>
 
             <ButtonSignin />
           </div>
