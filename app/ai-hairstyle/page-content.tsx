@@ -46,6 +46,17 @@ function SelectStylePageContent() {
     
     // 未登录用户使用次数限制
     const [guestUsageCount, setGuestUsageCount] = useState<number>(5);
+    
+    // 自定义确认对话框状态
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [confirmDialogConfig, setConfirmDialogConfig] = useState({
+        title: '',
+        message: '',
+        confirmText: '',
+        cancelText: '',
+        onConfirm: () => {},
+        onCancel: () => {}
+    });
 
     // 初始化未登录用户使用次数
     useEffect(() => {
@@ -251,30 +262,39 @@ function SelectStylePageContent() {
 
         // 检查未登录用户使用次数限制
         if (!user && guestUsageCount <= 0) {
-            const confirmSubscribe = window.confirm(
-                '🎉 You have used up your free attempts!\n\n' +
-                'Sign up get Pro now to unlock unlimited hairstyle generations and explore more amazing styles!\n\n' +
-                'Ready to discover your perfect look?'
-            );
-            
-            if (confirmSubscribe) {
-                window.location.href = '/signin';
-            }
+            setConfirmDialogConfig({
+                title: 'Free hairstyle attempts are gone!',
+                message: 'Log in and buy Credits to continue creating new styles — your perfect look awaits.',
+                confirmText: 'Log In & Buy Credits',
+                cancelText: 'Cancel',
+                onConfirm: () => {
+                    setShowConfirmDialog(false);
+                    window.location.href = '/signin';
+                },
+                onCancel: () => {
+                    setShowConfirmDialog(false);
+                }
+            });
+            setShowConfirmDialog(true);
             return;
         }
 
         // 检查已登录用户积分是否足够
         if (user && credits !== null && credits < 10) {
-            const confirmTopUp = window.confirm(
-                '🎨 Insufficient Credits for Hairstyle Generation!\n\n' +
-                `You need at least 10 credits to generate a hairstyle, but you currently have ${credits} credits.\n\n` +
-                'Top up your credits now to continue the hairstyle party and discover your perfect look!\n\n' +
-                'Ready to get more credits?'
-            );
-            
-            if (confirmTopUp) {
-                window.location.href = '/pricing';
-            }
+            setConfirmDialogConfig({
+                title: '🎨 Insufficient Credits for Hairstyle Generation!',
+                message: `You need at least 10 credits to generate a hairstyle, but you currently have ${credits} credits.\n\nTop up your credits now to continue the hairstyle party and discover your perfect look!`,
+                confirmText: 'Top Up Credits',
+                cancelText: 'Cancel',
+                onConfirm: () => {
+                    setShowConfirmDialog(false);
+                    window.location.href = '/pricing';
+                },
+                onCancel: () => {
+                    setShowConfirmDialog(false);
+                }
+            });
+            setShowConfirmDialog(true);
             return;
         }
 
@@ -730,6 +750,34 @@ function SelectStylePageContent() {
                 }}
             />
             
+            {/* 自定义确认对话框 */}
+            {showConfirmDialog && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                            {confirmDialogConfig.title}
+                        </h3>
+                        <p className="text-gray-600 mb-6 whitespace-pre-line">
+                            {confirmDialogConfig.message}
+                        </p>
+                        <div className="flex gap-3 justify-end">
+                            <button
+                                onClick={confirmDialogConfig.onCancel}
+                                className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                            >
+                                {confirmDialogConfig.cancelText}
+                            </button>
+                            <button
+                                onClick={confirmDialogConfig.onConfirm}
+                                className="px-4 py-2 bg-purple-700 text-white hover:bg-purple-800 rounded-lg transition-colors"
+                            >
+                                {confirmDialogConfig.confirmText}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            
             <div className="max-w-7xl mx-auto">
                 {/* Logo 区域作为 h1 标题 */}
                 <div className="flex items-center justify-between mb-4 h-[48px]">
@@ -1056,7 +1104,7 @@ function SelectStylePageContent() {
                                     ) : !uploadedImageUrl ? (
                                         "Upload Photo"
                                     ) : (!user && guestUsageCount <= 0) ? (
-                                        "Sign up for more tries"
+                                        "Log In & Buy Credits"
                                     ) : !selectedStyle ? (
                                         user ? 
                                             `Generate with ${selectedGender === "Female" ? "Long Wavy" : "Slick Back"}` :
