@@ -75,12 +75,15 @@ export async function GET(request: NextRequest) {
     }
 
     // 创建支付checkout
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+      (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://hair-style.ai');
+    
     const checkoutData = {
       product_id: productId,
       metadata: {
         user_id: user.id
       },
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hair-style.ai'}/payment-success?order_id={{order.order_no}}&checkout_id={{checkout.id}}&product_id=${productId}`
+      success_url: `${baseUrl}/payment-success?product_id=${productId}`
     };
 
     console.log("Creating checkout with data:", JSON.stringify(checkoutData, null, 2));

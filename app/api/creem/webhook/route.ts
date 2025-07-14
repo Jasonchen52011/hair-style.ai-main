@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { getProductCreditsMap, getProductPlanMap } from "../../../../config";
+import { insertCreditsWithFallback, generateFallbackOrderNo } from "../../../../lib/credits-utils";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,21 +27,7 @@ function generateTransactionNo(): string {
   return `TXN_${timestamp}_${random}`.toUpperCase();
 }
 
-// 生成fallback的order_no
-function generateFallbackOrderNo(
-  orderId: string | null,
-  prefix: string,
-  subscriptionId?: string | null,
-  checkoutId?: string | null,
-): string {
-  if (orderId) {
-    return orderId;
-  }
-
-  // 按优先级选择fallback值
-  const fallbackValue = subscriptionId || checkoutId || Date.now().toString();
-  return `${prefix}_${fallbackValue}`;
-}
+// generateFallbackOrderNo 函数已移动到 lib/credits-utils.ts 中统一管理
 
 export async function POST(req: Request) {
   const startTime = Date.now();
@@ -89,15 +76,15 @@ export async function POST(req: Request) {
     let userId, planId, subscriptionId, orderId, checkoutId;
 
     switch (eventType) {
-      // case "checkout.completed":
-      //   // 从checkout.completed事件的object中提取
-      //   userId = object.customer?.id;
-      //   planId = object.product?.id;
-      //   subscriptionId = object.subscription?.id;
-      //   orderId = object.order?.id;
-      //   checkoutId = object.id;
-      //   break;
-
+      case "checkout.completed":
+        // 从checkout.completed事件的object中提取
+        userId = object.customer?.id;
+        planId = object.product?.id;
+        subscriptionId = object.subscription?.id;
+        orderId = object.order?.id;
+        checkoutId = object.id;
+        break;
+ 
       case "subscription.paid":
         // subscription.paid事件包含order和checkout
         userId = object.metadata?.user_id;
@@ -282,15 +269,17 @@ export async function POST(req: Request) {
     // 根据事件类型处理
     let result;
     switch (eventType) {
-      // case 'checkout.completed':
-      //   // checkout.completed 意味着结账完成，包含订单和订阅信息
-      //   result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
-      //   break;
-
-      // // case 'subscription.active':
-      // //   // subscription.active 意味着订阅激活，通常是首次创建
-      // //   result = await handlePaymentSuccessWithConflictHandling(userId, planId, subscriptionId, orderId, checkoutId);
-      // //   break;
+      case 'checkout.completed':
+        // checkout.completed 意味着结账完成，包含订单和订阅信息
+        result = await handlePaymentSuccessWithConflictHandling(
+          userId,
+          planId,
+          subscriptionId,
+          orderId,
+          checkoutId,
+          eventType,
+        );
+        break;
 
       case "subscription.paid":
         // subscription.paid 意味着订阅付款成功，包含订单信息
@@ -645,60 +634,36 @@ async function handleUpgradeLogic(
     const transactionNo = generateTransactionNo();
     const creditsToAdd = PRODUCT_CREDITS_MAP[newPlanId];
 
-    // 同时更新credits表和profiles表
-    const [creditResult, profileResult] = await Promise.all([
-      supabase.from("credits").insert({
-        user_uuid: userId,
-        trans_type: TRANS_TYPE.PURCHASE,
-        trans_no: transactionNo,
-        order_no: generateFallbackOrderNo(
-          orderId,
-          "upgrade",
-          newSubscriptionId,
-          checkoutId,
-        ),
-        credits: creditsToAdd, // 年度订阅立即获得1000积分
-        expired_at: null, // 年度订阅积分通过月度分配管理
-        created_at: new Date().toISOString(),
-        event_type: eventType,
-      }),
-      supabase
-        .from("profiles")
-        .update({
-          current_credits: currentCredits + creditsToAdd,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", userId),
-    ]);
+    // 使用新的统一积分插入函数，包含完整的错误处理和fallback查询逻辑
+    const orderNo = generateFallbackOrderNo(orderId, "upgrade", newSubscriptionId, checkoutId);
+    
+    const creditResult = await insertCreditsWithFallback({
+      supabase: supabase,
+      userId: userId,
+      transType: TRANS_TYPE.PURCHASE,
+      transactionNo: transactionNo,
+      orderNo: orderNo,
+      credits: creditsToAdd,
+      expiredAt: null, // 年度订阅积分通过月度分配管理
+      eventType: eventType
+    });
 
-    if (creditResult.error) {
-      // 🔒 检查是否为数据库约束违反错误（重复插入）
-      if (
-        creditResult.error.code === "23505" &&
-        creditResult.error.message.includes("unique_user_order")
-      ) {
-        console.log(
-          `✅ Credits already exist for upgrade order ${orderId}, skipping duplicate insertion`,
-        );
-        return {
-          success: true,
-          conflictHandled: true,
-          transitionType: "upgrade",
-          creditsAdded: 0,
-          message:
-            "Credits already exist - duplicate prevented by database constraint",
-          alreadyProcessed: true,
-        };
-      }
-      throw new Error(
-        `Failed to add credits record: ${creditResult.error.message}`,
-      );
+    if (!creditResult.success) {
+      console.error("❌ Credit insertion failed:", creditResult.message);
+      throw new Error(`Failed to add credits: ${creditResult.message}`);
     }
 
-    if (profileResult.error) {
-      throw new Error(
-        `Failed to update profile credits: ${profileResult.error.message}`,
-      );
+    if (creditResult.alreadyProcessed) {
+      console.log(`✅ Upgrade already processed for order ${orderNo}:`, creditResult.message);
+      return {
+        success: true,
+        conflictHandled: true,
+        transitionType: "upgrade",
+        creditsAdded: creditResult.creditsAdded,
+        message: creditResult.message,
+        alreadyProcessed: true,
+        transactionNo: creditResult.transactionNo
+      };
     }
 
     // 5. 创建升级订单记录
@@ -1172,71 +1137,39 @@ async function handlePaymentSuccess(
     }
     // 年度订阅积分通过月度分配，这里不设置过期时间
 
-    // 获取当前积分
-    const currentCredits = profileData?.current_credits || 0;
+    // 使用新的统一积分插入函数，包含完整的错误处理和fallback查询逻辑
+    const orderNo = generateFallbackOrderNo(orderId, "payment", subscriptionId, checkoutId);
+    
+    const creditResult = await insertCreditsWithFallback({
+      supabase: supabase,
+      userId: userId,
+      transType: TRANS_TYPE.PURCHASE,
+      transactionNo: transactionNo,
+      orderNo: orderNo,
+      credits: credits,
+      expiredAt: expiredAt,
+      eventType: eventType
+    });
 
-    // 同时更新credits表和profiles表
-    const [creditsResult, profileUpdateResult] = await Promise.all([
-      supabase.from("credits").insert({
-        user_uuid: userId,
-        trans_type: TRANS_TYPE.PURCHASE,
-        trans_no: transactionNo,
-        order_no: generateFallbackOrderNo(
-          orderId,
-          "payment",
-          subscriptionId,
-          checkoutId,
-        ),
-        credits: credits, // 正数表示获得积分
-        expired_at: expiredAt,
-        created_at: new Date().toISOString(),
-        event_type: eventType,
-      }),
-      supabase
-        .from("profiles")
-        .update({
-          current_credits: currentCredits + credits,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", userId),
-    ]);
-
-    if (creditsResult.error) {
-      // 🔒 检查是否为数据库约束违反错误（重复插入）
-      if (
-        creditsResult.error.code === "23505" &&
-        creditsResult.error.message.includes("unique_user_order")
-      ) {
-        console.log(
-          `✅ Credits already exist for order ${orderId}, skipping duplicate insertion`,
-        );
-        return {
-          success: true,
-          subscriptionCreated: true,
-          creditsAdded: 0,
-          message:
-            "Credits already exist - duplicate prevented by database constraint",
-          alreadyProcessed: true,
-        };
-      }
-      console.error("❌ Error adding credits record:", creditsResult.error);
-      throw new Error(
-        `Failed to add credits record: ${creditsResult.error.message}`,
-      );
+    if (!creditResult.success) {
+      console.error("❌ Credit insertion failed:", creditResult.message);
+      throw new Error(`Failed to add credits: ${creditResult.message}`);
     }
 
-    if (profileUpdateResult.error) {
-      console.error(
-        "❌ Error updating profile credits:",
-        profileUpdateResult.error,
-      );
-      throw new Error(
-        `Failed to update profile credits: ${profileUpdateResult.error.message}`,
-      );
+    if (creditResult.alreadyProcessed) {
+      console.log(`✅ Payment already processed for order ${orderNo}:`, creditResult.message);
+      return {
+        success: true,
+        subscriptionCreated: true,
+        creditsAdded: creditResult.creditsAdded,
+        message: creditResult.message,
+        alreadyProcessed: true,
+        transactionNo: creditResult.transactionNo
+      };
     }
 
     console.log(
-      `✅ Credits added: ${credits} credits for user ${userId}, transaction: ${transactionNo}`,
+      `✅ Credits added: ${creditResult.creditsAdded} credits for user ${userId}, transaction: ${creditResult.transactionNo}`,
     );
 
     const { data: creditsData } = await supabase.from("credits").select("*");
@@ -1245,8 +1178,8 @@ async function handlePaymentSuccess(
     return {
       success: true,
       subscriptionCreated: true,
-      creditsAdded: credits,
-      transactionNo: transactionNo,
+      creditsAdded: creditResult.creditsAdded,
+      transactionNo: creditResult.transactionNo,
       data: subscriptionData,
     };
   } catch (error) {
