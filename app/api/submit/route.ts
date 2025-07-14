@@ -324,13 +324,96 @@ export async function POST(req: NextRequest) {
                         });
                     }
                 }
+            } else {
+                // 🔥 立即扣除积分，而不是等到任务完成
+                console.log(`🔄 Starting immediate credit deduction for user ${user.id}, task ${responseData.task_id}`);
+                console.log(`📊 User current credits: ${userCredits}, required: 10`);
+                
+                try {
+                    // 先检查是否已经为这个taskId扣除过积分（幂等性检查）
+                    const { data: existingCredit, error: checkError } = await adminSupabase
+                        .from('credits')
+                        .select('trans_no, credits, created_at')
+                        .eq('user_uuid', user.id)
+                        .eq('order_no', responseData.task_id)
+                        .eq('trans_type', 'hairstyle')
+                        .single();
+
+                    if (checkError && checkError.code !== 'PGRST116') {
+                        console.error('❌ Error checking existing credit:', checkError);
+                        return NextResponse.json({
+                            success: false,
+                            error: 'Failed to verify credits. Please try again.',
+                            errorType: 'database_error'
+                        }, { status: 500 });
+                    }
+
+                    if (existingCredit) {
+                        console.log(`✅ Credits already deducted for task ${responseData.task_id}, user ${user.id}`, existingCredit);
+                        chargedTasks.add(responseData.task_id);
+                    } else {
+                        console.log(`🔄 No existing credit found, proceeding with deduction`);
+                        
+                        // 生成交易编号
+                        const timestamp = Date.now();
+                        const random = Math.random().toString(36).substring(2, 8);
+                        const transactionNo = `TXN_${timestamp}_${random}`.toUpperCase();
+                        
+                        console.log(`🔄 Generated transaction number: ${transactionNo}`);
+
+                        // 使用事务同时更新两个表
+                        const [insertResult, updateResult] = await Promise.all([
+                            adminSupabase
+                                .from('credits')
+                                .insert({
+                                    user_uuid: user.id,
+                                    trans_type: 'hairstyle',
+                                    trans_no: transactionNo,
+                                    order_no: responseData.task_id,
+                                    credits: -10,
+                                    expired_at: null,
+                                    created_at: new Date().toISOString(),
+                                    event_type: 'hairstyle_usage'
+                                }),
+                            adminSupabase
+                                .from('profiles')
+                                .update({
+                                    current_credits: userCredits - 10,
+                                    updated_at: new Date().toISOString()
+                                })
+                                .eq('id', user.id)
+                        ]);
+
+                        if (!insertResult.error && !updateResult.error) {
+                            chargedTasks.add(responseData.task_id);
+                            console.log(`✅ Credits deducted immediately: ${userCredits} -> ${userCredits - 10} for user ${user.id}, task ${responseData.task_id}`);
+                            console.log(`✅ Transaction completed: ${transactionNo}`);
+                        } else {
+                            console.error(`❌ Failed to deduct credits for task ${responseData.task_id}:`, insertResult.error || updateResult.error);
+                            
+                            // 积分扣除失败，返回错误，不继续处理任务
+                            return NextResponse.json({
+                                success: false,
+                                error: 'Failed to process credits. Please try again.',
+                                errorType: 'credits_processing_error'
+                            }, { status: 500 });
+                        }
+                    }
+                } catch (error) {
+                    console.error('❌ Error deducting credits:', error);
+                    return NextResponse.json({
+                        success: false,
+                        error: 'Failed to deduct credits. Please try again.',
+                        errorType: 'credits_deduction_error'
+                    }, { status: 500 });
+                }
             }
-            // 注意：积分扣费现在移到生成成功时进行，避免生成失败时用户损失积分
             
             return NextResponse.json({ 
                 success: true,
                 taskId: responseData.task_id,
-                status: 'processing'
+                status: 'processing',
+                creditsDeducted: user && hasActiveSubscription ? 10 : 0
             });
         }
         
@@ -437,84 +520,40 @@ export async function GET(req: NextRequest) {
       taskErrorCount.delete(taskId);
       console.log(`Task ${taskId} completed, cleared error count`);
       
-      // 如果生成成功且尚未扣费，执行积分扣费
-      if ((statusData.task_status === 2 || statusData.task_status === 'SUCCESS') && !chargedTasks.has(taskId)) {
-        console.log(`Attempting to consume credits for successful task ${taskId}`);
-        try {
-          // 获取当前用户信息
-          const supabase = createRouteHandlerClient({ cookies });
-          const { data: { user }, error: userError } = await supabase.auth.getUser();
-          
-          if (user) {
-            console.log(`Found user ${user.id} for task ${taskId}, checking credits`);
-            // 直接检查用户当前积分，使用current_credits字段
-            try {
-              const { data: profile, error: profileError } = await supabase
-                .from('profiles')
-                .select('current_credits')
-                .eq('id', user.id)
+      // 积分扣除已经在POST方法中完成，这里只需要记录任务完成状态
+      if ((statusData.task_status === 2 || statusData.task_status === 'SUCCESS')) {
+        if (!chargedTasks.has(taskId)) {
+          console.log(`⚠️  Task ${taskId} completed successfully but no credit deduction record found in memory`);
+          // 检查数据库中是否有积分扣除记录
+          try {
+            const supabase = createRouteHandlerClient({ cookies });
+            const { data: { user }, error: userError } = await supabase.auth.getUser();
+            
+            if (user) {
+              const { data: existingCredit, error: checkError } = await supabase
+                .from('credits')
+                .select('trans_no, credits, created_at')
+                .eq('user_uuid', user.id)
+                .eq('order_no', taskId)
+                .eq('trans_type', 'hairstyle')
                 .single();
 
-              if (!profileError && profile) {
-                const userCredits = profile.current_credits || 0;
-                console.log(`User ${user.id} has ${userCredits} credits for task ${taskId}`);
-                
-                // 如果用户有足够积分（至少10积分），执行扣费
-                if (userCredits >= 10) {
-                  console.log(`Attempting to consume 10 credits for user ${user.id}, task ${taskId}`);
-                  
-                  // 生成交易编号
-                  const timestamp = Date.now();
-                  const random = Math.random().toString(36).substring(2, 8);
-                  const transactionNo = `TXN_${timestamp}_${random}`.toUpperCase();
-
-                  // 使用事务同时更新两个表
-                  const [insertResult, updateResult] = await Promise.all([
-                    supabase
-                      .from('credits')
-                      .insert({
-                        user_uuid: user.id,
-                        trans_type: 'hairstyle',
-                        trans_no: transactionNo,
-                        order_no: null,
-                        credits: -10, // 负数表示消费
-                        expired_at: null,
-                        created_at: new Date().toISOString(),
-                        event_type: 'hairstyle_usage'
-                      }),
-                    supabase
-                      .from('profiles')
-                      .update({
-                        current_credits: userCredits - 10,
-                        updated_at: new Date().toISOString()
-                      })
-                      .eq('id', user.id)
-                  ]);
-
-                  if (!insertResult.error && !updateResult.error) {
-                    chargedTasks.add(taskId);
-                    console.log(`Successfully consumed 10 credits for task ${taskId}, user: ${user.id}, transaction: ${transactionNo}`);
-                  } else {
-                    console.error(`Failed to consume credits for task ${taskId}:`, insertResult.error || updateResult.error);
-                  }
-                } else {
-                  console.log(`User ${user.id} has insufficient credits (${userCredits}) for task ${taskId}, skipping charge`);
-                }
+              if (!checkError && existingCredit) {
+                console.log(`✅ Found existing credit deduction in database for task ${taskId}`);
+                chargedTasks.add(taskId);
               } else {
-                console.error(`Failed to check credits for task ${taskId}:`, profileError);
+                console.log(`⚠️  No credit deduction record found in database for task ${taskId}`);
               }
-            } catch (error) {
-              console.error(`Error checking/consuming credits for task ${taskId}:`, error);
             }
-          } else {
-            console.log(`No user found for task ${taskId}`);
+          } catch (error) {
+            console.error(`❌ Error checking credit deduction for completed task ${taskId}:`, error);
           }
-        } catch (error) {
-          console.error(`Error processing credits for task ${taskId}:`, error);
+        } else {
+          console.log(`✅ Task ${taskId} completed and credits were already deducted`);
         }
-      } else {
-        console.log(`Skipping credit consumption for task ${taskId}: status=${statusData.task_status}, alreadyCharged=${chargedTasks.has(taskId)}`);
       }
+    } else {
+      console.log(`Skipping processing for task ${taskId}: status=${statusData.task_status}`);
     }
     
     return NextResponse.json(statusData);
