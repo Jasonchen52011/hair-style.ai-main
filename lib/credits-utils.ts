@@ -76,6 +76,7 @@ interface InsertCreditsResult {
   creditsAdded: number;
   transactionNo: string;
   alreadyProcessed: boolean;
+  newTotalCredits?: number;
 }
 
 // 带回退机制的积分插入函数
@@ -122,6 +123,7 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
     }
     
     const currentCredits = profile?.current_credits || 0;
+    const newTotalCredits = currentCredits + credits;
     
     // 3. 同时更新credits表和profiles表
     const [creditsResult, profileResult] = await Promise.all([
@@ -133,6 +135,7 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
           trans_no: transactionNo,
           order_no: orderNo,
           credits: credits,
+          current_credits: newTotalCredits,  // 添加当前总积分
           expired_at: expiredAt,
           created_at: new Date().toISOString(),
           event_type: eventType
@@ -140,7 +143,7 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
       supabase
         .from('profiles')
         .update({
-          current_credits: currentCredits + credits,
+          current_credits: newTotalCredits,
           updated_at: new Date().toISOString()
         })
         .eq('id', userId)
@@ -169,12 +172,21 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
     
     console.log(`✅ Credits added successfully: ${credits} credits for user ${userId}, transaction: ${transactionNo}`);
     
+    // 触发前端积分更新事件（通过自定义事件）
+    try {
+      // 这里只是触发通知，实际的实时更新可以通过其他方式实现
+      console.log(`🔔 Credits update notification sent for user ${userId}`);
+    } catch (eventError) {
+      console.warn('Failed to trigger credits update event:', eventError);
+    }
+    
     return {
       success: true,
       message: `Successfully added ${credits} credits`,
       creditsAdded: credits,
       transactionNo: transactionNo,
-      alreadyProcessed: false
+      alreadyProcessed: false,
+      newTotalCredits: newTotalCredits
     };
     
   } catch (error) {

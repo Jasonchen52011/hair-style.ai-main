@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webhook Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { padding: 10px 20px; margin: 10px; }
+        .result { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .error { background-color: #ffcccc; }
+        .success { background-color: #ccffcc; }
+    </style>
+</head>
+<body>
+    <h1>Webhook Test Page</h1>
+    
+    <button onclick="testWebhook()">Test Webhook Endpoint</button>
+    <button onclick="testGetEndpoint()">Test GET Request</button>
+    
+    <div id="result" class="result"></div>
+
+    <script>
+        async function testWebhook() {
+            const resultDiv = document.getElementById('result');
+            
+            const testPayload = {
+                eventType: "checkout.completed",
+                object: {
+                    id: "test_checkout_id",
+                    customer: {
+                        id: "test_user_id"
+                    },
+                    product: {
+                        id: "prod_7kbzeBzBsEnWbRA0iTh7wf"
+                    },
+                    subscription: {
+                        id: "test_subscription_id"
+                    },
+                    order: {
+                        id: "test_order_id"
+                    }
+                }
+            };
+
+            try {
+                const response = await fetch('/api/creem/webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Creem-Webhook-Test'
+                    },
+                    body: JSON.stringify(testPayload)
+                });
+
+                const data = await response.json();
+                
+                resultDiv.className = response.ok ? 'result success' : 'result error';
+                resultDiv.innerHTML = `
+                    <h3>Webhook Test Result</h3>
+                    <p><strong>Status:</strong> ${response.status}</p>
+                    <p><strong>Response:</strong></p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>Webhook Test Error</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+            }
+        }
+
+        async function testGetEndpoint() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const response = await fetch('/api/creem/webhook', {
+                    method: 'GET'
+                });
+
+                const data = await response.text();
+                
+                resultDiv.className = 'result';
+                resultDiv.innerHTML = `
+                    <h3>GET Request Test Result</h3>
+                    <p><strong>Status:</strong> ${response.status}</p>
+                    <p><strong>Response:</strong></p>
+                    <pre>${data}</pre>
+                `;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>GET Request Test Error</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

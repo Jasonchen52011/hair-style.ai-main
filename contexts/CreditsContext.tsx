@@ -45,34 +45,79 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
     if (!user || !mounted || isRefreshing) return;
     
     setIsRefreshing(true);
-    try {
-      const response = await fetch('/api/creem/user-credits', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache',
-          'Pragma': 'no-cache'
+    let retries = 3; // 增加重试机制
+    
+    while (retries > 0) {
+      try {
+        console.log(`🔄 Refreshing credits for user ${user.id} (attempt ${4 - retries})`);
+        
+        const response = await fetch(`/api/user-credits-simple?userId=${user.id}&_t=${Date.now()}`, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'x-user-id': user.id
+          }
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log(`📊 Credits API response:`, result);
+          
+          if (result.success) {
+            const newCredits = result.user.credits || 0;
+            const hasSubscription = result.user.hasActiveSubscription || false;
+            
+            console.log(`✅ Credits updated: ${newCredits}, Subscription: ${hasSubscription}`);
+            
+            setCredits(newCredits);
+            setHasActiveSubscription(hasSubscription);
+            
+            // 成功后跳出重试循环
+            break;
+          } else {
+            console.error('API returned error:', result.error);
+            // API错误，但不重试
+            setCredits(0);
+            setHasActiveSubscription(false);
+            break;
+          }
+        } else {
+          console.error(`Failed to fetch credits (${response.status}):`, response.statusText);
+          
+          // 只有在5xx错误时才重试
+          if (response.status >= 500 && retries > 1) {
+            retries--;
+            console.log(`🔄 Retrying... (${retries} attempts left)`);
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 等待1秒后重试
+            continue;
+          }
+          
+          setCredits(0);
+          setHasActiveSubscription(false);
+          break;
         }
-      });
-      
-      if (response.ok) {
-        const creditsData = await response.json();
-        setCredits(creditsData.credits || 0);
-        setHasActiveSubscription(creditsData.hasActiveSubscription || false);
-      } else {
-        console.error('Failed to fetch credits:', response.status);
-        // 简化错误处理，不再使用双重fallback
+      } catch (error) {
+        console.error('Error refreshing credits:', error);
+        
+        // 网络错误，重试
+        if (retries > 1) {
+          retries--;
+          console.log(`🔄 Network error, retrying... (${retries} attempts left)`);
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          continue;
+        }
+        
         setCredits(0);
         setHasActiveSubscription(false);
+        break;
       }
-    } catch (error) {
-      console.error('Error refreshing credits:', error);
-      setCredits(0);
-      setHasActiveSubscription(false);
-    } finally {
-      setIsRefreshing(false);
     }
+    
+    setIsRefreshing(false);
   }, [user, mounted, isRefreshing]);
 
   const updateCredits = useCallback((newCredits: number) => {
@@ -91,18 +136,25 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
         
         if (data.user) {
           // 立即获取用户credits信息，不再延迟
-          const response = await fetch('/api/creem/user-credits', {
+          const response = await fetch(`/api/user-credits-simple?userId=${data.user.id}`, {
             method: 'GET',
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
+              'x-user-id': data.user.id
             },
           });
           
           if (response.ok) {
-            const creditsData = await response.json();
-            setCredits(creditsData.credits || 0);
-            setHasActiveSubscription(creditsData.hasActiveSubscription || false);
+            const result = await response.json();
+            if (result.success) {
+              setCredits(result.user.credits || 0);
+              setHasActiveSubscription(result.user.hasActiveSubscription || false);
+            } else {
+              console.error('Credits API returned error:', result.error);
+              setCredits(0);
+              setHasActiveSubscription(false);
+            }
           } else {
             console.error('Credits API failed:', response.status);
             setCredits(0);
