@@ -263,6 +263,21 @@ function SelectStylePageContent() {
             return;
         }
 
+        // 检查已登录用户积分是否足够
+        if (user && credits !== null && credits < 10) {
+            const confirmTopUp = window.confirm(
+                '🎨 Insufficient Credits for Hairstyle Generation!\n\n' +
+                `You need at least 10 credits to generate a hairstyle, but you currently have ${credits} credits.\n\n` +
+                'Top up your credits now to continue the hairstyle party and discover your perfect look!\n\n' +
+                'Ready to get more credits?'
+            );
+            
+            if (confirmTopUp) {
+                window.location.href = '/pricing';
+            }
+            return;
+        }
+
         try {
             setIsLoading(true);
             console.log('Starting hairstyle generation:', { selectedStyle, selectedColor });
