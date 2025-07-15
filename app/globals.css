@@ -254,3 +254,37 @@ body {
   outline: 2px solid var(--primary-light);
   outline-offset: 2px;
 }
+
+/* 移动端触摸优化 */
+@media (max-width: 768px) {
+  /* 增加移动端链接的可点击区域 */
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* 导航栏移动端优化 */
+  [data-mobile-menu] a,
+  [data-mobile-menu] button {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* 防止双击缩放 */
+  * {
+    touch-action: pan-x pan-y;
+  }
+  
+  /* 下拉菜单项优化 */
+  .mobile-dropdown-item {
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* 确保移动端菜单有足够的点击区域 */
+  nav button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
