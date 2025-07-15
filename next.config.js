@@ -187,7 +187,87 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
       
       async redirects() {
           return [
-              
+              // HTTP到HTTPS重定向
+              {
+                  source: '/:path*',
+                  has: [
+                      {
+                          type: 'header',
+                          key: 'x-forwarded-proto',
+                          value: 'http',
+                      },
+                  ],
+                  destination: 'https://hair-style.ai/:path*',
+                  permanent: true,
+              },
+              // www到非www的HTTPS重定向
+              {
+                  source: '/:path*',
+                  has: [
+                      {
+                          type: 'host',
+                          value: 'www.hair-style.ai',
+                      },
+                  ],
+                  destination: 'https://hair-style.ai/:path*',
+                  permanent: true,
+              },
+              // 404重定向 - 将旧的页面路径重定向到404页面
+              {
+                  source: '/dreadlocks',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/textured-fringe',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/pompadour',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/low-fade-haircut',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/man-bun',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/undercut',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/hairstyles-for-women',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/hairstyles-for-men',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/bob-haircut',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/pixie-cut',
+                  destination: '/not-found',
+                  permanent: true,
+              },
+              {
+                  source: '/ai-braids',
+                  destination: '/not-found',
+                  permanent: true,
+              },
           ]
       },
       // 环境变量配置
