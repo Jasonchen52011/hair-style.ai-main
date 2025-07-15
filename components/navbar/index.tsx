@@ -159,7 +159,7 @@ export default function Navbar() {
 
   // 优化的外部点击处理 - 包含移动端
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node;
       
       // 桌面端下拉菜单
@@ -188,11 +188,11 @@ export default function Navbar() {
     };
 
     if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isMobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isMobileMenuOpen]);
 
@@ -343,7 +343,7 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200" data-mobile-menu>
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 overflow-y-auto max-h-[calc(100vh-4rem)]" data-mobile-menu>
               <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
                 Home
               </Link>
@@ -442,6 +442,9 @@ export default function Navbar() {
                 </button>
                 {isColorDropdownOpen && (
                   <div className="pl-6 pb-2 space-y-1">
+                       <Link href="/ai-hair-color-changer" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      AI Hair Color Changer
+                    </Link>
                     <Link href="/black-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Black Hair Filter
                     </Link>
@@ -451,7 +454,7 @@ export default function Navbar() {
                     <Link href="/red-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Red Hair Filter
                     </Link>
-                    <Link href="/white-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={() => { setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/white-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       White Hair Filter
                     </Link>
                     <Link href="/gray-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
@@ -460,9 +463,7 @@ export default function Navbar() {
                     <Link href="/pink-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Pink Hair Filter
                     </Link>
-                    <Link href="/ai-hair-color-changer" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      AI Hair Color Changer
-                    </Link>
+
                   </div>
                 )}
               </div>
