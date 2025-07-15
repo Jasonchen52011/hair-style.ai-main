@@ -324,6 +324,10 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
+            <NavLink href="/pricing" isActive={pathname === '/pricing'}>
+              Pricing
+            </NavLink>
+
             <ButtonSignin />
           </div>
 
@@ -467,6 +471,10 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
+
+              <Link href="/pricing" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
+                Pricing
+              </Link>
 
               <div className="px-3 py-2">
                 <ButtonSignin />
