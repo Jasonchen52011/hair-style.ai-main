@@ -157,11 +157,12 @@ export default function Navbar() {
     };
   }, [isSticky]);
 
-  // 优化的外部点击处理
+  // 优化的外部点击处理 - 包含移动端
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
       
+      // 桌面端下拉菜单
       if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setIsDropdownOpen(false);
       }
@@ -174,16 +175,26 @@ export default function Navbar() {
       if (otherToolsDropdownRef.current && !otherToolsDropdownRef.current.contains(target)) {
         setIsOtherToolsDropdownOpen(false);
       }
+      
+      // 移动端下拉菜单 - 如果点击了移动菜单外部，关闭所有下拉菜单
+      if (isMobileMenuOpen) {
+        const mobileMenu = document.querySelector('[data-mobile-menu]');
+        if (mobileMenu && !mobileMenu.contains(target)) {
+          setIsHairstyleDropdownOpen(false);
+          setIsColorDropdownOpen(false);
+          setIsMobileMenuOpen(false);
+        }
+      }
     };
 
-    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen) {
+    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isMobileMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen]);
+  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isMobileMenuOpen]);
 
   // 简化的挂载检查
   if (!isMounted) {
@@ -313,33 +324,6 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
-            {/* Other Tools Dropdown */}
-            <div className="relative" ref={otherToolsDropdownRef}>
-              <DropdownButton 
-                isOpen={isOtherToolsDropdownOpen}
-                onClick={() => setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen)}
-              >
-                Other Tools
-              </DropdownButton>
-              
-              <DropdownMenu isOpen={isOtherToolsDropdownOpen} onClose={() => setIsOtherToolsDropdownOpen(false)}>
-                <DropdownItem href="/face-shape-detector" onClick={() => setIsOtherToolsDropdownOpen(false)}>
-                  Face Shape Detector
-                </DropdownItem>
-                <DropdownItem href="/hairstyles-for-girls" onClick={() => setIsOtherToolsDropdownOpen(false)}>
-                  Hairstyles for Girls
-                </DropdownItem>
-                <DropdownItem href="/ai-hairstyle-male" onClick={() => setIsOtherToolsDropdownOpen(false)}>
-                  AI Hairstyle Male
-                </DropdownItem>
-                <DropdownItem href="/ai-hairstyle-online-free-female" onClick={() => setIsOtherToolsDropdownOpen(false)}>
-                  AI Hairstyle Female
-                </DropdownItem>
-              </DropdownMenu>
-            </div>
-
-
-
             <ButtonSignin />
           </div>
 
@@ -359,9 +343,130 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-purple-700">Home</Link>
-              <Link href="/pricing" className="block px-3 py-2 text-gray-700 hover:text-purple-700">Pricing</Link>
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200" data-mobile-menu>
+              <Link href="/" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
+                Home
+              </Link>
+              
+              {/* Mobile Hairstyle Filter Dropdown */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsHairstyleDropdownOpen(prev => !prev);
+                    setIsColorDropdownOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
+                >
+                  Hairstyle Filter
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isHairstyleDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isHairstyleDropdownOpen && (
+                  <div className="pl-6 pb-2 space-y-1">
+                    <Link href="/buzz-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Buzz Cut Filter
+                    </Link>
+                    <Link href="/bob-haircut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Bob Haircut Filter
+                    </Link>
+                    <Link href="/bangs-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Bangs Filter
+                    </Link>
+                    <Link href="/ai-braids-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Braids Filter
+                    </Link>
+                    <Link href="/perm-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Perm Filter
+                    </Link>
+                    <Link href="/pixie-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Pixie Cut Filter
+                    </Link>
+                    <Link href="/short-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Short Hair Filter
+                    </Link>
+                    <Link href="/long-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Long Hair Filter
+                    </Link>
+                    <Link href="/man-bun-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Man Bun Filter
+                    </Link>
+                    <Link href="/undercut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Undercut Filter
+                    </Link>
+                    <Link href="/pompadour-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Pompadour Filter
+                    </Link>
+                    <Link href="/textured-fringe-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Textured Fringe Filter
+                    </Link>
+                    <Link href="/low-fade-haircut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Low Fade Filter
+                    </Link>
+                    <Link href="/dreadlocks-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Dreadlocks Filter
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Hair Color Dropdown */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsColorDropdownOpen(prev => !prev);
+                    setIsHairstyleDropdownOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
+                >
+                  Hair Color
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isColorDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isColorDropdownOpen && (
+                  <div className="pl-6 pb-2 space-y-1">
+                    <Link href="/black-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Black Hair Filter
+                    </Link>
+                    <Link href="/blonde-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Blonde Hair Filter
+                    </Link>
+                    <Link href="/red-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Red Hair Filter
+                    </Link>
+                    <Link href="/white-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={() => { setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      White Hair Filter
+                    </Link>
+                    <Link href="/gray-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Gray Hair Filter
+                    </Link>
+                    <Link href="/pink-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Pink Hair Filter
+                    </Link>
+                    <Link href="/ai-hair-color-changer" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsColorDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      AI Hair Color Changer
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <div className="px-3 py-2">
                 <ButtonSignin />
               </div>
