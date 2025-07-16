@@ -465,7 +465,7 @@ export default function BobHaircutFilterPage() {
 
                      {/* More Free AI Tools Section */}
                      
-                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Short Hair Filter", "Buzz Cut Filter"]} />
+                    <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
                 
 
 

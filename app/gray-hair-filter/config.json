@@ -372,6 +372,24 @@
           "description": "Try Red Hair Colors Risk-Free",
           "link": "/red-hair-filter",
           "image": "/images/red-hair-filter-hero.webp"
+        },
+        {
+          "title": "White Hair Filter",
+          "description": "Try White Hair Colors Risk-Free",
+          "image": "/images/white-hair-hero.webp",
+          "link": "/white-hair-filter"
+        },
+        {
+          "title": "Pink Hair Filter",
+          "description": "Try Pink Hair Colors Risk-Free",
+          "image": "/images/pink-hair-hero.webp",
+          "link": "/pink-hair-filter"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
         }
       ]
     },

@@ -169,14 +169,13 @@ const ToolPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-6
-      ">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4">
         {/* [中文注释]：工具的标题和介绍 */}
-        <div className="text-center mb-4">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-gray-800 tracking-tight">
+        <div className="text-center mb-2 sm:mb-4">
+          <h1 className="text-2xl sm:text-5xl font-extrabold text-gray-800 tracking-tight">
           AI Face Shape Detector Online Free
           </h1>
-          <p className="mt-4 max-w-5xl mx-auto text-base text-gray-600">
+          <p className="mt-2 sm:mt-4 max-w-5xl mx-auto text-sm sm:text-base text-gray-600">
           With Hairstyle AI’s face shape detector, you can find the perfect hairstyle for your face shape in just a few simple steps. Upload your photo and let the AI analyze your face to provide the most flattering style options. Whether you're looking for something bold or classic, we offer tailored recommendations that enhance your unique features and elevate your confidence.
           </p>
         </div>
@@ -186,27 +185,27 @@ const ToolPage = () => {
           <div className="w-full max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row gap-2 md:gap-4">
               {/* 左侧图片展示区 */}
-              <div className="flex justify-center lg:justify-center w-3/5 mt-2 md:mt-5">
-                <div className="relative rounded-lg overflow-hidden" style={{ height: `${IMAGE_CONFIG.height}px` }}>
+              <div className="flex justify-center lg:justify-center w-full md:w-3/5 mt-1 md:mt-2">
+                <div className="relative rounded-lg overflow-hidden w-full max-w-xs md:max-w-full">
                   <Image
                     src="/images/face-shape-hero.webp"
                     alt="Face shape analysis example"
                     width={IMAGE_CONFIG.width}
                     height={IMAGE_CONFIG.height}
-                    className="object-cover rounded-lg w-full h-full"
+                    className="object-contain rounded-lg w-full h-auto max-h-[300px] md:max-h-[500px]"
                     priority
                   />
                 </div>
               </div>
 
               {/* 右侧操作区 */}
-              <div className="w-2/5">
+              <div className="w-full md:w-2/5">
                 {/* 步骤指示器 - 居中显示 */}
-                <div className="flex justify-center items-center space-x-1 text-base mb-8">
+                <div className="flex justify-center items-center space-x-1 text-base mb-4 sm:mb-6">
                   {['Upload Photo', 'Submit Image', 'View Results'].map((label, idx) => (
                     <div key={label} className="flex items-center">
                       <div
-                        className={`flex items-center justify-center rounded-full w-8 h-8 text-white font-bold mr-2 ${
+                        className={`flex items-center justify-center rounded-full w-6 h-6 sm:w-8 sm:h-8 text-white font-bold mr-1 sm:mr-2 text-xs sm:text-sm ${
                           idx === 0 || (idx === 1 && image) || (idx === 2 && loading)
                             ? 'bg-purple-700'
                             : 'bg-gray-300'
@@ -214,7 +213,7 @@ const ToolPage = () => {
                       >
                         {idx + 1}
                       </div>
-                      <span className="text-sm whitespace-nowrap">{label}</span>
+                      <span className="text-xs sm:text-sm whitespace-nowrap">{label}</span>
                     </div>
                   ))}
                 </div>

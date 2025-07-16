@@ -359,6 +359,24 @@
           "description": "Try Classic Pompadour Styles Risk-Free",
           "link": "/pompadour-filter",
           "image": "/images/pompadour-hero-2man.webp"
+        },
+        {
+          "title": "Man Bun Filter",
+          "description": "Try Man Bun Hairstyles Online Free",
+          "image": "/images/man-bun-hero2.webp",
+          "link": "/man-bun-filter"
+        },
+        {
+          "title": "Low Fade Haircut Filter",
+          "description": "Try Low Fade Styles Risk-Free",
+          "image": "/images/low-fade-hero3.webp",
+          "link": "/low-fade-haircut-filter"
+        },
+        {
+          "title": "Textured Fringe Filter",
+          "description": "Try Textured Fringe Styles Risk-Free",
+          "image": "/images/textured-fringe-hero2.webp",
+          "link": "/textured-fringe-filter"
         }
       ]
     },

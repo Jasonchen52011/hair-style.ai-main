@@ -119,14 +119,7 @@ export default function MenHairstylesPage() {
                 />
 
                 {/* More Free AI Tools Section */}
-                <MoreFreeAITools toolNames={[
-                    "Buzz Cut Filter", 
-                    "Low Fade Haircut Filter", 
-                    "Man Bun Filter",
-                    "Textured Fringe Filter",
-                    "Undercut Filter",
-                    "Pompadour Filter", 
-                ]} />
+                <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
 
                 {/* FAQ Section */}
                 <FAQ faqs={faqConfig} />

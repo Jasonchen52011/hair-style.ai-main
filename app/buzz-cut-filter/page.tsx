@@ -405,7 +405,7 @@ export default function BuzzCutFilterPage() {
 
 
                 {/* More Free AI Tools Section */}
-                <MoreFreeAITools toolNames={["Hairstyle for Men", "Low Fade Haircut Filter", "Pompadour Filter"]} />
+                <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
 
                 {/* Why Choose Our Buzz Cut Simulator Section */}
                 <section className="py-10 mt-10 bg-white">

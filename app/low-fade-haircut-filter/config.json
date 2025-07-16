@@ -254,6 +254,47 @@
         "answer": "Yes, absolutely! A low fade haircut works great for boys. It's stylish but not too dramatic. It's also easy to maintain and keeps hair neat for school. Many parents use Hairstyle AI Low Fade Haircut Filter to test looks on their kids before going to the barber."
       }
     ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "image": "/images/buzz-cut-hero.webp",
+          "link": "/buzz-cut-filter"
+        },
+        {
+          "title": "Hairstyle for Male",
+          "description": "Discover Perfect Men's Haircuts",
+          "image": "/images/man-hair-hero.webp",
+          "link": "/ai-hairstyle-male"
+        },
+        {
+          "title": "Pompadour Filter",
+          "description": "Try Classic Pompadour Styles Risk-Free",
+          "image": "/images/pompadour-hero-2man.webp",
+          "link": "/pompadour-filter"
+        },
+        {
+          "title": "Man Bun Filter",
+          "description": "Try Man Bun Hairstyles Online Free",
+          "image": "/images/man-bun-hero2.webp",
+          "link": "/man-bun-filter"
+        },
+        {
+          "title": "Undercut Filter",
+          "description": "Preview Undercut Styles Risk-Free",
+          "image": "/images/undercut-hero1.webp",
+          "link": "/undercut-filter"
+        },
+        {
+          "title": "Textured Fringe Filter",
+          "description": "Try Textured Fringe Styles Risk-Free",
+          "image": "/images/textured-fringe-hero2.webp",
+          "link": "/textured-fringe-filter"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Discover Your Best Low Fade Look Now",
       "description": "Want a temp, burst, or undercut fade? Test them all with Hairstyle AI. No haircut needed. Just upload, generate, and decide with confidence.",

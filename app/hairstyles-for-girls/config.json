@@ -486,11 +486,47 @@
         "answer": "For parties, go for glamorous hairstyles like sleek updos, voluminous curls, or even a stylish pixie cut. These looks are perfect for any event, ensuring that you stand out and look fabulous. Experiment with different styles on Hairstyle AI to find the one that suits your vibe!"
       }
     ],
-    "moreToolsSection": [
-      "AI Braids Filter",
-      "Bob Haircut Filter", 
-      "Pixie Cut Filter"
-    ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "AI Braids Filter",
+          "description": "Try Braids Instantly, Avoid Styling Regrets",
+          "image": "/images/fishtail-braid-after-h1.webp",
+          "link": "/ai-braids-filter"
+        },
+        {
+          "title": "Bob Haircut Filter",
+          "description": "Preview Bob Cuts Before Salon Visit",
+          "image": "/images/bob-cut-after.webp",
+          "link": "/bob-haircut-filter"
+        },
+        {
+          "title": "Pixie Cut Filter",
+          "description": "See Short Pixie Looks, Boost Confidence",
+          "image": "/images/pixie-cut-h1-after.webp",
+          "link": "/pixie-cut-filter"
+        },
+        {
+          "title": "Long Hair Filter",
+          "description": "Test Long Styles Instantly",
+          "image": "/images/long-hair-filter-hero.webp",
+          "link": "/long-hair-filter"
+        },
+        {
+          "title": "Bangs Filter",
+          "description": "Find Perfect Bangs For Face Shape",
+          "image": "/images/h1-bangs-a.jpg",
+          "link": "/bangs-filter"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Find the Perfect Hairstyle for Girls with AI Hairstyle Generator",
       "description": "Explore endless hairstyle options with Hairstyle AI. Upload your photo and discover the look that suits you best!",

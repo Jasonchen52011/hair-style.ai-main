@@ -273,7 +273,7 @@ body {
   
   /* 防止双击缩放 */
   * {
-    touch-action: pan-x pan-y;
+    touch-action: pan-y;
   }
   
   /* 下拉菜单项优化 */

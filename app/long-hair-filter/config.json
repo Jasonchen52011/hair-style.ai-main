@@ -364,6 +364,24 @@
           "description": "Try Blonde Hair Colors Risk-Free",
           "link": "/blonde-hair-filter",
           "image": "/images/blonde-filter-hero.webp"
+        },
+        {
+          "title": "Perm Filter",
+          "description": "Try Perm Hairstyles Risk-Free",
+          "image": "/images/perm-filter-hero.webp",
+          "link": "/perm-filter"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
+        },
+        {
+          "title": "Face Shape Detector",
+          "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
+          "image": "/images/face-shape-hero.webp",
+          "link": "/face-shape-detector"
         }
       ]
     },

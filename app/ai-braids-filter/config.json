@@ -269,6 +269,47 @@
       "answer": "Yes. \"AI Braids\" might also remind people of NBA star Allen Iverson's iconic cornrows or even AI-based software used in other industries."
     }
   ],
+  "moreToolsSection": {
+    "title": "Try More Virtual Hair Filters",
+    "tools": [
+      {
+        "title": "Dreadlocks Filter",
+        "description": "Try Dreadlock Styles Risk-Free",
+        "image": "/images/dreadlock-hairs.webp",
+        "link": "/dreadlocks-filter"
+      },
+      {
+        "title": "Long Hair Filter",
+        "description": "Test Long Styles Instantly",
+        "image": "/images/long-hair-filter-hero.webp",
+        "link": "/long-hair-filter"
+      },
+      {
+        "title": "Short Hair Filter",
+        "description": "Preview Short Cuts, Make Confident Choices",
+        "image": "/images/short-hair-filter-h1.webp",
+        "link": "/short-hair-filter"
+      },
+      {
+        "title": "Perm Filter",
+        "description": "Try Perm Hairstyles Risk-Free",
+        "image": "/images/perm-filter-hero.webp",
+        "link": "/perm-filter"
+      },
+      {
+        "title": "AI Hair Color Changer",
+        "description": "Virtual Hair Color Try-On, Risk-Free",
+        "image": "/images/hair-color-hero.webp",
+        "link": "/ai-hair-color-changer"
+      },
+      {
+        "title": "Face Shape Detector",
+        "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
+        "image": "/images/face-shape-hero.webp",
+        "link": "/face-shape-detector"
+      }
+    ]
+  },
   "finalCta": {
     "title": "Try AI Braids Filter Now — No Risk, All Style",
     "description": "Pick a braids filter, click generate, and watch the transformation. It's that easy. No downloads. No regrets.",

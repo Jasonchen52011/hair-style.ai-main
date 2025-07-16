@@ -248,6 +248,47 @@
       "answer": "On thick curly hair, pixie cuts give a bold, full look. Tapered sides or undercuts help reduce bulk, while leaving texture on top. It keeps curls defined while making the style easier to manage and style daily. Try pixie cut filter to experiment with this fun, trendy style before making the cut!"
     }
   ],
+  "moreToolsSection": {
+    "title": "Try More Virtual Hair Filters",
+    "tools": [
+      {
+        "title": "Bob Haircut Filter",
+        "description": "Preview Bob Cuts Before Salon Visit",
+        "image": "/images/bob-cut-after.webp",
+        "link": "/bob-haircut-filter"
+      },
+      {
+        "title": "Short Hair Filter",
+        "description": "Preview Short Cuts, Make Confident Choices",
+        "image": "/images/short-hair-filter-h1.webp",
+        "link": "/short-hair-filter"
+      },
+      {
+        "title": "Buzz Cut Filter",
+        "description": "Preview Buzz Cuts Before Big Chop",
+        "image": "/images/buzz-cut-hero.webp",
+        "link": "/buzz-cut-filter"
+      },
+      {
+        "title": "Bangs Filter",
+        "description": "Find Perfect Bangs For Face Shape",
+        "image": "/images/h1-bangs-a.jpg",
+        "link": "/bangs-filter"
+      },
+      {
+        "title": "Face Shape Detector",
+        "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
+        "image": "/images/face-shape-hero.webp",
+        "link": "/face-shape-detector"
+      },
+      {
+        "title": "AI Hair Color Changer",
+        "description": "Virtual Hair Color Try-On, Risk-Free",
+        "image": "/images/hair-color-hero.webp",
+        "link": "/ai-hair-color-changer"
+      }
+    ]
+  },
   "finalCta": {
     "title": "Try Your Pixie Cut Now",
     "description": "Upload your photo and see yourself in a bold new style in seconds. It's fun, free, and super easy.",

@@ -124,6 +124,24 @@
         "description": "Try Braids Instantly, Avoid Styling Regrets",
         "image": "/images/fishtail-braid-after-h1.webp",
         "link": "/ai-braids-filter"
+      },
+      {
+        "title": "Bob Haircut Filter",
+        "description": "Preview Bob Cuts Before Salon Visit",
+        "image": "/images/bob-cut-after.webp",
+        "link": "/bob-haircut-filter"
+      },
+      {
+        "title": "Buzz Cut Filter",
+        "description": "Preview Buzz Cuts Before Big Chop",
+        "image": "/images/buzz-cut-hero.webp",
+        "link": "/buzz-cut-filter"
+      },
+      {
+        "title": "AI Hair Color Changer",
+        "description": "Virtual Hair Color Try-On, Risk-Free",
+        "image": "/images/hair-color-hero.webp",
+        "link": "/ai-hair-color-changer"
       }
     ]
   },

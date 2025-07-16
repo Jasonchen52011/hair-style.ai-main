@@ -295,6 +295,47 @@
         "answer": "AI Hairstyle Male is built to do just that! It analyzes your face shape—jawline, forehead, cheekbones—and recommends styles that fit. Whether you’ve got a round face or sharp angles, it adjusts the hair to blend naturally. It’s not just random styles—it’s tailored to you. That’s why Hairstyle AI hits different."
       }
     ],
+    "moreToolsSection": {
+      "title": "Try More Virtual Hair Filters",
+      "tools": [
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "image": "/images/buzz-cut-hero.webp",
+          "link": "/buzz-cut-filter"
+        },
+        {
+          "title": "Low Fade Haircut Filter",
+          "description": "Try Low Fade Styles Risk-Free",
+          "image": "/images/low-fade-hero3.webp",
+          "link": "/low-fade-haircut-filter"
+        },
+        {
+          "title": "Man Bun Filter",
+          "description": "Try Man Bun Hairstyles Online Free",
+          "image": "/images/man-bun-hero2.webp",
+          "link": "/man-bun-filter"
+        },
+        {
+          "title": "Textured Fringe Filter",
+          "description": "Try Textured Fringe Styles Risk-Free",
+          "image": "/images/textured-fringe-hero2.webp",
+          "link": "/textured-fringe-filter"
+        },
+        {
+          "title": "Undercut Filter",
+          "description": "Preview Undercut Styles Risk-Free",
+          "image": "/images/undercut-hero1.webp",
+          "link": "/undercut-filter"
+        },
+        {
+          "title": "Pompadour Filter",
+          "description": "Try Classic Pompadour Styles Risk-Free",
+          "image": "/images/pompadour-hero-2man.webp",
+          "link": "/pompadour-filter"
+        }
+      ]
+    },
     "finalCta": {
       "title": "Try AI Hairstyle Male Free Today",
       "description": "Upload your photo, preview 60+ trendy male hairstyles in seconds, and find your perfect look with Hairstyle AI. No sign-up. Just free, instant results.",

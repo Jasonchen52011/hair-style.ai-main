@@ -252,6 +252,24 @@
         "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
         "image": "/images/face-shape-hero.webp",
         "link": "/face-shape-detector"
+      },
+      {
+        "title": "Pixie Cut Filter",
+        "description": "See Short Pixie Looks, Boost Confidence",
+        "image": "/images/pixie-cut-h1-after.webp",
+        "link": "/pixie-cut-filter"
+      },
+      {
+        "title": "Man Bun Filter",
+        "description": "Try Man Bun Hairstyles Online Free",
+        "image": "/images/man-bun-hero2.webp",
+        "link": "/man-bun-filter"
+      },
+      {
+        "title": "Pompadour Filter",
+        "description": "Try Classic Pompadour Styles Risk-Free",
+        "image": "/images/pompadour-hero-2man.webp",
+        "link": "/pompadour-filter"
       }
     ]
   },
