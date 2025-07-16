@@ -408,7 +408,7 @@ export default function BraidsFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 
-                    <MoreFreeAITools toolNames={["Dreadlocks Filter", "Long Hair Filter", "Short Hair Filter"]} />
+                    <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
                 
 
                 {/* FAQ Section */}

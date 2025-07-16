@@ -265,6 +265,24 @@
           "description": "Test Bold Buzz Cut Styles",
           "link": "/buzz-cut-filter",
           "image": "/images/buzz-cut-hero.webp"
+        },
+        {
+          "title": "AI Braids Filter",
+          "description": "Try Braids Instantly, Avoid Styling Regrets",
+          "image": "/images/fishtail-braid-after-h1.webp",
+          "link": "/ai-braids-filter"
+        },
+        {
+          "title": "Long Hair Filter",
+          "description": "Test Long Styles Instantly",
+          "image": "/images/long-hair-filter-hero.webp",
+          "link": "/long-hair-filter"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
         }
       ]
     },

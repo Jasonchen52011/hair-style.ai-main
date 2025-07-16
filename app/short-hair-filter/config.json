@@ -406,6 +406,24 @@
           "description": "Try Black Hair Colors Risk-Free",
           "link": "/black-hair-filter",
           "image": "/images/black-hair-filter-hero.webp"
+        },
+        {
+          "title": "Buzz Cut Filter",
+          "description": "Preview Buzz Cuts Before Big Chop",
+          "image": "/images/buzz-cut-hero.webp",
+          "link": "/buzz-cut-filter"
+        },
+        {
+          "title": "Bangs Filter",
+          "description": "Find Perfect Bangs For Face Shape",
+          "image": "/images/h1-bangs-a.jpg",
+          "link": "/bangs-filter"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
         }
       ]
     },

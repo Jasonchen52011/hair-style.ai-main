@@ -389,6 +389,24 @@
           "description": "Preview Buzz Cuts Before Big Chop",
           "image": "/images/buzz-cut-hero.webp",
           "link": "/buzz-cut-filter"
+        },
+        {
+          "title": "Man Bun Filter",
+          "description": "Try Man Bun Hairstyles Online Free",
+          "image": "/images/man-bun-hero2.webp",
+          "link": "/man-bun-filter"
+        },
+        {
+          "title": "Long Hair Filter",
+          "description": "Test Long Styles Instantly",
+          "image": "/images/long-hair-filter-hero.webp",
+          "link": "/long-hair-filter"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
         }
       ]
     },

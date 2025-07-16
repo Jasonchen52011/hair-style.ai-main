@@ -188,7 +188,7 @@ export default function HairstylesForGirlsPage() {
                     testimonialsConfig={testimonialsConfig}
                 />
 
-                <MoreFreeAITools toolNames={moreToolsSection} />
+                <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
 
                 <FAQ faqs={faqConfig} />
 

@@ -129,7 +129,7 @@ export default function LowFadeHaircutPage() {
 
                 {/* More Free AI Tools Section */}
                 
-                    <MoreFreeAITools toolNames={["Buzz Cut Filter", "Hairstyle for Men", "Pompadour Filter"]} />
+                    <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
                 
 
                 {/* FAQ Section */}

@@ -306,6 +306,24 @@
           "description": "Preview Short Cuts, Make Confident Choices",
           "link": "/short-hair-filter",
           "image": "/images/short-hair-filter-h1.webp"
+        },
+        {
+          "title": "Red Hair Filter",
+          "description": "Try Red Hair Colors Risk-Free",
+          "image": "/images/red-hair-filter-hero.webp",
+          "link": "/red-hair-filter"
+        },
+        {
+          "title": "Gray Hair Filter",
+          "description": "Try Gray Hair Colors Risk-Free",
+          "image": "/images/gray-hair-hero.webp",
+          "link": "/gray-hair-filter"
+        },
+        {
+          "title": "White Hair Filter",
+          "description": "Try White Hair Colors Risk-Free",
+          "image": "/images/white-hair-hero.webp",
+          "link": "/white-hair-filter"
         }
       ]
     },

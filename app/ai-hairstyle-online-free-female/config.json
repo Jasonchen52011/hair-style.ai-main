@@ -289,6 +289,24 @@
           "description": "AI Face Shape Detector - Find Your Perfect Hairstyle",
           "image": "/images/face-shape-hero.webp",
           "link": "/face-shape-detector"
+        },
+        {
+          "title": "Bob Haircut Filter",
+          "description": "Preview Bob Cuts Before Salon Visit",
+          "image": "/images/bob-cut-after.webp",
+          "link": "/bob-haircut-filter"
+        },
+        {
+          "title": "Pixie Cut Filter",
+          "description": "See Short Pixie Looks, Boost Confidence",
+          "image": "/images/pixie-cut-h1-after.webp",
+          "link": "/pixie-cut-filter"
+        },
+        {
+          "title": "Long Hair Filter",
+          "description": "Test Long Styles Instantly",
+          "image": "/images/long-hair-filter-hero.webp",
+          "link": "/long-hair-filter"
         }
       ]
     },

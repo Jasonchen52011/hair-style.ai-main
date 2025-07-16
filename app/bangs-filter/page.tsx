@@ -432,10 +432,10 @@ export default function BangsFilterPage() {
                 </section>
 
                 {/* Planning a Fun Social Media Post Social Media Section */}
-                <section className="py-2 sm:py-20  bg-white">
+                <section className="py-2 sm:py-20 bg-white">
                     <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
                         <div className="max-w-full mx-auto">
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
                                 {/* 左侧文本内容 */}
                                 <div className="space-y-3 order-2 lg:order-1 lg:col-span-2">
                                     <h2 className="text-2xl sm:text-4xl font-bold text-gray-800">
@@ -461,7 +461,7 @@ export default function BangsFilterPage() {
                                 
                                 {/* 右侧占位图 */}
                                 <div className="flex justify-center order-1 lg:order-2 lg:col-span-2">
-                                    <div className="w-full max-w-3xl bg-white p-2 rounded-lg overflow-hidden">
+                                    <div className="w-full max-w-3xl bg-white rounded-lg overflow-hidden">
                                         <Image
                                             src={ctaSections[1].image.src}
                                             alt={ctaSections[1].image.alt}
@@ -524,7 +524,7 @@ export default function BangsFilterPage() {
 
                 {/* More Free AI Tools Section */}
                 
-                    <MoreFreeAITools toolNames={["Bob Haircut Filter", "Long Hair Filter", "Pixie Cut Filter"]} />
+                    <MoreFreeAITools moreToolsSection={config.moreToolsSection} />
                 
 
 
