@@ -48,9 +48,10 @@ export default function FeedbackModal({ isOpen, onClose, onCancel }: FeedbackMod
 
   const handleCancel = () => {
     if (onCancel) {
-      onCancel(); // 执行取消后的操作（如继续导航）
+      onCancel(); // 执行取消后的操作（如继续导航），这个函数会处理关闭弹窗
+    } else {
+      onClose(); // 如果没有 onCancel 回调，则直接关闭弹窗
     }
-    onClose(); // 关闭弹窗
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

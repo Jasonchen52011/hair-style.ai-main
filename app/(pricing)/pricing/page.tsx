@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import config from "@/config";
 import Navbar from "@/components/navbar";
-import FeedbackModal from "@/components/FeedbackModal";
 import PriceFAQ from "@/components/PriceFAQ";
+import ExitIntentFeedback from "@/components/ExitIntentFeedback";
+import FeedbackModal from "@/components/FeedbackModal";
 
 export default function PricingPage() {
-
   const [user, setUser] = useState<any>(null);
   const [userProfile, setUserProfile] = useState<any>(null);
   const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
@@ -58,14 +58,23 @@ export default function PricingPage() {
       // 检查是否是订阅相关的按钮
       if (button) {
         const buttonText = button.textContent?.toLowerCase() || "";
+        const buttonClasses = button.className?.toLowerCase() || "";
+
         const isSubscriptionButton =
           buttonText.includes("subscribe") ||
           buttonText.includes("get started") ||
           buttonText.includes("requires subscription") ||
+          buttonText.includes("subscribe monthly") ||
+          buttonText.includes("subscribe yearly") ||
+          buttonClasses.includes("bg-purple") ||
+          buttonClasses.includes("bg-gradient") ||
           button.disabled; // 禁用的按钮也不拦截
 
         if (isSubscriptionButton) {
-          console.log("Subscription button clicked, not intercepting");
+          console.log(
+            "Subscription button clicked, not intercepting:",
+            buttonText
+          );
           return; // 不拦截订阅按钮
         }
       }
@@ -137,18 +146,8 @@ export default function PricingPage() {
       }
     };
 
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (hasInteracted && !hasShownFeedback && shouldShowFeedback) {
-        console.log(
-          "beforeunload: preventing page unload and showing feedback"
-        );
-        e.preventDefault();
-        e.returnValue = "Are you sure you want to leave?"; // 显示浏览器确认对话框
-        setHasShownFeedback(true);
-        setShowFeedbackModal(true);
-        return "Are you sure you want to leave?";
-      }
-    };
+    // 移除 beforeunload 事件处理器，因为它会干扰正常的页面导航
+    // 我们依靠其他事件（链接点击、后退按钮、页面隐藏）来检测页面离开
 
     const handlePageHide = () => {
       handlePageUnload("pagehide");
@@ -177,7 +176,6 @@ export default function PricingPage() {
     document.addEventListener("mousemove", handleUserInteraction);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("pagehide", handlePageHide);
-    window.addEventListener("beforeunload", handleBeforeUnload);
     window.addEventListener("popstate", handlePopState); // 监听前进后退
 
     return () => {
@@ -187,7 +185,6 @@ export default function PricingPage() {
       document.removeEventListener("mousemove", handleUserInteraction);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("pagehide", handlePageHide);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
       window.removeEventListener("popstate", handlePopState);
     };
   }, [
@@ -200,6 +197,9 @@ export default function PricingPage() {
 
   // 处理弹窗取消后的导航继续
   const handleFeedbackCancel = () => {
+    setShowFeedbackModal(false);
+
+    // 取消时执行待定的导航
     if (pendingNavigation) {
       console.log(
         "Feedback cancelled, continuing navigation:",
@@ -220,7 +220,9 @@ export default function PricingPage() {
 
   const handleFeedbackClose = () => {
     setShowFeedbackModal(false);
-    setPendingNavigation(null); // 清除待定导航
+    // 提交反馈后不执行导航，只清除待定导航
+    console.log("Feedback submitted, not navigating");
+    setPendingNavigation(null);
   };
 
   // 当反馈弹窗显示时，记录显示时间戳

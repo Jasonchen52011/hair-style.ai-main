@@ -217,7 +217,6 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
     }
   };
 
-  // 根据传入的工具名称显示对应的工具（最多3个）
   const toolsToDisplay: AiTool[] = toolNames.map(name => allToolsData[name]).filter(Boolean);
 
   return (
