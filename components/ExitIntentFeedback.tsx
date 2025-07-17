@@ -261,18 +261,12 @@ export default function ExitIntentFeedback({ config, children }: ExitIntentFeedb
   const handleFeedbackCancel = () => {
     setShowFeedbackModal(false);
     
-    // 取消时执行待定的导航
+    // 取消时不自动执行导航，让用户留在当前页面
+    // 用户可以重新点击他们想要的链接
     if (pendingNavigation) {
       if (mergedConfig.debug) {
-        console.log('Feedback cancelled, continuing navigation:', pendingNavigation);
+        console.log('Feedback cancelled, clearing pending navigation without redirecting:', pendingNavigation);
       }
-
-      if (pendingNavigation.type === 'link' && pendingNavigation.url) {
-        window.location.href = pendingNavigation.url;
-      } else if (pendingNavigation.type === 'back') {
-        window.history.back();
-      }
-
       setPendingNavigation(null);
     }
   };
