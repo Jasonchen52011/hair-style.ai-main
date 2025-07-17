@@ -1,11 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-// 配置代理环境变量
-if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
-    process.env.UNDICI_PROXY_URL = process.env.HTTPS_PROXY;
-  }
-  
-  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
   });
   
@@ -13,7 +8,6 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
       reactStrictMode: false,
   
       // Next.js 15+ 配置
-      serverExternalPackages: ['https-proxy-agent'],
       experimental: {
           serverActions: {
               bodySizeLimit: '10mb'
@@ -269,12 +263,6 @@ if (process.env.HTTPS_PROXY && !process.env.UNDICI_PROXY_URL) {
                   permanent: true,
               },
           ]
-      },
-      // 环境变量配置
-      env: {
-          HTTPS_PROXY: process.env.HTTPS_PROXY,
-          HTTP_PROXY: process.env.HTTP_PROXY,
-          UNDICI_PROXY_URL: process.env.HTTPS_PROXY,
       },
   }
   

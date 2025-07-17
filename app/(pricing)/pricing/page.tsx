@@ -3,19 +3,17 @@
 import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import config from "@/config";
-import Navbar from "@/components/navbar";
 import PriceFAQ from "@/components/PriceFAQ";
-import ExitIntentFeedback from "@/components/ExitIntentFeedback";
+import ButtonSignin from "@/components/navbar/ButtonSignin";
 import FeedbackModal from "@/components/FeedbackModal";
 
 export default function PricingPage() {
   const [user, setUser] = useState<any>(null);
-  const [userProfile, setUserProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
   const [currentSubscriptionType, setCurrentSubscriptionType] = useState<
     string | null
   >(null);
-  const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState<{
     [key: string]: boolean;
   }>({});
@@ -23,14 +21,161 @@ export default function PricingPage() {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hasShownFeedback, setHasShownFeedback] = useState(false);
-  const [shouldShowFeedback, setShouldShowFeedback] = useState(false);
-  const [feedbackCheckReason, setFeedbackCheckReason] = useState<string>("");
   const [pendingNavigation, setPendingNavigation] = useState<{
     type: "link" | "back" | "forward";
     url?: string;
     event?: any;
   } | null>(null);
   const supabase = createClientComponentClient();
+
+  // 简化的不拦截条件 - 主要针对定价页面内的按钮
+  const shouldNotIntercept = (element: HTMLElement): boolean => {
+    const button = element.closest("button");
+    if (button) {
+      const buttonText = button.textContent?.toLowerCase() || "";
+      const buttonClasses = button.className?.toLowerCase() || "";
+
+      if (
+        buttonText.includes("subscribe") ||
+        buttonText.includes("get started") ||
+        buttonText.includes("requires subscription") ||
+        buttonText.includes("subscribe monthly") ||
+        buttonText.includes("subscribe yearly") ||
+        buttonText.includes("current plan") ||
+        buttonText.includes("i know") ||
+        buttonText.includes("cancel") ||
+        buttonClasses.includes("bg-purple") ||
+        buttonClasses.includes("bg-gradient") ||
+        button.disabled
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  // 检查是否应该显示反馈弹窗（包含localStorage逻辑）
+  const checkShouldShowFeedback = async (): Promise<{ shouldShow: boolean; reason: string }> => {
+    try {
+      const response = await fetch("/api/should-show-feedback");
+      const result = await response.json();
+      
+      // 如果API返回false但原因是未登录，则检查localStorage
+      if (!result.shouldShow && result.reason.includes('not logged in')) {
+        // 检查localStorage中的24小时限制
+        const lastShownKey = 'feedback_last_shown';
+        const lastShown = localStorage.getItem(lastShownKey);
+        
+        if (lastShown) {
+          const lastShownTime = new Date(lastShown);
+          const now = new Date();
+          const hoursDiff = (now.getTime() - lastShownTime.getTime()) / (1000 * 60 * 60);
+          
+          if (hoursDiff < 24) {
+            return {
+              shouldShow: false,
+              reason: `Last shown ${Math.round(hoursDiff)} hours ago (localStorage), need to wait ${Math.round(24 - hoursDiff)} more hours`
+            };
+          }
+        }
+        
+        // 未登录用户且24小时已过，可以显示
+        return {
+          shouldShow: true,
+          reason: 'Anonymous user, 24h cooldown passed (localStorage)'
+        };
+      }
+      
+      // 登录用户使用API结果
+      return result;
+    } catch (error) {
+      console.error("Error checking feedback eligibility:", error);
+      return { shouldShow: false, reason: 'Error checking eligibility' };
+    }
+  };
+
+  // 记录弹窗已显示（包含localStorage逻辑）
+  const recordFeedbackShown = () => {
+    // 在localStorage中记录时间戳（用于未登录用户）
+    const lastShownKey = 'feedback_last_shown';
+    localStorage.setItem(lastShownKey, new Date().toISOString());
+    
+    // 同时调用API（用于登录用户）
+    fetch("/api/should-show-feedback", {
+      method: "POST",
+    }).catch((error) => {
+      console.error("Failed to record feedback shown:", error);
+    });
+  };
+
+  // 检查并显示反馈弹窗的统一函数
+  const checkAndShowFeedback = async (triggerType: string, navigationInfo?: any) => {
+    if (!hasInteracted) {
+      return false;
+    }
+
+    const result = await checkShouldShowFeedback();
+    
+    if (result.shouldShow) {
+      console.log(`${triggerType}: Should show feedback modal`);
+      setHasShownFeedback(true);
+      setShowFeedbackModal(true);
+      if (navigationInfo) {
+        setPendingNavigation(navigationInfo);
+      }
+      return true;
+    } else {
+      console.log(`${triggerType}: Should not show feedback -`, result.reason);
+      return false;
+    }
+  };
+
+  // 返回上一页的函数
+  const handleGoBack = async () => {
+    let previousPage = "/"; // 默认返回首页
+    
+    // 检查document.referrer
+    if (document.referrer) {
+      try {
+        const referrerUrl = new URL(document.referrer);
+        const currentUrl = new URL(window.location.href);
+        
+        // 确保referrer是同一域名，避免跳转到外部网站
+        if (referrerUrl.origin === currentUrl.origin) {
+          previousPage = document.referrer;
+          console.log("Valid referrer found:", previousPage);
+        } else {
+          console.log("External referrer detected, redirecting to home:", document.referrer);
+        }
+      } catch (error) {
+        console.log("Invalid referrer URL, redirecting to home:", document.referrer);
+      }
+    } else {
+      console.log("No referrer found, redirecting to home");
+    }
+    
+    // 额外检查：如果referrer就是当前页面，也返回首页
+    if (previousPage === window.location.href) {
+      console.log("Referrer is current page, redirecting to home");
+      previousPage = "/";
+    }
+    
+    console.log("Final redirect target:", previousPage);
+    
+    // 检查是否应该显示反馈弹窗
+    if (hasInteracted) {
+      const shouldShow = await checkAndShowFeedback("Back navigation");
+      if (shouldShow) {
+        setPendingNavigation({ type: "link", url: previousPage });
+      } else {
+        window.location.href = previousPage;
+      }
+    } else {
+      // 用户没有交互，直接返回
+      window.location.href = previousPage;
+    }
+  };
 
   // 页面离开检测和反馈弹窗逻辑
   useEffect(() => {
@@ -43,7 +188,7 @@ export default function PricingPage() {
       hasShownFeedback,
     });
 
-    // 检测用户交互和链接点击的组合处理
+    // 检测用户交互的组合处理
     const handleClick = (e: MouseEvent) => {
       // 首先处理用户交互检测
       if (!hasInteracted) {
@@ -51,75 +196,16 @@ export default function PricingPage() {
         console.log("User interaction detected");
       }
 
-      // 检查是否点击了订阅按钮，如果是则不拦截
       const target = e.target as HTMLElement;
-      const button = target.closest("button");
 
-      // 检查是否是订阅相关的按钮
-      if (button) {
-        const buttonText = button.textContent?.toLowerCase() || "";
-        const buttonClasses = button.className?.toLowerCase() || "";
-
-        const isSubscriptionButton =
-          buttonText.includes("subscribe") ||
-          buttonText.includes("get started") ||
-          buttonText.includes("requires subscription") ||
-          buttonText.includes("subscribe monthly") ||
-          buttonText.includes("subscribe yearly") ||
-          buttonClasses.includes("bg-purple") ||
-          buttonClasses.includes("bg-gradient") ||
-          button.disabled; // 禁用的按钮也不拦截
-
-        if (isSubscriptionButton) {
-          console.log(
-            "Subscription button clicked, not intercepting:",
-            buttonText
-          );
-          return; // 不拦截订阅按钮
-        }
+      // 使用统一的判断函数
+      if (shouldNotIntercept(target)) {
+        console.log("Element should not be intercepted, allowing normal behavior");
+        return;
       }
 
-      // 然后处理链接点击检测
-      const link = target.closest("a");
-
-      if (link && link.href) {
-        console.log("Link clicked:", link.href);
-        // 检查是否是外部链接或导航到其他页面
-        if (
-          link.href !== window.location.href &&
-          (link.href.startsWith("http") || link.href.startsWith("/")) &&
-          !hasShownFeedback
-        ) {
-          console.log(
-            "Navigation link detected, checking feedback eligibility..."
-          );
-          
-          // 立即检查是否应该显示反馈弹窗
-          fetch("/api/should-show-feedback")
-            .then(response => response.json())
-            .then(result => {
-              if (result.shouldShow) {
-                console.log("Should show feedback, preventing navigation and showing modal");
-                e.preventDefault(); // 阻止默认跳转
-                setPendingNavigation({ type: "link", url: link.href, event: e });
-                setHasShownFeedback(true);
-                setShowFeedbackModal(true);
-              } else {
-                console.log("Should not show feedback, allowing navigation");
-                // 不显示弹窗，让导航正常进行
-                window.location.href = link.href;
-              }
-            })
-            .catch(error => {
-              console.error("Error checking feedback eligibility:", error);
-              // 出错时不显示弹窗，让导航正常进行
-              window.location.href = link.href;
-            });
-          
-          // 先阻止默认行为，等API结果返回后再决定是否导航
-          e.preventDefault();
-        }
-      }
+      // 处理返回按钮的点击已经在handleGoBack中处理
+      // 这里主要处理其他可能的导航
     };
 
     // 其他用户交互检测
@@ -131,60 +217,47 @@ export default function PricingPage() {
     };
 
     // 页面可见性变化检测（用户切换标签页或最小化窗口）
-    const handleVisibilityChange = () => {
+    const handleVisibilityChange = async () => {
       console.log("Visibility change:", {
         hidden: document.hidden,
         hasInteracted,
         hasActiveSubscription,
         hasShownFeedback,
       });
-      if (
-        document.hidden &&
-        hasInteracted &&
-        !hasShownFeedback &&
-        shouldShowFeedback
-      ) {
-        console.log("Page hidden, showing feedback modal");
-        setHasShownFeedback(true);
-        setShowFeedbackModal(true);
+      
+      if (document.hidden && hasInteracted) {
+        await checkAndShowFeedback("Page visibility change");
       }
     };
 
     // 页面卸载检测 - 使用多种事件
-    const handlePageUnload = (eventType: string) => {
+    const handlePageUnload = async (eventType: string) => {
       console.log(`${eventType} event triggered:`, {
         hasInteracted,
         hasActiveSubscription,
         hasShownFeedback,
       });
-      // 检查是否符合反馈显示条件
-      if (hasInteracted && !hasShownFeedback && shouldShowFeedback) {
-        console.log(`${eventType}: showing feedback modal`);
-        setHasShownFeedback(true);
-        setShowFeedbackModal(true);
+      
+      if (hasInteracted) {
+        await checkAndShowFeedback(eventType);
       }
     };
-
-    // 移除 beforeunload 事件处理器，因为它会干扰正常的页面导航
-    // 我们依靠其他事件（链接点击、后退按钮、页面隐藏）来检测页面离开
 
     const handlePageHide = () => {
       handlePageUnload("pagehide");
     };
 
     // 监听前进后退按钮
-    const handlePopState = (e: PopStateEvent) => {
-      if (hasInteracted && !hasShownFeedback && shouldShowFeedback) {
-        console.log(
-          "Browser back/forward button clicked, preventing navigation"
-        );
-        // 阻止导航：推回当前页面状态
-        const currentUrl = window.location.href;
-        window.history.pushState(null, "", currentUrl);
-
-        setPendingNavigation({ type: "back", event: e });
-        setHasShownFeedback(true);
-        setShowFeedbackModal(true);
+    const handlePopState = async (e: PopStateEvent) => {
+      if (hasInteracted) {
+        const shouldShow = await checkAndShowFeedback("Browser back/forward", { type: "back", event: e });
+        
+        if (shouldShow) {
+          console.log("Browser back/forward button clicked, preventing navigation");
+          // 阻止导航：推回当前页面状态
+          const currentUrl = window.location.href;
+          window.history.pushState(null, "", currentUrl);
+        }
       }
     };
 
@@ -210,43 +283,61 @@ export default function PricingPage() {
     hasInteracted,
     hasActiveSubscription,
     hasShownFeedback,
-    shouldShowFeedback,
-    pendingNavigation,
   ]);
 
   // 处理弹窗取消后的导航继续
   const handleFeedbackCancel = () => {
     setShowFeedbackModal(false);
-
-    // 取消时不自动执行导航，让用户留在当前页面
-    // 用户可以重新点击他们想要的链接
+    
+    // 用户取消弹窗时，也需要记录时间戳（表示已经显示过弹窗）
+    recordFeedbackShown();
+    
+    // 用户取消弹窗后，执行待跳转的导航
     if (pendingNavigation) {
-      console.log(
-        "Feedback cancelled, clearing pending navigation without redirecting:",
-        pendingNavigation
-      );
+      console.log('Feedback cancelled, executing pending navigation:', pendingNavigation);
+      
+      if (pendingNavigation.type === "link" && pendingNavigation.url) {
+        window.location.href = pendingNavigation.url;
+      } else if (pendingNavigation.type === "back") {
+        // 浏览器后退
+        window.history.back();
+      } else if (pendingNavigation.type === "forward") {
+        // 浏览器前进
+        window.history.forward();
+      }
+      
       setPendingNavigation(null);
     }
   };
 
   const handleFeedbackClose = () => {
     setShowFeedbackModal(false);
-    // 提交反馈后不执行导航，只清除待定导航
-    console.log("Feedback submitted, not navigating");
-    setPendingNavigation(null);
+    
+    // 用户提交反馈后，执行待跳转的导航
+    if (pendingNavigation) {
+      console.log('Feedback submitted, executing pending navigation:', pendingNavigation);
+      
+      if (pendingNavigation.type === "link" && pendingNavigation.url) {
+        window.location.href = pendingNavigation.url;
+      } else if (pendingNavigation.type === "back") {
+        // 浏览器后退
+        window.history.back();
+      } else if (pendingNavigation.type === "forward") {
+        // 浏览器前进
+        window.history.forward();
+      }
+      
+      setPendingNavigation(null);
+    }
   };
 
   // 当反馈弹窗显示时，记录显示时间戳
   useEffect(() => {
-    if (showFeedbackModal && shouldShowFeedback) {
+    if (showFeedbackModal) {
       // 记录反馈弹窗已显示
-      fetch("/api/should-show-feedback", {
-        method: "POST",
-      }).catch((error) => {
-        console.error("Failed to record feedback shown:", error);
-      });
+      recordFeedbackShown();
     }
-  }, [showFeedbackModal, shouldShowFeedback]);
+  }, [showFeedbackModal]);
 
   // 添加一个测试按钮来验证弹窗功能
   const testFeedbackModal = () => {
@@ -254,26 +345,37 @@ export default function PricingPage() {
     setShowFeedbackModal(true);
   };
 
-  // 检查是否应该显示反馈弹窗
-  useEffect(() => {
-    const checkFeedbackEligibility = async () => {
+  // 调试函数：检查用户状态
+  const debugUserStatus = async () => {
+    console.log("=== user status debug info ===");
+    console.log("user id:", user?.id);
+    console.log("has active subscription:", hasActiveSubscription);
+    console.log("current subscription type:", currentSubscriptionType);
+    
+    // 检查反馈弹窗显示条件
+    const result = await checkShouldShowFeedback();
+    console.log("feedback modal check result:", result);
+    
+    // 调用 API 检查订阅状态
+    if (user) {
       try {
-        const response = await fetch("/api/should-show-feedback");
-        const result = await response.json();
-
-        setShouldShowFeedback(result.shouldShow || false);
-        setFeedbackCheckReason(result.reason || "");
-
-        console.log("Feedback eligibility check:", result);
+        const response = await fetch("/api/user-credits-simple", {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "x-user-id": user.id,
+          },
+        });
+        const data = await response.json();
+        console.log("API back user data:", data);
       } catch (error) {
-        console.error("Error checking feedback eligibility:", error);
-        setShouldShowFeedback(false);
-        setFeedbackCheckReason("Error checking eligibility");
+        console.error("get user data failed:", error);
       }
-    };
+    }
+  };
 
-    checkFeedbackEligibility();
-  }, [user, hasActiveSubscription]);
+
 
   useEffect(() => {
     const getUser = async () => {
@@ -289,7 +391,7 @@ export default function PricingPage() {
               .select("*")
               .eq("id", data.user.id)
               .single();
-            setUserProfile(profile);
+            // setUserProfile(profile); // 移除未使用的状态
 
             // 通过API获取用户积分和订阅信息（使用简化API）
             const response = await fetch("/api/user-credits-simple", {
@@ -455,10 +557,32 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
-      <Navbar />
+    <div className="min-h-screenflex flex-col overflow-x-hidden">
+      {/* 替换Navbar为简单的头部和返回按钮 */}
+      <header className="w-full  bg-gray-50 ">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* 返回按钮 */}
+            <button
+              onClick={handleGoBack}
+              className="flex items-center gap-2 text-gray-700 hover:text-purple-700 transition-colors duration-200"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back
+            </button>
+
+            {/* 登录按钮 */}
+            <div className="flex items-center">
+              <ButtonSignin />
+            </div>
+          </div>
+        </div>
+      </header>
+
       <section className="bg-gray-50 overflow-hidden flex-1" id="pricing">
-        <div className="py-2 px-4 sm:px-8 max-w-6xl mx-auto">
+        <div className="px-4 max-w-6xl mx-auto">
           <div className="flex flex-col text-center w-full mb-6">
             <h2 className="font-bold text-4xl lg:text-5xl tracking-tight text-gray-900">
               Pricing
@@ -816,13 +940,14 @@ export default function PricingPage() {
           </div>
 
           {/* Cancel subscription/refund link */}
-          <div className="mt-4 mb-10 text-center ">
+          <div className="mt-4 mb-10 text-center space-y-2">
             <button
               onClick={() => setShowCancelModal(true)}
-              className="text-gray-500 hover:text-gray-700 text-sm underline transition-colors"
+              className="text-gray-500 hover:text-gray-700 text-sm underline transition-colors block mx-auto"
             >
               Cancel subscription
             </button>
+            
           </div>
 
           {/* Cancel/refund modal */}
@@ -897,3 +1022,4 @@ export default function PricingPage() {
     </div>
   );
 }
+  
