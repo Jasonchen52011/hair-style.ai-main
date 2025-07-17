@@ -50,7 +50,7 @@ function SelectStylePageContent() {
   const selectedStyleRef = useRef<HTMLButtonElement>(null);
 
   // 未登录用户使用次数限制
-  const [guestUsageCount, setGuestUsageCount] = useState<number>(5);
+  const [guestUsageCount, setGuestUsageCount] = useState<number>(3);
 
   // 自定义确认对话框状态
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -71,8 +71,8 @@ function SelectStylePageContent() {
         const count = parseInt(storedCount);
         setGuestUsageCount(Math.max(0, count));
       } else {
-        setGuestUsageCount(5);
-        localStorage.setItem("guest_hairstyle_usage_count", "5");
+        setGuestUsageCount(3);
+        localStorage.setItem("guest_hairstyle_usage_count", "3");
       }
     }
   }, [user]);

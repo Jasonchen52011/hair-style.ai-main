@@ -80,12 +80,16 @@ export default function BlackHairFilterPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify({
                     ...structuredData,
+                    "@id": "https://hair-style.ai/black-hair-filter#webapplication",
                     metadataBase: new URL(structuredData.metadataBase)
                 }) }}
             />
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    ...breadcrumbData
+                }) }}
             />
             <div className="min-h-screen bg-white flex flex-col">
                 <Navbar />
