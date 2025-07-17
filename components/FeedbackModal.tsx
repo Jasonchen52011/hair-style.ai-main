@@ -19,7 +19,6 @@ const feedbackOptions = [
 export default function FeedbackModal({ isOpen, onClose, onCancel }: FeedbackModalProps) {
   const [selectedFeedback, setSelectedFeedback] = useState<string>("");
   const [comments, setComments] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -28,7 +27,6 @@ export default function FeedbackModal({ isOpen, onClose, onCancel }: FeedbackMod
     if (isOpen) {
       setSelectedFeedback("");
       setComments("");
-      setEmail("");
       setSubmitted(false);
     }
   }, [isOpen]);
@@ -75,7 +73,6 @@ export default function FeedbackModal({ isOpen, onClose, onCancel }: FeedbackMod
           feedback_type: selectedFeedback || null,
           feedback_detail: selectedFeedback || comments || "User feedback",
           comments: comments || null,
-          email: email || null,
         }),
       });
 
@@ -90,7 +87,7 @@ export default function FeedbackModal({ isOpen, onClose, onCancel }: FeedbackMod
       }
     } catch (error) {
       console.error("Error submitting feedback:", error);
-      alert(`Failed to submit feedback: ${error.message}`);
+      alert(`Failed to submit feedback: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsSubmitting(false);
     }
