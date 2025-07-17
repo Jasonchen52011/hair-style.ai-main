@@ -97,7 +97,8 @@ export default function HairStyleGenerator({
       });
 
       if (response.status === 429) {
-        toast.error('You have reached the daily 5 free generation limit, please try again tomorrow.', {
+        const errorData = await response.json();
+        toast.error(errorData.error || 'You have reached the daily limit, please try again tomorrow.', {
           duration: 5000,
           style: {
             background: '#1F2937',
@@ -107,9 +108,21 @@ export default function HairStyleGenerator({
         return;
       }
 
+      if (response.status === 402) {
+        const errorData = await response.json();
+        toast.error(errorData.error || 'Insufficient credits. Please top up your credits!', {
+          duration: 5000,
+          style: {
+            background: '#dc2626',
+            color: '#fff',
+          },
+        });
+        return;
+      }
+
       const data = await response.json();
       
-      if (data.status === 'processing' && data.taskId) {
+      if (data.success && data.status === 'processing' && data.taskId) {
         const result = await pollTaskStatus(data.taskId);
         if (result.data?.images) {
           const firstStyle = Object.keys(result.data.images)[0];
@@ -120,22 +133,49 @@ export default function HairStyleGenerator({
           
           onStyleGenerated?.(imageUrlWithStyle);
           
-          // 触发积分更新（不提供具体积分值，让系统自动刷新）
-          triggerCreditsUpdate();
-          
-          toast.success('Generation successful!', {
-            duration: 3000,
-            position: 'top-center',
-            style: {
-              background: '#1F2937',
-              color: '#fff',
-              padding: '16px',
-              borderRadius: '8px',
-              marginTop: '100px',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-            },
-            icon: '✨',
-          });
+          // 处理积分扣除信息
+          if (result.creditsDeducted) {
+            // 如果有新的积分余额，使用具体值更新，否则触发自动刷新
+            if (result.newCreditBalance !== undefined) {
+              triggerCreditsUpdate(result.newCreditBalance);
+            } else {
+              triggerCreditsUpdate();
+            }
+            
+            // 显示包含积分扣除信息的成功消息
+            toast.success(
+              `✨ Generation successful! \n💳 ${result.creditsDeducted} credits used`, 
+              {
+                duration: 4000,
+                position: 'top-center',
+                style: {
+                  background: '#1F2937',
+                  color: '#fff',
+                  padding: '16px',
+                  borderRadius: '8px',
+                  marginTop: '100px',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                  whiteSpace: 'pre-line',
+                },
+                icon: '🎉',
+              }
+            );
+          } else {
+            // 免费用户的成功消息
+            toast.success('Generation successful!', {
+              duration: 3000,
+              position: 'top-center',
+              style: {
+                background: '#1F2937',
+                color: '#fff',
+                padding: '16px',
+                borderRadius: '8px',
+                marginTop: '100px',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+              },
+              icon: '✨',
+            });
+          }
         } else {
           throw new Error('Failed to get result image');
         }

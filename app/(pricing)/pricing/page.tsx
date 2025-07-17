@@ -84,21 +84,40 @@ export default function PricingPage() {
 
       if (link && link.href) {
         console.log("Link clicked:", link.href);
-        // 检查是否是外部链接或导航到其他页面，并且用户符合反馈条件
+        // 检查是否是外部链接或导航到其他页面
         if (
           link.href !== window.location.href &&
           (link.href.startsWith("http") || link.href.startsWith("/")) &&
-          hasInteracted &&
-          !hasShownFeedback &&
-          shouldShowFeedback
+          !hasShownFeedback
         ) {
           console.log(
-            "Navigation link detected, preventing default and showing feedback"
+            "Navigation link detected, checking feedback eligibility..."
           );
-          e.preventDefault(); // 阻止默认跳转
-          setPendingNavigation({ type: "link", url: link.href, event: e });
-          setHasShownFeedback(true);
-          setShowFeedbackModal(true);
+          
+          // 立即检查是否应该显示反馈弹窗
+          fetch("/api/should-show-feedback")
+            .then(response => response.json())
+            .then(result => {
+              if (result.shouldShow) {
+                console.log("Should show feedback, preventing navigation and showing modal");
+                e.preventDefault(); // 阻止默认跳转
+                setPendingNavigation({ type: "link", url: link.href, event: e });
+                setHasShownFeedback(true);
+                setShowFeedbackModal(true);
+              } else {
+                console.log("Should not show feedback, allowing navigation");
+                // 不显示弹窗，让导航正常进行
+                window.location.href = link.href;
+              }
+            })
+            .catch(error => {
+              console.error("Error checking feedback eligibility:", error);
+              // 出错时不显示弹窗，让导航正常进行
+              window.location.href = link.href;
+            });
+          
+          // 先阻止默认行为，等API结果返回后再决定是否导航
+          e.preventDefault();
         }
       }
     };
@@ -199,21 +218,13 @@ export default function PricingPage() {
   const handleFeedbackCancel = () => {
     setShowFeedbackModal(false);
 
-    // 取消时执行待定的导航
+    // 取消时不自动执行导航，让用户留在当前页面
+    // 用户可以重新点击他们想要的链接
     if (pendingNavigation) {
       console.log(
-        "Feedback cancelled, continuing navigation:",
+        "Feedback cancelled, clearing pending navigation without redirecting:",
         pendingNavigation
       );
-
-      if (pendingNavigation.type === "link" && pendingNavigation.url) {
-        // 继续链接导航
-        window.location.href = pendingNavigation.url;
-      } else if (pendingNavigation.type === "back") {
-        // 继续后退导航
-        window.history.back();
-      }
-
       setPendingNavigation(null);
     }
   };

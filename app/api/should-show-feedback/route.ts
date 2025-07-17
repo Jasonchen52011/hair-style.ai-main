@@ -8,11 +8,11 @@ export async function GET(request: NextRequest) {
     const supabase = createRouteHandlerClient({ cookies });
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     
-    // 如果用户未登录，不显示反馈弹窗
+    // 如果用户未登录，显示反馈弹窗（未登录用户可以提供反馈）
     if (!user || userError) {
       return NextResponse.json({
-        shouldShow: false,
-        reason: 'User not logged in'
+        shouldShow: true,
+        reason: 'User not logged in - show feedback for anonymous users'
       });
     }
 
@@ -39,19 +39,19 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // 检查24小时限制
-    if (profile?.last_feedback_shown) {
-      const lastShown = new Date(profile.last_feedback_shown);
-      const now = new Date();
-      const hoursDiff = (now.getTime() - lastShown.getTime()) / (1000 * 60 * 60);
+    // // 检查24小时限制
+    // if (profile?.last_feedback_shown) {
+    //   const lastShown = new Date(profile.last_feedback_shown);
+    //   const now = new Date();
+    //   const hoursDiff = (now.getTime() - lastShown.getTime()) / (1000 * 60 * 60);
       
-      if (hoursDiff < 24) {
-        return NextResponse.json({
-          shouldShow: false,
-          reason: `Last shown ${Math.round(hoursDiff)} hours ago, need to wait ${Math.round(24 - hoursDiff)} more hours`
-        });
-      }
-    }
+    //   if (hoursDiff < 24) {
+    //     return NextResponse.json({
+    //       shouldShow: false,
+    //       reason: `Last shown ${Math.round(hoursDiff)} hours ago, need to wait ${Math.round(24 - hoursDiff)} more hours`
+    //     });
+    //   }
+    // }
 
     // 满足所有条件，可以显示反馈弹窗
     return NextResponse.json({
@@ -74,11 +74,11 @@ export async function POST(request: NextRequest) {
     const supabase = createRouteHandlerClient({ cookies });
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     
+    // 对于未登录用户，我们无法在数据库中记录，但返回成功避免前端报错
     if (!user || userError) {
-      return NextResponse.json(
-        { error: 'User not logged in' },
-        { status: 401 }
-      );
+      return NextResponse.json({
+        message: 'Feedback shown for anonymous user (not recorded in database)'
+      });
     }
 
     // 更新用户的最后反馈显示时间
