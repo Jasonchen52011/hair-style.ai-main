@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
 import { useSearchParams } from "next/navigation";
 
-// This a login/singup page for Supabase Auth.
-// Successfull login redirects to /api/auth/callback where the Code Exchange is processed (see app/api/auth/callback/route.js).
-export default function Login() {
+// 将使用 useSearchParams 的逻辑分离到单独组件
+function SignInContent() {
   const supabase = createClientComponentClient();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState<string>("");
@@ -220,5 +219,39 @@ export default function Login() {
         </div>
       </div>
     </main>
+  );
+}
+
+// Loading 组件
+function SignInLoading() {
+  return (
+    <main className="min-h-screen" data-theme={config.colors.theme}>
+      <div className="flex flex-col lg:grid lg:grid-cols-2 min-h-screen bg-gray-900">
+        <div className="hidden lg:flex relative items-center justify-center p-16 bg-white">
+          <div className="animate-pulse bg-gray-300 max-w-xl h-96 rounded-lg"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-12">
+          <div className="w-full max-w-md space-y-8">
+            <div className="text-center">
+              <div className="animate-pulse bg-gray-700 h-8 w-3/4 mx-auto rounded"></div>
+            </div>
+            <div className="space-y-6">
+              <div className="animate-pulse bg-gray-700 h-12 w-full rounded"></div>
+              <div className="animate-pulse bg-gray-700 h-12 w-full rounded"></div>
+              <div className="animate-pulse bg-gray-700 h-12 w-full rounded"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+// 主导出组件，用 Suspense 包裹
+export default function Login() {
+  return (
+    <Suspense fallback={<SignInLoading />}>
+      <SignInContent />
+    </Suspense>
   );
 }
