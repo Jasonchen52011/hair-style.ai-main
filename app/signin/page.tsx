@@ -1,19 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
+import { useSearchParams } from "next/navigation";
 
 // This a login/singup page for Supabase Auth.
 // Successfull login redirects to /api/auth/callback where the Code Exchange is processed (see app/api/auth/callback/route.js).
 export default function Login() {
   const supabase = createClientComponentClient();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [returnUrl, setReturnUrl] = useState<string>("");
+
+  useEffect(() => {
+    // 获取 returnUrl 参数
+    const url = searchParams.get("returnUrl");
+    if (url) {
+      setReturnUrl(url);
+      // 同时存储到 localStorage 作为备用
+      localStorage.setItem('auth_return_url', url);
+    }
+  }, [searchParams]);
 
   const handleSignup = async (
     e: any,
@@ -28,7 +41,16 @@ export default function Login() {
 
     try {
       const { type, provider } = options;
-      const redirectURL = window.location.origin + "/api/auth/callback";
+      let redirectURL = (process.env.NEXT_PUBLIC_APP_URL || window.location.origin) + "/api/auth/callback";
+      
+      // 如果有 returnUrl，将其添加到回调 URL 中
+      if (returnUrl) {
+        redirectURL += `?returnUrl=${encodeURIComponent(returnUrl)}`;
+      }
+      
+      // 调试日志
+      console.log('🔍 Sign in - returnUrl:', returnUrl);
+      console.log('🔍 Sign in - redirectURL:', redirectURL);
 
       if (type === "oauth") {
         await supabase.auth.signInWithOAuth({

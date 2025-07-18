@@ -357,7 +357,13 @@ function SelectStylePageContent() {
         cancelText: "Cancel",
         onConfirm: () => {
           setShowConfirmDialog(false);
-          window.location.href = "/signin";
+          // 存储当前页面URL到localStorage
+          const currentPathname = window.location.pathname;
+          console.log('🔍 AI Hairstyle handleConfirm - Current pathname:', currentPathname);
+          localStorage.setItem('auth_return_url', currentPathname);
+          const returnUrl = encodeURIComponent(currentPathname);
+          console.log('🔍 AI Hairstyle handleConfirm - returnUrl:', returnUrl);
+          window.location.href = `/signin?returnUrl=${returnUrl}`;
         },
         onCancel: () => {
           setShowConfirmDialog(false);

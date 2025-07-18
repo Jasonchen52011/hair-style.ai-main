@@ -145,6 +145,7 @@ const ButtonSignin = memo(({
   const [showDropdown, setShowDropdown] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [loginUrl, setLoginUrl] = useState(`${config.auth.loginUrl}`);
 
   // 处理点击外部关闭下拉菜单
   useEffect(() => {
@@ -158,6 +159,14 @@ const ButtonSignin = memo(({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []);
+
+  // 在客户端设置登录URL
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    console.log('🔍 ButtonSignin useEffect - Current pathname:', currentPath);
+    const url = `${config.auth.loginUrl}?returnUrl=${encodeURIComponent(currentPath)}`;
+    setLoginUrl(url);
   }, []);
 
   // 登出函数
@@ -210,10 +219,20 @@ const ButtonSignin = memo(({
     );
   }
 
+  const handleLoginClick = () => {
+    // 存储当前页面URL到localStorage
+    if (typeof window !== 'undefined') {
+      const currentPathname = window.location.pathname;
+      console.log('🔍 ButtonSignin - Click handler pathname:', currentPathname);
+      localStorage.setItem('auth_return_url', currentPathname);
+    }
+  };
+
   return (
     <Link
       className={`btn ${extraStyle ? extraStyle : ""}`}
-      href={config.auth.loginUrl}
+      href={loginUrl}
+      onClick={handleLoginClick}
     >
       {text}
     </Link>

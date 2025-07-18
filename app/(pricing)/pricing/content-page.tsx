@@ -464,8 +464,13 @@ export default function PricingPage() {
 
   const handlePurchase = async (productId: string) => {
     if (!user) {
-      // 如果用户未登录，跳转到登录页面
-      window.location.href = "/signin";
+      // 如果用户未登录，跳转到登录页面并带上返回URL
+      // 存储当前页面URL到localStorage
+      const currentPathname = window.location.pathname;
+      console.log('🔍 Pricing handlePurchase - Current pathname:', currentPathname);
+      localStorage.setItem('auth_return_url', currentPathname);
+      const returnUrl = encodeURIComponent(currentPathname);
+      window.location.href = `/signin?returnUrl=${returnUrl}`;
       return;
     }
 
@@ -939,7 +944,7 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Cancel subscription/refund link */}
+          {/* Cancel subscription/refund link
           <div className="mt-4 mb-10 text-center space-y-2">
             <button
               onClick={() => setShowCancelModal(true)}
@@ -948,7 +953,7 @@ export default function PricingPage() {
               Cancel subscription
             </button>
             
-          </div>
+          </div> */}
 
           {/* Cancel/refund modal */}
           {showCancelModal && (
