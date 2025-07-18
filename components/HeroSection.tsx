@@ -9,7 +9,7 @@ interface HeroSectionProps {
     statsText: string
     ctaText: string
     ctaLink: string
-  }
+  } 
   imageConfig: {
     displayHeight: number
     image: string

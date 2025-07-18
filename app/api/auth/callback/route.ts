@@ -15,6 +15,12 @@ function getSupabaseTimeString(): string {
 export async function GET(req: NextRequest) {
   const requestUrl = new URL(req.url);
   const code = requestUrl.searchParams.get("code");
+  const returnUrl = requestUrl.searchParams.get("returnUrl");
+  
+  // 调试日志
+  console.log('🔍 Auth callback - Full URL:', req.url);
+  console.log('🔍 Auth callback - code:', code);
+  console.log('🔍 Auth callback - returnUrl:', returnUrl);
 
   if (code) {
     try {
@@ -146,5 +152,35 @@ export async function GET(req: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin + config.auth.callbackUrl);
+  // 如果有 returnUrl 参数，跳转到该 URL，否则使用默认的 callbackUrl
+  const redirectTo = returnUrl 
+    ? decodeURIComponent(returnUrl)
+    : config.auth.callbackUrl;
+  
+  // 如果没有 returnUrl 参数，需要通过客户端处理 localStorage
+  const needsClientRedirect = !returnUrl;
+    
+  // 调试日志
+  console.log('🔍 Auth callback - redirectTo:', redirectTo);
+  console.log('🔍 Auth callback - config.auth.callbackUrl:', config.auth.callbackUrl);
+    
+  // 确保跳转 URL 是相对路径或同域，防止开放重定向攻击
+  // 始终使用请求的origin，这样在开发和生产环境都能正确工作
+  const baseUrl = requestUrl.origin;
+    
+  let finalRedirectUrl;
+  
+  if (needsClientRedirect) {
+    // 如果没有 returnUrl 参数，重定向到一个客户端处理页面
+    finalRedirectUrl = baseUrl + '/auth/redirect-handler';
+  } else {
+    finalRedirectUrl = redirectTo.startsWith('/') 
+      ? baseUrl + redirectTo 
+      : baseUrl + config.auth.callbackUrl;
+  }
+    
+  console.log('🔍 Auth callback - finalRedirectUrl:', finalRedirectUrl);
+  console.log('🔍 Auth callback - needsClientRedirect:', needsClientRedirect);
+    
+  return NextResponse.redirect(finalRedirectUrl);
 }
