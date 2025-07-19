@@ -791,109 +791,108 @@ function SelectStylePageContent() {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
           {/* Header */}
-          <div className="text-center py-2 ">
+          <div className="text-center py-2 px-2">
+            <h2 className="text-lg md:text-xl font-bold text-gray-900">Image Guidelines</h2>
           </div>
 
           {/* Content */}
-          <div className="p-2">
+          <div className="px-2 pb-2">
             {/* Good Examples */}
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-green-600 mb-4 text-center">✓ Good Examples</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="mb-3">
+              <h3 className="text-base md:text-lg font-semibold text-green-600 mb-3 text-center">✓ Good Examples</h3>
+              <div className="grid grid-cols-2 md:grid-cols-2 gap-1 md:gap-0.5">
                 <div className="text-center">
-                  <div className="mb-4">
+                  <div className="mb-2">
                     <Image
                       src="/images/guideline/right1-good-light.webp"
                       alt="Good lighting example"
                       width={300}
                       height={300}
-                      className="w-full h-48 sm:h-64 md:h-72 object-cover rounded-lg shadow-md mx-auto"
+                      className="w-full h-40 sm:h-40 md:h-60 md:w-60 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-gray-900">Good lighting, hair tied back</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Good lighting, hair tied back</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="mb-4">
+                  <div className="mb-2">
                     <Image
                       src="/images/guideline/right2-Above Shoulder-Photo.webp"
                       alt="Good angle example"
                       width={300}
                       height={300}
-                      className="w-full h-48 sm:h-64 md:h-72 object-cover rounded-lg shadow-md mx-auto"
+                      className="w-full h-40 sm:h-40 md:h-60 md:w-60 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-gray-900">Slightly elevated side angle</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Slightly elevated side angle</p>
                 </div>
               </div>
             </div>
 
             {/* Bad Examples */}
             <div>
-              <h3 className="text-lg font-semibold text-red-600 mb-4 text-center">✗ Avoid These</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <h3 className="text-base md:text-lg font-semibold text-red-600 mb-3 text-center">✗ Avoid These</h3>
+              <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6">
                 <div className="text-center">
-                  <div className="mb-3">
+                  <div className="mb-1">
                     <Image
                       src="/images/guideline/wrong1-Half-or-full body-shots.webp"
                       alt="Avoid half or full body shots"
                       width={200}
                       height={200}
-                      className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                      className="w-full h-28 sm:h-32 md:h-56 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-gray-900">Half or full body shots</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Half/full body</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="mb-3">
+                  <div className="mb-1">
                     <Image
                       src="/images/guideline/wrong2-hair-or shadows-on face.webp"
                       alt="Avoid hair/shadows on face"
-                      width={200}
-                      height={200}
-                      className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                      width={100}
+                      height={100}
+                      className="w-full h-28 sm:h-32 md:h-56 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-gray-900">Hair/shadows on face</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Hair/shadows</p>
                 </div>
 
                 <div className="text-center">
-                  <div className="mb-3">
+                  <div className="mb-1">
                     <Image
                       src="/images/guideline/wrong3-blurry-close up.webp"
                       alt="Avoid blurry close up photos"
                       width={200}
                       height={200}
-                      className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                      className="w-full h-28 sm:h-32 md:h-56 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-sm font-medium text-gray-900">Blurry close up photos</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Blurry photos</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Footer */}
-          <div className="p-2  bg-gray-50">
-            <div className="flex flex-col space-y-4">
-              <div className="flex justify-center space-x-3">
-                <button
-                  onClick={handleGuidelineDismiss}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => {
-                    setShowGuidelineModal(false);
-                    fileInputRef.current?.click();
-                  }}
-                  className="px-6 py-2 bg-purple-700 text-white hover:bg-purple-800 rounded-lg transition-colors"
-                >
-                  Upload Photo
-                </button>
-              </div>
+          <div className="p-3 bg-gray-50 rounded-b-lg">
+            <div className="flex justify-center space-x-3">
+              <button
+                onClick={handleGuidelineDismiss}
+                className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  setShowGuidelineModal(false);
+                  fileInputRef.current?.click();
+                }}
+                className="px-6 py-2 bg-purple-700 text-white hover:bg-purple-800 rounded-lg transition-colors text-sm"
+              >
+                Upload Photo
+              </button>
             </div>
           </div>
         </div>
@@ -1291,7 +1290,7 @@ function SelectStylePageContent() {
                       />
                     </button>
                   </div>                  
-                  <p className="text-lg text-gray-600 mb-1">
+                  <p className="text-lg text-gray-600 mb-1 mt-3">
                     No photos?    Try these examples:
                   </p>
                 </div>
@@ -1592,9 +1591,7 @@ function SelectStylePageContent() {
 
                 {/* 示例图片区域 - 居中，增加间距 */}
                 <div className="text-center w-full">
-                  <p className="text-base text-gray-600 mb-6">
-                    Try these examples:
-                  </p>
+
                   <div className="flex justify-center gap-3">
                     <button
                       className="w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
@@ -1651,6 +1648,9 @@ function SelectStylePageContent() {
                       />
                     </button>
                   </div>
+                  <p className="text-base text-gray-600 mb-6 mt-3">
+                    Try these examples:
+                  </p>
                 </div>
               </div>
             ) : (
@@ -1739,7 +1739,7 @@ function SelectStylePageContent() {
                           className={`w-12 ${
                             styleImageHeight === "h-24"
                               ? "h-12"
-                              : styleImageHeight === "h-28"
+                              : styleImageHeight === "h-32"
                               ? "h-14"
                               : styleImageHeight === "h-32"
                               ? "h-16"
