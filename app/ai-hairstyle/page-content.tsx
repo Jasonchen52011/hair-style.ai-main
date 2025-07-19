@@ -63,6 +63,10 @@ function SelectStylePageContent() {
     onCancel: () => {},
   });
 
+  // 添加 guideline 弹窗状态
+  const [showGuidelineModal, setShowGuidelineModal] = useState(false);
+  const [alwaysShowGuidelines, setAlwaysShowGuidelines] = useState(true);
+
   // 初始化未登录用户使用次数
   useEffect(() => {
     if (!user) {
@@ -76,6 +80,13 @@ function SelectStylePageContent() {
       }
     }
   }, [user]);
+
+  // 初始化guideline显示偏好
+  useEffect(() => {
+    const alwaysShow = localStorage.getItem('guideline_always_show');
+    // 默认为true，只有明确设置为false时才为false
+    setAlwaysShowGuidelines(alwaysShow !== 'false');
+  }, []);
 
   // get image URL, preset hairstyle, and preset color from URL parameters
   useEffect(() => {
@@ -207,13 +218,13 @@ function SelectStylePageContent() {
                 );
                 throw new Error(
                   errorData.error ||
-                    "Processing timeout. Please try with a different photo."
+                    "Sorry, we couldn’t generate the hairstyle after several tries. Please upload a clearer front-facing photo."
                 );
               }
             } catch (parseError) {
               console.log("Failed to parse 408 response, treating as timeout");
               throw new Error(
-                "Processing timeout. Please try with a different photo."
+                "Sorry, we couldn’t generate the hairstyle after several tries. Please upload a clearer front-facing photo."
               );
             }
           } else if (response.status >= 500) {
@@ -746,6 +757,150 @@ function SelectStylePageContent() {
     }
   };
 
+  // 检查是否需要显示 guideline 弹窗
+  const shouldShowGuideline = () => {
+    const alwaysShow = localStorage.getItem('guideline_always_show');
+    // 默认显示，只有明确设置为false时才不显示
+    return alwaysShow !== 'false';
+  };
+
+  // 处理 guideline 弹窗显示
+  const handleShowGuideline = (forceShow = false) => {
+    if (forceShow || shouldShowGuideline()) {
+      setShowGuidelineModal(true);
+    }
+  };
+
+
+
+
+
+  // 处理 guideline 弹窗取消（用户主动关闭）
+  const handleGuidelineDismiss = () => {
+    setShowGuidelineModal(false);
+    // 用户点击取消，设置为不总是显示
+    setAlwaysShowGuidelines(false);
+    localStorage.setItem('guideline_always_show', 'false');
+  };
+
+  // Guideline Modal 组件
+  const GuidelineModal = () => {
+    if (!showGuidelineModal) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
+          {/* Header */}
+          <div className="text-center py-2 ">
+          </div>
+
+          {/* Content */}
+          <div className="p-2">
+            {/* Good Examples */}
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-green-600 mb-4 text-center">✓ Good Examples</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="text-center">
+                  <div className="mb-4">
+                    <Image
+                      src="/images/guideline/right1-good-light.webp"
+                      alt="Good lighting example"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 sm:h-64 md:h-72 object-cover rounded-lg shadow-md mx-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">Good lighting, hair tied back</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="mb-4">
+                    <Image
+                      src="/images/guideline/right2-Above Shoulder-Photo.webp"
+                      alt="Good angle example"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 sm:h-64 md:h-72 object-cover rounded-lg shadow-md mx-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">Slightly elevated side angle</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bad Examples */}
+            <div>
+              <h3 className="text-lg font-semibold text-red-600 mb-4 text-center">✗ Avoid These</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="mb-3">
+                    <Image
+                      src="/images/guideline/wrong1-Half-or-full body-shots.webp"
+                      alt="Avoid half or full body shots"
+                      width={200}
+                      height={200}
+                      className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">Half or full body shots</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="mb-3">
+                    <Image
+                      src="/images/guideline/wrong2-hair-or shadows-on face.webp"
+                      alt="Avoid hair/shadows on face"
+                      width={200}
+                      height={200}
+                      className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">Hair/shadows on face</p>
+                </div>
+
+                <div className="text-center">
+                  <div className="mb-3">
+                    <Image
+                      src="/images/guideline/wrong3-blurry-close up.webp"
+                      alt="Avoid blurry close up photos"
+                      width={200}
+                      height={200}
+                      className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                    />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">Blurry close up photos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="p-2  bg-gray-50">
+            <div className="flex flex-col space-y-4">
+              <div className="flex justify-center space-x-3">
+                <button
+                  onClick={handleGuidelineDismiss}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    setShowGuidelineModal(false);
+                    fileInputRef.current?.click();
+                  }}
+                  className="px-6 py-2 bg-purple-700 text-white hover:bg-purple-800 rounded-lg transition-colors"
+                >
+                  Upload Photo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // 添加文件上传处理函数
   const handleImageUpload = async (file: File) => {
     try {
@@ -809,9 +964,19 @@ function SelectStylePageContent() {
     }
   };
 
-  // 修改 UploadArea 组件，添加更明显的样式
+  // 修改 UploadArea 组件，添加 guideline 弹窗触发
   const UploadArea = () => {
     const [isDragging, setIsDragging] = useState(false);
+
+    const handleUploadClick = () => {
+      // 如果选中了Always show guidelines，显示弹窗，停止上传
+      if (alwaysShowGuidelines) {
+        handleShowGuideline(true);
+        return;
+      }
+      // 否则直接触发文件选择
+      fileInputRef.current?.click();
+    };
 
     return (
       <div
@@ -826,7 +991,7 @@ function SelectStylePageContent() {
                     transition-all duration-200 ease-in-out
                     cursor-pointer
                 `}
-        onClick={() => fileInputRef.current?.click()}
+        onClick={handleUploadClick}
         onDragOver={(e) => {
           e.preventDefault();
           setIsDragging(true);
@@ -836,7 +1001,15 @@ function SelectStylePageContent() {
           e.preventDefault();
           setIsDragging(false);
           const file = e.dataTransfer.files[0];
-          if (file) handleImageUpload(file);
+          if (file) {
+            // 如果选中了Always show guidelines，显示弹窗，停止上传
+            if (alwaysShowGuidelines) {
+              handleShowGuideline(true);
+              return;
+            }
+            // 否则直接处理上传
+            handleImageUpload(file);
+          }
         }}
       >
         <input
@@ -875,7 +1048,7 @@ function SelectStylePageContent() {
             className="mt-4 px-4 md:px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm md:text-base"
             onClick={(e) => {
               e.stopPropagation();
-              fileInputRef.current?.click();
+              handleUploadClick();
             }}
           >
             Upload Image
@@ -895,6 +1068,9 @@ function SelectStylePageContent() {
           },
         }}
       />
+
+      {/* Guideline Modal */}
+      <GuidelineModal />
 
       {/* 自定义确认对话框 */}
       {showConfirmDialog && (
@@ -971,37 +1147,42 @@ function SelectStylePageContent() {
                 <span className="hidden lg:inline text-sm">Download</span>
               </button>
             )}
-            <div>
-              <input
-                type="file"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleImageUpload(file);
-                }}
-                accept="image/*"
-                className="hidden"
-                id="photo-upload-new-mobile"
-              />
-              <label
-                htmlFor="photo-upload-new-mobile"
-                className="w-10 h-10 lg:w-auto lg:h-auto lg:px-4 lg:py-2 bg-white text-purple-700 hover:bg-purple-50 rounded-lg border-1 border-purple-700 flex items-center justify-center lg:gap-2 cursor-pointer shadow-lg font-medium"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-                  />
-                </svg>
-                <span className="hidden lg:inline text-sm">Upload New</span>
-              </label>
-            </div>
+                              <div>
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleImageUpload(file);
+                      }}
+                      accept="image/*"
+                      className="hidden"
+                      id="photo-upload-new-mobile"
+                    />
+                    <label
+                      htmlFor="photo-upload-new-mobile"
+                      onClick={() => {
+                        if (alwaysShowGuidelines) {
+                          handleShowGuideline(true);
+                        }
+                      }}
+                      className="w-10 h-10 lg:w-auto lg:h-auto lg:px-4 lg:py-2 bg-white text-purple-700 hover:bg-purple-50 rounded-lg border-1 border-purple-700 flex items-center justify-center lg:gap-2 cursor-pointer shadow-lg font-medium"
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                        />
+                      </svg>
+                      <span className="hidden lg:inline text-sm">Upload New</span>
+                    </label>
+                  </div>
           </div>
         )}
 
@@ -1022,11 +1203,38 @@ function SelectStylePageContent() {
                   </div>
                 </div>
 
+                {/* Want perfect photo 按钮 */}
+                <div className="text-center mb-4">
+                  <div className="flex flex-col items-center space-y-2">
+                    <button
+                      onClick={() => handleShowGuideline(true)}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-purple-700 rounded-lg transition-colors"
+                    >
+                      <span className="text-sm font-medium">Click to see perfect photo guidelines</span>
+                      <span>✨</span>
+                    </button>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="always-show-guidelines-pc"
+                        checked={alwaysShowGuidelines}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setAlwaysShowGuidelines(checked);
+                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
+                        }}
+                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="always-show-guidelines-pc" className="text-xs text-gray-500 cursor-pointer">
+                        Always show guidelines
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 示例图片区域 - 更紧凑 */}
                 <div className="text-center px-4 pb-1">
-                  <p className="text-lg text-gray-600 mb-1">
-                    Try these examples:
-                  </p>
+
                   <div className="flex justify-center gap-1.5">
                     <button
                       className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
@@ -1082,7 +1290,10 @@ function SelectStylePageContent() {
                         className="w-full h-full object-cover"
                       />
                     </button>
-                  </div>
+                  </div>                  
+                  <p className="text-lg text-gray-600 mb-1">
+                    No photos?    Try these examples:
+                  </p>
                 </div>
               </>
             ) : (
@@ -1144,6 +1355,11 @@ function SelectStylePageContent() {
                     />
                     <label
                       htmlFor="photo-upload-new-pc"
+                      onClick={() => {
+                        if (alwaysShowGuidelines) {
+                          handleShowGuideline(true);
+                        }
+                      }}
                       className="h-8 sm:h-10 bg-white text-gray-800 hover:bg-gray-50 px-4 sm:px-6 rounded-lg text-sm border border-gray-300 flex items-center justify-center gap-1 sm:gap-2 shadow-sm cursor-pointer"
                     >
                       <svg
@@ -1343,6 +1559,35 @@ function SelectStylePageContent() {
                 {/* 上传区域 - 居中 */}
                 <div className="w-full">
                   <UploadArea />
+                </div>
+
+                {/* Want perfect photo 按钮 - 移动端 */}
+                <div className="text-center">
+                  <div className="flex flex-col items-center space-y-2">
+                    <button
+                      onClick={() => handleShowGuideline(true)}
+                      className="inline-flex items-center gap-2 px-4 py-2  text-purple-700 "
+                    >
+                      <span className="text-sm font-medium">Click to see perfect photo guidelines</span>
+                      <span>✨</span>
+                    </button>
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id="always-show-guidelines-mobile"
+                        checked={alwaysShowGuidelines}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setAlwaysShowGuidelines(checked);
+                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
+                        }}
+                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="always-show-guidelines-mobile" className="text-xs text-gray-500 cursor-pointer">
+                        Always show guidelines
+                      </label>
+                    </div>
+                  </div>
                 </div>
 
                 {/* 示例图片区域 - 居中，增加间距 */}
