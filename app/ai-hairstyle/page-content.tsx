@@ -789,16 +789,16 @@ function SelectStylePageContent() {
 
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
+        <div className="bg-white rounded-lg max-w-xl w-full mx-auto max-h-[90vh] overflow-y-auto shadow-xl">
           {/* Header */}
           <div className="text-center py-2 px-2">
-            <h2 className="text-lg md:text-xl font-bold text-gray-900">Image Guidelines</h2>
+            <h2 className="text-sm text-gray-900">Image Guidelines</h2>
           </div>
 
           {/* Content */}
           <div className="px-2 pb-2">
             {/* Good Examples */}
-            <div className="mb-3">
+            <div className="mb-3 max-w-xs w-full mx-auto">
               <h3 className="text-base md:text-lg font-semibold text-green-600 mb-3 text-center">✓ Good Examples</h3>
               <div className="grid grid-cols-2 md:grid-cols-2 gap-1 md:gap-0.5">
                 <div className="text-center">
@@ -808,10 +808,10 @@ function SelectStylePageContent() {
                       alt="Good lighting example"
                       width={300}
                       height={300}
-                      className="w-full h-40 sm:h-40 md:h-60 md:w-60 object-cover rounded-lg shadow-md mx-auto"
+                      className="h-24 w-24  sm:h-28 sm:w-28 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-xs md:text-sm font-medium text-gray-900">Good lighting, hair tied back</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Good lighting</p>
                 </div>
 
                 <div className="text-center">
@@ -821,7 +821,7 @@ function SelectStylePageContent() {
                       alt="Good angle example"
                       width={300}
                       height={300}
-                      className="w-full h-40 sm:h-40 md:h-60 md:w-60 object-cover rounded-lg shadow-md mx-auto"
+                      className="h-24 w-24 sm:h-28 sm:w-28 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
                   <p className="text-xs md:text-sm font-medium text-gray-900">Slightly elevated side angle</p>
@@ -830,9 +830,9 @@ function SelectStylePageContent() {
             </div>
 
             {/* Bad Examples */}
-            <div>
+            <div className="max-w-md w-full mx-auto">
               <h3 className="text-base md:text-lg font-semibold text-red-600 mb-3 text-center">✗ Avoid These</h3>
-              <div className="grid grid-cols-3 md:grid-cols-3 gap-2 md:gap-6">
+              <div className="grid grid-cols-3 md:grid-cols-3 gap-1 md:gap-0.5">
                 <div className="text-center">
                   <div className="mb-1">
                     <Image
@@ -840,10 +840,10 @@ function SelectStylePageContent() {
                       alt="Avoid half or full body shots"
                       width={200}
                       height={200}
-                      className="w-full h-28 sm:h-32 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                      className="h-24 w-24 sm:h-28 sm:w-28 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
-                  <p className="text-xs md:text-sm font-medium text-gray-900">Half/full body</p>
+                  <p className="text-xs md:text-sm font-medium text-gray-900">Half or full body shots</p>
                 </div>
 
                 <div className="text-center">
@@ -853,7 +853,7 @@ function SelectStylePageContent() {
                       alt="Avoid hair/shadows on face"
                       width={100}
                       height={100}
-                      className="w-full h-28 sm:h-32 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                      className="h-24 w-24 sm:h-28 sm:w-28 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
                   <p className="text-xs md:text-sm font-medium text-gray-900">Hair/shadows</p>
@@ -866,7 +866,7 @@ function SelectStylePageContent() {
                       alt="Avoid blurry close up photos"
                       width={200}
                       height={200}
-                      className="w-full h-28 sm:h-32 md:h-56 object-cover rounded-lg shadow-md mx-auto"
+                      className="h-24 w-24  sm:h-28 sm:w-28 object-cover rounded-lg shadow-md mx-auto"
                     />
                   </div>
                   <p className="text-xs md:text-sm font-medium text-gray-900">Blurry photos</p>

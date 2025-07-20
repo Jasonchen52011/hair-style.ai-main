@@ -108,12 +108,12 @@ const ResultContent = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-white">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* 顶部导航和操作按钮 */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 md:mb-8 gap-4">
           <button
             onClick={() => router.push('/face-shape-detector')}
-            className="flex items-center text-purple-600 hover:text-purple-800 font-medium transition-colors"
+            className="flex items-center text-purple-600 hover:text-purple-800 font-medium transition-colors text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             New Analysis
@@ -121,48 +121,43 @@ const ResultContent = () => {
         </div>
 
         {/* 页面标题 */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-800 tracking-tight">
+        <div className="text-center mb-6 sm:mb-8 md:mb-12">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-800 tracking-tight">
             Your Face Shape <span className="text-purple-700">Analysis Results</span>
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
+          <p className="mt-2 sm:mt-3 md:mt-4 text-sm sm:text-base md:text-lg text-gray-600 px-2 sm:px-0">
             Personalized hairstyle recommendations based on your unique features
           </p>
         </div>
 
         {/* 结果展示区域 */}
-        <div className="bg-white/90 rounded-2xl p-8 backdrop-blur-sm shadow-lg">
+        <div className="bg-white/90 rounded-2xl p-4 sm:p-6 md:p-8 backdrop-blur-sm shadow-lg">
           <div className="space-y-8">
             {/* 第一行 - 用户图片和脸型介绍 */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
               {/* 左侧 - 用户上传的图片 */}
-              <div className="bg-white/90 rounded-lg p-6 backdrop-blur-sm ">
+              <div className="bg-white/90 rounded-lg p-4 sm:p-5 md:p-6 backdrop-blur-sm ">
                 <div 
-                  className="rounded-lg overflow-hidden mx-auto"
-                  style={{ 
-                    width: `${Math.min(IMAGE_CONFIG.width, 400)}px`, 
-                    height: `${Math.min(IMAGE_CONFIG.height, 400)}px`,
-                    maxWidth: '100%'
-                  }}
+                  className="rounded-lg overflow-hidden mx-auto w-full max-w-[250px] sm:max-w-[300px] md:max-w-[400px]"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={image || ''} 
                     alt="Your uploaded photo" 
-                    className="object-cover w-full h-full"
+                    className="object-cover w-full h-auto aspect-square"
                   />
                 </div>
               </div>
 
               {/* 右侧 - 脸型和特点 */}
-              <div className="bg-purple-50 rounded-lg p-6 backdrop-blur-sm ">
-                <h3 className="text-3xl font-bold text-gray-800 mb-4">
+              <div className="bg-purple-50 rounded-lg p-4 sm:p-5 md:p-6 backdrop-blur-sm ">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-3 sm:mb-4">
                   Your Face Shape: 
                   <span className="text-purple-700">{result.faceShape}</span>
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="text-gray-700 text-lg whitespace-pre-line">{result.characteristics}</p>
+                    <p className="text-gray-700 text-sm sm:text-base md:text-lg whitespace-pre-line">{result.characteristics}</p>
                   </div>
                   
                   {/* 明星同款脸型 */}
@@ -195,8 +190,8 @@ const ResultContent = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-gray-800 mb-2">The Beauty of Your Shape</h4>
-                    <p className="text-gray-700 text-lg whitespace-pre-line">{result.positiveVibes}</p>
+                    <h4 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">The Beauty of Your Shape</h4>
+                    <p className="text-gray-700 text-sm sm:text-base md:text-lg whitespace-pre-line">{result.positiveVibes}</p>
                   </div>
                 </div>
               </div>
@@ -204,17 +199,17 @@ const ResultContent = () => {
 
             {/* 第二行 - 根据性别显示对应的推荐发型 */}
             <div>
-              <h3 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
                 Recommended {result.gender === 'male' ? 'Men\'s' : 'Women\'s'} Hairstyles
               </h3>
               
               {/* 垂直排列的左图右文布局 */}
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {/* Cute Style */}
-                <div className="bg-white/60 rounded-lg p-6 backdrop-blur-sm border border-gray-100">
-                  <div className="flex gap-6">
+                <div className="bg-white/60 rounded-lg p-3 sm:p-4 md:p-6 backdrop-blur-sm border border-gray-100">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6">
                     {/* 左侧图片 */}
-                    <div className="w-1/3 flex-shrink-0">
+                    <div className="w-full sm:w-1/3 flex-shrink-0">
                       {(() => {
                         const genderStyles = getHairstylesByGender(result.gender);
                         const hairstyleData = genderStyles.find(s => 
@@ -231,11 +226,11 @@ const ResultContent = () => {
                             <img 
                               src={hairstyleData.imageUrl} 
                               alt={hairstyleData.alt} 
-                              className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105" 
+                              className="w-full h-64 sm:h-60 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105" 
                             />
                           </a>
                         ) : (
-                          <div className="w-full h-80 bg-gray-200 rounded-lg flex items-center justify-center">
+                          <div className="w-full h-64 sm:h-60 md:h-80 bg-gray-200 rounded-lg flex items-center justify-center">
                             <span className="text-gray-500">No image</span>
                           </div>
                         );
@@ -243,9 +238,9 @@ const ResultContent = () => {
                     </div>
                     
                     {/* 右侧内容 */}
-                    <div className="w-3/5">
-                      <h4 className="text-2xl font-bold text-gray-800 mb-3">Cute Style: {result.recommendations.cute.hairstyleName}</h4>
-                      <p className="text-gray-700 text-lg leading-relaxed mb-4">{result.recommendations.cute.reason}</p>
+                    <div className="w-full sm:w-3/5">
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">Cute Style: {result.recommendations.cute.hairstyleName}</h4>
+                      <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">{result.recommendations.cute.reason}</p>
                       <a 
                         href={`https://hair-style.ai/ai-hairstyle?style=${result.recommendations.cute.hairstyleName.replace(/\s+/g, '').toLowerCase()}`}
                         target="_blank" 
@@ -259,10 +254,10 @@ const ResultContent = () => {
                 </div>
 
                 {/* Gentle Style */}
-                <div className="bg-white/60 rounded-lg p-6 backdrop-blur-sm border border-gray-100">
-                  <div className="flex gap-6">
+                <div className="bg-white/60 rounded-lg p-3 sm:p-4 md:p-6 backdrop-blur-sm border border-gray-100">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6">
                     {/* 左侧图片 */}
-                    <div className="w-1/3 flex-shrink-0">
+                    <div className="w-full sm:w-1/3 flex-shrink-0">
                       {(() => {
                         const genderStyles = getHairstylesByGender(result.gender);
                         const hairstyleData = genderStyles.find(s => 
@@ -279,11 +274,11 @@ const ResultContent = () => {
                             <img 
                               src={hairstyleData.imageUrl} 
                               alt={hairstyleData.alt} 
-                              className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105" 
+                              className="w-full h-64 sm:h-60 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105" 
                             />
                           </a>
                         ) : (
-                          <div className="w-full h-80 bg-gray-200 rounded-lg flex items-center justify-center">
+                          <div className="w-full h-64 sm:h-60 md:h-80 bg-gray-200 rounded-lg flex items-center justify-center">
                             <span className="text-gray-500">No image</span>
                           </div>
                         );
@@ -291,9 +286,9 @@ const ResultContent = () => {
                     </div>
                     
                     {/* 右侧内容 */}
-                    <div className="w-3/5">
-                      <h4 className="text-2xl font-bold text-gray-800 mb-3">Gentle Style: {result.recommendations.gentle.hairstyleName}</h4>
-                      <p className="text-gray-700 text-lg leading-relaxed mb-4">{result.recommendations.gentle.reason}</p>
+                    <div className="w-full sm:w-3/5">
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">Gentle Style: {result.recommendations.gentle.hairstyleName}</h4>
+                      <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">{result.recommendations.gentle.reason}</p>
                       <a 
                         href={`https://hair-style.ai/ai-hairstyle?style=${result.recommendations.gentle.hairstyleName.replace(/\s+/g, '').toLowerCase()}`}
                         target="_blank" 
@@ -307,10 +302,10 @@ const ResultContent = () => {
                 </div>
 
                 {/* Cool Style */}
-                <div className="bg-white/60 rounded-lg p-6 backdrop-blur-sm border border-gray-100">
-                  <div className="flex gap-6">
+                <div className="bg-white/60 rounded-lg p-3 sm:p-4 md:p-6 backdrop-blur-sm border border-gray-100">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6">
                     {/* 左侧图片 */}
-                    <div className="w-1/3 flex-shrink-0">
+                    <div className="w-full sm:w-1/3 flex-shrink-0">
                       {(() => {
                         const genderStyles = getHairstylesByGender(result.gender);
                         const hairstyleData = genderStyles.find(s => 
@@ -327,11 +322,11 @@ const ResultContent = () => {
                             <img 
                               src={hairstyleData.imageUrl} 
                               alt={hairstyleData.alt} 
-                              className="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105" 
+                              className="w-full h-64 sm:h-60 md:h-80 object-cover transition-transform duration-300 group-hover:scale-105" 
                             />
                           </a>
                         ) : (
-                          <div className="w-full h-80 bg-gray-200 rounded-lg flex items-center justify-center">
+                          <div className="w-full h-64 sm:h-60 md:h-80 bg-gray-200 rounded-lg flex items-center justify-center">
                             <span className="text-gray-500">No image</span>
                           </div>
                         );
@@ -339,9 +334,9 @@ const ResultContent = () => {
                     </div>
                     
                     {/* 右侧内容 */}
-                    <div className="w-3/5">
-                      <h4 className="text-2xl font-bold text-gray-800 mb-3">Cool Style: {result.recommendations.cool.hairstyleName}</h4>
-                      <p className="text-gray-700 text-lg leading-relaxed mb-4">{result.recommendations.cool.reason}</p>
+                    <div className="w-full sm:w-3/5">
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-2 sm:mb-3">Cool Style: {result.recommendations.cool.hairstyleName}</h4>
+                      <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4">{result.recommendations.cool.reason}</p>
                       <a 
                         href={`https://hair-style.ai/ai-hairstyle?style=${result.recommendations.cool.hairstyleName.replace(/\s+/g, '').toLowerCase()}`}
                         target="_blank" 
@@ -358,29 +353,29 @@ const ResultContent = () => {
 
             {/* 第三行 - 不适合的发型 */}
             <div>
-              <div className="bg-red-50 rounded-lg p-6 border border-red-200">
-                <h3 className="text-xl font-bold text-gray-700 mb-3">{result.unsuitable.title}</h3>
-                <p className="text-gray-700 whitespace-pre-line">{result.unsuitable.reason}</p>
+              <div className="bg-red-50 rounded-lg p-4 sm:p-5 md:p-6 border border-red-200">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-700 mb-2 sm:mb-3">{result.unsuitable.title}</h3>
+                <p className="text-gray-700 text-sm sm:text-base whitespace-pre-line">{result.unsuitable.reason}</p>
               </div>
             </div>
 
             {/* 底部行动呼吁 */}
-            <div className="text-center bg-purple-50 rounded-lg p-8 backdrop-blur-sm border border-purple-100">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Ready to Try Your New Look?</h3>
-              <p className="text-gray-600 mb-6">Use our AI hairstyle generator to see how these styles would look on you!</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="text-center bg-purple-50 rounded-lg p-4 sm:p-6 md:p-8 backdrop-blur-sm border border-purple-100">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">Ready to Try Your New Look?</h3>
+              <p className="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">Use our AI hairstyle generator to see how these styles would look on you!</p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <a
                   href="https://hair-style.ai/ai-hairstyle"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-3 px-6 rounded-lg transition-colors inline-flex items-center justify-center"
+                  className="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-3 px-4 sm:px-6 rounded-lg transition-colors inline-flex items-center justify-center text-sm sm:text-base"
                 >
                   Try AI Hairstyle Generator
                   <ChevronsRight className="w-5 h-5 ml-2" />
                 </a>
                 <button
                   onClick={() => router.push('/face-shape-detector')}
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-4 sm:px-6 rounded-lg transition-colors text-sm sm:text-base"
                 >
                   Analyze Another Photo
                 </button>

@@ -169,19 +169,19 @@ const ToolPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4">
+      <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-4">
         {/* [中文注释]：工具的标题和介绍 */}
         <div className="text-center mb-2 sm:mb-4">
-          <h1 className="text-2xl sm:text-5xl font-extrabold text-gray-800 tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-5xl font-extrabold text-gray-800 tracking-tight">
           AI Face Shape Detector Online Free
           </h1>
-          <p className="mt-2 sm:mt-4 max-w-5xl mx-auto text-sm sm:text-base text-gray-600">
+          <p className="mt-2 sm:mt-4 max-w-5xl mx-auto text-xs sm:text-sm md:text-base text-gray-600 px-2 sm:px-0">
           With Hairstyle AI’s face shape detector, you can find the perfect hairstyle for your face shape in just a few simple steps. Upload your photo and let the AI analyze your face to provide the most flattering style options. Whether you're looking for something bold or classic, we offer tailored recommendations that enhance your unique features and elevate your confidence.
           </p>
         </div>
 
         {/* [中文注释]：上传区域 - 左右布局 */}
-        <div className="bg-white/80 p-2 sm:p-6 max-w-7xl mx-auto rounded-2xl">
+        <div className="bg-white/80 p-2 sm:p-4 md:p-6 max-w-7xl mx-auto rounded-2xl">
           <div className="w-full max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row gap-2 md:gap-4">
               {/* 左侧图片展示区 */}
