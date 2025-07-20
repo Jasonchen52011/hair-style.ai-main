@@ -65,7 +65,7 @@ function SelectStylePageContent() {
 
   // 添加 guideline 弹窗状态
   const [showGuidelineModal, setShowGuidelineModal] = useState(false);
-  const [alwaysShowGuidelines, setAlwaysShowGuidelines] = useState(true);
+  const [alwaysShowGuidelines, setAlwaysShowGuidelines] = useState(false); // 默认为false，避免干扰用户
 
   // 初始化未登录用户使用次数
   useEffect(() => {
@@ -196,6 +196,7 @@ function SelectStylePageContent() {
     console.log(`Starting task polling, taskId: ${taskId}`);
     const startTime = Date.now();
     const maxWaitTime = 30000; // 30秒最大等待时间
+    let error422Count = 0; // 添加422错误计数器
 
     // 启动按秒倒计时
     const countdownInterval = setInterval(() => {
@@ -243,6 +244,45 @@ function SelectStylePageContent() {
               throw new Error(
                 "Sorry, we couldn’t generate the hairstyle after several tries. Please upload a clearer front-facing photo. Try not to use full and half body shots to make it easier for us to match your hairstyle!"
               );
+            }
+          } else if (response.status === 422) {
+            // 处理422错误
+            try {
+              const errorData = await response.json();
+              error422Count++;
+              console.log(`Received 422 error, count: ${error422Count}/2, shouldStopPolling: ${errorData.shouldStopPolling}`);
+              
+              if (errorData.shouldStopPolling || error422Count >= 2) {
+                // 收到停止信号或2次422错误，立即停止并报错
+                clearInterval(countdownInterval);
+                toast.dismiss("processing-status"); // 立即关闭processing toast
+                const error = new Error(
+                  errorData.error || "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
+                );
+                (error as any).is422Error = true;
+                throw error;
+              }
+              
+              // 第一次422错误，继续重试
+              await new Promise((resolve) => setTimeout(resolve, 2000));
+              continue;
+            } catch (parseError) {
+              // 如果解析JSON失败，按原逻辑处理
+              error422Count++;
+              console.log(`Received 422 error (parse failed), count: ${error422Count}/2`);
+              
+              if (error422Count >= 2) {
+                clearInterval(countdownInterval);
+                toast.dismiss("processing-status");
+                const error = new Error(
+                  "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
+                );
+                (error as any).is422Error = true;
+                throw error;
+              }
+              
+              await new Promise((resolve) => setTimeout(resolve, 2000));
+              continue;
             }
           } else if (response.status >= 500) {
             console.log("Server error, retrying...");
@@ -385,8 +425,11 @@ function SelectStylePageContent() {
             error.message.includes("format") ||
             error.message.includes("Task not found") ||
             error.message.includes("Processing timeout") ||
-            error.message.includes("not be suitable for hairstyle changes"))
+            error.message.includes("not be suitable for hairstyle changes") ||
+            error.message.includes("couldn't generate the hairstyle") ||
+            error.message.includes("Photo not suitable"))
         ) {
+          clearInterval(countdownInterval); // 确保清理倒计时
           throw error;
         }
         // For other errors, continue trying if not the last attempt
@@ -556,10 +599,14 @@ function SelectStylePageContent() {
             "Image file is too large. Please upload an image smaller than 3MB."
           );
         } else if (response.status === 422) {
-          throw new Error(
+          // 422错误，直接显示错误并触发guidelines
+          const error = new Error(
             errorData.error ||
-              "Unable to process this image. Please try with a clearer photo showing your face."
+              "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
           );
+          // 标记为422错误，便于后续处理
+          (error as any).is422Error = true;
+          throw error;
         } else if (response.status >= 500) {
           throw new Error(
             "Server is temporarily unavailable. Please try again in a few moments."
@@ -577,10 +624,7 @@ function SelectStylePageContent() {
 
       if (data.status === "processing" && data.taskId) {
         toast.dismiss("generation-status");
-        toast.loading("Processing your image... 30s remaining", {
-          id: "processing-status",
-          duration: 30000, // 30 seconds
-        });
+        // 不在这里创建processing toast，让pollTaskStatus处理
 
         try {
           const result = await pollTaskStatus(data.taskId);
@@ -667,10 +711,26 @@ function SelectStylePageContent() {
       toast.dismiss("processing-status");
 
       // Show user-friendly error message
-      const errorMessage =
+      let errorMessage =
         error instanceof Error
           ? error.message
           : "Hairstyle generation failed. Please try again.";
+
+      // 检查是否是422错误（图片质量问题）
+      const is422Error = (error as any).is422Error || (error instanceof Error && (
+        error.message.includes("couldn't generate the hairstyle") ||
+        error.message.includes("Please upload a clearer") ||
+        error.message.includes("face") ||
+        error.message.includes("quality") ||
+        error.message.includes("Photo not suitable")
+      ));
+
+      if (is422Error) {
+        // 缩短错误消息到2行内
+        errorMessage = "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
+        // 立即显示Perfect photo guidelines弹窗
+        handleShowGuideline(true);
+      }
 
       toast.error(errorMessage, {
         duration: 6000,
@@ -678,6 +738,7 @@ function SelectStylePageContent() {
           background: "#1F2937",
           color: "#fff",
           maxWidth: "400px",
+          whiteSpace: "pre-line", // 允许换行
         },
       });
     } finally {
@@ -840,7 +901,7 @@ function SelectStylePageContent() {
     if (!showGuidelineModal) return null;
 
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9997] p-4">
         <div className="bg-white rounded-lg max-w-xl w-full mx-auto max-h-[90vh] overflow-y-auto shadow-xl">
           {/* Header */}
           <div className="text-center py-2 px-2">
@@ -1116,7 +1177,11 @@ function SelectStylePageContent() {
         toastOptions={{
           style: {
             marginTop: "100px",
+            zIndex: 9999, // 确保低于Image Guidelines的z-[9999]
           },
+        }}
+        containerStyle={{
+          zIndex: 9999, // 容器层级也设置为低于Guidelines
         }}
       />
 
@@ -1125,7 +1190,7 @@ function SelectStylePageContent() {
 
       {/* 自定义确认对话框 */}
       {showConfirmDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[9998] p-4">
           <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {confirmDialogConfig.title}
@@ -1254,34 +1319,7 @@ function SelectStylePageContent() {
                   </div>
                 </div>
 
-                {/* Want perfect photo 按钮 */}
-                <div className="text-center mb-4">
-                  <div className="flex flex-col items-center space-y-2">
-                    <button
-                      onClick={() => handleShowGuideline(true)}
-                      className="inline-flex items-center gap-2 px-4 py-2 text-purple-700 rounded-lg transition-colors"
-                    >
-                      <span className="text-sm font-medium">Click to see perfect photo guidelines</span>
-                      <span>✨</span>
-                    </button>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="always-show-guidelines-pc"
-                        checked={alwaysShowGuidelines}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setAlwaysShowGuidelines(checked);
-                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
-                        }}
-                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="always-show-guidelines-pc" className="text-xs text-gray-500 cursor-pointer">
-                        Always show guidelines
-                      </label>
-                    </div>
-                  </div>
-                </div>
+
 
                 {/* 示例图片区域 - 更紧凑 */}
                 <div className="text-center px-4 pb-1">

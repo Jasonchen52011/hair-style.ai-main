@@ -273,6 +273,7 @@ Please help me check why my credits haven't been updated after successful paymen
           style: {
             background: '#363636',
             color: '#fff',
+            zIndex: 9999, // 确保低于Image Guidelines的z-[9999]
           },
           success: {
             style: {
@@ -284,6 +285,9 @@ Please help me check why my credits haven't been updated after successful paymen
               background: '#ef4444',
             },
           },
+        }}
+        containerStyle={{
+          zIndex: 9990, // 容器层级也设置为低于Guidelines
         }}
       />
     </div>
