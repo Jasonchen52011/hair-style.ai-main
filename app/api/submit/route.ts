@@ -44,7 +44,7 @@ const DAILY_LIMIT = 3; // 修改为3次免费
 
 // 使用 Map 存储每个 taskId 的422错误计数
 const taskErrorCount = new Map<string, number>();
-const MAX_ERROR_COUNT = 5;
+const MAX_ERROR_COUNT = 2;
 
 // 已扣费的任务追踪
 const chargedTasks = new Set<string>();
@@ -359,7 +359,7 @@ export async function POST(req: NextRequest) {
         }
         
         // provide more specific error message based on different error codes
-        let errorMessage = 'Unable to process this image. Please try a different photo.'; // more concise default message
+        let errorMessage = "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
         
         // only handle the most critical error, other cases use default message
         if (responseData.error_detail) {
@@ -370,7 +370,7 @@ export async function POST(req: NextRequest) {
             
             // only keep the most critical error judgment
             if (errorDetail.includes('face') && (errorDetail.includes('detect') || errorDetail.includes('recognition'))) {
-                errorMessage = 'Please upload a photo with a clear, visible face.';
+                errorMessage = "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
             }
            
         }
@@ -379,15 +379,37 @@ export async function POST(req: NextRequest) {
             success: false,
             error: errorMessage,
             error_detail: responseData.error_detail,
-            error_code: responseData.error_code
+            error_code: responseData.error_code,
+            errorType: 'validation_error', // 明确标识为图片验证错误
+            shouldStopPolling: true // 添加这个标记，让前端立即停止
         }, { status: 422 }); 
 
     } catch (error) {
         console.error('Submit error:', error);
+        
+        // 判断是否为网络错误
+        let errorType = 'unknown_error';
+        let errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
+        if (error instanceof Error) {
+            // Axios 网络错误
+            if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
+                errorType = 'network_timeout';
+                errorMessage = 'Network request timed out. Please check your connection and try again.';
+            } else if (error.message.includes('ECONNREFUSED') || error.message.includes('ENOTFOUND')) {
+                errorType = 'network_connection';
+                errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+            } else if (error.message.includes('network') || error.message.includes('Network')) {
+                errorType = 'network_error';
+                errorMessage = 'Network error occurred. Please check your connection and try again.';
+            }
+        }
+        
         return NextResponse.json({ 
             success: false, 
-            error: error instanceof Error ? error.message : 'Unknown error',
-            details: error
+            error: errorMessage,
+            errorType: errorType,
+            details: process.env.NODE_ENV === 'development' ? error : undefined
         }, { status: 500 });
     }
 }
@@ -452,17 +474,29 @@ export async function GET(req: NextRequest) {
         
         // 如果错误次数超过限制，返回友好提示并停止重试
         if (newErrorCount >= MAX_ERROR_COUNT) {
-          // 清理错误计数
-          taskErrorCount.delete(taskId);
+          // 不要立即清理错误计数，等待一段时间后再清理，避免重复计数
+          setTimeout(() => {
+            taskErrorCount.delete(taskId);
+            console.log(`Cleaned up error count for task ${taskId} after delay`);
+          }, 60000); // 60秒后清理
           
-          console.log(`Task ${taskId} exceeded max error count, returning timeout message`);
+          console.log(`Task ${taskId} exceeded max error count, returning 422 with stop flag`);
           
           return NextResponse.json({
             success: false,
-            error: "We've been actively processing your image and found that your image might not be suitable for hairstyle changes. Please try with a photo that has better lighting and is taken closer. We'll give you a bonus try, hope you enjoy!",
+            error: "Photo not suitable for hairstyle changes. Please check our guidelines.",
             isTimeout: true,
-            shouldStopPolling: true
-          }, { status: 408 });
+            shouldStopPolling: true,
+            errorCount: newErrorCount
+          }, { status: 422 });
+        } else {
+          // 第一次422错误，返回提示继续轮询
+          return NextResponse.json({
+            success: false,
+            error: "Image validation in progress, please wait...",
+            shouldContinuePolling: true,
+            errorCount: newErrorCount
+          }, { status: 422 });
         }
       }
       
@@ -497,9 +531,9 @@ export async function GET(req: NextRequest) {
         if (!chargedTasks.has(taskId)) {
           console.log(`🔄 Task ${taskId} completed successfully, starting credit deduction process`);
           
-          try {
-            const cookieStore = await cookies();
-            const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+                      try {
+              const cookieStore = cookies();
+              const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
             const { data: { user } } = await supabase.auth.getUser();
             
             if (user) {
@@ -562,9 +596,9 @@ export async function GET(req: NextRequest) {
                       })
                       .eq('id', user.id);
 
-                    let insertResult = { error: null };
-                    if (!updateResult.error) {
-                      insertResult = await adminSupabase
+                                         let insertResult: { error: any } = { error: null };
+                     if (!updateResult.error) {
+                       insertResult = await adminSupabase
                         .from('credits')
                         .insert({
                           user_uuid: user.id,
@@ -660,9 +694,28 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(statusData);
   } catch (error) {
     console.error('Query Error:', error);
+    
+    // 判断错误类型
+    let errorType = 'unknown_error';
+    let errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+    
+    if (error instanceof Error) {
+      if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
+        errorType = 'network_timeout';
+        errorMessage = 'Query request timed out. The server might be busy, please try again.';
+      } else if (error.message.includes('ECONNREFUSED') || error.message.includes('ENOTFOUND')) {
+        errorType = 'network_connection';
+        errorMessage = 'Unable to connect to the server. Please check your internet connection.';
+      } else if (error.message.includes('network') || error.message.includes('Network')) {
+        errorType = 'network_error';
+        errorMessage = 'Network error occurred while checking status. Please try again.';
+      }
+    }
+    
     return NextResponse.json({ 
       success: false,
-      error: error instanceof Error ? error.message : "Unknown error occurred"
+      error: errorMessage,
+      errorType: errorType
     }, { status: 500 });
   }
 }

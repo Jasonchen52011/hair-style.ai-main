@@ -275,6 +275,7 @@ function PaymentSuccessContent() {
           style: {
             background: '#363636',
             color: '#fff',
+            zIndex: 9999, // 确保低于Image Guidelines的z-[9999]
           },
           success: {
             style: {
@@ -286,6 +287,9 @@ function PaymentSuccessContent() {
               background: '#ef4444',
             },
           },
+        }}
+        containerStyle={{
+          zIndex: 9990, // 容器层级也设置为低于Guidelines
         }}
       />
     </div>
