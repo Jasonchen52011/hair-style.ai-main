@@ -18,7 +18,7 @@ const adminSupabase = createClient(
 
 // 创建统一的 axios 实例
 const client = axios.create({
-    timeout: 10000, // 设置统一的超时时间为 10 秒
+    timeout: 15000, // 增加超时时间到 15 秒
     validateStatus: (status) => status < 500 // 只有状态码 >= 500 才会被视为错误
 });
 
@@ -54,6 +54,25 @@ const freeUserTasks = new Map<string, { ip: string; date: string }>();
 
 // 已扣次数的免费任务追踪
 const chargedFreeTasks = new Set<string>();
+
+// 用户认证缓存（缓存5分钟）
+const userAuthCache = new Map<string, { user: any; timestamp: number }>();
+const AUTH_CACHE_DURATION = 5 * 60 * 1000; // 5分钟
+
+// 已完成任务结果缓存（缓存24小时）
+const completedTasksCache = new Map<string, { result: any; timestamp: number }>();
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24小时，符合API文档说明
+
+// 定期清理过期缓存（每小时执行一次）
+setInterval(() => {
+  const now = Date.now();
+  for (const [taskId, cache] of completedTasksCache.entries()) {
+    if (now - cache.timestamp > CACHE_DURATION) {
+      completedTasksCache.delete(taskId);
+      console.log(`🧹 Auto-cleaned expired cache for task ${taskId}`);
+    }
+  }
+}, 60 * 60 * 1000); // 每小时清理一次
 
 // 本地开发白名单IP
 const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
@@ -115,8 +134,9 @@ export async function POST(req: NextRequest) {
         const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
         
         // 用户认证检查
-        const supabase = createRouteHandlerClient({ cookies });
-        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        const cookieStore = cookies();
+        const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+        const { data: { user } } = await supabase.auth.getUser();
         
         let hasActiveSubscription = false;
         let userCredits = 0;
@@ -388,14 +408,36 @@ export async function GET(req: NextRequest) {
     if (!taskId) {
       return NextResponse.json({ error: 'taskId is required' }, { status: 400 });
     }
-    // query result
+
+    // 检查缓存中是否有已完成的任务结果
+    const cachedResult = completedTasksCache.get(taskId);
+    if (cachedResult) {
+      const isExpired = Date.now() - cachedResult.timestamp > CACHE_DURATION;
+      if (!isExpired) {
+        console.log(`✅ Returning cached result for task ${taskId}`);
+        // 为缓存结果添加轮询指导信息
+        const response = {
+          ...cachedResult.result,
+          fromCache: true,
+          nextPollTime: null // 已完成的任务不需要再轮询
+        };
+        return NextResponse.json(response);
+      } else {
+        // 清理过期缓存
+        completedTasksCache.delete(taskId);
+        console.log(`🧹 Cleaned expired cache for task ${taskId}`);
+      }
+    }
+    
+    // query result with timeout
     const response = await fetch(
       `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
       {
         headers: {
           "Content-Type": "application/json",  // GET request use application/json
           "ailabapi-api-key": apiKey
-        }
+        },
+        signal: AbortSignal.timeout(5000) // 5秒超时，根据API文档建议优化
       }
     );
 
@@ -451,33 +493,38 @@ export async function GET(req: NextRequest) {
       
       // ✅ 只有在任务成功完成时才扣除积分
       if ((statusData.task_status === 2 || statusData.task_status === 'SUCCESS')) {
+        // 快速检查内存缓存，避免重复处理
         if (!chargedTasks.has(taskId)) {
           console.log(`🔄 Task ${taskId} completed successfully, starting credit deduction process`);
           
           try {
-            const supabase = createRouteHandlerClient({ cookies });
-            const { data: { user }, error: userError } = await supabase.auth.getUser();
+            const cookieStore = await cookies();
+            const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+            const { data: { user } } = await supabase.auth.getUser();
             
             if (user) {
-              // 检查是否有活跃订阅
-              const { data: subscriptions, error: subscriptionError } = await adminSupabase
-                .from('subscriptions')
-                .select('*')
-                .eq('user_id', user.id)
-                .eq('status', 'active')
-                .gte('end_date', new Date().toISOString());
-
-              const hasActiveSubscription = !subscriptionError && subscriptions && subscriptions.length > 0;
-              
-              if (hasActiveSubscription) {
-                // 先检查是否已经扣除过积分（幂等性检查）
-                const { data: existingCredit, error: checkError } = await adminSupabase
+              // 并行查询订阅状态和已有积分记录
+              const [subscriptionsResult, existingCreditResult] = await Promise.all([
+                adminSupabase
+                  .from('subscriptions')
+                  .select('id')
+                  .eq('user_id', user.id)
+                  .eq('status', 'active')
+                  .gte('end_date', new Date().toISOString())
+                  .limit(1),
+                adminSupabase
                   .from('credits')
                   .select('trans_no, credits, created_at')
                   .eq('user_uuid', user.id)
                   .eq('order_no', taskId)
                   .eq('trans_type', 'hairstyle')
-                  .single();
+                  .single()
+              ]);
+
+              const hasActiveSubscription = !subscriptionsResult.error && subscriptionsResult.data && subscriptionsResult.data.length > 0;
+              
+              if (hasActiveSubscription) {
+                const { data: existingCredit, error: checkError } = existingCreditResult;
 
                 if (checkError && checkError.code !== 'PGRST116') {
                   console.error('❌ Error checking existing credit:', checkError);
@@ -506,9 +553,18 @@ export async function GET(req: NextRequest) {
                     
                     console.log(`🔄 Generated transaction number: ${transactionNo}`);
 
-                    // 使用事务同时更新两个表
-                    const [insertResult, updateResult] = await Promise.all([
-                      adminSupabase
+                    // 优化：使用更快的单次操作
+                    const updateResult = await adminSupabase
+                      .from('profiles')
+                      .update({
+                        current_credits: profile.current_credits - 10,
+                        updated_at: new Date().toISOString()
+                      })
+                      .eq('id', user.id);
+
+                    let insertResult = { error: null };
+                    if (!updateResult.error) {
+                      insertResult = await adminSupabase
                         .from('credits')
                         .insert({
                           user_uuid: user.id,
@@ -519,15 +575,8 @@ export async function GET(req: NextRequest) {
                           expired_at: null,
                           created_at: new Date().toISOString(),
                           event_type: 'hairstyle_usage'
-                        }),
-                      adminSupabase
-                        .from('profiles')
-                        .update({
-                          current_credits: profile.current_credits - 10,
-                          updated_at: new Date().toISOString()
-                        })
-                        .eq('id', user.id)
-                    ]);
+                        });
+                    }
 
                     if (!insertResult.error && !updateResult.error) {
                       chargedTasks.add(taskId);
@@ -584,6 +633,28 @@ export async function GET(req: NextRequest) {
       }
     } else {
       console.log(`Skipping processing for task ${taskId}: status=${statusData.task_status}`);
+    }
+    
+    // 检查任务是否已完成，如果是则缓存结果
+    const isCompleted = statusData.task_status === 2 || statusData.task_status === 'SUCCESS' || 
+                       statusData.task_status === 3 || statusData.task_status === 'FAILED';
+    
+    if (isCompleted) {
+      // 缓存已完成的任务结果
+      completedTasksCache.set(taskId, {
+        result: statusData,
+        timestamp: Date.now()
+      });
+      console.log(`💾 Cached completed task result for ${taskId}`);
+      
+      // 已完成任务不需要轮询指导
+      statusData.nextPollTime = null;
+      statusData.shouldStopPolling = true;
+    } else {
+      // 正在处理的任务，添加轮询指导（按照API文档建议每5秒查询一次）
+      statusData.nextPollTime = Date.now() + 5000; // 5秒后再查询
+      statusData.pollInterval = 5000; // 建议轮询间隔
+      statusData.shouldStopPolling = false;
     }
     
     return NextResponse.json(statusData);

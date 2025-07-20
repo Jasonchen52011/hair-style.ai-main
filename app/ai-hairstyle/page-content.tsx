@@ -191,9 +191,26 @@ function SelectStylePageContent() {
     }
   }, [selectedStyle, selectedGender]);
 
-  // merge the polling function from SelectStyle component
-  const pollTaskStatus = async (taskId: string, maxAttempts = 5) => {
+  // merge the polling function from SelectStyle component - 优化为30秒最大等待时间
+  const pollTaskStatus = async (taskId: string, maxAttempts = 10) => { // 10次轮询，最多30秒
     console.log(`Starting task polling, taskId: ${taskId}`);
+    const startTime = Date.now();
+    const maxWaitTime = 30000; // 30秒最大等待时间
+
+    // 启动按秒倒计时
+    const countdownInterval = setInterval(() => {
+      const elapsedTime = Date.now() - startTime;
+      const remaining = Math.max(0, Math.ceil((maxWaitTime - elapsedTime) / 1000));
+      
+      if (remaining > 0) {
+        toast.loading(`Processing your image... ${remaining}s remaining`, {
+          id: "processing-status",
+          duration: Infinity, // 防止自动消失
+        });
+      } else {
+        clearInterval(countdownInterval);
+      }
+    }, 1000); // 每秒更新一次
 
     for (let i = 0; i < maxAttempts; i++) {
       try {
@@ -224,7 +241,7 @@ function SelectStylePageContent() {
             } catch (parseError) {
               console.log("Failed to parse 408 response, treating as timeout");
               throw new Error(
-                "Sorry, we couldn’t generate the hairstyle after several tries. Please upload a clearer front-facing photo."
+                "Sorry, we couldn’t generate the hairstyle after several tries. Please upload a clearer front-facing photo. Try not to use full and half body shots to make it easier for us to match your hairstyle!"
               );
             }
           } else if (response.status >= 500) {
@@ -249,7 +266,27 @@ function SelectStylePageContent() {
           task_status: data.task_status,
           hasImages: !!data.data?.images,
           error_detail: data.error_detail,
+          fromCache: data.fromCache,
+          shouldStopPolling: data.shouldStopPolling
         });
+
+        // 如果是从缓存返回的已完成结果，立即返回
+        if (data.fromCache && data.task_status === 2) {
+          console.log('Received completed result from cache');
+          clearInterval(countdownInterval);
+          return data;
+        }
+
+        // 检查是否应该停止轮询（服务器指导）
+        if (data.shouldStopPolling) {
+          console.log('Server indicated to stop polling');
+          clearInterval(countdownInterval);
+          if (data.task_status === 2) {
+            return data; // 任务成功完成
+          } else {
+            throw new Error(data.error || 'Task failed or timed out');
+          }
+        }
 
         // Check task completion status
         if (data.task_status === 2) {
@@ -264,6 +301,7 @@ function SelectStylePageContent() {
                 firstStyleImages[0]
               ) {
                 console.log("Task completed successfully, found valid images");
+                clearInterval(countdownInterval);
                 return data;
               }
             }
@@ -271,11 +309,13 @@ function SelectStylePageContent() {
               "Task completed but image data is invalid:",
               data.data.images
             );
+            clearInterval(countdownInterval);
             throw new Error(
               "Image processing completed but result is invalid. Please try with a different photo."
             );
           } else {
             console.warn("Task completed but no image data returned");
+            clearInterval(countdownInterval);
             throw new Error(
               "Processing completed but no result image. Please try uploading a clearer photo."
             );
@@ -307,10 +347,12 @@ function SelectStylePageContent() {
             errorDetail.includes("size") ||
             errorDetail.includes("large")
           ) {
+            clearInterval(countdownInterval);
             throw new Error(
               "Image file is too large. Please upload an image smaller than 3MB."
             );
           } else {
+            clearInterval(countdownInterval);
             throw new Error(
               "Unable to process this image. Please try with a different photo with clear lighting and visible face."
             );
@@ -321,8 +363,18 @@ function SelectStylePageContent() {
           console.log(`Unknown task status: ${data.task_status}`);
         }
 
-        // Wait 5 seconds before next polling
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        // 检查是否超时
+        const elapsed = Date.now() - startTime;
+        if (elapsed >= maxWaitTime) {
+          console.log('Polling timeout reached (30s)');
+          clearInterval(countdownInterval);
+          break;
+        }
+
+        // 优化轮询间隔：前3次2秒，之后3秒
+        const pollInterval = i < 3 ? 2000 : 3000;
+        console.log(`Waiting ${pollInterval}ms before next poll... (${Math.ceil((maxWaitTime - elapsed) / 1000)}s remaining)`);
+        await new Promise((resolve) => setTimeout(resolve, pollInterval));
       } catch (error) {
         console.error(`Polling attempt ${i + 1} error:`, error);
         // If it's a specific error we want to show immediately, throw it
@@ -345,9 +397,9 @@ function SelectStylePageContent() {
       }
     }
 
-    console.error("Polling timeout - task may still be processing");
+    console.error(`Polling timeout after ${maxAttempts} attempts - task may still be processing`);
     throw new Error(
-      "😢 Sorry, we couldn't generate the hairstyle after several tries. Please upload a clearer front-facing photo."
+      "Sorry, we couldn’t generate the hairstyle after several tries. Please upload a clearer front-facing photo. Try not to use full and half body shots to make it easier for us to match your hairstyle!"
     );
   };
 
@@ -525,9 +577,9 @@ function SelectStylePageContent() {
 
       if (data.status === "processing" && data.taskId) {
         toast.dismiss("generation-status");
-        toast.loading("Processing your image ...", {
+        toast.loading("Processing your image... 30s remaining", {
           id: "processing-status",
-          duration: 120000, // 2 minutes
+          duration: 30000, // 30 seconds
         });
 
         try {
@@ -1058,7 +1110,7 @@ function SelectStylePageContent() {
   };
 
   return (
-    <div className="container mx-auto px-2 py-0 lg:py-2 min-h-screen lg:min-h-screen h-screen lg:h-auto overflow-hidden lg:overflow-visible">
+    <div className="container mx-auto px-2 py-0 lg:py-2 min-h-screen h-screen overflow-hidden max-w-full">
       <Toaster
         position="top-center"
         toastOptions={{
@@ -1099,7 +1151,7 @@ function SelectStylePageContent() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto overflow-x-hidden">
         {/* Logo 区域作为 h1 标题 */}
         <div className="flex items-center justify-between mb-4 h-[48px]">
           <Link
@@ -1186,7 +1238,7 @@ function SelectStylePageContent() {
         )}
 
         {/* PC端布局 - 使用响应式网格布局，左右分栏 */}
-        <div className="hidden lg:grid lg:grid-cols-12 gap-2 md:gap-3">
+        <div className="hidden lg:grid lg:grid-cols-12 gap-2 md:gap-3 max-w-full">
           {/* PC端左侧区域 - 图片上传/预览区域 */}
           <section
             className="lg:col-span-9 h-fit"
@@ -1339,8 +1391,8 @@ function SelectStylePageContent() {
                   )}
                 </div>
 
-                {/* 底部上传按钮 */}
-                <div className="flex justify-center mt-2 mb-2 sm:mb-4">
+                {/* 底部上传按钮和guideline入口 */}
+                <div className="flex flex-col items-center gap-2 mt-2 mb-2 sm:mb-4">
                   <div>
                     <input
                       type="file"
@@ -1377,6 +1429,33 @@ function SelectStylePageContent() {
                       Upload new
                     </label>
                   </div>
+                  
+                  {/* Guideline 入口 */}
+                  <div className="text-center">
+                    <button
+                      onClick={() => handleShowGuideline(true)}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 text-purple-700 hover:text-purple-800 text-xs rounded-lg transition-colors"
+                    >
+                      <span className="font-medium">Perfect photo guidelines</span>
+                      <span>✨</span>
+                    </button>
+                    <div className="flex items-center justify-center space-x-2 mt-1">
+                      <input
+                        type="checkbox"
+                        id="always-show-guidelines-pc-preview"
+                        checked={alwaysShowGuidelines}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setAlwaysShowGuidelines(checked);
+                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
+                        }}
+                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="always-show-guidelines-pc-preview" className="text-xs text-gray-500 cursor-pointer">
+                        Always show guidelines
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -1384,7 +1463,7 @@ function SelectStylePageContent() {
           {/* PC Right side */}
           <section className="lg:col-span-3" aria-label="Style Selection">
             <h2 className="sr-only">Select Hairstyle</h2>
-            <div className="w-full lg:w-[340px] mx-auto">
+            <div className="w-full lg:w-[340px] mx-auto max-w-full">
               <div className="w-full">
                 <div className="mb-4 bg-gray-50 p-2 rounded-lg">
                   <div className="flex space-x-2">
@@ -1546,7 +1625,7 @@ function SelectStylePageContent() {
         </div>
 
         {/* 移动端布局 - 垂直布局，居中显示，固定高度不滚动 */}
-        <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] overflow-hidden relative">
+        <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] overflow-hidden relative max-w-full">
           {/* 移动端图片上传/预览区域 - 居中显示，增加空间 */}
           <section
             className="flex-1 flex items-center justify-center py-8 px-4"
@@ -1669,6 +1748,33 @@ function SelectStylePageContent() {
                     />
                   </div>
                 </div>
+                
+                {/* 移动端 Guideline 入口 */}
+                <div className="text-center px-4 pb-4">
+                  <button
+                    onClick={() => handleShowGuideline(true)}
+                    className="inline-flex items-center gap-1 px-3 py-2 text-purple-700 hover:text-purple-800 text-sm rounded-lg transition-colors"
+                  >
+                    <span className="font-medium">Perfect photo guidelines</span>
+                    <span>✨</span>
+                  </button>
+                  <div className="flex items-center justify-center space-x-2 mt-1">
+                    <input
+                      type="checkbox"
+                      id="always-show-guidelines-mobile-preview"
+                      checked={alwaysShowGuidelines}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        setAlwaysShowGuidelines(checked);
+                        localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
+                      }}
+                      className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                    />
+                    <label htmlFor="always-show-guidelines-mobile-preview" className="text-xs text-gray-500 cursor-pointer">
+                      Always show guidelines
+                    </label>
+                  </div>
+                </div>
               </div>
             )}
           </section>
@@ -1676,7 +1782,7 @@ function SelectStylePageContent() {
           {/* 移动端样式选择区域 - 固定在底部 */}
           {uploadedImageUrl && (
             <section
-              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-safe-area-inset-bottom shadow-lg z-50"
+              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full overflow-x-hidden"
               aria-label="Style Selection"
             >
               <h2 className="sr-only">Select Hairstyle</h2>
