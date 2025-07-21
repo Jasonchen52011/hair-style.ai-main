@@ -484,7 +484,7 @@ export async function GET(req: NextRequest) {
           
           return NextResponse.json({
             success: false,
-            error: "Photo not suitable for hairstyle changes. Please check our guidelines.",
+            error: "Sorry, your photo is not good enough for hairstyle changes.\nPlease check our guidelines.",
             isTimeout: true,
             shouldStopPolling: true,
             errorCount: newErrorCount
