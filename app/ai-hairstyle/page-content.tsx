@@ -10,6 +10,7 @@ import { hairColors, femaleStyles, maleStyles } from "@/libs/hairstyles";
 import type { HairStyle } from "@/libs/hairstyles";
 import ButtonSignin from "@/components/navbar/ButtonSignin";
 import { useCredits } from "@/contexts/CreditsContext";
+import { getAnalytics, logActivity, classifyFailureReason } from "@/libs/analytics";
 
 // create a wrapper component to handle search parameters
 function SearchParamsWrapper({ children }: { children: React.ReactNode }) {
@@ -36,6 +37,7 @@ function SelectStylePageContent() {
   const [defaultStyle, setDefaultStyle] = useState<string>("PixieCut");
   const searchParams = useSearchParams();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const analytics = getAnalytics();
 
   // new state - merged from SelectStyle component
   const [selectedGender, setSelectedGender] = useState<"Female" | "Male">(
@@ -87,6 +89,18 @@ function SelectStylePageContent() {
     // 默认为true，只有明确设置为false时才为false
     setAlwaysShowGuidelines(alwaysShow !== 'false');
   }, []);
+
+  // 记录页面访问
+  useEffect(() => {
+    logActivity('page_view', 'ai_hairstyle_page', {
+      has_preset_image: !!searchParams.get("image"),
+      has_preset_style: !!searchParams.get("style"),
+      has_preset_color: !!searchParams.get("color"),
+      is_logged_in: !!user,
+      credits: credits,
+      guest_usage_remaining: !user ? guestUsageCount : null
+    });
+  }, [user, credits, guestUsageCount]);
 
   // get image URL, preset hairstyle, and preset color from URL parameters
   useEffect(() => {
@@ -172,8 +186,17 @@ function SelectStylePageContent() {
     // if click the selected hairstyle, cancel selection
     if (selectedStyle === style) {
       setSelectedStyle("");
+      logActivity('button_click', 'hairstyle_deselected', {
+        style: style,
+        gender: selectedGender
+      });
     } else {
       setSelectedStyle(style);
+      logActivity('button_click', 'hairstyle_selected', {
+        style: style,
+        gender: selectedGender,
+        previous_style: selectedStyle || null
+      });
     }
   };
 
@@ -192,9 +215,10 @@ function SelectStylePageContent() {
   }, [selectedStyle, selectedGender]);
 
   // merge the polling function from SelectStyle component - 优化为30秒最大等待时间
-  const pollTaskStatus = async (taskId: string, maxAttempts = 10) => { // 10次轮询，最多30秒
+  const pollTaskStatus = async (taskId: string, maxAttempts = 10, taskStartTime?: number) => { // 10次轮询，最多30秒
     console.log(`Starting task polling, taskId: ${taskId}`);
     const startTime = Date.now();
+    const processingStartTime = taskStartTime || startTime; // 用于计算总处理时间
     const maxWaitTime = 30000; // 30秒最大等待时间
     let error422Count = 0; // 添加422错误计数器
 
@@ -217,7 +241,16 @@ function SelectStylePageContent() {
       try {
         console.log(`Polling attempt ${i + 1} of ${maxAttempts}`);
 
-        const response = await fetch(`/api/submit?taskId=${taskId}`);
+        const pollStartTime = Date.now();
+        const response = await analytics?.trackedFetch(
+          `/api/submit?taskId=${taskId}`,
+          { method: 'GET' },
+          { 
+            actionName: 'poll_hairstyle_status',
+            taskId: taskId,
+            additionalData: { attempt: i + 1, maxAttempts }
+          }
+        ) || await fetch(`/api/submit?taskId=${taskId}`);
 
         if (!response.ok) {
           console.log(`Polling request failed, status: ${response.status}`);
@@ -247,43 +280,30 @@ function SelectStylePageContent() {
             }
           } else if (response.status === 422) {
             // 处理422错误
+            let errorData;
             try {
-              const errorData = await response.json();
-              error422Count++;
-              console.log(`Received 422 error, count: ${error422Count}/2, shouldStopPolling: ${errorData.shouldStopPolling}`);
-              
-              if (errorData.shouldStopPolling || error422Count >= 2) {
-                // 收到停止信号或2次422错误，立即停止并报错
-                clearInterval(countdownInterval);
-                toast.dismiss("processing-status"); // 立即关闭processing toast
-                const error = new Error(
-                  errorData.error || "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
-                );
-                (error as any).is422Error = true;
-                throw error;
-              }
-              
-              // 第一次422错误，继续重试
-              await new Promise((resolve) => setTimeout(resolve, 2000));
-              continue;
+              errorData = await response.json();
             } catch (parseError) {
-              // 如果解析JSON失败，按原逻辑处理
-              error422Count++;
-              console.log(`Received 422 error (parse failed), count: ${error422Count}/2`);
-              
-              if (error422Count >= 2) {
-                clearInterval(countdownInterval);
-                toast.dismiss("processing-status");
-                const error = new Error(
-                  "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
-                );
-                (error as any).is422Error = true;
-                throw error;
-              }
-              
-              await new Promise((resolve) => setTimeout(resolve, 2000));
-              continue;
+              errorData = null;
             }
+            
+            error422Count++;
+            console.log(`Received 422 error, count: ${error422Count}/2, shouldStopPolling: ${errorData?.shouldStopPolling}`);
+            
+            if (errorData?.shouldStopPolling || error422Count >= 2) {
+              // 收到停止信号或2次422错误，立即停止并报错
+              clearInterval(countdownInterval);
+              toast.dismiss("processing-status"); // 立即关闭processing toast
+              const error = new Error(
+                errorData?.error || "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
+              );
+              (error as any).is422Error = true;
+              throw error;
+            }
+            
+            // 第一次422错误，继续重试
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            continue;
           } else if (response.status >= 500) {
             console.log("Server error, retrying...");
             await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -427,7 +447,8 @@ function SelectStylePageContent() {
             error.message.includes("Processing timeout") ||
             error.message.includes("not be suitable for hairstyle changes") ||
             error.message.includes("couldn't generate the hairstyle") ||
-            error.message.includes("Photo not suitable"))
+            error.message.includes("Photo not suitable") ||
+            (error as any).is422Error)
         ) {
           clearInterval(countdownInterval); // 确保清理倒计时
           throw error;
@@ -450,11 +471,28 @@ function SelectStylePageContent() {
   const handleGenerate = async () => {
     if (!uploadedImageUrl) {
       toast.error("Please upload a photo first");
+      logActivity('generation_attempt', 'failed_no_image', {
+        reason: 'no_image_uploaded'
+      });
       return;
     }
 
+    // 记录生成尝试
+    const generationActivity = await logActivity('generation_attempt', 'hairstyle_generation_started', {
+      selected_style: selectedStyle || 'default',
+      selected_color: selectedColor,
+      selected_gender: selectedGender,
+      has_image: !!uploadedImageUrl,
+      credits: credits,
+      is_guest: !user,
+      guest_usage_remaining: !user ? guestUsageCount : null
+    });
+
     // 检查未登录用户使用次数限制
     if (!user && guestUsageCount <= 0) {
+      logActivity('generation_blocked', 'guest_limit_reached', {
+        guest_usage_count: 0
+      });
       setConfirmDialogConfig({
         title: "Free hairstyle attempts are gone!",
         message:
@@ -481,6 +519,10 @@ function SelectStylePageContent() {
 
     // 检查已登录用户积分是否足够
     if (user && credits !== null && credits < 10) {
+      logActivity('generation_blocked', 'insufficient_credits', {
+        current_credits: credits,
+        required_credits: 10
+      });
       setConfirmDialogConfig({
         title: "🎨 Insufficient Credits for Hairstyle Generation!",
         message: `You need at least 10 credits to generate a hairstyle, but you currently have ${credits} credits.\n\nTop up your credits now to continue the hairstyle party and discover your perfect look!`,
@@ -514,14 +556,32 @@ function SelectStylePageContent() {
 
       console.log("Final selected color:", finalColor);
 
-      const response = await fetch("/api/submit", {
+      const requestBody = {
+        imageUrl: uploadedImageUrl,
+        hairStyle: selectedStyle || "color-only", // if no hairstyle selected, only change color
+        hairColor: finalColor,
+      };
+
+      const response = await analytics?.trackedFetch(
+        "/api/submit",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody),
+        },
+        {
+          actionName: 'hairstyle_generation_request',
+          additionalData: {
+            selected_style: selectedStyle || "color-only",
+            selected_color: finalColor,
+            selected_gender: selectedGender,
+            activity_log_id: generationActivity?.id
+          }
+        }
+      ) || await fetch("/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imageUrl: uploadedImageUrl,
-          hairStyle: selectedStyle || "color-only", // if no hairstyle selected, only change color
-          hairColor: finalColor,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
       if (response.status === 429) {
@@ -602,7 +662,7 @@ function SelectStylePageContent() {
           // 422错误，直接显示错误并触发guidelines
           const error = new Error(
             errorData.error ||
-              "Photo not suitable for hairstyle changes.\nPlease check our guidelines."
+              "Sorry, your photo is not suitable for hairstyle changes.\nPlease check our guidelines."
           );
           // 标记为422错误，便于后续处理
           (error as any).is422Error = true;
@@ -626,8 +686,21 @@ function SelectStylePageContent() {
         toast.dismiss("generation-status");
         // 不在这里创建processing toast，让pollTaskStatus处理
 
+        // 记录任务创建
+        await analytics?.logHairstyleTask(data.taskId, 'processing', {
+          selectedStyle: selectedStyle || "color-only",
+          selectedColor: finalColor,
+          selectedGender: selectedGender,
+          imageUrl: uploadedImageUrl,
+          creditsUsed: 10
+        });
+
+        const taskProcessingStartTime = Date.now();
+        let taskProcessingTime = 0;
+
         try {
-          const result = await pollTaskStatus(data.taskId);
+          const result = await pollTaskStatus(data.taskId, 10, taskProcessingStartTime);
+          taskProcessingTime = Date.now() - taskProcessingStartTime;
           toast.dismiss("processing-status");
 
           if (result.data?.images) {
@@ -670,6 +743,20 @@ function SelectStylePageContent() {
               );
             }
 
+            // 记录成功生成
+            await analytics?.logHairstyleTask(data.taskId, 'completed', {
+              processingTimeMs: taskProcessingTime
+            });
+
+            logActivity('generation_success', 'hairstyle_generated', {
+              task_id: data.taskId,
+              style: selectedStyle || "color-only",
+              color: finalColor,
+              gender: selectedGender,
+              processing_time_ms: taskProcessingTime,
+              credits_used: 10
+            });
+
             toast.success("Hairstyle generated successfully! 🎉", {
               duration: 3000,
               position: "top-center",
@@ -692,6 +779,17 @@ function SelectStylePageContent() {
         } catch (pollError) {
           toast.dismiss("processing-status");
           console.error("Processing error:", pollError);
+          
+          // 记录任务失败
+          const failureReason = classifyFailureReason(pollError);
+          await analytics?.logHairstyleTask(data.taskId, 'failed', {
+            failureReason: failureReason,
+            failureDetails: {
+              error: pollError instanceof Error ? pollError.message : String(pollError)
+            },
+            processingTimeMs: taskProcessingTime || 0
+          });
+          
           throw pollError; // Re-throw to be handled by outer catch
         }
       } else if (!data.success) {
@@ -705,6 +803,12 @@ function SelectStylePageContent() {
       }
     } catch (error) {
       console.error("Generation error:", error);
+      console.log("Error details:", {
+        isError: error instanceof Error,
+        message: error instanceof Error ? error.message : String(error),
+        is422Error: (error as any).is422Error,
+        errorObject: error
+      });
 
       // Clean up any existing toasts
       toast.dismiss("generation-status");
@@ -725,22 +829,40 @@ function SelectStylePageContent() {
         error.message.includes("Photo not suitable")
       ));
 
+      console.log("Is 422 error check result:", is422Error);
+
       if (is422Error) {
         // 缩短错误消息到2行内
         errorMessage = "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
         // 立即显示Perfect photo guidelines弹窗
+        console.log("Showing guideline modal...");
         handleShowGuideline(true);
       }
 
-      toast.error(errorMessage, {
-        duration: 6000,
-        style: {
-          background: "#1F2937",
-          color: "#fff",
-          maxWidth: "400px",
-          whiteSpace: "pre-line", // 允许换行
-        },
+      // 记录生成失败
+      const failureReason = classifyFailureReason(error);
+      logActivity('generation_failed', 'hairstyle_generation_error', {
+        error_message: errorMessage,
+        failure_reason: failureReason,
+        is_422_error: is422Error,
+        selected_style: selectedStyle || "default",
+        selected_color: selectedColor,
+        selected_gender: selectedGender,
+        activity_log_id: generationActivity?.id
       });
+
+      // 确保之前的toast已经被清理
+      setTimeout(() => {
+        toast.error(errorMessage, {
+          duration: 6000,
+          style: {
+            background: "#1F2937",
+            color: "#fff",
+            maxWidth: "400px",
+            whiteSpace: "pre-line", // 允许换行
+          },
+        });
+      }, 100);
     } finally {
       setIsLoading(false);
     }
@@ -879,7 +1001,10 @@ function SelectStylePageContent() {
 
   // 处理 guideline 弹窗显示
   const handleShowGuideline = (forceShow = false) => {
+    console.log("handleShowGuideline called, forceShow:", forceShow);
+    console.log("Current showGuidelineModal state:", showGuidelineModal);
     if (forceShow || shouldShowGuideline()) {
+      console.log("Setting showGuidelineModal to true");
       setShowGuidelineModal(true);
     }
   };
@@ -898,6 +1023,7 @@ function SelectStylePageContent() {
 
   // Guideline Modal 组件
   const GuidelineModal = () => {
+    console.log("GuidelineModal render, showGuidelineModal:", showGuidelineModal);
     if (!showGuidelineModal) return null;
 
     return (
@@ -1020,14 +1146,29 @@ function SelectStylePageContent() {
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
       if (!allowedTypes.includes(file.type.toLowerCase())) {
         toast.error("Only JPG, JPEG, PNG formats are supported");
+        logActivity('file_upload', 'upload_failed_invalid_type', {
+          file_type: file.type,
+          file_size: file.size
+        });
         return;
       }
 
       // 检查文件大小 (限制为 3MB)
       if (file.size > 3 * 1024 * 1024) {
         toast.error("Please upload an image less than 3MB");
+        logActivity('file_upload', 'upload_failed_size_limit', {
+          file_size: file.size,
+          file_type: file.type,
+          size_limit_mb: 3
+        });
         return;
       }
+
+      // 记录上传开始
+      logActivity('file_upload', 'image_upload_started', {
+        file_size: file.size,
+        file_type: file.type
+      });
 
       // 创建 FormData
       const formData = new FormData();
@@ -1037,10 +1178,18 @@ function SelectStylePageContent() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setUploadedImageUrl(reader.result as string);
+        logActivity('file_upload', 'image_upload_success', {
+          file_size: file.size,
+          file_type: file.type
+        });
       };
 
       reader.onerror = () => {
         toast.error("Failed to read file");
+        logActivity('file_upload', 'upload_failed_read_error', {
+          file_size: file.size,
+          file_type: file.type
+        });
       };
 
       reader.readAsDataURL(file);
@@ -1053,6 +1202,10 @@ function SelectStylePageContent() {
   // 添加示例图片加载函数
   const loadSampleImage = async (imagePath: string) => {
     try {
+      logActivity('button_click', 'sample_image_selected', {
+        image_path: imagePath
+      });
+
       const response = await fetch(imagePath);
       if (!response.ok) {
         throw new Error("Failed to load sample image");
@@ -1063,6 +1216,10 @@ function SelectStylePageContent() {
 
       reader.onloadend = () => {
         setUploadedImageUrl(reader.result as string);
+        logActivity('file_upload', 'sample_image_loaded', {
+          image_path: imagePath,
+          file_size: blob.size
+        });
       };
 
       reader.onerror = () => {
@@ -1323,7 +1480,9 @@ function SelectStylePageContent() {
 
                 {/* 示例图片区域 - 更紧凑 */}
                 <div className="text-center px-4 pb-1">
-
+                <p className="text-lg text-gray-600 mb-1 mt-3">
+                    No photos?    Try these examples:
+                  </p>
                   <div className="flex justify-center gap-1.5">
                     <button
                       className="w-20 h-20 rounded-md overflow-hidden border border-transparent hover:border-purple-500 transition-all"
@@ -1380,9 +1539,34 @@ function SelectStylePageContent() {
                       />
                     </button>
                   </div>                  
-                  <p className="text-lg text-gray-600 mb-1 mt-3">
-                    No photos?    Try these examples:
-                  </p>
+
+                  
+                  {/* Guideline 入口 - 未上传图片时也显示 */}
+                  <div className="text-center mt-4">
+                    <button
+                      onClick={() => handleShowGuideline(true)}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 text-purple-700 hover:text-purple-800 text-xs rounded-lg transition-colors"
+                    >
+                      <span className="font-medium">Perfect photo guidelines</span>
+                      <span>✨</span>
+                    </button>
+                    <div className="flex items-center justify-center space-x-2 mt-1">
+                      <input
+                        type="checkbox"
+                        id="always-show-guidelines-pc-no-image"
+                        checked={alwaysShowGuidelines}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setAlwaysShowGuidelines(checked);
+                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
+                        }}
+                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor="always-show-guidelines-pc-no-image" className="text-xs text-gray-500 cursor-pointer">
+                        Always show guidelines
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </>
             ) : (
@@ -1509,6 +1693,10 @@ function SelectStylePageContent() {
                       onClick={() => {
                         setSelectedGender("Female");
                         setSelectedStyle("");
+                        logActivity('button_click', 'gender_selected', {
+                          gender: 'Female',
+                          previous_gender: selectedGender
+                        });
                       }}
                       className={`flex-1 py-2 px-4 rounded-lg text-sm ${
                         selectedGender === "Female"
@@ -1522,6 +1710,10 @@ function SelectStylePageContent() {
                       onClick={() => {
                         setSelectedGender("Male");
                         setSelectedStyle("");
+                        logActivity('button_click', 'gender_selected', {
+                          gender: 'Male',
+                          previous_gender: selectedGender
+                        });
                       }}
                       className={`flex-1 py-2 px-4 rounded-lg text-sm ${
                         selectedGender === "Male"
@@ -1573,7 +1765,14 @@ function SelectStylePageContent() {
                   {hairColors.map((color) => (
                     <button
                       key={color.id}
-                      onClick={() => setSelectedColor(color.id)}
+                      onClick={() => {
+                        setSelectedColor(color.id);
+                        logActivity('button_click', 'color_selected', {
+                          color: color.id,
+                          color_label: color.label,
+                          previous_color: selectedColor
+                        });
+                      }}
                       className={`flex-shrink-0 w-10 h-10 rounded-md transition-all ${
                         selectedColor === color.id
                           ? color.id === "white"
@@ -1911,7 +2110,14 @@ function SelectStylePageContent() {
                     {hairColors.map((color) => (
                       <button
                         key={color.id}
-                        onClick={() => setSelectedColor(color.id)}
+                        onClick={() => {
+                        setSelectedColor(color.id);
+                        logActivity('button_click', 'color_selected', {
+                          color: color.id,
+                          color_label: color.label,
+                          previous_color: selectedColor
+                        });
+                      }}
                         className={`flex-shrink-0 w-10 h-10 rounded-md transition-all ${
                           selectedColor === color.id
                             ? color.id === "white"
