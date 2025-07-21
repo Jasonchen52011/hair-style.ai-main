@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import FailuresPage from "./failures";
+import RealtimePage from "./realtime";
 
 export default function AdminAnalyticsPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,7 +13,7 @@ export default function AdminAnalyticsPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState<any>({});
-  const [selectedView, setSelectedView] = useState("overview");
+  const [selectedView, setSelectedView] = useState("realtime");
   const supabase = createClientComponentClient();
   const router = useRouter();
 
@@ -74,17 +76,17 @@ export default function AdminAnalyticsPage() {
   const fetchDashboardData = async () => {
     setLoading(true);
     try {
-      // 获取总览数据
+      // Get overview data
       const { data: overview } = await supabase.rpc('admin_dashboard_summary');
       
-      // 获取今日统计
+      // Get today's statistics
       const { data: todayStats } = await supabase
         .from('user_activity_logs')
         .select('action_name, created_at')
         .gte('created_at', new Date().toISOString().split('T')[0])
         .order('created_at', { ascending: false });
 
-      // 获取失败任务
+      // Get failed tasks
       const { data: failedTasks } = await supabase
         .from('hairstyle_generation_tasks')
         .select('*')
@@ -93,7 +95,7 @@ export default function AdminAnalyticsPage() {
         .order('created_at', { ascending: false })
         .limit(10);
 
-      // 获取API性能数据
+      // Get API performance data
       const { data: apiPerformance } = await supabase
         .from('api_call_logs')
         .select('endpoint, response_status, response_time_ms')
@@ -157,7 +159,7 @@ export default function AdminAnalyticsPage() {
     );
   }
 
-  // 仪表板页面
+  // Dashboard page
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header */}
@@ -187,7 +189,7 @@ export default function AdminAnalyticsPage() {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
-            {['overview', 'failures', 'api', 'realtime'].map((view) => (
+            {['failures','realtime'].map((view) => (
               <button
                 key={view}
                 onClick={() => setSelectedView(view)}
@@ -214,9 +216,9 @@ export default function AdminAnalyticsPage() {
         ) : (
           <div>
             {selectedView === 'overview' && <OverviewSection data={dashboardData} />}
-            {selectedView === 'failures' && <FailuresSection data={dashboardData} />}
+            {selectedView === 'failures' && <FailuresPage supabase={supabase} />}
             {selectedView === 'api' && <ApiSection data={dashboardData} />}
-            {selectedView === 'realtime' && <RealtimeSection supabase={supabase} />}
+            {selectedView === 'realtime' && <RealtimePage supabase={supabase} />}
           </div>
         )}
       </div>
@@ -224,7 +226,7 @@ export default function AdminAnalyticsPage() {
   );
 }
 
-// 总览组件
+// Overview Component
 function OverviewSection({ data }: any) {
   const stats = calculateStats(data.todayStats || []);
   
@@ -248,56 +250,8 @@ function OverviewSection({ data }: any) {
   );
 }
 
-// 失败分析组件
-function FailuresSection({ data }: any) {
-  const failedTasks = data.failedTasks || [];
-  
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-6">Recent Failures</h2>
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Task ID
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Failure Reason
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Style
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Time
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {failedTasks.map((task: any) => (
-              <tr key={task.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                  {task.task_id?.substring(0, 8)}...
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {task.failure_reason || 'Unknown'}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {task.selected_style || 'N/A'}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(task.created_at).toLocaleTimeString()}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
 
-// API性能组件
+// API Performance Component
 function ApiSection({ data }: any) {
   const apiStats = calculateApiStats(data.apiPerformance || []);
   
@@ -322,80 +276,9 @@ function ApiSection({ data }: any) {
   );
 }
 
-// 实时监控组件
-function RealtimeSection({ supabase }: any) {
-  const [activities, setActivities] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetchRealtimeData();
-    const interval = setInterval(fetchRealtimeData, 10000); // 每10秒刷新
-    return () => clearInterval(interval);
-  }, []);
-  
-  const fetchRealtimeData = async () => {
-    try {
-      const { data } = await supabase
-        .from('user_activity_logs')
-        .select('*')
-        .gte('created_at', new Date(Date.now() - 10 * 60 * 1000).toISOString())
-        .order('created_at', { ascending: false })
-        .limit(20);
-      
-      setActivities(data || []);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching realtime data:', error);
-    }
-  };
-  
-  return (
-    <div>
-      <h2 className="text-xl font-semibold mb-6">Real-time Activity (Last 10 minutes)</h2>
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Time
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Action
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Device
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Details
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {activities.map((activity: any) => (
-              <tr key={activity.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(activity.created_at).toLocaleTimeString()}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {activity.action_name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {activity.device_type || 'Unknown'}
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
-                  {JSON.stringify(activity.metadata || {}).substring(0, 50)}...
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
 
-// 统计卡片组件
-function StatCard({ title, value, color }: any) {
+// Stat Card Component
+function StatCard({ title, value, color }: { title: string; value: number | string; color: 'blue' | 'yellow' | 'green' | 'red' }) {
   const colorClasses = {
     blue: 'bg-blue-500',
     yellow: 'bg-yellow-500',
@@ -418,7 +301,7 @@ function StatCard({ title, value, color }: any) {
   );
 }
 
-// 辅助函数
+// Helper functions
 function calculateStats(todayStats: any[]) {
   const pageViews = todayStats.filter(s => s.action_name === 'ai_hairstyle_page').length;
   const generationsStarted = todayStats.filter(s => s.action_name === 'hairstyle_generation_started').length;
