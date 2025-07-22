@@ -189,7 +189,7 @@ export default function AdminAnalyticsPage() {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex space-x-8">
-            {['failures','realtime'].map((view) => (
+            {['failures','realtime',].map((view) => (
               <button
                 key={view}
                 onClick={() => setSelectedView(view)}

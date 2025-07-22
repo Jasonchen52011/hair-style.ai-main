@@ -1,15 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { createClient } from '@supabase/supabase-js';
+import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import config from "../../../../config";
 
 export const dynamic = "force-dynamic";
-
-// 创建统一的时间格式函数
-function getSupabaseTimeString(): string {
-  return new Date().toISOString();
-}
 
 // This route is called after a successful login. It exchanges the code for a session and redirects to the callback URL (see config.js).
 export async function GET(req: NextRequest) {
@@ -25,7 +19,29 @@ export async function GET(req: NextRequest) {
   if (code) {
     try {
       // 使用正确的auth helpers来处理PKCE流程
-      const supabase = createRouteHandlerClient({ cookies });
+      const cookieStore = await cookies();
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+        {
+          cookies: {
+            getAll() {
+              return cookieStore.getAll()
+            },
+            setAll(cookiesToSet: Array<{name: string, value: string, options?: any}>) {
+              try {
+                cookiesToSet.forEach(({ name, value, options }) => {
+                  cookieStore.set(name, value, options)
+                })
+              } catch (error) {
+                // The `set` method was called from a Server Component.
+                // This can be ignored if you have middleware refreshing
+                // user sessions.
+              }
+            },
+          },
+        }
+      );
       
       // 使用auth helpers的exchangeCodeForSession方法，它会自动处理PKCE
       const { data, error } = await supabase.auth.exchangeCodeForSession(code);
@@ -42,8 +58,8 @@ export async function GET(req: NextRequest) {
       
       if (user && session) {
         try {
-          // 尝试创建或更新用户档案
-          console.log('🔄 Processing profile for user:', user.id);
+          // 尝试创建或更新用户数据到users表和profiles表
+          console.log('🔄 Processing user for:', user.id, user.email);
           console.log('📋 User metadata:', {
             full_name: user.user_metadata?.full_name,
             name: user.user_metadata?.name,
@@ -51,98 +67,123 @@ export async function GET(req: NextRequest) {
             picture: user.user_metadata?.picture
           });
 
-          // 使用 service role key 创建一个管理员客户端来操作数据库
-          const adminSupabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.SUPABASE_SERVICE_ROLE_KEY!
-          );
+          // 导入必要的函数来保存到users表
+          const { db } = await import('@/db');
+          const { users } = await import('@/db/schema');
+          const { eq } = await import('drizzle-orm');
+          const { insertUser, findUserByEmail } = await import('@/models/user');
+          const { createOrUpdateUserCreditsBalance } = await import('@/models/userCreditsBalance');
 
-          // 先检查用户是否已存在 (不使用.single()避免错误)
-          const { data: existingProfiles, error: checkError } = await adminSupabase
-            .from('profiles')
-            .select('*')
-            .eq('id', user.id);
+          // 同时确保profiles表中有记录
+          await ensureUserProfile(user, supabase);
 
-          if (checkError) {
-            console.error('❌ Error checking existing profile:', checkError);
-            throw new Error(`Failed to check existing profile: ${checkError.message}`);
+          // 添加重试逻辑
+          let existingUser = null;
+          let retryCount = 0;
+          const maxRetries = 3;
+          
+          while (retryCount < maxRetries) {
+            try {
+              // 检查用户是否已存在
+              existingUser = await findUserByEmail(user.email!);
+              break; // 成功则跳出循环
+            } catch (error: any) {
+              retryCount++;
+              console.log(`⚠️ Database connection attempt ${retryCount}/${maxRetries} failed:`, error.message);
+              
+              if (retryCount >= maxRetries) {
+                throw error; // 重试次数用完，抛出错误
+              }
+              
+              // 等待一段时间后重试
+              await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+            }
           }
 
-          const existingProfile = existingProfiles && existingProfiles.length > 0 ? existingProfiles[0] : null;
-
-          if (existingProfile) {
+          if (existingUser) {
             // 用户已存在，更新基本信息
-            console.log('👤 Updating existing profile for:', user.id);
+            console.log('👤 Updating existing user for:', user.id);
             
-            const { data: updatedProfile, error: profileError } = await adminSupabase
-              .from('profiles')
-              .update({
-                email: user.email,
-                name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-                image: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
-                updated_at: getSupabaseTimeString(),
+            const [updatedUser] = await db()
+              .update(users)
+              .set({
+                nickname: user.user_metadata?.full_name || user.user_metadata?.name || existingUser.nickname,
+                avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || existingUser.avatar_url,
+                updated_at: new Date(),
               })
-              .eq('id', user.id)
-              .select();
+              .where(eq(users.email, user.email!))
+              .returning();
 
-            if (profileError) {
-              console.error('❌ Error updating existing user profile:', profileError);
-              throw new Error(`Failed to update profile: ${profileError.message}`);
-            } else {
-              console.log('✅ Updated existing user profile:', updatedProfile);
-            }
+            console.log('✅ Updated existing user:', updatedUser);
           } else {
-            // 用户不存在，创建新档案
-            console.log('👤 Creating new profile for:', user.id);
+            // 用户不存在，创建新用户
+            console.log('👤 Creating new user for:', user.id);
             
-            const currentTime = getSupabaseTimeString();
-            const profileData = {
-              id: user.id,
-              email: user.email,
-              name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-              image: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
-              has_access: false, // 新用户默认无访问权限
-              created_at: currentTime,
-              updated_at: currentTime,
+            const userData = {
+              uuid: user.id, // 使用Supabase Auth的用户ID作为UUID
+              email: user.email!,
+              nickname: user.user_metadata?.full_name || user.user_metadata?.name || '',
+              avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || '',
+              signin_type: 'oauth',
+              signin_provider: 'google',
+              signin_openid: user.id,
+              created_at: new Date(),
             };
 
-            console.log('📋 Profile data to insert:', profileData);
+            console.log('📋 User data to insert:', userData);
 
-            const { data: newProfile, error: profileError } = await adminSupabase
-              .from('profiles')
-              .insert(profileData)
-              .select();
-
-            if (profileError) {
-              console.error('❌ Error creating new user profile:', profileError);
-              console.error('📋 Failed with data:', profileData);
-              
-              // 尝试使用upsert作为备用方案
-              console.log('🔄 Trying upsert as fallback...');
-              const { data: upsertProfile, error: upsertError } = await adminSupabase
-                .from('profiles')
-                .upsert(profileData, { onConflict: 'id' })
-                .select();
-              
-              if (upsertError) {
-                console.error('❌ Upsert also failed:', upsertError);
-                throw new Error(`Failed to create profile: ${profileError.message}. Upsert failed: ${upsertError.message}`);
-              } else {
-                console.log('✅ Created user profile via upsert:', upsertProfile);
+            // 添加重试逻辑创建新用户
+            let newUser = null;
+            retryCount = 0;
+            
+            while (retryCount < maxRetries) {
+              try {
+                newUser = await insertUser(userData as any);
+                console.log('✅ Created new user:', newUser);
+                break;
+              } catch (error: any) {
+                retryCount++;
+                console.log(`⚠️ User creation attempt ${retryCount}/${maxRetries} failed:`, error.message);
+                
+                if (retryCount >= maxRetries) {
+                  throw error;
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
               }
-            } else {
-              console.log('✅ Created new user profile:', newProfile);
+            }
+
+            // 为新用户创建初始积分余额
+            if (newUser) {
+              retryCount = 0;
+              while (retryCount < maxRetries) {
+                try {
+                  await createOrUpdateUserCreditsBalance(user.id, 0);
+                  console.log('✅ Created initial credits balance for user');
+                  break;
+                } catch (error: any) {
+                  retryCount++;
+                  console.log(`⚠️ Credits balance creation attempt ${retryCount}/${maxRetries} failed:`, error.message);
+                  
+                  if (retryCount >= maxRetries) {
+                    // 积分创建失败不应阻止用户登录
+                    console.error('❌ Failed to create initial credits balance after retries');
+                  }
+                  
+                  await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+                }
+              }
             }
           }
-        } catch (profileError) {
-          console.error('❌ Critical error in profile creation process:', profileError);
-          // 不要让profile创建失败影响认证流程，但要记录详细错误
+        } catch (userError) {
+          console.error('❌ Critical error in user creation process:', userError);
+          // 不要让用户创建失败影响认证流程，但要记录详细错误
           console.error('❌ User ID:', user.id);
           console.error('❌ User email:', user.email);
           console.error('❌ User metadata:', user.user_metadata);
           
-          // 可选：设置一个标志表示profile创建失败，但不阻止用户登录
-          console.log('⚠️ User logged in but profile creation failed - user may need to retry');
+          // 可选：设置一个标志表示用户创建失败，但不阻止用户登录
+          console.log('⚠️ User logged in but user record creation failed - user may need to retry');
         }
       }
     } catch (error) {
@@ -183,4 +224,69 @@ export async function GET(req: NextRequest) {
   console.log('🔍 Auth callback - needsClientRedirect:', needsClientRedirect);
     
   return NextResponse.redirect(finalRedirectUrl);
+}
+
+// 确保用户在profiles表中有记录
+async function ensureUserProfile(user: any, supabase: any) {
+  try {
+    console.log('🔄 Ensuring user profile exists for:', user.id);
+    
+    // 检查profiles表中是否已有记录
+    const { data: existingProfile, error: checkError } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+    
+    if (existingProfile) {
+      console.log('✅ Profile already exists, updating...');
+      
+      // 更新现有profile
+      const { data: updatedProfile, error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          email: user.email,
+          name: user.user_metadata?.full_name || user.user_metadata?.name || existingProfile.name,
+          image: user.user_metadata?.avatar_url || user.user_metadata?.picture || existingProfile.image,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', user.id)
+        .select();
+      
+      if (updateError) {
+        console.error('❌ Failed to update profile:', updateError);
+      } else {
+        console.log('✅ Profile updated successfully');
+      }
+    } else {
+      console.log('👤 Creating new profile for user:', user.id);
+      
+      // 创建新的profile记录
+      const profileData = {
+        id: user.id,
+        email: user.email,
+        name: user.user_metadata?.full_name || user.user_metadata?.name || '',
+        image: user.user_metadata?.avatar_url || user.user_metadata?.picture || '',
+        has_access: false,
+        current_credits: 0,
+        created_at: user.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      
+      const { data: newProfile, error: createError } = await supabase
+        .from('profiles')
+        .insert([profileData])
+        .select();
+      
+      if (createError) {
+        console.error('❌ Failed to create profile:', createError);
+        throw createError;
+      } else {
+        console.log('✅ Profile created successfully:', newProfile);
+      }
+    }
+  } catch (error) {
+    console.error('❌ Error in ensureUserProfile:', error);
+    // 不要让profile创建失败阻止用户登录，但要记录错误
+  }
 }

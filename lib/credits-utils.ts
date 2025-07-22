@@ -111,22 +111,22 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
     }
     
     // 2. 获取用户当前积分
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('current_credits')
-      .eq('id', userId)
+    const { data: balance, error: balanceError } = await supabase
+      .from('user_credits_balance')
+      .select('balance')
+      .eq('user_uuid', userId)
       .single();
     
-    if (profileError) {
-      console.error('❌ Error fetching user profile:', profileError);
-      throw new Error(`Failed to fetch user profile: ${profileError.message}`);
+    if (balanceError) {
+      console.error('❌ Error fetching user balance:', balanceError);
+      throw new Error(`Failed to fetch user balance: ${balanceError.message}`);
     }
     
-    const currentCredits = profile?.current_credits || 0;
+    const currentCredits = balance?.balance || 0;
     const newTotalCredits = currentCredits + credits;
     
-    // 3. 同时更新credits表和profiles表
-    const [creditsResult, profileResult] = await Promise.all([
+    // 3. 同时更新credits表和user_credits_balance表
+    const [creditsResult, balanceResult] = await Promise.all([
       supabase
         .from('credits')
         .insert({
@@ -141,12 +141,12 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
           event_type: eventType
         }),
       supabase
-        .from('profiles')
+        .from('user_credits_balance')
         .update({
-          current_credits: newTotalCredits,
+          balance: newTotalCredits,
           updated_at: new Date().toISOString()
         })
-        .eq('id', userId)
+        .eq('user_uuid', userId)
     ]);
     
     if (creditsResult.error) {
@@ -165,9 +165,9 @@ export async function insertCreditsWithFallback(params: InsertCreditsParams): Pr
       throw new Error(`Failed to add credits record: ${creditsResult.error.message}`);
     }
     
-    if (profileResult.error) {
-      console.error('❌ Error updating profile credits:', profileResult.error);
-      throw new Error(`Failed to update profile credits: ${profileResult.error.message}`);
+    if (balanceResult.error) {
+      console.error('❌ Error updating balance:', balanceResult.error);
+      throw new Error(`Failed to update balance: ${balanceResult.error.message}`);
     }
     
     console.log(`✅ Credits added successfully: ${credits} credits for user ${userId}, transaction: ${transactionNo}`);

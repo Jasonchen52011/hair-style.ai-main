@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Script from "next/script";
-import PricingPage from "./content-page";
+// import PricingPage from "./content-page"; // 注释掉Creem支付
+import PricingPage from "./content-page-stripe"; // 使用Stripe支付
 
 export const metadata: Metadata = {
   title: "Pricing Plans - Hairstyle AI Pro",
@@ -170,7 +171,7 @@ const faqStructuredData = {
       name: "How do credits work?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Credits are used to generate AI hairstyles. Each hairstyle generation uses 1 credit. You get 1000 credits per month with your subscription, and unused credits expire at the end of each billing cycle."
+        text: "Credits are used to generate AI hairstyles. Each hairstyle generation uses 10 credits. You get 1000 credits per month with your subscription, and unused credits expire at the end of each billing cycle."
       }
     }
   ]

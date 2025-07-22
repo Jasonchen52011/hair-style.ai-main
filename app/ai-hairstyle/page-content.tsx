@@ -31,7 +31,7 @@ export default function SelectStylePage() {
 // move the original component content here
 function SelectStylePageContent() {
   const supabase = createClientComponentClient();
-  const { credits, hasActiveSubscription, user, refreshCredits } = useCredits();
+  const { credits, hasActiveSubscription, user, refreshCredits, updateCredits } = useCredits();
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>();
   const [resultImageUrl, setResultImageUrl] = useState<string>();
   const [defaultStyle, setDefaultStyle] = useState<string>("PixieCut");
@@ -730,8 +730,14 @@ function SelectStylePageContent() {
 
             handleStyleSelect(imageUrlWithStyle);
 
-            // 刷新积分显示
-            await refreshCredits();
+            // 立即更新积分显示（如果后端返回了新余额）
+            if (typeof data.newCreditBalance === 'number') {
+              updateCredits(data.newCreditBalance);
+              console.log(`🚀 Credits updated immediately: ${data.newCreditBalance}`);
+            } else {
+              // 如果没有返回新余额，则异步刷新积分
+              await refreshCredits();
+            }
 
             // 更新未登录用户使用次数
             if (!user) {
