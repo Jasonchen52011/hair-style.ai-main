@@ -1,22 +1,24 @@
-import { NextResponse } from "next/server";
-
-/**
- * 成功响应
- */
-export function respData(data: any, message?: string) {
-  return NextResponse.json({
-    success: true,
-    message: message || "Success",
-    data
-  });
+export function respData(data: any) {
+  return respJson(0, "ok", data || []);
 }
 
-/**
- * 错误响应
- */
-export function respErr(message: string, code?: number) {
-  return NextResponse.json({
-    success: false,
-    error: message
-  }, { status: code || 400 });
-} 
+export function respOk() {
+  return respJson(0, "ok");
+}
+
+export function respErr(message: string) {
+  return respJson(-1, message);
+}
+
+export function respJson(code: number, message: string, data?: any) {
+  let json = {
+    code: code,
+    message: message,
+    data: data,
+  };
+  if (data) {
+    json["data"] = data;
+  }
+
+  return Response.json(json);
+}

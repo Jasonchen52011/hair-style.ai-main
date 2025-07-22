@@ -29,19 +29,19 @@ export async function validateUserId(userId: string): Promise<{ valid: boolean; 
   }
 
   try {
-    // 检查用户是否存在于 profiles 表中
-    const { data: profile, error: profileError } = await adminSupabase
-      .from('profiles')
-      .select('id')
-      .eq('id', userId)
+    // 检查用户是否存在于 users 表中
+    const { data: user, error: userError } = await adminSupabase
+      .from('users')
+      .select('uuid')
+      .eq('uuid', userId)
       .single();
 
-    if (profileError && profileError.code === 'PGRST116') {
+    if (userError && userError.code === 'PGRST116') {
       return { valid: false, error: 'User not found' };
     }
 
-    if (profileError) {
-      return { valid: false, error: `Database error: ${profileError.message}` };
+    if (userError) {
+      return { valid: false, error: `Database error: ${userError.message}` };
     }
 
     return { valid: true };
@@ -81,50 +81,90 @@ export function getSimpleDbClient() {
  * 简化的用户数据获取函数
  */
 export async function getUserProfile(userId: string) {
-  const { data: profile, error } = await adminSupabase
-    .from('profiles')
+  const { data: user, error } = await adminSupabase
+    .from('users')
     .select('*')
-    .eq('id', userId)
+    .eq('uuid', userId)
     .single();
 
   if (error) {
+    // 如果在users表找不到，返回null而不是抛出错误
+    if (error.code === 'PGRST116') {
+      return null;
+    }
     throw new Error(`Failed to fetch user profile: ${error.message}`);
   }
 
-  return profile;
+  // 转换为profile格式以保持兼容性
+  return {
+    id: user.uuid,
+    email: user.email,
+    name: user.nickname,
+    image: user.avatar_url,
+    created_at: user.created_at,
+    updated_at: user.updated_at
+  };
 }
 
 /**
  * 简化的用户积分获取函数
  */
 export async function getUserCredits(userId: string): Promise<number> {
-  const { data: profile, error } = await adminSupabase
-    .from('profiles')
-    .select('current_credits')
-    .eq('id', userId)
+  const { data: balance, error } = await adminSupabase
+    .from('user_credits_balance')
+    .select('balance')
+    .eq('user_uuid', userId)
     .single();
 
   if (error) {
+    // 如果没有记录，返回0
+    if (error.code === 'PGRST116') {
+      return 0;
+    }
     throw new Error(`Failed to fetch user credits: ${error.message}`);
   }
 
-  return profile?.current_credits || 0;
+  return balance?.balance || 0;
 }
 
 /**
  * 简化的积分更新函数
  */
 export async function updateUserCredits(userId: string, credits: number) {
-  const { error } = await adminSupabase
-    .from('profiles')
-    .update({
-      current_credits: credits,
-      updated_at: new Date().toISOString()
-    })
-    .eq('id', userId);
+  // 先检查是否存在记录
+  const { data: existing } = await adminSupabase
+    .from('user_credits_balance')
+    .select('id')
+    .eq('user_uuid', userId)
+    .single();
 
-  if (error) {
-    throw new Error(`Failed to update user credits: ${error.message}`);
+  if (existing) {
+    // 更新现有记录
+    const { error } = await adminSupabase
+      .from('user_credits_balance')
+      .update({
+        balance: credits,
+        updated_at: new Date().toISOString()
+      })
+      .eq('user_uuid', userId);
+
+    if (error) {
+      throw new Error(`Failed to update user credits: ${error.message}`);
+    }
+  } else {
+    // 创建新记录
+    const { error } = await adminSupabase
+      .from('user_credits_balance')
+      .insert({
+        user_uuid: userId,
+        balance: credits,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      });
+
+    if (error) {
+      throw new Error(`Failed to create user credits balance: ${error.message}`);
+    }
   }
 }
 

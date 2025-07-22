@@ -198,20 +198,20 @@ async function addCredits(
   expiredAt: string | null
 ): Promise<void> {
   // 获取当前积分
-  const { data: profile, error: profileError } = await supabase
-    .from('profiles')
-    .select('current_credits')
-    .eq('id', userId)
+  const { data: balance, error: balanceError } = await supabase
+    .from('user_credits_balance')
+    .select('balance')
+    .eq('user_uuid', userId)
     .single();
 
-  if (profileError) {
-    throw new Error(`Failed to fetch user profile: ${profileError.message}`);
+  if (balanceError) {
+    throw new Error(`Failed to fetch user balance: ${balanceError.message}`);
   }
 
-  const currentCredits = profile?.current_credits || 0;
+  const currentCredits = balance?.balance || 0;
 
-  // 同时更新credits表和profiles表
-  const [creditsResult, profileResult] = await Promise.all([
+  // 同时更新credits表和user_credits_balance表
+  const [creditsResult, balanceResult] = await Promise.all([
     supabase
       .from('credits')
       .insert({
@@ -225,20 +225,20 @@ async function addCredits(
         event_type: transType === 'purchase' ? 'subscription.paid' : 'subscription.transfer'
       }),
     supabase
-      .from('profiles')
+      .from('user_credits_balance')
       .update({
-        current_credits: currentCredits + credits,
+        balance: currentCredits + credits,
         updated_at: new Date().toISOString()
       })
-      .eq('id', userId)
+      .eq('user_uuid', userId)
   ]);
 
   if (creditsResult.error) {
     throw new Error(`Failed to add credits record: ${creditsResult.error.message}`);
   }
 
-  if (profileResult.error) {
-    throw new Error(`Failed to update profile credits: ${profileResult.error.message}`);
+  if (balanceResult.error) {
+    throw new Error(`Failed to update balance: ${balanceResult.error.message}`);
   }
 }
 
@@ -246,17 +246,17 @@ async function addCredits(
  * 获取用户当前积分
  */
 export async function getUserCurrentCredits(userId: string): Promise<number> {
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('current_credits')
-    .eq('id', userId)
+  const { data: balance, error } = await supabase
+    .from('user_credits_balance')
+    .select('balance')
+    .eq('user_uuid', userId)
     .single();
 
   if (error) {
-    throw new Error(`Failed to fetch user profile: ${error.message}`);
+    throw new Error(`Failed to fetch user balance: ${error.message}`);
   }
 
-  return profile?.current_credits || 0;
+  return balance?.balance || 0;
 }
 
 /**

@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
         const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
         
         // 用户认证检查
-        const cookieStore = cookies();
+        const cookieStore = await cookies();
         const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
         const { data: { user } } = await supabase.auth.getUser();
         
@@ -157,27 +157,27 @@ export async function POST(req: NextRequest) {
                     hasActiveSubscription = true;
                 }
 
-                // 获取用户积分 - 直接从profiles表获取current_credits
-                const { data: profile, error: profileError } = await supabase
-                    .from('profiles')
-                    .select('current_credits')
-                    .eq('id', user.id)
+                // 获取用户积分 - 从user_credits_balance表获取balance
+                const { data: balance, error: balanceError } = await supabase
+                    .from('user_credits_balance')
+                    .select('balance')
+                    .eq('user_uuid', user.id)
                     .single();
 
-                if (!profileError && profile) {
-                    userCredits = profile.current_credits || 0;
-                    console.log(`User ${user.id} has ${userCredits} credits (from profile)`);
+                if (!balanceError && balance) {
+                    userCredits = balance.balance || 0;
+                    console.log(`User ${user.id} has ${userCredits} credits (from user_credits_balance)`);
                 } else {
-                    console.error('Profile query error:', profileError);
+                    console.error('Balance query error:', balanceError);
                     // 如果查询失败，回退到管理员客户端
-                    const { data: fallbackProfile, error: fallbackError } = await adminSupabase
-                        .from('profiles')
-                        .select('current_credits')
-                        .eq('id', user.id)
+                    const { data: fallbackBalance, error: fallbackError } = await adminSupabase
+                        .from('user_credits_balance')
+                        .select('balance')
+                        .eq('user_uuid', user.id)
                         .single();
                     
-                    if (!fallbackError && fallbackProfile) {
-                        userCredits = fallbackProfile.current_credits || 0;
+                    if (!fallbackError && fallbackBalance) {
+                        userCredits = fallbackBalance.balance || 0;
                         console.log(`User ${user.id} has ${userCredits} credits (via admin fallback)`);
                     }
                 }
@@ -532,7 +532,7 @@ export async function GET(req: NextRequest) {
           console.log(`🔄 Task ${taskId} completed successfully, starting credit deduction process`);
           
                       try {
-              const cookieStore = cookies();
+              const cookieStore = await cookies();
               const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
             const { data: { user } } = await supabase.auth.getUser();
             
@@ -550,14 +550,23 @@ export async function GET(req: NextRequest) {
                   .from('credits')
                   .select('trans_no, credits, created_at')
                   .eq('user_uuid', user.id)
-                  .eq('order_no', taskId)
+                  .eq('task_id', taskId)
                   .eq('trans_type', 'hairstyle')
                   .single()
               ]);
 
               const hasActiveSubscription = !subscriptionsResult.error && subscriptionsResult.data && subscriptionsResult.data.length > 0;
               
-              if (hasActiveSubscription) {
+              // 检查用户是否有积分余额（订阅用户或购买积分的用户）
+              const { data: userBalance, error: balanceCheckError } = await adminSupabase
+                .from('user_credits_balance')
+                .select('balance')
+                .eq('user_uuid', user.id)
+                .single();
+              
+              const hasCredits = !balanceCheckError && userBalance && userBalance.balance > 0;
+              
+              if (hasActiveSubscription || hasCredits) {
                 const { data: existingCredit, error: checkError } = existingCreditResult;
 
                 if (checkError && checkError.code !== 'PGRST116') {
@@ -573,13 +582,13 @@ export async function GET(req: NextRequest) {
                   console.log(`🔄 No existing credit found, proceeding with deduction for successful task ${taskId}`);
                   
                   // 获取用户当前积分
-                  const { data: profile, error: profileError } = await adminSupabase
-                    .from('profiles')
-                    .select('current_credits')
-                    .eq('id', user.id)
+                  const { data: balance, error: balanceError } = await adminSupabase
+                    .from('user_credits_balance')
+                    .select('balance')
+                    .eq('user_uuid', user.id)
                     .single();
 
-                  if (!profileError && profile && profile.current_credits >= 10) {
+                  if (!balanceError && balance && balance.balance >= 10) {
                     // 生成交易编号
                     const timestamp = Date.now();
                     const random = Math.random().toString(36).substring(2, 8);
@@ -589,12 +598,12 @@ export async function GET(req: NextRequest) {
 
                     // 优化：使用更快的单次操作
                     const updateResult = await adminSupabase
-                      .from('profiles')
+                      .from('user_credits_balance')
                       .update({
-                        current_credits: profile.current_credits - 10,
+                        balance: balance.balance - 10,
                         updated_at: new Date().toISOString()
                       })
-                      .eq('id', user.id);
+                      .eq('user_uuid', user.id);
 
                                          let insertResult: { error: any } = { error: null };
                      if (!updateResult.error) {
@@ -604,22 +613,23 @@ export async function GET(req: NextRequest) {
                           user_uuid: user.id,
                           trans_type: 'hairstyle',
                           trans_no: transactionNo,
-                          order_no: taskId,
+                          order_no: null,
                           credits: -10,
                           expired_at: null,
                           created_at: new Date().toISOString(),
-                          event_type: 'hairstyle_usage'
+                          event_type: 'hairstyle_usage',
+                          task_id: taskId
                         });
                     }
 
                     if (!insertResult.error && !updateResult.error) {
                       chargedTasks.add(taskId);
-                      console.log(`✅ Credits deducted on success: ${profile.current_credits} -> ${profile.current_credits - 10} for user ${user.id}, task ${taskId}`);
+                      console.log(`✅ Credits deducted on success: ${balance.balance} -> ${balance.balance - 10} for user ${user.id}, task ${taskId}`);
                       console.log(`✅ Transaction completed: ${transactionNo}`);
                       
                       // 在响应中添加积分扣除信息
                       statusData.creditsDeducted = 10;
-                      statusData.newCreditBalance = profile.current_credits - 10;
+                      statusData.newCreditBalance = balance.balance - 10;
                       statusData.creditTransaction = transactionNo;
                     } else {
                       console.error(`❌ Failed to deduct credits for successful task ${taskId}:`, insertResult.error || updateResult.error);

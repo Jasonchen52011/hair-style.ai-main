@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Payment Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .test-cards {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .test-cards h3 {
+            margin-top: 0;
+        }
+        .card-number {
+            font-family: monospace;
+            font-size: 16px;
+            color: #2563eb;
+            margin: 5px 0;
+        }
+        .steps {
+            margin: 20px 0;
+        }
+        .step {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+        .step h4 {
+            margin: 0 0 10px 0;
+            color: #666;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Stripe Payment Testing Guide</h1>
+        
+        <div class="info">
+            <h2>Test Environment Information</h2>
+            <p><strong>Base URL:</strong> http://localhost:3000</p>
+            <p><strong>Test Mode:</strong> Stripe Test Mode (using test API keys)</p>
+        </div>
+
+        <div class="test-cards">
+            <h3>Test Credit Cards</h3>
+            <p>Use these test card numbers in Stripe Checkout:</p>
+            <div>
+                <strong>✅ Successful Payment:</strong>
+                <div class="card-number">4242 4242 4242 4242</div>
+                <small>Any future expiry date, any 3-digit CVC</small>
+            </div>
+            <div style="margin-top: 15px;">
+                <strong>❌ Declined Payment:</strong>
+                <div class="card-number">4000 0000 0000 0002</div>
+                <small>Card will be declined</small>
+            </div>
+            <div style="margin-top: 15px;">
+                <strong>🔒 3D Secure Required:</strong>
+                <div class="card-number">4000 0025 0000 3155</div>
+                <small>Requires authentication</small>
+            </div>
+        </div>
+
+        <div class="steps">
+            <h2>Testing Steps</h2>
+            
+            <div class="step">
+                <h4>Step 1: Login to the System</h4>
+                <p>First, make sure you're logged in:</p>
+                <p><a href="http://localhost:3000/signin" target="_blank">→ Go to Login Page</a></p>
+                <p>Use Google login for the easiest setup.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Check Test System Status</h4>
+                <p>Verify your login and database connection:</p>
+                <p><a href="http://localhost:3000/test-system" target="_blank">→ Open Test System Page</a></p>
+                <p>This page shows your authentication status and credit balance.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 3: Go to Pricing Page</h4>
+                <p>Navigate to the pricing page to make a test purchase:</p>
+                <p><a href="http://localhost:3000/pricing" target="_blank">→ Open Pricing Page</a></p>
+                <p>Choose any credit package to test.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 4: Complete Test Payment</h4>
+                <p>When redirected to Stripe Checkout:</p>
+                <ul>
+                    <li>Use test card: <strong>4242 4242 4242 4242</strong></li>
+                    <li>Any future expiry date (e.g., 12/34)</li>
+                    <li>Any 3-digit CVC (e.g., 123)</li>
+                    <li>Fill in test billing details</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <h4>Step 5: Check Order History</h4>
+                <p>After successful payment, you'll be redirected to:</p>
+                <p><a href="http://localhost:3000/my-orders" target="_blank">→ My Orders Page</a></p>
+                <p>Verify your order appears with "Paid" status.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 6: Verify Credits Added</h4>
+                <p>Go back to the test system page:</p>
+                <p><a href="http://localhost:3000/test-system" target="_blank">→ Test System Page</a></p>
+                <p>Click "Re-run All Tests" to see your updated credit balance.</p>
+            </div>
+        </div>
+
+        <div class="info" style="background: #fef3c7;">
+            <h3>⚠️ Important Notes</h3>
+            <ul>
+                <li>Make sure the development server is running on port 3000</li>
+                <li>Stripe webhook might need to be running for automatic credit addition</li>
+                <li>Check the terminal for any error messages</li>
+                <li>For webhook testing, use Stripe CLI: <code>stripe listen --forward-to localhost:3000/api/stripe/webhook</code></li>
+            </ul>
+        </div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <p>Need help? Check the console logs or the <a href="https://stripe.com/docs/testing" target="_blank">Stripe Testing Documentation</a></p>
+        </div>
+    </div>
+</body>
+</html>
