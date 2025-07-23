@@ -3,10 +3,6 @@ import Stripe from "stripe";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-});
-
 // 产品配置
 const CREDIT_PRODUCTS = {
   "prod_SikhNUm5QhhQ7x": {
@@ -43,6 +39,11 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
+    
+    // 在函数内部初始化 Stripe
+    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
+      apiVersion: "2025-06-30.basil",
+    });
 
     const { productId } = await request.json();
     console.log("Product ID:", productId);
