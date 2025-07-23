@@ -11,11 +11,17 @@ const TRANS_TYPE = {
   BONUS: 'bonus'
 } as const;
 
-// 创建管理员客户端（绕过RLS）
-const adminSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// 获取管理员客户端的函数（绕过RLS）
+function getAdminSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
+}
 
 // 内存缓存
 const cache = new Map<string, { data: any; timestamp: number }>();
@@ -70,7 +76,7 @@ export async function GET(request: NextRequest) {
       if (!userId) {
         // 从auth获取用户ID - 临时使用管理员客户端绕过cookies问题
         try {
-          const { data: { user }, error: userError } = await adminSupabase.auth.getUser();
+          const { data: { user }, error: userError } = await getAdminSupabase().auth.getUser();
           
           if (userError || !user) {
             return NextResponse.json(
@@ -100,7 +106,7 @@ export async function GET(request: NextRequest) {
       console.log(`🔍 Checking credits for order ${order_id}, user ${userId}`);
 
       // 1. 查找对应的积分记录
-      const { data: creditRecords, error: creditError } = await adminSupabase
+      const { data: creditRecords, error: creditError } = await getAdminSupabase()
         .from('credits')
         .select('*')
         .eq('user_uuid', userId)
@@ -121,7 +127,7 @@ export async function GET(request: NextRequest) {
       const totalCredits = creditRecords?.reduce((sum, record) => sum + (record.credits || 0), 0) || 0;
 
       // 2. 查找对应的订单记录（额外验证）
-      const { data: orderRecord, error: orderError } = await adminSupabase
+      const { data: orderRecord, error: orderError } = await getAdminSupabase()
         .from('orders')
         .select('*')
         .eq('user_id', userId)
@@ -133,7 +139,7 @@ export async function GET(request: NextRequest) {
       }
 
       // 3. 查找对应的订阅记录（额外验证）
-      const { data: subscriptionRecord, error: subscriptionError } = await adminSupabase
+      const { data: subscriptionRecord, error: subscriptionError } = await getAdminSupabase()
         .from('subscriptions')
         .select('*')
         .eq('user_id', userId)
