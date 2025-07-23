@@ -1,14 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 
-// 创建 Supabase 客户端
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// 获取 Supabase 客户端的函数
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
+}
 
 export async function getUserCreditsBalanceSupabase(userUuid: string) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from('user_credits_balance')
       .select('*')
       .eq('user_uuid', userUuid)
@@ -36,7 +42,7 @@ export async function createOrUpdateUserCreditsBalanceSupabase(
     
     if (existing) {
       // 更新余额
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseClient()
         .from('user_credits_balance')
         .update({
           balance: existing.balance + creditsToAdd,
@@ -50,7 +56,7 @@ export async function createOrUpdateUserCreditsBalanceSupabase(
       return data;
     } else {
       // 创建新记录
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseClient()
         .from('user_credits_balance')
         .insert({
           user_uuid: userUuid,

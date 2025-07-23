@@ -1,14 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 
-// 创建 Supabase 客户端
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// 获取 Supabase 客户端的函数
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
+}
 
 export async function findOrderByOrderNoSupabase(orderNo: string) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from('orders')
       .select('*')
       .eq('order_no', orderNo)
@@ -34,7 +40,7 @@ export async function updateOrderStatusSupabase(
   paidDetail?: string
 ) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from('orders')
       .update({
         status: status,
@@ -60,7 +66,7 @@ export async function updateOrderStatusSupabase(
 
 export async function insertOrderSupabase(orderData: any) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await getSupabaseClient()
       .from('orders')
       .insert([orderData])
       .select()
