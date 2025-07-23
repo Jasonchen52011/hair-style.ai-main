@@ -40,7 +40,10 @@ function SignInContent() {
 
     try {
       const { type, provider } = options;
-      let redirectURL = (process.env.NEXT_PUBLIC_APP_URL || window.location.origin) + "/api/auth/callback";
+      // 确保使用正确的回调 URL
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 
+        (typeof window !== 'undefined' ? window.location.origin : 'https://hair-style.ai');
+      let redirectURL = appUrl + "/api/auth/callback";
       
       // 如果有 returnUrl，将其添加到回调 URL 中
       if (returnUrl) {
