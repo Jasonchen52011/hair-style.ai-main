@@ -10,11 +10,17 @@ import { cookies } from "next/headers";
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
 
-// 创建管理员客户端（绕过RLS）
-const adminSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// 获取管理员客户端的函数（绕过RLS）
+function getAdminSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
+}
 
 // 创建统一的 axios 实例
 const client = axios.create({
@@ -146,7 +152,7 @@ export async function POST(req: NextRequest) {
             // 现在可以使用普通客户端，因为RLS策略已经允许用户读取自己的积分
             try {
                 // 检查用户的活跃订阅 - 订阅表仍需要管理员权限
-                const { data: subscriptions, error: subscriptionError } = await adminSupabase
+                const { data: subscriptions, error: subscriptionError } = await getAdminSupabase()
                     .from('subscriptions')
                     .select('*')
                     .eq('user_id', user.id)
@@ -170,7 +176,7 @@ export async function POST(req: NextRequest) {
                 } else {
                     console.error('Balance query error:', balanceError);
                     // 如果查询失败，回退到管理员客户端
-                    const { data: fallbackBalance, error: fallbackError } = await adminSupabase
+                    const { data: fallbackBalance, error: fallbackError } = await getAdminSupabase()
                         .from('user_credits_balance')
                         .select('balance')
                         .eq('user_uuid', user.id)
@@ -539,14 +545,14 @@ export async function GET(req: NextRequest) {
             if (user) {
               // 并行查询订阅状态和已有积分记录
               const [subscriptionsResult, existingCreditResult] = await Promise.all([
-                adminSupabase
+                getAdminSupabase()
                   .from('subscriptions')
                   .select('id')
                   .eq('user_id', user.id)
                   .eq('status', 'active')
                   .gte('end_date', new Date().toISOString())
                   .limit(1),
-                adminSupabase
+                getAdminSupabase()
                   .from('credits')
                   .select('trans_no, credits, created_at')
                   .eq('user_uuid', user.id)
@@ -558,7 +564,7 @@ export async function GET(req: NextRequest) {
               const hasActiveSubscription = !subscriptionsResult.error && subscriptionsResult.data && subscriptionsResult.data.length > 0;
               
               // 检查用户是否有积分余额（订阅用户或购买积分的用户）
-              const { data: userBalance, error: balanceCheckError } = await adminSupabase
+              const { data: userBalance, error: balanceCheckError } = await getAdminSupabase()
                 .from('user_credits_balance')
                 .select('balance')
                 .eq('user_uuid', user.id)
@@ -582,7 +588,7 @@ export async function GET(req: NextRequest) {
                   console.log(`🔄 No existing credit found, proceeding with deduction for successful task ${taskId}`);
                   
                   // 获取用户当前积分
-                  const { data: balance, error: balanceError } = await adminSupabase
+                  const { data: balance, error: balanceError } = await getAdminSupabase()
                     .from('user_credits_balance')
                     .select('balance')
                     .eq('user_uuid', user.id)
@@ -597,7 +603,7 @@ export async function GET(req: NextRequest) {
                     console.log(`🔄 Generated transaction number: ${transactionNo}`);
 
                     // 优化：使用更快的单次操作
-                    const updateResult = await adminSupabase
+                    const updateResult = await getAdminSupabase()
                       .from('user_credits_balance')
                       .update({
                         balance: balance.balance - 10,
@@ -607,7 +613,7 @@ export async function GET(req: NextRequest) {
 
                                          let insertResult: { error: any } = { error: null };
                      if (!updateResult.error) {
-                       insertResult = await adminSupabase
+                       insertResult = await getAdminSupabase()
                         .from('credits')
                         .insert({
                           user_uuid: user.id,
