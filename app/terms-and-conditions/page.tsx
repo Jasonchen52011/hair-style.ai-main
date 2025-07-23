@@ -352,22 +352,6 @@ export default function TermsAndConditions() {
             </p>
           </section>
 
-          <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">16. Contact Information</h2>
-            <p className="text-gray-600 mb-4">
-              If you have any questions about these Terms and Conditions, please contact us:
-            </p>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <ul className="space-y-2 text-gray-600">
-                <li><strong>Company:</strong> Edurance Technology Limited</li>
-                <li><strong>Registration Number:</strong> 76974526</li>
-                <li><strong>Address:</strong> UNIT 1904, 19/F PODIUM PLAZA, 5 HANOI RD TST, HONG KONG</li>
-                <li><strong>Email:</strong> hello@hair-style.ai</li>
-                <li><strong>Website:</strong> <a href="https://hair-style.ai" className="text-blue-600 hover:underline">hair-style.ai</a></li>
-                <li><strong>Subject Line:</strong> Terms and Conditions Inquiry</li>
-              </ul>
-            </div>
-          </section>
 
           <div className="border-t pt-8 text-sm text-gray-500">
             <p className="mb-2"><strong>Last updated:</strong> {new Date().toLocaleDateString()}</p>
