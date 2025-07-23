@@ -15,8 +15,8 @@ export default async function ({
 
     await handleOrderSession(session);
   } catch (e) {
-    redirect(process.env.NEXT_PUBLIC_PAY_FAIL_URL || "/");
+    redirect(process.env.NEXT_PUBLIC_PAY_FAIL_URL || "/pricing");
   }
 
-  redirect(process.env.NEXT_PUBLIC_PAY_SUCCESS_URL || "/");
+  redirect(process.env.NEXT_PUBLIC_PAY_SUCCESS_URL || "/my-orders");
 }
