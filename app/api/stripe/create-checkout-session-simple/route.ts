@@ -97,8 +97,8 @@ export async function POST(request: NextRequest) {
           },
         ],
         mode: "payment",
-        success_url: `${process.env.NEXT_PUBLIC_PAY_SUCCESS_URL || 'http://localhost:3001/my-orders'}?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: process.env.NEXT_PUBLIC_PAY_CANCEL_URL || 'http://localhost:3001/pricing',
+        success_url: `${process.env.NEXT_PUBLIC_PAY_SUCCESS_URL || 'https://hair-style.ai/my-orders'}?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: process.env.NEXT_PUBLIC_PAY_CANCEL_URL || 'https://hair-style.ai/pricing',
         metadata: {
           order_no: orderNo,
           user_id: user.id,
