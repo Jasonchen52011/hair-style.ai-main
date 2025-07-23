@@ -1,10 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 import { getProductPlanMap } from '../config';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+// 获取 Supabase 客户端的函数
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
+}
 
 export interface SubscriptionTransition {
   type: 'upgrade' | 'downgrade' | 'new' | 'none';
@@ -198,7 +205,7 @@ async function addCredits(
   expiredAt: string | null
 ): Promise<void> {
   // 获取当前积分
-  const { data: balance, error: balanceError } = await supabase
+  const { data: balance, error: balanceError } = await getSupabaseClient()
     .from('user_credits_balance')
     .select('balance')
     .eq('user_uuid', userId)
@@ -212,7 +219,7 @@ async function addCredits(
 
   // 同时更新credits表和user_credits_balance表
   const [creditsResult, balanceResult] = await Promise.all([
-    supabase
+    getSupabaseClient()
       .from('credits')
       .insert({
         user_uuid: userId,
@@ -224,7 +231,7 @@ async function addCredits(
         created_at: new Date().toISOString(),
         event_type: transType === 'purchase' ? 'subscription.paid' : 'subscription.transfer'
       }),
-    supabase
+    getSupabaseClient()
       .from('user_credits_balance')
       .update({
         balance: currentCredits + credits,
@@ -246,7 +253,7 @@ async function addCredits(
  * 获取用户当前积分
  */
 export async function getUserCurrentCredits(userId: string): Promise<number> {
-  const { data: balance, error } = await supabase
+  const { data: balance, error } = await getSupabaseClient()
     .from('user_credits_balance')
     .select('balance')
     .eq('user_uuid', userId)
@@ -263,7 +270,7 @@ export async function getUserCurrentCredits(userId: string): Promise<number> {
  * 获取用户活跃订阅
  */
 export async function getUserActiveSubscriptions(userId: string): Promise<any[]> {
-  const { data: subscriptions, error } = await supabase
+  const { data: subscriptions, error } = await getSupabaseClient()
     .from('subscriptions')
     .select('*')
     .eq('user_id', userId)
@@ -318,7 +325,7 @@ export async function activatePendingSubscriptions(): Promise<void> {
   const now = new Date();
   
   // 查找所有应该激活的待激活订阅
-  const { data: pendingSubscriptions, error: fetchError } = await supabase
+  const { data: pendingSubscriptions, error: fetchError } = await getSupabaseClient()
     .from('subscriptions')
     .select('*')
     .eq('status', 'pending')
@@ -336,7 +343,7 @@ export async function activatePendingSubscriptions(): Promise<void> {
   for (const subscription of pendingSubscriptions) {
     try {
       // 激活订阅
-      const { error: updateError } = await supabase
+      const { error: updateError } = await getSupabaseClient()
         .from('subscriptions')
         .update({
           status: 'active',
