@@ -6,10 +6,6 @@ import { getSnowId } from "@/lib/hash";
 import { orders } from "@/db/schema";
 import { STRIPE_PRODUCTS, getStripeProduct, isValidStripeProductId } from "@/config/stripe-config";
 
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-});
-
 export async function POST(request: Request) {
   try {
     // 检查环境变量
@@ -20,6 +16,11 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+    
+    // 在函数内部初始化 Stripe
+    const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
+      apiVersion: "2025-06-30.basil",
+    });
 
     const { productId } = await request.json();
 

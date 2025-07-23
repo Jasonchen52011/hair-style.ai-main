@@ -1,11 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, {
-  apiVersion: "2024-12-18.acacia",
-});
-
 export async function GET(request: NextRequest) {
+  // 在函数内部初始化 Stripe
+  const stripePrivateKey = process.env.STRIPE_PRIVATE_KEY;
+  
+  if (!stripePrivateKey) {
+    return NextResponse.json(
+      { error: 'Stripe configuration error' },
+      { status: 500 }
+    );
+  }
+  
+  const stripe = new Stripe(stripePrivateKey, {
+    apiVersion: "2025-06-30.basil",
+  });
   try {
     const searchParams = request.nextUrl.searchParams;
     const sessionId = searchParams.get("session_id");
