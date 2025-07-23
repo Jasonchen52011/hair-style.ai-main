@@ -1,17 +1,22 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest } from 'next/server';
 
-// 创建管理员客户端（绕过RLS）
-const adminSupabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
+// 获取管理员客户端的函数
+function getAdminSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false
     }
-  }
-);
+  });
+}
 
 /**
  * 简化的用户验证函数
@@ -30,7 +35,7 @@ export async function validateUserId(userId: string): Promise<{ valid: boolean; 
 
   try {
     // 检查用户是否存在于 users 表中
-    const { data: user, error: userError } = await adminSupabase
+    const { data: user, error: userError } = await getAdminSupabase()
       .from('users')
       .select('uuid')
       .eq('uuid', userId)
@@ -74,14 +79,14 @@ export function extractUserId(request: NextRequest): string | null {
  * 简化的数据库客户端，绕过 RLS 限制
  */
 export function getSimpleDbClient() {
-  return adminSupabase;
+  return getAdminSupabase();
 }
 
 /**
  * 简化的用户数据获取函数
  */
 export async function getUserProfile(userId: string) {
-  const { data: user, error } = await adminSupabase
+  const { data: user, error } = await getAdminSupabase()
     .from('users')
     .select('*')
     .eq('uuid', userId)
@@ -110,7 +115,7 @@ export async function getUserProfile(userId: string) {
  * 简化的用户积分获取函数
  */
 export async function getUserCredits(userId: string): Promise<number> {
-  const { data: balance, error } = await adminSupabase
+  const { data: balance, error } = await getAdminSupabase()
     .from('user_credits_balance')
     .select('balance')
     .eq('user_uuid', userId)
@@ -132,7 +137,7 @@ export async function getUserCredits(userId: string): Promise<number> {
  */
 export async function updateUserCredits(userId: string, credits: number) {
   // 先检查是否存在记录
-  const { data: existing } = await adminSupabase
+  const { data: existing } = await getAdminSupabase()
     .from('user_credits_balance')
     .select('id')
     .eq('user_uuid', userId)
@@ -140,7 +145,7 @@ export async function updateUserCredits(userId: string, credits: number) {
 
   if (existing) {
     // 更新现有记录
-    const { error } = await adminSupabase
+    const { error } = await getAdminSupabase()
       .from('user_credits_balance')
       .update({
         balance: credits,
@@ -153,7 +158,7 @@ export async function updateUserCredits(userId: string, credits: number) {
     }
   } else {
     // 创建新记录
-    const { error } = await adminSupabase
+    const { error } = await getAdminSupabase()
       .from('user_credits_balance')
       .insert({
         user_uuid: userId,
@@ -172,7 +177,7 @@ export async function updateUserCredits(userId: string, credits: number) {
  * 简化的订阅检查函数
  */
 export async function checkActiveSubscription(userId: string): Promise<boolean> {
-  const { data: subscriptions, error } = await adminSupabase
+  const { data: subscriptions, error } = await getAdminSupabase()
     .from('subscriptions')
     .select('id')
     .eq('user_id', userId)

@@ -3,11 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 import { getProductCreditsMap, getProductPlanMap } from "../../../../config";
 import { insertCreditsWithFallback, generateFallbackOrderNo } from "../../../../lib/credits-utils";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
-
 //用户取消和续费
 
 // 从配置文件获取产品映射
