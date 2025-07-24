@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from '@/utils/supabase/client';
 import { useCreditsUpdateListener } from '@/lib/credits-utils';
 
 interface CreditsContextType {
@@ -34,24 +34,25 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
   const [user, setUser] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   // 确保组件已挂载（客户端渲染）
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const refreshCredits = useCallback(async () => {
-    if (!user || !mounted || isRefreshing) return;
+  const refreshCredits = useCallback(async (userParam?: any) => {
+    const currentUser = userParam || user;
+    if (!currentUser || !mounted || isRefreshing) return;
     
     setIsRefreshing(true);
     let retries = 3; // 增加重试机制
     
     while (retries > 0) {
       try {
-        console.log(`🔄 Refreshing credits for user ${user.id} (attempt ${4 - retries})`);
+        console.log(`🔄 Refreshing credits for user ${currentUser.id} (attempt ${4 - retries})`);
         
-        const response = await fetch(`/api/user-credits-simple?userId=${user.id}&_t=${Date.now()}`, {
+        const response = await fetch(`/api/user-credits-simple?userId=${currentUser.id}&_t=${Date.now()}`, {
           method: 'GET',
           credentials: 'include',
           headers: {
@@ -59,7 +60,7 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': '0',
-            'x-user-id': user.id
+            'x-user-id': currentUser.id
           }
         });
         
@@ -131,17 +132,21 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
     const getUser = async () => {
       try {
         setLoading(true);
-        const { data } = await supabase.auth.getUser();
-        setUser(data.user);
         
-        if (data.user) {
-          // 立即获取用户credits信息，不再延迟
-          const response = await fetch(`/api/user-credits-simple?userId=${data.user.id}`, {
+        // 先检查是否有活动会话
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        console.log('🔍 Initial session check:', session?.user?.id, sessionError);
+        
+        if (session?.user) {
+          setUser(session.user);
+          
+          // 立即获取用户credits信息
+          const response = await fetch(`/api/user-credits-simple?userId=${session.user.id}`, {
             method: 'GET',
             credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
-              'x-user-id': data.user.id
+              'x-user-id': session.user.id
             },
           });
           
@@ -161,8 +166,18 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
             setHasActiveSubscription(false);
           }
         } else {
-          setCredits(0);
-          setHasActiveSubscription(false);
+          // 如果没有会话，再尝试getUser
+          const { data, error } = await supabase.auth.getUser();
+          console.log('🔍 Fallback user check:', data?.user?.id, error);
+          
+          if (data?.user) {
+            setUser(data.user);
+            await refreshCredits(data.user);
+          } else {
+            setUser(null);
+            setCredits(0);
+            setHasActiveSubscription(false);
+          }
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -174,6 +189,8 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
     };
 
     getUser();
+    // 注意：不要将 refreshCredits 作为依赖项，否则会导致无限循环
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase, mounted]);
 
   // 监听用户认证状态变化
@@ -182,20 +199,33 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
     
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('🔐 Auth state changed:', event, session?.user?.id, new Date().toISOString());
         if (event === 'SIGNED_IN' && session?.user) {
+          console.log('✅ User signed in, updating state');
           setUser(session.user);
-          // 用户登录后立即获取积分，移除延迟
-          await refreshCredits();
+          // 用户登录后立即获取积分，传递用户参数
+          await refreshCredits(session.user);
         } else if (event === 'SIGNED_OUT') {
+          console.log('👋 User signed out');
           setUser(null);
           setCredits(0);
           setHasActiveSubscription(false);
+        } else if (event === 'INITIAL_SESSION' && session?.user) {
+          console.log('🔄 Initial session detected');
+          // 处理页面刷新时的初始会话
+          setUser(session.user);
+          await refreshCredits(session.user);
+        } else if (event === 'TOKEN_REFRESHED' && session?.user) {
+          console.log('🔑 Token refreshed');
+          setUser(session.user);
         }
       }
     );
 
     return () => subscription.unsubscribe();
-  }, [supabase, refreshCredits, mounted]);
+    // 注意：不要将 refreshCredits 作为依赖项，否则会导致无限循环
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [supabase, mounted]);
 
   // 监听积分更新事件
   useEffect(() => {
@@ -222,7 +252,9 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
     }, 5 * 60 * 1000); // 5分钟刷新一次
 
     return () => clearInterval(interval);
-  }, [mounted, user, refreshCredits]);
+    // 注意：refreshCredits 是稳定的，但为了避免潜在问题，不将其作为依赖项
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted, user]);
 
   return (
     <CreditsContext.Provider value={{
@@ -230,7 +262,7 @@ export const CreditsProvider: React.FC<CreditsProviderProps> = ({ children }) =>
       hasActiveSubscription,
       loading,
       user,
-      refreshCredits,
+      refreshCredits: () => refreshCredits(),
       updateCredits
     }}>
       {children}

@@ -1,16 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/client";
 import PriceFAQ from "@/components/PriceFAQ";
 import ButtonSignin from "@/components/navbar/ButtonSignin";
 import FeedbackModal from "@/components/FeedbackModal";
 import { loadStripe } from "@stripe/stripe-js";
+import { useCredits } from "@/contexts/CreditsContext";
 
 // Stripe产品配置
 const CREDIT_PRODUCTS = [
   {
-    id: "prod_SikhNUm5QhhQ7x",
+    // id: "prod_SikhNUm5QhhQ7x", // 测试产品ID
+    // id: "prod_SjPvsJrHNSaBOZ", // 不再在前端暴露真实产品ID
+    productType: "basic", // 使用产品类型标识
     name: "50 Credits",
     description: "Perfect for trying out",
     price: 5,
@@ -23,7 +26,9 @@ const CREDIT_PRODUCTS = [
     ],
   },
   {
-    id: "prod_SikttkRGqAS13E",
+    // id: "prod_SikttkRGqAS13E", // 测试产品ID
+    // id: "prod_SjPvk5h4hq51yu", // 不再在前端暴露真实产品ID
+    productType: "standard", // 使用产品类型标识
     name: "100 Credits",
     description: "Great for regular use",
     price: 9,
@@ -37,7 +42,9 @@ const CREDIT_PRODUCTS = [
     ],
   },
   {
-    id: "prod_Sikk0qfbCozkzi",
+    // id: "prod_Sikk0qfbCozkzi", // 测试产品ID
+    // id: "prod_SjPvNGMg9hBfx5", // 不再在前端暴露真实产品ID
+    productType: "popular", // 使用产品类型标识
     name: "400 Credits",
     description: "Best value for enthusiasts",
     price: 32,
@@ -52,7 +59,9 @@ const CREDIT_PRODUCTS = [
     popular: true,
   },
   {
-    id: "prod_SiknTEhiFiuKsA",
+    // id: "prod_SiknTEhiFiuKsA", // 测试产品ID
+    // id: "prod_SjPvsVYq2Ftv2j", // 不再在前端暴露真实产品ID
+    productType: "professional", // 使用产品类型标识
     name: "800 Credits",
     description: "For professionals",
     price: 56,
@@ -69,12 +78,11 @@ const CREDIT_PRODUCTS = [
 ];
 
 export default function PricingPageStripe() {
-  const [user, setUser] = useState<any>(null);
+  const { user, credits: userCredits, loading: creditsLoading } = useCredits();
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState<{
     [key: string]: boolean;
   }>({});
-  const [userCredits, setUserCredits] = useState(0);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [hasShownFeedback, setHasShownFeedback] = useState(false);
@@ -83,43 +91,12 @@ export default function PricingPageStripe() {
     url?: string;
     event?: any;
   } | null>(null);
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
-  // 获取用户信息和积分余额
+  // 同步loading状态
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const { data } = await supabase.auth.getUser();
-        setUser(data.user);
-
-        if (data.user) {
-          // 获取用户积分余额
-          try {
-            const response = await fetch("/api/user-credits-balance", {
-              method: "GET",
-              credentials: "include",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              setUserCredits(data.balance || 0);
-            }
-          } catch (error) {
-            console.error("Error fetching user credits:", error);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getUser();
-  }, [supabase]);
+    setLoading(creditsLoading);
+  }, [creditsLoading]);
 
   // Stripe支付处理
   const handlePurchase = async (productId: string) => {
@@ -142,7 +119,7 @@ export default function PricingPageStripe() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId }),
+        body: JSON.stringify({ productType: productId }), // 传递 productType 而不是真实的 productId
       });
 
       if (!response.ok) {
@@ -276,7 +253,7 @@ export default function PricingPageStripe() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {CREDIT_PRODUCTS.map((product) => (
               <div
-                key={product.id}
+                key={product.productType}
                 className={`relative w-full ${product.popular ? "max-w-lg mx-auto lg:max-w-none" : ""}`}
               >
                 {product.popular && (
@@ -331,15 +308,15 @@ export default function PricingPageStripe() {
                   </ul>
                   <div className="space-y-2">
                     <button
-                      onClick={() => handlePurchase(product.id)}
-                      disabled={buttonLoading[product.id]}
+                      onClick={() => handlePurchase(product.productType)}
+                      disabled={buttonLoading[product.productType]}
                       className={`w-full ${
                         product.popular
                           ? "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-purple-400 disabled:to-pink-400"
                           : "bg-purple-700 hover:bg-purple-800 disabled:bg-purple-400"
                       } text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:scale-100 shadow-lg flex items-center justify-center gap-2`}
                     >
-                      {buttonLoading[product.id] && (
+                      {buttonLoading[product.productType] && (
                         <svg
                           className="animate-spin h-4 w-4"
                           fill="none"

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, Suspense } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/client";
 import { Provider } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 import config from "@/config";
@@ -10,7 +10,7 @@ import { useSearchParams } from "next/navigation";
 
 // 将使用 useSearchParams 的逻辑分离到单独组件
 function SignInContent() {
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);

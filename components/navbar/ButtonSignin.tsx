@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useRef, memo } from "react";
 import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/client";
 import config from "@/config";
 import { useCredits } from "@/contexts/CreditsContext";
 
@@ -140,8 +140,8 @@ const ButtonSignin = memo(({
   text?: string;
   extraStyle?: string;
 }) => {
-  const supabase = createClientComponentClient();
-  const { credits, hasActiveSubscription, loading, user } = useCredits();
+  const supabase = createClient();
+  const { credits, hasActiveSubscription, loading, user, refreshCredits } = useCredits();
   const [showDropdown, setShowDropdown] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -169,6 +169,17 @@ const ButtonSignin = memo(({
     setLoginUrl(url);
   }, []);
 
+  // 当组件加载时，如果没有用户但可能有会话，尝试刷新
+  useEffect(() => {
+    if (!loading && !user && refreshCredits) {
+      // 在页面加载后短暂延迟再检查一次
+      const timer = setTimeout(() => {
+        refreshCredits();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [loading, user, refreshCredits]);
+
   // 登出函数
   const handleSignOut = async () => {
     if (isSigningOut) return;
@@ -190,12 +201,25 @@ const ButtonSignin = memo(({
     setShowDropdown(!showDropdown);
   };
 
+  // 调试日志
+  useEffect(() => {
+    console.log('🌐 ButtonSignin state:', { 
+      loading, 
+      user: user?.id, 
+      credits, 
+      hasActiveSubscription,
+      timestamp: new Date().toISOString()
+    });
+  }, [loading, user, credits, hasActiveSubscription]);
+
   // 优化加载状态
   if (loading) {
+    console.log('⏳ ButtonSignin: Loading...');
     return <LoadingSkeleton />;
   }
 
   if (user) {
+    console.log('✅ ButtonSignin: User detected, showing profile');
     return (
       <div className="flex items-center space-x-3">
         {/* Credits显示 */}

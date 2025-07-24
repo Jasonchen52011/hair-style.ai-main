@@ -3,11 +3,19 @@ import Stripe from "stripe";
 // Removed unused imports - using Supabase functions instead
 
 export async function POST(request: NextRequest) {
+  console.log("=== Webhook received ===");
+  
   // 在函数内部初始化 Stripe
   const stripePrivateKey = process.env.STRIPE_PRIVATE_KEY;
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
   
+  console.log("Webhook secret configured:", !!endpointSecret);
+  
   if (!stripePrivateKey || !endpointSecret) {
+    console.error("Missing configuration:", { 
+      hasPrivateKey: !!stripePrivateKey, 
+      hasEndpointSecret: !!endpointSecret 
+    });
     return NextResponse.json(
       { error: 'Server configuration error' },
       { status: 500 }
@@ -33,10 +41,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  console.log("Event type:", event.type);
+  console.log("Event ID:", event.id);
+  
   // 处理事件
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
+      console.log("Processing checkout session:", session.id);
+      console.log("Session metadata:", session.metadata);
       
       try {
         // 获取订单信息
@@ -124,6 +137,14 @@ export async function POST(request: NextRequest) {
       break;
     }
 
+    case "charge.succeeded": {
+      // 可选：处理 charge.succeeded 事件
+      const charge = event.data.object as Stripe.Charge;
+      console.log(`Charge succeeded: ${charge.id}, amount: ${charge.amount}`);
+      // 注意：charge 事件可能没有订单元数据，建议使用 checkout.session.completed
+      break;
+    }
+    
     default:
       console.log(`Unhandled event type ${event.type}`);
   }

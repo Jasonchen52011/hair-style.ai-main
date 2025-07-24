@@ -3,9 +3,8 @@ import axios from "axios";
 import FormData from "form-data";
 import axiosRetry from 'axios-retry';
 import { headers } from 'next/headers';
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from '@supabase/supabase-js';
-import { cookies } from "next/headers";
+import { createRouteClient } from '@/utils/supabase/route-handler';
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
@@ -140,8 +139,7 @@ export async function POST(req: NextRequest) {
         const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
         
         // 用户认证检查
-        const cookieStore = await cookies();
-        const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+        const supabase = await createRouteClient();
         const { data: { user } } = await supabase.auth.getUser();
         
         let hasActiveSubscription = false;
@@ -535,12 +533,16 @@ export async function GET(req: NextRequest) {
       if ((statusData.task_status === 2 || statusData.task_status === 'SUCCESS')) {
         // 快速检查内存缓存，避免重复处理
         if (!chargedTasks.has(taskId)) {
-          console.log(`🔄 Task ${taskId} completed successfully, starting credit deduction process`);
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`🔄 Task ${taskId} completed successfully, starting credit deduction process`);
+          }
           
                       try {
-              const cookieStore = await cookies();
-              const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-            const { data: { user } } = await supabase.auth.getUser();
+              const supabase = await createRouteClient();
+            const { data: { user }, error: userError } = await supabase.auth.getUser();
+            if (process.env.NODE_ENV === 'development') {
+              console.log(`👤 User check for task ${taskId}: user = ${user?.id}, error = ${userError?.message}`);
+            }
             
             if (user) {
               // 并行查询订阅状态和已有积分记录
