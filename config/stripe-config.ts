@@ -1,7 +1,8 @@
 // Stripe产品配置
 export const STRIPE_PRODUCTS = {
-  "prod_SikhNUm5QhhQ7x": {
-    id: "prod_SikhNUm5QhhQ7x",
+  // "prod_SikhNUm5QhhQ7x": { // 测试产品ID
+  "prod_SjPvsJrHNSaBOZ": {
+    id: "prod_SjPvsJrHNSaBOZ",
     name: "50 Credits",
     description: "Perfect for trying out",
     price: 5.00,
@@ -12,8 +13,9 @@ export const STRIPE_PRODUCTS = {
       "Credits never expire",
     ],
   },
-  "prod_SikttkRGqAS13E": {
-    id: "prod_SikttkRGqAS13E", 
+  // "prod_SikttkRGqAS13E": { // 测试产品ID
+  "prod_SjPvk5h4hq51yu": {
+    id: "prod_SjPvk5h4hq51yu", 
     name: "100 Credits",
     description: "Great for regular use",
     price: 9,
@@ -26,8 +28,9 @@ export const STRIPE_PRODUCTS = {
       "10% savings",
     ],
   },
-  "prod_Sikk0qfbCozkzi": {
-    id: "prod_Sikk0qfbCozkzi",
+  // "prod_Sikk0qfbCozkzi": { // 测试产品ID
+  "prod_SjPvNGMg9hBfx5": {
+    id: "prod_SjPvNGMg9hBfx5",
     name: "400 Credits",
     description: "Best value for enthusiasts",
     price: 32.00,
@@ -41,8 +44,9 @@ export const STRIPE_PRODUCTS = {
     ],
     popular: true, // Most Popular
   },
-  "prod_SiknTEhiFiuKsA": {
-    id: "prod_SiknTEhiFiuKsA",
+  // "prod_SiknTEhiFiuKsA": { // 测试产品ID
+  "prod_SjPvsVYq2Ftv2j": {
+    id: "prod_SjPvsVYq2Ftv2j",
     name: "800 Credits", 
     description: "For professionals",
     price: 56.00,
@@ -60,10 +64,10 @@ export const STRIPE_PRODUCTS = {
 
 // 按价格排序的产品数组
 export const STRIPE_PRODUCTS_ARRAY = [
-  STRIPE_PRODUCTS["prod_SikhNUm5QhhQ7x"],  // $5.00 - 50 Credits
-  STRIPE_PRODUCTS["prod_SikttkRGqAS13E"],  // $9.50 - 100 Credits  
-  STRIPE_PRODUCTS["prod_Sikk0qfbCozkzi"],  // $32.00 - 400 Credits (Most Popular)
-  STRIPE_PRODUCTS["prod_SiknTEhiFiuKsA"],  // $56.00 - 800 Credits
+  STRIPE_PRODUCTS["prod_SjPvsJrHNSaBOZ"],  // $5.00 - 50 Credits
+  STRIPE_PRODUCTS["prod_SjPvk5h4hq51yu"],  // $9.50 - 100 Credits  
+  STRIPE_PRODUCTS["prod_SjPvNGMg9hBfx5"],  // $32.00 - 400 Credits (Most Popular)
+  STRIPE_PRODUCTS["prod_SjPvsVYq2Ftv2j"],  // $56.00 - 800 Credits
 ];
 
 // 获取产品信息的辅助函数

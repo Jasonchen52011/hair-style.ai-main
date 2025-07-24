@@ -244,13 +244,13 @@ function SelectStylePageContent() {
         const pollStartTime = Date.now();
         const response = await analytics?.trackedFetch(
           `/api/submit?taskId=${taskId}`,
-          { method: 'GET' },
+          { method: 'GET', credentials: 'include' },
           { 
             actionName: 'poll_hairstyle_status',
             taskId: taskId,
             additionalData: { attempt: i + 1, maxAttempts }
           }
-        ) || await fetch(`/api/submit?taskId=${taskId}`);
+        ) || await fetch(`/api/submit?taskId=${taskId}`, { credentials: 'include' });
 
         if (!response.ok) {
           console.log(`Polling request failed, status: ${response.status}`);
@@ -339,7 +339,6 @@ function SelectStylePageContent() {
 
         // 检查是否应该停止轮询（服务器指导）
         if (data.shouldStopPolling) {
-          console.log('Server indicated to stop polling');
           clearInterval(countdownInterval);
           if (data.task_status === 2) {
             return data; // 任务成功完成
@@ -731,9 +730,9 @@ function SelectStylePageContent() {
             handleStyleSelect(imageUrlWithStyle);
 
             // 立即更新积分显示（如果后端返回了新余额）
-            if (typeof data.newCreditBalance === 'number') {
-              updateCredits(data.newCreditBalance);
-              console.log(`🚀 Credits updated immediately: ${data.newCreditBalance}`);
+            if (typeof result.newCreditBalance === 'number') {
+              updateCredits(result.newCreditBalance);
+              console.log(`🚀 Credits updated immediately: ${result.newCreditBalance}`);
             } else {
               // 如果没有返回新余额，则异步刷新积分
               await refreshCredits();

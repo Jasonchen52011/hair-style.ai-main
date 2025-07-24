@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 import config from "../../../../config";
 
 export const dynamic = "force-dynamic";
@@ -19,29 +18,7 @@ export async function GET(req: NextRequest) {
   if (code) {
     try {
       // 使用正确的auth helpers来处理PKCE流程
-      const cookieStore = await cookies();
-      const supabase = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        {
-          cookies: {
-            getAll() {
-              return cookieStore.getAll()
-            },
-            setAll(cookiesToSet: Array<{name: string, value: string, options?: any}>) {
-              try {
-                cookiesToSet.forEach(({ name, value, options }) => {
-                  cookieStore.set(name, value, options)
-                })
-              } catch (error) {
-                // The `set` method was called from a Server Component.
-                // This can be ignored if you have middleware refreshing
-                // user sessions.
-              }
-            },
-          },
-        }
-      );
+      const supabase = await createClient();
       
       // 使用auth helpers的exchangeCodeForSession方法，它会自动处理PKCE
       const { data, error } = await supabase.auth.exchangeCodeForSession(code);
@@ -52,6 +29,14 @@ export async function GET(req: NextRequest) {
       }
 
       const { user, session } = data;
+      
+      // 检查cookies是否正确设置
+      console.log('🍪 Session cookies after exchange:', {
+        hasSession: !!session,
+        hasAccessToken: !!session?.access_token,
+        hasRefreshToken: !!session?.refresh_token,
+        userId: user?.id
+      });
       
       // 如果认证成功且有用户信息，确保用户档案存在
       console.log('🔐 Auth callback - exchangeCodeForSession result:', { userId: user?.id, sessionExists: !!session });
@@ -223,7 +208,14 @@ export async function GET(req: NextRequest) {
   console.log('🔍 Auth callback - finalRedirectUrl:', finalRedirectUrl);
   console.log('🔍 Auth callback - needsClientRedirect:', needsClientRedirect);
     
-  return NextResponse.redirect(finalRedirectUrl);
+  // 创建响应对象
+  const response = NextResponse.redirect(finalRedirectUrl);
+  
+  // 确保 cookies 被正确设置
+  // Supabase SSR 应该已经处理了 cookies，但我们可以添加一些头信息来调试
+  response.headers.set('X-Auth-Success', 'true');
+  
+  return response;
 }
 
 // 确保用户在profiles表中有记录

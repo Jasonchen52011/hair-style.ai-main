@@ -63,6 +63,31 @@ function OrderSuccessContent() {
                   status: orderData.status
                 });
                 
+                // 如果订单状态是 pending，尝试处理订单
+                if (orderData.status === 'pending') {
+                  try {
+                    const response = await fetch('/api/process-order', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ sessionId }),
+                    });
+                    
+                    if (response.ok) {
+                      const result = await response.json();
+                      console.log('订单处理成功:', result);
+                      // 更新订单状态
+                      setOrderDetails(prev => ({ ...prev, status: 'paid' }));
+                      // 刷新积分
+                      setUserCredits(current => current + orderData.credits);
+                      toast.success(`成功充值 ${orderData.credits} 积分！`);
+                    }
+                  } catch (error) {
+                    console.error('处理订单失败:', error);
+                  }
+                }
+                
                 // 如果订单是已支付状态，延迟刷新积分
                 if (orderData.status === 'paid') {
                   setTimeout(async () => {
