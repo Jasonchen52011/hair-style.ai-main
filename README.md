@@ -1,5 +1,7 @@
 # Hairstyle AI - AI-Powered Hairstyle Generator
 
+Last deployment: 2025-07-24
+
 ## 🚀 Features
 
 - **AI Hairstyle Generation**: Transform your look with 60+ hairstyles
