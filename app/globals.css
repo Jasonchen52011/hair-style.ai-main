@@ -260,6 +260,13 @@ body {
   /* 增加移动端链接的可点击区域 */
   a, button {
     -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* 只给非滑动容器内的按钮设置 manipulation */
+  body > a,
+  body > button,
+  :not(.overflow-x-auto) > button,
+  :not(.overflow-x-auto) > a {
     touch-action: manipulation;
   }
   
@@ -271,16 +278,17 @@ body {
     align-items: center;
   }
   
-  /* 防止双击缩放，但允许特定元素横向滑动 */
-  * {
+  /* 防止双击缩放 - 只在body级别设置 */
+  body {
     touch-action: pan-y;
   }
   
-  /* 允许横向滑动的容器 - 提高优先级 */
+  /* 允许横向滑动的容器 - 确保覆盖所有情况 */
   .overflow-x-auto,
   .touch-pan-x,
   [style*="touch-action: pan-x"],
-  [style*="touchAction: 'pan-x'"] {
+  [style*="touchAction: 'pan-x'"],
+  .overflow-x-auto * {
     touch-action: pan-x !important;
     -webkit-overflow-scrolling: touch !important;
   }

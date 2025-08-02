@@ -2063,13 +2063,15 @@ function SelectStylePageContent() {
               </div>
 
               {/* 发型选择 - 横向滚动，移除标题 */}
-              <div className="mb-2 relative">
+              <div className="mb-2 relative" style={{ touchAction: 'pan-x' }}>
                 <div 
                   className="overflow-x-auto scrollbar-hide touch-pan-x" 
                   style={{ 
-                    touchAction: 'pan-x',
+                    touchAction: 'pan-x !important',
                     WebkitOverflowScrolling: 'touch',
-                    overscrollBehaviorX: 'contain'
+                    overscrollBehaviorX: 'contain',
+                    msOverflowStyle: 'none',
+                    scrollbarWidth: 'none'
                   }}
                 >
                   <div
@@ -2090,7 +2092,10 @@ function SelectStylePageContent() {
                             ? "border-purple-700 bg-purple-700 shadow-md"
                             : "border-transparent bg-gray-100 hover:border-gray-200"
                         }`}
-                        style={{ scrollSnapAlign: 'start' }}
+                        style={{ 
+                          scrollSnapAlign: 'start',
+                          touchAction: 'pan-x'
+                        }}
                       >
                         <div
                           className={`w-full ${
@@ -2246,9 +2251,23 @@ function SelectStylePageContent() {
                         display: none;
                     }
                     
-                    /* 移动端触摸优化 */
-                    .touch-pan-x {
+                    /* 移动端触摸优化 - 强制覆盖 */
+                    .touch-pan-x,
+                    .touch-pan-x * {
                         touch-action: pan-x !important;
+                        -webkit-touch-action: pan-x !important;
+                    }
+                    
+                    /* 特定于滑动容器 */
+                    .overflow-x-auto {
+                        touch-action: pan-x !important;
+                        -webkit-touch-action: pan-x !important;
+                    }
+                    
+                    .overflow-x-auto button {
+                        touch-action: pan-x !important;
+                        -webkit-touch-action: pan-x !important;
+                        pointer-events: auto;
                     }
                     
                     /* 为移动端滚动容器添加内边距 */
