@@ -2024,8 +2024,9 @@ function SelectStylePageContent() {
           {/* 移动端样式选择区域 - 固定在底部 */}
           {uploadedImageUrl && (
             <section
-              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full"
+              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full"
               aria-label="Style Selection"
+              style={{ touchAction: 'manipulation' }}
             >
               <h2 className="sr-only">Select Hairstyle</h2>
 
@@ -2063,7 +2064,14 @@ function SelectStylePageContent() {
 
               {/* 发型选择 - 横向滚动，移除标题 */}
               <div className="mb-2 relative">
-                <div className="overflow-x-auto scrollbar-hide touch-pan-x" style={{ touchAction: 'pan-x' }}>
+                <div 
+                  className="overflow-x-auto scrollbar-hide touch-pan-x" 
+                  style={{ 
+                    touchAction: 'pan-x',
+                    WebkitOverflowScrolling: 'touch',
+                    overscrollBehaviorX: 'contain'
+                  }}
+                >
                   <div
                     className="flex gap-0.5 py-1"
                     style={{ width: "max-content" }}
@@ -2111,7 +2119,14 @@ function SelectStylePageContent() {
 
               {/* 颜色选择 - 横向滚动，移除标题 */}
               <div className="mb-2 px-1 py-1 relative">
-                <div className="overflow-x-auto scrollbar-hide touch-pan-x" style={{ touchAction: 'pan-x' }}>
+                <div 
+                  className="overflow-x-auto scrollbar-hide touch-pan-x" 
+                  style={{ 
+                    touchAction: 'pan-x',
+                    WebkitOverflowScrolling: 'touch',
+                    overscrollBehaviorX: 'contain'
+                  }}
+                >
                   <div className="flex gap-2 py-1" style={{ width: "max-content" }}>
                     {hairColors.map((color) => (
                       <button
