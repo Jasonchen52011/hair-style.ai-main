@@ -1867,10 +1867,10 @@ function SelectStylePageContent() {
         </div>
 
         {/* 移动端布局 - 垂直布局，居中显示，固定高度不滚动 */}
-        <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] overflow-hidden relative max-w-full">
+        <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] relative max-w-full">
           {/* 移动端图片上传/预览区域 - 居中显示，增加空间 */}
           <section
-            className="flex-1 flex items-center justify-center py-8 px-4"
+            className="flex-1 flex items-center justify-center py-4 px-2 overflow-hidden"
             aria-label="Photo Upload Area"
           >
             <h2 className="sr-only">Upload Your Photo</h2>
@@ -1976,23 +1976,23 @@ function SelectStylePageContent() {
               </div>
             ) : (
               // 移动端预览区域 - 选中图片后，减少上方空白
-              <div className="h-full flex flex-col">
+              <div className="h-full w-full flex flex-col overflow-hidden">
                 {/* 图片显示区域 - 靠上显示，减少上方空白 */}
-                <div className="flex-1 flex items-start justify-center px-4 pt-4 relative">
-                  <div className="max-w-xs w-full">
+                <div className="flex-1 flex items-start justify-center px-2 pt-2 relative overflow-hidden">
+                  <div className="w-full max-w-[90vw] flex items-center justify-center">
                     <Image
                       src={uploadedImageUrl}
                       alt="Preview"
                       width={400}
                       height={400}
-                      className="w-full h-auto object-contain rounded-lg"
+                      className="max-w-full max-h-[50vh] w-auto h-auto object-contain rounded-lg"
                       unoptimized
                     />
                   </div>
                 </div>
                 
                 {/* 移动端 Guideline 入口 */}
-                <div className="text-center px-4 pb-4">
+                <div className="text-center px-2 pb-2 flex-shrink-0">
                   <button
                     onClick={() => handleShowGuideline(true)}
                     className="inline-flex items-center gap-1 px-3 py-2 text-purple-700 hover:text-purple-800 text-sm rounded-lg transition-colors"
@@ -2024,7 +2024,7 @@ function SelectStylePageContent() {
           {/* 移动端样式选择区域 - 固定在底部 */}
           {uploadedImageUrl && (
             <section
-              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full overflow-x-hidden"
+              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full"
               aria-label="Style Selection"
             >
               <h2 className="sr-only">Select Hairstyle</h2>
@@ -2063,9 +2063,9 @@ function SelectStylePageContent() {
 
               {/* 发型选择 - 横向滚动，移除标题 */}
               <div className="mb-2">
-                <div className="overflow-x-auto scrollbar-hide">
+                <div className="overflow-x-auto scrollbar-hide touch-pan-x">
                   <div
-                    className="flex gap-0.5 "
+                    className="flex gap-0.5 py-1"
                     style={{ width: "max-content" }}
                   >
                     {currentStyles.map((style) => (
@@ -2077,14 +2077,15 @@ function SelectStylePageContent() {
                             : null
                         }
                         onClick={() => handleStyleClick(style.style)}
-                        className={`flex-shrink-0 w-12 p-0.5 rounded-lg border transition-all ${
+                        className={`flex-shrink-0 w-14 p-0.5 rounded-lg border transition-all scroll-snap-align-start overflow-hidden ${
                           selectedStyle === style.style
                             ? "border-purple-700 bg-purple-700 shadow-md"
                             : "border-transparent bg-gray-100 hover:border-gray-200"
                         }`}
+                        style={{ scrollSnapAlign: 'start' }}
                       >
                         <div
-                          className={`w-12 ${
+                          className={`w-full ${
                             styleImageHeight === "h-24"
                               ? "h-12"
                               : styleImageHeight === "h-32"
@@ -2110,8 +2111,8 @@ function SelectStylePageContent() {
 
               {/* 颜色选择 - 横向滚动，移除标题 */}
               <div className="mb-2 px-1 py-1">
-                <div className="overflow-x-auto scrollbar-hide">
-                  <div className="flex gap-2" style={{ width: "max-content" }}>
+                <div className="overflow-x-auto scrollbar-hide touch-pan-x">
+                  <div className="flex gap-2 py-1" style={{ width: "max-content" }}>
                     {hairColors.map((color) => (
                       <button
                         key={color.id}
@@ -2123,7 +2124,7 @@ function SelectStylePageContent() {
                           previous_color: selectedColor
                         });
                       }}
-                        className={`flex-shrink-0 w-10 h-10 rounded-md transition-all ${
+                        className={`flex-shrink-0 w-10 h-10 rounded-md transition-all scroll-snap-align-start ${
                           selectedColor === color.id
                             ? color.id === "white"
                               ? "ring-2 ring-purple-700 ring-offset-1 border-2 border-purple-700"
@@ -2221,9 +2222,28 @@ function SelectStylePageContent() {
                     .scrollbar-hide {
                         -ms-overflow-style: none;
                         scrollbar-width: none;
+                        -webkit-overflow-scrolling: touch;
+                        overscroll-behavior-x: contain;
+                        scroll-snap-type: x proximity;
+                        scroll-behavior: smooth;
                     }
                     .scrollbar-hide::-webkit-scrollbar {
                         display: none;
+                    }
+                    
+                    /* 移动端触摸优化 */
+                    .touch-pan-x {
+                        touch-action: pan-x;
+                    }
+                    
+                    /* 为移动端滚动容器添加内边距 */
+                    @media (max-width: 1024px) {
+                        .overflow-x-auto {
+                            padding-left: 0.5rem;
+                            padding-right: 0.5rem;
+                            margin-left: -0.5rem;
+                            margin-right: -0.5rem;
+                        }
                     }
                     
                     /* 自定义滚动条样式 */
