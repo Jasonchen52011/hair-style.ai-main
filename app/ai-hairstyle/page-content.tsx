@@ -2233,7 +2233,7 @@ function SelectStylePageContent() {
                     
                     /* 移动端触摸优化 */
                     .touch-pan-x {
-                        touch-action: pan-x;
+                        touch-action: pan-x !important;
                     }
                     
                     /* 为移动端滚动容器添加内边距 */

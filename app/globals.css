@@ -271,9 +271,21 @@ body {
     align-items: center;
   }
   
-  /* 防止双击缩放 */
+  /* 防止双击缩放，但允许特定元素横向滑动 */
   * {
     touch-action: pan-y;
+  }
+  
+  /* 允许横向滑动的容器 */
+  .overflow-x-auto,
+  .touch-pan-x,
+  [style*="touch-action: pan-x"] {
+    touch-action: pan-x !important;
+  }
+  
+  /* 允许自由滑动的容器 */
+  .touch-manipulation {
+    touch-action: manipulation !important;
   }
   
   /* 下拉菜单项优化 */
