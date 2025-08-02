@@ -1403,7 +1403,7 @@ function SelectStylePageContent() {
 
         {/* 浮动按钮 - 移动端只显示图标，PC端隐藏，避免遮挡Credits */}
         {uploadedImageUrl && (
-          <div className="lg:hidden absolute top-16 left-1/2 -translate-x-1/2 flex flex-row gap-2">
+          <div className="lg:hidden absolute top-9 shadow left-1/2 -translate-x-1/2 flex flex-row gap-2 z-40">
             {resultImageUrl && (
               <button
                 onClick={() => handleDownload(resultImageUrl)}
@@ -1985,7 +1985,7 @@ function SelectStylePageContent() {
                       alt="Preview"
                       width={400}
                       height={400}
-                      className="max-w-full max-h-[50vh] w-auto h-auto object-contain rounded-lg"
+                      className="max-w-full max-h-[52vh] w-auto h-auto object-contain rounded-lg"
                       unoptimized
                     />
                   </div>
@@ -2243,6 +2243,24 @@ function SelectStylePageContent() {
                             padding-right: 0.5rem;
                             margin-left: -0.5rem;
                             margin-right: -0.5rem;
+                        }
+                    }
+                    
+                    /* 确保移动端可以正常滑动 */
+                    @media (pointer: coarse) {
+                        .overflow-x-auto {
+                            -webkit-user-select: none;
+                            user-select: none;
+                            cursor: grab;
+                        }
+                        
+                        .overflow-x-auto:active {
+                            cursor: grabbing;
+                        }
+                        
+                        /* 防止按钮在滑动时被触发 */
+                        .overflow-x-auto button {
+                            pointer-events: auto;
                         }
                     }
                     
