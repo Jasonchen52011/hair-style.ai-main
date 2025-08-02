@@ -564,7 +564,8 @@ export default function Hero() {
               // hairstyle options display - show all styles with auto horizontal scroll and 2 rows
               <div
                 ref={scrollContainerRef}
-                className="overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                className="overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x"
+                style={{ WebkitOverflowScrolling: 'touch' }}
                 onMouseEnter={handleScrollInteraction}
                 onTouchStart={handleScrollInteraction}
                 onScroll={handleScrollInteraction}
@@ -1139,6 +1140,25 @@ export default function Hero() {
           </button>
         </div>
       </div>
+      
+      {/* 添加移动端触摸优化样式 */}
+      <style jsx>{`
+        .touch-pan-x {
+          touch-action: pan-x;
+          -webkit-user-select: none;
+          user-select: none;
+        }
+        
+        @media (pointer: coarse) {
+          .overflow-x-auto {
+            cursor: grab;
+          }
+          
+          .overflow-x-auto:active {
+            cursor: grabbing;
+          }
+        }
+      `}</style>
     </section>
   );
 }
