@@ -83,13 +83,13 @@ export class Analytics {
         .single();
         
       if (error) {
-        console.error('Failed to log activity:', error);
+        // 静默失败，不影响用户体验
         return null;
       }
       
       return data;
     } catch (error) {
-      console.error('Analytics error:', error);
+      // 静默处理错误
       return null;
     }
   }
@@ -126,10 +126,10 @@ export class Analytics {
         });
         
       if (error) {
-        console.error('Failed to log API call:', error);
+        // 静默失败
       }
     } catch (error) {
-      console.error('Analytics API log error:', error);
+      // 静默处理
     }
   }
   
@@ -172,7 +172,7 @@ export class Analytics {
           .eq('task_id', taskId);
           
         if (error) {
-          console.error('Failed to update hairstyle task:', error);
+          // 静默失败
         }
       } else {
         // 创建新任务
@@ -195,7 +195,7 @@ export class Analytics {
           });
           
         if (error) {
-          console.error('Failed to create hairstyle task:', error);
+          // 静默失败
         }
       }
     } catch (error) {
@@ -225,10 +225,10 @@ export class Analytics {
         });
         
       if (error) {
-        console.error('Failed to log error:', error);
+        // 静默失败
       }
     } catch (error) {
-      console.error('Analytics error log error:', error);
+      // 静默处理
     }
   }
   
@@ -316,8 +316,8 @@ export class Analytics {
         responseBody,
         responseTime,
         metadata?.taskId,
-        errorType,
-        errorMessage
+        errorType || undefined,
+        errorMessage || undefined
       );
       
       // 如果有错误，记录到错误日志
