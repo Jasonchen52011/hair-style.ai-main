@@ -1333,7 +1333,7 @@ function SelectStylePageContent() {
   };
 
   return (
-    <div className="container mx-auto px-2 py-0 lg:py-2 min-h-screen h-screen overflow-hidden max-w-full">
+    <div className="container mx-auto px-2 py-0 lg:py-2 min-h-screen h-screen overflow-x-hidden overflow-y-auto max-w-full">
       <Toaster
         position="top-center"
         toastOptions={{
@@ -1378,7 +1378,7 @@ function SelectStylePageContent() {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto overflow-x-hidden">
+      <div className="max-w-7xl mx-auto">
         {/* Logo 区域作为 h1 标题 */}
         <div className="flex items-center justify-between mb-4 h-[48px]">
           <Link
@@ -1870,7 +1870,7 @@ function SelectStylePageContent() {
         <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] relative max-w-full">
           {/* 移动端图片上传/预览区域 - 居中显示，增加空间 */}
           <section
-            className="flex-1 flex items-center justify-center py-4 px-2 overflow-hidden"
+            className="flex-1 flex items-center justify-center py-4 px-2"
             aria-label="Photo Upload Area"
           >
             <h2 className="sr-only">Upload Your Photo</h2>
@@ -2062,8 +2062,8 @@ function SelectStylePageContent() {
               </div>
 
               {/* 发型选择 - 横向滚动，移除标题 */}
-              <div className="mb-2">
-                <div className="overflow-x-auto scrollbar-hide touch-pan-x">
+              <div className="mb-2 relative">
+                <div className="overflow-x-auto scrollbar-hide touch-pan-x" style={{ touchAction: 'pan-x' }}>
                   <div
                     className="flex gap-0.5 py-1"
                     style={{ width: "max-content" }}
@@ -2110,8 +2110,8 @@ function SelectStylePageContent() {
               </div>
 
               {/* 颜色选择 - 横向滚动，移除标题 */}
-              <div className="mb-2 px-1 py-1">
-                <div className="overflow-x-auto scrollbar-hide touch-pan-x">
+              <div className="mb-2 px-1 py-1 relative">
+                <div className="overflow-x-auto scrollbar-hide touch-pan-x" style={{ touchAction: 'pan-x' }}>
                   <div className="flex gap-2 py-1" style={{ width: "max-content" }}>
                     {hairColors.map((color) => (
                       <button
