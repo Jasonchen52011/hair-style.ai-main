@@ -276,11 +276,13 @@ body {
     touch-action: pan-y;
   }
   
-  /* 允许横向滑动的容器 */
+  /* 允许横向滑动的容器 - 提高优先级 */
   .overflow-x-auto,
   .touch-pan-x,
-  [style*="touch-action: pan-x"] {
+  [style*="touch-action: pan-x"],
+  [style*="touchAction: 'pan-x'"] {
     touch-action: pan-x !important;
+    -webkit-overflow-scrolling: touch !important;
   }
   
   /* 允许自由滑动的容器 */
