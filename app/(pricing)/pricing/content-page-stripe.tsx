@@ -246,7 +246,7 @@ export default function PricingPageStripe() {
               Pricing
             </h1>
             <p className="font-medium text-lg text-gray-500 mt-2 mb-6">
-              Purchase credits to generate AI hairstyles. 10 credits = 1 generation.
+               No subscription required. One-time purchase, lifetime use. 10 credits = 1 generation.
             </p>
           </div>
 
