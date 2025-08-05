@@ -1,8 +1,8 @@
 // Stripe产品配置
 export const STRIPE_PRODUCTS = {
   // "prod_SikhNUm5QhhQ7x": { // 测试产品ID
-  "prod_SjPvsJrHNSaBOZ": {
-    id: "prod_SjPvsJrHNSaBOZ",
+  "prod_SoOkvzK9C3gxpi": {
+    id: "prod_SoOkvzK9C3gxpi",
     name: "50 Credits",
     description: "Perfect for trying out",
     price: 5.00,
@@ -14,8 +14,8 @@ export const STRIPE_PRODUCTS = {
     ],
   },
   // "prod_SikttkRGqAS13E": { // 测试产品ID
-  "prod_SjPvk5h4hq51yu": {
-    id: "prod_SjPvk5h4hq51yu", 
+  "prod_SoOnH7PUrkuz85": {
+    id: "prod_SoOnH7PUrkuz85", 
     name: "100 Credits",
     description: "Great for regular use",
     price: 9,
@@ -29,8 +29,8 @@ export const STRIPE_PRODUCTS = {
     ],
   },
   // "prod_Sikk0qfbCozkzi": { // 测试产品ID
-  "prod_SjPvNGMg9hBfx5": {
-    id: "prod_SjPvNGMg9hBfx5",
+  "prod_SoOlCW6Qx6pAm2": {
+    id: "prod_SoOlCW6Qx6pAm2",
     name: "400 Credits",
     description: "Best value for enthusiasts",
     price: 32.00,
@@ -45,11 +45,11 @@ export const STRIPE_PRODUCTS = {
     popular: true, // Most Popular
   },
   // "prod_SiknTEhiFiuKsA": { // 测试产品ID
-  "prod_SjPvsVYq2Ftv2j": {
-    id: "prod_SjPvsVYq2Ftv2j",
+  "prod_SoOoHIVnE6zTR0": {
+    id: "prod_SoOoHIVnE6zTR0",
     name: "800 Credits", 
     description: "For professionals",
-    price: 56.00,
+    price: 1.00,
     credits: 800,
     features: [
       "80 AI hairstyle generations",
@@ -64,10 +64,10 @@ export const STRIPE_PRODUCTS = {
 
 // 按价格排序的产品数组
 export const STRIPE_PRODUCTS_ARRAY = [
-  STRIPE_PRODUCTS["prod_SjPvsJrHNSaBOZ"],  // $5.00 - 50 Credits
-  STRIPE_PRODUCTS["prod_SjPvk5h4hq51yu"],  // $9.50 - 100 Credits  
-  STRIPE_PRODUCTS["prod_SjPvNGMg9hBfx5"],  // $32.00 - 400 Credits (Most Popular)
-  STRIPE_PRODUCTS["prod_SjPvsVYq2Ftv2j"],  // $56.00 - 800 Credits
+  STRIPE_PRODUCTS["prod_SoOkvzK9C3gxpi"],  // $5.00 - 50 Credits
+  STRIPE_PRODUCTS["prod_SoOnH7PUrkuz85"],  // $9.00 - 100 Credits  
+  STRIPE_PRODUCTS["prod_SoOlCW6Qx6pAm2"],  // $32.00 - 400 Credits (Most Popular)
+  STRIPE_PRODUCTS["prod_SoOoHIVnE6zTR0"],  // $56.00 - 800 Credits
 ];
 
 // 获取产品信息的辅助函数

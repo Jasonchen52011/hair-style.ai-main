@@ -4,34 +4,31 @@ import { createClient } from "@/utils/supabase/server";
 
 // 产品类型到产品ID的映射（仅在后端使用）
 const PRODUCT_TYPE_MAP = {
-  "basic": "prod_SjPvsJrHNSaBOZ",       // 50 Credits
-  "standard": "prod_SjPvk5h4hq51yu",    // 100 Credits
-  "popular": "prod_SjPvNGMg9hBfx5",     // 400 Credits
-  "professional": "prod_SjPvsVYq2Ftv2j" // 800 Credits
+  "basic": "prod_SoOkvzK9C3gxpi",       // 50 Credits
+  "standard": "prod_SoOnH7PUrkuz85",    // 100 Credits
+  "popular": "prod_SoOlCW6Qx6pAm2",     // 400 Credits
+  "professional": "prod_SoOoHIVnE6zTR0" // 800 Credits
 };
 
 // 产品配置
 const CREDIT_PRODUCTS = {
-  // "prod_SikhNUm5QhhQ7x": { // 测试产品ID
-  "prod_SjPvsJrHNSaBOZ": {
+  // 新商户产品ID
+  "prod_SoOkvzK9C3gxpi": {
     name: "50 Credits",
     credits: 50,
     price: 500, // $5.00 in cents
   },
-  // "prod_SikttkRGqAS13E": { // 测试产品ID
-  "prod_SjPvk5h4hq51yu": {
+  "prod_SoOnH7PUrkuz85": {
     name: "100 Credits",
     credits: 100,
     price: 900, // $9.00 in cents
   },
-  // "prod_Sikk0qfbCozkzi": { // 测试产品ID
-  "prod_SjPvNGMg9hBfx5": {
+  "prod_SoOlCW6Qx6pAm2": {
     name: "400 Credits (Most Popular)",
     credits: 400,
     price: 3200, // $32.00 in cents
   },
-  // "prod_SiknTEhiFiuKsA": { // 测试产品ID
-  "prod_SjPvsVYq2Ftv2j": {
+  "prod_SoOoHIVnE6zTR0": {
     name: "800 Credits",
     credits: 800,
     price: 5600, // $56.00 in cents
