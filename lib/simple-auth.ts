@@ -34,11 +34,11 @@ export async function validateUserId(userId: string): Promise<{ valid: boolean; 
   }
 
   try {
-    // 检查用户是否存在于 users 表中
+    // 检查用户是否存在于 profiles 表中
     const { data: user, error: userError } = await getAdminSupabase()
-      .from('users')
-      .select('uuid')
-      .eq('uuid', userId)
+      .from('profiles')
+      .select('id')
+      .eq('id', userId)
       .single();
 
     if (userError && userError.code === 'PGRST116') {
@@ -87,13 +87,13 @@ export function getSimpleDbClient() {
  */
 export async function getUserProfile(userId: string) {
   const { data: user, error } = await getAdminSupabase()
-    .from('users')
+    .from('profiles')
     .select('*')
-    .eq('uuid', userId)
+    .eq('id', userId)
     .single();
 
   if (error) {
-    // 如果在users表找不到，返回null而不是抛出错误
+    // 如果在profiles表找不到，返回null而不是抛出错误
     if (error.code === 'PGRST116') {
       return null;
     }
@@ -102,9 +102,9 @@ export async function getUserProfile(userId: string) {
 
   // 转换为profile格式以保持兼容性
   return {
-    id: user.uuid,
+    id: user.id,
     email: user.email,
-    name: user.nickname,
+    name: user.nickname || user.email?.split('@')[0],
     image: user.avatar_url,
     created_at: user.created_at,
     updated_at: user.updated_at

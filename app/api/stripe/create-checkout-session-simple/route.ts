@@ -149,10 +149,18 @@ export async function POST(request: NextRequest) {
 
       try {
         await insertOrderSupabase(orderData);
-        console.log("Order created:", orderNo);
-      } catch (orderError) {
-        console.error("Failed to create order record:", orderError);
+        console.log("Order created successfully:", orderNo);
+      } catch (orderError: any) {
+        console.error("Failed to create order record:", {
+          error: orderError,
+          message: orderError?.message,
+          details: orderError?.details,
+          hint: orderError?.hint,
+          code: orderError?.code,
+          orderData: orderData
+        });
         // 继续返回 session，不要因为订单记录失败而中断支付流程
+        // 但要记录这个问题，后续通过 webhook 的 metadata 来补救
       }
 
       return NextResponse.json({

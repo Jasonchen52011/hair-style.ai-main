@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
           
           const transactionNo = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
           
-          await supabase
+          const { error: creditsError } = await supabase
             .from('credits')
             .insert([{
               trans_no: transactionNo,
@@ -115,6 +115,11 @@ export async function POST(request: NextRequest) {
               credits: credits,
               order_no: orderNo,
             }]);
+          
+          if (creditsError) {
+            console.error("Failed to insert credits:", creditsError);
+            throw creditsError;
+          }
 
           console.log(`Added ${credits} credits to user ${order.user_uuid}`);
         }
