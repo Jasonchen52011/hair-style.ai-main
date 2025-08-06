@@ -49,7 +49,7 @@ export const STRIPE_PRODUCTS = {
     id: "prod_SoOoHIVnE6zTR0",
     name: "800 Credits", 
     description: "For professionals",
-    price: 1.00,
+    price: 56.00,
     credits: 800,
     features: [
       "80 AI hairstyle generations",
