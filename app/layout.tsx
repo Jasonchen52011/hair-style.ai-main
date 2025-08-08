@@ -73,6 +73,7 @@ export default function RootLayout({
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="manifest" href="/manifest.json" />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296" crossOrigin="anonymous"></script>
         </head>
         <body className={`${satoshi.variable} antialiased`}>
           <Providers>
