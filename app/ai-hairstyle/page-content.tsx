@@ -51,8 +51,8 @@ function SelectStylePageContent() {
   // 添加ref用于滚动到选中的发型
   const selectedStyleRef = useRef<HTMLButtonElement>(null);
 
-  // 未登录用户使用次数限制
-  const [guestUsageCount, setGuestUsageCount] = useState<number>(3);
+  // 未登录用户终身使用次数限制
+  const [guestUsageCount, setGuestUsageCount] = useState<number>(1);
 
   // 自定义确认对话框状态
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -67,18 +67,41 @@ function SelectStylePageContent() {
 
   // 添加 guideline 弹窗状态
   const [showGuidelineModal, setShowGuidelineModal] = useState(false);
+  
+  // 全屏幕拖放状态
+  const [isGlobalDragging, setIsGlobalDragging] = useState(false);
+  
+  // 防止页面默认拖放行为
+  useEffect(() => {
+    const preventDefaultDrag = (e: DragEvent) => {
+      e.preventDefault();
+    };
+    
+    const preventDefaultDrop = (e: DragEvent) => {
+      e.preventDefault();
+    };
+    
+    // 在整个文档上阻止默认拖放行为
+    document.addEventListener('dragover', preventDefaultDrag);
+    document.addEventListener('drop', preventDefaultDrop);
+    
+    return () => {
+      document.removeEventListener('dragover', preventDefaultDrag);
+      document.removeEventListener('drop', preventDefaultDrop);
+    };
+  }, []);
   const [alwaysShowGuidelines, setAlwaysShowGuidelines] = useState(false); // 默认为false，避免干扰用户
 
-  // 初始化未登录用户使用次数
+  // 初始化未登录用户终身使用次数
   useEffect(() => {
     if (!user) {
-      const storedCount = localStorage.getItem("guest_hairstyle_usage_count");
+      const storedCount = localStorage.getItem("guest_hairstyle_lifetime_usage_count");
       if (storedCount) {
         const count = parseInt(storedCount);
         setGuestUsageCount(Math.max(0, count));
       } else {
-        setGuestUsageCount(3);
-        localStorage.setItem("guest_hairstyle_usage_count", "3");
+        setGuestUsageCount(1);
+        localStorage.setItem("guest_hairstyle_lifetime_usage_count", "1");
       }
     }
   }, [user]);
@@ -493,9 +516,9 @@ function SelectStylePageContent() {
         guest_usage_count: 0
       });
       setConfirmDialogConfig({
-        title: "Free hairstyle attempts are gone!",
+        title: "Free hairstyle attempt used!",
         message:
-          "Log in and buy Credits to continue creating new styles — your perfect look awaits.",
+          "You've used your one free try. Log in and buy Credits to continue creating new styles — your perfect look awaits.",
         confirmText: "Log In & Buy Credits",
         cancelText: "Cancel",
         onConfirm: () => {
@@ -576,8 +599,52 @@ function SelectStylePageContent() {
 
       console.log("Final selected color:", finalColor);
 
+      // 检查图片大小，如果超过3MB则压缩
+      let finalImageUrl = uploadedImageUrl;
+      
+      // 如果是 base64 数据，检查大小并压缩
+      if (uploadedImageUrl && uploadedImageUrl.startsWith('data:image/')) {
+        try {
+          // 计算 base64 图片的大小（大约）
+          const base64Data = uploadedImageUrl.split(',')[1];
+          const estimatedSize = base64Data.length * 0.75; // base64 编码大约比原文件大33%
+          
+          if (estimatedSize > 3 * 1024 * 1024) {
+            console.log(`Image size ~${(estimatedSize / 1024 / 1024).toFixed(2)}MB > 3MB, compressing before submit...`);
+            
+            // 后台压缩，无需提示用户
+            
+            // 将 base64 转换为 File 对象以便压缩
+            const response = await fetch(uploadedImageUrl);
+            const blob = await response.blob();
+            const tempFile = new File([blob], 'uploaded_image.jpg', { type: 'image/jpeg' });
+            
+            // 压缩图片 - 使用智能压缩，质量不低于60%
+            const compressedFile = await compressImageToSizeWithMinQuality(tempFile, 2.9 * 1024 * 1024, 0.6);
+            
+            // 将压缩后的文件转回 base64
+            const compressedDataUrl = await new Promise<string>((resolve) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result as string);
+              reader.readAsDataURL(compressedFile);
+            });
+            
+            finalImageUrl = compressedDataUrl;
+            
+            // 后台记录压缩结果，不显示给用户
+            const originalSizeMB = (tempFile.size / 1024 / 1024).toFixed(2);
+            const newSizeMB = (compressedFile.size / 1024 / 1024).toFixed(2);
+            console.log(`✅ Image compressed from ${originalSizeMB}MB to ${newSizeMB}MB before generation`);
+          }
+        } catch (error) {
+          console.error('Compression error during generation:', error);
+          // 如果压缩失败，仍然继续使用原图片（静默处理）
+          console.log('⚠️ Image compression failed, using original image');
+        }
+      }
+
       const requestBody = {
-        imageUrl: uploadedImageUrl,
+        imageUrl: finalImageUrl,
         hairStyle: selectedStyle || "color-only", // if no hairstyle selected, only change color
         hairColor: finalColor,
       };
@@ -766,12 +833,12 @@ function SelectStylePageContent() {
               await refreshCredits();
             }
 
-            // 更新未登录用户使用次数
+            // 更新未登录用户终身使用次数
             if (!user) {
               const newCount = Math.max(0, guestUsageCount - 1);
               setGuestUsageCount(newCount);
               localStorage.setItem(
-                "guest_hairstyle_usage_count",
+                "guest_hairstyle_lifetime_usage_count",
                 newCount.toString()
               );
             }
@@ -1176,8 +1243,334 @@ function SelectStylePageContent() {
     );
   };
 
+  // 图片尺寸检测函数
+  const checkImageDimensions = (file: File): Promise<{width: number, height: number, needsResize: boolean, reason?: string}> => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      const url = URL.createObjectURL(file);
+      
+      const timeout = setTimeout(() => {
+        URL.revokeObjectURL(url);
+        reject(new Error('Image loading timeout'));
+      }, 5000);
+      
+      img.onload = () => {
+        clearTimeout(timeout);
+        URL.revokeObjectURL(url);
+        
+        const { width, height } = img;
+        const minSize = 200;
+        const maxSize = 1999;
+        
+        let needsResize = false;
+        let reason = '';
+        
+        // 检查是否需要调整
+        if (width < minSize || height < minSize) {
+          needsResize = true;
+          reason = 'too_small';
+        } else if (width > maxSize || height > maxSize) {
+          needsResize = true;
+          reason = 'too_large';
+        }
+        
+        resolve({ width, height, needsResize, reason });
+      };
+      
+      img.onerror = () => {
+        clearTimeout(timeout);
+        URL.revokeObjectURL(url);
+        reject(new Error('Failed to load image'));
+      };
+      
+      img.src = url;
+    });
+  };
+
+  // Canvas图片处理和缩放函数
+  const resizeImageToCanvas = (file: File, targetWidth: number, targetHeight: number): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      const url = URL.createObjectURL(file);
+      
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          if (!ctx) {
+            throw new Error('Unable to create Canvas context');
+          }
+          
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          
+          // 高质量缩放
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          
+          // 绘制调整后的图片
+          ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+          
+          // 转换为Blob
+          canvas.toBlob((blob) => {
+            URL.revokeObjectURL(url);
+            if (blob) {
+              // 创建新的File对象
+              const resizedFile = new File([blob], file.name, {
+                type: file.type,
+                lastModified: Date.now()
+              });
+              resolve(resizedFile);
+            } else {
+              reject(new Error('Image processing failed'));
+            }
+          }, file.type, 0.9); // 90%质量
+          
+        } catch (error) {
+          URL.revokeObjectURL(url);
+          reject(error);
+        }
+      };
+      
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('Failed to load image'));
+      };
+      
+      img.src = url;
+    });
+  };
+
+  // 智能压缩图片：设置最小质量限制，避免过度压缩
+  const compressImageToSizeWithMinQuality = async (file: File, maxSizeBytes: number, minQuality: number = 0.6): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      const url = URL.createObjectURL(file);
+      
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          if (!ctx) {
+            throw new Error('Unable to create Canvas context');
+          }
+          
+          // 保持原始宽高比
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          
+          // 高质量缩放
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          
+          // 绘制原始图片
+          ctx.drawImage(img, 0, 0);
+          
+          // 质量级别：从90%降到最低质量
+          const qualities = [0.9, 0.85, 0.8, 0.75, 0.7, 0.65, minQuality];
+          let currentIndex = 0;
+          
+          const tryNextQuality = () => {
+            if (currentIndex >= qualities.length) {
+              // 如果达到最低质量仍然太大，则缩小尺寸但保持较好质量
+              const targetScale = Math.sqrt(maxSizeBytes / file.size * 0.85);
+              const newWidth = Math.max(800, Math.round(img.naturalWidth * targetScale)); // 最小宽度800px
+              const newHeight = Math.round(newWidth * img.naturalHeight / img.naturalWidth);
+              
+              canvas.width = newWidth;
+              canvas.height = newHeight;
+              ctx.drawImage(img, 0, 0, newWidth, newHeight);
+              
+              canvas.toBlob((finalBlob) => {
+                URL.revokeObjectURL(url);
+                if (finalBlob) {
+                  const finalFile = new File([finalBlob], file.name, {
+                    type: file.type,
+                    lastModified: Date.now()
+                  });
+                  console.log(`Final compression: resized to ${newWidth}x${newHeight} with 75% quality, result: ${(finalBlob.size / 1024 / 1024).toFixed(2)}MB`);
+                  resolve(finalFile);
+                } else {
+                  reject(new Error('Final compression failed'));
+                }
+              }, file.type, 0.75); // 缩小尺寸后使用75%质量
+              return;
+            }
+            
+            const quality = qualities[currentIndex];
+            canvas.toBlob((blob) => {
+              if (blob) {
+                console.log(`Quality ${(quality * 100).toFixed(0)}%: ${(blob.size / 1024 / 1024).toFixed(2)}MB (target: ${(maxSizeBytes / 1024 / 1024).toFixed(2)}MB)`);
+                
+                if (blob.size <= maxSizeBytes || quality === minQuality) {
+                  // 达到目标大小或已经是最低质量
+                  const compressedFile = new File([blob], file.name, {
+                    type: file.type,
+                    lastModified: Date.now()
+                  });
+                  URL.revokeObjectURL(url);
+                  resolve(compressedFile);
+                } else {
+                  // 尝试下一个质量级别
+                  currentIndex++;
+                  tryNextQuality();
+                }
+              } else {
+                reject(new Error('Blob creation failed'));
+              }
+            }, file.type, quality);
+          };
+          
+          tryNextQuality();
+          
+        } catch (error) {
+          URL.revokeObjectURL(url);
+          reject(error);
+        }
+      };
+      
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('Failed to load image for compression'));
+      };
+      
+      img.src = url;
+    });
+  };
+
+  // 原始压缩函数（保留用于向后兼容）
+  const compressImageToSize = async (file: File, maxSizeBytes: number): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image();
+      const url = URL.createObjectURL(file);
+      
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          if (!ctx) {
+            throw new Error('Unable to create Canvas context');
+          }
+          
+          // 保持原始宽高比
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          
+          // 高质量缩放
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          
+          // 绘制原始图片
+          ctx.drawImage(img, 0, 0);
+          
+          // 简化但有效的压缩算法：逐步降低质量直到符合大小要求
+          const qualities = [0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4];
+          let currentIndex = 0;
+          
+          const tryNextQuality = () => {
+            if (currentIndex >= qualities.length) {
+              // 如果所有质量都试过了，尝试缩小尺寸
+              const targetScale = Math.sqrt(maxSizeBytes / file.size * 0.8);
+              const newWidth = Math.round(img.naturalWidth * targetScale);
+              const newHeight = Math.round(img.naturalHeight * targetScale);
+              
+              canvas.width = newWidth;
+              canvas.height = newHeight;
+              ctx.drawImage(img, 0, 0, newWidth, newHeight);
+              
+              canvas.toBlob((finalBlob) => {
+                URL.revokeObjectURL(url);
+                if (finalBlob) {
+                  const finalFile = new File([finalBlob], file.name, {
+                    type: file.type,
+                    lastModified: Date.now()
+                  });
+                  resolve(finalFile);
+                } else {
+                  reject(new Error('Final compression failed'));
+                }
+              }, file.type, 0.8);
+              return;
+            }
+            
+            const quality = qualities[currentIndex];
+            canvas.toBlob((blob) => {
+              if (blob) {
+                console.log(`Trying quality ${(quality * 100).toFixed(0)}%, size: ${(blob.size / 1024 / 1024).toFixed(2)}MB, target: ${(maxSizeBytes / 1024 / 1024).toFixed(2)}MB`);
+                
+                if (blob.size <= maxSizeBytes) {
+                  // 找到符合条件的结果
+                  const compressedFile = new File([blob], file.name, {
+                    type: file.type,
+                    lastModified: Date.now()
+                  });
+                  URL.revokeObjectURL(url);
+                  resolve(compressedFile);
+                } else {
+                  // 尝试下一个质量级别
+                  currentIndex++;
+                  tryNextQuality();
+                }
+              } else {
+                reject(new Error('Blob creation failed'));
+              }
+            }, file.type, quality);
+          };
+          
+          // 开始尝试
+          tryNextQuality();
+          
+        } catch (error) {
+          URL.revokeObjectURL(url);
+          reject(error);
+        }
+      };
+      
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('Failed to load image for compression'));
+      };
+      
+      img.src = url;
+    });
+  };
+
+  // 计算保持宽高比的新尺寸
+  const calculateNewDimensions = (originalWidth: number, originalHeight: number, reason: string) => {
+    const minSize = 200;
+    const maxSize = 1999;
+    
+    let newWidth = originalWidth;
+    let newHeight = originalHeight;
+    
+    if (reason === 'too_small') {
+      // 放大到最小边至少200px
+      const scale = Math.max(minSize / originalWidth, minSize / originalHeight);
+      newWidth = Math.round(originalWidth * scale);
+      newHeight = Math.round(originalHeight * scale);
+    } else if (reason === 'too_large') {
+      // 缩小到最大边不超过1999px
+      const scale = Math.min(maxSize / originalWidth, maxSize / originalHeight);
+      newWidth = Math.round(originalWidth * scale);
+      newHeight = Math.round(originalHeight * scale);
+    }
+    
+    return { newWidth, newHeight };
+  };
+
   // 添加文件上传处理函数
   const handleImageUpload = async (file: File) => {
+    // 防止重复上传同一个文件的简单防抖机制
+    const fileId = `${file.name}-${file.size}-${file.lastModified}`;
+    if ((window as any).lastUploadedFileId === fileId && Date.now() - (window as any).lastUploadTime < 1000) {
+      return;
+    }
+    (window as any).lastUploadedFileId = fileId;
+    (window as any).lastUploadTime = Date.now();
+    
     try {
       // 检查文件类型 - 只支持 JPG, JPEG, PNG
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
@@ -1190,34 +1583,96 @@ function SelectStylePageContent() {
         return;
       }
 
-      // 检查文件大小 (限制为 3MB)
-      if (file.size > 3 * 1024 * 1024) {
-        toast.error("Please upload an image less than 3MB");
-        logActivity('file_upload', 'upload_failed_size_limit', {
+      // 检查是否是替换操作
+      const isReplacing = !!uploadedImageUrl;
+      
+      // 记录上传开始
+      logActivity('file_upload', isReplacing ? 'image_replace_started' : 'image_upload_started', {
+        file_size: file.size,
+        file_type: file.type,
+        is_replacing: isReplacing
+      });
+
+      // 显示处理提示
+      toast.loading('Processing image...', { id: 'image-processing' });
+
+      let processedFile = file;
+      let resizeInfo = '';
+
+      try {
+        // 检测图片尺寸（使用处理后的文件）
+        const dimensions = await checkImageDimensions(processedFile);
+        
+        if (dimensions.needsResize) {
+          // 计算新尺寸
+          const { newWidth, newHeight } = calculateNewDimensions(
+            dimensions.width, 
+            dimensions.height, 
+            dimensions.reason!
+          );
+          
+          // 调整图片尺寸
+          processedFile = await resizeImageToCanvas(processedFile, newWidth, newHeight);
+          
+          // 设置调整信息
+          const reasonText = dimensions.reason === 'too_small' 
+            ? 'Image resolution too small, automatically enlarged' 
+            : 'Image resolution too large, automatically reduced';
+          resizeInfo = `${reasonText}（${dimensions.width}×${dimensions.height} → ${newWidth}×${newHeight}）`;
+          
+          // 记录调整操作
+          logActivity('file_upload', 'image_auto_resized', {
+            original_dimensions: `${dimensions.width}x${dimensions.height}`,
+            new_dimensions: `${newWidth}x${newHeight}`,
+            resize_reason: dimensions.reason,
+            before_resize_size: processedFile.size, // 尺寸调整前的大小
+            after_resize_size: processedFile.size   // 尺寸调整后的大小
+          });
+        }
+        
+        toast.dismiss('image-processing');
+        
+      } catch (error) {
+        toast.dismiss('image-processing');
+        console.error('Image processing error:', error);
+        toast.error('Image processing failed, please try another image');
+        logActivity('file_upload', 'upload_failed_processing_error', {
+          error: error instanceof Error ? error.message : String(error),
           file_size: file.size,
-          file_type: file.type,
-          size_limit_mb: 3
+          file_type: file.type
         });
         return;
       }
 
-      // 记录上传开始
-      logActivity('file_upload', 'image_upload_started', {
-        file_size: file.size,
-        file_type: file.type
-      });
-
       // 创建 FormData
       const formData = new FormData();
-      formData.append("image", file);
+      formData.append("image", processedFile);
 
       // 读取文件并显示预览
       const reader = new FileReader();
       reader.onloadend = () => {
         setUploadedImageUrl(reader.result as string);
-        logActivity('file_upload', 'image_upload_success', {
-          file_size: file.size,
-          file_type: file.type
+        
+        // 清除之前的生成结果（如果是替换操作）
+        if (isReplacing) {
+          setResultImageUrl(undefined);
+        }
+        
+        logActivity('file_upload', isReplacing ? 'image_replace_success' : 'image_upload_success', {
+          file_size: processedFile.size,
+          file_type: processedFile.type,
+          is_replacing: isReplacing,
+          was_resized: !!resizeInfo,
+          resize_info: resizeInfo
+        });
+        
+        // 显示成功提示（无感体验，不显示技术细节）
+        const message = isReplacing ? 'Image replaced successfully!' : 'Image uploaded successfully!';
+        
+        toast.success(message, {
+          id: `upload-success-${Date.now()}`, // 添加唯一ID防止重复显示
+          duration: 2000,
+          position: 'top-center'
         });
       };
 
@@ -1229,7 +1684,7 @@ function SelectStylePageContent() {
         });
       };
 
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(processedFile);
     } catch (error) {
       console.error("Upload error:", error);
       toast.error("Failed to upload image");
@@ -1347,7 +1802,7 @@ function SelectStylePageContent() {
               Click or drag image here to upload
             </p>
             <p className="mt-2 text-sm text-gray-500">
-              JPG, JPEG, PNG, Less Than 3MB
+              JPG, JPEG, PNG, Less Than 10MB
             </p>
           </div>
           <button
@@ -1364,8 +1819,71 @@ function SelectStylePageContent() {
     );
   };
 
+  // 全屏幕拖放事件处理
+  const handleGlobalDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsGlobalDragging(true);
+  };
+
+  const handleGlobalDragLeave = (e: React.DragEvent) => {
+    // 只有当离开整个窗口时才取消拖放状态
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      setIsGlobalDragging(false);
+    }
+  };
+
+  const handleGlobalDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsGlobalDragging(false);
+    
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+      // 如果选中了Always show guidelines，显示弹窗，停止上传
+      if (alwaysShowGuidelines) {
+        handleShowGuideline(true);
+        return;
+      }
+      // 否则直接处理上传（支持替换现有图片）
+      handleImageUpload(file);
+      
+      // 记录全屏拖放上传
+      logActivity('file_upload', 'global_drag_drop', {
+        has_existing_image: !!uploadedImageUrl,
+        file_size: file.size,
+        file_type: file.type
+      });
+    }
+  };
+
   return (
-    <div className="container mx-auto px-2 py-0 lg:py-2 min-h-screen h-screen overflow-x-hidden overflow-y-auto max-w-full">
+    <div 
+      className="container mx-auto px-2 py-0 lg:py-2 min-h-screen h-screen overflow-x-hidden overflow-y-auto max-w-full relative"
+      onDragOver={handleGlobalDragOver}
+      onDragLeave={handleGlobalDragLeave}
+      onDrop={handleGlobalDrop}
+    >
+      {/* 全屏幕拖放蒙版 */}
+      {isGlobalDragging && (
+        <div className="fixed inset-0 z-[10000] bg-purple-400 bg-opacity-90 flex items-center justify-center pointer-events-none">
+          <div className="bg-white rounded-lg p-8 shadow-2xl text-center max-w-md mx-4">
+            <div className="text-6xl mb-4 text-purple-400">
+              ⭐
+            </div>
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+              {uploadedImageUrl ? 'Replace Image' : 'Drop Image Here'}
+            </h3>
+            <p className="text-gray-600">
+              {uploadedImageUrl 
+                ? 'Drop to replace your current image'
+                : 'Drop your image anywhere to get started'}
+            </p>
+            <div className="mt-4 text-sm text-gray-500">
+              Supports JPG, PNG, JPEG • Max 10MB
+            </div>
+          </div>
+        </div>
+      )}
+      
       <Toaster
         position="top-center"
         toastOptions={{
@@ -1412,7 +1930,7 @@ function SelectStylePageContent() {
 
       <div className="max-w-7xl mx-auto">
         {/* Logo 区域作为 h1 标题 */}
-        <div className="flex items-center justify-between mb-4 h-[48px]">
+        <div className="flex items-center justify-between mb-2 h-[48px]">
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -1651,7 +2169,7 @@ function SelectStylePageContent() {
                 </div>
 
                 {/* 底部上传按钮和guideline入口 */}
-                <div className="flex flex-col items-center gap-2 mt-2 mb-2 sm:mb-4">
+                <div className="flex flex-col items-center gap-2 mb-2 sm:mb-4">
                   <div>
                     <input
                       type="file"
@@ -1885,12 +2403,12 @@ function SelectStylePageContent() {
                         selectedGender === "Female" ? "Long Wavy" : "Slick Back"
                       }`
                     ) : (
-                      `Generate (${guestUsageCount} tries left)`
+                      `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
                     )
                   ) : user ? (
                     "Generate"
                   ) : (
-                    `Generate (${guestUsageCount} tries left)`
+                    `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
                   )}
                 </button>
               </div>
@@ -2254,12 +2772,12 @@ function SelectStylePageContent() {
                       selectedGender === "Female" ? "Long Wavy" : "Slick Back"
                     }`
                   ) : (
-                    `Generate (${guestUsageCount} left)`
+                    `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
                   )
                 ) : user ? (
                   "Generate"
                 ) : (
-                  `Generate (${guestUsageCount} left)`
+                  `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
                 )}
               </button>
             </section>

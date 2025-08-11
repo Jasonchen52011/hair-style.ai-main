@@ -77,7 +77,7 @@
       {
         "title": "Step 1: Upload Your Photo",
         "icon": "fas fa-upload",
-        "textcontent": "Click \"Upload\" to select a clear photo of your face. Choose a PNG, JPG, or JPEG file that's less than 3MB in size. Make sure your face is visible, clear, and facing forward, with no hair blocking your eyes or forehead. A good picture ensures the AI gives you accurate and realistic results instantly."
+        "textcontent": "Click \"Upload\" to select a clear photo of your face. Choose a PNG, JPG, or JPEG file that's less than 10MB in size. Make sure your face is visible, clear, and facing forward, with no hair blocking your eyes or forehead. A good picture ensures the AI gives you accurate and realistic results instantly."
       },
       {
         "title": "Step 2: Choose Your Bangs Filter",

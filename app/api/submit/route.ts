@@ -43,9 +43,13 @@ axiosRetry(client, {
     }
 });
 
-// 使用 Map 在内存中存储请求计数
-const requestCounts = new Map<string, { count: number; date: string }>();
-const DAILY_LIMIT = 3; // 修改为3次免费
+// 使用 Map 在内存中存储请求计数（终身使用次数）
+const lifetimeUsageCounts = new Map<string, number>(); // IP -> 终身使用次数
+const LIFETIME_FREE_LIMIT = 1; // 终身1次免费
+
+// 全局免费使用次数统计
+const globalFreeUsage = new Map<string, number>(); // date -> successfulCount
+const GLOBAL_DAILY_FREE_LIMIT = 2000; // 每天2000次免费成功调用
 
 // 使用 Map 存储每个 taskId 的422错误计数
 const taskErrorCount = new Map<string, number>();
@@ -68,13 +72,25 @@ const AUTH_CACHE_DURATION = 5 * 60 * 1000; // 5分钟
 const completedTasksCache = new Map<string, { result: any; timestamp: number }>();
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24小时，符合API文档说明
 
-// 定期清理过期缓存（每小时执行一次）
+// 定期清理过期缓存和统计（每小时执行一次）
 setInterval(() => {
   const now = Date.now();
+  const today = new Date().toISOString().split('T')[0];
+  
+  // 清理过期缓存
   for (const [taskId, cache] of completedTasksCache.entries()) {
     if (now - cache.timestamp > CACHE_DURATION) {
       completedTasksCache.delete(taskId);
       console.log(`🧹 Auto-cleaned expired cache for task ${taskId}`);
+    }
+  }
+  
+  // 清理过期的全局使用统计（保留昨天和今天的数据）
+  const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  for (const [date] of globalFreeUsage.entries()) {
+    if (date !== today && date !== yesterday) {
+      globalFreeUsage.delete(date);
+      console.log(`🧹 Auto-cleaned expired global usage stats for ${date}`);
     }
   }
 }, 60 * 60 * 1000); // 每小时清理一次
@@ -91,7 +107,7 @@ export async function POST(req: NextRequest) {
         const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
 
         // 检查是否为本地开发环境或白名单IP
-        const isLocalDev = process.env.NODE_ENV === 'development';
+        const isLocalDev = process.env.NODE_ENV === 'development' && LOCAL_WHITELIST_IPS.includes(ip);
         const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
         
         // 用户认证检查
@@ -149,19 +165,31 @@ export async function POST(req: NextRequest) {
         // 限制检查逻辑
         let today = new Date().toISOString().split('T')[0];
         
+        // 检查全局免费使用额度（只对免费用户限制）
+        if ((!user || !hasActiveSubscription) && !isLocalDev && !isWhitelistIP) {
+            const currentGlobalUsage = globalFreeUsage.get(today) || 0;
+            if (currentGlobalUsage >= GLOBAL_DAILY_FREE_LIMIT) {
+                return NextResponse.json({
+                    success: false,
+                    error: 'Our daily free usage quota has been reached. Please try again tomorrow.',
+                    errorType: 'global_quota_exceeded'
+                }, { status: 429 });
+            }
+        }
+        
         if (!user || !hasActiveSubscription) {
-            // 未登录用户或非订阅会员：每天3次免费
+            // 未登录用户或非订阅会员：终身1次免费
             if (!isLocalDev && !isWhitelistIP) {
-                const currentCount = requestCounts.get(ip);
+                const currentUsageCount = lifetimeUsageCounts.get(ip) || 0;
                 
-                // 检查是否已达到每日免费限制
-                if (currentCount && currentCount.date === today && currentCount.count >= DAILY_LIMIT) {
+                // 检查是否已达到终身免费限制
+                if (currentUsageCount >= LIFETIME_FREE_LIMIT) {
                     return NextResponse.json({
                         success: false,
                         error: user 
-                            ? 'You have reached your daily limit of 3 free generations. Please subscribe to continue unlimited generation!' 
-                            : 'You have reached your daily limit of 3 free generations. Please sign in and subscribe to continue unlimited generation!',
-                        errorType: 'daily_limit',
+                            ? 'You have used your free generation. Please subscribe to continue unlimited generation!' 
+                            : 'You have used your free generation. Please sign in and subscribe to continue unlimited generation!',
+                        errorType: 'lifetime_limit',
                         requiresSubscription: true
                     }, { status: 429 });
                 }
@@ -267,7 +295,7 @@ export async function POST(req: NextRequest) {
                 // ✅ 未登录用户或非订阅会员：记录任务信息，等待任务成功完成时再扣次数
                 if (!isLocalDev && !isWhitelistIP) {
                     freeUserTasks.set(responseData.task_id, { ip, date: today });
-                    console.log(`🔄 Task ${responseData.task_id} created for free user (IP: ${ip}), usage count will be deducted upon success`);
+                    console.log(`🔄 Task ${responseData.task_id} created for free user (IP: ${ip}), lifetime usage will be deducted upon success`);
                 }
             } else {
                 // ✅ 不立即扣除积分，等待任务成功完成时再扣除
@@ -579,30 +607,38 @@ export async function GET(req: NextRequest) {
           // ✅ 处理未登录用户的免费次数扣除
           const freeTaskInfo = freeUserTasks.get(taskId);
           if (freeTaskInfo && !chargedFreeTasks.has(taskId)) {
-            console.log(`🔄 Processing free user task ${taskId} usage count deduction for IP: ${freeTaskInfo.ip}`);
+            console.log(`🔄 Processing free user task ${taskId} lifetime usage count deduction for IP: ${freeTaskInfo.ip}`);
             
-            const currentCount = requestCounts.get(freeTaskInfo.ip);
-            if (!currentCount || currentCount.date !== freeTaskInfo.date) {
-              requestCounts.set(freeTaskInfo.ip, { count: 1, date: freeTaskInfo.date });
-            } else {
-              requestCounts.set(freeTaskInfo.ip, {
-                count: currentCount.count + 1,
-                date: freeTaskInfo.date
-              });
-            }
+            // 更新终身使用次数
+            const currentUsageCount = lifetimeUsageCounts.get(freeTaskInfo.ip) || 0;
+            lifetimeUsageCounts.set(freeTaskInfo.ip, currentUsageCount + 1);
+            
+            // 更新全局免费使用统计
+            const todayGlobalUsage = globalFreeUsage.get(freeTaskInfo.date) || 0;
+            globalFreeUsage.set(freeTaskInfo.date, todayGlobalUsage + 1);
+            console.log(`🌍 Global free usage updated: ${todayGlobalUsage + 1}/${GLOBAL_DAILY_FREE_LIMIT} for ${freeTaskInfo.date}`);
             
             chargedFreeTasks.add(taskId);
             freeUserTasks.delete(taskId);
-            console.log(`✅ Free usage count deducted for IP ${freeTaskInfo.ip}, task ${taskId}`);
+            console.log(`✅ Free usage deducted for IP ${freeTaskInfo.ip} (${currentUsageCount + 1}/${LIFETIME_FREE_LIMIT}), task ${taskId}`);
             
             // 在响应中添加扣次数信息
             statusData.freeUsageDeducted = 1;
+            statusData.lifetimeUsageRemaining = LIFETIME_FREE_LIMIT - (currentUsageCount + 1);
+            statusData.globalFreeUsageRemaining = GLOBAL_DAILY_FREE_LIMIT - (todayGlobalUsage + 1);
           }
         } else {
           console.log(`✅ Task ${taskId} completed and credits were already deducted`);
           
           // 为已扣费的任务也添加积分信息到响应中
           statusData.creditsDeducted = 10;
+          
+          // 为已处理的免费任务也显示剩余额度
+          if (chargedFreeTasks.has(taskId)) {
+            const today = new Date().toISOString().split('T')[0];
+            const todayGlobalUsage = globalFreeUsage.get(today) || 0;
+            statusData.globalFreeUsageRemaining = Math.max(0, GLOBAL_DAILY_FREE_LIMIT - todayGlobalUsage);
+          }
         }
       }
     } else {
