@@ -82,50 +82,6 @@ setInterval(() => {
 // 本地开发白名单IP
 const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
 
-// 性别检测函数
-async function detectGender(imageBuffer: Buffer): Promise<'male' | 'female'> {
-    try {
-        // 使用 Google Gemini 检测性别
-        const base64Image = imageBuffer.toString('base64');
-        
-        const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-goog-api-key': process.env.GOOGLE_API_KEY || ''
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [
-                        {
-                            text: "Please analyze this photo and determine the gender of the person. Respond with only 'male' or 'female', nothing else."
-                        },
-                        {
-                            inlineData: {
-                                mimeType: "image/jpeg",
-                                data: base64Image
-                            }
-                        }
-                    ]
-                }]
-            })
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const genderText = data.candidates?.[0]?.content?.parts?.[0]?.text?.toLowerCase().trim();
-            
-            if (genderText === 'male' || genderText === 'female') {
-                return genderText as 'male' | 'female';
-            }
-        }
-    } catch (error) {
-        console.log('Gender detection failed, using default:', error);
-    }
-    
-    // 默认返回女性
-    return 'female';
-}
 
 export async function POST(req: NextRequest) {
     try {
@@ -235,44 +191,10 @@ export async function POST(req: NextRequest) {
         // 处理发型选择逻辑
         let finalHairStyle = hairStyle;
         
-        // 如果没有选择发型或者选择了"color-only"，需要根据性别设置默认发型
+        // 如果没有选择发型或者选择了"color-only"，使用默认发型
         if (!hairStyle || hairStyle === "color-only") {
-            let imageBuffer: Buffer | null = null;
-            
-            // 获取图片数据用于性别检测
-            if (imageUrl.startsWith('http')) {
-                try {
-                    const imageResponse = await fetch(imageUrl);
-                    const arrayBuffer = await imageResponse.arrayBuffer();
-                    imageBuffer = Buffer.from(arrayBuffer);
-                } catch (error) {
-                    console.error('Failed to fetch image for gender detection:', error);
-                }
-            } else if (imageUrl.startsWith('data:')) {
-                try {
-                    const base64Data = imageUrl.split(',')[1];
-                    imageBuffer = Buffer.from(base64Data, 'base64');
-                } catch (error) {
-                    console.error('Failed to process base64 image for gender detection:', error);
-                }
-            } else {
-                try {
-                    imageBuffer = Buffer.from(imageUrl, 'base64');
-                } catch (error) {
-                    console.error('Failed to process image data for gender detection:', error);
-                }
-            }
-            
-            // 检测性别并设置默认发型
-            if (imageBuffer) {
-                const detectedGender = await detectGender(imageBuffer);
-                finalHairStyle = detectedGender === 'male' ? 'SlickBack' : 'LongWavy';
-                console.log(`Detected gender: ${detectedGender}, using default hairstyle: ${finalHairStyle}`);
-            } else {
-                // 如果无法检测性别，默认使用女性发型
-                finalHairStyle = 'LongWavy';
-                console.log('Failed to detect gender, using default female hairstyle: LongWavy');
-            }
+            finalHairStyle = 'LongWavy'; // 默认使用女性发型
+            console.log('No hairstyle selected, using default: LongWavy');
         }
 
         const formData = new FormData();

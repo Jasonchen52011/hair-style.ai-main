@@ -215,15 +215,15 @@ function SelectStylePageContent() {
   }, [selectedStyle, selectedGender]);
 
   // merge the polling function from SelectStyle component - 优化为30秒最大等待时间
-  const pollTaskStatus = async (taskId: string, maxAttempts = 10, taskStartTime?: number) => { // 10次轮询，最多30秒
+  const pollTaskStatus = async (taskId: string, maxAttempts = 10, taskStartTime?: number, existingCountdownInterval?: NodeJS.Timeout) => { // 10次轮询，最多30秒
     console.log(`Starting task polling, taskId: ${taskId}`);
     const startTime = Date.now();
     const processingStartTime = taskStartTime || startTime; // 用于计算总处理时间
     const maxWaitTime = 30000; // 30秒最大等待时间
     let error422Count = 0; // 添加422错误计数器
 
-    // 启动按秒倒计时
-    const countdownInterval = setInterval(() => {
+    // 使用现有的倒计时器，如果没有则创建新的
+    const countdownInterval = existingCountdownInterval || setInterval(() => {
       const elapsedTime = Date.now() - startTime;
       const remaining = Math.max(0, Math.ceil((maxWaitTime - elapsedTime) / 1000));
       
@@ -539,8 +539,29 @@ function SelectStylePageContent() {
       return;
     }
 
+    let countdownInterval: NodeJS.Timeout | undefined;
+    
     try {
       setIsLoading(true);
+      
+      // 立即开始倒计时，给用户反馈
+      const processingStartTime = Date.now();
+      const maxWaitTime = 30000; // 30秒最大等待时间
+      
+      countdownInterval = setInterval(() => {
+        const elapsedTime = Date.now() - processingStartTime;
+        const remaining = Math.max(0, Math.ceil((maxWaitTime - elapsedTime) / 1000));
+        
+        if (remaining > 0) {
+          toast.loading(`Processing your image... ${remaining}s remaining`, {
+            id: "processing-status",
+            duration: Infinity,
+          });
+        } else {
+          clearInterval(countdownInterval);
+        }
+      }, 1000);
+      
       console.log("Starting hairstyle generation:", {
         selectedStyle,
         selectedColor,
@@ -584,6 +605,8 @@ function SelectStylePageContent() {
       });
 
       if (response.status === 429) {
+        clearInterval(countdownInterval);
+        toast.dismiss("processing-status");
         toast.dismiss("generation-status");
         const errorData = await response.json().catch(() => ({}));
 
@@ -614,6 +637,8 @@ function SelectStylePageContent() {
       }
 
       if (response.status === 402) {
+        clearInterval(countdownInterval);
+        toast.dismiss("processing-status");
         toast.dismiss("generation-status");
         const errorData = await response.json().catch(() => ({}));
 
@@ -644,6 +669,8 @@ function SelectStylePageContent() {
       }
 
       if (!response.ok) {
+        clearInterval(countdownInterval);
+        toast.dismiss("processing-status");
         toast.dismiss("generation-status");
         const errorData = await response.json().catch(() => ({}));
         console.error("API submission failed:", response.status, errorData);
@@ -683,7 +710,7 @@ function SelectStylePageContent() {
 
       if (data.status === "processing" && data.taskId) {
         toast.dismiss("generation-status");
-        // 不在这里创建processing toast，让pollTaskStatus处理
+        // countdownInterval已经在运行，pollTaskStatus不需要再创建新的
 
         // 记录任务创建
         await analytics?.logHairstyleTask(data.taskId, 'processing', {
@@ -698,8 +725,9 @@ function SelectStylePageContent() {
         let taskProcessingTime = 0;
 
         try {
-          const result = await pollTaskStatus(data.taskId, 10, taskProcessingStartTime);
+          const result = await pollTaskStatus(data.taskId, 10, taskProcessingStartTime, countdownInterval);
           taskProcessingTime = Date.now() - taskProcessingStartTime;
+          clearInterval(countdownInterval);
           toast.dismiss("processing-status");
 
           if (result.data?.images) {
@@ -782,6 +810,7 @@ function SelectStylePageContent() {
             );
           }
         } catch (pollError) {
+          clearInterval(countdownInterval);
           toast.dismiss("processing-status");
           console.error("Processing error:", pollError);
           
@@ -815,7 +844,10 @@ function SelectStylePageContent() {
         errorObject: error
       });
 
-      // Clean up any existing toasts
+      // Clean up any existing toasts and timers
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+      }
       toast.dismiss("generation-status");
       toast.dismiss("processing-status");
 
@@ -1692,7 +1724,7 @@ function SelectStylePageContent() {
             <h2 className="sr-only">Select Hairstyle</h2>
             <div className="w-full lg:w-[340px] mx-auto max-w-full">
               <div className="w-full">
-                <div className="mb-4 bg-gray-50 p-2 rounded-lg">
+                <div className="mb-2 bg-gray-50 p-2 rounded-lg">
                   <div className="flex space-x-2">
                     <button
                       onClick={() => {
@@ -1812,7 +1844,7 @@ function SelectStylePageContent() {
 
                 <button
                   onClick={handleGenerate}
-                  className={`w-full mt-8 py-4 rounded-lg font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
+                  className={`w-full mt-2 py-4 rounded-lg font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed ${
                     !user && guestUsageCount <= 0
                       ? "bg-purple-900 text-white hover:bg-purple-800"
                       : "bg-purple-700 text-white hover:bg-purple-800"
@@ -2123,7 +2155,7 @@ function SelectStylePageContent() {
               </div>
 
               {/* 颜色选择 - 横向滚动，移除标题 */}
-              <div className="mb-2 px-1 py-1 relative">
+              <div className="px-1 py-1 relative">
                 <div 
                   className="overflow-x-auto scrollbar-hide touch-pan-x" 
                   style={{ 
