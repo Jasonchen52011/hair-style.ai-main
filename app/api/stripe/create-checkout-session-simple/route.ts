@@ -26,7 +26,7 @@ const CREDIT_PRODUCTS = {
   "prod_SoOlCW6Qx6pAm2": {
     name: "400 Credits (Most Popular)",
     credits: 400,
-    price: 3200, // $32.00 in cents
+    price: 2800, // $28.00 in cents
   },
   "prod_SoOoHIVnE6zTR0": {
     name: "800 Credits",
