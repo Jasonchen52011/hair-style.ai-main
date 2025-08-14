@@ -47,7 +47,7 @@ const CREDIT_PRODUCTS = [
     productType: "popular", // 使用产品类型标识
     name: "400 Credits",
     description: "Best value for enthusiasts",
-    price: 32,
+    price: 28,
     credits: 400,
     features: [
       "40 AI hairstyle generations",
