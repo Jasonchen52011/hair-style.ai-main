@@ -54,7 +54,7 @@ const CREDIT_PRODUCTS = [
       "All hairstyle options",
       "High-quality results",
       "Credits never expire",
-      "20% savings",
+      "30% savings",
     ],
     popular: true,
   },
