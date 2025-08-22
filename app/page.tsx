@@ -3,6 +3,7 @@ import Footer from "@/components/footer";
 import { Metadata } from "next";
 import Script from "next/script";
 import Navbar from "@/components/navbar";
+import AdSense from "@/components/AdSense";
 
 export const metadata: Metadata = {
   title: "AI Hairstyle Changer: Free Haircut Simulator with 60+ Styles",
@@ -257,6 +258,15 @@ export default function Home() {
       <div className="min-h-screen bg-white flex flex-col">
         <Navbar />
         <Hero />
+        
+        {/* AdSense广告位 */}
+        <div className="container mx-auto px-4 py-8">
+          <AdSense 
+            adSlot="1924105465"
+            className="max-w-4xl mx-auto"
+          />
+        </div>
+        
         <Footer />
       </div>
     </>
