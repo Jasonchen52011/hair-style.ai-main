@@ -47,14 +47,14 @@ const CREDIT_PRODUCTS = [
     productType: "popular", // 使用产品类型标识
     name: "400 Credits",
     description: "Best value for enthusiasts",
-    price: 28,
+    price: 19,
     credits: 400,
     features: [
       "40 AI hairstyle generations",
       "All hairstyle options",
       "High-quality results",
       "Credits never expire",
-      "30% savings",
+      "50% savings",
     ],
     popular: true,
   },
@@ -64,14 +64,14 @@ const CREDIT_PRODUCTS = [
     productType: "professional", // 使用产品类型标识
     name: "800 Credits",
     description: "For professionals",
-    price: 56,
+    price: 36,
     credits: 800,
     features: [
       "80 AI hairstyle generations",
       "All hairstyle options",
       "High-quality results",
       "Credits never expire",
-      "30% savings",
+      "55% savings",
       "Priority support",
     ],
   },

@@ -33,14 +33,14 @@ export const STRIPE_PRODUCTS = {
     id: "prod_SoOlCW6Qx6pAm2",
     name: "400 Credits",
     description: "Best value for enthusiasts",
-    price: 28.00,
+    price: 19.00,
     credits: 400,
     features: [
       "40 AI hairstyle generations",
       "All hairstyle options",
       "High-quality results", 
       "Credits never expire",
-      "30% savings",
+      "50% savings",
     ],
     popular: true, // Most Popular
   },
@@ -49,14 +49,14 @@ export const STRIPE_PRODUCTS = {
     id: "prod_SoOoHIVnE6zTR0",
     name: "800 Credits", 
     description: "For professionals",
-    price: 56.00,
+    price: 36.00,
     credits: 800,
     features: [
       "80 AI hairstyle generations",
       "All hairstyle options",
       "High-quality results",
       "Credits never expire", 
-      "30% savings",
+      "55% savings",
       "Priority support",
     ],
   },
@@ -66,8 +66,8 @@ export const STRIPE_PRODUCTS = {
 export const STRIPE_PRODUCTS_ARRAY = [
   STRIPE_PRODUCTS["prod_SoOkvzK9C3gxpi"],  // $5.00 - 50 Credits
   STRIPE_PRODUCTS["prod_SoOnH7PUrkuz85"],  // $9.00 - 100 Credits  
-  STRIPE_PRODUCTS["prod_SoOlCW6Qx6pAm2"],  // $32.00 - 400 Credits (Most Popular)
-  STRIPE_PRODUCTS["prod_SoOoHIVnE6zTR0"],  // $56.00 - 800 Credits
+  STRIPE_PRODUCTS["prod_SoOlCW6Qx6pAm2"],  // $19.00 - 400 Credits (Most Popular)
+  STRIPE_PRODUCTS["prod_SoOoHIVnE6zTR0"],  // $36.00 - 800 Credits
 ];
 
 // 获取产品信息的辅助函数
