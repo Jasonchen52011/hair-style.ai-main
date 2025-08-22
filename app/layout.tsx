@@ -57,6 +57,31 @@ export default function RootLayout({
         {/* Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
                crossOrigin="anonymous"></script>
+        
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YRJLJRKGE"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7YRJLJRKGE');
+          `
+        }} />
+        
+        {/* Microsoft Clarity */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "r341ayxao1");
+          `
+        }} />
+        
+        {/* Ahrefs Analytics */}
+        <script async src="https://analytics.ahrefs.com/analytics.js" data-key="pzQdswZNDZJoi+e1uLS3jg"></script>
       </head>
       <body className={`${satoshi.variable} antialiased`}>
         <Providers>
@@ -70,46 +95,6 @@ export default function RootLayout({
         <Script 
           src="https://accounts.google.com/gsi/client" 
           strategy="afterInteractive"
-        />
-        
-        {/* Analytics Scripts */}
-        <Script
-          id="analytics-scripts"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Google Analytics
-              (function() {
-                var script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SQ0ZZ6EFP6';
-                document.head.appendChild(script);
-                
-                script.onload = function() {
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-SQ0ZZ6EFP6');
-                };
-              })();
-
-              // Microsoft Clarity
-              (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-              })(window, document, "clarity", "script", "r341ayxao1");
-
-              // Ahrefs Analytics
-              (function() {
-                var script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://analytics.ahrefs.com/analytics.js';
-                script.setAttribute('data-key', 'pzQdswZNDZJoi+e1uLS3jg');
-                document.head.appendChild(script);
-              })();
-            `
-          }}
         />
       </body>
     </html>
