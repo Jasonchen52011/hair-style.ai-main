@@ -45,7 +45,7 @@ axiosRetry(client, {
 
 // 使用 Map 在内存中存储请求计数（终身使用次数）
 const lifetimeUsageCounts = new Map<string, number>(); // IP -> 终身使用次数
-const LIFETIME_FREE_LIMIT = 1; // 终身1次免费
+const LIFETIME_FREE_LIMIT = 2; // 终身2次免费
 
 // 全局免费使用次数统计
 const globalFreeUsage = new Map<string, number>(); // date -> successfulCount
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
         }
         
         if (!user || !hasActiveSubscription) {
-            // 未登录用户或非订阅会员：终身1次免费
+            // 未登录用户或非订阅会员：终身2次免费
             if (!isLocalDev && !isWhitelistIP) {
                 const currentUsageCount = lifetimeUsageCounts.get(ip) || 0;
                 
@@ -187,8 +187,8 @@ export async function POST(req: NextRequest) {
                     return NextResponse.json({
                         success: false,
                         error: user 
-                            ? 'You have used your free generation. Please subscribe to continue unlimited generation!' 
-                            : 'You have used your free generation. Please sign in and subscribe to continue unlimited generation!',
+                            ? 'You have used your 2 free generations. Please subscribe to continue unlimited generation!' 
+                            : 'You have used your 2 free generations. Please sign in and subscribe to continue unlimited generation!',
                         errorType: 'lifetime_limit',
                         requiresSubscription: true
                     }, { status: 429 });

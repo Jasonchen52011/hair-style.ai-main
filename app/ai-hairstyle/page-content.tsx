@@ -516,9 +516,9 @@ function SelectStylePageContent() {
         guest_usage_count: 0
       });
       setConfirmDialogConfig({
-        title: "Free hairstyle attempt used!",
+        title: "Free hairstyle attempts used!",
         message:
-          "You've used your one free try. Log in and buy Credits to continue creating new styles — your perfect look awaits.",
+          "You've used your two free tries. Log in and buy Credits to continue creating new styles — your perfect look awaits.",
         confirmText: "Log In & Buy Credits",
         cancelText: "Cancel",
         onConfirm: () => {

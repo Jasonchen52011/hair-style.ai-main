@@ -107,7 +107,7 @@ const structuredData = {
         name: "Is it really free to use AI Hairstyle Changer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, our AI Hairstyle Changer are free once to use. You can upload your image, try on AI virtual hairstyles, and experiment with different colors without any cost and no sign-up needed.",
+          text: "Yes, our AI Hairstyle Changer are free twice to use. You can upload your image, try on AI virtual hairstyles, and experiment with different colors without any cost and no sign-up needed.",
         },
       },
       {
