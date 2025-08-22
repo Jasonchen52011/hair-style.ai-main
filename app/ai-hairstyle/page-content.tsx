@@ -1287,6 +1287,7 @@ function SelectStylePageContent() {
     });
   };
 
+
   // Canvas图片处理和缩放函数
   const resizeImageToCanvas = (file: File, targetWidth: number, targetHeight: number): Promise<File> => {
     return new Promise((resolve, reject) => {
@@ -1982,7 +1983,7 @@ function SelectStylePageContent() {
                         const file = e.target.files?.[0];
                         if (file) handleImageUpload(file);
                       }}
-                      accept="image/*"
+                      accept="image/jpeg,image/jpg,image/png"
                       className="hidden"
                       id="photo-upload-new-mobile"
                     />
@@ -2177,7 +2178,7 @@ function SelectStylePageContent() {
                         const file = e.target.files?.[0];
                         if (file) handleImageUpload(file);
                       }}
-                      accept="image/*"
+                      accept="image/jpeg,image/jpg,image/png"
                       className="hidden"
                       id="photo-upload-new-pc"
                     />

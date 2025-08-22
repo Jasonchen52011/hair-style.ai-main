@@ -66,7 +66,7 @@ export const STRIPE_PRODUCTS = {
 export const STRIPE_PRODUCTS_ARRAY = [
   STRIPE_PRODUCTS["prod_SoOkvzK9C3gxpi"],  // $5.00 - 50 Credits
   STRIPE_PRODUCTS["prod_SoOnH7PUrkuz85"],  // $9.00 - 100 Credits  
-  STRIPE_PRODUCTS["prod_SoOlCW6Qx6pAm2"],  // $28.00 - 400 Credits (Most Popular)
+  STRIPE_PRODUCTS["prod_SoOlCW6Qx6pAm2"],  // $32.00 - 400 Credits (Most Popular)
   STRIPE_PRODUCTS["prod_SoOoHIVnE6zTR0"],  // $56.00 - 800 Credits
 ];
 
