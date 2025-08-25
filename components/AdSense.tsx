@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 declare global {
   interface Window {
@@ -23,16 +23,36 @@ export default function AdSense({
   className = '',
   style = { display: 'block' }
 }: AdSenseProps) {
+  const [isMounted, setIsMounted] = useState(false)
+
   useEffect(() => {
-    try {
-      // 确保window.adsbygoogle存在
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({})
+    setIsMounted(true)
+    
+    // 延迟加载AdSense，避免hydration冲突
+    const timer = setTimeout(() => {
+      try {
+        if (typeof window !== 'undefined') {
+          (window.adsbygoogle = window.adsbygoogle || []).push({})
+        }
+      } catch (err) {
+        console.error('AdSense loading error:', err)
       }
-    } catch (err) {
-      console.error('AdSense loading error:', err)
-    }
+    }, 100)
+
+    return () => clearTimeout(timer)
   }, [])
+
+  // 避免hydration不匹配，只在客户端渲染
+  if (!isMounted) {
+    return (
+      <div 
+        className={className} 
+        style={{ ...style, minHeight: '200px', backgroundColor: '#f5f5f5' }}
+      >
+        {/* 占位符，避免布局跳动 */}
+      </div>
+    )
+  }
 
   return (
     <ins
