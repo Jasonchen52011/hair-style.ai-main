@@ -207,6 +207,15 @@ export default function Navbar() {
               </DropdownButton>
               
               <DropdownMenu isOpen={isDropdownOpen} onClose={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/hairstyles-for-girls" onClick={() => setIsDropdownOpen(false)}>
+                  Girl Hairstyle Filter
+                </DropdownItem>
+                <DropdownItem href="/ai-hairstyle-male" onClick={() => setIsDropdownOpen(false)}>
+                  Male Hairstyle Filter
+                </DropdownItem>
+                <DropdownItem href="/ai-hairstyle-online-free-female" onClick={() => setIsDropdownOpen(false)}>
+                  Female Hairstyle Filter
+                </DropdownItem>
                 <DropdownItem href="/buzz-cut-filter" onClick={() => setIsDropdownOpen(false)}>
                   Buzz Cut Filter
                 </DropdownItem>
@@ -342,6 +351,15 @@ export default function Navbar() {
                 </button>
                 {isHairstyleDropdownOpen && (
                   <div className="pl-6 pb-2 space-y-1">
+                    <Link href="/hairstyles-for-girls" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Girl Hairstyle Filter
+                    </Link>
+                    <Link href="/ai-hairstyle-male" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Male Hairstyle Filter
+                    </Link>
+                    <Link href="/ai-hairstyle-online-free-female" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Female Hairstyle Filter
+                    </Link>
                     <Link href="/buzz-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Buzz Cut Filter
                     </Link>
