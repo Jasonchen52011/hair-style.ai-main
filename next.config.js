@@ -202,18 +202,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
                   destination: 'https://hair-style.ai/:path*',
                   permanent: true,
               },
-              // www到非www的HTTPS重定向
-              {
-                  source: '/:path*',
-                  has: [
-                      {
-                          type: 'host',
-                          value: 'www.hair-style.ai',
-                      },
-                  ],
-                  destination: 'https://hair-style.ai/:path*',
-                  permanent: true,
-              },
               // 404重定向 - 将旧的页面路径重定向到404页面
               {
                   source: '/dreadlocks',
