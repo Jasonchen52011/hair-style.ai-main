@@ -189,19 +189,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
       
       async redirects() {
           return [
-              // HTTP到HTTPS重定向
-              {
-                  source: '/:path*',
-                  has: [
-                      {
-                          type: 'header',
-                          key: 'x-forwarded-proto',
-                          value: 'http',
-                      },
-                  ],
-                  destination: 'https://hair-style.ai/:path*',
-                  permanent: true,
-              },
               // 404重定向 - 将旧的页面路径重定向到404页面
               {
                   source: '/dreadlocks',
