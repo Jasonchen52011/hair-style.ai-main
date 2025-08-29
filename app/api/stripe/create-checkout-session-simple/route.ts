@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { createClient } from "@/utils/supabase/server";
 
+export const runtime = "edge";
+
 // 产品类型到产品ID的映射（仅在后端使用）
 const PRODUCT_TYPE_MAP = {
   "basic": "prod_SoOkvzK9C3gxpi",       // 50 Credits

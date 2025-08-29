@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 // Removed unused imports - using Supabase functions instead
 
+export const runtime = "edge";
+
 export async function POST(request: NextRequest) {
   console.log("=== Webhook received ===");
   
@@ -157,5 +159,4 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({ received: true });
 }
 
-// 配置API路由以接收原始body
-export const runtime = "nodejs";
+// Edge Runtime配置已在文件顶部设置

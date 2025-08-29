@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from '@supabase/supabase-js';
+import Stripe from 'stripe';
+
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
   const debugInfo = {
@@ -11,10 +14,10 @@ export async function POST(request: NextRequest) {
       has_service_role_key: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
     },
     headers: {},
-    body: null,
-    signature_check: null,
-    order_check: null,
-    supabase_test: null
+    body: null as any,
+    signature_check: null as any,
+    order_check: null as any,
+    supabase_test: null as any
   };
 
   try {
@@ -50,7 +53,7 @@ export async function POST(request: NextRequest) {
         error: error?.message,
         has_access: !!data
       };
-    } catch (e) {
+    } catch (e: any) {
       debugInfo.supabase_test = {
         success: false,
         error: e.message
@@ -60,7 +63,9 @@ export async function POST(request: NextRequest) {
     // 尝试验证webhook签名
     if (sig && process.env.STRIPE_WEBHOOK_SECRET) {
       try {
-        const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
+        const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, {
+          apiVersion: '2025-08-27.basil',
+        });
         const event = stripe.webhooks.constructEvent(
           body, 
           sig, 
@@ -91,7 +96,7 @@ export async function POST(request: NextRequest) {
             };
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         debugInfo.signature_check = {
           success: false,
           error: err.message
@@ -100,7 +105,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(debugInfo);
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({
       error: error.message,
       debugInfo

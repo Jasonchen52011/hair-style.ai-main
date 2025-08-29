@@ -40,10 +40,26 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <Link
-                  href="/"
+                  href="/hairstyles-for-girls"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Hairstyle AI Home
+                  Girl Hairstyle Filter
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai-hairstyle-male"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Male Hairstyle Filter
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai-hairstyle-online-free-female"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Female Hairstyle Filter
                 </Link>
               </li>
               <li>

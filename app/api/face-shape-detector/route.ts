@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 
+export const runtime = "edge";
+
 // [中文注释]：从环境变量中获取 API 密钥。
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
 

@@ -3,6 +3,17 @@ import { createClient } from "@supabase/supabase-js";
 import { getProductCreditsMap, getProductPlanMap } from "../../../../config";
 import { insertCreditsWithFallback, generateFallbackOrderNo } from "../../../../lib/credits-utils";
 
+export const runtime = "edge";
+
+// Web Crypto API 辅助函数 - 使用 SHA-256 替代 MD5 (Edge Runtime 兼容)
+async function createHashForUUID(text: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 //用户取消和续费
 
 // 从配置文件获取产品映射
@@ -38,6 +49,12 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const startTime = Date.now();
+
+  // 初始化 Supabase 客户端
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
   try {
     console.log(`🔔 Webhook received at ${new Date().toISOString()}`);
@@ -213,9 +230,8 @@ export async function POST(req: Request) {
           finalUserId = existingUser.id;
           console.log("✅ Found existing user mapping:", { creemCustomerId: userId, uuid: finalUserId });
         } else {
-          // 方法2: 生成一个基于Creem ID的确定性UUID
-          const crypto = require('crypto');
-          const hash = crypto.createHash('md5').update(userId).digest('hex');
+          // 方法2: 生成一个基于Creem ID的确定性UUID - 使用 Web Crypto API (SHA-256替代MD5)
+          const hash = await createHashForUUID(userId);
           finalUserId = [
             hash.substring(0, 8),
             hash.substring(8, 12),
@@ -228,9 +244,8 @@ export async function POST(req: Request) {
         }
       } catch (error) {
         console.warn("⚠️ Error in user ID mapping, using generated UUID:", error);
-        // 使用方法2作为后备
-        const crypto = require('crypto');
-        const hash = crypto.createHash('md5').update(userId).digest('hex');
+        // 使用方法2作为后备 - 使用 Web Crypto API (SHA-256替代MD5)
+        const hash = await createHashForUUID(userId);
         finalUserId = [
           hash.substring(0, 8),
           hash.substring(8, 12),
@@ -368,7 +383,7 @@ export async function POST(req: Request) {
     }
 
     // 确保用户profile存在 - 使用转换后的UUID
-    await ensureUserProfile(finalUserId, checkoutId, userId);
+    await ensureUserProfile(supabase, finalUserId, checkoutId, userId);
 
     // 处理不同的事件类型 - 如果没有明确的事件类型，默认按支付成功处理
     let result;
@@ -379,6 +394,7 @@ export async function POST(req: Request) {
       case 'payment_completed':
         // checkout.completed 意味着结账完成，包含订单和订阅信息
         result = await handlePaymentSuccessWithConflictHandling(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -401,6 +417,7 @@ export async function POST(req: Request) {
         });
         
         result = await handlePaymentSuccessWithConflictHandling(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -412,6 +429,7 @@ export async function POST(req: Request) {
       case "subscription.active":
         // subscription.active 意味着订阅已激活
         result = await handlePaymentSuccessWithConflictHandling(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -425,12 +443,13 @@ export async function POST(req: Request) {
 
       case "subscription_expired":
         // 订阅取消或过期
-        result = await handleSubscriptionCancelled(finalUserId, subscriptionId);
+        result = await handleSubscriptionCancelled(supabase, finalUserId, subscriptionId);
         break;
 
       case "subscription_update":
         // 订阅更新（计划变更等）
         result = await handleSubscriptionUpdated(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -441,6 +460,7 @@ export async function POST(req: Request) {
       case "subscription_trialing":
         // 订阅试用期开始
         result = await handleSubscriptionTrialing(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -451,6 +471,7 @@ export async function POST(req: Request) {
       case "refund_created":
         // 退款创建
         result = await handleRefundCreated(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -463,6 +484,7 @@ export async function POST(req: Request) {
       case "dispute_created":
         // 争议创建
         result = await handleDisputeCreated(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -475,6 +497,7 @@ export async function POST(req: Request) {
         console.warn(`⚠️ Unhandled event type: ${finalEventType}, treating as payment success`);
         // 如果事件类型未知，默认按支付成功处理
         result = await handlePaymentSuccessWithConflictHandling(
+          supabase,
           finalUserId,
           planId,
           subscriptionId,
@@ -518,6 +541,7 @@ export async function POST(req: Request) {
 
 // 新的处理函数，集成冲突处理逻辑
 async function handlePaymentSuccessWithConflictHandling(
+  supabase: any,
   userId: string,
   planId: string,
   subscriptionId: string | null,
@@ -541,7 +565,7 @@ async function handlePaymentSuccessWithConflictHandling(
 
   try {
     // 确保用户profile存在
-    await ensureUserProfile(userId, checkoutId, userId);
+    await ensureUserProfile(supabase, userId, checkoutId, userId);
 
     // 🔍 检查是否为续费：查看用户是否已有相同类型的活跃订阅
     const newPlanType = PRODUCT_PLAN_MAP[planId];
@@ -665,6 +689,7 @@ async function handlePaymentSuccessWithConflictHandling(
         // 使用本地冲突处理逻辑（避免内部HTTP调用）
         if (isUpgrade) {
           return await handleUpgradeLogic(
+            supabase,
             userId,
             currentSubscription,
             planId,
@@ -675,6 +700,7 @@ async function handlePaymentSuccessWithConflictHandling(
           );
         } else {
           return await handleDowngradeLogic(
+            supabase,
             userId,
             currentSubscription,
             planId,
@@ -692,6 +718,7 @@ async function handlePaymentSuccessWithConflictHandling(
       `🆕 Processing new ${newPlanType} subscription for user ${userId}`,
     );
     return await handlePaymentSuccess(
+      supabase,
       userId,
       planId,
       subscriptionId,
@@ -710,6 +737,7 @@ async function handlePaymentSuccessWithConflictHandling(
 
 // 处理升级逻辑
 async function handleUpgradeLogic(
+  supabase: any,
   userId: string,
   currentSubscription: any,
   newPlanId: string,
@@ -920,6 +948,7 @@ async function handleUpgradeLogic(
 
 // 处理降级逻辑
 async function handleDowngradeLogic(
+  supabase: any,
   userId: string,
   currentSubscription: any,
   newPlanId: string,
@@ -1078,7 +1107,7 @@ async function handleDowngradeLogic(
 }
 
 // 抽取用户profile处理逻辑
-async function ensureUserProfile(userId: string, checkoutId: string | null, creemUserId: string) {
+async function ensureUserProfile(supabase: any, userId: string, checkoutId: string | null, creemUserId: string) {
   const now = new Date();
   const timeString = now.toISOString();
 
@@ -1182,6 +1211,7 @@ async function ensureUserProfile(userId: string, checkoutId: string | null, cree
 }
 
 async function handlePaymentSuccess(
+  supabase: any,
   userId: string,
   planId: string,
   subscriptionId: string | null,
@@ -1532,6 +1562,7 @@ async function handlePaymentSuccess(
 }
 
 async function handleSubscriptionCancelled(
+  supabase: any,
   userId: string,
   subscriptionId: string,
 ) {
@@ -1568,6 +1599,7 @@ async function handleSubscriptionCancelled(
 }
 
 async function handleSubscriptionUpdated(
+  supabase: any,
   userId: string,
   planId: string,
   subscriptionId: string,
@@ -1623,6 +1655,7 @@ async function handleSubscriptionUpdated(
 }
 
 async function handleSubscriptionTrialing(
+  supabase: any,
   userId: string,
   planId: string,
   subscriptionId: string,
@@ -1680,6 +1713,7 @@ async function handleSubscriptionTrialing(
 }
 
 async function handleRefundCreated(
+  supabase: any,
   userId: string,
   planId: string,
   subscriptionId: string | null,
@@ -1750,6 +1784,7 @@ async function handleRefundCreated(
 }
 
 async function handleDisputeCreated(
+  supabase: any,
   userId: string,
   planId: string,
   subscriptionId: string | null,

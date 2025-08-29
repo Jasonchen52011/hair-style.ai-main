@@ -1,9 +1,21 @@
 import { NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { db } from "@/db";
-import { users, orders, credits, userCreditsBalance } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { createClient } from '@supabase/supabase-js';
+
+// 获取 Supabase 客户端的函数
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error('Supabase configuration missing');
+  }
+  
+  return createClient(supabaseUrl, supabaseServiceKey);
+}
+
+export const runtime = "edge";
 
 export async function GET() {
   const report = {
@@ -40,11 +52,16 @@ export async function GET() {
 
     // 2. 检查 users 表中是否有该用户
     try {
-      const [dbUser] = await db()
-        .select()
-        .from(users)
-        .where(eq(users.uuid, user.id))
-        .limit(1);
+      const supabase = getSupabaseClient();
+      const { data: dbUser, error: userError } = await supabase
+        .from('users')
+        .select('*')
+        .eq('uuid', user.id)
+        .single();
+      
+      if (userError && userError.code !== 'PGRST116') {
+        throw userError;
+      }
       
       if (dbUser) {
         report.userInDB = dbUser;
@@ -53,11 +70,15 @@ export async function GET() {
         report.recommendations.push("User record needs to be created in users table");
         
         // 尝试使用 email 查找
-        const [userByEmail] = await db()
-          .select()
-          .from(users)
-          .where(eq(users.email, user.email!))
-          .limit(1);
+        const { data: userByEmail, error: emailError } = await supabase
+          .from('users')
+          .select('*')
+          .eq('email', user.email!)
+          .single();
+        
+        if (emailError && emailError.code !== 'PGRST116') {
+          throw emailError;
+        }
         
         if (userByEmail) {
           report.issues.push(`Found user by email but UUID mismatch: DB UUID=${userByEmail.uuid}, Auth UUID=${user.id}`);
@@ -70,25 +91,34 @@ export async function GET() {
 
     // 3. 检查最近的订单
     try {
-      const recentOrders = await db()
-        .select()
-        .from(orders)
-        .where(eq(orders.user_uuid, user.id))
-        .orderBy(desc(orders.created_at))
+      const supabase = getSupabaseClient();
+      const { data: recentOrders, error: ordersError } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('user_uuid', user.id)
+        .order('created_at', { ascending: false })
         .limit(5);
       
-      report.recentOrders = recentOrders;
+      if (ordersError) {
+        throw ordersError;
+      }
       
-      if (recentOrders.length === 0) {
+      report.recentOrders = recentOrders || [];
+      
+      if (report.recentOrders.length === 0) {
         // 尝试用 email 查找
-        const ordersByEmail = await db()
-          .select()
-          .from(orders)
-          .where(eq(orders.user_email, user.email!))
-          .orderBy(desc(orders.created_at))
+        const { data: ordersByEmail, error: emailOrdersError } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('user_email', user.email!)
+          .order('created_at', { ascending: false })
           .limit(5);
         
-        if (ordersByEmail.length > 0) {
+        if (emailOrdersError) {
+          throw emailOrdersError;
+        }
+        
+        if (ordersByEmail && ordersByEmail.length > 0) {
           report.issues.push("Found orders by email but not by user UUID");
           report.recentOrders = ordersByEmail;
         }
@@ -99,25 +129,35 @@ export async function GET() {
 
     // 4. 检查积分记录
     try {
-      const recentCredits = await db()
-        .select()
-        .from(credits)
-        .where(eq(credits.user_uuid, user.id))
-        .orderBy(desc(credits.created_at))
+      const supabase = getSupabaseClient();
+      const { data: recentCredits, error: creditsError } = await supabase
+        .from('credits')
+        .select('*')
+        .eq('user_uuid', user.id)
+        .order('created_at', { ascending: false })
         .limit(5);
       
-      report.recentCredits = recentCredits;
+      if (creditsError) {
+        throw creditsError;
+      }
+      
+      report.recentCredits = recentCredits || [];
     } catch (error: any) {
       report.issues.push(`Error querying credits table: ${error.message}`);
     }
 
     // 5. 检查积分余额
     try {
-      const [balance] = await db()
-        .select()
-        .from(userCreditsBalance)
-        .where(eq(userCreditsBalance.user_uuid, user.id))
-        .limit(1);
+      const supabase = getSupabaseClient();
+      const { data: balance, error: balanceError } = await supabase
+        .from('user_credits_balance')
+        .select('*')
+        .eq('user_uuid', user.id)
+        .single();
+      
+      if (balanceError && balanceError.code !== 'PGRST116') {
+        throw balanceError;
+      }
       
       report.creditBalance = balance;
       

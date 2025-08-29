@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
-import { getUserUuid } from "@/services/user";
-import { getUserCreditsBalance } from "@/models/userCreditsBalance";
+import { getUserUuid } from "@/services/userSupabase";
+import { createClient } from '@supabase/supabase-js';
+
+function getSupabaseClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
+
+export const runtime = "edge";
 
 export async function GET() {
   try {
@@ -12,7 +21,14 @@ export async function GET() {
       );
     }
 
-    const balance = await getUserCreditsBalance(userUuid);
+    const supabaseAdmin = getSupabaseClient();
+    
+    // 获取用户积分余额
+    const { data: balance } = await supabaseAdmin
+      .from('user_credits_balance')
+      .select('*')
+      .eq('user_uuid', userUuid)
+      .single();
     
     return NextResponse.json({
       balance: balance?.balance || 0,

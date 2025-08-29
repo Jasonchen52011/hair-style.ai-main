@@ -3,6 +3,7 @@ import { createClient } from "@/utils/supabase/server";
 import config from "../../../../config";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 // This route is called after a successful login. It exchanges the code for a session and redirects to the callback URL (see config.js).
 export async function GET(req: NextRequest) {
@@ -52,12 +53,139 @@ export async function GET(req: NextRequest) {
             picture: user.user_metadata?.picture
           });
 
-          // 导入必要的函数来保存到users表
-          const { db } = await import('@/db');
-          const { users } = await import('@/db/schema');
-          const { eq } = await import('drizzle-orm');
-          const { insertUser, findUserByEmail } = await import('@/models/user');
-          const { createOrUpdateUserCreditsBalance } = await import('@/models/userCreditsBalance');
+          // 导入必要的Supabase函数来保存到users表
+          const { createClient: createSupabaseClient } = await import('@supabase/supabase-js');
+          
+          // 获取 Supabase 客户端
+          const getSupabaseClient = () => {
+            const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+            const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+            
+            if (!supabaseUrl || !supabaseServiceKey) {
+              throw new Error('Supabase configuration missing');
+            }
+            
+            return createSupabaseClient(supabaseUrl, supabaseServiceKey);
+          };
+          
+          // Supabase版本的用户查找函数
+          const findUserByEmailSupabase = async (email: string) => {
+            try {
+              const { data, error } = await getSupabaseClient()
+                .from('users')
+                .select('*')
+                .eq('email', email)
+                .limit(1)
+                .single();
+
+              if (error && error.code !== 'PGRST116') {
+                console.error("Error finding user by email:", error);
+                throw error;
+              }
+
+              return data || null;
+            } catch (error) {
+              console.error("Error finding user by email:", error);
+              throw error;
+            }
+          };
+          
+          // Supabase版本的用户插入函数
+          const insertUserSupabase = async (userData: {
+            uuid: string;
+            email: string;
+            nickname?: string;
+            avatar_url?: string;
+            signin_type?: string;
+            signin_provider?: string;
+            signin_openid?: string;
+            created_at?: Date;
+          }) => {
+            try {
+              const { data, error } = await getSupabaseClient()
+                .from('users')
+                .insert({
+                  uuid: userData.uuid,
+                  email: userData.email,
+                  nickname: userData.nickname,
+                  avatar_url: userData.avatar_url,
+                  signin_type: userData.signin_type,
+                  signin_provider: userData.signin_provider,
+                  signin_openid: userData.signin_openid,
+                  invite_code: '',
+                  invited_by: '',
+                  is_affiliate: false,
+                  created_at: userData.created_at?.toISOString() || new Date().toISOString(),
+                  updated_at: new Date().toISOString(),
+                })
+                .select()
+                .single();
+
+              if (error) {
+                console.error("Error inserting user:", error);
+                throw error;
+              }
+
+              return data;
+            } catch (error) {
+              console.error("Error inserting user:", error);
+              throw error;
+            }
+          };
+          
+          // Supabase版本的积分余额创建/更新函数
+          const createOrUpdateUserCreditsBalanceSupabase = async (
+            userUuid: string,
+            creditsToAdd: number
+          ) => {
+            try {
+              // 先查询是否存在
+              const { data: existing, error: checkError } = await getSupabaseClient()
+                .from('user_credits_balance')
+                .select('*')
+                .eq('user_uuid', userUuid)
+                .single();
+              
+              if (checkError && checkError.code !== 'PGRST116') {
+                console.error("Error checking existing credits balance:", checkError);
+                throw checkError;
+              }
+              
+              if (existing) {
+                // 更新余额
+                const { data, error } = await getSupabaseClient()
+                  .from('user_credits_balance')
+                  .update({
+                    balance: existing.balance + creditsToAdd,
+                    updated_at: new Date().toISOString(),
+                  })
+                  .eq('user_uuid', userUuid)
+                  .select()
+                  .single();
+                
+                if (error) throw error;
+                return data;
+              } else {
+                // 创建新记录
+                const { data, error } = await getSupabaseClient()
+                  .from('user_credits_balance')
+                  .insert({
+                    user_uuid: userUuid,
+                    balance: creditsToAdd,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                  })
+                  .select()
+                  .single();
+                
+                if (error) throw error;
+                return data;
+              }
+            } catch (error) {
+              console.error("Error creating/updating user credits balance:", error);
+              throw error;
+            }
+          };
 
           // 同时确保profiles表中有记录
           await ensureUserProfile(user, supabase);
@@ -70,7 +198,7 @@ export async function GET(req: NextRequest) {
           while (retryCount < maxRetries) {
             try {
               // 检查用户是否已存在
-              existingUser = await findUserByEmail(user.email!);
+              existingUser = await findUserByEmailSupabase(user.email!);
               break; // 成功则跳出循环
             } catch (error: any) {
               retryCount++;
@@ -89,15 +217,21 @@ export async function GET(req: NextRequest) {
             // 用户已存在，更新基本信息
             console.log('👤 Updating existing user for:', user.id);
             
-            const [updatedUser] = await db()
-              .update(users)
-              .set({
+            const { data: updatedUser, error: updateError } = await getSupabaseClient()
+              .from('users')
+              .update({
                 nickname: user.user_metadata?.full_name || user.user_metadata?.name || existingUser.nickname,
                 avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || existingUser.avatar_url,
-                updated_at: new Date(),
+                updated_at: new Date().toISOString(),
               })
-              .where(eq(users.email, user.email!))
-              .returning();
+              .eq('email', user.email!)
+              .select()
+              .single();
+
+            if (updateError) {
+              console.error('❌ Failed to update user:', updateError);
+              throw updateError;
+            }
 
             console.log('✅ Updated existing user:', updatedUser);
           } else {
@@ -123,7 +257,7 @@ export async function GET(req: NextRequest) {
             
             while (retryCount < maxRetries) {
               try {
-                newUser = await insertUser(userData as any);
+                newUser = await insertUserSupabase(userData);
                 console.log('✅ Created new user:', newUser);
                 break;
               } catch (error: any) {
@@ -143,7 +277,7 @@ export async function GET(req: NextRequest) {
               retryCount = 0;
               while (retryCount < maxRetries) {
                 try {
-                  await createOrUpdateUserCreditsBalance(user.id, 0);
+                  await createOrUpdateUserCreditsBalanceSupabase(user.id, 0);
                   console.log('✅ Created initial credits balance for user');
                   break;
                 } catch (error: any) {

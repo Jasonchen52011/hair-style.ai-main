@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
+export const runtime = "edge";
+
 export async function GET(request: NextRequest) {
   // 在函数内部初始化 Stripe
   const stripePrivateKey = process.env.STRIPE_PRIVATE_KEY;

@@ -18,7 +18,10 @@
     "test:idempotency:quick": "node test-idempotency.js --repeat 3 --concurrent 2",
     "test:idempotency:stress": "node test-idempotency.js --repeat 20 --concurrent 10",
     "test:idempotency:prod": "TEST_BASE_URL=https://hair-style.ai node test-idempotency.js",
-    "db:migrate": "node scripts/run-migration.js"
+    "db:migrate": "node scripts/run-migration.js",
+    "pages:build": "npx @cloudflare/next-on-pages@latest",
+    "preview": "pnpm pages:build && wrangler pages dev",
+    "deploy": "pnpm pages:build && wrangler pages deploy"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
@@ -29,12 +32,8 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.3",
     "@tailwindcss/line-clamp": "^0.4.4",
-    "@types/axios": "^0.9.36",
-    "axios": "^1.7.9",
-    "axios-retry": "^4.0.0",
     "daisyui": "^5.0.43",
     "drizzle-orm": "^0.44.3",
-    "form-data": "^4.0.1",
     "google-auth-library": "^10.1.0",
     "http-browserify": "^1.7.0",
     "http-status-codes": "^2.3.0",
@@ -58,6 +57,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.14",
     "@eslint/eslintrc": "^3",
     "@next/bundle-analyzer": "^15.3.3",
     "@types/jsonwebtoken": "^9.0.10",

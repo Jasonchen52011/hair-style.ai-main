@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
-import FormData from "form-data";
-import axiosRetry from 'axios-retry';
 import { headers } from 'next/headers';
 import { createClient } from '@supabase/supabase-js';
 import { createRouteClient } from '@/utils/supabase/route-handler';
+
+export const runtime = "edge";
 
 const API_KEY = process.env.AILABAPI_API_KEY;
 const API_BASE_URL = 'https://www.ailabapi.com/api';
@@ -21,27 +20,67 @@ function getAdminSupabase() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-// 创建统一的 axios 实例
-const client = axios.create({
-    timeout: 15000, // 增加超时时间到 15 秒
-    validateStatus: (status) => status < 500 // 只有状态码 >= 500 才会被视为错误
-});
-
-// 配置重试机制
-axiosRetry(client, { 
-    retries: 3,
-    retryDelay: (retryCount) => {
-        return retryCount * 500; // 重试间隔缩短到 500ms
-    },
-    retryCondition: (error) => {
-        // 如果是网络错误或服务器错误则重试
-        if (error.message === 'Processing timeout') {
-            error.message = 'We tried multiple times but still failed. Please try with a different photo.';
+// 实现带超时和重试机制的 fetch 函数
+async function fetchWithRetryAndTimeout(
+  url: string, 
+  options: RequestInit, 
+  retries = 3, 
+  timeout = 15000
+): Promise<Response> {
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      // 添加超时控制
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      // 只有状态码 >= 500 才重试（与原 axios 配置保持一致）
+      if (response.ok || response.status < 500) {
+        return response;
+      }
+      
+      // 服务器错误，准备重试
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      
+    } catch (error) {
+      // 检查是否应该重试
+      const shouldRetry = (
+        error instanceof Error && (
+          error.name === 'AbortError' || // 超时错误
+          error.message.includes('timeout') ||
+          error.message.includes('ETIMEDOUT') ||
+          error.message.includes('ECONNREFUSED') ||
+          error.message.includes('ENOTFOUND') ||
+          error.message.includes('network') ||
+          error.message.startsWith('HTTP 5') // 服务器错误
+        )
+      );
+      
+      // 如果是最后一次尝试或不应该重试，抛出错误
+      if (attempt === retries - 1 || !shouldRetry) {
+        // 处理超时错误的特殊消息
+        if (error instanceof Error && error.name === 'AbortError') {
+          throw new Error('We tried multiple times but still failed. Please try with a different photo.');
         }
-        return axiosRetry.isNetworkOrIdempotentRequestError(error) ||
-               error.response?.status >= 500;
+        throw error;
+      }
+      
+      // 等待后重试
+      const delay = (attempt + 1) * 500; // 重试间隔 500ms * 尝试次数
+      await new Promise(resolve => setTimeout(resolve, delay));
+      
+      console.log(`Retrying request (attempt ${attempt + 2}/${retries}) after ${delay}ms delay`);
     }
-});
+  }
+  
+  throw new Error('Max retries exceeded');
+}
 
 // 使用 Map 在内存中存储请求计数（终身使用次数）
 const lifetimeUsageCounts = new Map<string, number>(); // IP -> 终身使用次数
@@ -72,13 +111,13 @@ const AUTH_CACHE_DURATION = 5 * 60 * 1000; // 5分钟
 const completedTasksCache = new Map<string, { result: any; timestamp: number }>();
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24小时，符合API文档说明
 
-// 定期清理过期缓存和统计（每小时执行一次）
-setInterval(() => {
+// Edge Runtime 按需清理过期缓存和统计的函数
+function cleanupExpiredData() {
   const now = Date.now();
   const today = new Date().toISOString().split('T')[0];
   
   // 清理过期缓存
-  for (const [taskId, cache] of completedTasksCache.entries()) {
+  for (const [taskId, cache] of Array.from(completedTasksCache.entries())) {
     if (now - cache.timestamp > CACHE_DURATION) {
       completedTasksCache.delete(taskId);
       console.log(`🧹 Auto-cleaned expired cache for task ${taskId}`);
@@ -87,13 +126,13 @@ setInterval(() => {
   
   // 清理过期的全局使用统计（保留昨天和今天的数据）
   const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-  for (const [date] of globalFreeUsage.entries()) {
+  for (const [date] of Array.from(globalFreeUsage.entries())) {
     if (date !== today && date !== yesterday) {
       globalFreeUsage.delete(date);
       console.log(`🧹 Auto-cleaned expired global usage stats for ${date}`);
     }
   }
-}, 60 * 60 * 1000); // 每小时清理一次
+}
 
 // 本地开发白名单IP
 const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
@@ -101,6 +140,9 @@ const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
 
 export async function POST(req: NextRequest) {
     try {
+        // Edge Runtime: 按需清理过期数据
+        cleanupExpiredData();
+        
         // 获取客户端 IP
         const headersList = await headers();
         const forwardedFor = headersList.get('x-forwarded-for');
@@ -236,7 +278,7 @@ export async function POST(req: NextRequest) {
             console.log('Processing non-HTTP imageUrl, length:', imageUrl.length);
             
             try {
-                let buffer;
+                let binaryData: Uint8Array;
                 
                 if (imageUrl.startsWith('data:')) {
                     // 处理 data URL (base64)
@@ -244,18 +286,16 @@ export async function POST(req: NextRequest) {
                     if (!base64Data) {
                         throw new Error('Invalid data URL format');
                     }
-                    buffer = Buffer.from(base64Data, 'base64');
+                    binaryData = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
                 } else {
                     // assume it is a base64 string (no data: prefix)
-                    buffer = Buffer.from(imageUrl, 'base64');
+                    binaryData = Uint8Array.from(atob(imageUrl), c => c.charCodeAt(0));
                 }
                 
-                formData.append("image", buffer, {
-                    filename: 'image.jpg',
-                    contentType: 'image/jpeg'
-                });
+                const blob = new Blob([binaryData as BlobPart], { type: 'image/jpeg' });
+                formData.append("image", blob, 'image.jpg');
                 
-                console.log('Successfully processed image buffer, size:', buffer.length);
+                console.log('Successfully processed image data, size:', binaryData.length);
                 
             } catch (error) {
                 console.error('Image processing error:', error);
@@ -269,19 +309,22 @@ export async function POST(req: NextRequest) {
             num: 1
         }]));
 
-        const response = await client({
-            method: 'POST',
-            url: `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-            headers: {
-                "ailabapi-api-key": API_KEY,
-                "Accept": "application/json",
-                ...formData.getHeaders()
+        const response = await fetchWithRetryAndTimeout(
+            `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
+            {
+                method: 'POST',
+                headers: {
+                    "ailabapi-api-key": API_KEY || '',
+                    "Accept": "application/json"
+                    // FormData 自动设置正确的 Content-Type 和边界
+                },
+                body: formData
             },
-            data: formData,
-            timeout: 10000 // keep consistent with client configuration
-        });
+            3, // 重试次数
+            10000 // 超时时间 10 秒，与原配置保持一致
+        );
 
-        const responseData = response.data as any;
+        const responseData = await response.json() as any;
         console.log('API Response:', {
             status: response.status,
             error_code: responseData.error_code,
@@ -346,16 +389,19 @@ export async function POST(req: NextRequest) {
         let errorMessage = error instanceof Error ? error.message : 'Unknown error';
         
         if (error instanceof Error) {
-            // Axios 网络错误
-            if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
+            // 网络错误处理
+            if (error.name === 'AbortError' || error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
                 errorType = 'network_timeout';
                 errorMessage = 'Network request timed out. Please check your connection and try again.';
             } else if (error.message.includes('ECONNREFUSED') || error.message.includes('ENOTFOUND')) {
                 errorType = 'network_connection';
                 errorMessage = 'Unable to connect to the server. Please check your internet connection.';
-            } else if (error.message.includes('network') || error.message.includes('Network')) {
+            } else if (error.message.includes('network') || error.message.includes('Network') || error.message === 'Failed to fetch') {
                 errorType = 'network_error';
                 errorMessage = 'Network error occurred. Please check your connection and try again.';
+            } else if (error.message.includes('We tried multiple times but still failed')) {
+                errorType = 'retry_exhausted';
+                errorMessage = error.message; // 使用我们自定义的重试失败消息
             }
         }
         
@@ -370,6 +416,9 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
+    // Edge Runtime: 按需清理过期数据
+    cleanupExpiredData();
+    
     const apiKey = API_KEY;
     if (!apiKey) {
       return NextResponse.json({ 

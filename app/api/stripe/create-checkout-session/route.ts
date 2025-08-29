@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { getUserEmail, getUserUuid } from "@/services/user";
-import { insertOrder } from "@/models/order";
-import { getSnowId } from "@/lib/hash";
-import { orders } from "@/db/schema";
+import { getUserEmail, getUserUuid } from "@/services/userSupabase";
+import { insertOrderSupabase } from "@/models/orderSupabase";
 import { STRIPE_PRODUCTS, getStripeProduct, isValidStripeProductId } from "@/config/stripe-config";
+
+export const runtime = "edge";
 
 export async function POST(request: Request) {
   try {
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     
     // 在函数内部初始化 Stripe
     const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY, {
-      apiVersion: "2025-06-30.basil",
+      apiVersion: "2025-08-27.basil",
     });
 
     const { productId } = await request.json();
@@ -99,10 +99,10 @@ export async function POST(request: Request) {
     });
 
     // 创建订单记录，包含session ID
-    await insertOrder({
+    await insertOrderSupabase({
       ...order,
       stripe_session_id: session.id,
-    } as typeof orders.$inferInsert);
+    });
 
     return NextResponse.json({
       sessionId: session.id,

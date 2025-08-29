@@ -1,7 +1,9 @@
 import { respData, respErr } from "@/lib/resp";
 
-import { getUserUuid } from "@/services/user";
-import { insertFeedback } from "@/models/feedback";
+import { getUserUuid } from "@/services/userSupabase";
+import { insertFeedbackSupabase } from "@/models/feedbackSupabase";
+
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {
@@ -20,7 +22,7 @@ export async function POST(req: Request) {
       status: "created",
     };
 
-    const dbFeedback = await insertFeedback(feedback);
+    const dbFeedback = await insertFeedbackSupabase(feedback);
 
     return respData(dbFeedback);
   } catch (e) {

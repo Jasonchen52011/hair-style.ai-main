@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
+export const runtime = "edge";
+
 export async function POST(request: NextRequest) {
   // Initialize Supabase client inside the handler
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

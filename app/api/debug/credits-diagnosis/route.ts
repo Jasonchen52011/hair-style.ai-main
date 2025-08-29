@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+export const runtime = "edge";
+
 export async function GET(request: NextRequest) {
   // 在函数内部创建管理员客户端（绕过RLS）
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

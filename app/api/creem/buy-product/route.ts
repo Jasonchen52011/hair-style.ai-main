@@ -1,9 +1,10 @@
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from '@supabase/supabase-js';
 import { cookies } from "next/headers";
 import config from "@/config";
+
+export const runtime = "edge";
 
 const apiKey = process.env.CREEM_API_KEY;
 
@@ -108,53 +109,71 @@ export async function GET(request: NextRequest) {
     console.log("API Key available:", !!apiKey);
     console.log("API Key value:", apiKey ? `${apiKey.substring(0, 10)}...` : 'NOT SET');
 
-    const result = await axios.post(
-      `https://api.creem.io/v1/checkouts`,
-      checkoutData,
-      {
-        headers: { 
-          "x-api-key": apiKey,
-          "Content-Type": "application/json"
-        },
+    const response = await fetch('https://api.creem.io/v1/checkouts', {
+      method: 'POST',
+      headers: { 
+        "x-api-key": apiKey || '',
+        "Content-Type": "application/json"
       },
-    );
+      body: JSON.stringify(checkoutData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`HTTP ${response.status}: ${errorData}`);
+    }
     
-    const redirectData = result.data;
+    const redirectData = await response.json();
     console.log("✅ Checkout created successfully:", redirectData);
     return NextResponse.json({ redirectData: redirectData });
     
   } catch (error: any) {
     console.error("❌ Error creating checkout:", error);
     
-    // 如果是 axios 错误，显示更详细的信息
-    if (error.response) {
-      console.error("🔍 Axios error details:", {
-        status: error.response.status,
-        statusText: error.response.statusText,
-        data: error.response.data,
-        headers: error.response.headers,
-        url: error.config?.url,
-        method: error.config?.method
-      });
+    // 判断错误类型并提供详细信息
+    if (error instanceof Error) {
+      // 网络超时错误
+      if (error.message.includes('timeout') || error.message.includes('ETIMEDOUT')) {
+        console.error("🔍 Network timeout error:", {
+          message: error.message,
+          name: error.name
+        });
+        
+        return NextResponse.json({ 
+          error: "Network timeout - unable to reach payment service",
+          details: "Request timed out"
+        }, { status: 500 });
+      }
       
-      return NextResponse.json({ 
-        error: "Failed to create payment session",
-        details: error.response.data || error.message,
-        statusCode: error.response.status
-      }, { status: 500 });
-    }
-    
-    if (error.request) {
-      console.error("🔍 Network error details:", {
-        message: error.message,
-        code: error.code,
-        timeout: error.timeout
-      });
+      // 连接错误
+      if (error.message.includes('ECONNREFUSED') || error.message.includes('ENOTFOUND')) {
+        console.error("🔍 Network connection error:", {
+          message: error.message,
+          name: error.name
+        });
+        
+        return NextResponse.json({ 
+          error: "Network error - unable to reach payment service",
+          details: error.message
+        }, { status: 500 });
+      }
       
-      return NextResponse.json({ 
-        error: "Network error - unable to reach payment service",
-        details: error.message || "Network timeout"
-      }, { status: 500 });
+      // HTTP 错误（来自我们的错误抛出）
+      if (error.message.startsWith('HTTP ')) {
+        const statusMatch = error.message.match(/HTTP (\d+):/);
+        const statusCode = statusMatch ? parseInt(statusMatch[1]) : 500;
+        
+        console.error("🔍 HTTP error details:", {
+          message: error.message,
+          statusCode: statusCode
+        });
+        
+        return NextResponse.json({ 
+          error: "Failed to create payment session",
+          details: error.message,
+          statusCode: statusCode
+        }, { status: 500 });
+      }
     }
     
     console.error("🔍 Unknown error:", error.message);

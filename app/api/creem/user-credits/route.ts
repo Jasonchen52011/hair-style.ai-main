@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 // 积分交易类型
 const TRANS_TYPE = {
   HAIRSTYLE: 'hairstyle',

@@ -1,6 +1,8 @@
 import { respErr, respData } from "@/lib/resp";
-import { getUserCredits } from "@/services/credit";
-import { getUserUuid } from "@/services/user";
+import { getUserCredits } from "@/services/creditSupabase";
+import { getUserUuid } from "@/services/userSupabase";
+
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {

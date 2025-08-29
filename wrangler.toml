@@ -1,0 +1,10 @@
+name = "hair-style-ai"
+compatibility_date = "2024-07-29"
+compatibility_flags = ["nodejs_compat"]
+
+# Cloudflare Pages 配置 - 构建输出目录会由 @cloudflare/next-on-pages 自动处理
+[env.production]
+name = "hair-style-ai-prod"
+
+[env.preview] 
+name = "hair-style-ai-preview"

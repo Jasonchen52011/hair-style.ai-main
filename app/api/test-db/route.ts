@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { createClient } from '@supabase/supabase-js';
-import { db } from "@/db";
-import { users, orders, credits, userCreditsBalance } from "@/db/schema";
+
+export const runtime = "edge";
 
 export async function GET() {
   const results: any = {
     supabaseConnection: false,
-    drizzleConnection: false,
     tables: {},
     errors: []
   };
@@ -18,55 +17,65 @@ export async function GET() {
     
     if (!supabaseUrl || !supabaseServiceKey) {
       results.errors.push("Missing Supabase environment variables");
-    } else {
-      const supabase = createClient(supabaseUrl, supabaseServiceKey);
-      
-      // 测试查询
-      const { data, error } = await supabase.from('users').select('count').limit(1);
-      if (error) {
-        results.errors.push(`Supabase error: ${error.message}`);
-      } else {
-        results.supabaseConnection = true;
-      }
+      return NextResponse.json(results, { status: 500 });
     }
 
-    // 测试 Drizzle 连接
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // 测试 users 表
     try {
-      // 测试 users 表
-      const usersCount = await db().select().from(users).limit(1);
-      results.tables.users = { exists: true, count: usersCount.length };
-      results.drizzleConnection = true;
+      const { data, error } = await supabase.from('users').select('*').limit(1);
+      if (error) {
+        results.errors.push(`Users table error: ${error.message}`);
+        results.tables.users = { exists: false, error: error.message };
+      } else {
+        results.tables.users = { exists: true, count: data?.length || 0 };
+      }
     } catch (error: any) {
       results.errors.push(`Users table error: ${error.message}`);
     }
 
     // 测试 orders 表
     try {
-      const ordersCount = await db().select().from(orders).limit(1);
-      results.tables.orders = { exists: true, count: ordersCount.length };
+      const { data, error } = await supabase.from('orders').select('*').limit(1);
+      if (error) {
+        results.errors.push(`Orders table error: ${error.message}`);
+        results.tables.orders = { exists: false, error: error.message };
+      } else {
+        results.tables.orders = { exists: true, count: data?.length || 0 };
+      }
     } catch (error: any) {
       results.errors.push(`Orders table error: ${error.message}`);
     }
 
     // 测试 credits 表
     try {
-      const creditsCount = await db().select().from(credits).limit(1);
-      results.tables.credits = { exists: true, count: creditsCount.length };
+      const { data, error } = await supabase.from('credits').select('*').limit(1);
+      if (error) {
+        results.errors.push(`Credits table error: ${error.message}`);
+        results.tables.credits = { exists: false, error: error.message };
+      } else {
+        results.tables.credits = { exists: true, count: data?.length || 0 };
+      }
     } catch (error: any) {
       results.errors.push(`Credits table error: ${error.message}`);
     }
 
     // 测试 user_credits_balance 表
     try {
-      const balanceCount = await db().select().from(userCreditsBalance).limit(1);
-      results.tables.userCreditsBalance = { exists: true, count: balanceCount.length };
+      const { data, error } = await supabase.from('user_credits_balance').select('*').limit(1);
+      if (error) {
+        results.errors.push(`User credits balance table error: ${error.message}`);
+        results.tables.userCreditsBalance = { exists: false, error: error.message };
+      } else {
+        results.tables.userCreditsBalance = { exists: true, count: data?.length || 0 };
+      }
     } catch (error: any) {
       results.errors.push(`User credits balance table error: ${error.message}`);
-      results.tables.userCreditsBalance = { exists: false, error: error.message };
     }
 
-    // 检查数据库 URL
-    results.databaseUrl = process.env.DATABASE_URL ? "Configured" : "Missing";
+    // 如果所有表都能成功查询，则连接成功
+    results.supabaseConnection = results.errors.length === 0;
     
     return NextResponse.json(results, { status: 200 });
   } catch (error: any) {

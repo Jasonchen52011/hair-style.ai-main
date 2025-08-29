@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createRouteClient } from '@/utils/supabase/route-handler';
 import { cookies } from "next/headers";
 
+export const runtime = "edge";
+
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();

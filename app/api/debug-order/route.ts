@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import Stripe from 'stripe';
+
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
   try {
@@ -39,9 +42,11 @@ export async function POST(request: NextRequest) {
       .limit(5);
 
     // 检查Stripe session
-    const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
     let stripeSession = null;
     try {
+      const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY!, {
+        apiVersion: '2025-08-27.basil',
+      });
       stripeSession = await stripe.checkout.sessions.retrieve(sessionId);
     } catch (e) {
       console.error("Failed to retrieve Stripe session:", e);

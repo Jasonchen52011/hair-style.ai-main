@@ -1,8 +1,16 @@
 import { NextResponse } from "next/server";
-import { getUserUuid } from "@/services/user";
-import { getUserCreditsBalance, deductUserCredits } from "@/models/userCreditsBalance";
-import { insertCredit } from "@/models/credit";
+import { getUserUuid } from "@/services/userSupabase";
 import { getSnowId } from "@/lib/hash";
+import { createClient } from '@supabase/supabase-js';
+
+function getSupabaseClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
+
+export const runtime = "edge";
 
 export async function POST(request: Request) {
   try {
@@ -17,9 +25,16 @@ export async function POST(request: Request) {
       );
     }
 
+    const supabaseAdmin = getSupabaseClient();
+    
     // 检查用户积分余额
-    const balance = await getUserCreditsBalance(userUuid);
-    if (!balance || balance.balance < credits) {
+    const { data: balance, error: balanceError } = await supabaseAdmin
+      .from('user_credits_balance')
+      .select('*')
+      .eq('user_uuid', userUuid)
+      .single();
+      
+    if (balanceError || !balance || balance.balance < credits) {
       return NextResponse.json(
         { 
           error: "Insufficient credits", 
@@ -31,17 +46,35 @@ export async function POST(request: Request) {
     }
 
     // 扣除积分
-    const updatedBalance = await deductUserCredits(userUuid, credits);
+    const { data: updatedBalance, error: updateError } = await supabaseAdmin
+      .from('user_credits_balance')
+      .update({
+        balance: balance.balance - credits,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('user_uuid', userUuid)
+      .select()
+      .single();
+      
+    if (updateError) {
+      throw updateError;
+    }
 
     // 创建积分使用记录
-    await insertCredit({
-      trans_no: getSnowId(),
-      created_at: new Date(),
-      user_uuid: userUuid,
-      trans_type: "consume",
-      credits: -credits, // 负数表示消耗
-      order_no: null,
-    });
+    const { error: creditError } = await supabaseAdmin
+      .from('credits')
+      .insert({
+        trans_no: getSnowId(),
+        created_at: new Date().toISOString(),
+        user_uuid: userUuid,
+        trans_type: "consume",
+        credits: -credits, // 负数表示消耗
+        order_no: null,
+      });
+      
+    if (creditError) {
+      throw creditError;
+    }
 
     return NextResponse.json({
       success: true,

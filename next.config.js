@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 
+const { setupDevPlatform } = require('@cloudflare/next-on-pages/next-dev');
+
+// 如果是开发环境，设置 Cloudflare 开发平台
+if (process.env.NODE_ENV === 'development') {
+  setupDevPlatform().catch(console.error);
+}
+
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
   });
@@ -12,6 +19,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
           serverActions: {
               bodySizeLimit: '10mb'
           },
+          outputFileTracingRoot: process.cwd(),
       },
       compiler: {
           styledComponents: true,
@@ -125,8 +133,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
           ignoreBuildErrors: true
       },
   
-      // 添加静态导出配置
-      // output: 'standalone', // 暂时注释掉
+      // 配置输出为 Vercel 格式以配合 Cloudflare 工具
+      output: 'standalone',
       // 修复构建问题的配置
       poweredByHeader: false,
       trailingSlash: false,

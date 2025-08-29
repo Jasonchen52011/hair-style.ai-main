@@ -1,6 +1,8 @@
 import Stripe from "stripe";
-import { handleOrderSession } from "@/services/order";
+import { handleOrderSession } from "@/services/orderSupabase";
 import { redirect } from "next/navigation";
+
+export const runtime = "edge";
 
 export default async function ({
   params,

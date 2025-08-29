@@ -2,10 +2,12 @@ import {
   CreditsAmount,
   CreditsTransType,
   decreaseCredits,
-} from "@/services/credit";
+} from "@/services/creditSupabase";
 import { respData, respErr } from "@/lib/resp";
 
-import { getUserUuid } from "@/services/user";
+import { getUserUuid } from "@/services/userSupabase";
+
+export const runtime = "edge";
 
 export async function POST(req: Request) {
   try {

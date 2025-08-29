@@ -3,6 +3,8 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { checkActiveSubscription, getSimpleDbClient } from '@/lib/simple-auth';
 
+export const runtime = "edge";
+
 export async function GET(request: NextRequest) {
   try {
     // Get current user from session

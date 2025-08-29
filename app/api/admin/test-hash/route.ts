@@ -1,9 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
+
+export const runtime = "edge";
+
+// 生成SHA-256哈希的辅助函数 - 使用 Web Crypto API
+async function createSHA256Hash(text: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 export async function POST(request: NextRequest) {
   const { password } = await request.json();
-  const hash = crypto.createHash('sha256').update(password).digest('hex');
+  const hash = await createSHA256Hash(password);
   
   return NextResponse.json({
     password,

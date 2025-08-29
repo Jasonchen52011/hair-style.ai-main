@@ -9,6 +9,8 @@ import {
   getSimpleDbClient
 } from "@/lib/simple-auth";
 
+export const runtime = "edge";
+
 // 积分交易类型
 const TRANS_TYPE = {
   HAIRSTYLE: 'hairstyle',
