@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function GET() {
   try {
@@ -28,7 +28,13 @@ export async function GET() {
     if (supabaseUrl && supabaseServiceKey) {
       try {
         const { createClient } = await import('@supabase/supabase-js');
-        const supabase = createClient(supabaseUrl, supabaseServiceKey);
+        const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+          auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+            detectSessionInUrl: false
+          }
+        });
         
         // 测试连接 - 查询 orders 表的第一条记录
         const { data, error } = await supabase

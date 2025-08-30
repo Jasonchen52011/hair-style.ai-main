@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 // Removed unused imports - using Supabase functions instead
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 export async function POST(request: NextRequest) {
   console.log("=== Webhook received ===", new Date().toISOString());
@@ -133,11 +133,18 @@ export async function POST(request: NextRequest) {
           console.log("Credits balance updated:", balanceResult);
 
           console.log("Creating credits transaction record...");
-          // 创建积分交易记录 - 使用 Supabase
+          // 创建积分交易记录 - 使用 Edge Runtime 兼容的 Supabase 客户端
           const { createClient } = await import('@supabase/supabase-js');
           const supabase = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.SUPABASE_SERVICE_ROLE_KEY!
+            process.env.SUPABASE_SERVICE_ROLE_KEY!,
+            {
+              auth: {
+                persistSession: false,
+                autoRefreshToken: false,
+                detectSessionInUrl: false
+              }
+            }
           );
           
           const transactionNo = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
