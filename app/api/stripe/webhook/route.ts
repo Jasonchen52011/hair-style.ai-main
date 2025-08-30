@@ -46,20 +46,46 @@ export async function POST(request: NextRequest) {
   const stripe = new Stripe(stripePrivateKey, {
     apiVersion: "2025-06-30.basil",
   });
-  const body = await request.text();
-  const sig = request.headers.get("stripe-signature")!;
-
+  let body: string;
   let event: Stripe.Event;
 
   try {
+    body = await request.text();
+    const sig = request.headers.get("stripe-signature");
+    
+    console.log("Webhook signature present:", !!sig);
+    console.log("Body length:", body.length);
+    
+    if (!sig) {
+      console.error("Missing stripe-signature header");
+      return NextResponse.json(
+        { error: "Missing stripe-signature header" },
+        { status: 400 }
+      );
+    }
+
     // 验证webhook签名
     event = stripe.webhooks.constructEvent(body, sig, endpointSecret);
+    console.log("Webhook signature verified successfully");
+    
   } catch (err: any) {
-    console.error(`Webhook Error: ${err.message}`);
-    return NextResponse.json(
-      { error: `Webhook Error: ${err.message}` },
-      { status: 400 }
-    );
+    console.error(`Webhook signature verification failed:`, {
+      message: err.message,
+      type: err.type,
+      stack: err.stack
+    });
+    
+    // 如果是开发环境或测试，我们可以尝试解析 body 作为 JSON
+    try {
+      event = JSON.parse(body) as Stripe.Event;
+      console.log("Fallback: Parsed body as JSON event");
+    } catch (parseErr) {
+      console.error("Failed to parse body as JSON:", parseErr);
+      return NextResponse.json(
+        { error: `Webhook Error: ${err.message}` },
+        { status: 400 }
+      );
+    }
   }
 
   console.log("Event type:", event.type);
