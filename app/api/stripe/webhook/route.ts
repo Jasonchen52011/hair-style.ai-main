@@ -2,24 +2,43 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 // Removed unused imports - using Supabase functions instead
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
-  console.log("=== Webhook received ===");
+  console.log("=== Webhook received ===", new Date().toISOString());
   
-  // 在函数内部初始化 Stripe
+  // 检查所有环境变量
   const stripePrivateKey = process.env.STRIPE_PRIVATE_KEY;
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   
-  console.log("Webhook secret configured:", !!endpointSecret);
+  console.log("Environment variables check:", {
+    hasStripePrivateKey: !!stripePrivateKey,
+    hasEndpointSecret: !!endpointSecret,
+    hasSupabaseUrl: !!supabaseUrl,
+    hasSupabaseServiceKey: !!supabaseServiceKey,
+    supabaseUrl: supabaseUrl ? supabaseUrl.substring(0, 30) + '...' : 'missing'
+  });
   
   if (!stripePrivateKey || !endpointSecret) {
-    console.error("Missing configuration:", { 
+    console.error("Missing Stripe configuration:", { 
       hasPrivateKey: !!stripePrivateKey, 
       hasEndpointSecret: !!endpointSecret 
     });
     return NextResponse.json(
-      { error: 'Server configuration error' },
+      { error: 'Stripe configuration error' },
+      { status: 500 }
+    );
+  }
+  
+  if (!supabaseUrl || !supabaseServiceKey) {
+    console.error("Missing Supabase configuration:", { 
+      hasSupabaseUrl: !!supabaseUrl, 
+      hasSupabaseServiceKey: !!supabaseServiceKey 
+    });
+    return NextResponse.json(
+      { error: 'Supabase configuration error' },
       { status: 500 }
     );
   }
@@ -56,19 +75,28 @@ export async function POST(request: NextRequest) {
       try {
         // 获取订单信息
         const orderNo = session.metadata?.order_no;
+        console.log("Session metadata:", session.metadata);
+        
         if (!orderNo) {
-          console.error("Order number not found in session metadata");
+          console.error("Order number not found in session metadata:", session.metadata);
           return NextResponse.json(
             { error: "Order number not found" },
             { status: 400 }
           );
         }
 
+        console.log(`Processing order: ${orderNo}`);
+
         // 查找订单 - 使用 Supabase
+        console.log("Importing orderSupabase functions...");
         const { findOrderByOrderNoSupabase } = await import('@/models/orderSupabase');
+        
+        console.log("Searching for order in database...");
         const order = await findOrderByOrderNoSupabase(orderNo);
+        console.log("Order found:", order ? `Order ID: ${order.id}, Status: ${order.status}` : "No order found");
+        
         if (!order) {
-          console.error(`Order not found: ${orderNo}`);
+          console.error(`Order not found in database: ${orderNo}`);
           return NextResponse.json(
             { error: "Order not found" },
             { status: 404 }
@@ -81,23 +109,30 @@ export async function POST(request: NextRequest) {
           return NextResponse.json({ received: true });
         }
 
+        console.log("Updating order status to paid...");
         // 更新订单状态 - 使用 Supabase
         const { updateOrderStatusSupabase } = await import('@/models/orderSupabase');
-        await updateOrderStatusSupabase(
+        const updatedOrder = await updateOrderStatusSupabase(
           orderNo,
           "paid",
           new Date().toISOString(),
           session.customer_email || order.user_email,
           JSON.stringify(session)
         );
+        console.log("Order status updated:", updatedOrder);
 
         // 添加用户积分 - 使用 Supabase
         const credits = parseInt(session.metadata?.credits || "0");
+        console.log(`Processing credits: ${credits} for user: ${order.user_uuid}`);
+        
         if (credits > 0) {
+          console.log("Updating user credits balance...");
           // 更新用户积分余额
           const { createOrUpdateUserCreditsBalanceSupabase } = await import('@/models/userCreditsBalanceSupabase');
-          await createOrUpdateUserCreditsBalanceSupabase(order.user_uuid, credits);
+          const balanceResult = await createOrUpdateUserCreditsBalanceSupabase(order.user_uuid, credits);
+          console.log("Credits balance updated:", balanceResult);
 
+          console.log("Creating credits transaction record...");
           // 创建积分交易记录 - 使用 Supabase
           const { createClient } = await import('@supabase/supabase-js');
           const supabase = createClient(
@@ -106,8 +141,9 @@ export async function POST(request: NextRequest) {
           );
           
           const transactionNo = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          console.log("Transaction number:", transactionNo);
           
-          const { error: creditsError } = await supabase
+          const { data: creditInsertData, error: creditsError } = await supabase
             .from('credits')
             .insert([{
               trans_no: transactionNo,
@@ -116,21 +152,28 @@ export async function POST(request: NextRequest) {
               trans_type: "purchase",
               credits: credits,
               order_no: orderNo,
-            }]);
+            }])
+            .select();
           
           if (creditsError) {
-            console.error("Failed to insert credits:", creditsError);
+            console.error("Failed to insert credits transaction:", creditsError);
+            console.error("Credits error details:", JSON.stringify(creditsError, null, 2));
             throw creditsError;
           }
 
-          console.log(`Added ${credits} credits to user ${order.user_uuid}`);
+          console.log(`Successfully added ${credits} credits to user ${order.user_uuid}`);
+          console.log("Credits transaction inserted:", creditInsertData);
+        } else {
+          console.log("No credits to process (credits = 0)");
         }
 
-        console.log(`Payment successful for order: ${orderNo}`);
+        console.log(`Payment processing completed successfully for order: ${orderNo}`);
       } catch (error) {
         console.error("Error processing payment:", error);
+        console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace available');
+        console.error("Error details:", JSON.stringify(error, null, 2));
         return NextResponse.json(
-          { error: "Failed to process payment" },
+          { error: "Failed to process payment", details: error instanceof Error ? error.message : 'Unknown error' },
           { status: 500 }
         );
       }
