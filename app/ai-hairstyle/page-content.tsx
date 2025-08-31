@@ -500,6 +500,13 @@ function SelectStylePageContent() {
     }
 
     // 记录生成尝试
+    console.log('🔍 Generation Debug:', {
+      user: !!user,
+      credits: credits,
+      guestUsageCount: guestUsageCount,
+      should_block: !user && guestUsageCount <= 0 && credits === 0
+    });
+    
     const generationActivity = await logActivity('generation_attempt', 'hairstyle_generation_started', {
       selected_style: selectedStyle || 'default',
       selected_color: selectedColor,
@@ -507,11 +514,13 @@ function SelectStylePageContent() {
       has_image: !!uploadedImageUrl,
       credits: credits,
       is_guest: !user,
-      guest_usage_remaining: !user ? guestUsageCount : null
+      guest_usage_remaining: !user ? guestUsageCount : null,
+      debug_user_state: !!user,
+      debug_credits: credits
     });
 
-    // 检查未登录用户使用次数限制
-    if (!user && guestUsageCount <= 0) {
+    // 检查未登录用户使用次数限制 - 修复：有积分说明已登录，不应该按guest处理
+    if (!user && guestUsageCount <= 0 && credits === 0) {
       logActivity('generation_blocked', 'guest_limit_reached', {
         guest_usage_count: 0
       });
@@ -2396,17 +2405,17 @@ function SelectStylePageContent() {
                     </div>
                   ) : !uploadedImageUrl ? (
                     "Upload Photo"
-                  ) : !user && guestUsageCount <= 0 ? (
+                  ) : (!user && guestUsageCount <= 0 && credits === 0) ? (
                     "Log In & Buy Credits"
                   ) : !selectedStyle ? (
-                    user ? (
+                    (user || credits > 0) ? (
                       `Generate with ${
                         selectedGender === "Female" ? "Long Wavy" : "Slick Back"
                       }`
                     ) : (
                       `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
                     )
-                  ) : user ? (
+                  ) : (user || credits > 0) ? (
                     "Generate"
                   ) : (
                     `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
@@ -2733,7 +2742,7 @@ function SelectStylePageContent() {
               <button
                 onClick={handleGenerate}
                 className={`w-full py-2.5 rounded-lg font-medium transition-colors disabled:opacity-60 disabled:cursor-not-allowed mb-4 ${
-                  !user && guestUsageCount <= 0
+                  (!user && guestUsageCount <= 0 && credits === 0)
                     ? "bg-purple-700 text-white hover:bg-purple-800"
                     : "bg-purple-700 text-white hover:bg-purple-800"
                 }`}
@@ -2765,17 +2774,17 @@ function SelectStylePageContent() {
                   </div>
                 ) : !uploadedImageUrl ? (
                   "Upload Photo First"
-                ) : !user && guestUsageCount <= 0 ? (
+                ) : (!user && guestUsageCount <= 0 && credits === 0) ? (
                   "Sign up for more tries"
                 ) : !selectedStyle ? (
-                  user ? (
+                  (user || credits > 0) ? (
                     `Generate with ${
                       selectedGender === "Female" ? "Long Wavy" : "Slick Back"
                     }`
                   ) : (
                     `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
                   )
-                ) : user ? (
+                ) : (user || credits > 0) ? (
                   "Generate"
                 ) : (
                   `Generate (${guestUsageCount} ${guestUsageCount === 1 ? 'try' : 'tries'} left)`
