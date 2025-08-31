@@ -51,6 +51,10 @@ function SelectStylePageContent() {
   // 添加ref用于滚动到选中的发型
   const selectedStyleRef = useRef<HTMLButtonElement>(null);
 
+  // 移动端发型放大预览状态
+  const [showMobileStylePreview, setShowMobileStylePreview] = useState<boolean>(false);
+  const [mobilePreviewStyle, setMobilePreviewStyle] = useState<HairStyle | null>(null);
+
   // 未登录用户终身使用次数限制
   const [guestUsageCount, setGuestUsageCount] = useState<number>(2);
 
@@ -209,12 +213,21 @@ function SelectStylePageContent() {
     // if click the selected hairstyle, cancel selection
     if (selectedStyle === style) {
       setSelectedStyle("");
+      // 移动端隐藏预览
+      setShowMobileStylePreview(false);
+      setMobilePreviewStyle(null);
       logActivity('button_click', 'hairstyle_deselected', {
         style: style,
         gender: selectedGender
       });
     } else {
       setSelectedStyle(style);
+      // 移动端显示放大预览
+      const styleObj = currentStyles.find(s => s.style === style);
+      if (styleObj && window.innerWidth < 1024) {
+        setMobilePreviewStyle(styleObj);
+        setShowMobileStylePreview(true);
+      }
       logActivity('button_click', 'hairstyle_selected', {
         style: style,
         gender: selectedGender,
@@ -575,6 +588,12 @@ function SelectStylePageContent() {
     
     try {
       setIsLoading(true);
+      
+      // 点击生成时隐藏移动端发型预览
+      if (showMobileStylePreview) {
+        setShowMobileStylePreview(false);
+        setMobilePreviewStyle(null);
+      }
       
       // 立即开始倒计时，给用户反馈
       const processingStartTime = Date.now();
@@ -2258,6 +2277,9 @@ function SelectStylePageContent() {
                       onClick={() => {
                         setSelectedGender("Female");
                         setSelectedStyle("");
+                        // 切换性别时隐藏移动端预览
+                        setShowMobileStylePreview(false);
+                        setMobilePreviewStyle(null);
                         logActivity('button_click', 'gender_selected', {
                           gender: 'Female',
                           previous_gender: selectedGender
@@ -2275,6 +2297,9 @@ function SelectStylePageContent() {
                       onClick={() => {
                         setSelectedGender("Male");
                         setSelectedStyle("");
+                        // 切换性别时隐藏移动端预览
+                        setShowMobileStylePreview(false);
+                        setMobilePreviewStyle(null);
                         logActivity('button_click', 'gender_selected', {
                           gender: 'Male',
                           previous_gender: selectedGender
@@ -2425,6 +2450,41 @@ function SelectStylePageContent() {
             </div>
           </section>
         </div>
+
+        {/* 移动端发型放大预览 */}
+        {showMobileStylePreview && mobilePreviewStyle && (
+          <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4">
+            <div 
+              className="bg-white rounded-lg p-4 max-w-sm w-full shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center">
+                <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-lg">
+                  <img
+                    src={mobilePreviewStyle.imageUrl}
+                    alt={mobilePreviewStyle.description}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  {mobilePreviewStyle.description}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Selected hairstyle preview
+                </p>
+                <button
+                  onClick={() => {
+                    setShowMobileStylePreview(false);
+                    setMobilePreviewStyle(null);
+                  }}
+                  className="w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  Close Preview
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 移动端布局 - 垂直布局，居中显示，固定高度不滚动 */}
         <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] relative max-w-full">
@@ -2597,6 +2657,9 @@ function SelectStylePageContent() {
                     onClick={() => {
                       setSelectedGender("Female");
                       setSelectedStyle("");
+                      // 切换性别时隐藏移动端预览
+                      setShowMobileStylePreview(false);
+                      setMobilePreviewStyle(null);
                     }}
                     className={`flex-1 py-1.5 px-3 rounded-md text-xs transition-colors ${
                       selectedGender === "Female"
@@ -2610,6 +2673,9 @@ function SelectStylePageContent() {
                     onClick={() => {
                       setSelectedGender("Male");
                       setSelectedStyle("");
+                      // 切换性别时隐藏移动端预览
+                      setShowMobileStylePreview(false);
+                      setMobilePreviewStyle(null);
                     }}
                     className={`flex-1 py-1.5 px-3 rounded-md text-xs transition-colors ${
                       selectedGender === "Male"
