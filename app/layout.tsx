@@ -5,6 +5,7 @@ import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Providers from '@/components/Providers'
 import Script from "next/script"
 import React from 'react'
+import GoogleAdSense from '@/components/AdSense'
 
 const satoshi = localFont({
   src: [
@@ -54,9 +55,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://accounts.google.com" />
         
-        {/* Google AdSense */}
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
-               crossOrigin="anonymous"></script>
         
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YRJLJRKGE"></script>
@@ -96,6 +94,9 @@ export default function RootLayout({
           src="https://accounts.google.com/gsi/client" 
           strategy="afterInteractive"
         />
+        
+        {/* Google AdSense Auto Ads */}
+        <GoogleAdSense />
       </body>
     </html>
   )
