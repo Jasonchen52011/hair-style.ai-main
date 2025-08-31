@@ -2451,40 +2451,6 @@ function SelectStylePageContent() {
           </section>
         </div>
 
-        {/* 移动端发型放大预览 */}
-        {showMobileStylePreview && mobilePreviewStyle && (
-          <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[60] p-4">
-            <div 
-              className="bg-white rounded-lg p-4 max-w-sm w-full shadow-xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="text-center">
-                <div className="w-48 h-48 mx-auto mb-4 overflow-hidden rounded-lg">
-                  <img
-                    src={mobilePreviewStyle.imageUrl}
-                    alt={mobilePreviewStyle.description}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {mobilePreviewStyle.description}
-                </h3>
-                <p className="text-sm text-gray-600 mb-4">
-                  Selected hairstyle preview
-                </p>
-                <button
-                  onClick={() => {
-                    setShowMobileStylePreview(false);
-                    setMobilePreviewStyle(null);
-                  }}
-                  className="w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                >
-                  Close Preview
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* 移动端布局 - 垂直布局，居中显示，固定高度不滚动 */}
         <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] relative max-w-full">
@@ -2599,7 +2565,7 @@ function SelectStylePageContent() {
               <div className="h-full w-full flex flex-col overflow-hidden">
                 {/* 图片显示区域 - 靠上显示，减少上方空白 */}
                 <div className="flex-1 flex items-start justify-center px-2 pt-2 relative overflow-hidden">
-                  <div className="w-full max-w-[90vw] flex items-center justify-center">
+                  <div className="w-full max-w-[90vw] flex items-center justify-center relative">
                     <Image
                       src={uploadedImageUrl}
                       alt="Preview"
@@ -2608,6 +2574,8 @@ function SelectStylePageContent() {
                       className="max-w-full max-h-[52vh] w-auto h-auto object-contain rounded-lg"
                       unoptimized
                     />
+                    
+        
                   </div>
                 </div>
                 
@@ -2641,6 +2609,17 @@ function SelectStylePageContent() {
             )}
           </section>
 
+          {/* 发型放大预览 - 在整个操作区域上方，靠左 */}
+          {uploadedImageUrl && showMobileStylePreview && mobilePreviewStyle && (
+            <div className="lg:hidden fixed bottom-[245px] left-0.5 z-20">
+              <img
+                src={mobilePreviewStyle.imageUrl}
+                alt={mobilePreviewStyle.description}
+                className="w-[130px] h-[130px] object-cover rounded-lg"
+              />
+            </div>
+          )}
+
           {/* 移动端样式选择区域 - 固定在底部 */}
           {uploadedImageUrl && (
             <section
@@ -2649,6 +2628,7 @@ function SelectStylePageContent() {
               style={{ touchAction: 'manipulation' }}
             >
               <h2 className="sr-only">Select Hairstyle</h2>
+
 
               {/* 性别选择 - 更紧凑 */}
               <div className="bg-white p-1.5 rounded-lg">
