@@ -395,7 +395,7 @@ export default function Home() {
         <Navbar />
         
         {/* Hero Section */}
-        <section className="relative overflow-hidden">
+        <section className="relative">
           <div className="container mx-auto px-4 py-4 md:py-8 mb-6 md:mb-10">
             <div className="flex flex-col lg:grid lg:grid-cols-2 gap-2 items-center max-w-6xl mx-auto">
               {/* Image - Mobile top, Desktop right */}
@@ -495,20 +495,25 @@ export default function Home() {
           </div>
 
 
-          {/* Hairstyle Selector Component */}
+        </section>
+
+        {/* Hairstyle Selector Section */}
+        <section>
           <HairstyleSelector />
+        </section>
 
-
-          {/* How to Steps Section */}
+        {/* How to Steps Section */}
+        <section>
           <HowToStepsSection 
             title={howToStepsData.title}
             description={howToStepsData.description}
             ctaText={howToStepsData.ctaText}
             ctaLink={howToStepsData.ctaLink}
           />
+        </section>
 
-          {/* Second section: How to try on virtual hairstyles */}
-          <div className="bg-white">
+        {/* Virtual Hairstyles Section */}
+        <section className="bg-white">
             <div className="container mx-auto px-4 py-4">
               <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -544,10 +549,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+        </section>
 
-          {/* Third section: What Haircut Fits My Face */}
-          <div className="container mx-auto px-4 py-4 sm:py-20">
+        {/* Face Shape Guide Section */}
+        <section className="container mx-auto px-4 py-4 sm:py-20">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
                 <div className="flex justify-center lg:justify-end order-1 lg:order-2 mb-8 lg:mb-0">
@@ -605,13 +610,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+        </section>
 
-
-
-
-          {/* Fourth section: What is AI Hairstyle Changer */}
-          <div className="bg-gray-50">
+        {/* AI Hairstyle Changer Info Section */}
+        <section className="bg-gray-50">
             <div className="container mx-auto px-4 py-20">
               <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -650,10 +652,10 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+        </section>
 
-          
-          {/* More Free AI Tools Section */}
+        {/* More AI Tools Section */}
+        <section>
           <MoreFreeAITools
             toolNames={[
               "Man Bun Filter",
@@ -669,9 +671,10 @@ export default function Home() {
               "Hairstyle for Girls",
             ]}
           />
+        </section>
 
-          {/* Testimonials Section */}
-          <div id="testimonials" className="bg-white py-6 md:py-20">
+        {/* Testimonials Section */}
+        <section id="testimonials" className="bg-white py-6 md:py-20">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <h2 className="text-2xl sm:text-4xl font-bold text-center mb-2 md:mb-16 text-gray-800">
@@ -680,19 +683,19 @@ export default function Home() {
                 <Testimonials testimonials={testimonialsData} />
               </div>
             </div>
-          </div>
+        </section>
 
-          {/* FAQ Section */}
-          <div id="faq" className="bg-gray-50">
-            <div className="container mx-auto px-4 py-2 md:py-16">
-              <div className="max-w-6xl mx-auto">
-                <FAQ faqs={faqData} />
-              </div>
+        {/* FAQ Section */}
+        <section id="faq" className="bg-gray-50">
+          <div className="container mx-auto px-4 py-2 md:py-16">
+            <div className="max-w-6xl mx-auto">
+              <FAQ faqs={faqData} />
             </div>
           </div>
+        </section>
 
-          {/* Final CTA Section */}
-          <div className="bg-white py-16 px-4">
+        {/* Final CTA Section */}
+        <section className="bg-white py-16 px-4">
             <div className="max-w-full mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
                 Ready to Find Your Perfect Hairstyle with Hairstyle AI?
@@ -704,7 +707,6 @@ export default function Home() {
               </p>
               <ScrollToTopButton />
             </div>
-          </div>
         </section>
         <Footer />
       </div>
