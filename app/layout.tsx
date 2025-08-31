@@ -1,11 +1,13 @@
 import './globals.css'
-import { type Metadata } from 'next'
 import localFont from 'next/font/local'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
 import Providers from '@/components/Providers'
 import Script from "next/script"
 import React from 'react'
 import GoogleAdSense from '@/components/AdSense'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
+import MicrosoftClarity from '@/components/MicrosoftClarity'
+import AhrefsAnalytics from '@/components/AhrefsAnalytics'
 
 const satoshi = localFont({
   src: [
@@ -55,31 +57,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://accounts.google.com" />
         
-        
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7YRJLJRKGE"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-7YRJLJRKGE');
-          `
-        }} />
-        
-        {/* Microsoft Clarity */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            (function(c,l,a,r,i,t,y){
-              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "r341ayxao1");
-          `
-        }} />
-        
-        {/* Ahrefs Analytics */}
-        <script async src="https://analytics.ahrefs.com/analytics.js" data-key="pzQdswZNDZJoi+e1uLS3jg"></script>
+        {/* Analytics Components */}
+        <GoogleAnalytics />
+        <MicrosoftClarity />
+        <AhrefsAnalytics />
       </head>
       <body className={`${satoshi.variable} antialiased`}>
         <Providers>
