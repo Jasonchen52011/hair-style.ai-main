@@ -56,11 +56,16 @@ export default function RootLayout({
         {/* 外部服务预连接 */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://accounts.google.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
         
         {/* Analytics Components */}
         <GoogleAnalytics />
         <MicrosoftClarity />
         <AhrefsAnalytics />
+        
+        {/* Google AdSense Auto Ads - moved to head for better loading */}
+        <GoogleAdSense />
       </head>
       <body className={`${satoshi.variable} antialiased`}>
         <Providers>
@@ -76,8 +81,6 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         
-        {/* Google AdSense Auto Ads */}
-        <GoogleAdSense />
       </body>
     </html>
   )
