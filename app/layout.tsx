@@ -49,9 +49,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="manifest" href="/manifest.json" />
         
-        {/* 字体预加载 */}
+        {/* 字体预加载 - 确保所有字重都被预加载，减少CLS */}
         <link rel="preload" href="/fonts/satoshi-regular.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="preload" href="/fonts/satoshi-medium.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/satoshi-bold.woff2" as="font" type="font/woff2" crossOrigin="" />
         
         {/* 外部服务预连接 */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />

@@ -16,8 +16,32 @@
   }
 
   body {
-    font-family: var(--font-satoshi), system-ui, -apple-system, sans-serif;
-    font-display: swap;
+    /* 使用Next.js定义的字体变量，确保与layout.tsx一致 */
+    font-family: var(--font-satoshi), 
+      /* macOS系统字体 */
+      -apple-system, 
+      BlinkMacSystemFont,
+      /* Windows系统字体 */
+      'Segoe UI',
+      /* Android系统字体 */
+      Roboto,
+      /* Linux系统字体 */
+      'Helvetica Neue',
+      Arial,
+      /* 通用无衬线字体 */
+      sans-serif;
+    
+    /* 字体渲染优化 */
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 400;
+    
+    /* 确保字体指标一致性 */
+    font-optical-sizing: auto;
+    font-feature-settings: "kern" 1, "liga" 1;
+    
+    /* 减少字体切换时的跳跃 */
+    font-size-adjust: 0.5;
   }
 
   /* 确保图片容器有稳定的尺寸 */
@@ -129,30 +153,7 @@
   background: #a8a8a8;
 }
 
-/* Satoshi 字体 */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+/* 字体由 Next.js localFont 在 layout.tsx 中管理，避免重复定义 */
 
 :root {
   --foreground: #171717;

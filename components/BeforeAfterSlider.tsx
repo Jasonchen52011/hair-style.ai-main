@@ -3,8 +3,17 @@
 import dynamic from 'next/dynamic';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { Skeleton } from './Skeleton';
 
-const ReactBeforeSliderComponent = dynamic(() => import('react-before-after-slider-component'), { ssr: false });
+// 动态导入组件，添加加载状态，防止CLS
+const ReactBeforeSliderComponent = dynamic(() => import('react-before-after-slider-component'), { 
+  ssr: false,
+  loading: () => (
+    <div className="w-full aspect-square max-w-xl">
+      <Skeleton width="100%" height="100%" className="rounded-lg" />
+    </div>
+  )
+});
 
 interface BeforeAfterSliderProps {
   beforeImage: string;
@@ -23,24 +32,18 @@ export default function BeforeAfterSlider({
 }: BeforeAfterSliderProps) {
   const [position, setPosition] = useState(50);
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // 使用CSS媒体查询而不是JavaScript检测，避免布局跳跃
+  const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Check if it's a mobile device
+  // 仅在客户端挂载后设置状态，避免SSR不一致
   useEffect(() => {
-    const checkMobile = () => {
-      // Stricter mobile device detection: based on screen width only
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    setIsMounted(true);
   }, []);
 
-  // Handle mouse movement
+  // Handle mouse movement - 使用CSS媒体查询检测而不是JS
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isMobile && isHovered && containerRef.current) {
+    if (isHovered && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
@@ -49,20 +52,12 @@ export default function BeforeAfterSlider({
   };
 
   const handleMouseEnter = () => {
-    if (!isMobile) {
-      setIsHovered(true);
-    }
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
-    if (!isMobile) {
-      setIsHovered(false);
-      // Keep at last position, don't reset
-    }
+    setIsHovered(false);
   };
-
-  // Adjust height based on device type
-  const responsiveHeight = isMobile ? 342 : height;
   
   // Preload images
   useEffect(() => {
@@ -76,22 +71,35 @@ export default function BeforeAfterSlider({
     preloadImages();
   }, [beforeImage, afterImage]);
 
+  // 如果还未挂载，显示骨架屏避免CLS
+  if (!isMounted) {
+    return (
+      <div className="w-full max-w-xl aspect-square rounded-lg">
+        <Skeleton width="100%" height="100%" className="rounded-lg" />
+      </div>
+    );
+  }
+
   return (
     <div 
       ref={containerRef}
-      className="w-full max-w-xl rounded-lg overflow-hidden"
+      className="w-full max-w-xl rounded-lg overflow-hidden before-after-container prevent-layout-shift"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
-
-      style={{ userSelect: 'none', background: 'transparent' }}
+      style={{ 
+        userSelect: 'none', 
+        background: 'transparent',
+        /* 使用CSS设置响应式高度，避免JS计算导致的CLS */
+        height: 'clamp(342px, 50vw, 500px)',
+        aspectRatio: '1 / 1',
+        contain: 'layout style paint'
+      }}
     >
-      <div style={{ 
-        width: '100%', 
-        height: responsiveHeight, 
-        position: 'relative',
-        background: 'transparent'
-      }}>
+      <div 
+        className="w-full h-full relative"
+        style={{ background: 'transparent' }}
+      >
         <ReactBeforeSliderComponent
           firstImage={{
             imageUrl: beforeImage,
@@ -103,9 +111,9 @@ export default function BeforeAfterSlider({
           }}
           currentPercentPosition={position}
           delimiterColor="#ffffff"
-          withResizeFeel={!isHovered || isMobile} // Disable native interaction on PC when hovering
+          withResizeFeel={!isHovered} // 始终允许原生交互，除非正在hover（桌面端）
           feelsOnlyTheDelimiter={false}
-          className="before-after-slider"
+          className="before-after-slider w-full h-full"
         />
       </div>
     </div>
