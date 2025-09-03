@@ -134,6 +134,7 @@ function SelectStylePageContent() {
     const imageUrl = searchParams.get("image");
     const presetStyle = searchParams.get("style");
     const presetColor = searchParams.get("color");
+    const presetGender = searchParams.get("gender");
 
     if (imageUrl) {
       setUploadedImageUrl(decodeURIComponent(imageUrl));
@@ -145,6 +146,16 @@ function SelectStylePageContent() {
       const colorExists = hairColors.find((color) => color.id === decodedColor);
       if (colorExists) {
         setSelectedColor(decodedColor);
+      }
+    }
+
+    // handle preset gender
+    if (presetGender) {
+      const decodedGender = decodeURIComponent(presetGender);
+      if (decodedGender === "male") {
+        setSelectedGender("Male");
+      } else if (decodedGender === "female") {
+        setSelectedGender("Female");
       }
     }
 

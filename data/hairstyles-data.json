@@ -1,0 +1,564 @@
+{
+  "hairstyles": [
+    {
+      "id": "bob-cut-female",
+      "style": "BobCut",
+      "name": "Bob Cut",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/bob-cut.webp",
+      "vibe": "Professional & Chic",
+      "suitableFaceShapes": ["Oval", "Heart", "Square"],
+      "maintenanceTips": "Trim every 6-8 weeks to maintain shape. Use smoothing serum for sleek finish."
+    },
+    {
+      "id": "short-pixie-female",
+      "style": "ShortPixieWithShavedSides",
+      "name": "Short Pixie",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/short-pixie.webp",
+      "vibe": "Bold & Contemporary",
+      "suitableFaceShapes": ["Oval", "Diamond", "Heart"],
+      "maintenanceTips": "Requires frequent trims every 3-4 weeks. Style with texture paste for definition."
+    },
+    {
+      "id": "double-bun-female",
+      "style": "DoubleBun",
+      "name": "Double Bun",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/double-bun.webp",
+      "vibe": "Playful & Trendy",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Use hair ties that won't damage hair. Apply light hold hairspray to control flyaways."
+    },
+    {
+      "id": "updo-female",
+      "style": "Updo",
+      "name": "Elegant Updo",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/updo.webp",
+      "vibe": "Sophisticated & Formal",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Use bobby pins matching hair color. Apply texturizing spray before styling for better hold."
+    },
+    {
+      "id": "pixie-cut-female",
+      "style": "PixieCut",
+      "name": "Pixie Cut",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/pixie-cut.webp",
+      "vibe": "Edgy & Low-maintenance",
+      "suitableFaceShapes": ["Oval", "Heart", "Diamond"],
+      "maintenanceTips": "Style with lightweight wax. Trim every 4-6 weeks to maintain shape."
+    },
+    {
+      "id": "long-curly-female",
+      "style": "LongCurly",
+      "name": "Long Curly",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/long-curly.webp",
+      "vibe": "Romantic & Voluminous",
+      "suitableFaceShapes": ["Oval", "Rectangle", "Diamond"],
+      "maintenanceTips": "Use curl-defining cream. Deep condition weekly. Avoid brushing when dry."
+    },
+    {
+      "id": "curly-bob-female",
+      "style": "CurlyBob",
+      "name": "Curly Bob",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/curly-bob.webp",
+      "vibe": "Fun & Bouncy",
+      "suitableFaceShapes": ["Round", "Oval", "Heart"],
+      "maintenanceTips": "Use diffuser when drying. Apply curl cream to damp hair. Refresh curls with water spray."
+    },
+    {
+      "id": "long-straight-female",
+      "style": "LongStraight",
+      "name": "Long Straight",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/long-straight.webp",
+      "vibe": "Classic & Elegant",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Use heat protectant before styling. Regular trims every 8-10 weeks for healthy ends."
+    },
+    {
+      "id": "long-wavy-female",
+      "style": "LongWavy",
+      "name": "Long Wavy",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/long-wavy.webp",
+      "vibe": "Beachy & Effortless",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Use sea salt spray for texture. Scrunch hair while drying. Sleep with loose braids."
+    },
+    {
+      "id": "ponytail-female",
+      "style": "Ponytail",
+      "name": "High Ponytail",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/ponytail.webp",
+      "vibe": "Athletic & Sleek",
+      "suitableFaceShapes": ["Oval", "Heart", "Diamond"],
+      "maintenanceTips": "Use smoothing serum before tying. Wrap hair around elastic to hide it."
+    },
+    {
+      "id": "dreadlocks-female",
+      "style": "Dreadlocks",
+      "name": "Dreadlocks",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/dreadlocks.webp",
+      "vibe": "Cultural & Unique",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Wash weekly with residue-free shampoo. Palm roll regularly. Keep scalp moisturized."
+    },
+    {
+      "id": "shoulder-length-female",
+      "style": "ShoulderLengthHair",
+      "name": "Shoulder Length",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/shoulder-length.webp",
+      "vibe": "Versatile & Manageable",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Perfect length for various styles. Trim every 6-8 weeks. Use leave-in conditioner."
+    },
+    {
+      "id": "buzz-cut-male",
+      "style": "BuzzCut",
+      "name": "Buzz Cut",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/buzz-cut.webp",
+      "vibe": "Military & Clean",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Trim every 2-3 weeks. Use sunscreen on scalp. Minimal styling needed."
+    },
+    {
+      "id": "undercut-male",
+      "style": "UnderCut",
+      "name": "Undercut",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/undercut.webp",
+      "vibe": "Modern & Sharp",
+      "suitableFaceShapes": ["Oval", "Square", "Rectangle"],
+      "maintenanceTips": "Trim sides every 2-3 weeks. Style top with pomade or wax."
+    },
+    {
+      "id": "pompadour-male",
+      "style": "Pompadour",
+      "name": "Pompadour",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/pompadour.webp",
+      "vibe": "Classic & Sophisticated",
+      "suitableFaceShapes": ["Square", "Oval", "Rectangle"],
+      "maintenanceTips": "Blow dry with round brush. Use strong hold pomade. Regular trims for shape."
+    },
+    {
+      "id": "slick-back-male",
+      "style": "SlickBack",
+      "name": "Slick Back",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/slick-back.webp",
+      "vibe": "Business & Refined",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Use gel or pomade on damp hair. Comb back while blow drying."
+    },
+    {
+      "id": "faux-hawk-male",
+      "style": "FauxHawk",
+      "name": "Faux Hawk",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/faux-hawk.webp",
+      "vibe": "Edgy & Stylish",
+      "suitableFaceShapes": ["Oval", "Square", "Heart"],
+      "maintenanceTips": "Style center upward with strong hold gel. Trim sides regularly."
+    },
+    {
+      "id": "spiky-male",
+      "style": "Spiky",
+      "name": "Spiky Hair",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/spiky.webp",
+      "vibe": "Youthful & Dynamic",
+      "suitableFaceShapes": ["Round", "Oval", "Square"],
+      "maintenanceTips": "Use matte clay or wax. Style with fingers for texture. Works best with shorter hair."
+    },
+    {
+      "id": "comb-over-male",
+      "style": "CombOver",
+      "name": "Comb Over",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/comb-over.webp",
+      "vibe": "Professional & Neat",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Create clear part line. Use light pomade. Comb regularly throughout day."
+    },
+    {
+      "id": "high-tight-fade-male",
+      "style": "HighTightFade",
+      "name": "High Tight Fade",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/high-tight-fade.webp",
+      "vibe": "Clean & Athletic",
+      "suitableFaceShapes": ["Oval", "Square", "Round"],
+      "maintenanceTips": "Fade touch-ups every 2 weeks. Keep top moisturized. Line up edges regularly."
+    },
+    {
+      "id": "man-bun-male",
+      "style": "ManBun",
+      "name": "Man Bun",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/man-bun.webp",
+      "vibe": "Trendy & Relaxed",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Keep hair healthy with conditioner. Use hair tie without metal. Position bun at crown."
+    },
+    {
+      "id": "afro-male",
+      "style": "Afro",
+      "name": "Afro",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/afro.webp",
+      "vibe": "Natural & Bold",
+      "suitableFaceShapes": ["Oval", "Round", "Square"],
+      "maintenanceTips": "Moisturize daily. Use wide-tooth comb. Shape with afro pick."
+    },
+    {
+      "id": "low-fade-male",
+      "style": "LowFade",
+      "name": "Low Fade",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/low-fade.webp",
+      "vibe": "Subtle & Clean",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Fade maintenance every 3 weeks. Style top as desired. Works with various top styles."
+    },
+    {
+      "id": "textured-fringe-male",
+      "style": "TexturedFringe",
+      "name": "Textured Fringe",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/textured-fringe.webp",
+      "vibe": "Casual & Modern",
+      "suitableFaceShapes": ["Oval", "Rectangle", "Heart"],
+      "maintenanceTips": "Use texture spray or sea salt spray. Tousle with fingers. Trim fringe every 4 weeks."
+    },
+    {
+      "id": "messy-tousled-male",
+      "style": "MessyTousled",
+      "name": "Messy Tousled",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/messy-tousled.webp",
+      "vibe": "Effortless & Cool",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Apply matte paste to damp hair. Scrunch and let air dry. Embrace the natural texture."
+    },
+    {
+      "id": "two-block-male",
+      "style": "TwoBlockHaircut",
+      "name": "Two Block",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/two-block.webp",
+      "vibe": "K-pop & Trendy",
+      "suitableFaceShapes": ["Oval", "Round", "Heart"],
+      "maintenanceTips": "Regular trims to maintain contrast. Style top with wax. Popular in Asian styling."
+    },
+    {
+      "id": "japanese-short-female",
+      "style": "JapaneseShort",
+      "name": "Japanese Short",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/japanese-short.webp",
+      "vibe": "Minimalist & Elegant",
+      "suitableFaceShapes": ["Oval", "Heart", "Diamond"],
+      "maintenanceTips": "Regular trims for precision. Use smoothing serum for sleek finish."
+    },
+    {
+      "id": "spiked-female",
+      "style": "Spiked",
+      "name": "Spiked",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/spiked.webp",
+      "vibe": "Punk & Rebellious",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Use strong hold gel. Style with fingers pointing upward."
+    },
+    {
+      "id": "bowl-cut-female",
+      "style": "bowlCut",
+      "name": "Bowl Cut",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/bowl-cut.webp",
+      "vibe": "Retro & Quirky",
+      "suitableFaceShapes": ["Oval", "Heart"],
+      "maintenanceTips": "Precise trimming needed. Use smoothing products for clean lines."
+    },
+    {
+      "id": "chignon-female",
+      "style": "Chignon",
+      "name": "Chignon",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/chignon.webp",
+      "vibe": "Classic & Elegant",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Use bobby pins and hairspray. Perfect for formal occasions."
+    },
+    {
+      "id": "slicked-back-female",
+      "style": "SlickedBack",
+      "name": "Slicked Back",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/slicked-back.webp",
+      "vibe": "Powerful & Sleek",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Use gel or pomade. Comb back from hairline."
+    },
+    {
+      "id": "stacked-curls-bob-female",
+      "style": "StackedCurlsInShortBob",
+      "name": "Stacked Curls Bob",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/stacked-curls-bob.webp",
+      "vibe": "Voluminous & Textured",
+      "suitableFaceShapes": ["Round", "Oval", "Heart"],
+      "maintenanceTips": "Use curl enhancing products. Diffuse dry for volume."
+    },
+    {
+      "id": "side-part-fade-female",
+      "style": "SidePartCombOverHairstyleWithHighFade",
+      "name": "Side Part High Fade",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/side-part-fade.webp",
+      "vibe": "Modern & Androgynous",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Regular fade maintenance. Style with pomade for definition."
+    },
+    {
+      "id": "wavy-french-bob-female",
+      "style": "WavyFrenchBobVibesfrom1920",
+      "name": "Wavy French Bob",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/wavy-french-bob.webp",
+      "vibe": "Vintage & Romantic",
+      "suitableFaceShapes": ["Oval", "Heart", "Round"],
+      "maintenanceTips": "Use wave enhancing products. Pin curls for authentic 1920s look."
+    },
+    {
+      "id": "short-twintails-female",
+      "style": "ShortTwintails",
+      "name": "Short Twintails",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/short-twintails.webp",
+      "vibe": "Cute & Playful",
+      "suitableFaceShapes": ["Oval", "Heart", "Round"],
+      "maintenanceTips": "Use small elastic bands. Add ribbons or accessories for extra charm."
+    },
+    {
+      "id": "short-curly-pixie-female",
+      "style": "ShortCurlyPixie",
+      "name": "Short Curly Pixie",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/short-curly-pixie.webp",
+      "vibe": "Spirited & Natural",
+      "suitableFaceShapes": ["Oval", "Diamond", "Heart"],
+      "maintenanceTips": "Use curl cream on damp hair. Scrunch for definition."
+    },
+    {
+      "id": "fishtail-braid-female",
+      "style": "FishtailBraid",
+      "name": "Fishtail Braid",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/fishtail-braid.webp",
+      "vibe": "Bohemian & Intricate",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Start with textured hair. Pull gently for fuller appearance."
+    },
+    {
+      "id": "twin-braids-female",
+      "style": "TwinBraids",
+      "name": "Twin Braids",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/twin-braids.webp",
+      "vibe": "Youthful & Sporty",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Keep braids even. Use edge control for neat parts."
+    },
+    {
+      "id": "cornrows-female",
+      "style": "Cornrows",
+      "name": "Cornrows",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/cornrows.webp",
+      "vibe": "Cultural & Protective",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Moisturize scalp regularly. Wrap at night with silk scarf."
+    },
+    {
+      "id": "loose-curly-afro-female",
+      "style": "LooseCurlyAfro",
+      "name": "Loose Curly Afro",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/loose-curly-afro.webp",
+      "vibe": "Natural & Free",
+      "suitableFaceShapes": ["Oval", "Round", "Diamond"],
+      "maintenanceTips": "Deep condition weekly. Use wide-tooth comb when wet only."
+    },
+    {
+      "id": "long-twintails-female",
+      "style": "LongTwintails",
+      "name": "Long Twintails",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/long-twintails.webp",
+      "vibe": "Anime-inspired & Fun",
+      "suitableFaceShapes": ["Oval", "Heart", "Diamond"],
+      "maintenanceTips": "Use soft hair ties. Brush gently to prevent breakage."
+    },
+    {
+      "id": "long-hime-cut-female",
+      "style": "LongHimeCut",
+      "name": "Long Hime Cut",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/long-hime-cut.webp",
+      "vibe": "Japanese Princess & Traditional",
+      "suitableFaceShapes": ["Oval", "Heart"],
+      "maintenanceTips": "Requires precise cutting. Straighten for authentic look."
+    },
+    {
+      "id": "box-braids-female",
+      "style": "BoxBraids",
+      "name": "Box Braids",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/box-braids.webp",
+      "vibe": "Protective & Versatile",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Moisturize scalp. Can last 6-8 weeks with proper care."
+    },
+    {
+      "id": "french-bangs-female",
+      "style": "FrenchBangs",
+      "name": "French Bangs",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/french-bangs.webp",
+      "vibe": "Parisian & Effortless",
+      "suitableFaceShapes": ["Oval", "Heart", "Rectangle"],
+      "maintenanceTips": "Trim every 3 weeks. Style with round brush for soft curve."
+    },
+    {
+      "id": "medium-long-layered-female",
+      "style": "MediumLongLayered",
+      "name": "Medium Long Layered",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/medium-long-layered.webp",
+      "vibe": "Versatile & Flowing",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Regular trims to maintain layers. Use volumizing products."
+    },
+    {
+      "id": "buzz-cut-female",
+      "style": "BuzzCut",
+      "name": "Buzz Cut (Female)",
+      "gender": "Female",
+      "image": "/images/hairstyles/female/buzzcutfemale.webp",
+      "vibe": "Bold & Liberating",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Trim every 2 weeks. Moisturize scalp daily."
+    },
+    {
+      "id": "curly-shag-male",
+      "style": "CurlyShag",
+      "name": "Curly Shag",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/curly-shag.webp",
+      "vibe": "Retro & Textured",
+      "suitableFaceShapes": ["Oval", "Rectangle", "Diamond"],
+      "maintenanceTips": "Use curl cream. Air dry for natural texture."
+    },
+    {
+      "id": "wavy-shag-male",
+      "style": "WavyShag",
+      "name": "Wavy Shag",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/wavy-shag.webp",
+      "vibe": "Surfer & Relaxed",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Use sea salt spray. Scrunch while drying."
+    },
+    {
+      "id": "undercut-long-hair-male",
+      "style": "UndercutLongHair",
+      "name": "Undercut Long Hair",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/undercut-long-hair.webp",
+      "vibe": "Edgy & Versatile",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Maintain undercut every 3 weeks. Tie up or style down."
+    },
+    {
+      "id": "blunt-bowl-cut-male",
+      "style": "BluntBowlCut",
+      "name": "Blunt Bowl Cut",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/blunt-bowl-cut.webp",
+      "vibe": "Retro & Statement",
+      "suitableFaceShapes": ["Oval", "Heart"],
+      "maintenanceTips": "Requires precise cutting. Use smoothing products."
+    },
+    {
+      "id": "long-wavy-curtain-male",
+      "style": "LongWavyCurtainBangs",
+      "name": "Long Wavy Curtain",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/long-wavy-curtain.webp",
+      "vibe": "90s Revival & Romantic",
+      "suitableFaceShapes": ["Oval", "Rectangle", "Heart"],
+      "maintenanceTips": "Part in middle. Use wave enhancing products."
+    },
+    {
+      "id": "cornrow-braids-male",
+      "style": "CornrowBraids",
+      "name": "Cornrow Braids",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/cornrow-braids.webp",
+      "vibe": "Cultural & Cool",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Keep scalp moisturized. Wrap with durag at night."
+    },
+    {
+      "id": "long-hair-tied-up-male",
+      "style": "LongHairTiedUp",
+      "name": "Long Hair Tied Up",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/long-hair-tied-up.webp",
+      "vibe": "Casual & Practical",
+      "suitableFaceShapes": ["Oval", "Square", "Diamond"],
+      "maintenanceTips": "Use conditioner regularly. Various tie-up styles possible."
+    },
+    {
+      "id": "tinfoil-perm-male",
+      "style": "TinfoilPerm",
+      "name": "Tinfoil Perm",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/tinfoil-perm.webp",
+      "vibe": "Textured & Unique",
+      "suitableFaceShapes": ["Oval", "Round", "Square"],
+      "maintenanceTips": "Use curl-specific products. Avoid over-brushing."
+    },
+    {
+      "id": "chestnut-male",
+      "style": "Chestnut",
+      "name": "Chestnut",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/chestnut.webp",
+      "vibe": "Natural & Warm",
+      "suitableFaceShapes": ["All face shapes"],
+      "maintenanceTips": "Regular conditioning. Enhance natural color with gloss."
+    },
+    {
+      "id": "choppy-bangs-male",
+      "style": "ChoppyBangs",
+      "name": "Choppy Bangs",
+      "gender": "Male",
+      "image": "/images/hairstyles/male/choppy-bangs.webp",
+      "vibe": "Textured & Youthful",
+      "suitableFaceShapes": ["Oval", "Rectangle", "Heart"],
+      "maintenanceTips": "Use texture paste. Trim bangs every 3-4 weeks."
+    }
+  ]
+}

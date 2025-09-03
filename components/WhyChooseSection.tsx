@@ -1,3 +1,5 @@
+'use client'
+
 import Testimonials from '@/components/testimonials'
 
 interface WhyChooseSectionProps {
