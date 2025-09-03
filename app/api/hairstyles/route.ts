@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import hairstylesData from '@/data/hairstyles-data.json';
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     return NextResponse.json(hairstylesData.hairstyles);
