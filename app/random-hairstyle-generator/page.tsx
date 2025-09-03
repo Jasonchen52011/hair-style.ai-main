@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   title: config.metadata.title,
   description: config.metadata.description,
   keywords: config.metadata.keywords,
+  alternates: {
+    canonical: "https://hair-style.ai/random-hairstyle-generator",
+  },
   openGraph: {
     title: "Random Hairstyle Generator Online - AI-powered & Free",
     description: "Use our Random Hairstyle Generator AI tool to explore new hairstyles. Get personalized recommendations based on your face shape and style preferences.",
