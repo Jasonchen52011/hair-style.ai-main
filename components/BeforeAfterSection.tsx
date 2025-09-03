@@ -1,7 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-
 interface BeforeAfterSectionProps {
   beforeAfterGallery: {
     title: string
@@ -9,7 +7,7 @@ interface BeforeAfterSectionProps {
     images: Array<{
       src: string
       alt: string
-      name: string
+      name?: string
     }>
   }
 }
@@ -23,7 +21,7 @@ export default function BeforeAfterSection({ beforeAfterGallery }: BeforeAfterSe
   };
 
   return (
-    <section className="py-2 sm:py-20 bg-gray-50">
+    <section className="py-2 sm:pt-4 sm:pb-8 bg-gray-50">
       <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6">
         <div className="text-center mb-16">
           <h2 className="text-2xl sm:text-4xl font-bold mb-6 text-gray-800">
@@ -37,18 +35,18 @@ export default function BeforeAfterSection({ beforeAfterGallery }: BeforeAfterSe
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
           {beforeAfterGallery.images.map((image, index) => (
             <div key={index} className="rounded-lg " onClick={scrollToTop}>
-              <Image
+              <img
                 src={image.src}
                 alt={image.alt}
-                width={300}
-                height={300}
-                className="w-full h-auto rounded-lg object-contain cursor-pointer hover:shadow-xl transition-shadow duration-300"
+                className="w-full h-65 rounded-lg object-cover cursor-pointer hover:shadow-xl transition-shadow duration-300"
               />
-              <div className="p-4">
-                <p className="text-lg font-semibold text-gray-800 text-center">
-                  {image.name}
-                </p>
-              </div>
+              {image.name && (
+                <div className="p-4">
+                  <p className="text-lg font-semibold text-gray-800 text-center">
+                    {image.name}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>

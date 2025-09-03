@@ -260,6 +260,14 @@ export default function Footer() {
                   Random Hairstyle Generator
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/hair-type-identifier"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Hair Type Identifier
+                </Link>
+              </li>
             </ul>
           </div>
 

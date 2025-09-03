@@ -1,0 +1,514 @@
+{
+    "heroSection": {
+      "title": "AI Hair Type Identifier",
+      "description": "Upload a photo and let our hair type identifier analyze your unique hair texture, curl pattern, and thickness. Get personalized recommendations for products and styles that work best for your specific hair type, saving you time and money on trial-and-error purchases.",
+      "rating": 4.9,
+      "statsText": "285,000+ hair types analyzed with personalized recommendations",
+      "ctaText": "Analyze My Hair Type",
+      "ctaLink": "/hair-type-identifier",
+      "styleConfig": {
+        "layout": {
+          "imageRatio": "3/5",
+          "textRatio": "2/5",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-4xl",
+            "desktop": "text-6xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-900",
+          "spacing": "mb-6"
+        },
+        "description": {
+          "fontSize": {
+            "mobile": "text-base",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-600",
+          "lineHeight": "leading-relaxed",
+          "spacing": "mb-6"
+        },
+        "statsText": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-base"
+          },
+          "color": "text-gray-500",
+          "fontWeight": "font-medium",
+          "spacing": "mb-8"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-lg",
+          "fontWeight": "font-semibold",
+          "padding": "px-8 py-4",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    "imageConfig": {
+      "displayHeight": 450,
+      "image": "/images/hair-type-identifier.webp",
+      "alt": "Hair type identifier hero - AI analysis for personalized hair care recommendations"
+    },
+    "beforeAfterGallery": {
+      "title": "Discover Your Hair Twin",
+      "description": "Check out these actual results from our hair type identifier tool. Each photo shows different hair textures and the personalized recommendations our AI provided.",
+      "images": [
+        {
+          "src": "/images/discover-your-hair-twin1.webp",
+          "alt": "Hair twin example 1 - AI analysis results showing hair type identification"
+        },
+        {
+          "src": "/images/discover-your-hair-twin2.webp", 
+          "alt": "Hair twin example 2 - Personalized hair care recommendations from AI"
+        },
+        {
+          "src": "/images/discover-your-hair-twin4.webp",
+          "alt": "Hair twin example 4 - Curl pattern identification and care tips"
+        },
+        {
+          "src": "/images/discover-your-hair-twin3.webp",
+          "alt": "Hair twin example 3 - Hair texture analysis and styling suggestions"
+        },
+        {
+          "src": "/images/discover-your-hair-twin5.webp",
+          "alt": "Hair twin example 5 - Hair thickness analysis and product recommendations"
+        },
+        {
+          "src": "/images/discover-your-hair-twin6.webp",
+          "alt": "Hair twin example 6 - Complete hair type breakdown with styling advice"
+        }
+      ]
+    },
+    "additionalSection": [
+      {
+        "title": "What Hair Type Do I Have?",
+        "textContent": [
+          "If you're dealing with issues like thinning hair, a lack of volume, or hair that breaks easily, understanding your hair type is the first step to solving the problem. Our hair type identifier provides an easy way to discover your hair's unique characteristics. Once you know your hair type, you can better understand its needs and choose the right products and styles.",
+          "Use our AI tool to get an accurate analysis, or reference the chart on the right to identify your hair type manually. Each type has specific characteristics and care requirements."
+        ],
+        "hairTypeTable": [
+          {
+            "type": "Type 1A - Fine Straight",
+            "characteristics": "Pin-straight, fine texture, tends to get oily quickly",
+            "care": "Lightweight shampoo, avoid heavy conditioners"
+          },
+          {
+            "type": "Type 1B - Medium Straight", 
+            "characteristics": "Straight with slight body, medium thickness",
+            "care": "Regular shampoo, light conditioning on ends"
+          },
+          {
+            "type": "Type 1C - Coarse Straight",
+            "characteristics": "Straight but thick and coarse, resistant to curling",
+            "care": "Moisturizing products, heat protectant for styling"
+          },
+          {
+            "type": "Type 2A - Fine Wavy",
+            "characteristics": "Loose waves, fine texture, prone to frizz",
+            "care": "Lightweight mousse, air dry or diffuse gently"
+          },
+          {
+            "type": "Type 2B - Medium Wavy",
+            "characteristics": "More defined waves, medium thickness",
+            "care": "Curl cream, scrunch while drying"
+          },
+          {
+            "type": "Type 2C - Coarse Wavy",
+            "characteristics": "Strong waves with some curls, coarse texture",
+            "care": "Leave-in conditioner, avoid brushing when dry"
+          },
+          {
+            "type": "Type 3A - Large Curls",
+            "characteristics": "Loose curls, shiny, prone to frizz in humidity",
+            "care": "Curl-enhancing cream, periodic deep conditioning"
+          },
+          {
+            "type": "Type 3B - Springy Curls", 
+            "characteristics": "Well-defined spirals, medium texture",
+            "care": "Curl gel, plopping method for drying"
+          },
+          {
+            "type": "Type 3C - Tight Curls",
+            "characteristics": "Tight corkscrews, dense and full",
+            "care": "Heavy creams, protective styling at night"
+          },
+          {
+            "type": "Type 4A - Soft Coils",
+            "characteristics": "Soft coils, retains moisture well",
+            "care": "Leave-in treatments, gentle detangling when wet"
+          },
+          {
+            "type": "Type 4B - Z-Pattern Coils",
+            "characteristics": "Less defined curl pattern, cotton-like texture", 
+            "care": "Regular deep conditioning, LOC method"
+          },
+          {
+            "type": "Type 4C - Tight Coils",
+            "characteristics": "Tightest curl pattern, very fragile",
+            "care": "Minimal manipulation, protective styles, oil treatments"
+          }
+        ],
+        "ctaText": "Identify My Hair Type",
+        "ctaLink": "/hair-type-identifier",
+        "styleConfig": {
+          "layout": {
+            "textRatio": "2/5",
+            "tableRatio": "3/5",
+            "tableOrder": "right",
+            "textOrder": "left"
+          },
+          "title": {
+            "fontSize": {
+              "mobile": "text-2xl",
+              "desktop": "text-3xl"
+            },
+            "fontWeight": "font-bold",
+            "color": "text-gray-800",
+            "spacing": "mb-6"
+          },
+          "text": {
+            "fontSize": {
+              "mobile": "text-sm",
+              "desktop": "text-lg"
+            },
+            "color": "text-gray-800",
+            "lineHeight": "leading-relaxed",
+            "spacing": "space-y-4"
+          },
+          "button": {
+            "background": "bg-purple-600",
+            "backgroundHover": "hover:bg-purple-700",
+            "textColor": "text-white",
+            "fontSize": "text-base",
+            "fontWeight": "font-semibold",
+            "padding": "px-6 py-3",
+            "borderRadius": "rounded-xl"
+          }
+        }
+      }
+    ],
+    "howToUseSection": {
+      "title": "How to Use Our Hair Type Identifier",
+      "description": "Using our tool is simple and easy. Follow these steps to get your hair type analyzed and receive personalized hair care recommendations.",
+      "steps": [
+        {
+          "title": "Step 1: Upload Your Hair Photo",
+          "icon": "fas fa-upload",
+          "description": "Take a clear picture of your hair and upload it to the tool. Make sure the photo is well-lit, and the hair is visible from the root to the tip. This helps the AI analyze your hair type more accurately."
+        },
+        {
+          "title": "Step 2: AI Analyzes Your Hair",
+          "icon": "fas fa-magic",
+          "description": "Once your photo is uploaded, our AI technology scans the image and identifies your hair type in seconds. It uses advanced algorithms to analyze the texture and characteristics of your hair."
+        },
+        {
+          "title": "Step 3: Receive Your Results",
+          "icon": "fas fa-chart-line",
+          "description": "After the analysis, you'll receive a detailed report showing your exact hair type. You'll also get tailored recommendations for hair care and styling options, all based on your hair type."
+        },
+        {
+          "title": "Step 4: Download and Share Your Results",
+          "icon": "fas fa-download",
+          "description": "You can download your results for future reference or share them with your friends on social media. Our tool makes it easy to spread the word about how accurate and helpful our AI-based analysis is."
+        }
+      ],
+      "image": {
+        "src": "/images/hair-type-identifier-how-to.webp",
+        "alt": "How to use hair type identifier - step by step guide"
+      },
+      "ctaText": "Try Hair Type Identifier",
+      "ctaLink": "/hair-type-identifier"
+    },
+    "ctaSections": [
+      {
+        "title": "Daily Hair Care Decisions",
+        "textContent": [
+          "Choosing the right products for your hair can be tricky, especially when you're unsure of your hair type. With our hair type identifier, you can quickly determine whether your hair is straight, curly, or wavy, and find the perfect products tailored for your specific needs. It helps you avoid trial and error, ensuring that every product you choose works best for your hair's texture and condition.",
+          "I love using this tool before purchasing new shampoos or treatments—it saves me time and ensures I'm using the right products that enhance my hair's health."
+        ],
+        "image": {
+          "src": "/images/daily-hair-care-decisions.webp",
+          "alt": "Daily hair care products selection based on hair type analysis"
+        },
+        "ctaText": "Find My Hair Type",
+        "ctaLink": "/hair-type-identifier"
+      },
+      {
+        "title": "Styling for Special Occasions",
+        "textContent": [
+          "Whether you're preparing for a wedding, a party, or a special date, finding the right hairstyle is crucial. Our hair type identifier provides personalized styling suggestions based on your unique hair texture and face shape. The tool helps you discover looks that complement your natural hair, ensuring you look fantastic for any occasion.",
+          "Personally, I always turn to it when I need a quick yet stylish idea—it simplifies my decision-making process and guarantees I'll feel confident with my look, every single time."
+        ],
+        "image": {
+          "src": "/images/styling-for-special-occasions.webp",
+          "alt": "Special occasion hairstyling with hair type guidance"
+        },
+        "ctaText": "Get Style Recommendations",
+        "ctaLink": "/hair-type-identifier"
+      },
+      {
+        "title": "Personalized Haircut Ideas",
+        "textContent": [
+          "Thinking about changing your hairstyle? Choosing the right haircut for your face shape and hair type can be overwhelming. With our tool, you can receive personalized haircut suggestions that are tailored specifically to your hair's texture and features. It ensures you pick a style that not only suits you but also enhances your overall look.",
+          "I use this whenever I feel like trying a new style—it helps me feel more confident about the cut I'm going for and reduces the guesswork."
+        ],
+        "image": {
+          "src": "/images/personalized-haircut-ideas.webp",
+          "alt": "Personalized haircut recommendations based on hair type"
+        },
+        "ctaText": "Discover My Perfect Cut",
+        "ctaLink": "/hair-type-identifier"
+      },
+      {
+        "title": "Professional Hair Consultations",
+        "textContent": [
+          "Want professional hair advice without the salon visit? Our hair type identifier provides an in-depth analysis, giving you expert recommendations based on your hair's unique characteristics. You can explore customized hair care and styling tips straight from your phone. This tool is a game-changer when it comes to understanding your hair needs.",
+          "I use it regularly to get personalized suggestions before visiting my stylist, and it helps me communicate more effectively with them about what I want for my hair."
+        ],
+        "image": {
+          "src": "/images/professional-hair-consultations.webp",
+          "alt": "Professional hair consultation using AI hair type identifier"
+        },
+        "ctaText": "Get Expert Analysis",
+        "ctaLink": "/hair-type-identifier"
+      }
+    ],
+    "whyChooseSection": {
+      "title": "Why Choose Our Hair Type Identifier?",
+      "features": [
+        {
+          "icon": "fas fa-smile",
+          "title": "Simple & Free to Use",
+          "description": "You don't need any technical knowledge to use our tool. Just upload a photo of your hair, and within seconds, you'll receive detailed, personalized results. Best of all, it's completely free to use, with no hidden charges."
+        },
+        {
+          "icon": "fas fa-chart-line",
+          "title": "Accurate Data Analysis",
+          "description": "Our AI technology analyzes multiple aspects of your hair, including texture, curl pattern, and volume, providing a precise hair type identification. It's based on advanced machine learning models, ensuring that the results you get are as accurate as possible."
+        },
+        {
+          "icon": "fas fa-user-check",
+          "title": "No Registration Required",
+          "description": "We respect your privacy. You can use our hair type identifier without the need for registration, ensuring a smooth and hassle-free experience. Your results are available immediately after uploading your photo—no sign-ups or passwords required."
+        },
+        {
+          "icon": "fas fa-shield-alt",
+          "title": "Data Privacy & Security",
+          "description": "We take your privacy seriously. Your data is safe with us. We ensure that all photos and information you upload are encrypted and never shared with third parties. You can confidently analyze your hair type without worrying about your personal data."
+        }
+      ]
+    },
+    "testimonialsConfig": [
+      {
+        "quote": "I've been trying to find the right shampoo for months. This tool helped me discover my hair type, and the personalized recommendations were a game-changer. My hair feels healthier now, and I no longer waste money on the wrong products!",
+        "author": "Sarah Miller",
+        "title": "Teacher",
+        "rating": 5.0
+      },
+      {
+        "quote": "As someone with thick, curly hair, it's always been a challenge to manage. The hair type identifier gave me a clear understanding of my hair's needs. The recommended products and styles have made a huge difference. Highly recommend!",
+        "author": "Mark Johnson",
+        "title": "Software Developer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I was hesitant at first, but this tool made the whole process of figuring out my hair type so easy. I loved how fast it worked. After following the care suggestions, my hair is shinier and less frizzy than before.",
+        "author": "Emily Davis",
+        "title": "Freelancer",
+        "rating": 5.0
+      },
+      {
+        "quote": "I've never been sure if my hair is more wavy or curly, but this tool cleared that up instantly. The advice on hair care and styling was spot on. It's perfect for anyone looking to take better care of their hair without the guesswork.",
+        "author": "Jake Thompson",
+        "title": "Photographer",
+        "rating": 5.0
+      },
+      {
+        "quote": "Before using this, I never really understood my hair's texture. Now I know exactly what products to use. The AI tool gave me personalized recommendations that were easy to follow. I've noticed a huge improvement in the health of my hair.",
+        "author": "Mia Roberts",
+        "title": "Marketing Specialist",
+        "rating": 5.0
+      },
+      {
+        "quote": "I always thought my hair was just too fine and flat. But this tool told me it's actually thin, and now I've adjusted my routine accordingly. My hair feels much fuller, and I feel more confident than ever!",
+        "author": "David Wilson",
+        "title": "Fitness Trainer",
+        "rating": 5.0
+      }
+    ],
+    "faqConfig": [
+      {
+        "question": "Why is the float test for hair porosity unreliable?",
+        "answer": "The float test is unreliable because it doesn't reflect how your hair behaves in real conditions. It only checks if a hair strand sinks in water, which can be affected by product buildup, water temperature, or hair that's not freshly washed. Hair porosity depends on your hair's cuticle layer and how well it absorbs moisture—not how it floats. People with the same porosity might get different results from this test. That's why we don't use it. Our hair type identifier uses multi-factor image analysis to assess porosity, texture, thickness, and curl pattern with much more accuracy and consistency."
+      },
+      {
+        "question": "Does my hair type change over time due to age, environment, or hormones?",
+        "answer": "Yes, your hair type can change over time. Hair is influenced by age, hormones, environment, and even stress. For example, pregnancy or menopause can make your hair thinner or curlier. Moving to a humid or dry climate might change how your hair behaves daily. Damage from heat styling or chemical treatments can also shift your texture. That's why your hair might feel or look different than it used to. I used to have fine, straight hair in college, and now it's slightly wavy and thicker. This is totally normal—and why regular re-checks are helpful!"
+      },
+      {
+        "question": "How often should I wash my hair?",
+        "answer": "It depends on your hair type and lifestyle. Straight or oily hair might need washing every 1-2 days, while curly or coily hair can go 5-7 days or even longer. If you exercise often or live somewhere humid, you might need to wash more. But overwashing can strip your scalp of natural oils and make dryness worse. For example, I have wavy hair and found that washing twice a week keeps it clean but not frizzy. The key is to find a routine that matches your hair type and how your scalp feels."
+      },
+      {
+        "question": "How can I find a good hairdresser?",
+        "answer": "Here's a step-by-step guide to finding a great hairdresser: Step 1: Ask friends with similar hair types for recommendations. Step 2: Check online reviews on Google or Yelp, but focus on people who mention your hair texture. Step 3: Browse the salon or stylist's Instagram. Look for before-and-after pictures of hair similar to yours. Step 4: Book a quick consultation first. A good stylist will listen to your concerns and explain their approach. Step 5: Start small—maybe a trim or styling session—before committing to a big haircut or color."
+      },
+      {
+        "question": "How to determine your hair type",
+        "answer": "Step 1: Wash your hair and let it air dry without adding any products. Step 2: Look at the shape of your strands. Are they straight, wavy, curly, or coily? Step 3: Examine your hair's thickness. Is each strand fine, medium, or coarse? Step 4: Check your density—how much hair you have overall. Step 5: Test porosity by seeing how quickly your hair dries. Or skip all that and upload a photo into our AI hair type identifier. It does this whole routine for you, instantly."
+      },
+      {
+        "question": "What is hair type 1b?",
+        "answer": "Hair type 1B is mostly straight but has a slight wave or bend. It's not pin-straight like 1A, and it's not wavy enough to be type 2. 1B hair has more body and volume than 1A, and it can hold styles better, though it still tends to get oily quickly. Many people with 1B hair notice that their hair looks straight when dry but puffs slightly with humidity. I've had clients with 1B hair think it was totally straight until they let it air dry—then those bends show up."
+      },
+      {
+        "question": "What does type 2 hair look like?",
+        "answer": "Type 2 hair is wavy, shaped like the letter S. It's not curly but not straight either. Type 2 is broken into three subtypes: 2A has loose, subtle waves, often with fine strands; 2B has more defined waves that start midway; 2C has thick, coarse waves that can look like loose curls. Type 2 hair often struggles with frizz and can lose wave definition if it's weighed down by heavy products. I think it's the most versatile type—easy to straighten or curl depending on your mood."
+      },
+      {
+        "question": "What does type 3c hair look like?",
+        "answer": "Type 3C hair is tightly curled, with well-defined, springy ringlets. The curls are usually the size of a pencil or straw. It tends to be dense, voluminous, and can shrink a lot when dry. 3C hair is beautiful but needs lots of moisture to stay healthy. Without proper care, it can become frizzy or dry fast. A leave-in conditioner and curl-defining cream work wonders here. I have a friend with 3C curls, and every time she follows her full routine, the definition is out of this world."
+      },
+      {
+        "question": "What is type B hair?",
+        "answer": "Type B hair isn't a standard classification on its own. It's likely you're referring to hair types like 1B, 2B, 3B, or 4B—each combining texture and curl pattern. The B in these types tells you how tight or loose the curl or wave is within that texture group. For example, 2B is wavy with medium definition, while 3B is curly with more bounce. If someone says type B hair, it's best to clarify which number comes before the B to understand the texture better."
+      },
+      {
+        "question": "How to classify hair type",
+        "answer": "Step 1: Start with the curl pattern. Is it straight (1), wavy (2), curly (3), or coily (4)? Step 2: Identify the subtype—A, B, or C—based on how tight or loose the pattern is. Step 3: Consider other features like porosity, strand thickness, and density. Step 4: Check if your hair behaves differently in different weather or seasons. Step 5: If this feels confusing, use a hair type identifier app. It classifies everything for you—fast and accurately."
+      },
+      {
+        "question": "How to tell what type your hair is",
+        "answer": "Step 1: Let your hair air dry after washing without using products. Step 2: Look in the mirror. Is your hair completely straight, gently wavy, curly, or very tightly coiled? Step 3: Pull a strand. Is it fine, medium, or thick? Step 4: Run your fingers through. Do you feel lots of hair (dense) or less (thin)? Step 5: Use a hair type quiz or AI tool to confirm. I thought my hair was straight until I tried the quiz—it was actually 2A wavy."
+      },
+      {
+        "question": "How do I figure out what hair type I have?",
+        "answer": "Start by paying attention to what your hair looks and feels like when it's clean and dry without products. If it falls flat and straight, you're likely type 1. If it bends slightly or forms waves, it's type 2. Defined curls mean type 3, and tight coils are type 4. From there, subtypes A, B, or C reflect how loose or tight the shape is. Don't forget: your hair might not fit one box exactly. That's where a hair type identifier by photo really helps—no guessing required."
+      }
+    ],
+    "moreToolsSection": {
+      "title": "Try More AI Hair Tools",
+      "tools": [
+        {
+          "title": "Random Hairstyle Generator",
+          "description": "Generate Random Hairstyles Instantly",
+          "link": "/random-hairstyle-generator",
+          "image": "/images/screenshots/random-hairstyle-generator-how-to.webp"
+        },
+        {
+          "title": "Pink Hair Filter",
+          "description": "Try Pink Hair Colors Risk-Free",
+          "link": "/pink-hair-filter",
+          "image": "/images/pink-hair-hero.webp"
+        },
+        {
+          "title": "Black Hair Filter",
+          "description": "Try Black Hair Colors Risk-Free",
+          "link": "/black-hair-filter",
+          "image": "/images/black-hair-filter-hero.webp"
+        },
+        {
+          "title": "Blonde Hair Filter",
+          "description": "Test Blonde Shades Instantly",
+          "link": "/blonde-hair-filter",
+          "image": "/images/blonde-filter-hero.webp"
+        },
+        {
+          "title": "Red Hair Filter",
+          "description": "Try Red Styles Instantly",
+          "link": "/red-hair-filter",
+          "image": "/images/red-hair-filter-hero.webp"
+        },
+        {
+          "title": "AI Hair Color Changer",
+          "description": "Virtual Hair Color Try-On, Risk-Free",
+          "image": "/images/hair-color-hero.webp",
+          "link": "/ai-hair-color-changer"
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Find Your Hair Type Today",
+      "description": "Use our free hair type identifier to discover your exact hair type and get instant care tips that actually work for your texture.",
+      "ctaText": "Analyze My Hair Type →",
+      "ctaLink": "/hair-type-identifier"
+    },
+    "structuredData": {
+      "metadataBase": "https://hair-style.ai",
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "url": "https://hair-style.ai/hair-type-identifier",
+      "name": "Hair Type Identifier Online - Free AI Hair Analysis Tool",
+      "description": "Discover your hair type instantly with our free AI hair identifier. Upload a photo and get personalized hair care recommendations and styling tips from Hairstyle AI.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "ratingCount": "15200"
+      }
+    },
+    "breadcrumbData": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Hair Type Identifier Online - Free AI Hair Analysis Tool",
+          "item": "https://hair-style.ai/hair-type-identifier"
+        }
+      ]
+    },
+    "seoConfig": {
+      "title": "Hair Type Identifier Online - Free AI Hair Analysis Tool",
+      "description": "Discover your hair type instantly with our free AI hair identifier. Upload a photo and get personalized hair care recommendations and styling tips from Hairstyle AI.",
+      "canonical": "https://hair-style.ai/hair-type-identifier",
+      "openGraph": {
+        "title": "Hair Type Identifier Online - Free AI Hair Analysis Tool",
+        "description": "Discover your hair type instantly with our free AI hair identifier. Upload a photo and get personalized hair care recommendations and styling tips from Hairstyle AI.",
+        "url": "https://hair-style.ai/hair-type-identifier",
+        "siteName": "Hair-style.ai",
+        "locale": "en_US",
+        "type": "website",
+        "images": [
+            {
+              "url": "https://hair-style.ai/images/hair-type-identifier.webp",
+              "width": 1200,
+              "height": 630,
+              "alt": "Hair Type Identifier Online - Free AI Hair Analysis Tool",
+              "type": "image/webp"
+            }
+          ]
+      },
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@hair_styleai",
+        "title": "Hair Type Identifier Online - Free AI Hair Analysis Tool",
+        "description": "Discover your hair type instantly with our free AI hair identifier. Upload a photo and get personalized hair care recommendations and styling tips from Hairstyle AI.",
+        "images": ["https://hair-style.ai/images/hair-type-identifier.webp"]
+      }
+    }
+  }
