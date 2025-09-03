@@ -27,7 +27,7 @@ export default function WhyChooseSection({ whyChooseSection, testimonialsConfig 
         <div className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
           {whyChooseSection.features.map((feature, index) => (
             <div key={index} className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100">
-              <i className={`${feature.icon} text-4xl text-purple-600 mb-6`}></i>
+              <i className={`${feature.icon} text-5xl md:text-6xl text-purple-600 mb-6`}></i>
               <h3 className="text-lg font-bold text-gray-800 mb-3">{feature.title}</h3>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
                 {feature.description}

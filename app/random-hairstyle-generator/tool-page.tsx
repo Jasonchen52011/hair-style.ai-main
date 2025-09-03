@@ -19,14 +19,13 @@ type GenderFilter = "Male" | "Female";
 export default function RandomHairstyleGenerator() {
   const [hairstyles, setHairstyles] = useState<Hairstyle[]>([]);
   const [randomHairstyles, setRandomHairstyles] = useState<Hairstyle[]>([]);
-  const [count, setCount] = useState(3);
-  
-  // Set initial count to 1 on mobile
-  useEffect(() => {
+  // Set initial count based on screen size
+  const [count, setCount] = useState(() => {
     if (typeof window !== 'undefined' && window.innerWidth < 768) {
-      setCount(1);
+      return 1;
     }
-  }, []);
+    return 3;
+  });
   const [genderFilter, setGenderFilter] = useState<GenderFilter>("Female");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -95,8 +94,8 @@ export default function RandomHairstyleGenerator() {
               <h1 className="mt-2 text-3xl md:text-5xl font-bold text-center mb-4 text-gray-800">
                 Random Hairstyle Generator
               </h1>
-              <p className="text-gray-600 text-lg text-center mb-4">
-                Searching for a new look? Our random hairstyle generator offers personalized results based on your style preferences. With over 60+ styles for both men and women, get real-time suggestions and care tips. Free and easy to use anytime!
+              <p className="text-gray-600 text-lg text-center mb-8">
+                Searching for a new look? Our random hairstyle generator offers personalized results based on your style preferences. With over 60+ styles for both men and women, get real-time suggestions and care tips.
               </p>
             </div>
             
@@ -163,13 +162,13 @@ export default function RandomHairstyleGenerator() {
               randomHairstyles.length === 1 
                 ? 'flex justify-center' 
                 : randomHairstyles.length === 2 
-                ? 'grid grid-cols-1 md:grid-cols-2 justify-items-center max-w-4xl mx-auto'
-                : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center'
-            } gap-6 mb-8`}>
+                ? 'grid grid-cols-1 md:grid-cols-2 justify-items-center max-w-3xl mx-auto'
+                : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center max-w-6xl mx-auto'
+            } gap-3 mb-8`}>
               {randomHairstyles.map((hairstyle) => (
                 <div
                   key={hairstyle.id}
-                  className="relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col w-full max-w-[360px] hover:transform hover:scale-105"
+                  className="relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col w-full max-w-[320px]"
                 >
                   <div
                     className="block flex-grow"

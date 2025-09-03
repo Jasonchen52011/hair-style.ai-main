@@ -5,6 +5,7 @@ import RandomHairstyleGenerator from "./tool-page";
 import HairstyleSelector from "@/components/HairstyleSelector";
 import HowToUseSection from "@/components/HowToUseSection";
 import UsageScenariosSection from "@/components/UsageScenariosSection";
+import UniqueSection from "@/components/UniqueSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
 import FAQ from "@/components/faq";
 import CTASection from "@/components/CTASection";
@@ -34,7 +35,7 @@ export default function RandomHairstyleGeneratorPage() {
       <Navbar />
       <main className="flex-grow">
         {/* Generator Tool - Contains the h1 */}
-        <section id="generator" className="py-12 bg-gradient-to-b from-purple-50 to-white">
+        <section id="generator" className=" bg-gray-50">
           <RandomHairstyleGenerator />
         </section>
 
@@ -42,40 +43,34 @@ export default function RandomHairstyleGeneratorPage() {
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-4">{config.discover.title}</h2>
-            <p className="text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+            <p className="text-center text-gray-600 text-lg mb-8 max-w-4xl mx-auto">
               {config.discover.description}
             </p>
-            <HairstyleSelector />
+            <HairstyleSelector showHeader={false} />
           </div>
         </section>
 
-        {/* Pain Points Section */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            {config.painPoints.map((point, index) => (
-              <div key={index} className="mb-12">
-                <h3 className="text-2xl font-bold mb-4">{point.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{point.content}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* Pain Points Section - Using UniqueSection */}
+        <UniqueSection sections={config.painPoints} />
 
         {/* How to Use Section */}
         <HowToUseSection 
           howToUseSection={{
             title: config.howTo.title,
             description: config.howTo.description,
-            steps: config.howTo.steps.map(step => ({
+            steps: config.howTo.steps.map((step, index) => ({
               title: step.title,
-              icon: "fas fa-check-circle",
+              icon: index === 0 ? "fas fa-sliders-h" : 
+                    index === 1 ? "fas fa-magic" : 
+                    index === 2 ? "fas fa-eye" : 
+                    "fas fa-download",
               description: step.description
             })),
             image: {
               src: "/images/screenshots/random-hairstyle-generator-how-to.webp",
               alt: "How to use Random Hairstyle Generator"
             },
-            ctaText: "Start Generating",
+            ctaText: "Try Random Hairstyle Generator Now",
             ctaLink: "#generator"
           }}
         />

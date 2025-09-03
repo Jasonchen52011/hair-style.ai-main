@@ -305,6 +305,12 @@
     "title": "Try More Virtual Hair Filters",
     "tools": [
       {
+        "title": "Random Hairstyle Generator",
+        "description": "Generate Random Hairstyles Instantly",
+        "link": "/random-hairstyle-generator",
+        "image": "/images/screenshots/random-hairstyle-generator-how-to.webp"
+      },
+      {
         "title": "AI Hairstyle Changer",
         "description": "Try 60+ Hairstyles with Free AI Generator",
         "image": "/images/hero/ba3.jpg",

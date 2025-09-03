@@ -299,6 +299,29 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
+            {/* Other Tools Dropdown */}
+            <div className="relative" ref={otherToolsDropdownRef}>
+              <DropdownButton 
+                isOpen={isOtherToolsDropdownOpen}
+                onClick={() => {
+                  setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen);
+                  setIsDropdownOpen(false);
+                  setIsColorDropdownOpen(false);
+                }}
+              >
+                Other Tools
+              </DropdownButton>
+              
+              <DropdownMenu isOpen={isOtherToolsDropdownOpen} onClose={() => setIsOtherToolsDropdownOpen(false)}>
+                <DropdownItem href="/face-shape-detector" onClick={() => setIsOtherToolsDropdownOpen(false)}>
+                  Face Shape Detector
+                </DropdownItem>
+                <DropdownItem href="/random-hairstyle-generator" onClick={() => setIsOtherToolsDropdownOpen(false)}>
+                  Random Hairstyle Generator
+                </DropdownItem>
+              </DropdownMenu>
+            </div>
+
             <NavLink href="/pricing" isActive={pathname === '/pricing'}>
               Pricing
             </NavLink>
@@ -452,6 +475,42 @@ export default function Navbar() {
                       Pink Hair Filter
                     </Link>
 
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Other Tools Dropdown */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOtherToolsDropdownOpen(prev => !prev);
+                    setIsHairstyleDropdownOpen(false);
+                    setIsColorDropdownOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
+                >
+                  Other Tools
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isOtherToolsDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {isOtherToolsDropdownOpen && (
+                  <div className="px-3 py-2 space-y-1">
+                    <Link href="/face-shape-detector" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Face Shape Detector
+                    </Link>
+                    <Link href="/random-hairstyle-generator" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Random Hairstyle Generator
+                    </Link>
                   </div>
                 )}
               </div>

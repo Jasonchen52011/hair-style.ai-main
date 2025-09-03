@@ -38,7 +38,7 @@ export default function HowToUseSection({ howToUseSection }: HowToUseSectionProp
             {howToUseSection.steps.map((step, index) => (
               <div key={index}>
                 <h3 className="text-xl font-bold text-gray-800 mb-3">
-                  <i className={`${step.icon} mr-2 text-purple-600`}></i>
+                  <i className={`${step.icon} mr-3 text-purple-600 text-4xl`}></i>
                   {step.title}
                 </h3>
                 <p className="text-gray-800 text-sm sm:text-base">

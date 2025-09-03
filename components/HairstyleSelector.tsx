@@ -12,6 +12,12 @@ import Link from "next/link";
 
 type TabType = "Female" | "Male" | "Color";
 
+interface HairstyleSelectorProps {
+  showHeader?: boolean;
+  customTitle?: string;
+  customDescription?: string;
+}
+
 // Add image skeleton component
 const ImageSkeleton = ({ className = "" }: { className?: string }) => (
   <div className={`animate-pulse bg-gray-200 ${className}`} />
@@ -81,7 +87,11 @@ const OptimizedImage = ({
   );
 };
 
-export default function HairstyleSelector() {
+export default function HairstyleSelector({ 
+  showHeader = true, 
+  customTitle, 
+  customDescription 
+}: HairstyleSelectorProps = {}) {
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>("Female");
   const [displayStyles, setDisplayStyles] = useState<HairStyle[]>([]);
@@ -195,20 +205,16 @@ export default function HairstyleSelector() {
   return (
     <div className="container mx-auto px-4 pb-20">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-            Try on Popular Hairstyles for Men and Women with Hairstyle AI
-          </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
-            Looking for hairstyle inspiration? Our AI hairstyle changer helps
-            you explore the hottest hairstyles for men and women in seconds!
-            Whether you want a classic cut, bold fade, curly waves, or a sleek
-            ponytail, AI hairstyle changer makes it super easy. No more
-            guessing—just upload your photo, try on different AI hairstyle
-            simulators, and find your perfect look! Ready for a new hairstyle?
-            Give it a try today!
-          </p>
-        </div>
+        {showHeader && (
+          <div className="text-center mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
+              {customTitle || "Try on Popular Hairstyles for Men and Women with Hairstyle AI"}
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-5xl mx-auto leading-relaxed">
+              {customDescription || "Looking for hairstyle inspiration? Our AI hairstyle changer helps you explore the hottest hairstyles for men and women in seconds! Whether you want a classic cut, bold fade, curly waves, or a sleek ponytail, AI hairstyle changer makes it super easy. No more guessing—just upload your photo, try on different AI hairstyle simulators, and find your perfect look! Ready for a new hairstyle? Give it a try today!"}
+            </p>
+          </div>
+        )}
 
         <div className="flex justify-center mb-12 px-4">
           <div className="flex rounded-lg overflow-hidden w-full max-w-md">

@@ -332,6 +332,12 @@
       "title": "Try More Virtual Hair Filters",
       "tools": [
         {
+          "title": "Random Hairstyle Generator",
+          "description": "Generate Random Hairstyles Instantly",
+          "link": "/random-hairstyle-generator",
+          "image": "/images/screenshots/random-hairstyle-generator-how-to.webp"
+        },
+        {
           "title": "Black Hair Filter",
           "description": "Try Black Hair Colors Risk-Free",
           "link": "/black-hair-filter",

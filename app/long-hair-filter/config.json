@@ -348,6 +348,12 @@
       "title": "Try More Virtual Hair Filters",
       "tools": [
         {
+          "title": "Random Hairstyle Generator",
+          "description": "Generate Random Hairstyles Instantly",
+          "link": "/random-hairstyle-generator",
+          "image": "/images/screenshots/random-hairstyle-generator-how-to.webp"
+        },
+        {
           "title": "AI Braids Filter",
           "description": "Try Braids Instantly, Avoid Styling Regrets",
           "link": "/ai-braids-filter",

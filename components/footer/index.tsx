@@ -252,6 +252,14 @@ export default function Footer() {
                   Face Shape Detector
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/random-hairstyle-generator"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Random Hairstyle Generator
+                </Link>
+              </li>
             </ul>
           </div>
 

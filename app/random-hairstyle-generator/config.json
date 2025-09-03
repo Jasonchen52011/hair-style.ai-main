@@ -15,11 +15,23 @@
   "painPoints": [
     {
       "title": "Communicating with Your Hairstylist",
-      "content": "Have you ever walked out of the salon feeling disappointed because your stylist didn't understand exactly what you wanted? is a common frustration. To avoid this, always bring clear visual references—photos or videos of the style you desire. Make sure to discuss your hair texture and what maintenance you're willing to do at home. It's also helpful to talk about how much time you can spend on styling each day. A good stylist will guide you to a style that matches your vision and is manageable for your lifestyle."
+      "description": "Have you ever walked out of the salon feeling disappointed because your stylist didn't understand exactly what you wanted? is a common frustration. To avoid this, always bring clear visual references—photos or videos of the style you desire. Make sure to discuss your hair texture and what maintenance you're willing to do at home. It's also helpful to talk about how much time you can spend on styling each day. A good stylist will guide you to a style that matches your vision and is manageable for your lifestyle.",
+      "image": {
+        "src": "/images/communicating-with-your-hairstylist-final.webp",
+        "alt": "Hairstylist consultation"
+      },
+      "ctaText": "Try Random Hairstyle Generator Now",
+      "ctaLink": "#generator"
     },
     {
       "title": "Hair Health Management Issues",
-      "content": "\"Why is my hair getting so dry and brittle?\" is a question many of us ask after experiencing poor hair health. Taking care of your hair requires more than just shampoo. Regular use of the right hair products for your type—whether it's dry, oily, or curly—will make a huge difference. Don't forget about hydration, both from the inside out and through the products you use. If you notice significant changes in hair texture or scalp health, it might be time for a professional consultation. Protecting your hair from heat damage and environmental stressors can also greatly improve its quality over time."
+      "description": "\"Why is my hair getting so dry and brittle?\" is a question many of us ask after experiencing poor hair health. Taking care of your hair requires more than just shampoo. Regular use of the right hair products for your type—whether it's dry, oily, or curly—will make a huge difference. Don't forget about hydration, both from the inside out and through the products you use. If you notice significant changes in hair texture or scalp health, it might be time for a professional consultation. Protecting your hair from heat damage and environmental stressors can also greatly improve its quality over time.",
+      "image": {
+        "src": "/images/hair-health-management-issues-final.webp",
+        "alt": "Hair health management"
+      },
+      "ctaText": "Try Random Hairstyle Generator Now",
+      "ctaLink": "#generator"
     }
   ],
   "howTo": {
@@ -53,30 +65,30 @@
       "title": "Find Your Perfect Event Hairstyle",
       "description": "Whether you're preparing for a wedding, party, or a special date, the Random Hairstyle Generator is the best tool to help you find the perfect look. It suggests hairstyles that fit your personality, face shape, and occasion, making it easy to feel confident. No more second-guessing or spending hours searching online! I love how quickly I can generate a variety of looks to try out—whether it's sleek and elegant or something more playful, it gives me the inspiration I need to shine at every event.",
       "image": {
-        "src": "/images/hairstyles/female/updo.webp",
+        "src": "/images/find-your-perfect-event-hairstyle-final.webp",
         "alt": "Perfect event hairstyle"
       },
-      "ctaText": "Find Event Styles",
+      "ctaText": "Try Random Hairstyle Generator Now",
       "ctaLink": "#generator"
     },
     {
       "title": "Explore New Hairstyles Without the Risk",
       "description": "If you're looking to step out of your comfort zone and try a bold new look, the Random Hairstyle Generator is your go-to tool. With just a click, you can see how daring short cuts or unique hair colors could look on you, without committing to the change right away. It's perfect for experimenting with styles before taking the plunge. I love experimenting with different looks to see what could work for me. This tool lets me visualize before making any real decisions, which is both fun and practical!",
       "image": {
-        "src": "/images/hairstyles/female/pixie-cut.webp",
+        "src": "/images/explore-new-hairstyles-without-the-risk-final.webp",
         "alt": "Bold new hairstyle"
       },
-      "ctaText": "Try Bold Styles",
+      "ctaText": "Try Random Hairstyle Generator Now",
       "ctaLink": "#generator"
     },
     {
       "title": "Get the Best Style for Your Features",
       "description": "One of the best features of the Random Hairstyle Generator is its ability to suggest styles that match your specific face shape. You'll no longer need to rely on guesswork or just follow trends. The tool helps you find the most flattering options, with detailed style recommendations. Whether you have a round, square, or heart-shaped face, the generator has you covered. I appreciate how this tool gives me styles that I never would have thought of. It takes all the guesswork out and makes me feel confident that I'm picking the right style for my features.",
       "image": {
-        "src": "/images/hairstyles/female/bob-cut.webp",
+        "src": "/images/get-the-best-style-for-your-features-final.webp",
         "alt": "Style matching face shape"
       },
-      "ctaText": "Match Your Features",
+      "ctaText": "Try Random Hairstyle Generator Now",
       "ctaLink": "#generator"
     }
   ],

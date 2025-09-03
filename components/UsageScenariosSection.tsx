@@ -109,7 +109,7 @@ export default function UsageScenariosSection({ ctaSections, styleConfig }: Usag
                   <div className={`grid grid-cols-1 lg:grid-cols-${Number(config.layout.imageRatio) + Number(config.layout.textRatio)} ${config.layout.gap} items-center`}>
                     {/* Image */}
                     <div className={`flex justify-center ${imageFirst ? 'order-1 lg:order-1' : 'order-1 lg:order-2'} lg:col-span-${config.layout.imageRatio}`}>
-                      <div className="w-full max-w-6xl bg-white rounded-xl overflow-hidden">
+                      <div className="w-full max-w-lg bg-white rounded-xl overflow-hidden">
                         <Image
                           src={section.image.src}
                           alt={section.image.alt}

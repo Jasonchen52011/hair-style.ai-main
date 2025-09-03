@@ -658,6 +658,7 @@ export default function Home() {
         <section>
           <MoreFreeAITools
             toolNames={[
+              "Random Hairstyle Generator",
               "Man Bun Filter",
               "Textured Fringe Filter",
               "Hairstyles for Girls",
