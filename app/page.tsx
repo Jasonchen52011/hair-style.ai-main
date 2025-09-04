@@ -501,17 +501,9 @@ export default function Home() {
         <section className="bg-white py-4">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
-                   crossorigin="anonymous"></script>
-              <ins className="adsbygoogle"
-                   style={{display:'block'}}
-                   data-ad-client="ca-pub-2318931889728296"
-                   data-ad-slot="1924105465"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-              <script>
-                   (window.adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
+              <div dangerouslySetInnerHTML={{
+                __html: '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2318931889728296" data-ad-slot="1924105465" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>'
+              }} />
             </div>
           </div>
         </section>
@@ -574,17 +566,9 @@ export default function Home() {
         <section className="bg-gray-50 py-6">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
-                   crossorigin="anonymous"></script>
-              <ins className="adsbygoogle"
-                   style={{display:'block'}}
-                   data-ad-client="ca-pub-2318931889728296"
-                   data-ad-slot="1924105465"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-              <script>
-                   (window.adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
+              <div dangerouslySetInnerHTML={{
+                __html: '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2318931889728296" data-ad-slot="1924105465" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>'
+              }} />
             </div>
           </div>
         </section>
@@ -737,17 +721,9 @@ export default function Home() {
         <section className="bg-white py-6">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
-                   crossorigin="anonymous"></script>
-              <ins className="adsbygoogle"
-                   style={{display:'block'}}
-                   data-ad-client="ca-pub-2318931889728296"
-                   data-ad-slot="1924105465"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-              <script>
-                   (window.adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
+              <div dangerouslySetInnerHTML={{
+                __html: '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2318931889728296" data-ad-slot="1924105465" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>'
+              }} />
             </div>
           </div>
         </section>
