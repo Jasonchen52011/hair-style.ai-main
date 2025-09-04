@@ -292,6 +292,22 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
+            {/* Tools Links */}
+            <NavLink href="/face-shape-detector" isActive={pathname === '/face-shape-detector'}>
+              Face Shape Detector
+            </NavLink>
+            
+            <NavLink href="/random-hairstyle-generator" isActive={pathname === '/random-hairstyle-generator'}>
+              Random Hairstyle Generator
+            </NavLink>
+            
+            <NavLink href="/hair-type-identifier" isActive={pathname === '/hair-type-identifier'}>
+              Hair Type Identifier
+            </NavLink>
+            
+            <NavLink href="/what-haircut-should-i-get" isActive={pathname === '/what-haircut-should-i-get'}>
+              What Haircut Should I Get
+            </NavLink>
 
             <NavLink href="/pricing" isActive={pathname === '/pricing'}>
               Pricing
@@ -450,6 +466,22 @@ export default function Navbar() {
                 )}
               </div>
 
+              {/* Tools Links Mobile */}
+              <Link href="/face-shape-detector" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
+                Face Shape Detector
+              </Link>
+              
+              <Link href="/random-hairstyle-generator" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
+                Random Hairstyle Generator
+              </Link>
+              
+              <Link href="/hair-type-identifier" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
+                Hair Type Identifier
+              </Link>
+              
+              <Link href="/what-haircut-should-i-get" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
+                What Haircut Should I Get
+              </Link>
 
               <Link href="/pricing" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
                 Pricing

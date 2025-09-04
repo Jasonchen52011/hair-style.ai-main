@@ -10,10 +10,10 @@ const HeroSection = dynamic(() => import('@/components/HeroSection'), { ssr: tru
 const HowToUseSection = dynamic(() => import('@/components/HowToUseSection'), { ssr: true })
 const UsageScenariosSection = dynamic(() => import('@/components/UsageScenariosSection'), { ssr: true })
 const WhyChooseSection = dynamic(() => import('@/components/WhyChooseSection'), { ssr: true })
-const MoreFreeAITools = dynamic(() => import('@/components/MoreFreeAITools'), { ssr: true })
 const FAQ = dynamic(() => import('@/components/faq'), { ssr: true })
 const CTASection = dynamic(() => import('@/components/CTASection'), { ssr: true })
 const InfoSectionsComponent = dynamic(() => import('@/components/InfoSectionsComponent'), { ssr: true })
+const ExploreOtherTools = dynamic(() => import('@/components/ExploreOtherTools'), { ssr: true })
 
 const config = configData as any; 
 
@@ -93,21 +93,36 @@ export default function WhatHaircutPage() {
                     testimonialsConfig={config.testimonialsSection}
                 />
 
-                {/* More Free AI Tools */}
-                <MoreFreeAITools toolNames={[
-                    "Hair Type Identifier",
-                    "Random Hairstyle Generator",
-                    "Man Bun Filter",
-                    "Textured Fringe Filter",
-                    "Hairstyles for Girls",
-                    "Dreadlocks Filter",
-                    "Bob Haircut Filter",
-                    "Men's Hairstyles",
-                    "Buzz Cut Filter",
-                    "Short Hair Filter",
-                    "AI Hairstyle Male",
-                    "AI Hairstyle Online Free Female"
-                ]} />
+                {/* Explore Other Tools */}
+                <ExploreOtherTools 
+                    title="Explore Other Tools"
+                    tools={[
+                        {
+                            title: "Face Shape Detector",
+                            description: "AI Face Shape Detector - Find Your Perfect Hairstyle",
+                            link: "/face-shape-detector",
+                            image: "/images/face-shape-hero.webp"
+                        },
+                        {
+                            title: "Random Hairstyle Generator", 
+                            description: "Generate Random Hairstyles with AI",
+                            link: "/random-hairstyle-generator",
+                            image: "/images/hero/ba1.jpg"
+                        },
+                        {
+                            title: "Hair Type Identifier",
+                            description: "Identify Your Hair Type with AI",
+                            link: "/hair-type-identifier", 
+                            image: "/images/hero/ba3.jpg"
+                        },
+                        {
+                            title: "What Haircut Should I Get",
+                            description: "AI-powered haircut recommendations for your face shape",
+                            link: "/what-haircut-should-i-get",
+                            image: "/images/what-haircut-should-i-get-hero.webp"
+                        }
+                    ]}
+                />
 
                 {/* FAQ Section */}
                 <FAQ faqs={config.faqSection.faqs} />
