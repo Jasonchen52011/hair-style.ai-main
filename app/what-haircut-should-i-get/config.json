@@ -1,0 +1,629 @@
+{
+  "seo": {
+    "title": "What Haircut Should I Get? Try Our Free Online AI Tool",
+    "description": "Use our AI tool to explore the perfect hairstyle for you. Whether it's a trendy cut or a classic style, get personalized results quickly, with no need to register. Free and accurate!",
+    "url": "https://hair-style.ai/what-haircut-should-i-get",
+    "baseUrl": "https://hair-style.ai",
+    "openGraph": {
+      "title": "What Haircut Should I Get? Try Our Free Online AI Tool",
+      "description": "Use our AI tool to explore the perfect hairstyle for you. Whether it's a trendy cut or a classic style, get personalized results quickly, with no need to register. Free and accurate!",
+      "image": {
+        "url": "/images/what-haircut-should-i-get-for-my-face-shape.webp",
+        "width": 1200,
+        "height": 630,
+        "alt": "What Haircut Should I Get - AI Tool"
+      },
+      "locale": "en_US",
+      "type": "website"
+    },
+    "twitter": {
+      "card": "summary_large_image",
+      "site": "@hair_styleai",
+      "creator": "@hair_styleai",
+      "image": "/images/what-haircut-should-i-get-for-my-face-shape.webp"
+    },
+    "robots": {
+      "index": true,
+      "follow": true,
+      "maxImagePreview": "large",
+      "maxSnippet": -1,
+      "maxVideoPreview": -1
+    },
+    "icons": {
+      "favicon": {
+        "url": "/favicon.ico",
+        "type": "image/x-icon",
+        "sizes": "any"
+      },
+      "logo": {
+        "url": "/images/logo/logo-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    }
+  },
+  "imageConfig": {
+    "displayHeight": 450,
+    "image": "/images/what-haircut-should-i-get-hero.webp",
+    "alt": "What Haircut Should I Get - AI Tool"
+  },
+  "heroSection": {
+    "title": "What Haircut Should I Get? Try Hairstyle AI for Perfect Results",
+    "description": "Find the best haircut for your face shape and hair texture with our AI-powered tool. It analyzes your preferences and gives professional recommendations. Get personalized styles in just 5 minutes!",
+    "rating": 4.9,
+    "statsText": "50,000+ personalized haircut recommendations with 90%+ satisfaction rate",
+    "ctaText": "Try hairstyle quiz Now",
+    "ctaLink": "/what-haircut-should-i-get/test",
+    "image": "/images/what-haircut-should-i-get-hero.webp",
+    "styleConfig": {
+      "layout": {
+        "imageRatio": "1/2",
+        "textRatio": "1/2",
+        "imageOrder": "right",
+        "textOrder": "left"
+      },
+      "title": {
+        "fontSize": {
+          "mobile": "text-4xl",
+          "desktop": "text-6xl"
+        },
+        "fontWeight": "font-bold",
+        "color": "text-gray-900",
+        "spacing": "mb-6"
+      },
+      "description": {
+        "fontSize": {
+          "mobile": "text-base",
+          "desktop": "text-lg"
+        },
+        "color": "text-gray-600",
+        "lineHeight": "leading-relaxed",
+        "spacing": "mb-6"
+      },
+      "statsText": {
+        "fontSize": {
+          "mobile": "text-sm",
+          "desktop": "text-base"
+        },
+        "color": "text-gray-500",
+        "fontWeight": "font-medium",
+        "spacing": "mb-8"
+      },
+      "button": {
+        "background": "bg-purple-600",
+        "backgroundHover": "hover:bg-purple-700",
+        "textColor": "text-white",
+        "fontSize": "text-lg",
+        "fontWeight": "font-semibold",
+        "padding": "px-8 py-4",
+        "borderRadius": "rounded-xl"
+      }
+    }
+  },
+  "infoSections": [
+    {
+      "title": "What Haircut Should I Get for My Face Shape?",
+      "content": [
+        "Choosing the right haircut for your face shape can make a huge difference in your overall look. For round faces, styles with volume on top and longer layers help elongate the face. Square faces benefit from soft layers or waves that soften angular jawlines. For oval faces, almost any hairstyle works, but adding layers or bangs can highlight your best features. Heart-shaped faces should opt for styles that add width around the chin, like side-swept bangs.",
+        "\"For children with a round face, a hairstyle with volume on top, like a textured crop, can help elongate their face. Heart-shaped faces look great with side-swept bangs or a chin-length bob to balance their proportions.\""
+      ],
+      "image": "/images/what-haircut-should-i-get-for-my-face-shape.webp",
+      "ctaText": "Try hairstyle quiz Now",
+      "ctaLink": "/what-haircut-should-i-get/test",
+      "styleConfig": {
+        "layout": {
+          "textRatio": "1/2",
+          "imageRatio": "1/2",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-2xl",
+            "desktop": "text-3xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-800",
+          "spacing": "mb-6"
+        },
+        "text": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-800",
+          "lineHeight": "leading-relaxed",
+          "spacing": "space-y-4"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-base",
+          "fontWeight": "font-semibold",
+          "padding": "px-6 py-3",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    },
+    {
+      "title": "How to Find and Choose a Great Hairstylist?",
+      "content": [
+        "Looking for a top hairstylist? Start by asking friends, family, or checking online reviews for recommendations. Visit local salons and check if the stylists specialize in the style you're going for. A good stylist should understand your face shape, hair type, and lifestyle.",
+        "Ever had a haircut that didn't turn out the way you expected? To avoid this, communicate clearly with your stylist. Bring photos of the look you want and explain how much time you're willing to spend styling it each day. Don't hesitate to ask questions about maintenance, and make sure they understand your vision for the cut. Clear communication ensures you both agree on the end result."
+      ],
+      "image": "/images/how-to-find-and-choose-a-great-hairstylist1.webp",
+      "ctaText": "Try hairstyle quiz Now",
+      "ctaLink": "/what-haircut-should-i-get/test",
+      "styleConfig": {
+        "layout": {
+          "textRatio": "1/2",
+          "imageRatio": "1/2",
+          "imageOrder": "right",
+          "textOrder": "left"
+        },
+        "title": {
+          "fontSize": {
+            "mobile": "text-2xl",
+            "desktop": "text-3xl"
+          },
+          "fontWeight": "font-bold",
+          "color": "text-gray-800",
+          "spacing": "mb-6"
+        },
+        "text": {
+          "fontSize": {
+            "mobile": "text-sm",
+            "desktop": "text-lg"
+          },
+          "color": "text-gray-800",
+          "lineHeight": "leading-relaxed",
+          "spacing": "space-y-4"
+        },
+        "button": {
+          "background": "bg-purple-600",
+          "backgroundHover": "hover:bg-purple-700",
+          "textColor": "text-white",
+          "fontSize": "text-base",
+          "fontWeight": "font-semibold",
+          "padding": "px-6 py-3",
+          "borderRadius": "rounded-xl"
+        }
+      }
+    }
+  ],
+  "howToUseSection": {
+    "title": "How to Use the \"What Haircut Should I Get Quiz\"",
+    "description": "Follow these simple steps to get your personalized haircut recommendations with our free tool. In just 5 minutes, you'll receive tailored suggestions based on your face shape, hair texture, and personal style preferences.",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Start the Quiz",
+        "description": "Click on the \"Start Now\" button to begin the quiz. The tool will ask you a series of questions about your face shape, hair texture, and lifestyle. Take your time, answer honestly, and let the AI work its magic!",
+        "icon": "fas fa-play-circle"
+      },
+      {
+        "step": "2",
+        "title": "Answer the Questions",
+        "description": "Answer 12 easy questions about your hair, face shape, and personal style preferences. These questions help the AI understand your unique features and lifestyle, ensuring that the haircut recommendations are perfect for you.",
+        "icon": "fas fa-question-circle"
+      },
+      {
+        "step": "3",
+        "title": "Get Your Recommendations",
+        "description": "Once you complete the quiz, you'll receive a list of personalized haircut suggestions. Each option comes with styling tips, maintenance advice, and suggestions for products to help you achieve the look.",
+        "icon": "fas fa-lightbulb"
+      },
+      {
+        "step": "4",
+        "title": "Share Your Results",
+        "description": "If you're happy with your recommendations, share your results with friends or on social media. You can also download the image and take it to your barber or stylist to ensure your perfect cut!",
+        "icon": "fas fa-share-alt"
+      }
+    ],
+    "image": {
+      "src": "/images/what-haircut-how-to.webp",
+      "alt": "How to use what haircut should I get quiz - step by step guide"
+    },
+    "ctaText": "Try hairstyle quiz Now",
+    "ctaLink": "/what-haircut-should-i-get/test"
+  },
+  "useCasesSection": [
+    {
+      "title": "For Young Professionals Ready for a New Look",
+      "textContent": [
+        "Starting a new job or embarking on a fresh career chapter? A change in hairstyle can help you feel confident and prepared. Our \"What Haircut Should I Get\" quiz tailors recommendations based on your face shape, hair texture, and lifestyle, helping you find the perfect cut for your professional look.",
+        "Whether you need something polished or modern, the tool ensures you stand out with a style that suits you. Personally, I believe a great new look can make a powerful first impression and set the tone for your success in the workplace!"
+      ],
+      "image": {
+        "src": "/images/for-young-professionals-ready-for-a-new-look.webp",
+        "alt": "Young professional getting new haircut recommendations"
+      },
+      "ctaText": "Try hairstyle quiz Now",
+      "ctaLink": "/what-haircut-should-i-get/test"
+    },
+    {
+      "title": "For Busy Parents Who Need Low-Maintenance Styles",
+      "textContent": [
+        "As a busy parent, it's essential to choose a haircut that fits your hectic lifestyle. Whether you're juggling work, kids, or both, you need something that's stylish yet easy to maintain. Our AI-powered tool considers your time commitment and offers suggestions for low-maintenance cuts that still look great.",
+        "From quick styling to minimal upkeep, we've got you covered! I love that this tool takes the stress out of finding a style that's both practical and fashionable."
+      ],
+      "image": {
+        "src": "/images/for-busy-parents-who-need-low-maintenance-styles.webp",
+        "alt": "Busy parent with low-maintenance hairstyle"
+      },
+      "ctaText": "Try hairstyle quiz Now",
+      "ctaLink": "/what-haircut-should-i-get/test"
+    },
+    {
+      "title": "For People Looking to Boost Confidence",
+      "textContent": [
+        "Changing your hairstyle can be a powerful way to refresh your image and boost your confidence. Whether you're preparing for a big life event or simply want to feel like a new version of yourself, our tool helps you pick the perfect haircut that suits your personality and lifestyle.",
+        "I personally think that the right haircut can instantly improve your mood and self-esteem, giving you a fresh perspective and energy for whatever lies ahead."
+      ],
+      "image": {
+        "src": "/images/for-people-looking-to-boost-confidence.webp", 
+        "alt": "Person gaining confidence with new haircut"
+      },
+      "ctaText": "Try hairstyle quiz Now",
+      "ctaLink": "/what-haircut-should-i-get/test"
+    },
+    {
+      "title": "For Those with Specific Style Needs",
+      "textContent": [
+        "Struggling to find the right style for curly hair or want to perfect your beard shape? Our tool takes into account your unique features, offering personalized recommendations for curly hair, beards, or other specific needs. Whether you need tips for managing your curls or a beard-friendly style, we provide solutions that work with your natural texture.",
+        "I think it's amazing how the tool adjusts to every individual, making it easy to find a style that works for you."
+      ],
+      "image": {
+        "src": "/images/for-those-with-specific-style-needs.webp",
+        "alt": "Person with specific hair styling needs"
+      },
+      "ctaText": "Try hairstyle quiz Now",
+      "ctaLink": "/what-haircut-should-i-get/test"
+    }
+  ],
+  "whyChooseSection": {
+    "title": "Why Choose Hairstyle AI?",
+    "subtitle": "Looking for a haircut that fits your face shape, hair texture, and lifestyle? Here's why our tool is the smart (and safe) way to get it right.",
+    "features": [
+      {
+        "icon": "fas fa-gift",
+        "title": "Free and Easy to Use",
+        "description": "You don't need to sign up, download anything, or watch a single ad. Just answer 12 quick questions, and boom—you get your personalized haircut result in minutes. It works great on both phone and computer."
+      },
+      {
+        "icon": "fas fa-robot",
+        "title": "Backed by AI + Hairstylists",
+        "description": "Our quiz blends AI with insights from real professional hairstylists. That means you get results that actually make sense—and work for your real-life hair and face. Over 90% of users say our picks matched what they got at the salon."
+      },
+      {
+        "icon": "fas fa-shield-alt",
+        "title": "Your Data Stays Private",
+        "description": "We don't collect personal info, and we don't ask for your email. Everything stays in your browser. No tracking, no saving, no weird data stuff. That's a promise."
+      },
+      {
+        "icon": "fas fa-check-circle",
+        "title": "Results You Can Trust",
+        "description": "We use facial feature logic, hair texture rules, and real-life salon data to match you with styles that truly fit you. Our system was tested on thousands of users and refined to boost accuracy."
+      }
+    ]
+  },
+  "testimonialsSection": [
+    {
+      "author": "Emily Carter",
+      "title": "Marketing Manager",
+      "quote": "I had no idea what haircut to try before my sister's wedding. I took the quiz out of curiosity and was shocked by how spot-on the suggestions were. It recommended a layered shoulder-length cut, and my stylist loved the reference photos. I got so many compliments that weekend—I seriously felt like a new person.",
+      "rating": 5,
+      "location": "New York"
+    },
+    {
+      "author": "Jake Robinson",
+      "title": "Software Developer", 
+      "quote": "I've always struggled with fine, flat hair. The quiz asked about my hair texture and styling habits, then gave me smart, low-maintenance options that wouldn't fall flat. I chose a textured crop, and it actually works for my face shape. The fact that it was free and private made it even better.",
+      "rating": 5,
+      "location": "California"
+    },
+    {
+      "author": "Olivia Chen",
+      "title": "College Student",
+      "quote": "After a bad haircut last semester, I was nervous to try something new. This tool walked me through every step and helped me understand what styles flatter a round face like mine. I ended up with curtain bangs and layers—something I'd never have picked myself. I feel way more confident now.",
+      "rating": 5,
+      "location": "Texas"
+    },
+    {
+      "author": "David Mitchell",
+      "title": "Sales Representative",
+      "quote": "I needed a new look before a career change and had no clue where to start. The AI quiz gave me three solid options and even told me how much styling effort each one needs. I took the result to my barber and he was impressed. I liked how it didn't just suggest \"cool\" styles—it made sense for my head shape.",
+      "rating": 5,
+      "location": "Florida"
+    },
+    {
+      "author": "Rachel Gomez",
+      "title": "New Mom & Blogger",
+      "quote": "As a mom, I barely have time for myself, let alone my hair. I used this during a nap break and got a short, wash-and-go haircut idea that works with my waves. I liked how it considered how much time I wanted to spend on hair. It didn't feel like a \"one-size-fits-all\" quiz at all.",
+      "rating": 5,
+      "location": "Arizona"
+    },
+    {
+      "author": "Brandon Lee",
+      "title": "High School Teacher",
+      "quote": "I wanted to clean up my look before the new school year. I answered a few questions about my beard, hairline, and routine, and the tool suggested a faded cut with a short beard shape. I printed the result and brought it to the barber. Easiest haircut decision I've ever made.",
+      "rating": 5,
+      "location": "Illinois"
+    }
+  ],
+  "faqSection": {
+    "title": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "question": "How do I choose the right hairstyle for me?",
+        "answer": "To choose the right hairstyle for you, follow these simple steps: Step 1: Identify your face shape—round, oval, square, heart, or diamond. Step 2: Check your hair texture—is it straight, wavy, curly, or coily? Step 3: Think about how much time you want to spend styling it. Step 4: Take a haircut quiz like ours for expert-backed suggestions. Step 5: Bring example photos to your barber or stylist so they understand your goal. It's all about finding a look that fits your real life, not just your Pinterest board."
+      },
+      {
+        "question": "What hairstyle will make my face look slimmer?",
+        "answer": "Layered cuts that add volume to the top and avoid too much width at the sides tend to slim down round or fuller faces. Long layers, side-swept bangs, and high ponytails are often great options. Avoid blunt cuts that stop at the cheeks or jawline—they can make your face look wider. Also, volume at the crown helps elongate your head shape, which creates a more balanced and slimmer look."
+      },
+      {
+        "question": "Does shaving your head make your hair grow thicker and faster?",
+        "answer": "This is a common myth. Shaving your head does not affect how fast or thick your hair grows. Hair growth happens from the follicle underneath your scalp, not from the ends. When hair is shaved, it may appear thicker at first because it grows back with a blunt tip, but the actual texture and growth rate stay the same. Genetics and health play a bigger role in hair thickness and speed."
+      },
+      {
+        "question": "How should I communicate my needs with my hairstylist?",
+        "answer": "Step 1: Bring reference photos of styles you like and explain what you like about them. Step 2: Talk about your daily routine—do you have time to style your hair every day or need something low-maintenance? Step 3: Be honest about your hair history—chemical treatments, color, etc. Step 4: Ask questions like, \"Will this cut work for my face shape?\" or \"How often will I need trims?\" Good communication helps avoid post-haircut regret and builds trust with your stylist."
+      },
+      {
+        "question": "What's the worst haircut you've ever had?",
+        "answer": "The worst haircut is usually one that didn't match the person's face shape or lifestyle—and no one gave them a heads-up. A lot of people regret overly short bangs or super blunt cuts that didn't grow out well. One common story? Someone asks for a \"trim\" and ends up losing six inches. That's why using a tool like ours helps you go into the salon with a plan, not a guess."
+      },
+      {
+        "question": "How do I manage the in-between phase when growing out a haircut?",
+        "answer": "Step 1: Use accessories like clips, hats, or headbands to deal with awkward lengths. Step 2: Ask your stylist for a \"shaping\" cut to help the hair grow in a better form. Step 3: Use styling products like mousse or pomade to add volume or smooth frizz. Step 4: Don't skip trims—removing split ends makes hair look neater and helps it grow better. Step 5: Be patient and experiment with styles like buns or braids to stay fresh while you grow it out."
+      }
+    ]
+  },
+  "ctaSection": {
+    "title": "Find Out What Haircut You Should Get Today",
+    "description": "Take our free quiz and get personalized haircut suggestions based on your face shape, texture, and lifestyle. Quick, easy, and made just for you.",
+    "ctaText": "Try hairstyle quiz Now",
+    "ctaLink": "/what-haircut-should-i-get/test"
+  },
+  "structuredData": {
+    "app": {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "What Haircut Should I Get",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Hairstyle AI"
+      },
+      "publishedTime": "2025-01-15",
+      "modifiedTime": "2025-01-15",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Hairstyle AI",
+        "url": "https://hair-style.ai"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "worstRating": "1",
+        "bestRating": "5",
+        "ratingCount": "50000"
+      },
+      "category": [
+        "Beauty Tool",
+        "Hairstyle Quiz",
+        "Hair Advisor"
+      ],
+      "description": "AI-powered quiz that recommends the perfect haircut based on your face shape, hair texture, lifestyle, and personal preferences. Get personalized hairstyle suggestions with maintenance tips."
+    },
+    "breadcrumb": {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://hair-style.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "What Haircut Should I Get",
+          "item": "https://hair-style.ai/what-haircut-should-i-get"
+        }
+      ]
+    },
+    "faq": {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I choose the right hairstyle for me?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To choose the right hairstyle for you, follow these simple steps: Step 1: Identify your face shape—round, oval, square, heart, or diamond. Step 2: Check your hair texture—is it straight, wavy, curly, or coily? Step 3: Think about how much time you want to spend styling it. Step 4: Take a haircut quiz like ours for expert-backed suggestions. Step 5: Bring example photos to your barber or stylist so they understand your goal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What hairstyle will make my face look slimmer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Layered cuts that add volume to the top and avoid too much width at the sides tend to slim down round or fuller faces. Long layers, side-swept bangs, and high ponytails are often great options. Avoid blunt cuts that stop at the cheeks or jawline—they can make your face look wider."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should I communicate my needs with my hairstylist?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Step 1: Bring reference photos of styles you like and explain what you like about them. Step 2: Talk about your daily routine—do you have time to style your hair every day or need something low-maintenance? Step 3: Be honest about your hair history—chemical treatments, color, etc. Step 4: Ask questions like, \"Will this cut work for my face shape?\" or \"How often will I need trims?\""
+          }
+        }
+      ]
+    }
+  },
+  "tool": {
+    "totalQuestions": 12,
+    "resultTypes": [
+      "layered_bob",
+      "pixie_cut", 
+      "long_layers",
+      "bob_cut",
+      "shag_cut",
+      "lob_cut",
+      "bangs_style",
+      "curly_cut",
+      "straight_cut",
+      "textured_crop"
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "text": "What is your face shape?",
+        "options": [
+          {"id": "oval", "text": "Oval"},
+          {"id": "round", "text": "Round"},
+          {"id": "square", "text": "Square"},
+          {"id": "heart", "text": "Heart-shaped"},
+          {"id": "diamond", "text": "Diamond-shaped"},
+          {"id": "oblong", "text": "Oblong"},
+          {"id": "not_sure", "text": "I'm not sure"}
+        ],
+        "weight": 0.2
+      },
+      {
+        "id": "q2",
+        "text": "How would you describe your hair texture?",
+        "options": [
+          {"id": "straight", "text": "Straight"},
+          {"id": "wavy", "text": "Wavy"},
+          {"id": "curly", "text": "Curly"},
+          {"id": "coarse", "text": "Coarse"},
+          {"id": "fine", "text": "Fine"}
+        ],
+        "weight": 0.15
+      },
+      {
+        "id": "q3",
+        "text": "What is the current length of your hair?",
+        "options": [
+          {"id": "short", "text": "Short"},
+          {"id": "medium", "text": "Medium"},
+          {"id": "long", "text": "Long"},
+          {"id": "between", "text": "I'm in-between"}
+        ],
+        "weight": 0.1
+      },
+      {
+        "id": "q4",
+        "text": "What is your usual hair volume?",
+        "options": [
+          {"id": "thin", "text": "Thin"},
+          {"id": "medium", "text": "Medium"},
+          {"id": "thick", "text": "Thick"},
+          {"id": "very_thick", "text": "Very thick"}
+        ],
+        "weight": 0.12
+      },
+      {
+        "id": "q5",
+        "text": "How much time are you willing to spend on styling your hair daily?",
+        "options": [
+          {"id": "minimal", "text": "Minimal effort"},
+          {"id": "moderate", "text": "Moderate routine"},
+          {"id": "lot", "text": "High styling effort"}
+        ],
+        "weight": 0.13
+      },
+      {
+        "id": "q6",
+        "text": "How important is maintenance to you?",
+        "options": [
+          {"id": "low_maintenance", "text": "Low maintenance"},
+          {"id": "some_maintenance", "text": "Moderate maintenance"},
+          {"id": "high_maintenance", "text": "High maintenance"}
+        ],
+        "weight": 0.1
+      },
+      {
+        "id": "q7",
+        "text": "What type of look are you going for?",
+        "options": [
+          {"id": "casual", "text": "Casual and easy-going"},
+          {"id": "professional", "text": "Polished and professional"},
+          {"id": "trendy", "text": "Trendy and bold"},
+          {"id": "classic", "text": "Classic and timeless"}
+        ],
+        "weight": 0.08
+      },
+      {
+        "id": "q8",
+        "text": "Do you have a prominent feature that you'd like to highlight or downplay?",
+        "options": [
+          {"id": "highlight_cheeks", "text": "Highlight cheekbones/jawline"},
+          {"id": "downplay_forehead", "text": "Downplay forehead"},
+          {"id": "enhance_texture", "text": "Enhance hair texture/volume"},
+          {"id": "happy_features", "text": "Happy with current features"}
+        ],
+        "weight": 0.05
+      },
+      {
+        "id": "q9",
+        "text": "How would you describe your lifestyle?",
+        "options": [
+          {"id": "active", "text": "Active and busy"},
+          {"id": "professional_life", "text": "Professional work environment"},
+          {"id": "social", "text": "Social and event-focused"},
+          {"id": "casual_life", "text": "Casual and effortless"}
+        ],
+        "weight": 0.04
+      },
+      {
+        "id": "q10",
+        "text": "What is your hair's most significant challenge?",
+        "options": [
+          {"id": "frizz", "text": "Frizz and flyaways"},
+          {"id": "no_volume", "text": "Lack of volume"},
+          {"id": "thin_hair", "text": "Thin or sparse hair"},
+          {"id": "hard_style", "text": "Difficult to style or manage"},
+          {"id": "damage", "text": "Split ends or damage"}
+        ],
+        "weight": 0.02
+      },
+      {
+        "id": "q11",
+        "text": "Which group of words best describes you?",
+        "options": [
+          {"id": "fun_outgoing", "text": "Fun and outgoing"},
+          {"id": "quiet_thoughtful", "text": "Quiet and thoughtful"},
+          {"id": "playful_energetic", "text": "Playful and energetic"},
+          {"id": "reserved_strong", "text": "Reserved and practical"}
+        ],
+        "weight": 0.005
+      },
+      {
+        "id": "q12",
+        "text": "When people see your hairstyle, what do you want them to think?",
+        "options": [
+          {"id": "classy", "text": "Classic and elegant"},
+          {"id": "cool_friend", "text": "Cool and approachable"},
+          {"id": "wish_hair", "text": "Enviously stylish"},
+          {"id": "steal_hearts", "text": "Charming and attractive"}
+        ],
+        "weight": 0.005
+      }
+    ]
+  }
+}

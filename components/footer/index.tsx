@@ -268,6 +268,14 @@ export default function Footer() {
                   Hair Type Identifier
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/what-haircut-should-i-get"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  What Haircut Should I Get
+                </Link>
+              </li>
             </ul>
           </div>
 
