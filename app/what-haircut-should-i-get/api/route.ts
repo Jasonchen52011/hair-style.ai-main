@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import { generateContentWithFallback, defaultSafetySettings } from '../../utils/gemini-helper';
 
+export const runtime = 'edge';
+
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
 if (!GOOGLE_API_KEY) {
