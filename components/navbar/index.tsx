@@ -106,11 +106,13 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isHairstyleDropdownOpen, setIsHairstyleDropdownOpen] = useState(false);
   const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
+  const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
   const colorDropdownRef = useRef<HTMLDivElement>(null);
+  const otherToolsDropdownRef = useRef<HTMLDivElement>(null);
 
   // 简化的挂载处理
   useEffect(() => {
@@ -132,6 +134,9 @@ export default function Navbar() {
       if (colorDropdownRef.current && !colorDropdownRef.current.contains(target)) {
         setIsColorDropdownOpen(false);
       }
+      if (otherToolsDropdownRef.current && !otherToolsDropdownRef.current.contains(target)) {
+        setIsOtherToolsDropdownOpen(false);
+      }
       
       // 移动端下拉菜单 - 如果点击了移动菜单外部，关闭所有下拉菜单
       if (isMobileMenuOpen) {
@@ -139,19 +144,20 @@ export default function Navbar() {
         if (mobileMenu && !mobileMenu.contains(target)) {
           setIsHairstyleDropdownOpen(false);
           setIsColorDropdownOpen(false);
+          setIsOtherToolsDropdownOpen(false);
           setIsMobileMenuOpen(false);
         }
       }
     };
 
-    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isMobileMenuOpen) {
+    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isMobileMenuOpen) {
       document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isMobileMenuOpen]);
+  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isMobileMenuOpen]);
 
   // 简化的挂载检查
   if (!isMounted) {
@@ -292,22 +298,34 @@ export default function Navbar() {
               </DropdownMenu>
             </div>
 
-            {/* Tools Links */}
-            <NavLink href="/face-shape-detector" isActive={pathname === '/face-shape-detector'}>
-              Face Shape Detector
-            </NavLink>
-            
-            <NavLink href="/random-hairstyle-generator" isActive={pathname === '/random-hairstyle-generator'}>
-              Random Hairstyle Generator
-            </NavLink>
-            
-            <NavLink href="/hair-type-identifier" isActive={pathname === '/hair-type-identifier'}>
-              Hair Type Identifier
-            </NavLink>
-            
-            <NavLink href="/what-haircut-should-i-get" isActive={pathname === '/what-haircut-should-i-get'}>
-              What Haircut Should I Get
-            </NavLink>
+            {/* Other Tools Dropdown */}
+            <div className="relative" ref={otherToolsDropdownRef}>
+              <DropdownButton 
+                isOpen={isOtherToolsDropdownOpen}
+                onClick={() => {
+                  setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen);
+                  setIsDropdownOpen(false);
+                  setIsColorDropdownOpen(false);
+                }}
+              >
+                Other Tools
+              </DropdownButton>
+              
+              <DropdownMenu isOpen={isOtherToolsDropdownOpen} onClose={() => setIsOtherToolsDropdownOpen(false)}>
+                <DropdownItem href="/face-shape-detector" onClick={() => setIsOtherToolsDropdownOpen(false)}>
+                  Face Shape Detector
+                </DropdownItem>
+                <DropdownItem href="/random-hairstyle-generator" onClick={() => setIsOtherToolsDropdownOpen(false)}>
+                  Random Hairstyle Generator
+                </DropdownItem>
+                <DropdownItem href="/hair-type-identifier" onClick={() => setIsOtherToolsDropdownOpen(false)}>
+                  Hair Type Identifier
+                </DropdownItem>
+                <DropdownItem href="/what-haircut-should-i-get" onClick={() => setIsOtherToolsDropdownOpen(false)}>
+                  What Haircut Should I Get
+                </DropdownItem>
+              </DropdownMenu>
+            </div>
 
             <NavLink href="/pricing" isActive={pathname === '/pricing'}>
               Pricing
@@ -466,22 +484,46 @@ export default function Navbar() {
                 )}
               </div>
 
-              {/* Tools Links Mobile */}
-              <Link href="/face-shape-detector" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
-                Face Shape Detector
-              </Link>
-              
-              <Link href="/random-hairstyle-generator" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
-                Random Hairstyle Generator
-              </Link>
-              
-              <Link href="/hair-type-identifier" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
-                Hair Type Identifier
-              </Link>
-              
-              <Link href="/what-haircut-should-i-get" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
-                What Haircut Should I Get
-              </Link>
+              {/* Mobile Other Tools Dropdown */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOtherToolsDropdownOpen(prev => !prev);
+                    setIsHairstyleDropdownOpen(false);
+                    setIsColorDropdownOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
+                >
+                  Other Tools
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isOtherToolsDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isOtherToolsDropdownOpen && (
+                  <div className="pl-6 pb-2 space-y-1">
+                    <Link href="/face-shape-detector" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Face Shape Detector
+                    </Link>
+                    <Link href="/random-hairstyle-generator" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Random Hairstyle Generator
+                    </Link>
+                    <Link href="/hair-type-identifier" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Hair Type Identifier
+                    </Link>
+                    <Link href="/what-haircut-should-i-get" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      What Haircut Should I Get
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               <Link href="/pricing" className="block px-3 py-2 text-gray-700 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMobileMenuOpen(false); }}>
                 Pricing
