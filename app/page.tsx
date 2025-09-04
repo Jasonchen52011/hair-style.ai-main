@@ -508,7 +508,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Hairstyle Selector Section */
+        {/* Hairstyle Selector Section */}
         <section>
           <HairstyleSelector />
         </section>
@@ -573,7 +573,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Face Shape Guide Section */
+        {/* Face Shape Guide Section */}
         <section className="container mx-auto px-4 py-4 sm:py-20">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
@@ -728,7 +728,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Final CTA Section */
+        {/* Final CTA Section */}
         <section className="bg-white py-16 px-4">
             <div className="max-w-full mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
