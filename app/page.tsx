@@ -497,7 +497,26 @@ export default function Home() {
 
         </section>
 
-        {/* Hairstyle Selector Section */}
+        {/* Ad Position 1 - Top */}
+        <section className="bg-white py-4">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
+                   crossorigin="anonymous"></script>
+              <ins className="adsbygoogle"
+                   style={{display:'block'}}
+                   data-ad-client="ca-pub-2318931889728296"
+                   data-ad-slot="1924105465"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (window.adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          </div>
+        </section>
+
+        {/* Hairstyle Selector Section */
         <section>
           <HairstyleSelector />
         </section>
@@ -551,7 +570,26 @@ export default function Home() {
             </div>
         </section>
 
-        {/* Face Shape Guide Section */}
+        {/* Ad Position 2 - Middle */}
+        <section className="bg-gray-50 py-6">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
+                   crossorigin="anonymous"></script>
+              <ins className="adsbygoogle"
+                   style={{display:'block'}}
+                   data-ad-client="ca-pub-2318931889728296"
+                   data-ad-slot="1924105465"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (window.adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          </div>
+        </section>
+
+        {/* Face Shape Guide Section */
         <section className="container mx-auto px-4 py-4 sm:py-20">
             <div className="max-w-6xl mx-auto">
               <div className="flex flex-col lg:grid lg:grid-cols-2 gap-16 items-center">
@@ -695,7 +733,26 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Final CTA Section */}
+        {/* Ad Position 3 - Bottom */}
+        <section className="bg-white py-6">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2318931889728296"
+                   crossorigin="anonymous"></script>
+              <ins className="adsbygoogle"
+                   style={{display:'block'}}
+                   data-ad-client="ca-pub-2318931889728296"
+                   data-ad-slot="1924105465"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (window.adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA Section */
         <section className="bg-white py-16 px-4">
             <div className="max-w-full mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-900">
