@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-black text-white py-16">
       <div className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-6 gap-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-7 gap-12">
           {/* Column 1 - Logo and Description */}
           <div className="space-y-6 text-center md:text-left">
             <Link
@@ -279,7 +279,22 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 5 - Company Links */}
+          {/* Column 5 - Business */}
+          <div className="text-center md:text-left">
+            <h3 className="text-xl font-semibold mb-6">Business</h3>
+            <ul className="space-y-4">
+              <li>
+                <Link
+                  href="/barbershop"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  For Barbershop
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 6 - Company Links */}
           <div className="text-center md:text-left">
             <h3 className="text-xl font-semibold mb-6">Company</h3>
             <ul className="space-y-4">
@@ -310,7 +325,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 6 - Connect */}
+          {/* Column 7 - Connect */}
           <div className="text-center md:text-left">
             <h3 className="text-xl font-semibold mb-6">Connect With Us</h3>
             <div className="space-y-4">

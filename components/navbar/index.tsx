@@ -107,12 +107,14 @@ export default function Navbar() {
   const [isHairstyleDropdownOpen, setIsHairstyleDropdownOpen] = useState(false);
   const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
   const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
+  const [isBusinessDropdownOpen, setIsBusinessDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
   const colorDropdownRef = useRef<HTMLDivElement>(null);
   const otherToolsDropdownRef = useRef<HTMLDivElement>(null);
+  const businessDropdownRef = useRef<HTMLDivElement>(null);
 
   // 简化的挂载处理
   useEffect(() => {
@@ -137,6 +139,9 @@ export default function Navbar() {
       if (otherToolsDropdownRef.current && !otherToolsDropdownRef.current.contains(target)) {
         setIsOtherToolsDropdownOpen(false);
       }
+      if (businessDropdownRef.current && !businessDropdownRef.current.contains(target)) {
+        setIsBusinessDropdownOpen(false);
+      }
       
       // 移动端下拉菜单 - 如果点击了移动菜单外部，关闭所有下拉菜单
       if (isMobileMenuOpen) {
@@ -145,19 +150,20 @@ export default function Navbar() {
           setIsHairstyleDropdownOpen(false);
           setIsColorDropdownOpen(false);
           setIsOtherToolsDropdownOpen(false);
+          setIsBusinessDropdownOpen(false);
           setIsMobileMenuOpen(false);
         }
       }
     };
 
-    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isMobileMenuOpen) {
+    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isBusinessDropdownOpen || isMobileMenuOpen) {
       document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isMobileMenuOpen]);
+  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isBusinessDropdownOpen, isMobileMenuOpen]);
 
   // 简化的挂载检查
   if (!isMounted) {
@@ -201,6 +207,7 @@ export default function Navbar() {
                 onClick={() => {
                   setIsDropdownOpen(!isDropdownOpen);
                   setIsColorDropdownOpen(false);
+                  setIsBusinessDropdownOpen(false);
                 }}
               >
                 Hairstyle Filter
@@ -268,6 +275,7 @@ export default function Navbar() {
                 onClick={() => {
                   setIsColorDropdownOpen(!isColorDropdownOpen);
                   setIsDropdownOpen(false);
+                  setIsBusinessDropdownOpen(false);
                 }}
               >
                 Hair Color
@@ -306,6 +314,7 @@ export default function Navbar() {
                   setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen);
                   setIsDropdownOpen(false);
                   setIsColorDropdownOpen(false);
+                  setIsBusinessDropdownOpen(false);
                 }}
               >
                 Other Tools
@@ -323,6 +332,27 @@ export default function Navbar() {
                 </DropdownItem>
                 <DropdownItem href="/what-haircut-should-i-get" onClick={() => setIsOtherToolsDropdownOpen(false)}>
                   What Haircut Should I Get
+                </DropdownItem>
+              </DropdownMenu>
+            </div>
+
+            {/* Business Dropdown */}
+            <div className="relative" ref={businessDropdownRef}>
+              <DropdownButton 
+                isOpen={isBusinessDropdownOpen}
+                onClick={() => {
+                  setIsBusinessDropdownOpen(!isBusinessDropdownOpen);
+                  setIsDropdownOpen(false);
+                  setIsColorDropdownOpen(false);
+                  setIsOtherToolsDropdownOpen(false);
+                }}
+              >
+                Business
+              </DropdownButton>
+              
+              <DropdownMenu isOpen={isBusinessDropdownOpen} onClose={() => setIsBusinessDropdownOpen(false)}>
+                <DropdownItem href="/barbershop" onClick={() => setIsBusinessDropdownOpen(false)}>
+                  For Barbershop
                 </DropdownItem>
               </DropdownMenu>
             </div>
@@ -362,6 +392,7 @@ export default function Navbar() {
                     e.stopPropagation();
                     setIsHairstyleDropdownOpen(prev => !prev);
                     setIsColorDropdownOpen(false);
+                    setIsBusinessDropdownOpen(false);
                   }}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
                 >
@@ -441,6 +472,7 @@ export default function Navbar() {
                     e.stopPropagation();
                     setIsColorDropdownOpen(prev => !prev);
                     setIsHairstyleDropdownOpen(false);
+                    setIsBusinessDropdownOpen(false);
                   }}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
                 >
@@ -492,6 +524,7 @@ export default function Navbar() {
                     setIsOtherToolsDropdownOpen(prev => !prev);
                     setIsHairstyleDropdownOpen(false);
                     setIsColorDropdownOpen(false);
+                    setIsBusinessDropdownOpen(false);
                   }}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
                 >
@@ -520,6 +553,39 @@ export default function Navbar() {
                     </Link>
                     <Link href="/what-haircut-should-i-get" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsOtherToolsDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       What Haircut Should I Get
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Business Dropdown */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsBusinessDropdownOpen(prev => !prev);
+                    setIsHairstyleDropdownOpen(false);
+                    setIsColorDropdownOpen(false);
+                    setIsOtherToolsDropdownOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
+                >
+                  Business
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isBusinessDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isBusinessDropdownOpen && (
+                  <div className="pl-6 pb-2 space-y-1">
+                    <Link href="/barbershop" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsBusinessDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      For Barbershop
                     </Link>
                   </div>
                 )}

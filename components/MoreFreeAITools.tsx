@@ -214,6 +214,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Try Gray Hair Colors Risk-Free",
       link: "/ai-hairstyle?style=Gray",
       image: "/images/gray-hair-hero.webp"
+    },
+    "AI Hairstyle Changer for Barbershops": {
+      title: "AI Hairstyle Changer for Barbershops",
+      description: "Virtual Hair Makeover Tool for Business",
+      link: "/barbershop",
+      image: "/images/pink-hair-hero.webp"
     }
   };
 
