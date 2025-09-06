@@ -104,14 +104,16 @@ Logo.displayName = 'Logo';
 export default function Navbar() {
   const [isMounted, setIsMounted] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isHairstyleDropdownOpen, setIsHairstyleDropdownOpen] = useState(false);
+  const [isMaleHairstyleDropdownOpen, setIsMaleHairstyleDropdownOpen] = useState(false);
+  const [isFemaleHairstyleDropdownOpen, setIsFemaleHairstyleDropdownOpen] = useState(false);
   const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
   const [isOtherToolsDropdownOpen, setIsOtherToolsDropdownOpen] = useState(false);
   const [isBusinessDropdownOpen, setIsBusinessDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const hairstyleDropdownRef = useRef<HTMLDivElement>(null);
+  const maleHairstyleDropdownRef = useRef<HTMLDivElement>(null);
+  const femaleHairstyleDropdownRef = useRef<HTMLDivElement>(null);
   const colorDropdownRef = useRef<HTMLDivElement>(null);
   const otherToolsDropdownRef = useRef<HTMLDivElement>(null);
   const businessDropdownRef = useRef<HTMLDivElement>(null);
@@ -130,8 +132,11 @@ export default function Navbar() {
       if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setIsDropdownOpen(false);
       }
-      if (hairstyleDropdownRef.current && !hairstyleDropdownRef.current.contains(target)) {
-        setIsHairstyleDropdownOpen(false);
+      if (maleHairstyleDropdownRef.current && !maleHairstyleDropdownRef.current.contains(target)) {
+        setIsMaleHairstyleDropdownOpen(false);
+      }
+      if (femaleHairstyleDropdownRef.current && !femaleHairstyleDropdownRef.current.contains(target)) {
+        setIsFemaleHairstyleDropdownOpen(false);
       }
       if (colorDropdownRef.current && !colorDropdownRef.current.contains(target)) {
         setIsColorDropdownOpen(false);
@@ -147,7 +152,8 @@ export default function Navbar() {
       if (isMobileMenuOpen) {
         const mobileMenu = document.querySelector('[data-mobile-menu]');
         if (mobileMenu && !mobileMenu.contains(target)) {
-          setIsHairstyleDropdownOpen(false);
+          setIsMaleHairstyleDropdownOpen(false);
+          setIsFemaleHairstyleDropdownOpen(false);
           setIsColorDropdownOpen(false);
           setIsOtherToolsDropdownOpen(false);
           setIsBusinessDropdownOpen(false);
@@ -156,14 +162,14 @@ export default function Navbar() {
       }
     };
 
-    if (isDropdownOpen || isHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isBusinessDropdownOpen || isMobileMenuOpen) {
+    if (isDropdownOpen || isMaleHairstyleDropdownOpen || isFemaleHairstyleDropdownOpen || isColorDropdownOpen || isOtherToolsDropdownOpen || isBusinessDropdownOpen || isMobileMenuOpen) {
       document.addEventListener('click', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isDropdownOpen, isHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isBusinessDropdownOpen, isMobileMenuOpen]);
+  }, [isDropdownOpen, isMaleHairstyleDropdownOpen, isFemaleHairstyleDropdownOpen, isColorDropdownOpen, isOtherToolsDropdownOpen, isBusinessDropdownOpen, isMobileMenuOpen]);
 
   // 简化的挂载检查
   if (!isMounted) {
@@ -200,70 +206,89 @@ export default function Navbar() {
               Home
             </NavLink>
             
-            {/* Hairstyle Filter Dropdown */}
-            <div className="relative" ref={dropdownRef}>
+            {/* Male Hairstyle Filter Dropdown */}
+            <div className="relative" ref={maleHairstyleDropdownRef}>
               <DropdownButton 
-                isOpen={isDropdownOpen}
+                isOpen={isMaleHairstyleDropdownOpen}
                 onClick={() => {
-                  setIsDropdownOpen(!isDropdownOpen);
+                  setIsMaleHairstyleDropdownOpen(!isMaleHairstyleDropdownOpen);
+                  setIsFemaleHairstyleDropdownOpen(false);
                   setIsColorDropdownOpen(false);
                   setIsBusinessDropdownOpen(false);
                 }}
               >
-                Hairstyle Filter
+                Male Hairstyle
               </DropdownButton>
               
-              <DropdownMenu isOpen={isDropdownOpen} onClose={() => setIsDropdownOpen(false)}>
-                <DropdownItem href="/hairstyles-for-girls" onClick={() => setIsDropdownOpen(false)}>
-                  Girl Hairstyle Filter
-                </DropdownItem>
-                <DropdownItem href="/ai-hairstyle-male" onClick={() => setIsDropdownOpen(false)}>
+              <DropdownMenu isOpen={isMaleHairstyleDropdownOpen} onClose={() => setIsMaleHairstyleDropdownOpen(false)}>
+                <DropdownItem href="/ai-hairstyle-male" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Male Hairstyle Filter
                 </DropdownItem>
-                <DropdownItem href="/ai-hairstyle-online-free-female" onClick={() => setIsDropdownOpen(false)}>
-                  Female Hairstyle Filter
-                </DropdownItem>
-                <DropdownItem href="/buzz-cut-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/buzz-cut-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Buzz Cut Filter
                 </DropdownItem>
-                <DropdownItem href="/bob-haircut-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Bob Haircut Filter
-                </DropdownItem>
-                <DropdownItem href="/bangs-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Bangs Filter
-                </DropdownItem>
-                <DropdownItem href="/ai-braids-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Braids Filter
-                </DropdownItem>
-                <DropdownItem href="/perm-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Perm Filter
-                </DropdownItem>
-                <DropdownItem href="/pixie-cut-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Pixie Cut Filter
-                </DropdownItem>
-                <DropdownItem href="/short-hair-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Short Hair Filter
-                </DropdownItem>
-                <DropdownItem href="/long-hair-filter" onClick={() => setIsDropdownOpen(false)}>
-                  Long Hair Filter
-                </DropdownItem>
-                <DropdownItem href="/man-bun-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/man-bun-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Man Bun Filter
                 </DropdownItem>
-                <DropdownItem href="/undercut-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/undercut-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Undercut Filter
                 </DropdownItem>
-                <DropdownItem href="/pompadour-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/pompadour-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Pompadour Filter
                 </DropdownItem>
-                <DropdownItem href="/textured-fringe-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/textured-fringe-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Textured Fringe Filter
                 </DropdownItem>
-                <DropdownItem href="/low-fade-haircut-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/low-fade-haircut-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Low Fade Filter
                 </DropdownItem>
-                <DropdownItem href="/dreadlocks-filter" onClick={() => setIsDropdownOpen(false)}>
+                <DropdownItem href="/dreadlocks-filter" onClick={() => setIsMaleHairstyleDropdownOpen(false)}>
                   Dreadlocks Filter
+                </DropdownItem>
+              </DropdownMenu>
+            </div>
+
+            {/* Female Hairstyle Filter Dropdown */}
+            <div className="relative" ref={femaleHairstyleDropdownRef}>
+              <DropdownButton 
+                isOpen={isFemaleHairstyleDropdownOpen}
+                onClick={() => {
+                  setIsFemaleHairstyleDropdownOpen(!isFemaleHairstyleDropdownOpen);
+                  setIsMaleHairstyleDropdownOpen(false);
+                  setIsColorDropdownOpen(false);
+                  setIsBusinessDropdownOpen(false);
+                }}
+              >
+                Female Hairstyle
+              </DropdownButton>
+              
+              <DropdownMenu isOpen={isFemaleHairstyleDropdownOpen} onClose={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                <DropdownItem href="/hairstyles-for-girls" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Girl Hairstyle Filter
+                </DropdownItem>
+                <DropdownItem href="/ai-hairstyle-online-free-female" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Female Hairstyle Filter
+                </DropdownItem>
+                <DropdownItem href="/bob-haircut-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Bob Haircut Filter
+                </DropdownItem>
+                <DropdownItem href="/bangs-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Bangs Filter
+                </DropdownItem>
+                <DropdownItem href="/ai-braids-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Braids Filter
+                </DropdownItem>
+                <DropdownItem href="/perm-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Perm Filter
+                </DropdownItem>
+                <DropdownItem href="/pixie-cut-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Pixie Cut Filter
+                </DropdownItem>
+                <DropdownItem href="/short-hair-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Short Hair Filter
+                </DropdownItem>
+                <DropdownItem href="/long-hair-filter" onClick={() => setIsFemaleHairstyleDropdownOpen(false)}>
+                  Long Hair Filter
                 </DropdownItem>
               </DropdownMenu>
             </div>
@@ -274,7 +299,8 @@ export default function Navbar() {
                 isOpen={isColorDropdownOpen}
                 onClick={() => {
                   setIsColorDropdownOpen(!isColorDropdownOpen);
-                  setIsDropdownOpen(false);
+                  setIsMaleHairstyleDropdownOpen(false);
+                  setIsFemaleHairstyleDropdownOpen(false);
                   setIsBusinessDropdownOpen(false);
                 }}
               >
@@ -312,7 +338,8 @@ export default function Navbar() {
                 isOpen={isOtherToolsDropdownOpen}
                 onClick={() => {
                   setIsOtherToolsDropdownOpen(!isOtherToolsDropdownOpen);
-                  setIsDropdownOpen(false);
+                  setIsMaleHairstyleDropdownOpen(false);
+                  setIsFemaleHairstyleDropdownOpen(false);
                   setIsColorDropdownOpen(false);
                   setIsBusinessDropdownOpen(false);
                 }}
@@ -342,7 +369,8 @@ export default function Navbar() {
                 isOpen={isBusinessDropdownOpen}
                 onClick={() => {
                   setIsBusinessDropdownOpen(!isBusinessDropdownOpen);
-                  setIsDropdownOpen(false);
+                  setIsMaleHairstyleDropdownOpen(false);
+                  setIsFemaleHairstyleDropdownOpen(false);
                   setIsColorDropdownOpen(false);
                   setIsOtherToolsDropdownOpen(false);
                 }}
@@ -353,6 +381,9 @@ export default function Navbar() {
               <DropdownMenu isOpen={isBusinessDropdownOpen} onClose={() => setIsBusinessDropdownOpen(false)}>
                 <DropdownItem href="/barbershop" onClick={() => setIsBusinessDropdownOpen(false)}>
                   For Barbershop
+                </DropdownItem>
+                <DropdownItem href="/salon" onClick={() => setIsBusinessDropdownOpen(false)}>
+                  For Salon
                 </DropdownItem>
               </DropdownMenu>
             </div>
@@ -385,21 +416,22 @@ export default function Navbar() {
                 Home
               </Link>
               
-              {/* Mobile Hairstyle Filter Dropdown */}
+              {/* Mobile Male Hairstyle Filter Dropdown */}
               <div className="border-b border-gray-100">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setIsHairstyleDropdownOpen(prev => !prev);
+                    setIsMaleHairstyleDropdownOpen(prev => !prev);
+                    setIsFemaleHairstyleDropdownOpen(false);
                     setIsColorDropdownOpen(false);
                     setIsBusinessDropdownOpen(false);
                   }}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
                 >
-                  Hairstyle Filter
+                  Male Hairstyle
                   <svg 
                     className={`w-4 h-4 transition-transform duration-200 ${
-                      isHairstyleDropdownOpen ? 'rotate-180' : ''
+                      isMaleHairstyleDropdownOpen ? 'rotate-180' : ''
                     }`} 
                     fill="none" 
                     stroke="currentColor" 
@@ -408,58 +440,88 @@ export default function Navbar() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                {isHairstyleDropdownOpen && (
+                {isMaleHairstyleDropdownOpen && (
                   <div className="pl-6 pb-2 space-y-1">
-                    <Link href="/hairstyles-for-girls" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Girl Hairstyle Filter
-                    </Link>
-                    <Link href="/ai-hairstyle-male" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/ai-hairstyle-male" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Male Hairstyle Filter
                     </Link>
-                    <Link href="/ai-hairstyle-online-free-female" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Female Hairstyle Filter
-                    </Link>
-                    <Link href="/buzz-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/buzz-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Buzz Cut Filter
                     </Link>
-                    <Link href="/bob-haircut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Bob Haircut Filter
-                    </Link>
-                    <Link href="/bangs-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Bangs Filter
-                    </Link>
-                    <Link href="/ai-braids-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Braids Filter
-                    </Link>
-                    <Link href="/perm-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Perm Filter
-                    </Link>
-                    <Link href="/pixie-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Pixie Cut Filter
-                    </Link>
-                    <Link href="/short-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Short Hair Filter
-                    </Link>
-                    <Link href="/long-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
-                      Long Hair Filter
-                    </Link>
-                    <Link href="/man-bun-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/man-bun-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Man Bun Filter
                     </Link>
-                    <Link href="/undercut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/undercut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Undercut Filter
                     </Link>
-                    <Link href="/pompadour-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/pompadour-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Pompadour Filter
                     </Link>
-                    <Link href="/textured-fringe-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/textured-fringe-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Textured Fringe Filter
                     </Link>
-                    <Link href="/low-fade-haircut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/low-fade-haircut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Low Fade Filter
                     </Link>
-                    <Link href="/dreadlocks-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                    <Link href="/dreadlocks-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsMaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       Dreadlocks Filter
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Female Hairstyle Filter Dropdown */}
+              <div className="border-b border-gray-100">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsFemaleHairstyleDropdownOpen(prev => !prev);
+                    setIsMaleHairstyleDropdownOpen(false);
+                    setIsColorDropdownOpen(false);
+                    setIsBusinessDropdownOpen(false);
+                  }}
+                  className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
+                >
+                  Female Hairstyle
+                  <svg 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isFemaleHairstyleDropdownOpen ? 'rotate-180' : ''
+                    }`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {isFemaleHairstyleDropdownOpen && (
+                  <div className="pl-6 pb-2 space-y-1">
+                    <Link href="/hairstyles-for-girls" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Girl Hairstyle Filter
+                    </Link>
+                    <Link href="/ai-hairstyle-online-free-female" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Female Hairstyle Filter
+                    </Link>
+                    <Link href="/bob-haircut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Bob Haircut Filter
+                    </Link>
+                    <Link href="/bangs-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Bangs Filter
+                    </Link>
+                    <Link href="/ai-braids-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Braids Filter
+                    </Link>
+                    <Link href="/perm-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Perm Filter
+                    </Link>
+                    <Link href="/pixie-cut-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Pixie Cut Filter
+                    </Link>
+                    <Link href="/short-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Short Hair Filter
+                    </Link>
+                    <Link href="/long-hair-filter" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsFemaleHairstyleDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      Long Hair Filter
                     </Link>
                   </div>
                 )}
@@ -471,7 +533,8 @@ export default function Navbar() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsColorDropdownOpen(prev => !prev);
-                    setIsHairstyleDropdownOpen(false);
+                    setIsMaleHairstyleDropdownOpen(false);
+                    setIsFemaleHairstyleDropdownOpen(false);
                     setIsBusinessDropdownOpen(false);
                   }}
                   className="flex items-center justify-between w-full px-3 py-2 text-gray-700 hover:text-purple-700"
@@ -522,7 +585,8 @@ export default function Navbar() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsOtherToolsDropdownOpen(prev => !prev);
-                    setIsHairstyleDropdownOpen(false);
+                    setIsMaleHairstyleDropdownOpen(false);
+                    setIsFemaleHairstyleDropdownOpen(false);
                     setIsColorDropdownOpen(false);
                     setIsBusinessDropdownOpen(false);
                   }}
@@ -564,7 +628,8 @@ export default function Navbar() {
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsBusinessDropdownOpen(prev => !prev);
-                    setIsHairstyleDropdownOpen(false);
+                    setIsMaleHairstyleDropdownOpen(false);
+                    setIsFemaleHairstyleDropdownOpen(false);
                     setIsColorDropdownOpen(false);
                     setIsOtherToolsDropdownOpen(false);
                   }}
@@ -586,6 +651,9 @@ export default function Navbar() {
                   <div className="pl-6 pb-2 space-y-1">
                     <Link href="/barbershop" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsBusinessDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       For Barbershop
+                    </Link>
+                    <Link href="/salon" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsBusinessDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      For Salon
                     </Link>
                   </div>
                 )}

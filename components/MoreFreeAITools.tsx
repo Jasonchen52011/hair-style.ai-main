@@ -220,6 +220,12 @@ export default function MoreFreeAITools({ moreToolsSection, toolNames }: MoreFre
       description: "Virtual Hair Makeover Tool for Business",
       link: "/barbershop",
       image: "/images/pink-hair-hero.webp"
+    },
+    "AI Hairstyle Changer for Salon": {
+      title: "AI Hairstyle Changer for Salon",
+      description: "Enhance Your Salon Experience with AI",
+      link: "/salon",
+      image: "/images/pink-hair-hero2.webp"
     }
   };
 
