@@ -385,6 +385,9 @@ export default function Navbar() {
                 <DropdownItem href="/salon" onClick={() => setIsBusinessDropdownOpen(false)}>
                   For Salon
                 </DropdownItem>
+                <DropdownItem href="/hair-clinics" onClick={() => setIsBusinessDropdownOpen(false)}>
+                  For Hair Clinics
+                </DropdownItem>
               </DropdownMenu>
             </div>
 
@@ -654,6 +657,9 @@ export default function Navbar() {
                     </Link>
                     <Link href="/salon" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsBusinessDropdownOpen(false); setIsMobileMenuOpen(false); }}>
                       For Salon
+                    </Link>
+                    <Link href="/hair-clinics" className="block px-3 py-1 text-sm text-gray-600 hover:text-purple-700" onClick={(e) => { e.stopPropagation(); setIsBusinessDropdownOpen(false); setIsMobileMenuOpen(false); }}>
+                      For Hair Clinics
                     </Link>
                   </div>
                 )}

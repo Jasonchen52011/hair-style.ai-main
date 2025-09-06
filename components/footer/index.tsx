@@ -306,6 +306,14 @@ export default function Footer() {
                   For Salon
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/hair-clinics"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  For Hair Clinics
+                </Link>
+              </li>
             </ul>
           </div>
 
