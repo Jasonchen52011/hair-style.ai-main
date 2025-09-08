@@ -12,6 +12,7 @@ interface UsageScenariosSectionProps {
     }
     ctaText: string
     ctaLink: string
+    ctaSubText?: string
   }>
   styleConfig?: {
     layout?: {
@@ -141,14 +142,19 @@ export default function UsageScenariosSection({ ctaSections, styleConfig }: Usag
                         </p>
                       )}
                       
-                      <div className="flex justify-center lg:justify-start">
+                      <div className="flex flex-col items-center lg:items-start">
                         <Link 
                           href={section.ctaLink}
-                          className={`${config.button.background} ${config.button.backgroundHover} ${config.button.textColor} ${config.button.fontSize} ${config.button.fontWeight} ${config.button.padding} ${config.button.borderRadius} inline-flex items-center gap-2 transition-colors duration-200`}
+                          className={`${config.button.background} ${config.button.backgroundHover} ${config.button.textColor} ${config.button.fontSize} ${config.button.fontWeight} ${config.button.padding} ${config.button.borderRadius} inline-flex items-center gap-2 transition-colors duration-200 mb-3`}
                         >
                           {section.ctaText}
                           <i className="fas fa-arrow-right"></i>
                         </Link>
+                        {section.ctaSubText && (
+                          <p className="text-sm text-gray-600 text-center lg:text-left max-w-xs">
+                            {section.ctaSubText}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

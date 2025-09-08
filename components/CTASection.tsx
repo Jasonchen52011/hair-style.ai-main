@@ -6,6 +6,7 @@ interface CTASectionProps {
     description: string
     ctaText: string
     ctaLink: string
+    ctaSubText?: string
   }
 }
 
@@ -20,12 +21,19 @@ export default function CTASection({ finalCta }: CTASectionProps) {
           <p className="text-xl text-gray-700 mb-8">
             {finalCta.description}
           </p>
-          <Link 
-            href={finalCta.ctaLink}
-            className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
-          >
-            {finalCta.ctaText}
-          </Link>
+          <div className="flex flex-col items-center">
+            <Link 
+              href={finalCta.ctaLink}
+              className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2 mb-3"
+            >
+              {finalCta.ctaText}
+            </Link>
+            {finalCta.ctaSubText && (
+              <p className="text-sm text-gray-600 text-center max-w-md">
+                {finalCta.ctaSubText}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </section>

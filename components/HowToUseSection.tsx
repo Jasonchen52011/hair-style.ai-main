@@ -16,6 +16,7 @@ interface HowToUseSectionProps {
     }
     ctaText: string
     ctaLink: string
+    ctaSubText?: string
   }
 }
 
@@ -63,14 +64,19 @@ export default function HowToUseSection({ howToUseSection }: HowToUseSectionProp
         </div>
         
        
-        <div className="flex justify-center mt-10">
+        <div className="flex flex-col items-center mt-10">
           <Link 
             href={howToUseSection.ctaLink}
-            className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2"
+            className="btn text-white bg-purple-600 btn-lg rounded-xl border-purple-600 gap-2 mb-3"
           >
             {howToUseSection.ctaText}
             <i className="fas fa-arrow-right"></i>
           </Link>
+          {howToUseSection.ctaSubText && (
+            <p className="text-sm text-gray-600 text-center max-w-md">
+              {howToUseSection.ctaSubText}
+            </p>
+          )}
         </div>
       </div>
     </section>

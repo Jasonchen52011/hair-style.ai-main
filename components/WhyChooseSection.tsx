@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import Testimonials from '@/components/testimonials'
 
 interface WhyChooseSectionProps {
@@ -10,6 +11,9 @@ interface WhyChooseSectionProps {
       title: string
       description: string
     }>
+    ctaText?: string
+    ctaLink?: string
+    ctaSubText?: string
   }
   testimonialsConfig: any[]
 }
@@ -41,6 +45,23 @@ export default function WhyChooseSection({ whyChooseSection, testimonialsConfig 
             <Testimonials testimonials={testimonialsConfig} />
           </div>
         </div>
+
+        {whyChooseSection.ctaText && whyChooseSection.ctaLink && (
+          <div className="flex flex-col items-center mt-12">
+            <Link 
+              href={whyChooseSection.ctaLink}
+              className="btn text-white bg-purple-600 hover:bg-purple-700 btn-lg rounded-xl border-purple-600 gap-2 text-base font-semibold px-6 py-3 mb-3"
+            >
+              {whyChooseSection.ctaText}
+              <i className="fas fa-arrow-right"></i>
+            </Link>
+            {whyChooseSection.ctaSubText && (
+              <p className="text-sm text-gray-600 text-center max-w-md">
+                {whyChooseSection.ctaSubText}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   )

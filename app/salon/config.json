@@ -6,6 +6,7 @@
       "statsText": "320,000+ salon transformations created",
       "ctaText": "Try AI Hairstyle Changer Now",
       "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai",
       "styleConfig": {
         "layout": {
           "imageRatio": "3/5",
@@ -100,6 +101,7 @@
         },
         "ctaText": "Try AI Hairstyle Changer Now",
         "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai",
         "styleConfig": {
           "layout": {
             "imageRatio": "2/5",
@@ -167,7 +169,8 @@
         "alt": "How to use AI hairstyle changer for salon clients"
       },
       "ctaText": "Try AI Hairstyle Changer Now",
-      "ctaLink": "/ai-hairstyle"
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "ctaSections": [
       {
@@ -181,7 +184,8 @@
           "alt": "Wedding and special event hairstyles for salon clients"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Help Your Clients Discover a Fresh Everyday Style",
@@ -194,7 +198,8 @@
           "alt": "Everyday hairstyles and fresh looks for salon clients"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Assist Clients in Choosing Drastic Changes Like Short Cuts",
@@ -207,7 +212,8 @@
           "alt": "Drastic hair changes and short cuts for salon clients"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Help Clients Experiment with Bold Hair Colors",
@@ -220,7 +226,8 @@
           "alt": "Bold hair colors and color experimentation for salon clients"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       }
     ],
     "whyChooseSection": {
@@ -246,7 +253,10 @@
           "title": "Easy to Share & Save",
           "description": "Once your clients find their perfect style, they can save or share it directly. Whether they want to show friends or share it on social media, this feature boosts engagement and ensures that your clients are excited about their upcoming appointment."
         }
-      ]
+      ],
+      "ctaText": "Try AI Hairstyle Changer Now",
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "testimonialsConfig": [
       {
@@ -381,7 +391,8 @@
       "title": "Enhance Your Salon Experience with AI Hairstyle Changer",
       "description": "Let your clients preview over 60 styles and 19 colors before they book their appointment. Use our AI Hairstyle Changer tool for free and make their salon visit more confident and enjoyable!",
       "ctaText": "Try AI Hairstyle Changer Now",
-      "ctaLink": "/ai-hairstyle"
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "structuredData": {
       "metadataBase": "https://hair-style.ai",

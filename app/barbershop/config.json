@@ -1,11 +1,12 @@
 {
     "heroSection": {
       "title": "AI Hairstyle Changer for Barbershops",
-      "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment, all from the comfort of your home!",
+      "description": "Help customers pick the right haircut with our AI hairstyle changer. Upload a photo, try 60+ styles and colors instantly, and improve your barbershop's service quality.",
       "rating": 4.9,
       "statsText": "320,000+ virtual hair transformations created for barbershop clients",
       "ctaText": "Try AI Hairstyle Changer Now",
       "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai",
       "styleConfig": {
         "layout": {
           "imageRatio": "3/5",
@@ -58,7 +59,7 @@
     },
     "beforeAfterGallery": {
       "title": "Find Your Ideal Hairstyle Before the Barbershop!",
-      "description": "Preview over 60 haircuts and colors with our AI hairstyle changer. Get an instant, realistic preview of how you'll look with different styles and colors before booking your next appointment. Try it today and make your next haircut decision a breeze!",
+      "description": "Our virtual hairstyle try-on helps barbers give style advice with confidence. Customers feel excited seeing their look first. Shops using it get more bookings, better reviews, and fewer style mismatches.",
       "images": [
         {
           "src": "/images/barbershop/discover-how-barbershops1.webp",
@@ -87,211 +88,30 @@
         ]
     },
     "additionalSection": [
-      {
-        "title": "Hairstyle Thickness Chart and Visual Differences",
-        "textContent": [
-        "When discussing hairstyle thickness, it's important to understand how thickness translates to the final look. A thin haircut may appear lighter and have more volume, while thicker haircuts can look fuller and heavier. Below is a simple chart to help you communicate effectively with your barber:"
-        ],
-        "hairTypeTable": [
-          {
-            "type": "#1",
-            "characteristics": "0.125 inches (3mm)",
-            "care": "Very short, bold, almost a shaved look"
-          },
-          {
-            "type": "#2",
-            "characteristics": "0.250 inches (6mm)",
-            "care": "Short but a little softer than #1"
-          },
-          {
-            "type": "#3",
-            "characteristics": "0.375 inches (10mm)",
-            "care": "Moderately short, fuller appearance than #2"
-          },
-          {
-            "type": "#4",
-            "characteristics": "0.500 inches (13mm)",
-            "care": "Medium length, good balance for boldness and softness"
-          },
-          {
-            "type": "#5",
-            "characteristics": "0.625 inches (16mm)",
-            "care": "Longer, fuller look without being too long"
-          },
-          {
-            "type": "#6",
-            "characteristics": "0.750 inches (19mm)",
-            "care": "Significant length, still a buzz cut, fuller effect"
-          },
-          {
-            "type": "#7",
-            "characteristics": "0.875 inches (22mm)",
-            "care": "Approaching a short regular cut, still neat"
-          },
-          {
-            "type": "#8",
-            "characteristics": "1.000 inches (25mm)",
-            "care": "Fullest buzz cut, closest to a regular short haircut"
-          }
-        ],
-        "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle",
-        "styleConfig": {
-          "layout": {
-            "textRatio": "2/5",
-            "tableRatio": "3/5",
-            "tableOrder": "right",
-            "textOrder": "left"
-          },
-          "title": {
-            "fontSize": {
-              "mobile": "text-2xl",
-              "desktop": "text-3xl"
-            },
-            "fontWeight": "font-bold",
-            "color": "text-gray-800",
-            "spacing": "mb-6"
-          },
-          "text": {
-            "fontSize": {
-              "mobile": "text-sm",
-              "desktop": "text-lg"
-            },
-            "color": "text-gray-800",
-            "lineHeight": "leading-relaxed",
-            "spacing": "space-y-4"
-          },
-          "button": {
-            "background": "bg-purple-600",
-            "backgroundHover": "hover:bg-purple-700",
-            "textColor": "text-white",
-            "fontSize": "text-base",
-            "fontWeight": "font-semibold",
-            "padding": "px-6 py-3",
-            "borderRadius": "rounded-xl"
-          }
-        }
-      },
-      {
-        "title": "How Can I Ensure I Get the Hairstyle I Want?",
-        "textContent": [
-        "To get the hairstyle you want, preparation is key. Before your appointment, use the AI hairstyle changer to visualize different looks and decide on a style. Bring a photo of the style you like to show your barber—this helps avoid any misunderstandings. Clear visual communication is crucial to ensure your barber knows exactly what you want.",
-        "Additionally, ask your barber how to maintain your new style and what products to use. Don't forget to ask your barber for styling tips, so you can replicate the look at home. This way, you'll leave the barbershop with the look you desire and the knowledge to keep it fresh."
-        ],
-        "image": {
-          "src": "/images/barbershop/how-can-i-ensure-i-get-the-hairstyle-i-want.webp",
-          "alt": "How to ensure perfect hairstyle - communication with barber"
-        },
-        "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle",
-        "styleConfig": {
-          "layout": {
-            "imageRatio": "2/5",
-            "textRatio": "2/5",
-            "imageOrder": "right",
-            "textOrder": "left"
-          },
-          "title": {
-            "fontSize": {
-              "mobile": "text-2xl",
-              "desktop": "text-3xl"
-            },
-            "fontWeight": "font-bold",
-            "color": "text-gray-800",
-            "spacing": "mb-6"
-          },
-          "text": {
-            "fontSize": {
-              "mobile": "text-sm",
-              "desktop": "text-lg"
-            },
-            "color": "text-gray-800",
-            "lineHeight": "leading-relaxed",
-            "spacing": "space-y-4"
-          },
-          "button": {
-            "background": "bg-purple-600",
-            "backgroundHover": "hover:bg-purple-700",
-            "textColor": "text-white",
-            "fontSize": "text-base",
-            "fontWeight": "font-semibold",
-            "padding": "px-6 py-3",
-            "borderRadius": "rounded-xl"
-          }
-        }
-      },
-      {
-        "title": "Fade Hairstyles: Low, Mid, and High Fades",
-        "textContent": [
-        "A fade refers to the gradual transition from short to long hair, and it comes in three common types: low fade, mid fade, and high fade.",
-        "• Low Fade: The fade starts just above the ear, creating a subtle and low contrast between short and long hair.<br>• Mid Fade: The fade begins around the temple area, offering a balanced look.<br>• High Fade: The fade starts higher up, above the temples, resulting in a sharper contrast and a bold, edgy look.<br>Each type of fade creates a different effect, so choose the one that complements your style."
-        ],
-        "image": {
-          "src": "/images/barbershop/fade-hairstyles.webp",
-          "alt": "Fade hairstyles guide - low mid high fade comparison"
-        },
-        "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle",
-        "styleConfig": {
-          "layout": {
-            "imageRatio": "2/5",
-            "textRatio": "2/5",
-            "imageOrder": "left",
-            "textOrder": "right"
-          },
-          "title": {
-            "fontSize": {
-              "mobile": "text-2xl",
-              "desktop": "text-3xl"
-            },
-            "fontWeight": "font-bold",
-            "color": "text-gray-800",
-            "spacing": "mb-6"
-          },
-          "text": {
-            "fontSize": {
-              "mobile": "text-sm",
-              "desktop": "text-lg"
-            },
-            "color": "text-gray-800",
-            "lineHeight": "leading-relaxed",
-            "spacing": "space-y-4"
-          },
-          "button": {
-            "background": "bg-purple-600",
-            "backgroundHover": "hover:bg-purple-700",
-            "textColor": "text-white",
-            "fontSize": "text-base",
-            "fontWeight": "font-semibold",
-            "padding": "px-6 py-3",
-            "borderRadius": "rounded-xl"
-          }
-        }
-      }
     ],
     "howToUseSection": {
-      "title": "How to Use the AI Hairstyle Changer: Easy Steps to Find Your Perfect Look",
-      "description": "With the AI hairstyle changer, you can easily try on different haircuts without stepping into a barbershop. Simply upload a photo, explore different styles, and share your new look with friends. Here's how it works:",
+      "title": "How To Use the AI Hairstyle Changer",
+      "description": "It's quick, simple, and free. Let your clients explore different styles before they sit in the chair. Just follow these easy steps, and share their look with a tap.",
       "steps": [
         {
-          "title": "Step 1: Upload Your Photo",
+          "title": "Step 1: Upload a Photo",
           "icon": "fas fa-upload",
-          "description": "Simply upload a clear, high-quality photo of yourself. Make sure your face is visible, and you're facing forward for the best results. The clearer the photo, the better the AI will work in showing you how each style looks on you."
+          "description": "Pick a clear, front-facing photo. We recommend no hats, glasses, or messy lighting. Just snap a natural selfie or upload one from the gallery. This helps the AI match styles to your client's face shape."
         },
         {
-          "title": "Step 2: Choose Your Desired Style",
+          "title": "Step 2: Choose a Style and Color",
           "icon": "fas fa-palette",
-          "description": "Browse through over 60 different styles available in the tool. From trendy bobs to classic fades, you'll find a look that suits you. Don't forget to explore various hair colors too. There are options for every taste!"
+          "description": "Swipe through 60+ trendy, classic, and modern hairstyles—plus 19 hair color options. Want a curly fade? A blonde bob? You've got it. Try as many as you like. One click shows the change instantly."
         },
         {
-          "title": "Step 3: Try on Your New Hairstyle",
-          "icon": "fas fa-magic",
-          "description": "Once you select your desired style, the AI will instantly apply it to your photo. You can view the new look from different angles and see how it fits your face shape. Adjust the style and colors until you're happy with the result."
-        },
-        {
-          "title": "Step 4: Download and Share Your Look",
+          "title": "Step 3: Download the Preview",
           "icon": "fas fa-download",
-          "description": "Once you've found the perfect style, simply download the image or share it with friends on social media like Instagram or Snapchat. Get feedback from loved ones before booking your appointment at the barbershop."
+          "description": "Happy with the look? Tap \"Download\" to save the realistic style preview. The result looks sharp and natural—your client will feel like it's already done. Great for before/after marketing, too."
+        },
+        {
+          "title": "Step 4: Share the Look",
+          "icon": "fas fa-share",
+          "description": "Share on Instagram, TikTok, or just text it to friends. Many barbers use this step to collect feedback before the appointment. I've seen clients light up when they show their \"new self\" to someone else."
         }
       ],
       "image": {
@@ -299,7 +119,8 @@
         "alt": "How to use AI hairstyle changer - step by step guide"
       },
       "ctaText": "Try AI Hairstyle Changer Now",
-      "ctaLink": "/ai-hairstyle"
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "ctaSections": [
       {
@@ -313,7 +134,8 @@
           "alt": "Barbershop personalized consultation with AI hairstyle changer"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Helping Clients Visualize Hair Color Options",
@@ -326,7 +148,8 @@
           "alt": "Barbershop hair color visualization with AI technology"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Online Appointment Prep via Social Media",
@@ -339,33 +162,37 @@
           "alt": "Social media integration for barbershop appointment preparation"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       }
     ],
     "whyChooseSection": {
-      "title": "Why Choose Us: Experience the Best AI Hairstyle Changer Tool",
+      "title": "Why Barbershops Choose Us",
       "features": [
         {
-          "icon": "fas fa-smile",
-          "title": "Free Trial for 2 Hairstyles",
-          "description": "Enjoy a free trial with two hairstyle changes! You can experiment with different looks and find the one that suits you best without spending a dime. No hidden fees, just a simple and fun way to discover your new style."
-        },
-        {
-          "icon": "fas fa-palette",
-          "title": "Accurate AI Matching",
-          "description": "Our advanced AI technology analyzes your face shape and suggests hairstyles that fit you perfectly. You'll get realistic and accurate previews of how each style will look, making it easier to make an informed decision before your next appointment."
+          "icon": "fas fa-gift",
+          "title": "Try It Free—No Setup Needed",
+          "description": "Every user gets 2 free style previews, no login required. Just upload a photo and start exploring. No app needed. It's simple, fast, and perfect for barbers to use during consultations. I like how easy it is to demo without installing anything."
         },
         {
           "icon": "fas fa-eye",
-          "title": "Data Privacy & Security",
-          "description": "Your privacy is our priority. Any photo you upload is completely secure, and we never share or store your personal data. You can confidently explore new looks, knowing your information is safe with us."
+          "title": "Realistic Results You Can Trust",
+          "description": "Our AI uses high-precision face mapping and lighting balance to create natural, realistic previews. Styles match the face shape and proportions—it's not some silly filter. Your clients will think it's real because it feels real."
+        },
+        {
+          "icon": "fas fa-brain",
+          "title": "Smart, Face-Aware Recommendations",
+          "description": "This isn't just drag-and-drop. Our face analyzer suggests styles based on each client's features. It recommends layered, curly, or fade options that actually fit. That saves time in the chair and builds your credibility as a pro."
         },
         {
           "icon": "fas fa-shield-alt",
-          "title": "Instant & Customizable Styles",
-          "description": "With over 60 styles and 19 colors to choose from, you have full control over your makeover. Customize each look to match your taste and instantly see how different styles and colors fit you, giving you total flexibility in your style journey."
+          "title": "Your Data Stays Private",
+          "description": "No logins, no accounts, and no saving photos on servers. All previews are processed on-device or deleted instantly. We don't store anything. You stay in control—no shady stuff, no selling data. Period."
         }
-      ]
+      ],
+      "ctaText": "Try AI Hairstyle Changer Now",
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "testimonialsConfig": [
       {
@@ -407,40 +234,36 @@
     ],
     "faqConfig": [
       {
-        "question": "Is Hairstyle AI Free to Use?",
-        "answer": "Yes, Hairstyle AI offers a free trial, allowing you to try out two hairstyle previews at no charge. You can experiment with different styles and colors, giving you the chance to find the perfect look without spending a penny. After your trial, you can explore more features if you wish, but the basic tool is always free to use."
+        "question": "Is Hairstyle AI free to use?",
+        "answer": "Yes, it's completely free—no sign-up, no hidden fees, and no time limits. You can use it as much as you want, whether you're trying new looks for clients before their haircut or just exploring styles yourself. It runs directly in your browser, with no app to download. Many barbers use it in their shop as a quick conversation tool before appointments. No paywalls. No restrictions. Just upload, explore, and save what you like. That's how we designed it—easy, open, and helpful for every barber or customer."
       },
       {
-        "question": "How Realistic Are the Results?",
-        "answer": "The AI-generated results are extremely realistic, thanks to our advanced AI technology. The tool uses face shape analysis to match each hairstyle precisely to your features, creating a lifelike preview that closely resembles how the style would look in real life. You can trust the results for a genuine preview of your new look."
+        "question": "How realistic are the results?",
+        "answer": "The results are surprisingly realistic—clients often think it's an actual haircut photo. We use advanced AI face detection to match lighting, angles, and style proportions. It simulates real hairstyles, textures, and colors without looking fake or over-edited. You'll see natural transitions in the hairline, shadows, and edges. This helps barbers build trust and lets customers preview their new look with confidence. Honestly, I've shown previews to clients who said, \"Wait, is that already me?\" That's the level of realism we aim for."
       },
       {
-        "question": "Does the Barbershop offer any discounts for using Hairstyle AI?",
-        "answer": "Yes, when you use Hairstyle AI, we're offering a special discount on your first service at participating barbershops. To take advantage of this limited-time offer, simply reach out to us via email at hello@hair-style.ai for more details. Don't miss this amazing deal to explore your new look and save!"
+        "question": "What kind of photo works best?",
+        "answer": "You'll get the best results with a front-facing photo where the client is looking straight at the camera. Make sure their hair is pulled back or not blocking the face. Avoid hats, sunglasses, or heavy shadows. Natural daylight works great, and neutral backgrounds help the AI focus on the face. If possible, have the person relax and smile—expressions matter too! The clearer the image, the better the AI can map the face shape and apply the hairstyle precisely. Think of it like a passport photo but more relaxed."
       },
       {
-        "question": "What Type of Photo Works Best?",
-        "answer": "For the best results, we recommend using a high-quality photo with natural lighting. Your face should be fully visible, and the photo should be taken from the front with no obstructions, such as hats or sunglasses. The clearer the photo, the better the AI can match the hairstyle to your features."
+        "question": "Can I try beard styles too?",
+        "answer": "Yes, absolutely. Hairstyle AI includes beard previews—everything from light stubble to a full fade + beard combo. If your client is unsure whether to go clean-shaven, tapered, or bold with a thick beard, this helps them visualize the change. I've had guys try a beard style virtually and instantly commit. It's also great for barbers who offer full grooming services. You can show them a full head-to-beard makeover and even suggest trims they didn't think about. It's a simple way to upsell grooming without the hard sell."
       },
       {
-        "question": "Can I Try Beard Styles Too?",
-        "answer": "Currently, our AI tool focuses on haircuts and hair color. Beard styles are not included at the moment, but we're working to expand the tool's capabilities in the future. Keep an eye out for updates, as we plan to add beard styling options soon."
+        "question": "Is my photo and data private?",
+        "answer": "Your privacy is our top priority. Hairstyle AI does not store your photos or data. All images are processed instantly and then deleted. We don't collect user information, track sessions, or sell anything to third parties. You don't need to make an account or share personal info. We built it this way so barbers and clients can feel 100% safe. I personally never use tools that save client photos without permission—so I made sure ours doesn't. No nonsense, no leaks. Just style previews and peace of mind."
       },
       {
-        "question": "Is My Data Private?",
-        "answer": "Absolutely. Your privacy and security are our top priorities. We use high-end encryption technology to protect your photos and personal information. Your images are not shared with third parties, and we ensure that all your data remains confidential throughout your experience."
+        "question": "Can the AI suggest styles for my face shape?",
+        "answer": "Yes. Hairstyle AI is powered by a built-in face shape analyzer that detects the contour of your face and jawline. Based on that, it recommends styles—like layered cuts for oval faces, shorter trims for round faces, or fade variations for angular jaws. It doesn't just overlay styles randomly. It actually considers structure, balance, and forehead proportions. This is one reason I recommend this tool to every barber. It takes the guesswork out of \"what would look good on me?\" and turns it into a quick, visual decision."
       },
       {
-        "question": "Can AI Recommend Hairstyles for My Face Shape?",
-        "answer": "Yes! Our AI uses advanced face analysis to suggest hairstyles tailored specifically for your face shape. It considers various factors, like the width and length of your face, ensuring the styles recommended are flattering and natural. You can trust the AI to help you find the most suitable look for your features."
+        "question": "How long does it take to get results?",
+        "answer": "It usually takes less than 10 seconds after uploading a photo. Once the image is analyzed, you can swipe through all available hairstyles instantly. There's no waiting, no loading bars, and no annoying ads. Just tap, swipe, and see results. You can switch styles, try new colors, and go back to your favorites—all within seconds. For barbers working with busy clients, this makes it perfect to use during a consultation. I use it while clients are in the chair—it never slows us down."
       },
       {
-        "question": "How Long Does It Take to Get Results?",
-        "answer": "The results are instant! Once you upload your photo, the AI will generate a preview of your selected hairstyle within seconds. You can try multiple styles and colors quickly, so you're never left waiting around. The tool is fast and efficient, making your virtual makeover experience smooth and fun."
-      },
-      {
-        "question": "Can I Share My New Look?",
-        "answer": "Of course! Once you've found the perfect style, you can easily download and share your new look with friends on social media like Instagram, Snapchat, or Facebook. Get feedback from your friends or just show off your awesome new style before booking your next appointment!"
+        "question": "Can I share my new style with others?",
+        "answer": "Yes! Once you've picked a look you love, just tap the \"Download\" button to save it to your device. From there, you can post it to Instagram, drop it into a text, or even use it in your barbershop's gallery. Some clients use it to ask friends for opinions before the cut, while others love posting a side-by-side comparison online. It's also great for barbershop social media—create polls, styling options, or before/after stories. One client of mine went viral with a \"Which one?\" hairstyle post. No joke."
       }
     ],
     "moreToolsSection": {
@@ -485,10 +308,11 @@
       ]
     },
     "finalCta": {
-      "title": "Discover How Barbershops Use AI Hairstyle Changer",
-      "description": "Explore how barbershops are integrating AI hairstyle changers to provide virtual try-ons for their customers. Enhance your service and create a more confident, satisfied clientele. We're offering a special discount on your first service at participating barbershops - connect with us at hello@hair-style.ai",
+      "title": "Try the AI Hairstyle Changer Today",
+      "description": "Give your barbershop customers a preview they'll love. No downloads. No pressure. Just style, confidence, and better haircuts.",
       "ctaText": "Try AI Hairstyle Changer Now →",
-      "ctaLink": "/ai-hairstyle"
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "structuredData": {
       "metadataBase": "https://hair-style.ai",
@@ -496,7 +320,7 @@
       "@type": "WebApplication",
       "url": "https://hair-style.ai/barbershop",
       "name": "AI Hairstyle Changer for Barbershops",
-      "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment, all from the comfort of your home!",
+      "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment!",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Windows, MacOS, Linux, ChromeOS, Android, iOS, iPadOS",
       "brand": {
@@ -538,7 +362,7 @@
       "canonical": "https://hair-style.ai/barbershop",
       "openGraph": {
         "title": "AI Hairstyle Changer for Barbershops",
-        "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment, all from the comfort of your home!",
+        "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment!",
         "url": "https://hair-style.ai/barbershop",
         "siteName": "Hair-style.ai",
         "locale": "en_US",
@@ -557,7 +381,7 @@
         "card": "summary_large_image",
         "site": "@hair_styleai",
         "title": "AI Hairstyle Changer for Barbershops",
-        "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment, all from the comfort of your home!",
+        "description": "Discover how barbershops are using AI hairstyle changers to offer virtual previews. Try 60+ different styles and colors before your appointment!",
         "images": ["https://hair-style.ai/images/barbershop/barbershop-before-after.webp"]
       }
     }

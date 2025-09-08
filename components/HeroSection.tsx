@@ -9,6 +9,7 @@ interface HeroSectionProps {
     statsText: string
     ctaText: string
     ctaLink: string
+    ctaSubText?: string
   } 
   imageConfig: {
     displayHeight: number
@@ -85,14 +86,19 @@ export default function HeroSection({ heroSection, imageConfig }: HeroSectionPro
               </div>
             </div>
             
-            <div className="flex justify-center lg:justify-start">
+            <div className="flex flex-col items-center lg:items-start">
               <Link 
                 href={heroSection.ctaLink}
-                className="btn text-white bg-purple-600 hover:bg-purple-700 btn-lg rounded-xl border-purple-600 gap-2 text-base font-semibold px-6 py-3"
+                className="btn text-white bg-purple-600 hover:bg-purple-700 btn-lg rounded-xl border-purple-600 gap-2 text-base font-semibold px-6 py-3 mb-3"
               >
                 {heroSection.ctaText}
                 <i className="fas fa-arrow-right"></i>
               </Link>
+              {heroSection.ctaSubText && (
+                <p className="text-sm text-gray-600 text-center lg:text-left max-w-xs">
+                  {heroSection.ctaSubText}
+                </p>
+              )}
             </div>
           </div>
           

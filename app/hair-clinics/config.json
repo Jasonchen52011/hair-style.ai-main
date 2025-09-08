@@ -6,6 +6,7 @@
       "statsText": "250,000+ clinic consultations enhanced",
       "ctaText": "Try AI Hairstyle Changer Now",
       "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai",
       "styleConfig": {
         "layout": {
           "imageRatio": "3/5",
@@ -99,6 +100,7 @@
         },
         "ctaText": "Try AI Hairstyle Changer Now",
         "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai",
         "styleConfig": {
           "layout": {
             "imageRatio": "2/5",
@@ -166,7 +168,8 @@
         "alt": "How to use AI hairstyle changer for hair clinics"
       },
       "ctaText": "Try AI Hairstyle Changer Now",
-      "ctaLink": "/ai-hairstyle"
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "ctaSections": [
       {
@@ -180,7 +183,8 @@
           "alt": "Preparing clients for hair clinic consultation"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Let Clients Experiment with Styles from Home",
@@ -193,7 +197,8 @@
           "alt": "At-home hair experimentation for clinic visits"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Encourage Clients to Share Their New Look",
@@ -206,7 +211,8 @@
           "alt": "Social media feedback for hair clinic choices"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       },
       {
         "title": "Help Clients Make Stress-free Hairstyle Decisions",
@@ -219,7 +225,8 @@
           "alt": "Stress-free hairstyle decisions for clinics"
         },
         "ctaText": "Try AI Hairstyle Changer Now",
-        "ctaLink": "/ai-hairstyle"
+        "ctaLink": "/ai-hairstyle",
+        "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
       }
     ],
     "whyChooseSection": {
@@ -245,7 +252,10 @@
           "title": "Empowering Clients' Confidence",
           "description": "Our tool empowers clients to experiment with their looks before their consultation. By visualizing their new styles in advance, they feel more confident and prepared for their hair clinic visit, making the whole experience more enjoyable."
         }
-      ]
+      ],
+      "ctaText": "Try AI Hairstyle Changer Now",
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "testimonialsConfig": [
       {
@@ -360,7 +370,8 @@
       "title": "Try Our Free AI Hairstyle Changer Tool Today",
       "description": "Upload a photo and see how different hairstyles look on you! It's free, easy to use, and gives you realistic results before your hair clinic consultation.",
       "ctaText": "Try AI Hairstyle Changer Now",
-      "ctaLink": "/ai-hairstyle"
+      "ctaLink": "/ai-hairstyle",
+      "ctaSubText": "Contact us for exclusive discounts up to 90% off at hello@hair-style.ai"
     },
     "structuredData": {
       "metadataBase": "https://hair-style.ai",
