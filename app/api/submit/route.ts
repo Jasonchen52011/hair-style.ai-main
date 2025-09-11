@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from 'next/headers';
 import { createClient } from '@supabase/supabase-js';
 import { createRouteClient } from '@/utils/supabase/route-handler';
+import { getHairstyleProvider } from '@/lib/api-providers';
 
 export const runtime = "edge";
 
-const API_KEY = process.env.AILABAPI_API_KEY;
-const API_BASE_URL = 'https://www.ailabapi.com/api';
+// 强制日志 - 文件加载时立即执行
+console.log('🔥🔥🔥 [ROUTE] submit/route.ts file loaded at', new Date().toISOString());
 
 // 获取管理员客户端的函数（绕过RLS）
 function getAdminSupabase() {
@@ -20,71 +21,11 @@ function getAdminSupabase() {
   return createClient(supabaseUrl, supabaseServiceKey);
 }
 
-// 实现带超时和重试机制的 fetch 函数
-async function fetchWithRetryAndTimeout(
-  url: string, 
-  options: RequestInit, 
-  retries = 3, 
-  timeout = 15000
-): Promise<Response> {
-  for (let attempt = 0; attempt < retries; attempt++) {
-    try {
-      // 添加超时控制
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), timeout);
-      
-      const response = await fetch(url, {
-        ...options,
-        signal: controller.signal
-      });
-      
-      clearTimeout(timeoutId);
-      
-      // 只有状态码 >= 500 才重试（与原 axios 配置保持一致）
-      if (response.ok || response.status < 500) {
-        return response;
-      }
-      
-      // 服务器错误，准备重试
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      
-    } catch (error) {
-      // 检查是否应该重试
-      const shouldRetry = (
-        error instanceof Error && (
-          error.name === 'AbortError' || // 超时错误
-          error.message.includes('timeout') ||
-          error.message.includes('ETIMEDOUT') ||
-          error.message.includes('ECONNREFUSED') ||
-          error.message.includes('ENOTFOUND') ||
-          error.message.includes('network') ||
-          error.message.startsWith('HTTP 5') // 服务器错误
-        )
-      );
-      
-      // 如果是最后一次尝试或不应该重试，抛出错误
-      if (attempt === retries - 1 || !shouldRetry) {
-        // 处理超时错误的特殊消息
-        if (error instanceof Error && error.name === 'AbortError') {
-          throw new Error('We tried multiple times but still failed. Please try with a different photo.');
-        }
-        throw error;
-      }
-      
-      // 等待后重试
-      const delay = (attempt + 1) * 500; // 重试间隔 500ms * 尝试次数
-      await new Promise(resolve => setTimeout(resolve, delay));
-      
-      console.log(`Retrying request (attempt ${attempt + 2}/${retries}) after ${delay}ms delay`);
-    }
-  }
-  
-  throw new Error('Max retries exceeded');
-}
+// Provider system handles retries and timeouts
 
 // 使用 Map 在内存中存储请求计数（终身使用次数）
 const lifetimeUsageCounts = new Map<string, number>(); // IP -> 终身使用次数
-const LIFETIME_FREE_LIMIT = 2; // 终身2次免费
+const LIFETIME_FREE_LIMIT = 3; // 终身3次免费
 
 // 全局免费使用次数统计
 const globalFreeUsage = new Map<string, number>(); // date -> successfulCount
@@ -134,12 +75,19 @@ function cleanupExpiredData() {
   }
 }
 
-// 本地开发白名单IP
-const LOCAL_WHITELIST_IPS = ['127.0.0.1', '::1', '0.0.0.0', 'localhost'];
+// 本地开发白名单IP - 临时扩展以解除限制
+const LOCAL_WHITELIST_IPS = [
+  '127.0.0.1', '::1', '0.0.0.0', 'localhost',
+  '10.0.0.1', '192.168.1.1', '172.16.0.1', // 常见本地网络
+  '::ffff:127.0.0.1', // IPv4-mapped IPv6
+  'undefined' // 有时候IP获取可能为undefined
+];
 
 
 export async function POST(req: NextRequest) {
     try {
+        console.log('🟢 [API] POST /api/submit - Request received');
+        
         // Edge Runtime: 按需清理过期数据
         cleanupExpiredData();
         
@@ -148,9 +96,16 @@ export async function POST(req: NextRequest) {
         const forwardedFor = headersList.get('x-forwarded-for');
         const ip = forwardedFor?.split(',')[0] || headersList.get('x-real-ip') || '0.0.0.0';
 
-        // 检查是否为本地开发环境或白名单IP
-        const isLocalDev = process.env.NODE_ENV === 'development' && LOCAL_WHITELIST_IPS.includes(ip);
-        const isWhitelistIP = LOCAL_WHITELIST_IPS.includes(ip);
+        // 增强的本地开发检测 - 临时解除所有限制
+        const isLocalDevEnhanced = process.env.NODE_ENV === 'development' || 
+                                  LOCAL_WHITELIST_IPS.includes(ip) ||
+                                  ip.startsWith('127.') || 
+                                  ip.startsWith('192.168.') ||
+                                  ip.startsWith('10.') ||
+                                  ip.startsWith('172.16.') ||
+                                  !ip || ip === 'undefined';
+        
+        console.log(`🔍 IP检测: ${ip}, isDev: ${process.env.NODE_ENV === 'development'}, isLocal: ${isLocalDevEnhanced}`);
         
         // 用户认证检查
         const supabase = await createRouteClient();
@@ -208,7 +163,7 @@ export async function POST(req: NextRequest) {
         let today = new Date().toISOString().split('T')[0];
         
         // 检查全局免费使用额度（只对免费用户限制）
-        if ((!user || !hasActiveSubscription) && !isLocalDev && !isWhitelistIP) {
+        if ((!user || !hasActiveSubscription) && !isLocalDevEnhanced) {
             const currentGlobalUsage = globalFreeUsage.get(today) || 0;
             if (currentGlobalUsage >= GLOBAL_DAILY_FREE_LIMIT) {
                 return NextResponse.json({
@@ -220,8 +175,8 @@ export async function POST(req: NextRequest) {
         }
         
         if (!user || !hasActiveSubscription) {
-            // 未登录用户或非订阅会员：终身2次免费
-            if (!isLocalDev && !isWhitelistIP) {
+            // 未登录用户或非订阅会员：终身3次免费
+            if (!isLocalDevEnhanced) {
                 const currentUsageCount = lifetimeUsageCounts.get(ip) || 0;
                 
                 // 检查是否已达到终身免费限制
@@ -229,8 +184,8 @@ export async function POST(req: NextRequest) {
                     return NextResponse.json({
                         success: false,
                         error: user 
-                            ? 'You have used your 2 free generations. Please subscribe to continue unlimited generation!' 
-                            : 'You have used your 2 free generations. Please sign in and subscribe to continue unlimited generation!',
+                            ? 'You have used your 3 free generations. Please subscribe to continue unlimited generation!' 
+                            : 'You have used your 3 free generations. Please sign in and subscribe to continue unlimited generation!',
                         errorType: 'lifetime_limit',
                         requiresSubscription: true
                     }, { status: 429 });
@@ -251,6 +206,13 @@ export async function POST(req: NextRequest) {
 
         const { imageUrl, hairStyle, hairColor } = await req.json();
         
+        console.log('📦 [API] Request body parsed:', {
+            hasImageUrl: !!imageUrl,
+            imageUrlPreview: imageUrl ? imageUrl.substring(0, 50) + '...' : 'none',
+            hairStyle: hairStyle || 'undefined',
+            hairColor: hairColor || 'undefined'
+        });
+        
         if (!imageUrl || !hairColor) {
             return NextResponse.json({
                 success: false,
@@ -258,127 +220,62 @@ export async function POST(req: NextRequest) {
             }, { status: 400 });
         }
 
-        // 处理发型选择逻辑
-        let finalHairStyle = hairStyle;
+        // Use the Provider system to submit task
+        const provider = getHairstyleProvider();
+        console.log(`Using provider: ${provider.name}`);
         
-        // 如果没有选择发型或者选择了"color-only"，使用默认发型
-        if (!hairStyle || hairStyle === "color-only") {
-            finalHairStyle = 'LongWavy'; // 默认使用女性发型
-            console.log('No hairstyle selected, using default: LongWavy');
-        }
-
-        const formData = new FormData();
-        formData.append("task_type", "async");
-        
-        if (imageUrl.startsWith('http')) {
-            // 对于 HTTP/HTTPS URL，直接传递给 API
-            formData.append("image_url", imageUrl);
-        } else {
-            // 对于非 HTTP URL，假设是 base64 data URL 或本地文件
-            console.log('Processing non-HTTP imageUrl, length:', imageUrl.length);
-            
-            try {
-                let binaryData: Uint8Array;
-                
-                if (imageUrl.startsWith('data:')) {
-                    // 处理 data URL (base64)
-                    const base64Data = imageUrl.split(',')[1];
-                    if (!base64Data) {
-                        throw new Error('Invalid data URL format');
-                    }
-                    binaryData = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
-                } else {
-                    // assume it is a base64 string (no data: prefix)
-                    binaryData = Uint8Array.from(atob(imageUrl), c => c.charCodeAt(0));
-                }
-                
-                const blob = new Blob([binaryData as BlobPart], { type: 'image/jpeg' });
-                formData.append("image", blob, 'image.jpg');
-                
-                console.log('Successfully processed image data, size:', binaryData.length);
-                
-            } catch (error) {
-                console.error('Image processing error:', error);
-                throw new Error(`Invalid image data: ${error instanceof Error ? error.message : 'Unknown error'}`);
-            }
-        }
-
-        formData.append("hair_data", JSON.stringify([{
-            style: finalHairStyle,
-            color: hairColor,
-            num: 1
-        }]));
-
-        const response = await fetchWithRetryAndTimeout(
-            `${API_BASE_URL}/portrait/effects/hairstyles-editor-pro`,
-            {
-                method: 'POST',
-                headers: {
-                    "ailabapi-api-key": API_KEY || '',
-                    "Accept": "application/json"
-                    // FormData 自动设置正确的 Content-Type 和边界
-                },
-                body: formData
-            },
-            3, // 重试次数
-            10000 // 超时时间 10 秒，与原配置保持一致
-        );
-
-        const responseData = await response.json() as any;
-        console.log('API Response:', {
-            status: response.status,
-            error_code: responseData.error_code,
-            task_id: responseData.task_id,
-            error_detail: responseData.error_detail
+        // 添加调试信息
+        console.log(`🔍 Submitting task with params:`, {
+            imageUrl: imageUrl ? `${imageUrl.substring(0, 50)}...` : 'none',
+            hairStyle: hairStyle || 'LongWavy',
+            hairColor: hairColor || 'brown'
         });
 
-        if (responseData.error_code === 0 && responseData.task_id) {
-            // 成功调用AI API后的处理
+        const submitResult = await provider.submitTask({
+            imageUrl,
+            hairStyle: hairStyle || 'LongWavy', // Default if not specified
+            hairColor
+        });
+
+        if (submitResult.success && submitResult.taskId) {
+            // Task submitted successfully
             if (!user || !hasActiveSubscription) {
-                // ✅ 未登录用户或非订阅会员：记录任务信息，等待任务成功完成时再扣次数
-                if (!isLocalDev && !isWhitelistIP) {
-                    freeUserTasks.set(responseData.task_id, { ip, date: today });
-                    console.log(`🔄 Task ${responseData.task_id} created for free user (IP: ${ip}), lifetime usage will be deducted upon success`);
+                if (!isLocalDevEnhanced) {
+                    freeUserTasks.set(submitResult.taskId, { ip, date: today });
+                    console.log(`🔄 Task ${submitResult.taskId} created for free user (IP: ${ip})`);
                 }
             } else {
-                // ✅ 不立即扣除积分，等待任务成功完成时再扣除
-                console.log(`🔄 Task ${responseData.task_id} created for user ${user.id}, credits will be deducted upon success`);
-                console.log(`📊 User current credits: ${userCredits}, required: 10`);
+                console.log(`🔄 Task ${submitResult.taskId} created for user ${user.id}`);
             }
             
             return NextResponse.json({ 
                 success: true,
-                taskId: responseData.task_id,
+                taskId: submitResult.taskId,
                 status: 'processing',
                 willDeductCredits: user && hasActiveSubscription ? 10 : 0,
                 requiresSubscription: !user || !hasActiveSubscription
             });
         }
         
-        // provide more specific error message based on different error codes
-        let errorMessage = "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
+        // Handle submission errors
+        let errorMessage = submitResult.error || "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
         
-        // only handle the most critical error, other cases use default message
-        if (responseData.error_detail) {
-            console.log('API Error Detail:', responseData.error_detail);
+        if (submitResult.error_detail) {
+            console.log('API Error Detail:', submitResult.error_detail);
+            const errorDetail = String(submitResult.error_detail);
             
-            // ensure error_detail is a string type before using includes method
-            const errorDetail = String(responseData.error_detail);
-            
-            // only keep the most critical error judgment
             if (errorDetail.includes('face') && (errorDetail.includes('detect') || errorDetail.includes('recognition'))) {
                 errorMessage = "Photo not suitable for hairstyle changes.\nPlease check our guidelines.";
             }
-           
         }
         
         return NextResponse.json({ 
             success: false,
             error: errorMessage,
-            error_detail: responseData.error_detail,
-            error_code: responseData.error_code,
-            errorType: 'validation_error', // 明确标识为图片验证错误
-            shouldStopPolling: true // 添加这个标记，让前端立即停止
+            error_detail: submitResult.error_detail,
+            error_code: submitResult.error_code,
+            errorType: 'validation_error',
+            shouldStopPolling: true
         }, { status: 422 }); 
 
     } catch (error) {
@@ -419,13 +316,8 @@ export async function GET(req: NextRequest) {
     // Edge Runtime: 按需清理过期数据
     cleanupExpiredData();
     
-    const apiKey = API_KEY;
-    if (!apiKey) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'API key is not configured' 
-      }, { status: 500 });
-    }
+    // Use Provider system for status checking
+    const provider = getHairstyleProvider();
 
     const { searchParams } = new URL(req.url);
     const taskId = searchParams.get('taskId');
@@ -454,69 +346,47 @@ export async function GET(req: NextRequest) {
       }
     }
     
-    // query result with timeout
-    const response = await fetch(
-      `${API_BASE_URL}/common/query-async-task-result?task_id=${taskId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",  // GET request use application/json
-          "ailabapi-api-key": apiKey
-        },
-        signal: AbortSignal.timeout(5000) // 5秒超时，根据API文档建议优化
-      }
-    );
-
-    if (!response.ok) {
-      // 如果是422状态码，记录错误次数
-      if (response.status === 422) {
-        const currentErrorCount = taskErrorCount.get(taskId) || 0;
-        const newErrorCount = currentErrorCount + 1;
-        taskErrorCount.set(taskId, newErrorCount);
-        
-        console.log(`Task ${taskId} received 422 error, count: ${newErrorCount}/${MAX_ERROR_COUNT}`);
-        
-        // 如果错误次数超过限制，返回友好提示并停止重试
-        if (newErrorCount >= MAX_ERROR_COUNT) {
-          // 不要立即清理错误计数，等待一段时间后再清理，避免重复计数
-          setTimeout(() => {
-            taskErrorCount.delete(taskId);
-            console.log(`Cleaned up error count for task ${taskId} after delay`);
-          }, 60000); // 60秒后清理
-          
-          console.log(`Task ${taskId} exceeded max error count, returning 422 with stop flag`);
-          
-          return NextResponse.json({
-            success: false,
-            error: "Sorry, your photo is not good enough for hairstyle changes.\nPlease check our guidelines.",
-            isTimeout: true,
-            shouldStopPolling: true,
-            errorCount: newErrorCount
-          }, { status: 422 });
-        } else {
-          // 第一次422错误，返回提示继续轮询
-          return NextResponse.json({
-            success: false,
-            error: "Image validation in progress, please wait...",
-            shouldContinuePolling: true,
-            errorCount: newErrorCount
-          }, { status: 422 });
-        }
-      }
-      
-      throw new Error(`Status check failed with status ${response.status}`);
-    }
-
-    const statusData = await response.json();
+    // Use Provider to query status
+    const statusData = await provider.getTaskStatus(taskId);
     
-    // 增加调试日志
     console.log(`Task ${taskId} status data:`, {
       task_status: statusData.task_status,
-      type: typeof statusData.task_status,
       hasChargedBefore: chargedTasks.has(taskId)
     });
     
-    // 如果查询成功，清理该taskId的错误计数
-    if (statusData && (statusData.task_status === 2 || statusData.task_status === 'SUCCESS' || statusData.task_status === 3 || statusData.task_status === 'FAILED')) {
+    // Handle 422 errors (keeping original logic)
+    if (!statusData || statusData.error_code === 422) {
+      const currentErrorCount = taskErrorCount.get(taskId) || 0;
+      const newErrorCount = currentErrorCount + 1;
+      taskErrorCount.set(taskId, newErrorCount);
+      
+      console.log(`Task ${taskId} received 422 error, count: ${newErrorCount}/${MAX_ERROR_COUNT}`);
+      
+      if (newErrorCount >= MAX_ERROR_COUNT) {
+        setTimeout(() => {
+          taskErrorCount.delete(taskId);
+        }, 60000);
+        
+        return NextResponse.json({
+          success: false,
+          error: "Sorry, your photo is not good enough for hairstyle changes.\nPlease check our guidelines.",
+          isTimeout: true,
+          shouldStopPolling: true,
+          errorCount: newErrorCount
+        }, { status: 422 });
+      } else {
+        return NextResponse.json({
+          success: false,
+          error: "Image validation in progress, please wait...",
+          shouldContinuePolling: true,
+          errorCount: newErrorCount
+        }, { status: 422 });
+      }
+    }
+    
+    // Clear error count if successful
+    if (statusData && (statusData.task_status === 2 || statusData.task_status === 'SUCCESS' || 
+                       statusData.task_status === 3 || statusData.task_status === 'FAILED')) {
       taskErrorCount.delete(taskId);
       console.log(`Task ${taskId} completed, cleared error count`);
       

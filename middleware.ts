@@ -3,6 +3,15 @@ import type { NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 
 export async function middleware(request: NextRequest) {
+  // 调试日志
+  if (request.nextUrl.pathname.includes('/api/submit')) {
+    console.log('🔵 [MIDDLEWARE] Intercepted /api/submit request:', {
+      method: request.method,
+      pathname: request.nextUrl.pathname,
+      timestamp: new Date().toISOString()
+    });
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   })

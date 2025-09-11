@@ -56,7 +56,7 @@ function SelectStylePageContent() {
   const [mobilePreviewStyle, setMobilePreviewStyle] = useState<HairStyle | null>(null);
 
   // 未登录用户终身使用次数限制
-  const [guestUsageCount, setGuestUsageCount] = useState<number>(2);
+  const [guestUsageCount, setGuestUsageCount] = useState<number>(3);
 
   // 自定义确认对话框状态
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -99,13 +99,19 @@ function SelectStylePageContent() {
   // 初始化未登录用户终身使用次数
   useEffect(() => {
     if (!user) {
+      // 本地开发环境：无限次数
+      if (process.env.NODE_ENV === 'development' || window.location.hostname === 'localhost') {
+        setGuestUsageCount(999); // 设置一个很大的数字，相当于无限
+        return;
+      }
+      
       const storedCount = localStorage.getItem("guest_hairstyle_lifetime_usage_count");
       if (storedCount) {
         const count = parseInt(storedCount);
         setGuestUsageCount(Math.max(0, count));
       } else {
-        setGuestUsageCount(2);
-        localStorage.setItem("guest_hairstyle_lifetime_usage_count", "2");
+        setGuestUsageCount(3); // 修改为3次
+        localStorage.setItem("guest_hairstyle_lifetime_usage_count", "3");
       }
     }
   }, [user]);
@@ -636,16 +642,47 @@ function SelectStylePageContent() {
             ].id
           : selectedColor;
 
-      console.log("Final selected color:", finalColor);
+      console.log("🎨 Color selection debug:", {
+        selectedColor: selectedColor,
+        finalColor: finalColor,
+        colorLabel: hairColors.find(c => c.id === finalColor)?.label
+      });
 
-      // 检查图片大小，如果超过3MB则压缩
+      // 链式处理：如果uploadedImageUrl是HTTP URL（生成结果），先转换为base64避免422错误
       let finalImageUrl = uploadedImageUrl;
       
+      // 如果是HTTP URL或代理URL（链式处理），先转换为base64
+      if (uploadedImageUrl && (uploadedImageUrl.startsWith('http') || uploadedImageUrl.startsWith('/api/proxy-image'))) {
+        try {
+          console.log('🔄 链式处理：转换生成图片为base64避免422错误...');
+          const imageResponse = await fetch(uploadedImageUrl.startsWith('/api/') ? window.location.origin + uploadedImageUrl : uploadedImageUrl);
+          if (imageResponse.ok) {
+            const blob = await imageResponse.blob();
+            const arrayBuffer = await blob.arrayBuffer();
+            const bytes = new Uint8Array(arrayBuffer);
+            
+            // 修复方案：手动base64编码，避免FileReader的兼容性问题
+            let binary = '';
+            for (let i = 0; i < bytes.byteLength; i++) {
+              binary += String.fromCharCode(bytes[i]);
+            }
+            const base64Data = btoa(binary);
+            
+            finalImageUrl = `data:${blob.type};base64,${base64Data}`;
+            console.log('✅ 链式处理：base64转换成功');
+          } else {
+            console.error('链式处理：获取图片失败，使用原URL');
+          }
+        } catch (error) {
+          console.error('链式处理：base64转换失败', error);
+        }
+      }
+      
       // 如果是 base64 数据，检查大小并压缩
-      if (uploadedImageUrl && uploadedImageUrl.startsWith('data:image/')) {
+      if (finalImageUrl && finalImageUrl.startsWith('data:image/')) {
         try {
           // 计算 base64 图片的大小（大约）
-          const base64Data = uploadedImageUrl.split(',')[1];
+          const base64Data = finalImageUrl.split(',')[1];
           const estimatedSize = base64Data.length * 0.75; // base64 编码大约比原文件大33%
           
           if (estimatedSize > 3 * 1024 * 1024) {
@@ -661,10 +698,41 @@ function SelectStylePageContent() {
             // 压缩图片 - 使用智能压缩，质量不低于60%
             const compressedFile = await compressImageToSizeWithMinQuality(tempFile, 2.9 * 1024 * 1024, 0.6);
             
-            // 将压缩后的文件转回 base64
+            // 将压缩后的文件转回 base64（修复FileReader问题）
             const compressedDataUrl = await new Promise<string>((resolve) => {
               const reader = new FileReader();
-              reader.onload = () => resolve(reader.result as string);
+              reader.onload = () => {
+                const base64String = reader.result as string;
+                // 提取纯base64数据，避免FileReader的潜在问题
+                const parts = base64String.split(',');
+                if (parts.length === 2) {
+                  resolve(base64String);
+                } else {
+                  // 如果格式不对，手动构建data URL
+                  const arrayBuffer = compressedFile.arrayBuffer();
+                  arrayBuffer.then(buffer => {
+                    const bytes = new Uint8Array(buffer);
+                    let binary = '';
+                    for (let i = 0; i < bytes.byteLength; i++) {
+                      binary += String.fromCharCode(bytes[i]);
+                    }
+                    const base64Data = btoa(binary);
+                    resolve(`data:${compressedFile.type};base64,${base64Data}`);
+                  });
+                }
+              };
+              reader.onerror = () => {
+                // FileReader失败时的回退方案
+                compressedFile.arrayBuffer().then(buffer => {
+                  const bytes = new Uint8Array(buffer);
+                  let binary = '';
+                  for (let i = 0; i < bytes.byteLength; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                  }
+                  const base64Data = btoa(binary);
+                  resolve(`data:${compressedFile.type};base64,${base64Data}`);
+                });
+              };
               reader.readAsDataURL(compressedFile);
             });
             
@@ -681,6 +749,14 @@ function SelectStylePageContent() {
           console.log('⚠️ Image compression failed, using original image');
         }
       }
+
+      // Debug: Log the selected values
+      console.log("🎯 Debug generation request:", {
+        selectedStyle,
+        finalColor,
+        hasImage: !!finalImageUrl,
+        imageLength: finalImageUrl?.length
+      });
 
       const requestBody = {
         imageUrl: finalImageUrl,
@@ -836,32 +912,91 @@ function SelectStylePageContent() {
           clearInterval(countdownInterval);
           toast.dismiss("processing-status");
 
+          // Debug: Check the actual data structure
+          console.log("Poll result structure:", {
+            hasData: !!result.data,
+            hasImages: !!result.data?.images,
+            dataKeys: result.data ? Object.keys(result.data) : [],
+            hasResult: !!result.result,
+            hasBinaryData: !!result.binary_data_base64,
+            fullResult: result
+          });
+
+          // Try multiple data access paths for compatibility
+          let imageUrl = null;
+          
+          // Path 1: Standard format (result.data.images)
           if (result.data?.images) {
             const firstStyle = Object.keys(result.data.images)[0];
-            const imageUrl = result.data.images[firstStyle][0];
+            imageUrl = result.data.images[firstStyle][0];
+            console.log("Found image in result.data.images");
+          }
+          // Path 2: Direct result array
+          else if (result.result && Array.isArray(result.result) && result.result.length > 0) {
+            imageUrl = result.result[0];
+            console.log("Found image in result.result");
+          }
+          // Path 3: Direct binary_data_base64
+          else if (result.binary_data_base64 && Array.isArray(result.binary_data_base64) && result.binary_data_base64.length > 0) {
+            imageUrl = result.binary_data_base64[0];
+            console.log("Found image in result.binary_data_base64");
+          }
+          
+          // Convert external URLs to proxy URLs to avoid CORS issues
+          if (imageUrl && imageUrl.startsWith('https://') && !imageUrl.includes(window.location.hostname)) {
+            const originalUrl = imageUrl;
+            imageUrl = `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+            console.log("Converting to proxy URL:", { original: originalUrl, proxy: imageUrl });
+          }
+          
+          if (imageUrl) {
 
-            // Validate the generated image URL
+            // Validate the generated image URL (support both HTTP URLs and base64 data)
+            const isHttpUrl = imageUrl?.startsWith("http");
+            const isProxyUrl = imageUrl?.startsWith("/api/proxy-image");
+            const isDataUrl = imageUrl?.startsWith("data:");
+            const isBase64 = typeof imageUrl === "string" && imageUrl.length > 50 && /^[A-Za-z0-9+/]/.test(imageUrl);
+            
             if (
               !imageUrl ||
               typeof imageUrl !== "string" ||
-              !imageUrl.startsWith("http")
+              (!isHttpUrl && !isProxyUrl && !isDataUrl && !isBase64)
             ) {
               console.error("Invalid generated image URL:", imageUrl);
+              console.error("URL validation details:", {
+                isHttpUrl,
+                isProxyUrl,
+                isDataUrl,
+                isBase64,
+                urlLength: imageUrl?.length,
+                urlPreview: imageUrl?.substring(0, 100)
+              });
               throw new Error(
                 "Generated image URL is invalid. Please try again."
               );
             }
 
-            console.log("Generation successful, image URL:", imageUrl);
+            console.log("Generation successful, image URL type:", {
+              isHttpUrl,
+              isProxyUrl,
+              isDataUrl,
+              isBase64,
+              urlLength: imageUrl.length
+            });
 
             const currentStyle = currentStyles.find(
               (style) => style.style === selectedStyle
             );
-            const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(
-              currentStyle?.description || "hairstyle"
-            )}`;
+            
+            // Don't add query params to base64, data URLs, or proxy URLs (already has params)
+            let finalImageUrl = imageUrl;
+            if (isHttpUrl && !isProxyUrl) {
+              finalImageUrl = `${imageUrl}?style=${encodeURIComponent(
+                currentStyle?.description || "hairstyle"
+              )}`;
+            }
 
-            handleStyleSelect(imageUrlWithStyle);
+            handleStyleSelect(finalImageUrl);
 
             // 立即更新积分显示（如果后端返回了新余额）
             if (typeof result.newCreditBalance === 'number') {
@@ -1021,23 +1156,36 @@ function SelectStylePageContent() {
       return;
     }
 
-    // Extract clean URL for validation
-    const cleanUrl = imageUrl.split("?")[0];
+    // Convert pure base64 to data URL if needed
+    let displayUrl = imageUrl;
+    const isHttpUrl = imageUrl.startsWith("http");
+    const isProxyUrl = imageUrl.startsWith("/api/proxy-image");
+    const isDataUrl = imageUrl.startsWith("data:");
+    const isBase64 = imageUrl.length > 50 && /^[A-Za-z0-9+/]/.test(imageUrl);
 
-    // Validate URL format
-    if (!cleanUrl.startsWith("http")) {
+    if (!isHttpUrl && !isProxyUrl && !isDataUrl && isBase64) {
+      // Detect image format and add proper data URL prefix
+      const mimeType = imageUrl.startsWith('/9j/') ? 'image/jpeg' : 'image/png';
+      displayUrl = `data:${mimeType};base64,${imageUrl}`;
+      console.log("Converted base64 to data URL");
+    }
+
+    // Validate final URL format
+    if (!isHttpUrl && !isProxyUrl && !displayUrl.startsWith("data:")) {
       console.error("Invalid image URL format:", imageUrl);
       toast.error("Generated image link format is invalid");
       return;
     }
 
     // Update result image state
-    setResultImageUrl(imageUrl);
-    console.log("Result image URL set:", imageUrl);
+    setResultImageUrl(displayUrl);
+    console.log("Result image URL set:", displayUrl);
 
-    // Update displayed image
-    setUploadedImageUrl(imageUrl);
-    console.log("Display image URL updated:", imageUrl);
+    // Update displayed image - 生成的结果可以作为新的输入继续生成
+    setUploadedImageUrl(displayUrl);
+    console.log("Display image URL updated - ready for next generation:", displayUrl);
+    
+    // 静默处理链式处理，不显示提示
 
     // Preload image to ensure it displays properly
     const img = document.createElement("img");
@@ -1067,12 +1215,14 @@ function SelectStylePageContent() {
       }
     };
 
-    // Set crossOrigin to handle CORS issues if any
-    img.crossOrigin = "anonymous";
-    img.src = cleanUrl;
+    // Set crossOrigin only for external HTTP URLs (not needed for proxy URLs, data URLs)
+    if (isHttpUrl && !isProxyUrl) {
+      img.crossOrigin = "anonymous";
+    }
+    img.src = displayUrl;
 
-    // Also try to preload with the full URL (with parameters)
-    if (cleanUrl !== imageUrl) {
+    // For HTTP URLs, also try to preload with the full URL (with parameters) if different
+    if (isHttpUrl && !isProxyUrl && displayUrl !== imageUrl) {
       const imgWithParams = document.createElement("img");
       imgWithParams.crossOrigin = "anonymous";
       imgWithParams.src = imageUrl;

@@ -14,11 +14,13 @@ export default function HairStyleGenerator({
   onStyleGenerated 
 }: HairStyleGeneratorProps) {
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | undefined>();
+  const [currentWorkingImage, setCurrentWorkingImage] = useState<string | undefined>();
   const [selectedGender, setSelectedGender] = useState<"Female" | "Male">("Female");
   const [selectedStyle, setSelectedStyle] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("brown");
   const [isLoading, setIsLoading] = useState(false);
-  const [currentStep, setCurrentStep] = useState<"upload" | "select">("upload");
+  const [currentStep, setCurrentStep] = useState<"upload" | "select" | "result">("upload");
+  const [isChainMode, setIsChainMode] = useState(false);
 
   const currentStyles = selectedGender === "Female" ? femaleStyles : maleStyles;
 
@@ -80,20 +82,71 @@ export default function HairStyleGenerator({
   };
 
   const handleGenerate = async () => {
-    if (!selectedStyle || !uploadedImageUrl) return;
+    // 链式模式下用currentWorkingImage，否则用uploadedImageUrl
+    let inputImageUrl = isChainMode ? currentWorkingImage : uploadedImageUrl;
+    if (!selectedStyle || !inputImageUrl) return;
+
+    // 如果是链式模式且是HTTP URL，先转换为base64
+    if (isChainMode && inputImageUrl.startsWith('http')) {
+      try {
+        console.log('🔄 Converting generated image URL to base64 for chain processing...');
+        const imageResponse = await fetch(inputImageUrl);
+        if (imageResponse.ok) {
+          const blob = await imageResponse.blob();
+          // 修复方案：手动base64编码，避免FileReader的兼容性问题
+          const arrayBuffer = await blob.arrayBuffer();
+          const bytes = new Uint8Array(arrayBuffer);
+          
+          let binary = '';
+          for (let i = 0; i < bytes.byteLength; i++) {
+            binary += String.fromCharCode(bytes[i]);
+          }
+          const base64Data = btoa(binary);
+          
+          inputImageUrl = `data:${blob.type};base64,${base64Data}`;
+          console.log('✅ Successfully converted to base64');
+        } else {
+          console.error('Failed to fetch image for base64 conversion, using original URL');
+        }
+      } catch (error) {
+        console.error('Error converting image to base64:', error);
+      }
+    }
 
     setIsLoading(true);
+    
+    // 添加前端调试日志
+    console.log('🚀 [Frontend] Sending request with:', {
+      selectedStyle,
+      selectedColor,
+      isChainMode,
+      hasImage: !!inputImageUrl
+    });
+    
     try {
+      console.log('🚀 [Frontend] About to send POST request to /api/submit');
+      console.log('🚀 [Frontend] Request payload:', {
+        imageUrl: inputImageUrl ? `${inputImageUrl.substring(0, 50)}...` : 'none',
+        hairStyle: selectedStyle,
+        hairColor: selectedColor
+      });
+      
       const response = await fetch('/api/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          imageUrl: uploadedImageUrl,
-          style: selectedStyle,
-          color: selectedColor,
+          imageUrl: inputImageUrl,
+          hairStyle: selectedStyle,
+          hairColor: selectedColor,
         }),
+      });
+      
+      console.log('🚀 [Frontend] Response received:', {
+        status: response.status,
+        ok: response.ok,
+        statusText: response.statusText
       });
 
       if (response.status === 429) {
@@ -130,6 +183,11 @@ export default function HairStyleGenerator({
           
           const currentStyle = currentStyles.find(style => style.style === selectedStyle);
           const imageUrlWithStyle = `${imageUrl}?style=${encodeURIComponent(currentStyle?.description || 'hairstyle')}`;
+          
+          // 保存当前工作图，进入链式模式
+          setCurrentWorkingImage(imageUrlWithStyle);
+          setIsChainMode(true);
+          setCurrentStep("result");
           
           onStyleGenerated?.(imageUrlWithStyle);
           
@@ -194,9 +252,16 @@ export default function HairStyleGenerator({
   const handleBackToUpload = () => {
     setCurrentStep("upload");
     setUploadedImageUrl(undefined);
+    setCurrentWorkingImage(undefined);
     setSelectedStyle("");
     setSelectedGender("Female");
     setSelectedColor("brown");
+    setIsChainMode(false);
+  };
+
+  const handleContinueEditing = () => {
+    setCurrentStep("select");
+    // 保持currentWorkingImage和isChainMode不变
   };
 
   return (
@@ -221,7 +286,41 @@ export default function HairStyleGenerator({
         </div>
       </div>
 
-      {currentStep === "upload" ? (
+      {currentStep === "result" ? (
+        // 结果展示界面
+        <div className="text-center">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Hairstyle Generated!</h2>
+            <p className="text-gray-600">Your new hairstyle is ready. You can continue editing or start over.</p>
+          </div>
+          
+          {currentWorkingImage && (
+            <div className="mb-6">
+              <img
+                src={currentWorkingImage}
+                alt="generated hairstyle"
+                className="w-64 h-64 object-cover rounded-lg mx-auto border-2 border-purple-200 shadow-lg"
+              />
+            </div>
+          )}
+
+          <div className="space-y-3">
+            <button
+              onClick={handleContinueEditing}
+              className="w-full py-4 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors"
+            >
+              ✨ Continue Editing
+            </button>
+            
+            <button
+              onClick={handleBackToUpload}
+              className="w-full py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+            >
+              🔄 Start Over with New Photo
+            </button>
+          </div>
+        </div>
+      ) : currentStep === "upload" ? (
         // photo upload interface
         <div className="text-center">
           <div className="mb-6">
@@ -265,14 +364,19 @@ export default function HairStyleGenerator({
             </button>
           </div>
 
-          {/* uploaded photo preview */}
-          {uploadedImageUrl && (
+          {/* current working image preview */}
+          {(uploadedImageUrl || currentWorkingImage) && (
             <div className="mb-6 text-center">
               <img
-                src={uploadedImageUrl}
-                alt="uploaded photo"
+                src={currentWorkingImage || uploadedImageUrl}
+                alt="current photo"
                 className="w-32 h-32 object-cover rounded-lg mx-auto border-2 border-gray-200"
               />
+              {isChainMode && (
+                <p className="text-sm text-purple-700 mt-2 font-medium">
+                  ✨ Editing generated hairstyle
+                </p>
+              )}
             </div>
           )}
 
@@ -389,7 +493,7 @@ export default function HairStyleGenerator({
           <button
             onClick={handleGenerate}
             className="w-full py-4 bg-purple-700 text-white rounded-lg font-medium hover:bg-purple-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-            disabled={!selectedStyle || !uploadedImageUrl || isLoading}
+            disabled={!selectedStyle || !(uploadedImageUrl || currentWorkingImage) || isLoading}
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
@@ -416,7 +520,7 @@ export default function HairStyleGenerator({
                 Generating...
               </div>
             ) : (
-              "Generate Hairstyle"
+              isChainMode ? "🔄 Generate New Hairstyle" : "Generate Hairstyle"
             )}
           </button>
         </div>

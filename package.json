@@ -32,6 +32,8 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.56.1",
     "@tailwindcss/line-clamp": "^0.4.4",
+    "@volcengine/openapi": "^1.32.0",
+    "crypto-browserify": "^3.12.1",
     "daisyui": "^5.0.54",
     "drizzle-orm": "^0.44.5",
     "google-auth-library": "^10.3.0",
