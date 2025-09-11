@@ -14,17 +14,17 @@ export function createHairstyleProvider(
   config?: ProviderConfig
 ): HairstyleProvider {
   // Get provider type from environment if not specified
-  const providerType = type || (process.env.API_PROVIDER as ProviderType) || 'ailabapi';
+  const providerType = type || (process.env.API_PROVIDER as ProviderType) || 'jimeng';
   
   console.log(`[Provider Factory] Creating provider: ${providerType}`);
   
   switch (providerType) {
-    case 'jimeng':
-      return new JimengProvider(config || {});
-    
     case 'ailabapi':
-    default:
       return new AilabApiProvider(config || {});
+    
+    case 'jimeng':
+    default:
+      return new JimengProvider(config || {});
   }
 }
 
