@@ -370,11 +370,23 @@ export default function HaircutQuizPage() {
     metaRobots.content = 'noindex, nofollow';
     document.head.appendChild(metaRobots);
 
+    // 添加 canonical 标签
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = 'canonical';
+    linkCanonical.href = window.location.href;
+    document.head.appendChild(linkCanonical);
+
     return () => {
-      // 清理
+      // 清理 robots meta 标签
       const existingMeta = document.querySelector('meta[name="robots"]');
       if (existingMeta) {
         document.head.removeChild(existingMeta);
+      }
+
+      // 清理 canonical 标签
+      const existingCanonical = document.querySelector('link[rel="canonical"]');
+      if (existingCanonical) {
+        document.head.removeChild(existingCanonical);
       }
     };
   }, []);
