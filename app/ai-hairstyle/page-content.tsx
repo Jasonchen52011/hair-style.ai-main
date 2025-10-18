@@ -56,7 +56,7 @@ function SelectStylePageContent() {
   const [mobilePreviewStyle, setMobilePreviewStyle] = useState<HairStyle | null>(null);
 
   // 未登录用户终身使用次数限制
-  const [guestUsageCount, setGuestUsageCount] = useState<number>(3);
+  const [guestUsageCount, setGuestUsageCount] = useState<number>(5);
 
   // 自定义确认对话框状态
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -110,8 +110,8 @@ function SelectStylePageContent() {
         const count = parseInt(storedCount);
         setGuestUsageCount(Math.max(0, count));
       } else {
-        setGuestUsageCount(3); // 修改为3次
-        localStorage.setItem("guest_hairstyle_lifetime_usage_count", "3");
+        setGuestUsageCount(5); // 修改为5次
+        localStorage.setItem("guest_hairstyle_lifetime_usage_count", "5");
       }
     }
   }, [user]);

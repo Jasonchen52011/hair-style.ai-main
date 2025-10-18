@@ -25,7 +25,7 @@ function getAdminSupabase() {
 
 // 使用 Map 在内存中存储请求计数（终身使用次数）
 const lifetimeUsageCounts = new Map<string, number>(); // IP -> 终身使用次数
-const LIFETIME_FREE_LIMIT = 3; // 终身3次免费
+const LIFETIME_FREE_LIMIT = 5; // 终身5次免费
 
 // 全局免费使用次数统计
 const globalFreeUsage = new Map<string, number>(); // date -> successfulCount
@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
         }
         
         if (!user || !hasActiveSubscription) {
-            // 未登录用户或非订阅会员：终身3次免费
+            // 未登录用户或非订阅会员：终身5次免费
             if (!isLocalDevEnhanced) {
                 const currentUsageCount = lifetimeUsageCounts.get(ip) || 0;
                 
@@ -183,9 +183,9 @@ export async function POST(req: NextRequest) {
                 if (currentUsageCount >= LIFETIME_FREE_LIMIT) {
                     return NextResponse.json({
                         success: false,
-                        error: user 
-                            ? 'You have used your 3 free generations. Please subscribe to continue unlimited generation!' 
-                            : 'You have used your 3 free generations. Please sign in and subscribe to continue unlimited generation!',
+                        error: user
+                            ? 'You have used your 5 free generations. Please subscribe to continue unlimited generation!'
+                            : 'You have used your 5 free generations. Please sign in and subscribe to continue unlimited generation!',
                         errorType: 'lifetime_limit',
                         requiresSubscription: true
                     }, { status: 429 });
