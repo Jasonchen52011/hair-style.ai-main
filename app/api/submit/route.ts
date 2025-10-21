@@ -29,7 +29,7 @@ const LIFETIME_FREE_LIMIT = 5; // 终身5次免费
 
 // 全局免费使用次数统计
 const globalFreeUsage = new Map<string, number>(); // date -> successfulCount
-const GLOBAL_DAILY_FREE_LIMIT = 2000; // 每天2000次免费成功调用
+const GLOBAL_DAILY_FREE_LIMIT = 3000; // 每天3000次免费成功调用
 
 // 使用 Map 存储每个 taskId 的422错误计数
 const taskErrorCount = new Map<string, number>();
