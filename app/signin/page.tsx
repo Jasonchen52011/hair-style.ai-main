@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, useEffect, Suspense } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Provider } from "@supabase/supabase-js";
-import toast from "react-hot-toast";
 import config from "@/config";
 import { useSearchParams } from "next/navigation";
 
@@ -12,9 +11,7 @@ import { useSearchParams } from "next/navigation";
 function SignInContent() {
   const supabase = createClient();
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [returnUrl, setReturnUrl] = useState<string>("");
 
   useEffect(() => {
@@ -61,17 +58,6 @@ function SignInContent() {
             redirectTo: redirectURL,
           },
         });
-      } else if (type === "magic_link") {
-        await supabase.auth.signInWithOtp({
-          email,
-          options: {
-            emailRedirectTo: redirectURL,
-          },
-        });
-
-        toast.success("Check your emails!");
-
-        setIsDisabled(true);
       }
     } catch (error) {
       console.log(error);
@@ -188,36 +174,7 @@ function SignInContent() {
                 Sign-up with Google
               </button>
 
-              <div className="divider text-xs text-white/50 font-medium">
-                OR
               </div>
-
-              <form
-                className="form-control w-full space-y-4"
-                onSubmit={(e) => handleSignup(e, { type: "magic_link" })}
-              >
-                <input
-                  required
-                  type="email"
-                  value={email}
-                  autoComplete="email"
-                  placeholder="hello@hair-style.ai"
-                  className="input input-bordered w-full placeholder:opacity-60"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <button
-                  className="btn btn-primary btn-block"
-                  disabled={isLoading || isDisabled}
-                  type="submit"
-                >
-                  {isLoading && (
-                    <span className="loading loading-spinner loading-xs"></span>
-                  )}
-                  Send
-                </button>
-              </form>
-            </div>
           </div>
         </div>
       </div>
