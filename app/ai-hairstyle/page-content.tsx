@@ -1349,7 +1349,7 @@ function SelectStylePageContent() {
                 <div className="text-center">
                   <div className="mb-2">
                     <Image
-                      src="/images/guideline/right2-Above Shoulder-Photo.webp"
+                      src="/images/guideline/right2-above-shoulder-photo.webp"
                       alt="Good angle example"
                       width={300}
                       height={300}
@@ -1368,7 +1368,7 @@ function SelectStylePageContent() {
                 <div className="text-center">
                   <div className="mb-1">
                     <Image
-                      src="/images/guideline/wrong1-Half-or-full body-shots.webp"
+                      src="/images/guideline/wrong1-half-or-full-body-shots.webp"
                       alt="Avoid half or full body shots"
                       width={200}
                       height={200}
@@ -1381,7 +1381,7 @@ function SelectStylePageContent() {
                 <div className="text-center">
                   <div className="mb-1">
                     <Image
-                      src="/images/guideline/wrong2-hair-or shadows-on face.webp"
+                      src="/images/guideline/wrong2-hair-or-shadows-on-face.webp"
                       alt="Avoid hair/shadows on face"
                       width={100}
                       height={100}
@@ -1394,7 +1394,7 @@ function SelectStylePageContent() {
                 <div className="text-center">
                   <div className="mb-1">
                     <Image
-                      src="/images/guideline/wrong3-blurry-close up.webp"
+                      src="/images/guideline/wrong3-blurry-close-up.webp"
                       alt="Avoid blurry close up photos"
                       width={200}
                       height={200}
