@@ -2,7 +2,7 @@ import { HairstyleProvider, HairstyleTaskParams, SubmitTaskResponse, TaskStatusR
 import { getVolcAuthHeader, buildHairstylePrompt, validatePrompt } from '../volcI2iUtils';
 
 export class JimengProvider implements HairstyleProvider {
-  readonly name = 'Jimeng3.0-VolcEngine';
+  readonly name = 'Jimeng4.0-VolcEngine';
   private accessKey: string;
   private secretKey: string;
   private baseUrl: string;
@@ -14,7 +14,7 @@ export class JimengProvider implements HairstyleProvider {
     this.accessKey = config.accessKey || process.env.VOLC_ACCESS_KEY || '';
     this.secretKey = config.secretKey || process.env.VOLC_SECRET_KEY || '';
     this.baseUrl = process.env.VOLC_I2I_API_URL || 'https://visual.volcengineapi.com';
-    this.reqKey = process.env.VOLC_I2I_REQ_KEY || 'jimeng_i2i_v30';
+    this.reqKey = process.env.VOLC_I2I_REQ_KEY || 'jimeng_t2i_v40';
     this.region = process.env.VOLC_I2I_REGION || 'cn-north-1';
     this.service = process.env.VOLC_I2I_SERVICE || 'cv';
 

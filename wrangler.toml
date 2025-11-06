@@ -7,7 +7,15 @@ compatibility_flags = ["nodejs_compat"]
 name = "hair-style-ai-prod"
 vars = { API_PROVIDER = "jimeng" }
 
-# 预览环境变量  
-[env.preview] 
+# 路由配置 - 添加自定义域名别名
+[env.production.routes]
+pattern = "hair-style.ai/*"
+zone_name = "hair-style.ai"
+[[env.production.routes]]
+pattern = "www.hair-style.ai/*"
+zone_name = "hair-style.ai"
+
+# 预览环境变量
+[env.preview]
 name = "hair-style-ai-preview"
 vars = { API_PROVIDER = "jimeng" }

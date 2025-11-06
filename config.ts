@@ -8,7 +8,7 @@ const config = {
   appDescription:
     "Test hairstyles on my face free with AI hairstyle changer! Choose from over 60+ hairstyles for men and women, including bob, buzz cut, slicked back, braids, and more.",
   // REQUIRED (no https://, not trialing slash at the end, just the naked domain)
-  domainName: "hair-style.ai",
+  domainName: "www.hair-style.ai",
   crisp: {
     // Crisp website ID. IF YOU DON'T USE CRISP: just remove this => Then add a support email in this config file (mailgun.supportEmail) otherwise customer support won't work.
     id: "",
