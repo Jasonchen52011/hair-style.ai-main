@@ -1,6 +1,11 @@
-name = "hair-style-ai"
-compatibility_date = "2024-07-29"
+name = "hair-style-ai-main"
+main = ".vercel/output/static/_worker.js/index.js"
+compatibility_date = "2024-12-30"
 compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".vercel/output/static"
+binding = "ASSETS"
 
 # 生产环境变量
 [env.production]
