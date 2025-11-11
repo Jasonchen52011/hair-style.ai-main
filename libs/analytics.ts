@@ -259,13 +259,18 @@ export class Analytics {
       const responseTime = Date.now() - startTime;
       
       // 克隆响应以便读取body
-      const responseClone = response.clone();
+      const jsonClone = response.clone();
+      const textClone = response.clone();
       let responseBody = null;
-      
+
       try {
-        responseBody = await responseClone.json();
+        responseBody = await jsonClone.json();
       } catch {
-        responseBody = { text: await responseClone.text() };
+        try {
+          responseBody = { text: await textClone.text() };
+        } catch {
+          responseBody = null;
+        }
       }
       
       // 确定错误类型
