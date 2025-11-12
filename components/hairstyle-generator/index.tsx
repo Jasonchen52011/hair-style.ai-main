@@ -54,12 +54,12 @@ export default function HairStyleGenerator({
     setSelectedStyle(style);
   };
 
-  const pollTaskStatus = async (taskId: string, maxAttempts = 12) => {
+  const pollTaskStatus = async (taskId: string, maxAttempts = 16) => {
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
         const response = await fetch(`/api/submit?taskId=${taskId}`);
         const data = await response.json();
-        
+
         // 检查任务完成状态
         if (data.task_status === 2 || data.task_status === 'SUCCESS') {
           if (data.data?.images) {
@@ -70,7 +70,7 @@ export default function HairStyleGenerator({
         } else if (data.task_status === 3 || data.task_status === 'FAILED') {
           throw new Error(data.error_detail || 'Task processing failed');
         }
-        
+
         // 等待下一次轮询
         await new Promise(resolve => setTimeout(resolve, 3000));
       } catch (error) {

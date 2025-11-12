@@ -285,7 +285,7 @@ function buildOptimizedHairstylePrompt(hairStyle: string, color: string): string
     'TwoBlockHaircut': 'two block hairstyle',
     'TexturedFringe': 'textured fringe hairstyle',
     'BluntBowlCut': 'blunt bowl cut hairstyle',
-    'LongWavyCurtainBangs': 'long wavy curtain bangs',
+    'LongWavyCurtainBangs': 'long wavy curtain',
     'MessyTousled': 'messy tousled hairstyle',
     'CornrowBraids': 'cornrow braids hairstyle',
     'LongHairTiedUp': 'long hair tied up hairstyle',

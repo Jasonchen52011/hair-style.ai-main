@@ -1,10 +1,11 @@
 import { HairstyleProvider, ProviderConfig } from './types';
 import { AilabApiProvider } from './ailabapi-provider';
 import { JimengProvider } from './jimeng-provider';
+import { KieNanoBananaProvider } from './kie-nanobanana-provider';
 
 export * from './types';
 
-export type ProviderType = 'ailabapi' | 'jimeng';
+export type ProviderType = 'ailabapi' | 'jimeng' | 'kie-nanobanana';
 
 /**
  * Factory function to create the appropriate provider based on configuration
@@ -21,7 +22,10 @@ export function createHairstyleProvider(
   switch (providerType) {
     case 'ailabapi':
       return new AilabApiProvider(config || {});
-    
+
+    case 'kie-nanobanana':
+      return new KieNanoBananaProvider(config || {});
+
     case 'jimeng':
     default:
       return new JimengProvider(config || {});
