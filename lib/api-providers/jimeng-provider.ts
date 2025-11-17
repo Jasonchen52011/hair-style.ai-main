@@ -73,9 +73,9 @@ export class JimengProvider implements HairstyleProvider {
         req_key: this.reqKey,
         prompt: prompt,  // 改为 prompt 而不是 text
         seed: -1,        // 添加随机种子
-        scale: 0.9,      // 最大化文本影响力 (默认0.5，提高到0.9追求更精准效果)
-        width: 1328,     // 推荐尺寸
-        height: 1328,    // 推荐尺寸
+        scale: 0.3,      // 文本影响力 (范围0.3-0.5，平衡prompt控制和原图保留)
+        width: 1024,     // 优化尺寸以加快生成速度 (从1328降低到1024)
+        height: 1024,    // 优化尺寸以加快生成速度
         ...imageParams
       };
 

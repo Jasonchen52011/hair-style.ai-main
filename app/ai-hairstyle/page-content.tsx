@@ -33,6 +33,7 @@ function SelectStylePageContent() {
   const supabase = createClientComponentClient();
   const { credits, hasActiveSubscription, user, refreshCredits, updateCredits } = useCredits();
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>();
+  const [originalImageUrl, setOriginalImageUrl] = useState<string>(); // 保存用户最初上传的原始图片
   const [resultImageUrl, setResultImageUrl] = useState<string>();
   const [defaultStyle, setDefaultStyle] = useState<string>("PixieCut");
   const searchParams = useSearchParams();
@@ -143,7 +144,9 @@ function SelectStylePageContent() {
     const presetGender = searchParams.get("gender");
 
     if (imageUrl) {
-      setUploadedImageUrl(decodeURIComponent(imageUrl));
+      const decodedImageUrl = decodeURIComponent(imageUrl);
+      setUploadedImageUrl(decodedImageUrl);
+      setOriginalImageUrl(decodedImageUrl); // 也保存为原始图片
     }
 
     // handle preset color
@@ -281,7 +284,7 @@ function SelectStylePageContent() {
       const remaining = Math.max(0, Math.ceil((maxWaitTime - elapsedTime) / 1000));
       
       if (remaining > 0) {
-        toast.loading(`Processing your image... ${remaining}s remaining`, {
+        toast.loading(`Processing... ${remaining}s`, {
           id: "processing-status",
           duration: Infinity, // 防止自动消失
         });
@@ -621,7 +624,7 @@ function SelectStylePageContent() {
         const remaining = Math.max(0, Math.ceil((maxWaitTime - elapsedTime) / 1000));
         
         if (remaining > 0) {
-          toast.loading(`Processing your image... ${remaining}s remaining`, {
+          toast.loading(`Processing... ${remaining}s`, {
             id: "processing-status",
             duration: Infinity,
           });
@@ -648,33 +651,33 @@ function SelectStylePageContent() {
         colorLabel: hairColors.find(c => c.id === finalColor)?.label
       });
 
-      // 链式处理：如果uploadedImageUrl是HTTP URL（生成结果），先转换为base64避免422错误
-      let finalImageUrl = uploadedImageUrl;
-      
-      // 如果是HTTP URL或代理URL（链式处理），先转换为base64
-      if (uploadedImageUrl && (uploadedImageUrl.startsWith('http') || uploadedImageUrl.startsWith('/api/proxy-image'))) {
+      // 使用原始图片进行生成（而不是结果图）
+      let finalImageUrl = originalImageUrl || uploadedImageUrl;
+
+      // 如果是HTTP URL或代理URL，先转换为base64
+      if (finalImageUrl && (finalImageUrl.startsWith('http') || finalImageUrl.startsWith('/api/proxy-image'))) {
         try {
-          console.log('🔄 链式处理：转换生成图片为base64避免422错误...');
-          const imageResponse = await fetch(uploadedImageUrl.startsWith('/api/') ? window.location.origin + uploadedImageUrl : uploadedImageUrl);
+          console.log('🔄 转换图片URL为base64...');
+          const imageResponse = await fetch(finalImageUrl.startsWith('/api/') ? window.location.origin + finalImageUrl : finalImageUrl);
           if (imageResponse.ok) {
             const blob = await imageResponse.blob();
             const arrayBuffer = await blob.arrayBuffer();
             const bytes = new Uint8Array(arrayBuffer);
-            
+
             // 修复方案：手动base64编码，避免FileReader的兼容性问题
             let binary = '';
             for (let i = 0; i < bytes.byteLength; i++) {
               binary += String.fromCharCode(bytes[i]);
             }
             const base64Data = btoa(binary);
-            
+
             finalImageUrl = `data:${blob.type};base64,${base64Data}`;
-            console.log('✅ 链式处理：base64转换成功');
+            console.log('✅ base64转换成功');
           } else {
-            console.error('链式处理：获取图片失败，使用原URL');
+            console.error('获取图片失败，使用原URL');
           }
         } catch (error) {
-          console.error('链式处理：base64转换失败', error);
+          console.error('base64转换失败', error);
         }
       }
       
@@ -1031,7 +1034,7 @@ function SelectStylePageContent() {
               credits_used: 10
             });
 
-            toast.success("Hairstyle generated successfully! 🎉", {
+            toast.success("✨ Done!", {
               duration: 3000,
               position: "top-center",
               style: {
@@ -1181,11 +1184,9 @@ function SelectStylePageContent() {
     setResultImageUrl(displayUrl);
     console.log("Result image URL set:", displayUrl);
 
-    // Update displayed image - 生成的结果可以作为新的输入继续生成
-    setUploadedImageUrl(displayUrl);
-    console.log("Display image URL updated - ready for next generation:", displayUrl);
-    
-    // 静默处理链式处理，不显示提示
+    // 不再更新 uploadedImageUrl - 保持显示原始图片
+    // 每次生成都基于用户最初上传的原始图片，而不是基于上一次的结果
+    console.log("Result generated, but keeping original image for future generations");
 
     // Preload image to ensure it displays properly
     const img = document.createElement("img");
@@ -1841,8 +1842,10 @@ function SelectStylePageContent() {
       // 读取文件并显示预览
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUploadedImageUrl(reader.result as string);
-        
+        const imageData = reader.result as string;
+        setUploadedImageUrl(imageData);
+        setOriginalImageUrl(imageData); // 保存原始图片用于生成
+
         // 清除之前的生成结果（如果是替换操作）
         if (isReplacing) {
           setResultImageUrl(undefined);
