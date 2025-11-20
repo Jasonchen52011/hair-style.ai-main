@@ -47,6 +47,7 @@ function SelectStylePageContent() {
   const [selectedStyle, setSelectedStyle] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("brown");
   const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false); // 防止并发生成请求
   const [styleImageHeight, setStyleImageHeight] = useState<string>("h-32");
 
   // 添加ref用于滚动到选中的发型
@@ -524,6 +525,17 @@ function SelectStylePageContent() {
 
   // merge the generate function from SelectStyle component
   const handleGenerate = async () => {
+    // 队列检查: 防止并发请求
+    if (isGenerating) {
+      toast.error("Please wait for the current generation to complete", {
+        id: "concurrent-request-blocked"
+      });
+      logActivity('generation_attempt', 'blocked_concurrent_request', {
+        reason: 'generation_already_in_progress'
+      });
+      return;
+    }
+
     if (!uploadedImageUrl) {
       toast.error("Please upload a photo first");
       logActivity('generation_attempt', 'failed_no_image', {
@@ -692,9 +704,9 @@ function SelectStylePageContent() {
             console.log(`Image size ~${(estimatedSize / 1024 / 1024).toFixed(2)}MB > 3MB, compressing before submit...`);
             
             // 后台压缩，无需提示用户
-            
-            // 将 base64 转换为 File 对象以便压缩
-            const response = await fetch(uploadedImageUrl);
+
+            // 将 base64 转换为 File 对象以便压缩 - 使用 finalImageUrl 而不是 uploadedImageUrl
+            const response = await fetch(finalImageUrl);
             const blob = await response.blob();
             const tempFile = new File([blob], 'uploaded_image.jpg', { type: 'image/jpeg' });
             
@@ -766,6 +778,10 @@ function SelectStylePageContent() {
         hairStyle: selectedStyle || "color-only", // if no hairstyle selected, only change color
         hairColor: finalColor,
       };
+
+      // 开始生成 - 设置队列锁
+      setIsGenerating(true);
+      console.log('🔒 Generation queue locked - preventing concurrent requests');
 
       const response = await analytics?.trackedFetch(
         "/api/submit",
@@ -1034,7 +1050,7 @@ function SelectStylePageContent() {
               credits_used: 10
             });
 
-            toast.success("✨ Done!", {
+            toast.success("Done!", {
               duration: 3000,
               position: "top-center",
               style: {
@@ -1146,6 +1162,9 @@ function SelectStylePageContent() {
       }, 100);
     } finally {
       setIsLoading(false);
+      // 释放队列锁 - 允许新的生成请求
+      setIsGenerating(false);
+      console.log('🔓 Generation queue unlocked - ready for next request');
     }
   };
 
@@ -1184,9 +1203,10 @@ function SelectStylePageContent() {
     setResultImageUrl(displayUrl);
     console.log("Result image URL set:", displayUrl);
 
-    // 不再更新 uploadedImageUrl - 保持显示原始图片
-    // 每次生成都基于用户最初上传的原始图片，而不是基于上一次的结果
-    console.log("Result generated, but keeping original image for future generations");
+    // 更新显示的图片为生成结果,但保持 originalImageUrl 不变用于下次生成
+    // 这样用户可以看到生成结果,同时每次生成都基于最初的原始图片
+    setUploadedImageUrl(displayUrl);
+    console.log("Display updated to show result, but originalImageUrl preserved for next generation");
 
     // Preload image to ensure it displays properly
     const img = document.createElement("img");
@@ -2123,7 +2143,7 @@ function SelectStylePageContent() {
 
       <div className="max-w-7xl mx-auto">
         {/* Logo 区域作为 h1 标题 */}
-        <div className="flex items-center justify-between mb-2 h-[48px]">
+        <div className="flex items-center justify-between mb-1 mt-1 h-[48px]">
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -2146,7 +2166,7 @@ function SelectStylePageContent() {
 
         {/* 浮动按钮 - 移动端只显示图标，PC端隐藏，避免遮挡Credits */}
         {uploadedImageUrl && (
-          <div className="lg:hidden absolute top-9 shadow left-1/2 -translate-x-1/2 flex flex-row gap-2 z-40">
+          <div className="lg:hidden absolute top-2 left-1/2 -translate-x-1/2 flex flex-row gap-2 z-40">
             {resultImageUrl && (
               <button
                 onClick={() => handleDownload(resultImageUrl)}
@@ -2295,25 +2315,9 @@ function SelectStylePageContent() {
                       onClick={() => handleShowGuideline(true)}
                       className="inline-flex items-center gap-1 px-3 py-1.5 text-purple-700 hover:text-purple-800 text-xs rounded-lg transition-colors"
                     >
-                      <span className="font-medium">Perfect photo guidelines</span>
-                      <span>✨</span>
+                      <span className="font-medium">Photo Guidelines</span>
+                 
                     </button>
-                    <div className="flex items-center justify-center space-x-2 mt-1">
-                      <input
-                        type="checkbox"
-                        id="always-show-guidelines-pc-no-image"
-                        checked={alwaysShowGuidelines}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setAlwaysShowGuidelines(checked);
-                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
-                        }}
-                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="always-show-guidelines-pc-no-image" className="text-xs text-gray-500 cursor-pointer">
-                        Always show guidelines
-                      </label>
-                    </div>
                   </div>
                 </div>
               </>
@@ -2406,25 +2410,9 @@ function SelectStylePageContent() {
                       onClick={() => handleShowGuideline(true)}
                       className="inline-flex items-center gap-1 px-3 py-1.5 text-purple-700 hover:text-purple-800 text-xs rounded-lg transition-colors"
                     >
-                      <span className="font-medium">Perfect photo guidelines</span>
-                      <span>✨</span>
+                      <span className="font-medium">Photo Guidelines</span>
+                 
                     </button>
-                    <div className="flex items-center justify-center space-x-2 mt-1">
-                      <input
-                        type="checkbox"
-                        id="always-show-guidelines-pc-preview"
-                        checked={alwaysShowGuidelines}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setAlwaysShowGuidelines(checked);
-                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
-                        }}
-                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="always-show-guidelines-pc-preview" className="text-xs text-gray-500 cursor-pointer">
-                        Always show guidelines
-                      </label>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -2566,7 +2554,7 @@ function SelectStylePageContent() {
                       ? "bg-purple-900 text-white hover:bg-purple-800"
                       : "bg-purple-700 text-white hover:bg-purple-800"
                   }`}
-                  disabled={!uploadedImageUrl || isLoading}
+                  disabled={!uploadedImageUrl || isLoading || isGenerating}
                 >
                   {isLoading ? (
                     <div className="flex items-center justify-center">
@@ -2616,11 +2604,11 @@ function SelectStylePageContent() {
         </div>
 
 
-        {/* 移动端布局 - 垂直布局，居中显示，固定高度不滚动 */}
-        <div className="lg:hidden flex flex-col h-[calc(100vh-48px)] relative max-w-full">
+        {/* 移动端布局 - 垂直布局，居中显示 */}
+        <div className="lg:hidden flex flex-col h-[calc(100vh-56px)] relative max-w-full overflow-hidden">
           {/* 移动端图片上传/预览区域 - 居中显示，增加空间 */}
           <section
-            className="flex-1 flex items-center justify-center py-4 px-2"
+            className="flex-shrink-0 flex items-center justify-center overflow-hidden"
             aria-label="Photo Upload Area"
           >
             <h2 className="sr-only">Upload Your Photo</h2>
@@ -2638,25 +2626,10 @@ function SelectStylePageContent() {
                       onClick={() => handleShowGuideline(true)}
                       className="inline-flex items-center gap-2 px-4 py-2  text-purple-700 "
                     >
-                      <span className="text-sm font-medium">Click to see perfect photo guidelines</span>
+                      <span className="text-sm font-medium">Click to see guidelines</span>
                       <span>✨</span>
                     </button>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="always-show-guidelines-mobile"
-                        checked={alwaysShowGuidelines}
-                        onChange={(e) => {
-                          const checked = e.target.checked;
-                          setAlwaysShowGuidelines(checked);
-                          localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
-                        }}
-                        className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor="always-show-guidelines-mobile" className="text-xs text-gray-500 cursor-pointer">
-                        Always show guidelines
-                      </label>
-                    </div>
+              
                   </div>
                 </div>
 
@@ -2725,69 +2698,41 @@ function SelectStylePageContent() {
                 </div>
               </div>
             ) : (
-              // 移动端预览区域 - 选中图片后，减少上方空白
-              <div className="h-full w-full flex flex-col overflow-hidden">
-                {/* 图片显示区域 - 靠上显示，减少上方空白 */}
-                <div className="flex-1 flex items-start justify-center px-2 pt-2 relative overflow-hidden">
+              // 移动端预览区域 - 选中图片后
+              <div className="w-full flex flex-col">
+                {/* 图片显示区域 */}
+                <div className="flex items-center justify-center relative">
                   <div className="w-full max-w-[90vw] flex items-center justify-center relative">
                     <Image
                       src={uploadedImageUrl}
                       alt="Preview"
                       width={400}
                       height={400}
-                      className="max-w-full max-h-[52vh] w-auto h-auto object-contain rounded-lg"
+                      className="max-w-full max-h-[50vh] w-auto h-auto object-contain rounded-lg"
                       unoptimized
                     />
                     
         
                   </div>
                 </div>
-                
+
                 {/* 移动端 Guideline 入口 */}
-                <div className="text-center px-2 pb-2 flex-shrink-0">
+                <div className="text-center flex-shrink-0">
                   <button
                     onClick={() => handleShowGuideline(true)}
-                    className="inline-flex items-center gap-1 px-3 py-2 text-purple-700 hover:text-purple-800 text-sm rounded-lg transition-colors"
+                    className="inline-flex items-center text-purple-700 hover:text-purple-800 text-sm rounded-lg transition-colors py-1"
                   >
-                    <span className="font-medium">Perfect photo guidelines</span>
-                    <span>✨</span>
+                    <span className="font-medium">Photo Guidelines</span>
                   </button>
-                  <div className="flex items-center justify-center space-x-2 mt-1">
-                    <input
-                      type="checkbox"
-                      id="always-show-guidelines-mobile-preview"
-                      checked={alwaysShowGuidelines}
-                      onChange={(e) => {
-                        const checked = e.target.checked;
-                        setAlwaysShowGuidelines(checked);
-                        localStorage.setItem('guideline_always_show', checked ? 'true' : 'false');
-                      }}
-                      className="h-3 w-3 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor="always-show-guidelines-mobile-preview" className="text-xs text-gray-500 cursor-pointer">
-                      Always show guidelines
-                    </label>
-                  </div>
                 </div>
               </div>
             )}
           </section>
 
-          {/* 发型放大预览 - 在整个操作区域上方，靠左 */}
-          {uploadedImageUrl && showMobileStylePreview && mobilePreviewStyle && (
-            <div className="lg:hidden fixed bottom-[245px] left-0.5 z-20">
-              <img
-                src={mobilePreviewStyle.imageUrl}
-                alt={mobilePreviewStyle.description}
-                className="w-[130px] h-[130px] object-cover rounded-lg"
-              />
-            </div>
-          )}
-
           {/* 移动端样式选择区域 - 固定在底部 */}
           {uploadedImageUrl && (
             <section
-              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full"
+              className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe-area-inset-bottom shadow-lg z-50 max-w-full px-4"
               aria-label="Style Selection"
               style={{ touchAction: 'manipulation' }}
             >
@@ -2795,8 +2740,8 @@ function SelectStylePageContent() {
 
 
               {/* 性别选择 - 更紧凑 */}
-              <div className="bg-white p-1.5 rounded-lg">
-                <div className="flex space-x-1.5 mt-2">
+              <div className="bg-white rounded-lg">
+                <div className="flex space-x-1.5">
                   <button
                     onClick={() => {
                       setSelectedGender("Female");
@@ -2805,7 +2750,7 @@ function SelectStylePageContent() {
                       setShowMobileStylePreview(false);
                       setMobilePreviewStyle(null);
                     }}
-                    className={`flex-1 py-1.5 px-3 rounded-md text-xs transition-colors ${
+                    className={`flex-1 py-1 mt-1 rounded-md text-sm transition-colors ${
                       selectedGender === "Female"
                         ? "bg-purple-50 text-purple-700 font-bold "
                         : "bg-white text-gray-600 hover:bg-gray-50"
@@ -2821,7 +2766,7 @@ function SelectStylePageContent() {
                       setShowMobileStylePreview(false);
                       setMobilePreviewStyle(null);
                     }}
-                    className={`flex-1 py-1.5 px-3 rounded-md text-xs transition-colors ${
+                    className={`flex-1 py-1 mt-1.5 rounded-md text-sm font-bold transition-colors ${
                       selectedGender === "Male"
                         ? "bg-purple-50 text-purple-700 font-bold "
                         : "bg-white text-gray-600 hover:bg-gray-50"
@@ -2833,7 +2778,7 @@ function SelectStylePageContent() {
               </div>
 
               {/* 发型选择 - 横向滚动，移除标题 */}
-              <div className="mb-2 relative" style={{ touchAction: 'pan-x' }}>
+              <div className="relative" style={{ touchAction: 'pan-x' }}>
                 <div 
                   className="overflow-x-auto scrollbar-hide touch-pan-x" 
                   style={{ 
@@ -2857,7 +2802,7 @@ function SelectStylePageContent() {
                             : null
                         }
                         onClick={() => handleStyleClick(style.style)}
-                        className={`flex-shrink-0 w-14 p-0.5 rounded-lg border transition-all scroll-snap-align-start overflow-hidden ${
+                        className={`flex-shrink-0 w-20 p-0.5 rounded-lg border transition-all scroll-snap-align-start overflow-hidden ${
                           selectedStyle === style.style
                             ? "border-purple-700 bg-purple-700 shadow-md"
                             : "border-transparent bg-gray-100 hover:border-gray-200"
@@ -2870,14 +2815,14 @@ function SelectStylePageContent() {
                         <div
                           className={`w-full ${
                             styleImageHeight === "h-24"
-                              ? "h-12"
+                              ? "h-20"
                               : styleImageHeight === "h-32"
-                              ? "h-14"
+                              ? "h-24"
                               : styleImageHeight === "h-32"
-                              ? "h-16"
+                              ? "h-24"
                               : styleImageHeight === "h-36"
-                              ? "h-18"
-                              : "h-14"
+                              ? "h-28"
+                              : "h-20"
                           } overflow-hidden rounded-md`}
                         >
                           <img
@@ -2893,7 +2838,7 @@ function SelectStylePageContent() {
               </div>
 
               {/* 颜色选择 - 横向滚动，移除标题 */}
-              <div className="px-1 py-1 relative">
+              <div className="relative">
                 <div 
                   className="overflow-x-auto scrollbar-hide touch-pan-x" 
                   style={{ 
@@ -2902,7 +2847,7 @@ function SelectStylePageContent() {
                     overscrollBehaviorX: 'contain'
                   }}
                 >
-                  <div className="flex gap-2 py-1" style={{ width: "max-content" }}>
+                  <div className="flex gap-2 py-2" style={{ width: "max-content" }}>
                     {hairColors.map((color) => (
                       <button
                         key={color.id}
@@ -2956,7 +2901,7 @@ function SelectStylePageContent() {
                     ? "bg-purple-700 text-white hover:bg-purple-800"
                     : "bg-purple-700 text-white hover:bg-purple-800"
                 }`}
-                disabled={!uploadedImageUrl || isLoading}
+                disabled={!uploadedImageUrl || isLoading || isGenerating}
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center">

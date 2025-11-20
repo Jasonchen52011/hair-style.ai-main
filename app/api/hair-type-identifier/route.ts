@@ -15,7 +15,7 @@ const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
 // 强制 JSON 格式输出的配置
 const generationConfigForJson = {
   temperature: 0.3,
-  topP: 0.9,
+  topP: 0.4,
   topK: 40,
   maxOutputTokens: 1200,
   responseMimeType: "application/json",

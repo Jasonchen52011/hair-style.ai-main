@@ -73,7 +73,7 @@ export class JimengProvider implements HairstyleProvider {
         req_key: this.reqKey,
         prompt: prompt,  // 改为 prompt 而不是 text
         seed: -1,        // 添加随机种子
-        scale: 0.3,      // 文本影响力 (范围0.3-0.5，平衡prompt控制和原图保留)
+        scale: 0.9,      // 文本影响力 (范围0.3-0.5，平衡prompt控制和原图保留)
         width: 1024,     // 优化尺寸以加快生成速度 (从1328降低到1024)
         height: 1024,    // 优化尺寸以加快生成速度
         ...imageParams
@@ -165,9 +165,9 @@ export class JimengProvider implements HairstyleProvider {
       const reqBody = {
         req_key: this.reqKey,
         task_id: taskId,
-        // Add req_json to request image URLs instead of base64
+        // Request base64 data for better quality (URLs may be compressed)
         req_json: JSON.stringify({
-          return_url: true,
+          return_url: false,  // 请求base64数据而不是URL,获得更高质量
           logo_info: {
             add_logo: false,
             position: 0,
